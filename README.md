@@ -57,7 +57,10 @@ PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。
 
 # License
 
-世間一般で言われているフリーソフトと思ってください。
+This software is released under the MIT License, see LICENSE.txt.
+
+
+
 
 # Authors
 
