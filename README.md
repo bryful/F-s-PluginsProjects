@@ -57,17 +57,20 @@ PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。
 
 # License
 
-This software is released under the MIT License, see LICENSE.txt.
+This software is released under the MIT License, see LICENSE.txt. 
+  
+このプログラムを映像制作に使用した場合は、MITライセンスの条件である著作権表示および本許諾表示は  
 
+**プラグイン協力 bry-ful**  
 
-
+としてください。  プラグイン協力以外でも適当な肩書であれば別のものに変えても構いません。
+  
+以上の事は強制ではありません。
 
 # Authors
 
-bry-ful (Hiroshi Furuhashi)  http://bryful.yuzu.bz/
-  
-bryful@twitter  
-  
+bry-ful (Hiroshi Furuhashi)  http://bryful.yuzu.bz/  
+twitter [bryful] (https://twitter.com/bryful)  
 bryful@gmail.com  
 
 # References
