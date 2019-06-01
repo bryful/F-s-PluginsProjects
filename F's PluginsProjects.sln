@@ -151,6 +151,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VideoLine2nd", "VideoLine2n
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ColorMatKey", "ColorMatKey\Win\ColorMatKey.vcxproj", "{2BD2347F-DEA3-4D20-8011-55ECF78D8ECE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EdgeLine-Hi", "EdgeLine-Hi\Win\EdgeLine-Hi.vcxproj", "{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -1436,6 +1438,24 @@ Global
 		{2BD2347F-DEA3-4D20-8011-55ECF78D8ECE}.Release-MD|Win32.Build.0 = Release-MD|Win32
 		{2BD2347F-DEA3-4D20-8011-55ECF78D8ECE}.Release-MD|x64.ActiveCfg = Release-MD|x64
 		{2BD2347F-DEA3-4D20-8011-55ECF78D8ECE}.Release-MD|x64.Build.0 = Release-MD|x64
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Debug|Win32.Build.0 = Debug|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Debug|x64.ActiveCfg = Debug|x64
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Debug|x64.Build.0 = Debug|x64
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release|Win32.ActiveCfg = Release|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release|Win32.Build.0 = Release|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release|x64.ActiveCfg = Release|x64
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release|x64.Build.0 = Release|x64
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release-MD|Mixed Platforms.ActiveCfg = Release-MD|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release-MD|Mixed Platforms.Build.0 = Release-MD|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release-MD|Win32.ActiveCfg = Release-MD|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release-MD|Win32.Build.0 = Release-MD|Win32
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release-MD|x64.ActiveCfg = Release-MD|x64
+		{AFFB60C8-86E8-4430-B6BE-1A7718ECA91F}.Release-MD|x64.Build.0 = Release-MD|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
