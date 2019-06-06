@@ -103,6 +103,42 @@ cv::Mat World2CVMat8(const PF_EffectWorldPtr world)
 
 }
 //-------------------------------------------------------------------------------------------------
+void WorldToCVMat8(const PF_EffectWorldPtr world,cv::Mat mat)
+{
+	int w = world->width;
+	int wt = world->rowbytes / sizeof(PF_Pixel);
+	int h = world->height;
+
+	int cz = 4;
+	int czw = cz * w;
+
+	mat =  cv::Mat(cv::Size((int)world->width, (int)world->height), CV_8UC4);
+
+	A_u_char* mData = (A_u_char*)mat.data;
+	PF_Pixel* wData = (PF_Pixel *)world->data;
+
+
+	A_long matPos = 0;
+	A_long wldPos = 0;
+	for (A_long y = 0; y < h; y++)
+	{
+
+		for (A_long x = 0; x < w; x++)
+		{
+			A_long matPosx = matPos + x * cz;
+			A_long wldPosx = wldPos + x;
+			mData[matPosx + 0] = wData[wldPosx].red;
+			mData[matPosx + 1] = wData[wldPosx].green;
+			mData[matPosx + 2] = wData[wldPosx].blue;
+			mData[matPosx + 3] = wData[wldPosx].alpha;
+
+		}
+		matPos += czw;
+		wldPos += wt;
+	}
+
+}
+//-------------------------------------------------------------------------------------------------
 void CVMat2World8(const cv::Mat mat, PF_EffectWorldPtr world)
 {
 	int w = world->width;
@@ -141,19 +177,30 @@ void CVMat2World8(const cv::Mat mat, PF_EffectWorldPtr world)
 	}
 
 }
+
 //-------------------------------------------------------------------------------------------------
 PF_Err Test8(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err			err = PF_Err_NONE;
-	cv::Mat src = World2CVMat8(ae->input);
+
+	int w = ae->input->width;
+	int wt = ae->input->rowbytes / sizeof(PF_Pixel);
+	int h = ae->input->height;
+
+	int cz = 4;
+	int czw = cz * w;
+
+	cv::Mat src(cv::Size((int)w, (int)h), CV_8UC4, cv::Scalar(128, 0, 0, 255));
+
+	//WorldToCVMat8(ae->input, src);
 	//cv::Mat dst;
-	cv::GaussianBlur(src, src, cv::Size(31, 31), 0, 0);
+	//cv::GaussianBlur(src, src, cv::Size(31, 31), 0, 0);
 
 	//cv::Mat dst(cv::Size(ae->out->width(), ae->out->height()), CV_8UC4, cv::Scalar(128,0, 0, 255));
 
 	//cv::Mat green_img = src.clone();
 	//src = cv::Scalar(255,0, 255, 255);
-	//cv::putText(src, "Test Moon", cv::Point(50, 50), cv::FONT_HERSHEY_TRIPLEX, 1.5, cv::Scalar(255,0, 128, 200), 2, CV_AA);
+	cv::putText(src, "Test Moon", cv::Point(50, 50), cv::FONT_HERSHEY_TRIPLEX, 1.5, cv::Scalar(255,0, 128, 200), 2, CV_AA);
 
 
 	CVMat2World8(src, ae->output);
