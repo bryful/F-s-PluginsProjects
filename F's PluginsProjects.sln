@@ -155,6 +155,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EdgeLine-Hi", "EdgeLine-Hi\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCV", "OpenCV\Win\OpenCV.vcxproj", "{2CFD2134-4D34-4B8B-8939-234E4C242C4B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Flare", "Flare\Win\Flare.vcxproj", "{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -1476,6 +1478,24 @@ Global
 		{2CFD2134-4D34-4B8B-8939-234E4C242C4B}.Release-MD|Win32.Build.0 = Release-MD|Win32
 		{2CFD2134-4D34-4B8B-8939-234E4C242C4B}.Release-MD|x64.ActiveCfg = Release-MD|x64
 		{2CFD2134-4D34-4B8B-8939-234E4C242C4B}.Release-MD|x64.Build.0 = Release-MD|x64
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Debug|Win32.Build.0 = Debug|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Debug|x64.ActiveCfg = Debug|x64
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Debug|x64.Build.0 = Debug|x64
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release|Win32.ActiveCfg = Release|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release|Win32.Build.0 = Release|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release|x64.ActiveCfg = Release|x64
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release|x64.Build.0 = Release|x64
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release-MD|Mixed Platforms.ActiveCfg = Release-MD|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release-MD|Mixed Platforms.Build.0 = Release-MD|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release-MD|Win32.ActiveCfg = Release-MD|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release-MD|Win32.Build.0 = Release-MD|Win32
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release-MD|x64.ActiveCfg = Release-MD|x64
+		{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}.Release-MD|x64.Build.0 = Release-MD|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

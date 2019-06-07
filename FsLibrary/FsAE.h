@@ -1261,6 +1261,38 @@ public:
 		
 	}
 	//*********************************************************************************
+	PF_Err iterate8InputToTemp(
+		refconType refcon,
+		PF_Err(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel *in, PF_Pixel *out)
+	)
+	{
+		return suitesP->Iterate8Suite1()->iterate(in_data,
+			0,// progress base
+			tmpP->height,
+			input,		// src 
+			NULL,		// area - null for all pixels
+			refcon,		// refcon - your custom data pointer
+			pix_fn,		// pixel function pointer
+			tmpP);	// dest
+
+	}
+	//*********************************************************************************
+	PF_Err iterate8TempToOutput(
+		refconType refcon,
+		PF_Err(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel *in, PF_Pixel *out)
+	)
+	{
+		return suitesP->Iterate8Suite1()->iterate(in_data,
+			0,// progress base
+			output->height,
+			tmpP,		// src 
+			NULL,		// area - null for all pixels
+			refcon,		// refcon - your custom data pointer
+			pix_fn,		// pixel function pointer
+			output);	// dest
+
+	}
+	//*********************************************************************************
 	PF_Err iterateBuf2_8(
 		refconType refcon,
 		PF_Err		(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel *in, PF_Pixel *out)
@@ -1577,7 +1609,8 @@ public:
 
 		}else{
 			PF_NewWorldFlags f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_NONE;
-			if (m_format ==PF_PixelFormat_ARGB64 ) f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_DEEP_PIXELS;
+			if (m_format ==PF_PixelFormat_ARGB64 ) 
+				f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_DEEP_PIXELS;
 
 			ERR( (*in_data->utils->new_world)(	in_data->effect_ref, output->width, output->height, f,&m_tmp ));
 		}

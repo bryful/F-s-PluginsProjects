@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -27,9 +27,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{44650EE4-5B04-43C2-9D1C-B96240D4AE80}</ProjectGuid>
-    <RootNamespace>PluginSkeleton</RootNamespace>
-    <ProjectName>PluginSkeleton</ProjectName>
+    <ProjectGuid>{BAE8007C-AB1B-48E5-BF0A-EC02BC377CB6}</ProjectGuid>
+    <RootNamespace>Flare</RootNamespace>
+    <ProjectName>Flare</ProjectName>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -98,7 +98,7 @@
     <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">*.obj%3b*.ilk%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.pgc%3b*.pgd%3b*.meta%3b*.asm%3b*.rr%3b*.rrc%3b$(TargetPath)</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\outAEX64\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\Adobe\Adobe After Effects CS6\Support Files\Plug-ins\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">*.tlog;*.asm;*.exp;*.sbr;*.rr;*.rrc;*.res;*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.manifest;*.pch;*.idb;*.lib;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
@@ -130,7 +130,7 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release-MD|Win32'">.aex</TargetExt>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F's $(ProjectName)_CC2018</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release-MD|x64'">F's $(ProjectName)_CC2018_MD</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F's $(ProjectName)_CC_dbg</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F's $(ProjectName)_d</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.aex</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -145,7 +145,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/PluginSkeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Flare.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -194,7 +194,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/PluginSkeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Flare.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -246,7 +246,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/PluginSkeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Flare.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -300,7 +300,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/PluginSkeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Flare.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -354,7 +354,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/PluginSkeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Flare.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -411,7 +411,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/PluginSkeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Flare.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -496,7 +496,7 @@
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
     <ClInclude Include="..\Fs_Target.h" />
-    <ClInclude Include="..\PluginSkeleton.h" />
+    <ClInclude Include="..\Flare.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
@@ -509,7 +509,7 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\PluginSkeletonPiPL.r">
+    <CustomBuild Include="..\FlarePiPL.r">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling the PiPL</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
@@ -549,9 +549,11 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="PluginSkeletonPiPL.rc" />
+    <ResourceCompile Include="FlarePiPL.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareSub08.cpp" />
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBox.cpp" />
@@ -563,7 +565,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp" />
-    <ClCompile Include="..\PluginSkeleton.cpp">
+    <ClCompile Include="..\Flare.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MSWindows;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>
