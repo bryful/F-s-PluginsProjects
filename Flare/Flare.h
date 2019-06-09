@@ -37,18 +37,29 @@
 
 #include "../FsLibrary/FsAE.h"
 
+
+
+#ifdef AE_OS_WIN
+#define SPRINTF(STR,IDX) sprintf_s(num, "%s%d", STR, IDX)
+#else
+#define SPRINTF(STR,IDX) sprintf_(num, "%s%d", STR, IDX)
+#endif
+
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer
+	ID_MODE,		//モード  WhiteBaseMask or BlackBaseMask or Image(lumnan) 
+	ID_BASE_ON,
+	ID_BASE_COLOR,
+	ID_BASE_OPACITY,
 	ID_OFFSET
-	//ID_NUM_PARAMS
 };
 enum
 {
 	ID_TOPIC = 0,
 	ID_ENABLED,		// これが有効
-	ID_MODE,		//モード  WhiteBaseMask or BlackBaseMask or Image(lumnan) 
+	ID_REV,			// rev none rev or revandMask
 	ID_BORDER_TOPIC,
 	ID_BORDER,		//境界線 Image
 	ID_INSIDE,		// border時の内側
@@ -57,25 +68,51 @@ enum
 	ID_MAX,			// 膨張サイズ
 	ID_BLUR,		// ぼかしサイズ
 	ID_COLOR,		// color and borderの時に使う
-	ID_REV,			// rev none rev or revandMask
 	ID_BLEND,		// normal or screen or Add
 	ID_OPACITY,
 	ID_TOPIC_END,
 	ID_FLARE_COUNT
 };
-constexpr auto PCOUNT = 1;
+constexpr auto PCOUNT = 5;
 
 #define PIDX(x) ( ID_OFFSET + (x)*ID_FLARE_COUNT)
 #define ID_NUM_PARAMS (ID_OFFSET + ID_FLARE_COUNT* PCOUNT) //15
 
+
+enum MODE
+{
+	WhitebasedMask=1,
+	BlackbasedMask,
+	Alpha,
+	Image
+};
+
+enum REVMODE
+{
+	None=1,
+	Reverse,
+	ReverseAndOriginalAlpha
+};
+enum BLEND
+{
+	Screen=1,
+	Add,
+	Normal,
+};
+
 //UIの表示文字列
 #define	STR_ON				"on"
+#define	STR_BASE_ON			"baseOn"
+#define	STR_BASE_COLOR		"baseColor"
+#define	STR_BASE_OPACITY	"baseOpacity"
+
+#define	STR_MODE1			"mode"
+#define	STR_MODE1_ITEMS		"WhitebasedMask|BlackbasedMask|Alpha|Image"
+#define	STR_MODE1_COUNT		4
+#define	STR_MODE1_DEFL		1
+
 #define	STR_TOPIC			"flare_"
 #define	STR_ENABLED			"enabled_"
-#define	STR_MODE			"mode_"
-#define	STR_MODE_ITEMS		"WhitebasedMask|BlackbasedMask|Alpha|image"
-#define	STR_MODE_COUNT		4
-#define	STR_MODE_DEFL		1
 
 #define	STR_BORDER_TOPIC	"border(except_image)_"
 #define	STR_BORDER			"border_"
@@ -100,7 +137,6 @@ constexpr auto PCOUNT = 1;
 //UIのパラメータ
 typedef struct FlareInfo {
 	PF_Boolean enabled;
-	A_long		mode;
 	PF_Boolean	border;
 	A_long		rev;
 	A_long		max;
@@ -110,17 +146,28 @@ typedef struct FlareInfo {
 	PF_Pixel	color;
 	A_long		blend;
 	double		opacitry;
+	PF_Handle	bufH;
 }FlareInfo,*FlareInfoP, **FlareInfoH;
 
 typedef struct ParamInfo {
 
+	A_long		mode;
+	PF_Boolean	BaseOn;
+	PF_FpLong	BaseOpacity;
+	PF_Pixel	BaseColor;
 	FlareInfo	flareInfo[PCOUNT];
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------
 PF_Err Exec08(CFsAE *ae, ParamInfo *infoP);
-
+PF_Err MaxAll08(CFsAE *ae, FlareInfo *infoP);
+PF_Err MaxRed08(CFsAE *ae, FlareInfo *infoP);
+PF_Err RedToGreen08(CFsGraph *g);
+PF_Err RevRedChannel08(CFsGraph *g);
+PF_Err Border08(CFsAE *ae, FlareInfo *infoP);
+PF_Err BlurRed08(CFsAE *ae, FlareInfo *infoP);
+PF_Err BlurAll08(CFsAE *ae, FlareInfo *infoP);
 
 //-----------------------------------------------------------------------------------
 extern "C" {

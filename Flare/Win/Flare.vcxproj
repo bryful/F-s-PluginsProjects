@@ -464,6 +464,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\F%27s PluginsProjects\Flare\Flare_def.h" />
     <ClInclude Include="..\Fs_Entry.h" />
     <ClInclude Include="..\..\FsLibrary\FsAE.h" />
     <ClInclude Include="..\..\FsLibrary\FsGraphics.h" />
@@ -552,7 +553,9 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="FlarePiPL.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareBlur08.cpp" />
     <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareSub08.cpp" />
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsBlur.cpp" />
     <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp" />
@@ -586,6 +589,11 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-MD|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release-MD|x64'">true</BrowseInformation>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\FlareMax08.cpp">
+      <FileType>Document</FileType>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

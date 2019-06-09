@@ -39,6 +39,11 @@
     <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp">
       <Filter>FsLib</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsBlur.cpp">
+      <Filter>FsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\FlareMax08.cpp" />
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareBlur08.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Fs_Entry.h" />
@@ -140,6 +145,7 @@
     <ClInclude Include="..\..\..\Util\Smart_Utils.h">
       <Filter>AE</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\F%27s PluginsProjects\Flare\Flare_def.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="FsLib">

@@ -1823,6 +1823,26 @@ public:
 		return err;
 	}
 	//--------------------------------------------------------------------
+	PF_Err CopyBuf1ToTemp()
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_Rect	src = { 0,0,0,0 };
+		PF_Rect	dst = { 0,0,0,0 };
+		src.top = src.left = 0;
+		src.right = (short)buf1P->width;
+		src.bottom = (short)buf1P->height;
+
+		dst.top = dst.left = 0;
+		dst.right = (short)tmpP->width;
+		dst.bottom = (short)tmpP->height;
+
+		err = suitesP->WorldTransformSuite1()->copy_hq(in_data->effect_ref,	// This effect ref (unique id)
+			buf1P,						// Source
+			tmpP,						// Dest
+			&src,						// Source rect - null for all pixels
+			&dst);						// Dest rect - null for all pixels
+		return err;
+	}//--------------------------------------------------------------------
 	PF_Err CopyBuf2ToOut()
 	{
 		PF_Err err = PF_Err_NONE;
