@@ -73,7 +73,7 @@ enum
 	ID_TOPIC_END,
 	ID_FLARE_COUNT
 };
-constexpr auto PCOUNT = 5;
+constexpr auto PCOUNT = 6;
 
 #define PIDX(x) ( ID_OFFSET + (x)*ID_FLARE_COUNT)
 #define ID_NUM_PARAMS (ID_OFFSET + ID_FLARE_COUNT* PCOUNT) //15
@@ -107,7 +107,7 @@ enum BLEND
 #define	STR_BASE_OPACITY	"baseOpacity"
 
 #define	STR_MODE1			"mode"
-#define	STR_MODE1_ITEMS		"WhitebasedMask|BlackbasedMask|Alpha|Image"
+#define	STR_MODE1_ITEMS		"WhitebackMask|BlackbackMask|Alpha|Image"
 #define	STR_MODE1_COUNT		4
 #define	STR_MODE1_DEFL		3
 
@@ -124,7 +124,7 @@ enum BLEND
 #define	STR_REV_COUNT		3
 #define	STR_REV_DEFL		1
 #define	STR_MAX				"max_"
-#define	STR_BLUR			"blur"
+#define	STR_BLUR			"blur_"
 #define	STR_COLOR			"color(except_image)_"
 #define	STR_BLEND			"blend_"
 #define	STR_BLEND_ITEMS		"screen|add|normal"

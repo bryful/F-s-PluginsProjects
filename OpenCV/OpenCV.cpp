@@ -24,14 +24,28 @@ static PF_Err ParamsSetup (
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	//def.ui_flags = PF_PUI_DISABLED;
-	PF_ADD_SLIDER(	STR_VALUE,	//パラメータの名前
+	PF_ADD_SLIDER(	STR_VALUE1,	//パラメータの名前
 					0, 		//数値入力する場合の最小値
-					10,			//数値入力する場合の最大値
+					100,			//数値入力する場合の最大値
 					0,				//スライダーの最小値 
-					10,			//スライダーの最大値
+					100,			//スライダーの最大値
 					0,				//デフォルトの値
-					ID_VALUE
+					ID_VALUE1
 					);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_VALUE2,	//Name
+		0,						//VALID_MIN
+		100,						//VALID_MAX
+		0,						//SLIDER_MIN
+		10,						//SLIDER_MAX
+		1,						//CURVE_TOLERANCE
+		0,						//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_VALUE2
+	);
 	//----------------------------------------------------------------
 
 
@@ -183,23 +197,17 @@ PF_Err Test8(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err			err = PF_Err_NONE;
 
-	int w = ae->input->width;
-	int wt = ae->input->rowbytes / sizeof(PF_Pixel);
-	int h = ae->input->height;
+	//A_long w = ae->out->width();
+	//A_long h = ae->out->height();
 
-	int cz = 4;
-	int czw = cz * w;
+	//cv::Mat src(cv::Size((int)w, (int)h), CV_8UC4, cv::Scalar(128, 0, 0, 255));
+	cv::Mat src = World2CVMat8(ae->input);
 
-	cv::Mat src(cv::Size((int)w, (int)h), CV_8UC4, cv::Scalar(128, 0, 0, 255));
-
-	//WorldToCVMat8(ae->input, src);
-	//cv::Mat dst;
-	//cv::GaussianBlur(src, src, cv::Size(31, 31), 0, 0);
-
-	//cv::Mat dst(cv::Size(ae->out->width(), ae->out->height()), CV_8UC4, cv::Scalar(128,0, 0, 255));
-
-	//cv::Mat green_img = src.clone();
 	//src = cv::Scalar(255,0, 255, 255);
+	
+	A_long v1 = infoP->value1 * 2 + 1;
+	double v2 = infoP->value2;
+	cv::GaussianBlur(src, src, cv::Size(v1, v1), v2, v2);
 	cv::putText(src, "Test Moon", cv::Point(50, 50), cv::FONT_HERSHEY_TRIPLEX, 1.5, cv::Scalar(255,0, 128, 200), 2, CV_AA);
 
 
@@ -261,7 +269,8 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
-	ERR(ae->GetADD(ID_VALUE,&infoP->value));
+	ERR(ae->GetADD(ID_VALUE1,&infoP->value1));
+	ERR(ae->GetFLOAT(ID_VALUE2, &infoP->value2));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
