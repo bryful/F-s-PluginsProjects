@@ -44,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="..\FlareMax08.cpp" />
     <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareBlur08.cpp" />
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareBlur16.cpp" />
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareMax16.cpp" />
+    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareSub16.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Fs_Entry.h" />

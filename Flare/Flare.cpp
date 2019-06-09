@@ -43,9 +43,9 @@ static PF_Err ParamsSetup (
 	//baseColor
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_BASE_COLOR,
-		0xFF,//FFF551
-		0xF5,
-		0x51,
+		0xF4,//F4FF95
+		0xFF,
+		0x95,
 		ID_BASE_COLOR
 	);
 	//baseOpacity
@@ -300,7 +300,37 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 
 	return err;
 }
+//-------------------------------------------------------------------------------------------------
+static PF_Err ParamInfoTo16(ParamInfo *infoP, ParamInfo16 *info16P)
+{
+	PF_Err	err = PF_Err_NONE;
 
+	info16P->mode = infoP->mode;
+	info16P->BaseOn = infoP->BaseOn;
+	info16P->BaseOpacity = infoP->BaseOpacity;
+	info16P->BaseColor = CONV8TO16(infoP->BaseColor);
+
+	for (A_long i = 0; i < PCOUNT; i++)
+	{
+		info16P->flareInfo[i].blend = infoP->flareInfo[i].blend;
+		info16P->flareInfo[i].blur = infoP->flareInfo[i].blur;
+		info16P->flareInfo[i].border = infoP->flareInfo[i].border;
+		info16P->flareInfo[i].bufH = infoP->flareInfo[i].bufH;
+		info16P->flareInfo[i].color = CONV8TO16(infoP->flareInfo[i].color);
+		info16P->flareInfo[i].enabled = infoP->flareInfo[i].enabled;
+		info16P->flareInfo[i].inside = infoP->flareInfo[i].inside;
+		info16P->flareInfo[i].max = infoP->flareInfo[i].max;
+		info16P->flareInfo[i].opacitry = infoP->flareInfo[i].opacitry;
+		info16P->flareInfo[i].outside = infoP->flareInfo[i].outside;
+		info16P->flareInfo[i].rev = infoP->flareInfo[i].rev;
+
+	}
+
+
+
+
+	return err;
+}
 //-------------------------------------------------------------------------------------------------
 static PF_Err
 	Exec (CFsAE *ae , ParamInfo *infoP)
@@ -312,11 +342,16 @@ static PF_Err
 
 
 
+	ParamInfo16 info16;
+
+	ParamInfoTo16(infoP, &info16);
+
 	switch(ae->pixelFormat())
 	{
 	case PF_PixelFormat_ARGB128:
 		break;
 	case PF_PixelFormat_ARGB64:
+		ERR(Exec16(ae, &info16));
 		break;
 	case PF_PixelFormat_ARGB32:
 		ERR(Exec08(ae, infoP));

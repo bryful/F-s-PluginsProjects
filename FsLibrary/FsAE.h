@@ -1277,12 +1277,44 @@ public:
 
 	}
 	//*********************************************************************************
+	PF_Err iterate16InputToTemp(
+		refconType refcon,
+		PF_Err(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel16 *in, PF_Pixel16 *out)
+	)
+	{
+		return suitesP->Iterate16Suite1()->iterate(in_data,
+			0,// progress base
+			tmpP->height,
+			input,		// src 
+			NULL,		// area - null for all pixels
+			refcon,		// refcon - your custom data pointer
+			pix_fn,		// pixel function pointer
+			tmpP);	// dest
+
+	}
+	//*********************************************************************************
 	PF_Err iterate8TempToOutput(
 		refconType refcon,
 		PF_Err(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel *in, PF_Pixel *out)
 	)
 	{
 		return suitesP->Iterate8Suite1()->iterate(in_data,
+			0,// progress base
+			output->height,
+			tmpP,		// src 
+			NULL,		// area - null for all pixels
+			refcon,		// refcon - your custom data pointer
+			pix_fn,		// pixel function pointer
+			output);	// dest
+
+	}
+	//*********************************************************************************
+	PF_Err iterate16TempToOutput(
+		refconType refcon,
+		PF_Err(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel16 *in, PF_Pixel16 *out)
+	)
+	{
+		return suitesP->Iterate16Suite1()->iterate(in_data,
 			0,// progress base
 			output->height,
 			tmpP,		// src 

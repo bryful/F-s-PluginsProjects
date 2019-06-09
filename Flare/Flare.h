@@ -109,7 +109,7 @@ enum BLEND
 #define	STR_MODE1			"mode"
 #define	STR_MODE1_ITEMS		"WhitebasedMask|BlackbasedMask|Alpha|Image"
 #define	STR_MODE1_COUNT		4
-#define	STR_MODE1_DEFL		1
+#define	STR_MODE1_DEFL		3
 
 #define	STR_TOPIC			"flare_"
 #define	STR_ENABLED			"enabled_"
@@ -149,6 +149,21 @@ typedef struct FlareInfo {
 	PF_Handle	bufH;
 }FlareInfo,*FlareInfoP, **FlareInfoH;
 
+typedef struct FlareInfo16 {
+	PF_Boolean enabled;
+	PF_Boolean	border;
+	A_long		rev;
+	A_long		max;
+	A_long		inside;
+	A_long		outside;
+	A_long		blur;
+	PF_Pixel16	color;
+	A_long		blend;
+	double		opacitry;
+	PF_Handle	bufH;
+}FlareInfo16, *FlareInfo16P, **FlareInfo16H;
+
+
 typedef struct ParamInfo {
 
 	A_long		mode;
@@ -158,6 +173,17 @@ typedef struct ParamInfo {
 	FlareInfo	flareInfo[PCOUNT];
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
+
+typedef struct ParamInfo16 {
+
+	A_long		mode;
+	PF_Boolean	BaseOn;
+	PF_FpLong	BaseOpacity;
+	PF_Pixel16	BaseColor;
+	FlareInfo16	flareInfo[PCOUNT];
+
+} ParamInfo16, *ParamInfo16P, **ParamInfo16H;
+
 
 //-------------------------------------------------------
 PF_Err Exec08(CFsAE *ae, ParamInfo *infoP);
@@ -169,6 +195,14 @@ PF_Err Border08(CFsAE *ae, FlareInfo *infoP);
 PF_Err BlurRed08(CFsAE *ae, FlareInfo *infoP);
 PF_Err BlurAll08(CFsAE *ae, FlareInfo *infoP);
 
+PF_Err Exec16(CFsAE *ae, ParamInfo16 *infoP);
+PF_Err MaxAll16(CFsAE *ae, FlareInfo16 *infoP);
+PF_Err MaxRed16(CFsAE *ae, FlareInfo16 *infoP);
+PF_Err RedToGreen16(CFsGraph *g);
+PF_Err RevRedChannel16(CFsGraph *g);
+PF_Err Border16(CFsAE *ae, FlareInfo16 *infoP);
+PF_Err BlurRed16(CFsAE *ae, FlareInfo16 *infoP);
+PF_Err BlurAll16(CFsAE *ae, FlareInfo16 *infoP);
 //-----------------------------------------------------------------------------------
 extern "C" {
 
