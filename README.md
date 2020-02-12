@@ -69,7 +69,7 @@ This software is released under the MIT License, see LICENSE.txt.
 
 P関係のゲーム会社の方へ 
 使用に関しては特に制限ありません。許諾も必要ありません。使用料も発生しません。  
-これは今後絶対に代わりません。
+これは今後絶対に変わりません。
 
 
 
