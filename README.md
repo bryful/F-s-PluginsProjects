@@ -1,9 +1,9 @@
 # F's Plugins
 
-Adone After Effects��EffectsPlugin�W�̃\�[�X�ꎮ�ł��B  
+Adone After EffectsのEffectsPlugin集のソース一式です。  
   
-�̂����ŃR�c�R�c�ƍ���Ă������̂ł��B  
-��Ƃ����Ă��l���g���{�̃A�j������҂Ȃ̂ŋƖ��Ɏg���Ă܂��B
+昔から趣味でコツコツと作っていたものです。  
+趣味といっても僕自身日本のアニメ制作者なので業務に使ってます。
 
 
 # Dependency
@@ -11,47 +11,47 @@ Adone After Effects��EffectsPlugin�W�̃\�[�X�ꎮ�ł��B
 Visual studio 2017 Community 2017 C++
 Adobe After Effects CC 15.0 Win SDK
 
-SDK��CC2018���g�p���Ă��܂����ACS4/CS6��SDK�ł�build�\�ł��B
+SDKはCC2018を使用していますが、CS4/CS6のSDKでもbuild可能です。
 
 # Setup
-�v���W�F�N�g����SDK�t�H���_����Example�t�H���_���֔z�u���Ă��������B
+プロジェクト等はSDKフォルダ内のExampleフォルダ内へ配置してください。
 
-����Ȋ����ł��B
+こんな感じです。
 
         /ADOBE AFTER EFFECTS CC 15.0 WIN SDK  
-        ����Examples  
-            ����AEGP  
-            ����Effect  
-            ����F's PluginsProjects  
-            ��  ����AlphaFix  
-            ��  ����AlphaThreshold  
-            ��  ����AnimatedNoise  
-            <�ȗ�>  
-            ��  ����PluginSkeleton  
-            <�ȗ�>  
-            ��  ����whiteInOut  
-            ����GP 
-            ����Headers  
-            ����Resources  
-            ����Template  
-            ����UI  
-            ����Util  
+        └─Examples  
+            ├─AEGP  
+            ├─Effect  
+            ├─F's PluginsProjects  
+            │  ├─AlphaFix  
+            │  ├─AlphaThreshold  
+            │  ├─AnimatedNoise  
+            <省略>  
+            │  ├─PluginSkeleton  
+            <省略>  
+            │  ├─whiteInOut  
+            ├─GP 
+            ├─Headers  
+            ├─Resources  
+            ├─Template  
+            ├─UI  
+            └─Util  
 
 # Usage
 
-SDK��CC2018��z�肵�Ă��܂����ACS4/CS6�y��CC2018�܂ł�SDK�Ńr���h�\�ł��B
+SDKはCC2018を想定していますが、CS4/CS6及びCC2018までのSDKでビルド可能です。
   
-F's PluginsProjects�t�H���_���e�o�[�W������Examples�t�H���_�Ɉړ�����΂ł��܂��B
+F's PluginsProjectsフォルダを各バージョンのExamplesフォルダに移動すればできます。
   
-�v���b�g�z�[����CS4�̂�x86(Win32)�ŁA����ȍ~��x64�ɂȂ�܂��B
+プラットホームはCS4のみx86(Win32)で、それ以降はx64になります。
 
-�\����Pelease/Relese-MD�Ƃ���܂����A�����^�C�����C�u�����̃X�C�b�`(/MT/MD)���Ⴄ���̂ł��B����ȊO�͓����ł��B  
+構成でPelease/Relese-MDとありますが、ランタイムライブラリのスイッチ(/MT/MD)が違うものです。それ以外は同じです。  
   
-Plugin��Binary��outAEX��������outAEX_MD�ɏ����o����܂��B  
+PluginのBinaryはoutAEXもしくはoutAEX_MDに書き出されます。  
 
-Plugin��Binary��After Effects��Plug-ins�փR�s�[���Ă��������B  
+PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。  
   
-��)  
+例)  
 "C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\Plug-ins"
 
 
@@ -59,13 +59,19 @@ Plugin��Binary��After Effects��Plug-ins�փR�s�[���Ă��������B
 
 This software is released under the MIT License, see LICENSE.txt. 
   
-���̃v���O�������f������Ɏg�p�����ꍇ�́AMIT���C�Z���X�̏����ł��钘�쌠�\������і{�����\����  
+このプログラムを映像制作に使用した場合は、MITライセンスの条件である著作権表示および本許諾表示は  
 
-**�v���O�C������ bry-ful**  
+**プラグイン協力 bry-ful**  
 
-�Ƃ��Ă��������B  �v���O�C�����͈ȊO�ł��K���Ȍ����ł���Εʂ̂��̂ɕς��Ă��\���܂���B
+としてください。  プラグイン協力以外でも適当な肩書であれば別のものに変えても構いません。
   
-�ȏ�̎��͋����ł͂���܂���B
+以上の事は強制ではありませんので、クレジットに明記されていなくても自由に使ってください。 
+
+P関係のゲーム会社の方へ 
+使用に関しては特に制限ありません。許諾も必要ありません。使用料も発生しません。 
+これは今後絶対に代わりません。
+
+
 
 # Authors
 
