@@ -82,7 +82,7 @@ enum {
 };
 
 //UI‚Ì•\Ž¦•¶Žš—ñ
-#define	STR_VALUE			"WaveValue"
+#define	STR_Y			"WaveValue"
 #define	STR_LENGTH_X		"X_Length"
 #define	STR_LENGTH_Y		"Y_Length"
 #define	STR_ROT				"Rot"

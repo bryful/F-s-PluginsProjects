@@ -22,19 +22,51 @@ static PF_Err ParamsSetup (
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_VALUE,	//Name
-						-200,					//VALID_MIN
-						200,					//VALID_MAX
-						-200,					//SLIDER_MIN
-						200,						//LIDER_MAX
+	PF_ADD_FLOAT_SLIDER(STR_Y,	//Name
+						-100,					//VALID_MIN
+						100,					//VALID_MAX
+						-100,					//SLIDER_MIN
+						100,						//LIDER_MAX
 						1,						//CURVE_TOLERANCE
 						0,						//DFLT
 						1,						//PREC
 						0,						//DISP
 						0,						//WANT_PHASE
-						ID_VALUE
+						ID_Y
 						);
-
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_CHECKBOX(STR_UV_AUTO,
+		STR_ON,
+		FALSE,
+		0,
+		ID_UV_AUTO
+	);
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_U,	//Name
+		-100,					//VALID_MIN
+		100,					//VALID_MAX
+		-100,					//SLIDER_MIN
+		100,						//LIDER_MAX
+		1,						//CURVE_TOLERANCE
+		0,						//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_U
+	);
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_V,	//Name
+		-100,					//VALID_MIN
+		100,					//VALID_MAX
+		-100,					//SLIDER_MIN
+		100,						//LIDER_MAX
+		1,						//CURVE_TOLERANCE
+		0,						//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_V
+	);
 	//----------------------------------------------------------------
 	out_data->num_params = 	ID_NUM_PARAMS; 
 
@@ -88,42 +120,44 @@ FilterImage8 (
 	double g = (double)outP->green * a / PF_MAX_CHAN8;
 	double b = (double)outP->blue * a / PF_MAX_CHAN8;
 
-	/*
-	Y =  0.299R + 0.587G + 0.114B
-	U = -0.169R - 0.331G + 0.500B
-	V =  0.500R - 0.419G - 0.081B
-	YUV to RGB
-
-	R = 1.000Y          + 1.402V
-	G = 1.000Y - 0.344U - 0.714V
-	B = 1.000Y + 1.772U
-
-	Y   =  0.300R + 0.590G + 0.110B
-	B-Y = -0.300R - 0.590G + 0.890B
-	R-Y =  0.700R - 0.590G - 0.110B
-	Y,B-Y,R-Y to RGB
-
-	R = 1.000Y              + 1.000(R-Y)
-	G = 1.000Y - 0.186(B-Y) - 0.508(R-Y)
-	B = 1.000Y + 1.000(B-Y)
-
-	*/
 	//yuv
-	double y = (r *  0.299) +  (0.587 * g) + (0.114 * b);
-	double u = (r * -0.169) -  (0.331 * g) + (0.500 * b);
-	double v = (r *  0.500) -  (0.419 * g) - (0.081 * b);
+	double y = (r *  0.299) + (g*0.587) + (b* 0.114);
+	double u = (r * -0.169) - (g*0.331) + (b* 0.500);
+	double v = (r *  0.500) - (g*0.419) - (b*-0.081);
+
 
 	if (infoP->y > 0) {
-		if (y < 1) {
-			y = y + (1 - y)*infoP->y;
-		}
+		y = y + (1 - y)*infoP->y;
 	}
-	else if (infoP->y == 0) {}
 	else {
 		y = y * (1+ infoP->y);
 	}
+	if (infoP->u>0) {
+		if (u >= 0) {
+			u = u + (0.5-u)*infoP->u;
+		}
+		else {
+			u = u + (-0.5 - u)*infoP->u;
+		}
+	}
+	else {
+		u = u * (1+infoP->u);
+
+	}
+	if (infoP->v > 0) {
+		if (v >= 0) {
+			v = v + (0.5 - v)*infoP->v;
+		}
+		else {
+			v = v + (-0.5 - v)*infoP->v;
+		}
+	}else{
+		v = v * (1+infoP->v);
+	}
+
+
 	//rgb
-	r = y + 1.402*v;
+	r = y           + 1.402*v;
 	g = y - 0.344*u - 0.714*v;
 	b = y + 1.772*u;
 
@@ -153,8 +187,77 @@ FilterImage16 (
 	PF_Pixel16	*outP)
 {
 	PF_Err			err = PF_Err_NONE;
-	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
+	ParamInfo *	infoP = reinterpret_cast<ParamInfo*>(refcon);
+	PF_Pixel16 bl = { 0,0,0,0 };
 
+	if (outP->alpha == 0) {
+		*outP = bl;
+		return err;
+	}
+
+	double a = (double)outP->alpha / PF_MAX_CHAN16;
+
+	//Mat
+	double r = (double)outP->red * a / PF_MAX_CHAN16;
+	double g = (double)outP->green * a / PF_MAX_CHAN16;
+	double b = (double)outP->blue * a / PF_MAX_CHAN16;
+
+	//yuv
+	double y = (r *  0.299) + (g*0.587) + (b* 0.114);
+	double u = (r * -0.169) - (g*0.331) + (b* 0.500);
+	double v = (r *  0.500) - (g*0.419) - (b*-0.081);
+
+
+	if (infoP->y > 0) {
+		y = y + (1 - y)*infoP->y;
+	}
+	else {
+		y = y * (1 + infoP->y);
+	}
+	if (infoP->u > 0) {
+		if (u >= 0) {
+			u = u + (0.5 - u)*infoP->u;
+		}
+		else {
+			u = u + (-0.5 - u)*infoP->u;
+		}
+	}
+	else {
+		u = u * (1 + infoP->u);
+
+	}
+	if (infoP->v > 0) {
+		if (v >= 0) {
+			v = v + (0.5 - v)*infoP->v;
+		}
+		else {
+			v = v + (-0.5 - v)*infoP->v;
+		}
+	}
+	else {
+		v = v * (1 + infoP->v);
+	}
+
+
+	//rgb
+	r = y + 1.402*v;
+	g = y - 0.344*u - 0.714*v;
+	b = y + 1.772*u;
+
+	r = PF_MAX_CHAN16 * r / a;
+	g = PF_MAX_CHAN16 * g / a;
+	b = PF_MAX_CHAN16 * b / a;
+	A_long rr = (A_long)(r + 0.5);
+	A_long gg = (A_long)(g + 0.5);
+	A_long bb = (A_long)(b + 0.5);
+
+	if (rr < 0)rr = 0; else if (rr > PF_MAX_CHAN16) rr = PF_MAX_CHAN16;
+	if (gg < 0)gg = 0; else if (gg > PF_MAX_CHAN16) gg = PF_MAX_CHAN16;
+	if (bb < 0)bb = 0; else if (bb > PF_MAX_CHAN16) bb = PF_MAX_CHAN16;
+
+	outP->red = (A_u_short)rr;
+	outP->green = (A_u_short)gg;
+	outP->blue = (A_u_short)bb;
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -167,20 +270,95 @@ FilterImage32 (
 	PF_PixelFloat	*outP)
 {
 	PF_Err			err = PF_Err_NONE;
-	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
+	ParamInfo *	infoP = reinterpret_cast<ParamInfo*>(refcon);
+	PF_PixelFloat bl = { 0,0,0,0 };
 
+	if (outP->alpha == 0) {
+		*outP = bl;
+		return err;
+	}
+
+	double a = (double)outP->alpha;
+
+	//Mat
+	double r = (double)outP->red * a;
+	double g = (double)outP->green * a;
+	double b = (double)outP->blue * a;
+
+	//yuv
+	double y = (r *  0.299) + (g*0.587) + (b* 0.114);
+	double u = (r * -0.169) - (g*0.331) + (b* 0.500);
+	double v = (r *  0.500) - (g*0.419) - (b*-0.081);
+
+
+	if (infoP->y > 0) {
+		y = y + (1 - y)*infoP->y;
+	}
+	else {
+		y = y * (1 + infoP->y);
+	}
+	if (infoP->u > 0) {
+		if (u >= 0) {
+			u = u + (0.5 - u)*infoP->u;
+		}
+		else {
+			u = u + (-0.5 - u)*infoP->u;
+		}
+	}
+	else {
+		u = u * (1 + infoP->u);
+
+	}
+	if (infoP->v > 0) {
+		if (v >= 0) {
+			v = v + (0.5 - v)*infoP->v;
+		}
+		else {
+			v = v + (-0.5 - v)*infoP->v;
+		}
+	}
+	else {
+		v = v * (1 + infoP->v);
+	}
+
+
+	//rgb
+	r = y + 1.402*v;
+	g = y - 0.344*u - 0.714*v;
+	b = y + 1.772*u;
+
+	r = r / a;
+	if (r < 0) r = 0;
+	g = g / a;
+	if (g < 0) g = 0;
+	b = b / a;
+	if (b< 0) b = 0;
+
+	outP->red = (PF_FpShort)r;
+	outP->green = (PF_FpShort)g;
+	outP->blue = (PF_FpShort)b;
 
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
-	PF_Err		err 		= PF_Err_NONE;
+	PF_Err		err = PF_Err_NONE;
 
-	ERR(ae->GetFLOAT(ID_VALUE,&infoP->y));
+	ERR(ae->GetFLOAT(ID_Y, &infoP->y));
 	infoP->y /= 100;
-	//if (infoP->y < -1) { infoP->y = -1; }
-	//else if (infoP->y > 1)infoP->y = 1;
+
+	ERR(ae->GetCHECKBOX(ID_UV_AUTO, &infoP->uvAuto));
+	if (infoP->uvAuto == TRUE) {
+		infoP->u = -ABS(infoP->y);
+		infoP->v = -ABS(infoP->y);
+	}
+	else {
+		ERR(ae->GetFLOAT(ID_U, &infoP->u));
+		infoP->u /= 100;
+		ERR(ae->GetFLOAT(ID_V, &infoP->v));
+		infoP->v /= 100;
+	}
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -192,7 +370,7 @@ static PF_Err
 	//‰æ–Ê‚ðƒRƒs[
 	ERR(ae->CopyInToOut());
 	
-	if (infoP->y == 0) return err;
+	if ((infoP->y == 0) && (infoP->u == 0) && (infoP->v == 0) )return err;
 
 	switch(ae->pixelFormat())
 	{

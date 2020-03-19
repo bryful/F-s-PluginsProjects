@@ -43,7 +43,7 @@
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_VALUE,
+	ID_Y,
 
 	ID_COLOR1_ON,
 	ID_COLOR1,
@@ -63,7 +63,7 @@ enum {
 };
 
 //UI‚Ì•\Ž¦•¶Žš—ñ
-#define	STR_VALUE			"ThinValue"
+#define	STR_Y			"ThinValue"
 #define	STR_ON				"on"
 #define	STR_COLOR1_ON		"EnabledColor1"
 #define	STR_COLOR2_ON		"EnabledColor2"

@@ -42,18 +42,28 @@
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_VALUE,
+	ID_Y,
+	ID_UV_AUTO,
+	ID_U,
+	ID_V,
 
 	ID_NUM_PARAMS
 };
 
 //UIの表示文字列
-#define	STR_VALUE			"Y"
+#define	STR_Y			"Y"
+#define	STR_U			"U"
+#define	STR_V			"V"
 
+#define	STR_UV_AUTO		"UVをYと連動させる"
+#define	STR_ON			"on"
 
 //UIのパラメータ
 typedef struct ParamInfo {
 	PF_FpLong	y;
+	PF_FpLong	u;
+	PF_FpLong	v;
+	PF_Boolean	uvAuto;
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------

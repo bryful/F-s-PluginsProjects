@@ -39,7 +39,7 @@ ParamsSetup (
 					1,				//表示される小数の桁数
 					0,
 					0,
-					ID_VALUE
+					ID_Y
 					);
 	//-----------------
 	//ポップアップ
@@ -169,7 +169,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	PF_Err	err = PF_Err_NONE;
 
 	ERR(ae->GetADD(ID_SEED,&infoP->seed));
-	ERR(ae->GetFIXED_PER2ONE(ID_VALUE,&infoP->value));
+	ERR(ae->GetFIXED_PER2ONE(ID_Y,&infoP->value));
 	ERR(ae->GetPOPUP(ID_DIR,&infoP->dir));
 	ERR(ae->GetFIXED(ID_OPACITY_RAND,&infoP->opa));
 

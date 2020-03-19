@@ -50,7 +50,7 @@ enum {
 	ID_INPUT = 0,
 
 	ID_SEED,				//—”‚ÌŠî€
-	ID_VALUE,				//—Ê
+	ID_Y,				//—Ê
 	ID_OPACITY_RAND,		//“§–¾“x‚ÌÅ‘å’l
 
 	ID_POS,				//ˆÊ’u

@@ -88,13 +88,13 @@ static PF_Err ParamsSetup (
 
 	//１個目のパラメータ
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_VALUE,//パラメータの名前
+	PF_ADD_SLIDER(	STR_Y,//パラメータの名前
 					0, 				//数値入力する場合の最小値
 					2048,			//数値入力する場合の最大値
 					0,				//スライダーの最小値 
 					512,			//スライダーの最大値
 					0,					//デフォルトの値
-					ID_VALUE
+					ID_Y
 					);
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_SLIDER(	STR_SIZEMAX,//パラメータの名前
@@ -167,7 +167,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
-	ERR(ae->GetADD(ID_VALUE,&infoP->value));
+	ERR(ae->GetADD(ID_Y,&infoP->value));
 	
 	ERR(ae->GetADD(ID_SIZEMAX,&infoP->sizeMax));
 	if (!err) infoP->sizeMax = ae->downScale(infoP->sizeMax);

@@ -42,14 +42,14 @@
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_VALUE,
+	ID_Y,
 	ID_COLOR,
 	ID_LEVEL,
 	ID_NUM_PARAMS
 };
 
 //UI‚Ì•\Ž¦•¶Žš—ñ
-#define	STR_VALUE			"Value"
+#define	STR_Y			"Value"
 #define	STR_COLOR			"Color"
 #define	STR_LEVEL			"Level(%)"
 

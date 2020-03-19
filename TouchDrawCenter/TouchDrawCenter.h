@@ -43,7 +43,7 @@
 #define	STR_CENTER			"Center"
 #define	STR_LENGTH_MAX		"Length"
 #define	STR_LENGTH_RND		"Length_Random"
-#define	STR_VALUE			"Value"
+#define	STR_Y			"Value"
 #define	STR_COLOR			"Color"
 #define	STR_OPACITY			"Opacity"
 #define	STR_OPACITY_RND		"Opacity_Random"
@@ -64,7 +64,7 @@ enum {
 	ID_LENGTH_MAX,		//タッチ線の長さ
 	ID_LENGTH_RND,		//長さのランダムさ
 
-	ID_VALUE,		//タッチが発生する数
+	ID_Y,		//タッチが発生する数
 	ID_COLOR,				//タッチ線の色
 	ID_OPACITY,				//タッチ線の色
 	ID_OPACITY_RND,				//タッチ線の色

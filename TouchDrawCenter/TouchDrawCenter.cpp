@@ -71,13 +71,13 @@ static PF_Err ParamsSetup (
 	//----------------------------------------------------------------
 	//整数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_VALUE,	//パラメータの名前
+	PF_ADD_SLIDER(	STR_Y,	//パラメータの名前
 					0, 				//数値入力する場合の最小値
 					3000,			//数値入力する場合の最大値
 					0,				//スライダーの最小値 
 					100,			//スライダーの最大値
 					30,				//デフォルトの値
-					ID_VALUE
+					ID_Y
 					);
 	
 	//----------------------------------------------------------------
@@ -264,7 +264,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 		if (infoP->length_rnd<0) infoP->length_rnd=0; 
 	}
 	
-	ERR(ae->GetADD(ID_VALUE,&infoP->value));
+	ERR(ae->GetADD(ID_Y,&infoP->value));
 	if (!err) if (infoP->value<0) infoP->value=0;
 
 	ERR(ae->GetCOLOR(ID_COLOR,&infoP->color));

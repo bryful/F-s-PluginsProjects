@@ -44,7 +44,7 @@
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer 
-	ID_VALUE,
+	ID_Y,
 	ID_STRONG,
 	ID_LENGTH_MIN,
 	ID_LENGTH_MAX,
@@ -54,7 +54,7 @@ enum {
 	ID_NUM_PARAMS
 	};
 
-#define STR_VALUE		"ノイズ量"
+#define STR_Y		"ノイズ量"
 #define STR_STRONG		"ノイズの強さ(%)"
 #define STR_LENGTH_MIN	"ノイズの長さ(最小)"
 #define STR_LENGTH_MAX	"ノイズの長さ(最大)"

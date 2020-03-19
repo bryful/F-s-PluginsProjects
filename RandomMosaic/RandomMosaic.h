@@ -48,7 +48,7 @@ typedef struct ParamInfo{
 
 enum {
 	ID_INPUT = 0,	// default input layer 
-	ID_VALUE,		// ノイズ量
+	ID_Y,		// ノイズ量
 	ID_SIZEMAX,		// モザイクの大きさ(最大値)
 	ID_SIZEMIN,		// モザイクの大きさ(最小値)
 	ID_ASPECT,		// モザイクの左右
@@ -56,7 +56,7 @@ enum {
 	ID_NUM_PARAMS
 };
 
-#define STR_VALUE		"量"
+#define STR_Y		"量"
 #define STR_SIZEMAX		"サイズ(最大)"
 #define STR_SIZEMIN		"サイズ(最小)"
 #define STR_ASPECT		"縦横のばらつき"

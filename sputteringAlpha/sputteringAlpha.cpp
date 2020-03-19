@@ -38,7 +38,7 @@ ParamsSetup (
 					1,				//•\Ž¦‚³‚ê‚é¬”‚ÌŒ…”
 					0,
 					0,
-					ID_VALUE
+					ID_Y
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
@@ -173,7 +173,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	PF_Err	err = PF_Err_NONE;
 
 	ERR(ae->GetADD(ID_SEED,&infoP->seed));
-	ERR(ae->GetFIXED_PER2ONE(ID_VALUE,&infoP->value));
+	ERR(ae->GetFIXED_PER2ONE(ID_Y,&infoP->value));
 	ERR(ae->GetFIXED_PER2ONE(ID_EDGE_VALUE,&infoP->edge_value));
 	ERR(ae->GetFIXED(ID_OPACITY_RAND,&infoP->opa));
 

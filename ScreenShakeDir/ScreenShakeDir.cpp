@@ -97,7 +97,7 @@ static PF_Err ParamsSetup (PF_InData		*in_data,
 
 	//１個目のパラメータ
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_VALUE,	//パラメータの名前
+	PF_ADD_FIXED(	STR_Y,	//パラメータの名前
 					0, 				//数値入力する場合の最小値
 					2000,	//数値入力する場合の最大値
 					0,				//スライダーの最小値 
@@ -106,7 +106,7 @@ static PF_Err ParamsSetup (PF_InData		*in_data,
 					1,//数値表示に関するフラグ 
 					0,
 					0,
-					ID_VALUE
+					ID_Y
 					);
 
 	AEFX_CLR_STRUCT(def);
@@ -327,7 +327,7 @@ GetParams ( CFsAE *ae, ParamInfo * infoP)
 {
 	PF_Err			err = PF_Err_NONE;
 
-	ERR(ae->GetFIXED(ID_VALUE,&infoP->value));
+	ERR(ae->GetFIXED(ID_Y,&infoP->value));
 	if (!err) infoP->value = ae->downScaleNoClip(infoP->value);
 	
 	ERR(ae->GetADD(ID_VALUE_RND,&infoP->value_rand));

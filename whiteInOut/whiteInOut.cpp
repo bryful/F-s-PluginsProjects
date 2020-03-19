@@ -22,7 +22,7 @@ static PF_Err ParamsSetup (
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_VALUE,	//Name
+	PF_ADD_FLOAT_SLIDER(STR_Y,	//Name
 						0,						//VALID_MIN
 						100,						//VALID_MAX
 						0,						//SLIDER_MIN
@@ -32,7 +32,7 @@ static PF_Err ParamsSetup (
 						1,						//PREC
 						0,						//DISP
 						0,						//WANT_PHASE
-						ID_VALUE
+						ID_Y
 						);
 	//----------------------------------------------------------------
 	out_data->num_params = 	ID_NUM_PARAMS; 
@@ -219,7 +219,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
-	ERR(ae->GetFLOAT(ID_VALUE,&infoP->value));
+	ERR(ae->GetFLOAT(ID_Y,&infoP->value));
 	infoP->value /= 100;
 	if (infoP->value < 0) infoP->value = 0;
 	else if (infoP->value > 1.0) infoP->value = 1.0;

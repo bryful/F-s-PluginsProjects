@@ -51,7 +51,7 @@ enum {
 	ID_NEW_COLOR,
 
 	//•
-	ID_VALUE,
+	ID_Y,
 
 	//åü•”•ªÅ‘åÅ¬
 	ID_LINE_MINMAX,
@@ -90,7 +90,7 @@ enum {
 
 #define	STR_NEW_COLOR		"NewColor"
 
-#define	STR_VALUE			"Value"
+#define	STR_Y			"Value"
 
 #define	STR_LINE_MINMAX		"Min/Max"
 
