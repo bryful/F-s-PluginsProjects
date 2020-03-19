@@ -12,17 +12,17 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define FS_NAME			"F's OpenCV"
+#define FS_NAME			"F's PixelExtend"
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
-#define FS_DESCRIPTION	"プラグインのスケルトン"
+#define FS_DESCRIPTION	"ピクセルの拡張"
 
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名
-#define FS_CATEGORY "F's Plugins-Fx"
+//#define FS_CATEGORY "F's Plugins-Fx"
 //#define FS_CATEGORY "F's Plugins-Channel"
-//#define FS_CATEGORY "F's Plugins-Paint"
+#define FS_CATEGORY "F's Plugins-Paint"
 //#define FS_CATEGORY "F's Plugins-Script"
 //#define FS_CATEGORY "F's Plugins-Draw"
 
@@ -56,8 +56,8 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//通常はこちら
-#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+#define FS_OUT_FLAGS	33556032	//通常はこちら
+//#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
 //#define FS_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ out_data->out_flags2
 	PF_OutFlag2_DOESNT_NEED_EMPTY_PIXELS;
 */
 #if defined(SUPPORT_SMARTFX)
-#define FS_OUT_FLAGS2	5193
+#define FS_OUT_FLAGS2	1097
 #else
 #define FS_OUT_FLAGS2	73
 #endif
