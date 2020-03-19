@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	OpenCV for VS2010
+	YuvControl for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef OpenCV_H
-#define OpenCV_H
+#ifndef YuvControl_H
+#define YuvControl_H
 
 #include "Fs_Target.h"
 
@@ -35,12 +35,6 @@
 	#include <Windows.h>
 #endif
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/opencv.hpp>
-
-
 #include "../FsLibrary/FsAE.h"
 
 //ユーザーインターフェースのID
@@ -48,22 +42,18 @@
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_VALUE1,
-	ID_VALUE2,
+	ID_VALUE,
 
 	ID_NUM_PARAMS
 };
 
 //UIの表示文字列
-#define	STR_VALUE1		"value1"
-#define	STR_VALUE2		"value2"
-
+#define	STR_VALUE			"Y"
 
 
 //UIのパラメータ
 typedef struct ParamInfo {
-	A_long		value1;
-	PF_FpLong	value2;
+	PF_FpLong	y;
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------
@@ -82,4 +72,4 @@ EntryPointFunc (
 	PF_LayerDef		*output,
 	void			*extra);
 }
-#endif // OpenCV_H
+#endif // YuvControl_H

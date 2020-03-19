@@ -16,8 +16,8 @@ BEGIN
 	"MIB8",
 	"eman",
 	0, 0x0,
-	20, 0x0,
-	"\x12F's PluginSkeleton\0", 
+	16, 0x0,
+	"\x0EF's YuvControl\0", 
 
 	"MIB8",
 	"gtac", 
@@ -41,7 +41,7 @@ BEGIN
 	"RVSe", 
 	0, 0x0,
 	4, 0x0,
-	13, 15,
+	13, 17,
 
 	"MIB8",
 	0x65564552L, 
@@ -59,7 +59,7 @@ BEGIN
 	"OLGe", 
 	0L,
 	4L,
-	33556036L, 
+	33556032L, 
 
 	"MIB8",
 	"2LGe", 
@@ -70,8 +70,8 @@ BEGIN
 	"MIB8",
 	"ANMe",
 	0, 0x0,
-	20, 0x0,
-	"\x12F's PluginSkeleton\0", 
+	16, 0x0,
+	"\x0EF's YuvControl\0", 
 
 	"MIB8",
 	0x6165464CL, 
