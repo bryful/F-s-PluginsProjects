@@ -57,7 +57,7 @@ PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。
 
 # License
 
-This software is released under the MIT License, see LICENSE.txt. 
+This software is released under the MIT License, see LICENSE. 
   
 このプログラムを映像制作に使用した場合は、MITライセンスの条件である著作権表示および本許諾表示は  
 
@@ -65,7 +65,13 @@ This software is released under the MIT License, see LICENSE.txt.
 
 としてください。  プラグイン協力以外でも適当な肩書であれば別のものに変えても構いません。
   
-以上の事は強制ではありません。
+以上の事は強制ではありませんので、クレジットに明記されていなくても自由に使ってください。
+
+P関係のゲーム会社の方へ 
+使用に関しては特に制限ありません。許諾も必要ありません。使用料も発生しません。 
+これは今後絶対に代わりません。
+
+
 
 # Authors
 
