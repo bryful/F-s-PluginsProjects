@@ -35,7 +35,7 @@ ParamsSetup (
 					0,				//スライダーの最小値 
 					100,			//スライダーの最大値
 					20,				//デフォルトの値
-					ID_VALUE
+					ID_Y
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
@@ -225,7 +225,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	PF_Err	err = PF_Err_NONE;
 
 	ERR(ae->GetADD(ID_SEED,&infoP->seed));
-	ERR(ae->GetADD(ID_VALUE,&infoP->value));
+	ERR(ae->GetADD(ID_Y,&infoP->value));
 	ERR(ae->GetFIXED(ID_OPACITY_RAND,&infoP->opa));
 	
 	ERR(ae->GetFIXEDPOINT(ID_POS,&infoP->pos));

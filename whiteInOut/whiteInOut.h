@@ -45,12 +45,12 @@
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_VALUE,
+	ID_Y,
 	ID_NUM_PARAMS
 };
 
 //UIの表示文字列
-#define	STR_VALUE			"value"
+#define	STR_Y			"value"
 
 //UIのパラメータ
 typedef struct ParamInfo {

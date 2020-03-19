@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "Thin.h"
+#include "Posterization8bit.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -19,123 +19,25 @@ static PF_Err ParamsSetup (
 {
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
+
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_Y,	//パラメータの名前
-					0, 			//数値入力する場合の最小値
-					16,			//数値入力する場合の最大値
-					0,			//スライダーの最小値 
-					4,			//スライダーの最大値
-					0,			//デフォルトの値
-					ID_Y
-					);
+	PF_ADD_SLIDER(STR_LEVEL,	//パラメータの名前
+		2, 			//数値入力する場合の最小値
+		64,			//数値入力する場合の最大値
+		2,			//スライダーの最小値 
+		12,			//スライダーの最大値
+		12,			//デフォルトの値
+		ID_LEVEL
+	);
+
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_COLOR1_ON,
-					STR_ON,
+	PF_ADD_CHECKBOX(STR_G,
+					"on",
 					TRUE,
 					0,
-					ID_COLOR1_ON
-					);
-	//----------------------------------------------------------------
-	//色の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_COLOR(	STR_COLOR1, 
-					0x05,
-					0x05,
-					0x05,
-					ID_COLOR1
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_COLOR2_ON,
-					STR_ON,
-					FALSE,
-					0,
-					ID_COLOR2_ON
-					);
-	//----------------------------------------------------------------
-	//色の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_COLOR(	STR_COLOR2, 
-					0x0A,
-					0x0A,
-					0x0A,
-					ID_COLOR2
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_COLOR3_ON,
-					STR_ON,
-					FALSE,
-					0,
-					ID_COLOR3_ON
-					);
-	//----------------------------------------------------------------
-	//色の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_COLOR(	STR_COLOR3, 
-					0xFF,
-					0x00,
-					0x00,
-					ID_COLOR3
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_COLOR4_ON,
-					STR_ON,
-					FALSE,
-					0,
-					ID_COLOR4_ON
-					);
-	//----------------------------------------------------------------
-	//色の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_COLOR(	STR_COLOR4, 
-					0x00,
-					0xFF,
-					0x00,
-					ID_COLOR4
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_LEVEL,	//Name
-						0,						//VALID_MIN
-						100,						//VALID_MAX
-						0,						//SLIDER_MIN
-						10,						//SLIDER_MAX
-						1,						//CURVE_TOLERANCE
-						0,						//DFLT
-						1,						//PREC
-						0,						//DISP
-						0,						//WANT_PHASE
-						ID_LEVEL
-						);
-
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_WHITE,
-					STR_ON,
-					FALSE,
-					0,
-					ID_WHITE
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_ALPHAZERO,
-					STR_ON,
-					FALSE,
-					0,
-					ID_ALPHAZERO
-					);
-
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_EDGE,
-					STR_ON,
-					FALSE,
-					0,
-					ID_EDGE
+					ID_GRAY
 					);
 	//----------------------------------------------------------------
 	out_data->num_params = 	ID_NUM_PARAMS; 
@@ -151,7 +53,8 @@ HandleChangedParam(
 	PF_LayerDef					*outputP,
 	PF_UserChangedParamExtra	*extraP)
 {
-	PF_Err				err					= PF_Err_NONE;
+	PF_Err				err = PF_Err_NONE;
+
 	return err;
 }
 //-----------------------------------------------------------------------------------
@@ -162,11 +65,19 @@ QueryDynamicFlags(
 	PF_ParamDef		*params[],	
 	void			*extra)	
 {
-	PF_Err 	err 	= PF_Err_NONE;
+	PF_Err 	err = PF_Err_NONE;
+
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
-static PF_Err 
+inline A_long PosSub8(double v, A_long level)
+{
+	A_long va = (A_long)((double)level * v + 0.5);
+	va = (A_long)((double)va * PF_MAX_CHAN8 / (double)level + 0.5);
+	return va;
+}
+//-------------------------------------------------------------------------------------------------
+static PF_Err
 FilterImage8 (
 	refconType		refcon, 
 	A_long		xL, 
@@ -175,7 +86,44 @@ FilterImage8 (
 	PF_Pixel8	*outP)
 {
 	PF_Err			err = PF_Err_NONE;
-	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
+	ParamInfo *	infoP		= reinterpret_cast<ParamInfo*>(refcon);
+
+
+	double a = (double)outP->alpha / PF_MAX_CHAN8;
+	double r = (double)outP->red * a / PF_MAX_CHAN8;
+	double g = (double)outP->green * a / PF_MAX_CHAN8;
+	double b = (double)outP->blue * a / PF_MAX_CHAN8;
+
+	A_long va = PosSub8(a, infoP->level);
+	outP->alpha = RoundByteLong(va);
+
+	double y = (0.299 * r + 0.587 * g + 0.114 * b);
+	A_long vy = PosSub8(y, infoP->level);
+	vy = (A_long)((double)vy *PF_MAX_CHAN8 / va + 0.5);
+
+	if (infoP->grayOnly==TRUE)
+	{
+		outP->blue = outP->green = outP->red = RoundByteLong(vy);
+	}
+	else {
+		double u = ((r * -0.169) - (g*0.331) + (b* 0.500))*2;
+		double v = ((r *  0.500) - (g*0.419) - (b*-0.081))*2;
+
+		A_long vu = PosSub8(u, infoP->level);
+		vu = (A_long)((double)vu *PF_MAX_CHAN8 / ((double)va*2) + 0.5);
+
+		A_long vv = PosSub8(v, infoP->level);
+		vv = (A_long)((double)vv *PF_MAX_CHAN8 / ((double)va*2) + 0.5);
+
+		A_long rr = (A_long)((double)vy                    + 1.402*(double)vv + 0.5);
+		A_long gg = (A_long)((double)vy - 0.344*(double)vu - 0.714*(double)vv + 0.5);
+		A_long bb = (A_long)((double)vy + 1.772*(double)vu                    + 0.5);
+
+		outP->red = RoundByteLong(rr);
+		outP->green = RoundByteLong(gg);
+		outP->blue = RoundByteLong(bb);
+	}
+
 
 
 	return err;
@@ -207,76 +155,17 @@ FilterImage32 (
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
 
-	return err;
-}
-//-------------------------------------------------------------------------------------------------
-static PF_Boolean FindColor(ParamInfo *infoP, PF_Pixel p)
-{
-	PF_Boolean ret = FALSE;
-	if (infoP->colorMax >0 ) {
-		for ( int i=0; i<infoP->colorMax; i++){
-			if (
-				(p.blue == infoP->color[i].blue)
-				&&(p.green == infoP->color[i].green)
-				&&(p.red == infoP->color[i].red)){
-			
-				ret = TRUE;
-				break;
-			}
 
-		}
-	}
-	return ret;
+	return err;
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
-	ERR(ae->GetADD(ID_Y,&infoP->value));
+	ERR(ae->GetADD(ID_LEVEL, &infoP->level));
 
-	PF_Boolean on = FALSE;
-	int idx = 0;
-	PF_Pixel p = {0,0,0,0};
-	infoP->colorMax = 0;
-	ERR(ae->GetCHECKBOX(ID_COLOR1_ON,&on));
-	if (on==TRUE) {
-		ERR(ae->GetCOLOR(ID_COLOR1,&p));
-		infoP->color[idx] = p;
-		idx++;
-	}
-	ERR(ae->GetCHECKBOX(ID_COLOR2_ON,&on));
-	if (on==TRUE) {
-		ERR(ae->GetCOLOR(ID_COLOR2,&p));
-		if ( FindColor(infoP,p) == FALSE) { 
-			infoP->color[idx] = p;
-			idx++;
-		}
-	}
-	ERR(ae->GetCHECKBOX(ID_COLOR3_ON,&on));
-	if (on==TRUE) {
-		ERR(ae->GetCOLOR(ID_COLOR3,&p));
-		if ( FindColor(infoP,p) == FALSE) { 
-			infoP->color[idx] = p;
-			idx++;
-		}
-	}
-	ERR(ae->GetCHECKBOX(ID_COLOR4_ON,&on));
-	if (on==TRUE) {
-		ERR(ae->GetCOLOR(ID_COLOR4,&p));
-		if ( FindColor(infoP,p)==FALSE) { 
-			infoP->color[idx] = p;
-			idx++;
-		}
-	}
-	infoP->colorMax = idx;
-
-	ERR(ae->GetFLOAT(ID_LEVEL,&infoP->level));
-	infoP->level/=100;
-
-	ERR(ae->GetCHECKBOX(ID_WHITE,&infoP->white));
-	ERR(ae->GetCHECKBOX(ID_ALPHAZERO,&infoP->alphaZero));
-	ERR(ae->GetCHECKBOX(ID_EDGE,&infoP->edge));
+	ERR(ae->GetCHECKBOX(ID_GRAY,&infoP->grayOnly));
 
 	return err;
 }
@@ -289,23 +178,16 @@ static PF_Err
 	//画面をコピー
 	ERR(ae->CopyInToOut());
 	
-	if ( (infoP->colorMax<=0)||(infoP->value<=0))
-	{
-		return err;
-	}
 	switch(ae->pixelFormat())
 	{
 	case PF_PixelFormat_ARGB128:
-		//ERR(ae->iterate32((refconType)infoP,FilterImage32));
-		ERR(thinExec32(ae,infoP));
+		ERR(ae->iterate32((refconType)infoP,FilterImage32));
 		break;
 	case PF_PixelFormat_ARGB64:
-		//ERR(ae->iterate16((refconType)infoP,FilterImage16));
-		ERR(thinExec16(ae,infoP));
+		ERR(ae->iterate16((refconType)infoP,FilterImage16));
 		break;
 	case PF_PixelFormat_ARGB32:
-		//ERR(ae->iterate8((refconType)infoP,FilterImage8));
-		ERR(thinExec8(ae,infoP));
+		ERR(ae->iterate8((refconType)infoP,FilterImage8));
 		break;
 	}
 	return err;

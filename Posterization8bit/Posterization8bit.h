@@ -1,13 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	F's Plugins for VS2010/VS2012
+	Posterization8bit for VS2010
 */
 //-----------------------------------------------------------------------------------
+
 #pragma once
-
-#ifndef RandomMosaic2nd_H
-#define RandomMosaic2nd_H
-
+#ifndef Posterization8bit_H
+#define Posterization8bit_H
 
 #include "Fs_Target.h"
 
@@ -24,7 +23,6 @@
 #include "Param_Utils.h"
 #include "Smart_Utils.h"
 
-
 #if defined(PF_AE100_PLUG_IN_VERSION)
 	#include "AEFX_SuiteHelper.h"
 	#define refconType void*
@@ -37,44 +35,44 @@
 	#include <Windows.h>
 #endif
 
-
 #include "../FsLibrary/FsAE.h"
-//#include "FsAE.h"
 
-
-typedef struct ParamInfo{
-	PF_Fixed	value;
-	A_long		strangth;
-	A_long		sizeX;
-	A_long		sizeY;
-} ParamInfo;
-
+//ユーザーインターフェースのID
+//ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
-	ID_INPUT = 0,			// default input layer 
-	ID_Y,				//モザイクの量(%)
-	ID_STRENGTH,			//モザイクの強さ
-	ID_SIZEX,				// モザイクの大きさ
-	ID_SIZEY,				// モザイクの大きさ
+	ID_INPUT = 0,	// default input layer
+
+	ID_LEVEL,
+	ID_GRAY,
+
 	ID_NUM_PARAMS
 };
 
-#define STR_Y		"量(%)"
-#define STR_STRENGTH	"強さ"
-#define STR_SIZEX		"横サイズ"
-#define STR_SIZEY		"縦サイズ"
+//UIの表示文字列
+#define	STR_LEVEL			"level"
+#define	STR_G				"grayOnly"
 
+//UIのパラメータ
+typedef struct ParamInfo {
+	PF_Boolean	grayOnly;
+	A_long		level;
+
+} ParamInfo, *ParamInfoP, **ParamInfoH;
+
+//-------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------------
 extern "C" {
-DllExport
+
+DllExport 
 PF_Err 
-EntryPointFunc (
+EntryPointFunc (	
 	PF_Cmd			cmd,
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
 	PF_ParamDef		*params[],
 	PF_LayerDef		*output,
-	void			*extraP);
+	void			*extra);
 }
-
-
-
-#endif // RandomMosaic2nd
+#endif // Posterization8bit_H

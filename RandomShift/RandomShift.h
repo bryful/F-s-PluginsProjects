@@ -43,7 +43,7 @@
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer 
-	ID_VALUE,
+	ID_Y,
 	ID_SHIFTMAX,			//boolean
 	ID_SHIFTMIN,		// 1:XLine 2:YLine 3: Line 4:Box 5:BoxFill
 	ID_LENGTHMAX,		//
@@ -54,7 +54,7 @@ enum {
 	ID_NUM_PARAMS
 	};
 
-#define STR_VALUE		"量"
+#define STR_Y		"量"
 #define STR_SHIFTMAX	"ずらし幅の最大値(px)"
 #define STR_SHIFTMIN	"ずらし幅の最小値(px)"
 #define STR_LENGTHMAX	"横幅の最大値(px)"

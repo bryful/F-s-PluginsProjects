@@ -47,7 +47,7 @@ enum {
 	ID_INPUT = 0,
 
 	ID_SEED,		//—”‚ÌŠî€
-	ID_VALUE,		//—Ê
+	ID_Y,		//—Ê
 	ID_EDGE_VALUE,		//—Ê
 	ID_OPACITY_RAND,		//—Ê
 	

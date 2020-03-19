@@ -39,7 +39,7 @@
 #include "../FsLibrary/FsScreenShake.h"
 
 
-#define	STR_VALUE			"‘å‚«‚³(px)"
+#define	STR_Y			"‘å‚«‚³(px)"
 #define	STR_VALUE_RND		"‘å‚«‚³‚Ì‚Î‚ç‚Â‚«(%)"
 #define	STR_DIR				"•ûŒü(Rot)"
 #define	STR_DIR_RND			"•ûŒü‚Ì‚Î‚ç‚Â‚«(Rot)"
@@ -55,7 +55,7 @@
 
 enum {
 	ID_INPUT = 0,	// default input layer 
-	ID_VALUE,		// ‰æ–Ê“®‚Ì‘å‚«‚³
+	ID_Y,		// ‰æ–Ê“®‚Ì‘å‚«‚³
 	ID_VALUE_RND,
 	ID_DIR,			// ‰æ–Ê“®‚Ì•ûŒü
 	ID_DIR_RND,		// ‰æ–Ê“®‚Ì•ûŒü‚Ì‚Î‚ç‚Â‚«
