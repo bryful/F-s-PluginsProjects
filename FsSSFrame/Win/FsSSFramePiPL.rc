@@ -22,8 +22,8 @@ BEGIN
 	"MIB8",
 	"gtac", 
 	0, 0x0,
-	20, 0x0,
-	"\x12F's Plugins-Script\0", 
+	24, 0x0,
+	"\x14F's Plugins-{Legacy}\0\0\0", 
 
 	"MIB8",
 	"4668", 
@@ -47,7 +47,7 @@ BEGIN
 	0x65564552L, 
 	0L,
 	4L
-	558592L, 
+	1050112L, 
 
 	"MIB8",
 	0x65494E46L, 

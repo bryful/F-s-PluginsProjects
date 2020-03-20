@@ -464,7 +464,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\F%27s PluginsProjects_2013\F%27s TouchDraw\FsTDpset.h" />
+    <ClInclude Include="..\FsTDpset.h" />
     <ClInclude Include="..\..\FsLibrary\FsAE.h" />
     <ClInclude Include="..\..\FsLibrary\FsGraphics.h" />
     <ClInclude Include="..\..\FsLibrary\FsUtils.h" />

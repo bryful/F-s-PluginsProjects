@@ -22,8 +22,8 @@ BEGIN
 	"MIB8",
 	"gtac", 
 	0, 0x0,
-	16, 0x0,
-	"\x0EF's Plugins-Fx\0", 
+	20, 0x0,
+	"\x12F's Plugins-Filter\0", 
 
 	"MIB8",
 	"4668", 

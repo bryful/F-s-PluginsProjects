@@ -18,12 +18,14 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名
-#define FS_CATEGORY "F's Plugins-Fx"
 //#define FS_CATEGORY "F's Plugins-Channel"
-//#define FS_CATEGORY "F's Plugins-Paint"
-//#define FS_CATEGORY "F's Plugins-Script"
 //#define FS_CATEGORY "F's Plugins-Draw"
-
+//#define FS_CATEGORY "F's Plugins-Filter"
+#define FS_CATEGORY "F's Plugins-Noise"
+//#define FS_CATEGORY "F's Plugins-Cell"
+//#define FS_CATEGORY "F's Plugins-Colorize"
+//#define FS_CATEGORY "F's Plugins-Script"
+//#define FS_CATEGORY "F's Plugins-Test"
 //-----------------------------------------------------------
 #ifndef SUPPORT_SMARTFX			//２重登録を防ぐ
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
@@ -32,19 +34,8 @@
 
 
 //-----------------------------------------------------------------------------------
-//プラグインのバージョン
-#define	MAJOR_VERSION		1
-#define	MINOR_VERSION		2
-#define	BUG_VERSION			0
-//#define	STAGE_VERSION		PF_Stage_DEVELOP
-//#define	STAGE_VERSION		PF_Stage_ALPHA
-//#define	STAGE_VERSION		PF_Stage_BETA
-#define	STAGE_VERSION		PF_Stage_RELEASE
-#define	BUILD_VERSION		0
+#include "../FsLibrary/FsVersion.h"
 
-
-
-#define FS_VERSION		591360
 //-----------------------------------------------------------------------------------
 //out_flags
 /*

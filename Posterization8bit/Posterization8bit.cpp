@@ -87,41 +87,50 @@ FilterImage8 (
 {
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo *	infoP		= reinterpret_cast<ParamInfo*>(refcon);
+	PF_Pixel bl = { 0,0,0,0 };
+	if (outP->alpha == 0)
+	{
+		*outP = bl;
+		return err;
+	}
 
-
+	//各チャンネルを１の実数へ そしてMatの処理
 	double a = (double)outP->alpha / PF_MAX_CHAN8;
 	double r = (double)outP->red * a / PF_MAX_CHAN8;
 	double g = (double)outP->green * a / PF_MAX_CHAN8;
 	double b = (double)outP->blue * a / PF_MAX_CHAN8;
 
-	A_long va = PosSub8(a, infoP->level);
+	//まずアルファーの処理
+	A_long va = (A_long)((double)infoP->level * a + 0.5);//levelが最大になるように四捨五入して整数整数化
+	va = (A_long)((double)va * PF_MAX_CHAN8 / (double)infoP->level + 0.5);//255に変換
 	outP->alpha = RoundByteLong(va);
 
-	double y = (0.299 * r + 0.587 * g + 0.114 * b);
-	A_long vy = PosSub8(y, infoP->level);
-	vy = (A_long)((double)vy *PF_MAX_CHAN8 / va + 0.5);
 
 	if (infoP->grayOnly==TRUE)
 	{
+		double y = (0.299 * r + 0.587 * g + 0.114 * b);
+		A_long vy = (A_long)((double)infoP->level * y + 0.5); //levelが最大になるように四捨五入して整数整数化
+		vy = (A_long)((double)vy * PF_MAX_CHAN8 / (double)infoP->level + 0.5); //255に変換
+		vy = (A_long)((double)vy *PF_MAX_CHAN8 / va + 0.5); //Matの処理
 		outP->blue = outP->green = outP->red = RoundByteLong(vy);
 	}
 	else {
-		double u = ((r * -0.169) - (g*0.331) + (b* 0.500))*2;
-		double v = ((r *  0.500) - (g*0.419) - (b*-0.081))*2;
 
-		A_long vu = PosSub8(u, infoP->level);
-		vu = (A_long)((double)vu *PF_MAX_CHAN8 / ((double)va*2) + 0.5);
+		A_long vr = (A_long)((double)infoP->level * r + 0.5); //levelが最大になるように四捨五入して整数整数化
+		vr = (A_long)((double)vr * PF_MAX_CHAN8 / (double)infoP->level + 0.5); //255に変換
+		vr = (A_long)((double)vr *PF_MAX_CHAN8 / va + 0.5); //Matの処理
 
-		A_long vv = PosSub8(v, infoP->level);
-		vv = (A_long)((double)vv *PF_MAX_CHAN8 / ((double)va*2) + 0.5);
+		A_long vg = (A_long)((double)infoP->level * g + 0.5); //levelが最大になるように四捨五入して整数整数化
+		vg = (A_long)((double)vg * PF_MAX_CHAN8 / (double)infoP->level + 0.5); //255に変換
+		vg = (A_long)((double)vg *PF_MAX_CHAN8 / va + 0.5); //Matの処理
 
-		A_long rr = (A_long)((double)vy                    + 1.402*(double)vv + 0.5);
-		A_long gg = (A_long)((double)vy - 0.344*(double)vu - 0.714*(double)vv + 0.5);
-		A_long bb = (A_long)((double)vy + 1.772*(double)vu                    + 0.5);
+		A_long vb = (A_long)((double)infoP->level * b + 0.5); //levelが最大になるように四捨五入して整数整数化
+		vb = (A_long)((double)vb * PF_MAX_CHAN8 / (double)infoP->level + 0.5); //255に変換
+		vb = (A_long)((double)vb *PF_MAX_CHAN8 / va + 0.5); //Matの処理
 
-		outP->red = RoundByteLong(rr);
-		outP->green = RoundByteLong(gg);
-		outP->blue = RoundByteLong(bb);
+		outP->red = RoundByteLong(vr);
+		outP->green = RoundByteLong(vg);
+		outP->blue = RoundByteLong(vb);
 	}
 
 
@@ -138,7 +147,53 @@ FilterImage16 (
 	PF_Pixel16	*outP)
 {
 	PF_Err			err = PF_Err_NONE;
-	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
+	ParamInfo *	infoP = reinterpret_cast<ParamInfo*>(refcon);
+	PF_Pixel16 bl = { 0,0,0,0 };
+	if (outP->alpha == 0)
+	{
+		*outP = bl;
+		return err;
+	}
+
+	//各チャンネルを１の実数へ そしてMatの処理
+	double a = (double)outP->alpha / PF_MAX_CHAN16;
+	double r = (double)outP->red * a / PF_MAX_CHAN16;
+	double g = (double)outP->green * a / PF_MAX_CHAN16;
+	double b = (double)outP->blue * a / PF_MAX_CHAN16;
+
+	//まずアルファーの処理
+	A_long va = (A_long)((double)infoP->level * a + 0.5);//levelが最大になるように四捨五入して整数整数化
+	va = (A_long)((double)va * PF_MAX_CHAN16 / (double)infoP->level + 0.5);//255に変換
+	outP->alpha = RoundShort(va);
+
+
+	if (infoP->grayOnly == TRUE)
+	{
+		double y = (0.299 * r + 0.587 * g + 0.114 * b);
+		A_long vy = (A_long)((double)infoP->level * y + 0.5); //levelが最大になるように四捨五入して整数整数化
+		vy = (A_long)((double)vy * PF_MAX_CHAN16 / (double)infoP->level + 0.5); //255に変換
+		vy = (A_long)((double)vy *PF_MAX_CHAN16 / va + 0.5); //Matの処理
+		outP->blue = outP->green = outP->red = RoundShort(vy);
+	}
+	else {
+
+		A_long vr = (A_long)((double)infoP->level * r + 0.5); //levelが最大になるように四捨五入して整数整数化
+		vr = (A_long)((double)vr * PF_MAX_CHAN16 / (double)infoP->level + 0.5); //255に変換
+		vr = (A_long)((double)vr *PF_MAX_CHAN16 / va + 0.5); //Matの処理
+
+		A_long vg = (A_long)((double)infoP->level * g + 0.5); //levelが最大になるように四捨五入して整数整数化
+		vg = (A_long)((double)vg * PF_MAX_CHAN16 / (double)infoP->level + 0.5); //255に変換
+		vg = (A_long)((double)vg *PF_MAX_CHAN16 / va + 0.5); //Matの処理
+
+		A_long vb = (A_long)((double)infoP->level * b + 0.5); //levelが最大になるように四捨五入して整数整数化
+		vb = (A_long)((double)vb * PF_MAX_CHAN16 / (double)infoP->level + 0.5); //255に変換
+		vb = (A_long)((double)vb *PF_MAX_CHAN16 / va + 0.5); //Matの処理
+
+		outP->red = RoundShort(vr);
+		outP->green = RoundShort(vg);
+		outP->blue = RoundShort(vb);
+	}
+
 
 
 	return err;
@@ -153,7 +208,52 @@ FilterImage32 (
 	PF_PixelFloat	*outP)
 {
 	PF_Err			err = PF_Err_NONE;
-	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
+	ParamInfo *	infoP = reinterpret_cast<ParamInfo*>(refcon);
+	PF_PixelFloat bl = { 0,0,0,0 };
+	if (outP->alpha == 0)
+	{
+		*outP = bl;
+		return err;
+	}
+
+	//各チャンネルを１の実数へ そしてMatの処理
+	double a = (double)outP->alpha;
+	double r = (double)outP->red * a;
+	double g = (double)outP->green * a;
+	double b = (double)outP->blue * a;
+
+	//まずアルファーの処理
+	A_long va = (A_long)((double)infoP->level * a + 0.5);//levelが最大になるように四捨五入して整数整数化
+	a = (double)va / (double)infoP->level;//255に変換
+	outP->alpha = RoundFpShortDouble(a);
+
+
+	if (infoP->grayOnly == TRUE)
+	{
+		double y = (0.299 * r + 0.587 * g + 0.114 * b);
+		A_long vy = (A_long)((double)infoP->level * y + 0.5); //levelが最大になるように四捨五入して整数整数化
+		y = ((double)vy / (double)infoP->level); //255に変換
+		y = y / a; //Matの処理
+		outP->blue = outP->green = outP->red = RoundFpShortDouble(y);
+	}
+	else {
+
+		A_long vr = (A_long)((double)infoP->level * r + 0.5); //levelが最大になるように四捨五入して整数整数化
+		r = ((double)vr / (double)infoP->level); //255に変換
+		r = r / a; //Matの処理
+
+		A_long vg = (A_long)((double)infoP->level * g + 0.5); //levelが最大になるように四捨五入して整数整数化
+		g = ((double)vg / (double)infoP->level); //255に変換
+		g = g / a; //Matの処理
+
+		A_long vb = (A_long)((double)infoP->level * b + 0.5); //levelが最大になるように四捨五入して整数整数化
+		b = ((double)vb / (double)infoP->level); //255に変換
+		b = b / a; //Matの処理
+
+		outP->red = RoundFpShortDouble(r);
+		outP->green = RoundFpShortDouble(g);
+		outP->blue = RoundFpShortDouble(b);
+	}
 
 
 	return err;
