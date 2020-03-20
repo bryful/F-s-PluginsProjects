@@ -16,30 +16,23 @@
 //プラグインの説明に使われる文字
 #define	FS_DESCRIPTION		"アニメちっく画面動。方向指示バージョン単位がミリ"
 
-//-----------------------------------------------------------------------------------
-//プラグインが表示されるメニュー名
-#define FS_CATEGORY "F's Plugins-Fx"
-//#define FS_CATEGORY "F's Plugins-Channel"
-//#define FS_CATEGORY "F's Plugins-Paint"
-//#define FS_CATEGORY "F's Plugins-Script"
-//#define FS_CATEGORY "F's Plugins-Draw"
 
+	//-----------------------------------------------------------------------------------
+	//プラグインが表示されるメニュー名
+	//#define FS_CATEGORY "F's Plugins-Channel"
+	//#define FS_CATEGORY "F's Plugins-Draw"
+	#define FS_CATEGORY "F's Plugins-Filter"
+	//#define FS_CATEGORY "F's Plugins-Cell"
+	//#define FS_CATEGORY "F's Plugins-Colorize"
+	//#define FS_CATEGORY "F's Plugins-Script"
+	//#define FS_CATEGORY "F's Plugins-Test"
 
 //-----------------------------------------------------------
 //#define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
 //#define NO_USE_FSGRAPHICS	//これを有効にするとFsGraphics関係がインクルードされない
 
 //-----------------------------------------------------------------------------------
-//プラグインのバージョン
-#define	MAJOR_VERSION		1
-#define	MINOR_VERSION		6
-#define	BUG_VERSION			0
-#define	STAGE_VERSION		PF_Stage_RELEASE
-#define	BUILD_VERSION		0
-
-//上の値を計算した結果
-#define FS_VERSION		722432
-
+#include "../FsLibrary/FsVersion.h"
 //-----------------------------------------------------------------------------------
 //out_flags
 /*

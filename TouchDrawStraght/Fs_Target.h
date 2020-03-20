@@ -22,7 +22,7 @@
 //プラグインが表示されるメニュー名
 //#define FS_CATEGORY "F's Plugins-Fx"
 //#define FS_CATEGORY "F's Plugins-Channel"
-//#define FS_CATEGORY "F's Plugins-Paint"
+//#define FS_CATEGORY "F's Plugins-Cell"
 //#define FS_CATEGORY "F's Plugins-Script"
 #define FS_CATEGORY "F's Plugins-Draw"
 
@@ -32,18 +32,7 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインのバージョン
-#define	MAJOR_VERSION	1
-#define	MINOR_VERSION	1
-#define	BUG_VERSION		0
-//#define	STAGE_VERSION		0	//PF_Stage_DEVELOP
-//#define	STAGE_VERSION		1	//PF_Stage_ALPHA
-//#define	STAGE_VERSION		2	//PF_Stage_BETA
-#define	STAGE_VERSION		3	//PF_Stage_RELEASE
-#define	BUILD_VERSION	0
-
-//上の値を計算した結果
-#define FS_VERSION		558592
-
+#include "../FsLibrary/FsVersion.h"
 //-----------------------------------------------------------------------------------
 //out_flags
 /*

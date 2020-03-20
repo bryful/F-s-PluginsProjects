@@ -15,14 +15,15 @@
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
 #define FS_DESCRIPTION	"選択した色だけぼかします。CS6対応テストバージョン"
-
-//-----------------------------------------------------------------------------------
-//プラグインが表示されるメニュー名
-#define FS_CATEGORY "F's Plugins-Fx"
-//#define FS_CATEGORY "F's Plugins-Channel"
-//#define FS_CATEGORY "F's Plugins-Paint"
-//#define FS_CATEGORY "F's Plugins-Script"
-//#define FS_CATEGORY "F's Plugins-Draw"
+	//-----------------------------------------------------------------------------------
+	//プラグインが表示されるメニュー名
+	//#define FS_CATEGORY "F's Plugins-Channel"
+	//#define FS_CATEGORY "F's Plugins-Draw"
+	//#define FS_CATEGORY "F's Plugins-Filter"
+	#define FS_CATEGORY "F's Plugins-Cell"
+	//#define FS_CATEGORY "F's Plugins-Colorize"
+	//#define FS_CATEGORY "F's Plugins-Script"
+	//#define FS_CATEGORY "F's Plugins-Test"
 
 
 //-----------------------------------------------------------
@@ -31,18 +32,7 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインのバージョン
-#define	MAJOR_VERSION	1
-#define	MINOR_VERSION	1
-#define	BUG_VERSION		0
-//#define	STAGE_VERSION		PF_Stage_DEVELOP
-//#define	STAGE_VERSION		PF_Stage_ALPHA
-//#define	STAGE_VERSION		PF_Stage_BETA
-#define	STAGE_VERSION		PF_Stage_RELEASE
-#define	BUILD_VERSION	0
-
-//上の値を計算したもの
-#define FS_VERSION		558592
-
+#include "../FsLibrary/FsVersion.h"
 //-----------------------------------------------------------------------------------
 //out_flags
 /*

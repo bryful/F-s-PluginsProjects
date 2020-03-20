@@ -18,14 +18,15 @@
 //プラグインの説明に使われる文字
 #define FS_DESCRIPTION	"波ガラス"
 
-//-----------------------------------------------------------------------------------
-//プラグインが表示されるメニュー名
-#define FS_CATEGORY "F's Plugins-Fx"
-//#define FS_CATEGORY "F's Plugins-Channel"
-//#define FS_CATEGORY "F's Plugins-Paint"
-//#define FS_CATEGORY "F's Plugins-Script"
-//#define FS_CATEGORY "F's Plugins-Draw"
-
+	//-----------------------------------------------------------------------------------
+	//プラグインが表示されるメニュー名
+	//#define FS_CATEGORY "F's Plugins-Channel"
+	//#define FS_CATEGORY "F's Plugins-Draw"
+	#define FS_CATEGORY "F's Plugins-Filter"
+	//#define FS_CATEGORY "F's Plugins-Cell"
+	//#define FS_CATEGORY "F's Plugins-Colorize"
+	//#define FS_CATEGORY "F's Plugins-Script"
+//#define FS_CATEGORY "F's Plugins-Test"
 //-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
 //#define NO_USE_FSGRAPHICS	//これを有効にするとFsGraphics関係がインクルードされない

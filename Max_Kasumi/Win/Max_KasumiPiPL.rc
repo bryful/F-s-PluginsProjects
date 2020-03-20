@@ -22,8 +22,8 @@ BEGIN
 	"MIB8",
 	"gtac", 
 	0, 0x0,
-	16, 0x0,
-	"\x0EF's Plugins-Fx\0", 
+	20, 0x0,
+	"\x13F's Plugins-Channel", 
 
 	"MIB8",
 	"4668", 
@@ -47,7 +47,7 @@ BEGIN
 	0x65564552L, 
 	0L,
 	4L
-	558592L, 
+	1050112L, 
 
 	"MIB8",
 	0x65494E46L, 

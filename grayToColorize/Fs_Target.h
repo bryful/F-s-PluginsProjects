@@ -18,31 +18,22 @@
 //プラグインの説明に使われる文字
 #define FS_DESCRIPTION	"適当な素材を適当に色を付ける"
 
-//-----------------------------------------------------------------------------------
-//プラグインが表示されるメニュー名
-#define FS_CATEGORY "F's Plugins-Fx"
-//#define FS_CATEGORY "F's Plugins-Channel"
-//#define FS_CATEGORY "F's Plugins-Paint"
-//#define FS_CATEGORY "F's Plugins-Script"
-//#define FS_CATEGORY "F's Plugins-Draw"
+	//-----------------------------------------------------------------------------------
+	//プラグインが表示されるメニュー名
+	//#define FS_CATEGORY "F's Plugins-Channel"
+	//#define FS_CATEGORY "F's Plugins-Draw"
+	//#define FS_CATEGORY "F's Plugins-Filter"
+	//#define FS_CATEGORY "F's Plugins-Cell"
+	#define FS_CATEGORY "F's Plugins-Colorize"
+	//#define FS_CATEGORY "F's Plugins-Script"
+//#define FS_CATEGORY "F's Plugins-Test"
 
 //-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
 //#define NO_USE_FSGRAPHICS	//これを有効にするとFsGraphics関係がインクルードされない
 
 //-----------------------------------------------------------------------------------
-//プラグインのバージョン
-#define	MAJOR_VERSION	1
-#define	MINOR_VERSION	1
-#define	BUG_VERSION		0
-//#define	STAGE_VERSION		0	//PF_Stage_DEVELOP
-//#define	STAGE_VERSION		1	//PF_Stage_ALPHA
-//#define	STAGE_VERSION		2	//PF_Stage_BETA
-#define	STAGE_VERSION		3	//PF_Stage_RELEASE
-#define	BUILD_VERSION	0
-
-//上の値を計算した結果
-#define FS_VERSION		558592
+#include "../FsLibrary/FsVersion.h"
 
 //-----------------------------------------------------------------------------------
 //out_flags
@@ -56,8 +47,8 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//通常はこちら
-#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+#define FS_OUT_FLAGS	33556032	//通常はこちら
+//#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
 //#define FS_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------
