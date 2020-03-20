@@ -4,7 +4,9 @@ Adone After EffectsのEffectsPlugin集のソース一式とバイナリです。
 昔から趣味でコツコツと作っていたものです。  
 趣味といっても僕自身日本のアニメ制作者なので業務に使ってます。
 
-CC2019用からgithubでバイナリーの配布も行います。  
+CC2019用からgithubでバイナリーの配布も行います。
+**_DL_windowsbinary**フォルダの中に入っています。  
+
 * [Fsplugins20202001.zip](https://bit.ly/3a2PrFc)  
 3月20日版です。現在最新のものです。これを１週間使ってデバッグしたら正式版にします。
 * [Fsplugins20202001.zip](https://bit.ly/2JeNE4l)   
