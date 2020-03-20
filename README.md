@@ -5,6 +5,8 @@ Adone After EffectsのEffectsPlugin集のソース一式とバイナリです。
 趣味といっても僕自身日本のアニメ制作者なので業務に使ってます。
 
 CC2019用からgithubでバイナリーの配布も行います。  
+* [Fsplugins20202001.zip](https://bit.ly/2JeNE4l)   
+ファイル名間違えていますが2020/02/01版です
 
 # 変更点
 2020/03/20  
@@ -25,6 +27,15 @@ CC2019 SDKに変更。
 * F's Plugins-{Legacy}  
  もう使って欲しくない。或いは使い道のないものです。  
  紙飛行機作成補助プラグインとか
+### 追加プラグイン
+* F's EdgeLine-Hi.aex  指定した2色の境界に線を描きます。その時描く向きを指定できます。
+* F's Flare.aex 白黒マスクにグローを付けます。透過光です。
+* F's graytoneToColorize.aex 簡易コロラマです。ゴールド処理やサーモグラフ処理に使います。
+* F's PixelExtend.aex 指定した色を指定した方向に膨張させます。
+* F's Posterization8bit.aex ポスタリゼーションです。標準と違って内部は8bit処理です。
+* F's Scanline.aex スキャンライン。昔の古いパソコンの偶数列が黒いラインの状態ができます。
+* F's YuvControl.aex YUV版のRGBAコントロールです。
+
 # 開発環境
 Visual studio 2017 Community 2017 C++
 AfterEffectsSDK CC2019
