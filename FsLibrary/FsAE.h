@@ -1206,6 +1206,7 @@ public:
 		*pos = ret;
 		return err;
 	}
+
 	//--------------------------------------------------------------------
 	PF_Err GetPOPUP(A_long idx,A_long *pop)
 	{
