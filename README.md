@@ -7,8 +7,11 @@ Adone After EffectsのEffectsPlugin集のソース一式とバイナリです。
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。  
 
-* [Fsplugins20202001.zip](https://bit.ly/3a2PrFc)  
-3月20日版です。現在最新のものです。これを１週間使ってデバッグしたら正式版にします。
+
+* [Fsplugins20200410.zip](https://bit.ly/2RqSlwe)  
+4月10日版です。正式版です。
+* [Fsplugins20200320.zip](https://bit.ly/3a2PrFc)  
+3月20日版です。これを１週間使ってデバッグしたら正式版にします。
 * [Fsplugins20202001.zip](https://bit.ly/2JeNE4l)   
 ファイル名間違えていますが2020/02/01版です。
 
