@@ -7,19 +7,15 @@ Adone After EffectsのEffectsPlugin集のソース一式とバイナリです。
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。  
 
-
-* [Fsplugins20200410.zip](https://bit.ly/2RqSlwe)  
-4月10日版です。正式版です。
-* [Fsplugins20200320.zip](https://bit.ly/3a2PrFc)  
-3月20日版です。これを１週間使ってデバッグしたら正式版にします。
-* [Fsplugins20202001.zip](https://bit.ly/2JeNE4l)   
-ファイル名間違えていますが2020/02/01版です。
+* [Fsplugins2020726.zip](https://bit.ly/2OXxZJj)  
+7月26日版です。SDKをCC2020に変えてビルドしただけのものです。しばらく使ったら正式版にします。
+* [Fsplugins20202001.zip](https://bit.ly/3a2PrFc)  
+3月20日版です。現在最新のものです。
 
 # 変更点
-2020/04/10
-エクスプレッション用のプラグインを2個追加
-それ以外は変更ありません。
-
+2020/07/26  
+CC2020 SDKに変更。  
+  
 2020/03/20  
 CC2019 SDKに変更。  
 数が多くなって使いにくくなったので、カテゴリーを整理しました。  
@@ -57,7 +53,7 @@ SDKはCC2019を使用していますが、CS4/CS6のSDKでもbuild可能です。
 
 こんな感じです。
 
-        /AfterEffectsSDK CC2019    
+        /AfterEffectsSDK CC2019  
         └─Examples  
             ├─AEGP  
             ├─Effect  
@@ -79,6 +75,7 @@ SDKはCC2019を使用していますが、CS4/CS6のSDKでもbuild可能です。
 # 使い方
 
 SDKはCC2018/CC2019を想定していますが、CS6及びCC2019までのSDKでビルド可能です。
+CC2020のSDKでも特に問題なくビルドできます。  
   
 F's PluginsProjectsフォルダを各バージョンのExamplesフォルダに移動すればできます。
   
@@ -113,7 +110,7 @@ P関係のゲーム会社の方へ
 
 # Authors
 
-bry-ful(Hiroshi Furuhashi) http://bryful.yuzu.bz/  
+bry-ful(Hiroshi Furuhashi)   
 twitter:[bryful](https://twitter.com/bryful)  
 bryful@gmail.com  
 
