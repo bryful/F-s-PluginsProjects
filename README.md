@@ -3,17 +3,20 @@ Adone After EffectsのEffectsPlugin集のソース一式とバイナリです。
   
 昔から趣味でコツコツと作っていたものです。  
 趣味といっても僕自身日本のアニメ制作者なので業務に使ってます。
-  
+
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。  
 
-基本的に配布しているバイナリーはwindows用 のみです。  
-Mac用はありません。  
-  
 * [Fsplugins2020726.zip](https://bit.ly/2OXxZJj)  
-7月26日版です。SDKをCC2020に変えてビルドしただけのものです。しばらく使ったら正式版にします。
+7月26日版です。SDKをCC2020に変えてビルドしただけのものです。  
 
 # 変更点
+2020/08/15  
+コンパイラを VS2017からVS2019へ変更。  
+それに伴い、構造体メンバーのアライメントを16byteに変更。/Zp16  
+  
+grayToCountourLineを追加  
+  
 2020/07/26  
 CC2020 SDKに変更。  
   
@@ -45,16 +48,17 @@ CC2019 SDKに変更。
 * F's YuvControl.aex YUV版のRGBAコントロールです。
 
 # 開発環境
-Visual studio 2017 Community 2017 C++
-AfterEffectsSDK CC2019
-SDKはCC2019を使用していますが、CS4/CS6のSDKでもbuild可能です。
+Visual studio 2017 Community 2017 C++ or Visual studio 2019 Community 2017 C++
+
+AfterEffectsSDK CC2020
+SDKはCC2020を使用していますが、CS4/CS6のSDKでもbuild可能です。  
 
 # Setup
 プロジェクト等はSDKフォルダ内のExampleフォルダ内へ配置してください。
 
 こんな感じです。
 
-        /AfterEffectsSDK CC2019    
+        /AfterEffectsSDK CC2019  
         └─Examples  
             ├─AEGP  
             ├─Effect  
@@ -75,7 +79,7 @@ SDKはCC2019を使用していますが、CS4/CS6のSDKでもbuild可能です。
 
 # 使い方
 
-SDKはCC2018/CC2019を想定していますが、CS6及びCC2019までのSDKでビルド可能です。
+SDKはCC2020を想定していますが、CS6及びCC2020までのSDKでビルド可能です。
   
 F's PluginsProjectsフォルダを各バージョンのExamplesフォルダに移動すればできます。
   
@@ -100,16 +104,18 @@ This software is released under the MIT License, see LICENSE.
 
 **プラグイン協力 bry-ful**  
 
-とクレジットしてくれると嬉しいです（これは強制ではありませんので、基本的に無断使用でかまいません）
+とクレジットしてくれると嬉しいです。プラグイン協力以外でも適当な肩書であれば別のものに変えても構いません。
 
 P関係のゲーム会社の方へ 
 使用に関しては特に制限ありません。許諾も必要ありません。使用料も発生しません。 
 これは今後絶対に変わりません。
-  
+
+
+
 # Authors
 
+bry-ful(Hiroshi Furuhashi)  
 twitter:[bryful](https://twitter.com/bryful)  
-github :[bryful](https://github.com/bryful)  
 bryful@gmail.com  
 
 # References
