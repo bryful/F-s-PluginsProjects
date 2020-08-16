@@ -7,15 +7,12 @@ Adone After EffectsのEffectsPlugin集のソース一式とバイナリです。
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。  
 
-* [FsPlugins20200815.zip](https://bit.ly/3h0oWDU)  
-8月15日版です。VS2020に変更しました。  
+* [FsPlugins20200816.zip](https://bit.ly/2PZqemC)  
+8月16日版です。VS2020に変更しました。  
 * [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)  
 7月26日版です。SDKをCC2020に変えてビルドしただけのものです。  
 
 # 変更点
-2020/08/16  
-* F'grayToWaveLine.aexを追加  
-
 2020/08/15  
 コンパイラを VS2017からVS2019へ変更。  
 それに伴い、構造体メンバーのアライメントを16byteに変更。/Zp16  
