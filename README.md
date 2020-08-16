@@ -12,13 +12,18 @@ CC2019用からgithubでバイナリーの配布も行います。
 * [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)  
 7月26日版です。SDKをCC2020に変えてビルドしただけのものです。  
 
-
 # 変更点
+2020/08/16  
+* F'grayToWaveLine.aexを追加  
+
 2020/08/15  
 コンパイラを VS2017からVS2019へ変更。  
 それに伴い、構造体メンバーのアライメントを16byteに変更。/Zp16  
   
-grayToCountourLineを追加  
+* F'sgrayToCountourLine.aexを追加  
+ポスタリゼーションの変形バージョンです、諧調を均等に割らずにHi/Mid/Loで諧調を変えられます。  
+* F's grayToWaveLine.aexを追加  
+グレー画像を疑似３Dプロッタ風に描画します。昔のSF映画のモニタぽいものができます。  
   
 2020/07/26  
 CC2020 SDKに変更。  
