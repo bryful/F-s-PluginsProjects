@@ -83,7 +83,6 @@ enum {
 #define	STR_LASTRANDX	"lastRandX"
 #define	STR_LASTRANDY	"lastRandY"
 
-#define	STR_ROTRANDOM	"rotRandom"
 
 #define	STR_LINESIZE	"lineSize"
 #define	STR_LINEMOVE	"lineMove"
