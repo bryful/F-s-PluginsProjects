@@ -30,7 +30,7 @@
     <ProjectGuid>{81DE57D1-C408-45F2-9AF4-A14097A11565}</ProjectGuid>
     <RootNamespace>YuvControl</RootNamespace>
     <ProjectName>YuvControl</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|Win32'" Label="Configuration">
@@ -203,7 +203,7 @@
       <AdditionalIncludeDirectories>..\..\..\Headers;..\..\..\Headers\SP;..\..\..\Resources;..\..\..\Util;..\F's PluginsProjects_2013\FsLibrary</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>MSWindows;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <StructMemberAlignment>4Bytes</StructMemberAlignment>
+      <StructMemberAlignment>16Bytes</StructMemberAlignment>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PrecompiledHeaderFile>AE_Effect.h</PrecompiledHeaderFile>

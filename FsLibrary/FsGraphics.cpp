@@ -14,21 +14,10 @@ CFsGraph::CFsGraph(
 		PF_PixelFormat	format)
 {
 	//メンバの初期化
-	m_Enabled = FALSE;
-	m_in_data	= NULL;
-	m_world		= NULL;
-	m_data		= NULL;
-	m_format	= PF_PixelFormat_INVALID;
-
-	m_width			= 0;
-	m_widthTrue		= 0;
-	m_height		= 0;
-	m_offsetWidth	= 0;
-	
-	m_mat			= MAT::none;
 
 	lineHeiht		= 1;
 
+	m_frame = 0;
 	if (in_data!=NULL){
 		m_in_data = in_data;
 		//カレントフレームを求める画頭は０
@@ -56,25 +45,30 @@ CFsGraph::CFsGraph(
 				break;
 		}
 		m_offsetWidth	= m_widthTrue - m_width;
-		m_Enabled	= TRUE;
+		m_vurTblH = PF_NEW_HANDLE(sizeof(A_long) * m_height * 2);
+
+		if (m_vurTblH) {
+			PF_LOCK_HANDLE(m_vurTblH);
+			m_vurTbl = *(A_long**)m_vurTblH;
+			for (A_long i = 0; i < m_height; i++)
+			{
+				m_vurTbl[i] = m_widthTrue*i;
+			}
+
+			m_Enabled = TRUE;
+		}
 	}
 
 
 }
-//******************************************************************************
-/*
-CFsGraph::CFsGraph(
-		PF_EffectWorld *world, 
-		PF_InData *in_data)
+CFsGraph::~CFsGraph()
 {
-	PF_PixelFormat fromat	=	PF_PixelFormat_INVALID;
-	if( PF_WORLD_IS_DEEP( world )){
-		fromat = PF_PixelFormat_ARGB64;
-	}else{
-		fromat = PF_PixelFormat_ARGB32;
+	if (m_vurTblH != NULL)
+	{
+		PF_InData* in_data = m_in_data;
+		PF_UNLOCK_HANDLE(m_vurTblH);
+		PF_DISPOSE_HANDLE(m_vurTblH);
 	}
-	CFsGraph(world,in_data,fromat);
 }
- */
 //******************************************************************************
 //******************************************************************************

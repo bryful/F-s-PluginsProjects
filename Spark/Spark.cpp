@@ -79,7 +79,7 @@ static PF_Err ParamsSetup (
 		500,			//数値入力する場合の最大値
 		0,				//スライダーの最小値 
 		100,				//スライダーの最大値
-		10,				//デフォルトの値
+		30,				//デフォルトの値
 		ID_LASTRANDX
 	);	
 	//----------------------------------------------------------------
@@ -89,11 +89,34 @@ static PF_Err ParamsSetup (
 		500,			//数値入力する場合の最大値
 		0,				//スライダーの最小値 
 		100,				//スライダーの最大値
-		10,				//デフォルトの値
+		30,				//デフォルトの値
 		ID_LASTRANDY
 	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_LASTRANDR,	//Name
+		0,						//VALID_MIN
+		180,					//VALID_MAX
+		0,						//SLIDER_MIN
+		180,					//SLIDER_MAX
+		1,						//CURVE_TOLERANCE
+		0,						//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_LASTRANDR
 
-	
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_LASTROTSEED,	//パラメータの名前
+		-30000, 				//数値入力する場合の最小値
+		30000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		1000,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_LASTRANDSEED
+	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_FLOAT_SLIDER(STR_LINESIZE,	//Name
@@ -134,8 +157,8 @@ static PF_Err ParamsSetup (
 		1, 				//数値入力する場合の最小値
 		10,			//数値入力する場合の最大値
 		1,				//スライダーの最小値 
-		5,				//スライダーの最大値
-		3,				//デフォルトの値
+		6,				//スライダーの最大値
+		4,				//デフォルトの値
 		ID_FOLD_COUNT
 	);
 	//----------------------------------------------------------------
@@ -196,7 +219,7 @@ QueryDynamicFlags(
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err
-FilterImage8(
+RedBlendIn8(
 	refconType	refcon,
 	A_long		xL,
 	A_long		yL,
@@ -242,7 +265,7 @@ FilterImage8(
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err
-FilterImage16(
+RedBlendIn16(
 	refconType	refcon,
 	A_long		xL,
 	A_long		yL,
@@ -288,7 +311,7 @@ FilterImage16(
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err
-FilterImage32(
+RedBlendIn32(
 	refconType	refcon,
 	A_long		xL,
 	A_long		yL,
@@ -325,10 +348,10 @@ FilterImage32(
 		g1 /= v1;
 		b1 /= v1;
 
-		outP->alpha = RoundShortFpLong(v1);
-		outP->red = RoundShortFpLong(r1);
-		outP->green = RoundShortFpLong(g1);
-		outP->blue = RoundShortFpLong(b1);
+		outP->alpha = RoundFpShortDouble(v1);
+		outP->red = RoundFpShortDouble(r1);
+		outP->green = RoundFpShortDouble(g1);
+		outP->blue = RoundFpShortDouble(b1);
 
 	}
 
@@ -342,14 +365,25 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	infoP->start.s = 0;
 	infoP->start.s = 0;
 
+	PF_InData* in_data = ae->in_data;
+	PF_FpLong ds = (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den;
+
+
 	PF_FixedPoint v;
+
 	ERR(ae->GetFIXEDPOINT(ID_START, &v));
 	if (!err) {
 		infoP->start.p.x = (int)((double)v.x / 65536 + 0.5);
 		infoP->start.p.y = (int)((double)v.y / 65536 + 0.5);
 	}
 	ERR(ae->GetADD(ID_STARTRANDX, &infoP->startRandX));
+	if (!err) {
+		infoP->startRandX = (A_long)((PF_FpLong)infoP->startRandX * ds + 0.5);
+	}
 	ERR(ae->GetADD(ID_STARTRANDY, &infoP->startRandY));
+	if (!err) {
+		infoP->startRandY = (A_long)((PF_FpLong)infoP->startRandY * ds + 0.5);
+	}
 
 	ERR(ae->GetFIXEDPOINT(ID_LAST, &v));
 	if (!err) {
@@ -357,11 +391,29 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 		infoP->last.p.y = (int)((double)v.y / 65536 + 0.5);
 	}
 	ERR(ae->GetADD(ID_LASTRANDX, &infoP->lastRandX));
+	if (!err) {
+		infoP->lastRandX = (A_long)((PF_FpLong)infoP->lastRandX * ds + 0.5);
+	}
+
 	ERR(ae->GetADD(ID_LASTRANDY, &infoP->lastRandY));
+	if (!err) {
+		infoP->lastRandY = (A_long)((PF_FpLong)infoP->lastRandY * ds + 0.5);
+	}
+
+	ERR(ae->GetFLOAT(ID_LASTRANDR, &infoP->lastRandR));
+	ERR(ae->GetADD(ID_LASTRANDSEED, &infoP->lastRandSeed));
+	infoP->lastRandSeed %= 30000;
+	if (infoP->lastRandSeed < 0)infoP->lastRandSeed += 30000;
 
 
 	ERR(ae->GetFLOAT(ID_LINESIZE, &infoP->lineSize));
+	if (!err) {
+		infoP->lineSize = (A_long)((PF_FpLong)infoP->lineSize * ds + 0.5);
+	}
 	ERR(ae->GetADD(ID_LINEMOVE, &infoP->lineMove));
+	if (!err) {
+		infoP->lineMove = (A_long)((PF_FpLong)infoP->lineMove * ds + 0.5);
+	}
 
 	ERR(ae->GetADD(ID_SUB_COUNT, &infoP->subCount));
 	ERR(ae->GetADD(ID_FOLD_COUNT, &infoP->foldCount));
@@ -373,7 +425,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	if (!err) {
 		r = r % (360L << 16);
 		if (r < 0) r += (360L << 16);
-		infoP->offset = r / 65536;
+		infoP->offset = (PF_FpLong)r / 65536;
 	}
 	ERR(ae->GetADD(ID_SEED, &infoP->seed));
 	infoP->seed %= 30000;
@@ -390,39 +442,94 @@ static PF_Err
 	Exec (CFsAE *ae , ParamInfo *infoP)
 {
 	PF_Err	err = PF_Err_NONE;
-
-	//画面をコピー
-	ERR(ae->CopyInToOut());
-	
 	infoP->frame = ae->frame();
+	init_xorShift(infoP->seed);
+	init_xorShiftR(infoP->lastRandSeed);
 
+	CLineDraw ld(ae->output, ae->in_data,ae->pixelFormat());
+
+	for (A_long dc = 0; dc < infoP->drawCount; dc++)
+	{
+		PointInfo p0 = infoP->start;
+		PointInfo p1 = infoP->last;
+		PF_FpLong rot = infoP->lastRandR;
+		rot = -rot + 2 * rot * xorShiftRDouble();
+
+		p1 = ld.Points.CalcRotPos(p0, p1, rot);
+		p0 = ld.Points.Random(p0, infoP->startRandX, infoP->startRandY);
+		p1 = ld.Points.Random(p1, infoP->lastRandX, infoP->lastRandY);
+		p0.s = 0;
+		p1.s = 0;
+		ld.Points.Clear();
+		ld.Points.Push(p0);
+		ld.Points.Push(p1);
+		A_long depth = 0;
+		if (infoP->foldCount > 0) {
+			for (A_long fc = 0; fc < infoP->foldCount; fc++)
+			{
+				ld.Points.CalcCenterPos(
+					infoP->lineSize,
+					infoP->lineMove,
+					infoP->offset,
+					depth
+				);
+				depth++;
+
+			}
+		}
+		ld.Line();
+
+		if (infoP->subCount > 0) {
+			PointInfo p2 = ld.Points.First();
+			PointInfo p3 = ld.Points.Last();
+			if (ld.Points.Count() >= 4)
+			{
+				p2 = ld.Points.First(1);
+				p3 = ld.Points.Last(1);
+			}
+			for (A_long sc = 0; sc < infoP->subCount; sc++)
+			{
+				ld.Points.Clear();
+				ld.Points.Push(p2);
+				ld.Points.Push(p3);
+				A_long depth = 0;
+				if (infoP->foldCount > 0) {
+
+
+					for (A_long fc = 0; fc < infoP->foldCount; fc++)
+					{
+						ld.Points.CalcCenterPos(
+							infoP->lineSize / 3,
+							infoP->lineMove * 5 / 4,
+							-infoP->offset,
+							depth
+						);
+						depth++;
+
+					}
+				}
+				ld.Line();
+			}
+		}
+	}
+
+	ld.Colorize(infoP->color);
 
 	if (ae->pixelFormat() == PF_PixelFormat_ARGB128) {
-		CDraw32 cd(ae->output, ae->in_data);
-		if (cd.world != NULL) {
-			cd.exec(ae, infoP);
-			if (infoP->blend == TRUE) {
-				ERR(ae->iterate32((refconType)infoP, FilterImage32));
-			}
+		if (infoP->blend == TRUE) {
+			ERR(ae->iterate32((refconType)infoP, RedBlendIn32));
 		}
 
 	}
 	else if (ae->pixelFormat() == PF_PixelFormat_ARGB64) {
-		CDraw16 cd(ae->output, ae->in_data);
-		if (cd.world != NULL) {
-			cd.exec(ae, infoP);
-			if (infoP->blend == TRUE) {
-				ERR(ae->iterate16((refconType)infoP, FilterImage16));
-			}
+		if (infoP->blend == TRUE) {
+			ERR(ae->iterate16((refconType)infoP, RedBlendIn16));
 		}
 	}
 	else if (ae->pixelFormat() == PF_PixelFormat_ARGB32) {
-		CDraw8 cd(ae->output, ae->in_data);
-		if (cd.world != NULL) {
-			cd.exec(ae, infoP);
-			if (infoP->blend == TRUE) {
-				ERR(ae->iterate8((refconType)infoP, FilterImage8));
-			}
+		
+		if (infoP->blend == TRUE) {
+			ERR(ae->iterate8((refconType)infoP, RedBlendIn8));
 		}
 	}
 

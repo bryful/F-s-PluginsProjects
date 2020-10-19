@@ -1,42 +1,15 @@
 #pragma once
-#ifndef CDraw16_H
-#define CDraw16_H
+#ifndef CDraw8_H
+#define CDraw8_H
 
-#include "Fs_Target.h"
-
-#include "AEConfig.h"
-#include "entry.h"
-
-//#include "PrSDKAESupport.h"
-#include "AE_Effect.h"
-#include "AE_EffectCB.h"
-#include "AE_EffectCBSuites.h"
-#include "AE_Macros.h"
-#include "AEGP_SuiteHandler.h"
-#include "String_Utils.h"
-#include "Param_Utils.h"
-#include "Smart_Utils.h"
-
-#if defined(PF_AE100_PLUG_IN_VERSION)
-#include "AEFX_SuiteHelper.h"
-#define refconType void*
-#else
-#include "PF_Suite_Helper.h"
-#define refconType A_long
-#endif
-
-#ifdef AE_OS_WIN
-#include <Windows.h>
-#endif
-
-
+#include "../FsLibrary/Fs.h"
 #include "../FsLibrary/FsAE.h"
 #include "Params.h"
 
 
 
 
-class CDraw16
+class CDraw8
 {
 
 protected:
@@ -50,9 +23,9 @@ private:
 
 
 public:
-	PF_InData*			in_data;
-	PF_EffectWorld*		world;
-	PF_Pixel16*			 data;
+	PF_InData* in_data;
+	PF_EffectWorld* world;
+	PF_Pixel* data;
 
 	A_long				width;
 	A_long				height;
@@ -62,7 +35,7 @@ public:
 
 public:
 	// **************************************************************
-	CDraw16(
+	CDraw8(
 		PF_EffectWorld* wld = NULL,
 		PF_InData* ind = NULL)
 	{
@@ -84,18 +57,19 @@ public:
 		in_data = ind;
 		world = wld;
 		if (wld != NULL) {
-			data = (PF_Pixel16*)wld->data;
+			data = (PF_Pixel*)wld->data;
 			width = wld->width;
 			height = wld->height;
-			widthTrue = wld->rowbytes / sizeof(PF_Pixel16);
+			widthTrue = wld->rowbytes / sizeof(PF_Pixel8);
 			offsetWidth = widthTrue - width;
 		
 		
 			A_long bufSize = height * sizeof(A_long) + POINT_TABLE_SIZE * sizeof(PointInfo);
-			bufSize *= 2;
+			bufSize *= 3;
 			bufH = PF_NEW_HANDLE(bufSize);
 			if (bufH) {
 				vurTbl = *(A_long**)bufH;
+				PF_LOCK_HANDLE(bufH);
 				for (A_long i = 0; i < height; i++)
 				{
 					vurTbl[i] = i * widthTrue;
@@ -120,28 +94,29 @@ public:
 
 	}
 	// **************************************************************
-	~CDraw16()
+	~CDraw8()
 	{
 		if (bufH != NULL)
 		{
+			PF_UNLOCK_HANDLE(bufH);
 			PF_DISPOSE_HANDLE(bufH);
 			bufH = NULL;
 		}
 	}
 	// **************************************************************
-	inline PF_Pixel16 GetPX(A_LPoint p){return data[p.x + vurTbl[p.y]];}
-	inline void SetPX(A_LPoint p, PF_Pixel16 c) { data[p.x + vurTbl[p.y]] = c; }
-	inline A_u_short GetPXR(A_LPoint p) { return data[p.x + vurTbl[p.y]].red; }
-	inline void SetPXR(A_LPoint p, A_u_short c) { data[p.x + vurTbl[p.y]].red = c; }
+	inline PF_Pixel GetPX(A_LPoint p){return data[p.x + vurTbl[p.y]];}
+	inline void SetPX(A_LPoint p, PF_Pixel c) { data[p.x + vurTbl[p.y]] = c; }
+	inline A_char GetPXR(A_LPoint p) { return data[p.x + vurTbl[p.y]].red; }
+	inline void SetPXR(A_LPoint p, A_char c) { data[p.x + vurTbl[p.y]].red = c; }
 	// **************************************************************
-	inline void BlendPX(A_long x, A_long y, A_u_short v)
+	inline void BlendPX(A_long x, A_long y, A_u_char v)
 	{
 		if ((x >= 0) && (x < width) && (y >= 0) && (y < height))
 		{
 			A_long p = x + vurTbl[y];
-			data[p].red = RoundShortFpLong((double)data[p].red * (double)v/ PF_MAX_CHAN16);
-			data[p].green = RoundShortFpLong((double)data[p].green * (double)v / PF_MAX_CHAN16);
-			data[p].blue = RoundShortFpLong((double)data[p].blue * (double)v / PF_MAX_CHAN16);
+			data[p].red = (A_u_char)((long)data[p].red * v/255);
+			data[p].green = (A_u_char)((long)data[p].green * v / 255);
+			data[p].blue = (A_u_char)((long)data[p].blue * v / 255);
 
 		}
 	}	
@@ -170,11 +145,11 @@ public:
 
 		A_long dxi = xi1 - xi0;
 		if (dxi==0) {
-			BlendPX(xi0, y, (A_u_short)((1 - xv0)*PF_MAX_CHAN16));
+			BlendPX(xi0, y, (A_u_char)((1 - xv0)*PF_MAX_CHAN8));
 		}
 		else {
-			BlendPX(xi0, y, (A_u_short)((1 - xv0) * PF_MAX_CHAN16));
-			BlendPX(xi1, y, (A_u_short)((1 - xv1) * PF_MAX_CHAN16));
+			BlendPX(xi0, y, (A_u_char)((1 - xv0) * PF_MAX_CHAN8));
+			BlendPX(xi1, y, (A_u_char)((1 - xv1) * PF_MAX_CHAN8));
 			if (dxi == 1) {
 			}else if (dxi == 2) {
 				BlendPX(xi0+1, y, 0);
@@ -211,11 +186,11 @@ public:
 
 		A_long dyi = yi1 - yi0;
 		if (dyi == 0) {
-			BlendPX(x, yi0, (A_u_short)((1 - yv0) * PF_MAX_CHAN16));
+			BlendPX(x, yi0, (A_u_char)((1 - yv0) * PF_MAX_CHAN8));
 		}
 		else {
-			BlendPX(x, yi0, (A_u_short)((1 - yv0) * PF_MAX_CHAN16));
-			BlendPX(x, yi1, (A_u_short)((1 - yv1) * PF_MAX_CHAN16));
+			BlendPX(x, yi0, (A_u_char)((1 - yv0) * PF_MAX_CHAN8));
+			BlendPX(x, yi1, (A_u_char)((1 - yv1) * PF_MAX_CHAN8));
 			if (dyi == 1) {
 			}
 			else if (dyi == 2) {
@@ -234,29 +209,27 @@ public:
 	void Fill(PF_Pixel c)
 	{
 		A_long target = 0;
-
-		PF_Pixel16 c2 = CONV8TO16(c);
 		for (A_long y = 0; y < height; y++)
 		{
 			for (A_long x = 0; x < width; x++)
 			{
-				data[target] = c2;
+				data[target] = c;
 				target++;
 			}
 			target += offsetWidth;
 		}
 	}
 	// **************************************************************
-	void Rev()
+	void Rev(PF_Pixel c)
 	{
 		A_long target = 0;
 		for (A_long y = 0; y < height; y++)
 		{
 			for (A_long x = 0; x < width; x++)
 			{
-				data[target].red = PF_MAX_CHAN16 - data[target].red;
-				data[target].green = PF_MAX_CHAN16 - data[target].green;
-				data[target].blue = PF_MAX_CHAN16 - data[target].blue;
+				data[target].red = data[target].red ^ PF_MAX_CHAN8 ;
+				data[target].green = data[target].green ^ PF_MAX_CHAN8;
+				data[target].blue = data[target].blue ^ PF_MAX_CHAN8;
 				target++;
 			}
 			target += offsetWidth;
@@ -266,13 +239,12 @@ public:
 	void Colorize(PF_Pixel c)
 	{
 		A_long target = 0;
-		PF_Pixel16 c2 = CONV8TO16(c);
 		for (A_long y = 0; y < height; y++)
 		{
 			for (A_long x = 0; x < width; x++)
 			{
-				A_u_short v = PF_MAX_CHAN16 - data[target].red;
-				data[target] = c2;
+				A_u_char v = PF_MAX_CHAN8 - data[target].red;
+				data[target] = c;
 				data[target].alpha = v;
 				target++;
 			}
@@ -283,13 +255,14 @@ public:
 	void Fill_EN(PointInfo p)
 	{
 
-		PF_FpLong r2 = p.s / 2;
-		A_long ri = (A_long)(r2);
+		PF_FpLong r2 = p.s *0.75 / 2;
+		A_long ri = (A_long)(r2+0.5);
 
 
 		for (A_long i = 0; i < ri; i++)
 		{
 			PF_FpLong xx = PF_SQRT(PF_POW(ri, 2) - PF_POW(i, 2));
+			//PF_FpLong xx = r2 * (PF_FpLong)i/(PF_FpLong)ri;
 
 			PF_FpLong x0 = p.p.x - xx;
 			PF_FpLong x1 = p.p.x + xx;
@@ -302,7 +275,7 @@ public:
 
 	}
 	// **************************************************************
-	void Line(PointInfo start,PointInfo last)
+	void Line(PointInfo start, PointInfo last)
 	{
 		A_long dx = ABS(last.p.x - start.p.x);
 		A_long dy = ABS(last.p.y - start.p.y);
@@ -315,40 +288,41 @@ public:
 		PF_FpLong lt = last.s / 2;
 
 
-		if (dx>=dy)
+		if (dx >= dy)
 		{
 			PF_FpLong ay = (PF_FpLong)dy / (PF_FpLong)dx;
 			ay *= (PF_FpLong)gy;
 
 			A_long x = start.p.x;
 			PF_FpLong y = (PF_FpLong)start.p.y;
-			
-			//sz = sz / (PF_COS(PF_ATAN(dy / dx)));
+
+			sz = sz * (PF_COS(PF_ATAN2(dx, dy)));
 
 
 
 
 			for (A_long i = 0; i < dx; i++)
 			{
-				sz = st + (lt - st)*i / dx;
+				sz = st + (lt - st) * i / dx;
 
-				Yline(x, y-sz,y+sz);
+				Yline(x, y - sz, y + sz);
 				x += gx;
 				y += ay;
 			}
-		}else {
+		}
+		else {
 			PF_FpLong ax = (PF_FpLong)dx / (PF_FpLong)dy;
 			ax *= (PF_FpLong)gx;
 
 			A_long y = start.p.y;
 			PF_FpLong x = (PF_FpLong)start.p.x;
 
-			//sz = sz / (PF_COS(PF_ATAN(dx / dy)));
+			sz = sz * (PF_COS(PF_ATAN2(dx, dy)));
 
 			for (A_long i = 0; i < dy; i++)
 			{
 				sz = st + (lt - st) * i / dy;
-				Xline(x-sz, x + sz, y);
+				Xline(x - sz, x + sz, y);
 				x += ax;
 				y += gy;
 			}
@@ -420,7 +394,7 @@ public:
 			r = PF_FMOD(r, 360);
 			if ((depth % 2) == 1) r = 360 - r;
 			PF_FpLong sz = infoP->lineSize;
-			sz *= (0.2 + 0.3* xorShiftDouble());
+			sz *= (0.1 + 0.9* xorShiftDouble());
 			sz *= (1 - 0.01 * depth);
 			if (sz < 1) sz = 1;
 			A_LPoint p = PosFromRot(len, r,in_data);
@@ -463,6 +437,7 @@ public:
 		
 		ParamInfo pi = *infoP;
 
+
 		CearPointTbl();
 		for (A_long dc = 0; dc < pi.drawCount; dc++)
 		{
@@ -489,8 +464,9 @@ public:
 			if (pntTblCount > 4)
 			{
 				p2 = pntTblA[1];
+				p3 = pntTblA[pntTblCount-2];
 			}
-			p3 = RandomPoint(p3, pi.lastRandX / 2, pi.lastRandY / 2);
+			p3 = RandomPoint(p3, pi.lastRandX, pi.lastRandY);
 
 
 			for (A_long sc = 0; sc < pi.subCount; sc++) {

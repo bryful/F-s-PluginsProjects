@@ -136,10 +136,12 @@
     <ClInclude Include="..\..\FsLibrary\FsScreenShake.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
-    <ClInclude Include="..\CDraw8.h" />
-    <ClInclude Include="..\Params.h" />
-    <ClInclude Include="..\CDraw16.h" />
-    <ClInclude Include="..\CDraw32.h" />
+    <ClInclude Include="..\..\FsLibrary\Fs.h">
+      <Filter>Header Files\Fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CLineDraw.h" />
+    <ClInclude Include="..\CPointInfo.h" />
+    <ClInclude Include="..\_pool\CDraw8.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

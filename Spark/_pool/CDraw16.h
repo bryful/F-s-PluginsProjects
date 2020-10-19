@@ -1,42 +1,15 @@
 #pragma once
-#ifndef CDraw32_H
-#define CDraw32_H
+#ifndef CDraw16_H
+#define CDraw16_H
 
-#include "Fs_Target.h"
-
-#include "AEConfig.h"
-#include "entry.h"
-
-//#include "PrSDKAESupport.h"
-#include "AE_Effect.h"
-#include "AE_EffectCB.h"
-#include "AE_EffectCBSuites.h"
-#include "AE_Macros.h"
-#include "AEGP_SuiteHandler.h"
-#include "String_Utils.h"
-#include "Param_Utils.h"
-#include "Smart_Utils.h"
-
-#if defined(PF_AE100_PLUG_IN_VERSION)
-#include "AEFX_SuiteHelper.h"
-#define refconType void*
-#else
-#include "PF_Suite_Helper.h"
-#define refconType A_long
-#endif
-
-#ifdef AE_OS_WIN
-#include <Windows.h>
-#endif
-
-
+#include "../FsLibrary/Fs.h"
 #include "../FsLibrary/FsAE.h"
 #include "Params.h"
 
 
 
 
-class CDraw32
+class CDraw16
 {
 
 protected:
@@ -50,9 +23,9 @@ private:
 
 
 public:
-	PF_InData* in_data;
-	PF_EffectWorld* world;
-	PF_PixelFloat* data;
+	PF_InData*			in_data;
+	PF_EffectWorld*		world;
+	PF_Pixel16*			 data;
 
 	A_long				width;
 	A_long				height;
@@ -62,7 +35,7 @@ public:
 
 public:
 	// **************************************************************
-	CDraw32(
+	CDraw16(
 		PF_EffectWorld* wld = NULL,
 		PF_InData* ind = NULL)
 	{
@@ -84,10 +57,10 @@ public:
 		in_data = ind;
 		world = wld;
 		if (wld != NULL) {
-			data = (PF_PixelFloat*)wld->data;
+			data = (PF_Pixel16*)wld->data;
 			width = wld->width;
 			height = wld->height;
-			widthTrue = wld->rowbytes / sizeof(PF_PixelFloat);
+			widthTrue = wld->rowbytes / sizeof(PF_Pixel16);
 			offsetWidth = widthTrue - width;
 		
 		
@@ -120,7 +93,7 @@ public:
 
 	}
 	// **************************************************************
-	~CDraw32()
+	~CDraw16()
 	{
 		if (bufH != NULL)
 		{
@@ -129,19 +102,19 @@ public:
 		}
 	}
 	// **************************************************************
-	inline PF_PixelFloat GetPX(A_LPoint p){return data[p.x + vurTbl[p.y]];}
-	inline void SetPX(A_LPoint p, PF_PixelFloat c) { data[p.x + vurTbl[p.y]] = c; }
-	inline PF_FpShort GetPXR(A_LPoint p) { return data[p.x + vurTbl[p.y]].red; }
-	inline void SetPXR(A_LPoint p, PF_FpShort c) { data[p.x + vurTbl[p.y]].red = c; }
+	inline PF_Pixel16 GetPX(A_LPoint p){return data[p.x + vurTbl[p.y]];}
+	inline void SetPX(A_LPoint p, PF_Pixel16 c) { data[p.x + vurTbl[p.y]] = c; }
+	inline A_u_short GetPXR(A_LPoint p) { return data[p.x + vurTbl[p.y]].red; }
+	inline void SetPXR(A_LPoint p, A_u_short c) { data[p.x + vurTbl[p.y]].red = c; }
 	// **************************************************************
-	inline void BlendPX(A_long x, A_long y, PF_FpShort v)
+	inline void BlendPX(A_long x, A_long y, A_u_short v)
 	{
 		if ((x >= 0) && (x < width) && (y >= 0) && (y < height))
 		{
 			A_long p = x + vurTbl[y];
-			data[p].red = ((long)data[p].red * v);
-			data[p].green = ((long)data[p].green * v);
-			data[p].blue = ((long)data[p].blue * v);
+			data[p].red = RoundShortFpLong((double)data[p].red * (double)v/ PF_MAX_CHAN16);
+			data[p].green = RoundShortFpLong((double)data[p].green * (double)v / PF_MAX_CHAN16);
+			data[p].blue = RoundShortFpLong((double)data[p].blue * (double)v / PF_MAX_CHAN16);
 
 		}
 	}	
@@ -170,11 +143,11 @@ public:
 
 		A_long dxi = xi1 - xi0;
 		if (dxi==0) {
-			BlendPX(xi0, y, (PF_FpShort)((1 - xv0)));
+			BlendPX(xi0, y, (A_u_short)((1 - xv0)*PF_MAX_CHAN16));
 		}
 		else {
-			BlendPX(xi0, y, (PF_FpShort)((1 - xv0)));
-			BlendPX(xi1, y, (PF_FpShort)((1 - xv1)));
+			BlendPX(xi0, y, (A_u_short)((1 - xv0) * PF_MAX_CHAN16));
+			BlendPX(xi1, y, (A_u_short)((1 - xv1) * PF_MAX_CHAN16));
 			if (dxi == 1) {
 			}else if (dxi == 2) {
 				BlendPX(xi0+1, y, 0);
@@ -211,11 +184,11 @@ public:
 
 		A_long dyi = yi1 - yi0;
 		if (dyi == 0) {
-			BlendPX(x, yi0, (PF_FpShort)((1 - yv0)));
+			BlendPX(x, yi0, (A_u_short)((1 - yv0) * PF_MAX_CHAN16));
 		}
 		else {
-			BlendPX(x, yi0, (PF_FpShort)((1 - yv0)));
-			BlendPX(x, yi1, (PF_FpShort)((1 - yv1)));
+			BlendPX(x, yi0, (A_u_short)((1 - yv0) * PF_MAX_CHAN16));
+			BlendPX(x, yi1, (A_u_short)((1 - yv1) * PF_MAX_CHAN16));
 			if (dyi == 1) {
 			}
 			else if (dyi == 2) {
@@ -234,7 +207,8 @@ public:
 	void Fill(PF_Pixel c)
 	{
 		A_long target = 0;
-		PF_PixelFloat c2 = CONV8TO32(c);
+
+		PF_Pixel16 c2 = CONV8TO16(c);
 		for (A_long y = 0; y < height; y++)
 		{
 			for (A_long x = 0; x < width; x++)
@@ -246,16 +220,16 @@ public:
 		}
 	}
 	// **************************************************************
-	void Rev(PF_Pixel c)
+	void Rev()
 	{
 		A_long target = 0;
 		for (A_long y = 0; y < height; y++)
 		{
 			for (A_long x = 0; x < width; x++)
 			{
-				data[target].red = 1 - data[target].red;
-				data[target].green = 1 - data[target].green;
-				data[target].blue = 1 - data[target].blue;
+				data[target].red = PF_MAX_CHAN16 - data[target].red;
+				data[target].green = PF_MAX_CHAN16 - data[target].green;
+				data[target].blue = PF_MAX_CHAN16 - data[target].blue;
 				target++;
 			}
 			target += offsetWidth;
@@ -265,12 +239,12 @@ public:
 	void Colorize(PF_Pixel c)
 	{
 		A_long target = 0;
-		PF_PixelFloat c2 = CONV8TO32(c);
+		PF_Pixel16 c2 = CONV8TO16(c);
 		for (A_long y = 0; y < height; y++)
 		{
 			for (A_long x = 0; x < width; x++)
 			{
-				PF_FpShort v = 1 - data[target].red;
+				A_u_short v = PF_MAX_CHAN16 - data[target].red;
 				data[target] = c2;
 				data[target].alpha = v;
 				target++;

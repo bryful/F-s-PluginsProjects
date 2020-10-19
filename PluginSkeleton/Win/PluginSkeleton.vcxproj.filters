@@ -32,6 +32,24 @@
     <ClCompile Include="..\..\FsLibrary\FsMosaic.cpp">
       <Filter>Supporting code\Fs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\FsLibrary\FsBlur.cpp">
+      <Filter>Supporting code\Fs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FsLibrary\FsMat.cpp">
+      <Filter>Supporting code\Fs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FsLibrary\FsMiniMax16.cpp">
+      <Filter>Supporting code\Fs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FsLibrary\FsMiniMax32.cpp">
+      <Filter>Supporting code\Fs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FsLibrary\FsMiniMax8.cpp">
+      <Filter>Supporting code\Fs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp">
+      <Filter>Supporting code\AE</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
@@ -134,6 +152,21 @@
       <Filter>Header Files\AE</Filter>
     </ClInclude>
     <ClInclude Include="..\..\FsLibrary\FsScreenShake.h">
+      <Filter>Header Files\Fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FsLibrary\Fs.h">
+      <Filter>Header Files\Fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FsLibrary\FsVersion.h">
+      <Filter>Header Files\Fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FsLibrary\FsBuffer.h">
+      <Filter>Header Files\Fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FsLibrary\FsDebug.h">
+      <Filter>Header Files\Fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FsLibrary\FsSputtering.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
   </ItemGroup>
