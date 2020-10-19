@@ -8,27 +8,7 @@
 #ifndef FSUTILS_H
 #define FSUTILS_H
 
-#include "AEConfig.h"
-#include "entry.h"
-//#include "PrSDKAESupport.h"
-#include "AE_Effect.h"
-#include "AE_EffectCB.h"
-#include "AE_EffectCBSuites.h"
-#include "AE_Macros.h"
-#include "AEGP_SuiteHandler.h"
-#if defined(PF_AE100_PLUG_IN_VERSION)
-	#include "AEFX_SuiteHelper.h"
-#else
-	#include "PF_Suite_Helper.h"
-#endif
-#include "String_Utils.h"
-#include "Param_Utils.h"
-#include "Smart_Utils.h"
-
-#ifdef AE_OS_WIN
-	#include <Windows.h>
-#endif
-
+#include "Fs.h"
 
 //xorShift
 #define F_SRAND(s) (init_xorShift(s))
@@ -149,7 +129,7 @@ inline PF_FpShort RoundFpShort2(PF_FpLong x)
 
 //***********************************************************************************
 // xorShift用のグローバル変数
-static A_u_long gSeed128[4];
+static A_u_long gSeed128[8];
 //-------------------------------------------------------------------
 static A_u_long xorShift()
 {
@@ -176,12 +156,80 @@ static double xorShiftDouble()
 
 }
 //-------------------------------------------------------------------
+static void xorShiftPush()
+{
+	gSeed128[4] = gSeed128[0];
+	gSeed128[5] = gSeed128[1];
+	gSeed128[6] = gSeed128[2];
+	gSeed128[7] = gSeed128[3];
+}
+//-------------------------------------------------------------------
+static void xorShiftPop()
+{
+	gSeed128[0] = gSeed128[4];
+	gSeed128[1] = gSeed128[5];
+	gSeed128[2] = gSeed128[6];
+	gSeed128[3] = gSeed128[7];
+}
+//-------------------------------------------------------------------
 static void init_xorShift(A_u_long s)
 {
 	A_u_long ss = s + 100;
 	for ( A_u_long i=1; i<=4;i++)
 	{
 		gSeed128[ i - 1 ] = ss = 1812433253U * ( ss ^ ( ss >> 30 ) ) + i;
+	}
+}
+//-------------------------------------------------------------------
+static A_u_long gSeed128R[8];
+//-------------------------------------------------------------------
+static A_u_long xorShiftR()
+{
+	A_u_long t = (gSeed128R[0] ^ (gSeed128R[0] << 11));
+	gSeed128R[0] = gSeed128R[1];
+	gSeed128R[1] = gSeed128R[2];
+	gSeed128R[2] = gSeed128R[3];
+	A_u_long ret = (gSeed128R[3] = (gSeed128R[3] ^ (gSeed128R[3] >> 19)) ^ (t ^ (t >> 8)));
+	ret = (ret >> 16) & 0x7FFF;
+	return ret;
+
+}
+//-------------------------------------------------------------------
+static double xorShiftRDouble()
+{
+	A_u_long t = (gSeed128R[0] ^ (gSeed128R[0] << 11));
+	gSeed128R[0] = gSeed128R[1];
+	gSeed128R[1] = gSeed128R[2];
+	gSeed128R[2] = gSeed128R[3];
+	A_u_long ret = (gSeed128R[3] = (gSeed128R[3] ^ (gSeed128R[3] >> 19)) ^ (t ^ (t >> 8)));
+	ret = ret & 0x7FFFFFFF;
+
+	return (double)ret / 0x7FFFFFFF;
+
+}
+//-------------------------------------------------------------------
+static void xorShiftRPush()
+{
+	gSeed128R[4] = gSeed128R[0];
+	gSeed128R[5] = gSeed128R[1];
+	gSeed128R[6] = gSeed128R[2];
+	gSeed128R[7] = gSeed128R[3];
+}
+//-------------------------------------------------------------------
+static void xorShiftRPop()
+{
+	gSeed128R[0] = gSeed128R[4];
+	gSeed128R[1] = gSeed128R[5];
+	gSeed128R[2] = gSeed128R[6];
+	gSeed128R[3] = gSeed128R[7];
+}
+//-------------------------------------------------------------------
+static void init_xorShiftR(A_u_long s)
+{
+	A_u_long ss = s + 100;
+	for (A_u_long i = 1; i <= 4; i++)
+	{
+		gSeed128R[i - 1] = ss = 1812433253U * (ss ^ (ss >> 30)) + i;
 	}
 }
 //***********************************************************************************
@@ -648,11 +696,11 @@ inline PF_Fixed RoundAngle360(PF_Fixed f)
 class CRot
 {
 protected:
-	PF_InData		*in_data;
-	PF_FpLong		m_rot;
-	PF_FpLong		m_length;
-	PF_FpLong		m_x;
-	PF_FpLong		m_y;
+	PF_InData		*in_data = NULL;
+	PF_FpLong		m_rot =0;
+	PF_FpLong		m_length =0;
+	PF_FpLong		m_x =0;
+	PF_FpLong		m_y = 0;
 
 	
 public:
@@ -661,9 +709,9 @@ public:
 	{
 		in_data = NULL;
 		m_rot =
-			m_length =
-			m_x =
-			m_y = 0;
+		m_length =
+		m_x =
+		m_y = 0;
 	}
 	//------------------------------
 	CRot(PF_InData *in_dataP)

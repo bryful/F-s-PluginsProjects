@@ -30,7 +30,7 @@
     <ProjectGuid>{2BFEEE25-61D3-48F8-9BB5-A75A37CD5852}</ProjectGuid>
     <RootNamespace>Spark</RootNamespace>
     <ProjectName>Spark</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|Win32'" Label="Configuration">
@@ -464,9 +464,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\CDraw16.h" />
-    <ClInclude Include="..\CDraw32.h" />
-    <ClInclude Include="..\CDraw8.h" />
+    <ClInclude Include="..\..\FsLibrary\Fs.h" />
+    <ClInclude Include="..\CPointInfo.h" />
     <ClInclude Include="..\Fs_Entry.h" />
     <ClInclude Include="..\..\FsLibrary\FsAE.h" />
     <ClInclude Include="..\..\FsLibrary\FsGraphics.h" />
@@ -499,10 +498,13 @@
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
     <ClInclude Include="..\Fs_Target.h" />
-    <ClInclude Include="..\Params.h" />
     <ClInclude Include="..\Spark.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
+    <ClInclude Include="..\CLineDraw.h" />
+    <ClInclude Include="..\_pool\CDraw8.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
     <CustomBuildStep Include="..\..\..\Util\PF_Suite_Helper.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

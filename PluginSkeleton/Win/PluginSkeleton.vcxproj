@@ -30,7 +30,7 @@
     <ProjectGuid>{44650EE4-5B04-43C2-9D1C-B96240D4AE80}</ProjectGuid>
     <RootNamespace>PluginSkeleton</RootNamespace>
     <ProjectName>PluginSkeleton</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|Win32'" Label="Configuration">
@@ -98,7 +98,7 @@
     <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">*.obj%3b*.ilk%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.pgc%3b*.pgd%3b*.meta%3b*.asm%3b*.rr%3b*.rrc%3b$(TargetPath)</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\outAEX_d\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\outAEX\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">*.tlog;*.asm;*.exp;*.sbr;*.rr;*.rrc;*.res;*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.manifest;*.pch;*.idb;*.lib;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
@@ -130,7 +130,7 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.aex</TargetExt>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release-MT|x64'">F's $(ProjectName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F's $(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F's $(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F's $(ProjectName)_d</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.aex</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|Win32'">
@@ -203,7 +203,7 @@
       <AdditionalIncludeDirectories>..\..\..\Headers;..\..\..\Headers\SP;..\..\..\Resources;..\..\..\Util;..\F's PluginsProjects_2013\FsLibrary</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>MSWindows;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <StructMemberAlignment>4Bytes</StructMemberAlignment>
+      <StructMemberAlignment>16Bytes</StructMemberAlignment>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PrecompiledHeaderFile>AE_Effect.h</PrecompiledHeaderFile>
@@ -464,6 +464,11 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\FsLibrary\Fs.h" />
+    <ClInclude Include="..\..\FsLibrary\FsBuffer.h" />
+    <ClInclude Include="..\..\FsLibrary\FsDebug.h" />
+    <ClInclude Include="..\..\FsLibrary\FsSputtering.h" />
+    <ClInclude Include="..\..\FsLibrary\FsVersion.h" />
     <ClInclude Include="..\Fs_Entry.h" />
     <ClInclude Include="..\..\FsLibrary\FsAE.h" />
     <ClInclude Include="..\..\FsLibrary\FsGraphics.h" />
@@ -552,17 +557,23 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="PluginSkeletonPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
+    <ClCompile Include="..\..\..\Util\Smart_Utils.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsBlur.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBox.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsCircle.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsLine.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsPaint.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMat.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMiniMax16.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMiniMax32.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMiniMax8.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsMosaic.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
-    <ClCompile Include="..\..\..\Util\Smart_Utils.cpp" />
     <ClCompile Include="..\PluginSkeleton.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

@@ -1,42 +1,15 @@
 #pragma once
-#ifndef CDraw8_H
-#define CDraw8_H
+#ifndef CDraw32_H
+#define CDraw32_H
 
-#include "Fs_Target.h"
-
-#include "AEConfig.h"
-#include "entry.h"
-
-//#include "PrSDKAESupport.h"
-#include "AE_Effect.h"
-#include "AE_EffectCB.h"
-#include "AE_EffectCBSuites.h"
-#include "AE_Macros.h"
-#include "AEGP_SuiteHandler.h"
-#include "String_Utils.h"
-#include "Param_Utils.h"
-#include "Smart_Utils.h"
-
-#if defined(PF_AE100_PLUG_IN_VERSION)
-#include "AEFX_SuiteHelper.h"
-#define refconType void*
-#else
-#include "PF_Suite_Helper.h"
-#define refconType A_long
-#endif
-
-#ifdef AE_OS_WIN
-#include <Windows.h>
-#endif
-
-
+#include "../FsLibrary/Fs.h"
 #include "../FsLibrary/FsAE.h"
 #include "Params.h"
 
 
 
 
-class CDraw8
+class CDraw32
 {
 
 protected:
@@ -52,7 +25,7 @@ private:
 public:
 	PF_InData* in_data;
 	PF_EffectWorld* world;
-	PF_Pixel* data;
+	PF_PixelFloat* data;
 
 	A_long				width;
 	A_long				height;
@@ -62,7 +35,7 @@ public:
 
 public:
 	// **************************************************************
-	CDraw8(
+	CDraw32(
 		PF_EffectWorld* wld = NULL,
 		PF_InData* ind = NULL)
 	{
@@ -84,10 +57,10 @@ public:
 		in_data = ind;
 		world = wld;
 		if (wld != NULL) {
-			data = (PF_Pixel*)wld->data;
+			data = (PF_PixelFloat*)wld->data;
 			width = wld->width;
 			height = wld->height;
-			widthTrue = wld->rowbytes / sizeof(PF_Pixel8);
+			widthTrue = wld->rowbytes / sizeof(PF_PixelFloat);
 			offsetWidth = widthTrue - width;
 		
 		
@@ -120,7 +93,7 @@ public:
 
 	}
 	// **************************************************************
-	~CDraw8()
+	~CDraw32()
 	{
 		if (bufH != NULL)
 		{
@@ -129,19 +102,19 @@ public:
 		}
 	}
 	// **************************************************************
-	inline PF_Pixel GetPX(A_LPoint p){return data[p.x + vurTbl[p.y]];}
-	inline void SetPX(A_LPoint p, PF_Pixel c) { data[p.x + vurTbl[p.y]] = c; }
-	inline A_char GetPXR(A_LPoint p) { return data[p.x + vurTbl[p.y]].red; }
-	inline void SetPXR(A_LPoint p, A_char c) { data[p.x + vurTbl[p.y]].red = c; }
+	inline PF_PixelFloat GetPX(A_LPoint p){return data[p.x + vurTbl[p.y]];}
+	inline void SetPX(A_LPoint p, PF_PixelFloat c) { data[p.x + vurTbl[p.y]] = c; }
+	inline PF_FpShort GetPXR(A_LPoint p) { return data[p.x + vurTbl[p.y]].red; }
+	inline void SetPXR(A_LPoint p, PF_FpShort c) { data[p.x + vurTbl[p.y]].red = c; }
 	// **************************************************************
-	inline void BlendPX(A_long x, A_long y, A_u_char v)
+	inline void BlendPX(A_long x, A_long y, PF_FpShort v)
 	{
 		if ((x >= 0) && (x < width) && (y >= 0) && (y < height))
 		{
 			A_long p = x + vurTbl[y];
-			data[p].red = (A_u_char)((long)data[p].red * v/255);
-			data[p].green = (A_u_char)((long)data[p].green * v / 255);
-			data[p].blue = (A_u_char)((long)data[p].blue * v / 255);
+			data[p].red = ((long)data[p].red * v);
+			data[p].green = ((long)data[p].green * v);
+			data[p].blue = ((long)data[p].blue * v);
 
 		}
 	}	
@@ -170,11 +143,11 @@ public:
 
 		A_long dxi = xi1 - xi0;
 		if (dxi==0) {
-			BlendPX(xi0, y, (A_u_char)((1 - xv0)*PF_MAX_CHAN8));
+			BlendPX(xi0, y, (PF_FpShort)((1 - xv0)));
 		}
 		else {
-			BlendPX(xi0, y, (A_u_char)((1 - xv0) * PF_MAX_CHAN8));
-			BlendPX(xi1, y, (A_u_char)((1 - xv1) * PF_MAX_CHAN8));
+			BlendPX(xi0, y, (PF_FpShort)((1 - xv0)));
+			BlendPX(xi1, y, (PF_FpShort)((1 - xv1)));
 			if (dxi == 1) {
 			}else if (dxi == 2) {
 				BlendPX(xi0+1, y, 0);
@@ -211,11 +184,11 @@ public:
 
 		A_long dyi = yi1 - yi0;
 		if (dyi == 0) {
-			BlendPX(x, yi0, (A_u_char)((1 - yv0) * PF_MAX_CHAN8));
+			BlendPX(x, yi0, (PF_FpShort)((1 - yv0)));
 		}
 		else {
-			BlendPX(x, yi0, (A_u_char)((1 - yv0) * PF_MAX_CHAN8));
-			BlendPX(x, yi1, (A_u_char)((1 - yv1) * PF_MAX_CHAN8));
+			BlendPX(x, yi0, (PF_FpShort)((1 - yv0)));
+			BlendPX(x, yi1, (PF_FpShort)((1 - yv1)));
 			if (dyi == 1) {
 			}
 			else if (dyi == 2) {
@@ -234,11 +207,12 @@ public:
 	void Fill(PF_Pixel c)
 	{
 		A_long target = 0;
+		PF_PixelFloat c2 = CONV8TO32(c);
 		for (A_long y = 0; y < height; y++)
 		{
 			for (A_long x = 0; x < width; x++)
 			{
-				data[target] = c;
+				data[target] = c2;
 				target++;
 			}
 			target += offsetWidth;
@@ -252,9 +226,9 @@ public:
 		{
 			for (A_long x = 0; x < width; x++)
 			{
-				data[target].red = data[target].red ^ PF_MAX_CHAN8 ;
-				data[target].green = data[target].green ^ PF_MAX_CHAN8;
-				data[target].blue = data[target].blue ^ PF_MAX_CHAN8;
+				data[target].red = 1 - data[target].red;
+				data[target].green = 1 - data[target].green;
+				data[target].blue = 1 - data[target].blue;
 				target++;
 			}
 			target += offsetWidth;
@@ -264,12 +238,13 @@ public:
 	void Colorize(PF_Pixel c)
 	{
 		A_long target = 0;
+		PF_PixelFloat c2 = CONV8TO32(c);
 		for (A_long y = 0; y < height; y++)
 		{
 			for (A_long x = 0; x < width; x++)
 			{
-				A_u_char v = PF_MAX_CHAN8 - data[target].red;
-				data[target] = c;
+				PF_FpShort v = 1 - data[target].red;
+				data[target] = c2;
 				data[target].alpha = v;
 				target++;
 			}

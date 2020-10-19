@@ -10,37 +10,17 @@
 
 #include "Fs_Target.h"
 
-#include "AEConfig.h"
-#include "entry.h"
-
-//#include "PrSDKAESupport.h"
-#include "AE_Effect.h"
-#include "AE_EffectCB.h"
-#include "AE_EffectCBSuites.h"
-#include "AE_Macros.h"
-#include "AEGP_SuiteHandler.h"
-#include "String_Utils.h"
-#include "Param_Utils.h"
-#include "Smart_Utils.h"
-
-#if defined(PF_AE100_PLUG_IN_VERSION)
-	#include "AEFX_SuiteHelper.h"
-	#define refconType void*
-#else
-	#include "PF_Suite_Helper.h"
-	#define refconType A_long
-#endif
-
-#ifdef AE_OS_WIN
-	#include <Windows.h>
-#endif
-
+#include "../FsLibrary/Fs.h"
 #include "../FsLibrary/FsAE.h"
 
-#include "Params.h"
-#include "CDraw8.h"
-#include "CDraw16.h"
-#include "CDraw32.h"
+//#include "Params.h"
+//#include "CDraw8.h"
+//#include "CDraw16.h"
+//#include "CDraw32.h"
+
+#include "CLineDraw.h"
+#include "CPointInfo.h"
+
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
@@ -58,6 +38,9 @@ enum {
 	ID_LASTRANDX,
 	ID_LASTRANDY,
 
+	ID_LASTRANDR,
+	ID_LASTRANDSEED,
+
 	ID_LINESIZE,
 	ID_LINEMOVE,
 	
@@ -65,6 +48,7 @@ enum {
 	ID_FOLD_COUNT,
 
 	ID_DRAW_COUNT,
+
 
 
 	ID_COLOR,
@@ -83,6 +67,9 @@ enum {
 #define	STR_LASTRANDX	"lastRandX"
 #define	STR_LASTRANDY	"lastRandY"
 
+#define	STR_LASTRANDR	"LastRandRot"
+#define	STR_LASTROTSEED "LastRotSeed"
+
 
 #define	STR_LINESIZE	"lineSize"
 #define	STR_LINEMOVE	"lineMove"
@@ -94,13 +81,40 @@ enum {
 #define	STR_OFFSET		"offset"
 #define	STR_SEED		"seed"
 
+
 #define	STR_COLOR		"color"
 #define	STR_BLEND		"blend"
 #define	STR_ON			"on"
 
 
 
+//-----------------------------------------------------------------------------------
+typedef struct ParamInfo {
+	PointInfo	start;
+	A_long		startRandX;
+	A_long		startRandY;
 
+	PointInfo	last;
+	A_long		lastRandX;
+	A_long		lastRandY;
+
+	PF_FpLong	lastRandR;
+	A_long		lastRandSeed;
+
+	PF_FpLong	lineSize;
+	A_long		lineMove;
+	A_long		foldCount;
+	A_long		drawCount;
+	A_long		subCount;
+
+	PF_FpLong	offset;
+	A_long		seed;
+	A_long		frame;
+
+	PF_Pixel	color;
+	PF_Boolean	blend;
+
+} ParamInfo, * ParamInfoP, ** ParamInfoH;
 //-----------------------------------------------------------------------------------
 extern "C" {
 

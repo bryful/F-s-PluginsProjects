@@ -5,6 +5,10 @@
 #include "AEConfig.h"
 #include "entry.h"
 
+#ifdef AE_OS_WIN
+#include "string.h"
+#endif
+
 //#include "PrSDKAESupport.h"
 #include "AE_Effect.h"
 #include "AE_EffectCB.h"

@@ -2,35 +2,7 @@
 #ifndef FsGraphics_H
 #define FsGraphics_H
 //*******************************************************************************************
-#include "AEConfig.h"
-#include "entry.h"
-//#include "PrSDKAESupport.h"
-#include "AE_Effect.h"
-#include "AE_EffectCB.h"
-#include "AE_EffectCBSuites.h"
-#include "AE_Macros.h"
-#include "AEGP_SuiteHandler.h"
-
-#if defined(PF_AE100_PLUG_IN_VERSION)
-	#include "AEFX_SuiteHelper.h"
-	#ifndef refconType
-		#define refconType void*
-	#endif
-#else
-	#include "PF_Suite_Helper.h"
-	#ifndef refconType
-		#define refconType A_long
-	#endif
-#endif
-
-#include "String_Utils.h"
-#include "Param_Utils.h"
-#include "Smart_Utils.h"
-
-#ifdef AE_OS_WIN
-	#include <Windows.h>
-#endif
-
+#include "Fs.h"
 #include "FsUtils.h"
 
 
@@ -44,7 +16,7 @@ typedef struct FsMosaicParam{
 }FsMosaicParam, *FsMosaicParamP, **FsMosaicParamH;
 
 enum{
-	FsFLAT_TOLLEFT =0,
+	FsFLAT_TOPLEFT =0,
 	FsFLAT_TOPRIGHT,
 	FsFLAT_BOTTOMLEFT,
 	FsFLAT_BOTTOMRIGHT,
@@ -78,6 +50,7 @@ namespace SCANLINE
 	};
 }
 typedef  A_long TargetChannelMode;
+
 namespace TARGET_CHANNEL
 {
 	enum{
@@ -122,6 +95,17 @@ typedef struct GInfo {
 }GInfo;
 
 
+#ifndef PointInfo_H
+#define PointInfo_H
+typedef struct PointInfo {
+	A_LPoint	p;
+	PF_FpLong	s;
+
+} PointInfo, * PointInfoP, ** PointInfoH;
+#endif
+
+	
+
 //*******************************************************************************************
 /*
 	ï`âÊópÇÃÉNÉâÉX
@@ -130,18 +114,22 @@ typedef struct GInfo {
 //*******************************************************************************************
 class CFsGraph{
 private:
-	PF_Boolean			m_Enabled;
-	PF_InData			*m_in_data;
-	PF_EffectWorld		*m_world;
-	PF_PixelPtr			m_data;
-	PF_PixelFormat		m_format;
-	A_long				m_frame;
+	PF_Boolean			m_Enabled = FALSE;
+	PF_InData			*m_in_data = NULL;
+	PF_EffectWorld* m_world = NULL;;
+	PF_PixelPtr			m_data = NULL;
+	PF_PixelFormat		m_format = PF_PixelFormat_INVALID;
+	A_long				m_frame = 0;
 
-	A_long				m_width;
-	A_long				m_height;
-	A_long				m_widthTrue;
-	A_long				m_offsetWidth;
-	A_long				m_mat;
+	A_long				m_width = 0;
+	A_long				m_height = 0;
+	A_long				m_widthTrue = 0;
+	A_long				m_offsetWidth = 0;
+	A_long				m_mat = MAT::none;
+
+	A_long* m_vurTbl = NULL;
+	PF_Handle	m_vurTblH = NULL;
+
 	//--------------------------------------------------------------------
 	// paint start 
 	typedef struct  {
@@ -217,15 +205,12 @@ public:
 	//-----------------------
 	CFsGraph( 
 		PF_EffectWorld *world, 
-		PF_InData *in_data);
-	//-----------------------
-	CFsGraph(
-		PF_EffectWorld *world, 
 		PF_InData *in_data,
-		PF_PixelFormat format
+		PF_PixelFormat	format = PF_PixelFormat_ARGB32
 		);
 	//-----------------------
-	//~CFsGraph();
+	//-----------------------
+	~CFsGraph();
 	//-----------------------
 	PF_Boolean Enabled(){ return m_Enabled;}
 	
@@ -240,6 +225,9 @@ public:
 	A_long widthTrue(){ return m_widthTrue;}
 	A_long offsetWidth(){ return m_offsetWidth;}
 	PF_PixelPtr data() { return m_data;}
+	PF_Pixel* data8() { return (PF_Pixel*)m_data; }
+	PF_Pixel16* data16() { return (PF_Pixel16*)m_data; }
+	PF_PixelFloat* data32() { return (PF_PixelFloat*)m_data; }
 	//-----------------------
 	//ìhÇËÇ¬Ç‘Çµ
 	PF_Err paint(A_long x, A_long y,PF_Pixel col);
@@ -775,7 +763,7 @@ public:
 	// Lineïù
 	//Ç±ÇÍÇ™âeãøÇ∑ÇÈÇÃÇÕç°ÇÃÇ∆Ç±ÇÎ
 	// XLine YLine BoxÇÃÇ›
-	A_long lineHeiht;
+	A_long lineHeiht = 1;
 	//-----------------------
 	//Line
 	void XLine8(A_long x0,A_long x1,A_long y,PF_Pixel col);
