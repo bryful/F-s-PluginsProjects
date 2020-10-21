@@ -177,6 +177,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "grayToWaveLine", "grayToWav
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spark", "Spark\Win\Spark.vcxproj", "{2BFEEE25-61D3-48F8-9BB5-A75A37CD5852}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SparkRing", "SparkRing\Win\SparkRing.vcxproj", "{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1169,6 +1171,18 @@ Global
 		{2BFEEE25-61D3-48F8-9BB5-A75A37CD5852}.Release-MT|x64.Build.0 = Release-MT|x64
 		{2BFEEE25-61D3-48F8-9BB5-A75A37CD5852}.Release-MT|x86.ActiveCfg = Release-MT|Win32
 		{2BFEEE25-61D3-48F8-9BB5-A75A37CD5852}.Release-MT|x86.Build.0 = Release-MT|Win32
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Debug|x64.ActiveCfg = Debug|x64
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Debug|x64.Build.0 = Debug|x64
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Debug|x86.ActiveCfg = Debug|Win32
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Debug|x86.Build.0 = Debug|Win32
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Release|x64.ActiveCfg = Release|x64
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Release|x64.Build.0 = Release|x64
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Release|x86.ActiveCfg = Release|Win32
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Release|x86.Build.0 = Release|Win32
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Release-MT|x64.ActiveCfg = Release-MT|x64
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Release-MT|x64.Build.0 = Release-MT|x64
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Release-MT|x86.ActiveCfg = Release-MT|Win32
+		{7354DDAB-F965-460A-8A5C-1DD64CA1CAAD}.Release-MT|x86.Build.0 = Release-MT|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
