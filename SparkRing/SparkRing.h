@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	Spark for VS2010
+	SparkRing for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef Spark_H
-#define Spark_H
+#ifndef SparkRing_H
+#define SparkRing_H
 
 #include "Fs_Target.h"
 
@@ -24,16 +24,29 @@ enum {
 	ID_INPUT = 0,	// default input layer
 
 	ID_SEED,
-	ID_CENTER,
-	ID_RADIUS,
-	ID_ASPECT,
-	ID_POINROT,
-	ID_POINTCOUNT,
-	ID_ROT,
-	ID_LINE_SIZE,
 	ID_OFFSET,
-	ID_FOLD_COUNT,
+
+	ID_START,
+	ID_STARTRANDX,
+	ID_STARTRANDY,
+
+	ID_LAST,
+	ID_LASTRANDX,
+	ID_LASTRANDY,
+
+	ID_LASTRANDR,
+	ID_LASTRANDSEED,
+
+	ID_LINESIZE,
+	ID_LINEMOVE,
+	
 	ID_SUB_COUNT,
+	ID_FOLD_COUNT,
+
+	ID_DRAW_COUNT,
+
+
+
 	ID_COLOR,
 	ID_BLEND,
 
@@ -112,4 +125,4 @@ EntryPointFunc (
 	void			*extra);
 }
 
-#endif // Spark_H
+#endif // SparkRing_H
