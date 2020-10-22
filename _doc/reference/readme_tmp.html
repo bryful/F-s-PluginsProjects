@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>readme.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="fs-plugins-%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9">F's Plugins リファレンス</h1>
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#fs-plugins-%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9">F's Plugins リファレンス</a>
+<ul>
+<li><a href="#fs-plugins%E3%81%A8%E3%81%AF">F's Pluginsとは</a></li>
+<li><a href="#%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83">開発環境</a></li>
+<li><a href="#%E5%8B%95%E4%BD%9C%E7%92%B0%E5%A2%83">動作環境</a></li>
+<li><a href="#cell%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Cellカテゴリ</a>
+<ul>
+<li><a href="#fs-colorchangeaex">F's ColorChange.aex</a></li>
+<li><a href="#fs-colorchangesimpleaex">F's ColorChangeSimple.aex</a></li>
+<li><a href="#fs-colorkeyaex">F's ColorKey.aex</a></li>
+<li><a href="#fs-colorthresholdaex">F's colorThreshold.aex</a></li>
+<li><a href="#fs-edgelineaex">F's EdgeLine.aex</a></li>
+<li><a href="#fs-edgeline-hiaex">F's EdgeLine-Hi.aex</a></li>
+<li><a href="#fs-irotoreaex">F's IroTore.aex</a></li>
+<li><a href="#fs-irotoreadjacentaex">F's IroToreAdjacent.aex</a></li>
+<li><a href="#fs-linetraceaex">F's LineTrace.aex</a></li>
+<li><a href="#fs-mainlinerepaintaex">F's MainLineRepaint.aex</a></li>
+<li><a href="#fs-mainlinerepaint_oldaex">F's MainLineRepaint_old.aex</a></li>
+<li><a href="#fs-paintaex">F's Paint.aex</a></li>
+<li><a href="#fs-paintmultpointaex">F's PaintMultPoint.aex</a></li>
+<li><a href="#fs-pixelextendaex">F's PixelExtend.aex</a></li>
+<li><a href="#fs-pixelreplaceaex">F's PixelReplace.aex</a></li>
+<li><a href="#fs-pixelselectoraex">F's PixelSelector.aex</a></li>
+<li><a href="#fs-selectcoloraex">F's SelectColor.aex</a></li>
+<li><a href="#fs-selectedbluraex">F's SelectedBlur.aex</a></li>
+<li><a href="#fs-shitsukanbluraex">F's ShitsuKanBlur.aex</a></li>
+<li><a href="#fs-thinaex">F's Thin.aex</a></li>
+</ul>
+</li>
+<li><a href="#channel%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Channelカテゴリ</a>
+<ul>
+<li><a href="#fs-alphafixaex">F's AlphaFix.aex</a></li>
+<li><a href="#fs-alphathresholdaex">F's alphaThreshold.aex</a></li>
+<li><a href="#fs-channelshiftaex">F's ChannelShift.aex</a></li>
+<li><a href="#fs-createalphaaex">F's CreateAlpha.aex</a></li>
+<li><a href="#fs-edgebluraex">F's EdgeBlur.aex</a></li>
+<li><a href="#fs-maskfromrgbaex">F's MaskFromRGB.aex</a></li>
+<li><a href="#fs-maskfromrgb_multiaex">F's MaskFromRGB_Multi.aex</a></li>
+<li><a href="#fs-maxaex">F's Max.aex</a></li>
+<li><a href="#fs-max_kasumiaex">F's Max_Kasumi.aex</a></li>
+<li><a href="#fs-premultiplyaex">F's Premultiply.aex</a></li>
+<li><a href="#fs-rgbtoalphaaex">F's RgbToAlpha.aex</a></li>
+</ul>
+</li>
+<li><a href="#colorize%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Colorizeカテゴリ</a>
+<ul>
+<li><a href="#fs-ccplusaex">F's CCplus.aex</a></li>
+<li><a href="#fs-fillcoloraex">F's FillColor.aex</a></li>
+<li><a href="#fs-graytocountourlineaex">F's grayToCountourLine.aex</a></li>
+<li><a href="#fs-graytocolorizeaex">F's grayToColorize.aex</a></li>
+<li><a href="#fs-graytonetocolorizeaex">F's graytoneToColorize.aex</a></li>
+<li><a href="#fs-hls_reverseaex">F's HLS_Reverse.aex</a></li>
+<li><a href="#fs-rgbacontrolaex">F's RGBAControl.aex</a></li>
+<li><a href="#fs-smokethresholdaex">F's smokeThreshold.aex</a></li>
+<li><a href="#fs-tograyaex">F's ToGray.aex</a></li>
+<li><a href="#fs-toneraex">F's Toner.aex</a></li>
+<li><a href="#fs-yuvcontrolaex">F's YuvControl.aex</a></li>
+</ul>
+</li>
+<li><a href="#draw%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Drawカテゴリ</a>
+<ul>
+<li><a href="#fs-graytowavelineaex">F's grayToWaveLine.aex</a></li>
+<li><a href="#fs-sparkaex">F's Spark.aex</a></li>
+<li><a href="#fs-sputteringalphaaex">F's sputteringAlpha.aex</a></li>
+<li><a href="#fs-sputteringcircleaex">F's sputteringCircle.aex</a></li>
+<li><a href="#fs-sputteringrectaex">F's sputteringRect.aex</a></li>
+<li><a href="#fs-sputteringsplashaex">F's sputteringSplash.aex</a></li>
+<li><a href="#fs-touchdrawaex">F's TouchDraw.aex</a></li>
+<li><a href="#fs-touchdrawcenteraex">F's TouchDrawCenter.aex</a></li>
+<li><a href="#fs-touchdrawstraghtaex">F's TouchDrawStraght.aex</a></li>
+</ul>
+</li>
+<li><a href="#expression%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">expressionカテゴリ</a>
+<ul>
+<li><a href="#fs-expscolorsaex">F's ExpsColors.aex</a></li>
+<li><a href="#fs-expsposaex">F's ExpsPos.aex</a></li>
+</ul>
+</li>
+<li><a href="#filter%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Filterカテゴリ</a>
+<ul>
+<li><a href="#fs-colormatkeyaex">F's ColorMatKey.aex</a></li>
+<li><a href="#fs-extract-hiaex">F's Extract-Hi.aex</a></li>
+<li><a href="#fs-filteraex">F's Filter.aex</a></li>
+<li><a href="#fs-flareaex">F's Flare.aex</a></li>
+<li><a href="#fs-linedetectionaex">F's LineDetection.aex</a></li>
+<li><a href="#fs-mosaicaex">F's Mosaic.aex</a></li>
+<li><a href="#fs-namigarasuaex">F's NamiGarasu.aex</a></li>
+<li><a href="#fs-outlineaex">F's OutLine.aex</a></li>
+<li><a href="#fs-posterization8bitaex">F's Posterization8bit.aex</a></li>
+<li><a href="#fs-scanlineaex">F's Scanline.aex</a></li>
+<li><a href="#fs-screenshakediraex">F's ScreenShakeDir.aex</a></li>
+<li><a href="#fs-screenshakemmaex">F's ScreenShakeMM.aex</a></li>
+<li><a href="#fs-staraex">F's Star.aex</a></li>
+<li><a href="#fs-star_colorfulaex">F's Star_Colorful.aex</a></li>
+<li><a href="#fs-videogridaex">F's VideoGrid.aex</a></li>
+<li><a href="#fs-videolineaex">F's VideoLine.aex</a></li>
+<li><a href="#fs-videoline2ndaex">F's VideoLine2nd.aex</a></li>
+<li><a href="#fs-whiteinoutaex">F's whiteInOut.aex</a></li>
+</ul>
+</li>
+<li><a href="#noise%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Noiseカテゴリ</a>
+<ul>
+<li><a href="#fs-animatednoiseaex">F's AnimatedNoise.aex</a></li>
+<li><a href="#fs-channelnoiseaex">F's ChannelNoise.aex</a></li>
+<li><a href="#fs-randomlinenoiseaex">F's RandomLineNoise.aex</a></li>
+<li><a href="#fs-randommosaicaex">F's RandomMosaic.aex</a></li>
+<li><a href="#fs-randommosaic2ndaex">F's RandomMosaic2nd.aex</a></li>
+<li><a href="#fs-randomshiftaex">F's RandomShift.aex</a></li>
+</ul>
+</li>
+<li><a href="#legacy%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">{Legacy}カテゴリ</a>
+<ul>
+<li><a href="#fs-frameaex">F's Frame.aex</a></li>
+<li><a href="#fs-guideframeaex">F's GuideFrame.aex</a></li>
+<li><a href="#fs-noisehilo_alphaaex">F's NoiseHiLo_Alpha.aex</a></li>
+<li><a href="#fs-noisehilo_rgbaex">F's NoiseHiLo_RGB.aex</a></li>
+<li><a href="#fs-opticaldiffusionaex">F's OpticalDiffusion.aex</a></li>
+<li><a href="#fs-paperplanegetweightaex">F's PaperPlaneGetWeight.aex</a></li>
+<li><a href="#fs-paperplanegetweightinfoaex">F's PaperPlaneGetWeightInfo.aex</a></li>
+<li><a href="#fs-pluginskeletonaex">F's PluginSkeleton.aex</a></li>
+<li><a href="#fs-toneaex">F's Tone.aex</a></li>
+<li><a href="#fs-fsssframeaex">F's FsSSFrame.aex</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BD%9C%E3%81%A3%E3%81%9F%E4%BA%BA">作った人</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<div style="page-break-before:always"></div>
+<h2 id="fs-plugins%E3%81%A8%E3%81%AF">F's Pluginsとは</h2>
+<p><strong>Adobe after effects</strong>用のエフェクトプラグイン集です。<br>
+僕(by-ful)が趣味で開発して使っていたものですが、おかげさまで多くの人に使ってもらってます。</p>
+<p>特徴として</p>
+<ol>
+<li>
+<p><strong>無料</strong><br>僕が仕事で使った段階でペイされたと解釈しているので、その後使う分には料金は発生しないという理由です。もともとお金がなくてプラグイン買えなくて作り始めたので、これでお金儲ける気は全くないです。</p>
+</li>
+<li>
+<p><strong>そんな大したことはできない</strong><br>ソースを見てもらえばわかりますが、SDKをちょっと改造したものばかりです。流石に20年も続けて作っているのでごくたまに凄いものもありますが、まぁ趣味レベルです。</p>
+</li>
+<li>
+<p><strong>使用条件が限りなく低い</strong><br>一応面倒なのでMITライセンスとしていますが、昔のPC98時代にあった<strong>MAG</strong>フォーマット関係の<strong>フリーソフト</strong>と同じ扱いです。P関係のようにライセンスの厳しいプロジェクトでも無条件・無許可で使用できます。</p>
+</li>
+<li>
+<p><strong>愛用者が多い</strong><br>ありがとうございます。</p>
+</li>
+<li>
+<p><strong>バグがある</strong><br>ごめんなさい。気が付いたらメールください。</p>
+</li>
+</ol>
+<h2 id="%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83">開発環境</h2>
+<p>開発・デバッグは<strong>Adobe after effects CS6</strong>で行い、<strong>Adobe after effects 2020</strong>で動作確認を行っています。</p>
+<ul>
+<li>Windows10 64bit</li>
+<li>Microsoft Visual Studio Community 2019 Version 16.7.6 (2020/10/22現在)</li>
+<li>AfterEffectsSDK CC2020</li>
+</ul>
+<h2 id="%E5%8B%95%E4%BD%9C%E7%92%B0%E5%A2%83">動作環境</h2>
+<p><strong>Adobe after effects CS6</strong>以降なら動きます。<br>
+<strong>AE CC</strong>以降のSDKの機能は使用していません。ただし、僕の仕事環境が<strong>CC2020</strong>になった場合は、<strong>CS6</strong>のサポートはやめるつもりです。</p>
+<p>よくMac版がないかと聞かれますが、過去あった時代もありましたが物理的に僕がMacを持っていないので開発が不可能です。</p>
+<p>Mac版は<strong>xcodeプロジェクトファイル</strong>と<strong>plist</strong>を別に作れば可能ですが、87個もプロジェクトファイル作るのは大変です。誰かやってくれる人がいると多くのジトが喜ぶはずです。僕は無理です^^;<br>
+昔はPealでプロジェクトをコンバートしたりして対応してましたが、XCodeのバージョンアップの方が早くて辛いです。</p>
+<div style="page-break-before:always"></div>
+<h2 id="cell%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Cellカテゴリ</h2>
+<div style="text-align: center;"><img src="file:///c:/Users/did-furuhashi/Documents/AdobeSDK/AfterEffectsSDK CC2020/Examples/F&apos;s PluginsProjects/_doc/reference/img/Cell.png" width="80%"></div>
+<p>ReTAS PaintManで仕上げされた<strong>主線が2値化された画像</strong>に対するエフェクトです。</p>
+<h3 id="fs-colorchangeaex">F's ColorChange.aex</h3>
+<p>指定した色を指定した色に塗り替えるエフェクトです。<br>
+8色分対応</p>
+<h3 id="fs-colorchangesimpleaex">F's ColorChangeSimple.aex</h3>
+<p>指定した色を指定した色に塗り替えるエフェクトです。<br>
+１色分対応</p>
+<h3 id="fs-colorkeyaex">F's ColorKey.aex</h3>
+<p>指定した色を透明にします。<br>
+デフォルトのカラーキーと同じ物ですが、透明部分のRGB値を指定することができます。</p>
+<h3 id="fs-colorthresholdaex">F's colorThreshold.aex</h3>
+<h3 id="fs-edgelineaex">F's EdgeLine.aex</h3>
+<h3 id="fs-edgeline-hiaex">F's EdgeLine-Hi.aex</h3>
+<h3 id="fs-irotoreaex">F's IroTore.aex</h3>
+<h3 id="fs-irotoreadjacentaex">F's IroToreAdjacent.aex</h3>
+<h3 id="fs-linetraceaex">F's LineTrace.aex</h3>
+<h3 id="fs-mainlinerepaintaex">F's MainLineRepaint.aex</h3>
+<h3 id="fs-mainlinerepaintoldaex">F's MainLineRepaint_old.aex</h3>
+<h3 id="fs-paintaex">F's Paint.aex</h3>
+<p>指定した位置の閉鎖領域を指定した色で塗りつぶします。<br>
+バケツツールと同じものです。<br>
+色パカを直したり、SelectColorと組み合わせてセルの特定部部をマスクにしたい時なんかに使います。</p>
+<h3 id="fs-paintmultpointaex">F's PaintMultPoint.aex</h3>
+<h3 id="fs-pixelextendaex">F's PixelExtend.aex</h3>
+<h3 id="fs-pixelreplaceaex">F's PixelReplace.aex</h3>
+<p><strong>ColorChange</strong>と同じものです。色数が増えただけです。</p>
+<h3 id="fs-pixelselectoraex">F's PixelSelector.aex</h3>
+<p><strong>SelectColor</strong>と同じものです。色数が増えただけです。</p>
+<h3 id="fs-selectcoloraex">F's SelectColor.aex</h3>
+<p>指定した色だけ残して他の色を透明にします。</p>
+<h3 id="fs-selectedbluraex">F's SelectedBlur.aex</h3>
+<p>指定した2色の範囲内のみぼかします。</p>
+<h3 id="fs-shitsukanbluraex">F's ShitsuKanBlur.aex</h3>
+<p>質感ブラシっぽい効果を出します。</p>
+<h3 id="fs-thinaex">F's Thin.aex</h3>
+<p>主線を細くします。</p>
+<div style="page-break-before:always"></div>
+<h2 id="channel%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Channelカテゴリ</h2>
+<div style="text-align: center;"><img src="file:///c:/Users/did-furuhashi/Documents/AdobeSDK/AfterEffectsSDK CC2020/Examples/F&apos;s PluginsProjects/_doc/reference/img/Channel.png" width="80%"></div>
+<p>チャンネル操作のエフェクトです。</p>
+<h3 id="fs-alphafixaex">F's AlphaFix.aex</h3>
+<p>透明部分を指定した色で塗りつぶします。<br>
+<strong>CreateAlpha</strong>と組み合わせてて使います。</p>
+<h3 id="fs-alphathresholdaex">F's alphaThreshold.aex</h3>
+<h3 id="fs-channelshiftaex">F's ChannelShift.aex</h3>
+<h3 id="fs-createalphaaex">F's CreateAlpha.aex</h3>
+<p>Unmlitです。</p>
+<p>もともと作った当時のUnmultが16bitに対応していない・なんか想定した色が出ないとかあって作ったものです。<br>
+Unmlitが複数あった時代に、怒り狂ってUnmlit使用禁止！とか注意事項に書きましたが、絶対に守られたことがなかったです。そんなにいいのかUnmultとか思ってましたが、最後のバージョンは速度も品質も素晴らしいものになってました。</p>
+<h3 id="fs-edgebluraex">F's EdgeBlur.aex</h3>
+<h3 id="fs-maskfromrgbaex">F's MaskFromRGB.aex</h3>
+<h3 id="fs-maskfromrgbmultiaex">F's MaskFromRGB_Multi.aex</h3>
+<h3 id="fs-maxaex">F's Max.aex</h3>
+<p>最大/最小エフェクトの簡易版です。<br>
+最大/最小がチャンネルごとの処理でしたが、これはアルファーを考慮した処理を行っています。<br>
+副作用で実行速度がもとより早いです。<br>
+何故か愛用者が多いのですが、僕は使ったことがないエフェクトです。「最大/最小」最高です。</p>
+<h3 id="fs-maxkasumiaex">F's Max_Kasumi.aex</h3>
+<p>別のプラグイン作った時に作ったアルゴリズムを変えた最大/最小エフェクトです。<br>
+微妙な変化と癖があります。</p>
+<h3 id="fs-premultiplyaex">F's Premultiply.aex</h3>
+<h3 id="fs-rgbtoalphaaex">F's RgbToAlpha.aex</h3>
+<div style="page-break-before:always"></div>
+<h2 id="colorize%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Colorizeカテゴリ</h2>
+<div style="text-align: center;"><img src="file:///c:/Users/did-furuhashi/Documents/AdobeSDK/AfterEffectsSDK CC2020/Examples/F&apos;s PluginsProjects/_doc/reference/img/Colorize.png" width="80%"></div>
+<p>色調を変化させるエフェクトです。</p>
+<h3 id="fs-ccplusaex">F's CCplus.aex</h3>
+<h3 id="fs-fillcoloraex">F's FillColor.aex</h3>
+<p>「塗り」エフェクトがない時代に作ったものです。<br>
+シンプルなのでよく使ってます。</p>
+<h3 id="fs-graytocountourlineaex">F's grayToCountourLine.aex</h3>
+<h3 id="fs-graytocolorizeaex">F's grayToColorize.aex</h3>
+<h3 id="fs-graytonetocolorizeaex">F's graytoneToColorize.aex</h3>
+<h3 id="fs-hlsreverseaex">F's HLS_Reverse.aex</h3>
+<p>反転エフェクトです。RGBチャンネル毎の反転ではなくHLSチャンネルの反転を行います。<br>
+輝度だけ反転させると色味は変えずに反転できたりします。</p>
+<h3 id="fs-rgbacontrolaex">F's RGBAControl.aex</h3>
+<p>旧時代の「カラーバランス」と同じものです。今のはパラメータが増えすぎて大さっぱにやりたい時に使いにくいので作ったものです。</p>
+<h3 id="fs-smokethresholdaex">F's smokeThreshold.aex</h3>
+<h3 id="fs-tograyaex">F's ToGray.aex</h3>
+<p>色のグレー化する時の色々なやり方を検証するために作ったものですが、よく使います。</p>
+<h3 id="fs-toneraex">F's Toner.aex</h3>
+<p>CCにあったTonerがいつの間にかなくなったので作ったものですが、トライトーンとして復活したので用無しになったものです。</p>
+<h3 id="fs-yuvcontrolaex">F's YuvControl.aex</h3>
+<p>YUV毎に制御するエフェクトです。昔のアナログテレビの「明るさ」「色合い１」「色合い2」です。</p>
+<div style="page-break-before:always"></div>
+<h2 id="draw%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Drawカテゴリ</h2>
+<div style="text-align: center;"><img src="file:///c:/Users/did-furuhashi/Documents/AdobeSDK/AfterEffectsSDK CC2020/Examples/F&apos;s PluginsProjects/_doc/reference/img/Draw.png" width="80%"></div>
+<p>描画エフェクトです。</p>
+<h3 id="fs-graytowavelineaex">F's grayToWaveLine.aex</h3>
+<p>地形図とかの用途に暇なときに作ったエフェクトです。<br>
+僕自身まだつかっか事ないので、早く使いたいです。</p>
+<h3 id="fs-sparkaex">F's Spark.aex</h3>
+<p>「稲妻（高度）」で作業してたら、リアルすぎる！アニメっぽく！って言われて黒したので作ったエフェクトです。<br>
+稲妻描画のアルゴリズムとか調べましたが、やはりリアルになるのでオリジナルのアルゴリズムを考えました。描画コードは高速化のためかなり手抜きのものですが、そのせいか<br>
+ものすごい高速です。<br>
+今現在は「双方向ストライク」しか作っていませんが、他の描画も作りたいです。</p>
+<h3 id="fs-sputteringalphaaex">F's sputteringAlpha.aex</h3>
+<h3 id="fs-sputteringcircleaex">F's sputteringCircle.aex</h3>
+<h3 id="fs-sputteringrectaex">F's sputteringRect.aex</h3>
+<h3 id="fs-sputteringsplashaex">F's sputteringSplash.aex</h3>
+<h3 id="fs-touchdrawaex">F's TouchDraw.aex</h3>
+<h3 id="fs-touchdrawcenteraex">F's TouchDrawCenter.aex</h3>
+<h3 id="fs-touchdrawstraghtaex">F's TouchDrawStraght.aex</h3>
+<div style="page-break-before:always"></div>
+<h2 id="expression%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">expressionカテゴリ</h2>
+<div style="text-align: center;"><img src="file:///c:/Users/did-furuhashi/Documents/AdobeSDK/AfterEffectsSDK CC2020/Examples/F&apos;s PluginsProjects/_doc/reference/img/expression.png" width="80%"></div>
+<p>エクスプレッション制御エフェクトです。</p>
+<h3 id="fs-expscolorsaex">F's ExpsColors.aex</h3>
+<p>色をいっぱい保存できるエクスプレッション制御エフェクトです。<br>
+エフェクトとしては何もしません。</p>
+<h3 id="fs-expsposaex">F's ExpsPos.aex</h3>
+<p>ポジションをいっぱい保存できるエクスプレッション制御エフェクトです。</p>
+<div style="page-break-before:always"></div>
+<h2 id="filter%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Filterカテゴリ</h2>
+<div style="text-align: center;"><img src="file:///c:/Users/did-furuhashi/Documents/AdobeSDK/AfterEffectsSDK CC2020/Examples/F&apos;s PluginsProjects/_doc/reference/img/Filter.png" width="80%"></div>
+<p>ノイズを除いたフィルター系のエフェクトです</p>
+<h3 id="fs-colormatkeyaex">F's ColorMatKey.aex</h3>
+<p>色をぼんやりキーイングしてくれるエフェクトです。<br>
+もう少し高速化して他に機能つけないとあまり意味がないエフェクトです。これも他の絵得区と作った時に内部コードとして作ったものです。</p>
+<h3 id="fs-extract-hiaex">F's Extract-Hi.aex</h3>
+<h3 id="fs-filteraex">F's Filter.aex</h3>
+<p>色々なフィルタ(DFとかFOG)を一発で出来るエフェクトです。<br>
+プレビューはレイヤーキャッシュが効かないので遅いですが、実際のレンダリングでは同じことをレイヤ操作で行うより5倍は早く描画します。</p>
+<h3 id="fs-flareaex">F's Flare.aex</h3>
+<p>透過光のフレアを簡単に作るエフェクトです。<br>
+これもプレビュー時はレイヤーキャッシュが効かないので遅いですが、レンダリングは早いです。</p>
+<h3 id="fs-linedetectionaex">F's LineDetection.aex</h3>
+<h3 id="fs-mosaicaex">F's Mosaic.aex</h3>
+<h3 id="fs-namigarasuaex">F's NamiGarasu.aex</h3>
+<p>簡単に波ガラス効果が作れるエフェクトです。</p>
+<h3 id="fs-outlineaex">F's OutLine.aex</h3>
+<p>これはその名の通りアウトラインを描画するエフェクトです。<br>
+僕自身何時作ったか覚えていないのですが、周囲の人が使ってて慌てて正式採用したものです。</p>
+<p>アウトラインならエフェクトでやらなくてもいいような気がするのですが。</p>
+<h3 id="fs-posterization8bitaex">F's Posterization8bit.aex</h3>
+<p>いつの間にか「ポスタリゼーション」が8bit時と16bit/32bit時で挙動が変わるようになってしまったので作ったエフェクトです。<br>
+ビット数を変えるだけで見た目が変わるのは問題あると思います。</p>
+<h3 id="fs-scanlineaex">F's Scanline.aex</h3>
+<p>今やってるプロジェクトで多用してたので作ったものです。</p>
+<h3 id="fs-screenshakediraex">F's ScreenShakeDir.aex</h3>
+<p>画面動エフェクトです。</p>
+<h3 id="fs-screenshakemmaex">F's ScreenShakeMM.aex</h3>
+<h3 id="fs-staraex">F's Star.aex</h3>
+<p>手抜きクロススターエフェクトです。</p>
+<h3 id="fs-starcolorfulaex">F's Star_Colorful.aex</h3>
+<p>手抜きクロススターエフェクトの改良版です。<br>
+1600x900の画像に最適化しているのでそれ以外ではエラーで落ちる可能性あります。</p>
+<h3 id="fs-videogridaex">F's VideoGrid.aex</h3>
+<h3 id="fs-videolineaex">F's VideoLine.aex</h3>
+<h3 id="fs-videoline2ndaex">F's VideoLine2nd.aex</h3>
+<h3 id="fs-whiteinoutaex">F's whiteInOut.aex</h3>
+<div style="page-break-before:always"></div>
+<h2 id="noise%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">Noiseカテゴリ</h2>
+<div style="text-align: center;"><img src="file:///c:/Users/did-furuhashi/Documents/AdobeSDK/AfterEffectsSDK CC2020/Examples/F&apos;s PluginsProjects/_doc/reference/img/Noise.png" width="80%"></div>
+<p>ノイズ関係のエフェクトです。</p>
+<h3 id="fs-animatednoiseaex">F's AnimatedNoise.aex</h3>
+<p>SD時代にちょうど良かったノイズエフェクトがHD時代になると使えなくなったので作ったものです。アニメ調なノイズです。<br>
+実はブロックノイズにバグがあるのですが、それを見越して作業をしてしまって直せなくなったので、そのままになってます。</p>
+<h3 id="fs-channelnoiseaex">F's ChannelNoise.aex</h3>
+<h3 id="fs-randomlinenoiseaex">F's RandomLineNoise.aex</h3>
+<h3 id="fs-randommosaicaex">F's RandomMosaic.aex</h3>
+<h3 id="fs-randommosaic2ndaex">F's RandomMosaic2nd.aex</h3>
+<h3 id="fs-randomshiftaex">F's RandomShift.aex</h3>
+<div style="page-break-before:always"></div>
+<h2 id="legacy%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA">{Legacy}カテゴリ</h2>
+<div style="text-align: center;"><img src="file:///c:/Users/did-furuhashi/Documents/AdobeSDK/AfterEffectsSDK CC2020/Examples/F&apos;s PluginsProjects/_doc/reference/img/{Legacy}.png" width="80%"></div>
+<p>もう使い道がないものや、使ってぽしくないもの、次期バージョンでは削除予定のエフェクトです。</p>
+<h3 id="fs-frameaex">F's Frame.aex</h3>
+<p>これもフレーム描画エフェクトです。シェイプレイヤが実装されたので用無しになりました。</p>
+<h3 id="fs-guideframeaex">F's GuideFrame.aex</h3>
+<h3 id="fs-noisehiloalphaaex">F's NoiseHiLo_Alpha.aex</h3>
+<h3 id="fs-noisehilorgbaex">F's NoiseHiLo_RGB.aex</h3>
+<h3 id="fs-opticaldiffusionaex">F's OpticalDiffusion.aex</h3>
+<p>DFとかのエフェクトでしたが、遅い上に同様のFilterを作ったのでお蔵入りです。</p>
+<h3 id="fs-paperplanegetweightaex">F's PaperPlaneGetWeight.aex</h3>
+<p>紙飛行機の重心を設計図から測定する為に作ったエフェクトです。<br>
+8Bitのみで動きます。<br>
+やってることは特定の値の数値でFillColorしてるだけです。</p>
+<h3 id="fs-paperplanegetweightinfoaex">F's PaperPlaneGetWeightInfo.aex</h3>
+<p>紙飛行機の重心を設計図から測定する為に作ったエフェクトです。<br>
+PaperPlaneGetWeightで塗りつぶしたレイヤを加算合成した後に適応させます。<br>
+加算した数値で面積を求めて重心と重さを計算して線を描画します。</p>
+<h3 id="fs-pluginskeletonaex">F's PluginSkeleton.aex</h3>
+<p>F's Pluginをつくための元となるスケルトンプラグインです。</p>
+<h3 id="fs-toneaex">F's Tone.aex</h3>
+<p>Tonerと同じものです。綴り間違えて仕方なく残しているものです。</p>
+<h3 id="fs-fsssframeaex">F's FsSSFrame.aex</h3>
+<p>これもフレーム描画エフェクトです。</p>
+<div style="page-break-before:always"></div>
+<h1 id="%E4%BD%9C%E3%81%A3%E3%81%9F%E4%BA%BA">作った人</h1>
+<p>bry-ful(Hiroshi Furuhashi)<br>
+bryful@gmail.com</p>
+
+</body>
+</html>
