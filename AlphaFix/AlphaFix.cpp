@@ -106,23 +106,7 @@ HandleChangedParam(
 	PF_LayerDef					*outputP,
 	PF_UserChangedParamExtra	*extraP)
 {
-	PF_Err				err					= PF_Err_NONE,
-						err2				= PF_Err_NONE;
-	/*
-	AEGP_SuiteHandler		suites(in_data->pica_basicP);
-	if ((PF_Boolean)params[ID_ANIMATED_CB]->u.bd.value == TRUE){
-		params[ID_ANIMATED_ADD]->ui_flags |= PF_PUI_DISABLED;
-	}else{
-		params[ID_ANIMATED_ADD]->ui_flags  &= ~PF_PUI_DISABLED;
-	}
-	ERR(suites.ParamUtilsSuite1()->PF_UpdateParamUI(in_data->effect_ref, 
-													ID_ANIMATED_ADD,
-													params[ID_ANIMATED_ADD]));
-
-	if (!err){
-		out_data->out_flags |= PF_OutFlag_FORCE_RERENDER | PF_OutFlag_REFRESH_UI;
-	}
-	*/
+	PF_Err				err = PF_Err_NONE;
 	return err;
 }
 //-----------------------------------------------------------------------------------
@@ -133,21 +117,7 @@ QueryDynamicFlags(
 	PF_ParamDef		*params[],	
 	void			*extra)	
 {
-	PF_Err 	err 	= PF_Err_NONE,
-			err2 	= PF_Err_NONE;
-	/*
-	//PF_OutFlag_NON_PARAM_VARYの値をout_flagsへ設定して
-	//毎フレームごとの描画をするか切り替える。
-	CFsAE ae;
-	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
-	if (!err){
-		PF_ParamDef def;
-		AEFX_CLR_STRUCT(def);
-		ERR(ae.checkout_param(ID_FRAME_RAND_ON,&def));
-		ERR(ae.SetOutFlag_NON_PARAM_VARY((PF_Boolean)def.u.bd.value));
-		ERR(ae.checkin_param(&def));
-	}
-	*/
+	PF_Err 	err = PF_Err_NONE;
 	return err;
 }
 

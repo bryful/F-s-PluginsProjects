@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	SparkRing for VS2010
+	Spark5P for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef SparkRing_H
-#define SparkRing_H
+#ifndef Spark5P_H
+#define Spark5P_H
 
 #include "Fs_Target.h"
 
@@ -27,25 +27,40 @@ enum {
 	ID_SEEDPOS,
 	ID_SEEDMOVE,
 	ID_OFFSET,
-	ID_CENTER,
-	ID_RADIUS,
-	ID_ASPECT,
-	ID_POINT_COUNT,
-	ID_POIN_ROT,
-	ID_POINT_RAND,
-	ID_ROT,
-	ID_LINE_SIZE,
-	ID_LINE_MOVE,
-	ID_FOLD_COUNT,
+
+	ID_FIRST_P,
+	ID_FIRST_RX,
+	ID_FIRST_RY,
+
+	ID_2ND_CB,
+	ID_2ND_P,
+	ID_3RD_CB,
+	ID_3RD_P,
+	ID_4TH_CB,
+	ID_4TH_P,
+
+	ID_MID_RX,
+	ID_MID_RY,
+
+	ID_LAST_P,
+	ID_LAST_RX,
+	ID_LAST_RY,
+
+	ID_LINESIZE,
+	ID_LINEMOVE,
+	
 	ID_SUB_COUNT,
+	ID_FOLD_COUNT,
+
 	ID_DRAW_COUNT,
+
+
+
 	ID_COLOR,
 	ID_BLEND,
 
 	ID_NUM_PARAMS
 };
-
-
 
 //UI‚Ì•\Ž¦•¶Žš—ñ
 #define	STR_SEED		"seed"
@@ -53,29 +68,39 @@ enum {
 #define	STR_SEEDMOVE	"seedMove"
 #define	STR_OFFSET		"offset"
 
-#define	STR_CENTER		"center"
-#define	STR_RADIUS		"radius"
-#define	STR_ASPECT		"aspect"
+#define	STR_FIRST		"first_point"
+#define	STR_FIRST_RX	"first_randX"
+#define	STR_FIRST_RY	"first_randY"
 
-#define	STR_POINT_COUNT	"point_count"
-#define	STR_POINT_ROT	"point_rot"
-#define	STR_POINT_ROND	"point_rand"
+#define	STR_2ND_CB		"2nd"
+#define	STR_2ND_P		"2nd_point"
+#define	STR_3RD_CB		"3rd"
+#define	STR_3RD_P		"3rd_point"
+#define	STR_4TH_CB		"4th"
+#define	STR_4TH_P		"4th_point"
 
-#define	STR_ROT			"rot"
+#define	STR_MID_RX		"mid_randX"
+#define	STR_MID_RY		"mid_randY"
 
+#define	STR_LAST		"last_point"
+#define	STR_LAST_RX		"last_randX"
+#define	STR_LAST_RY		"last_randY"
 
-#define	STR_LINE_SIZE	"lineSize"
-#define	STR_LINE_MOVE	"lineMove"
+#define	STR_LINESIZE	"lineSize"
+#define	STR_LINEMOVE	"lineMove"
 #define	STR_FOLDCOUNT	"foldCount"
-#define	STR_SUBCOUNT	"subCount"
 #define	STR_DRAWCOUNT	"drawCount"
+#define	STR_SUBCOUNT	"subCount"
+
+
+
 
 #define	STR_COLOR		"color"
 #define	STR_BLEND		"blend"
 #define	STR_ON			"on"
 
 
-#define POINT_COUNT_MAX	36
+
 //-----------------------------------------------------------------------------------
 typedef struct ParamInfo {
 	A_long		frame;
@@ -84,20 +109,16 @@ typedef struct ParamInfo {
 	A_long		seedMove;
 	PF_FpLong	offset;
 
-	A_LPoint	center;
-	A_long		radius;
-	PF_FpLong	aspect;
-	A_long		point_count;
-	PF_FpLong	point_rot;
-	A_long		point_round;
-	PF_FpLong	rot;
+	PointInfo	point[5];
+	A_long		randX[5];
+	A_long		randY[5];
+	PF_Boolean	pointON[5];
 
 	PF_FpLong	lineSize;
 	A_long		lineMove;
 	A_long		foldCount;
 	A_long		drawCount;
 	A_long		subCount;
-
 
 	PF_Pixel	color;
 	PF_Boolean	blend;
@@ -117,4 +138,4 @@ EntryPointFunc (
 	void			*extra);
 }
 
-#endif // SparkRing_H
+#endif // Spark5P_H

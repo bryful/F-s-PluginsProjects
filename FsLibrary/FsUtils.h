@@ -232,6 +232,58 @@ static void init_xorShiftR(A_u_long s)
 		gSeed128R[i - 1] = ss = 1812433253U * (ss ^ (ss >> 30)) + i;
 	}
 }
+//-------------------------------------------------------------------
+static A_u_long gSeed128M[8];
+//-------------------------------------------------------------------
+static A_u_long xorShiftM()
+{
+	A_u_long t = (gSeed128M[0] ^ (gSeed128M[0] << 11));
+	gSeed128M[0] = gSeed128M[1];
+	gSeed128M[1] = gSeed128M[2];
+	gSeed128M[2] = gSeed128M[3];
+	A_u_long ret = (gSeed128M[3] = (gSeed128M[3] ^ (gSeed128M[3] >> 19)) ^ (t ^ (t >> 8)));
+	ret = (ret >> 16) & 0x7FFF;
+	return ret;
+
+}
+//-------------------------------------------------------------------
+static double xorShiftMDouble()
+{
+	A_u_long t = (gSeed128M[0] ^ (gSeed128M[0] << 11));
+	gSeed128M[0] = gSeed128M[1];
+	gSeed128M[1] = gSeed128M[2];
+	gSeed128M[2] = gSeed128M[3];
+	A_u_long ret = (gSeed128M[3] = (gSeed128M[3] ^ (gSeed128M[3] >> 19)) ^ (t ^ (t >> 8)));
+	ret = ret & 0x7FFFFFFF;
+
+	return (double)ret / 0x7FFFFFFF;
+
+}
+//-------------------------------------------------------------------
+static void xorShiftMPush()
+{
+	gSeed128M[4] = gSeed128M[0];
+	gSeed128M[5] = gSeed128M[1];
+	gSeed128M[6] = gSeed128M[2];
+	gSeed128M[7] = gSeed128M[3];
+}
+//-------------------------------------------------------------------
+static void xorShiftMPop()
+{
+	gSeed128M[0] = gSeed128M[4];
+	gSeed128M[1] = gSeed128M[5];
+	gSeed128M[2] = gSeed128M[6];
+	gSeed128M[3] = gSeed128M[7];
+}
+//-------------------------------------------------------------------
+static void init_xorShiftM(A_u_long s)
+{
+	A_u_long ss = s + 100;
+	for (A_u_long i = 1; i <= 4; i++)
+	{
+		gSeed128M[i - 1] = ss = 1812433253U * (ss ^ (ss >> 30)) + i;
+	}
+}
 //***********************************************************************************
 /*
 	ƒsƒNƒZƒ‹•ÏŠ·

@@ -31,6 +31,26 @@ static PF_Err ParamsSetup (
 		ID_SEED
 	);
 	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_SEEDPOS,	//パラメータの名前
+		-30000, 				//数値入力する場合の最小値
+		30000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		1000,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_SEEDPOS
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_SEEDMOVE,	//パラメータの名前
+		-30000, 				//数値入力する場合の最小値
+		30000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		1000,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_SEEDMOVE
+	);
+	//----------------------------------------------------------------
 //角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_OFFSET, 0, ID_OFFSET);
@@ -369,6 +389,26 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	PF_FpLong ds = (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den;
 
 
+	ERR(ae->GetADD(ID_SEED, &infoP->seed));
+	infoP->seed %= 30000;
+	if (infoP->seed < 0)infoP->seed += 30000;
+
+	ERR(ae->GetADD(ID_SEEDPOS, &infoP->seedPos));
+	infoP->seedPos %= 30000;
+	if (infoP->seedPos < 0)infoP->seedPos += 30000;
+
+	ERR(ae->GetADD(ID_SEEDMOVE, &infoP->seedMove));
+	infoP->seedMove %= 30000;
+	if (infoP->seedMove < 0)infoP->seedMove += 30000;
+
+	PF_Fixed r;
+	ERR(ae->GetANGLE(ID_OFFSET, &r));
+	if (!err) {
+		r = r % (360L << 16);
+		if (r < 0) r += (360L << 16);
+		infoP->offset = (PF_FpLong)r / 65536;
+	}
+
 	PF_FixedPoint v;
 
 	ERR(ae->GetFIXEDPOINT(ID_START, &v));
@@ -420,16 +460,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	ERR(ae->GetADD(ID_DRAW_COUNT, &infoP->drawCount));
 
 
-	PF_Fixed r;
-	ERR(ae->GetANGLE(ID_OFFSET, &r));
-	if (!err) {
-		r = r % (360L << 16);
-		if (r < 0) r += (360L << 16);
-		infoP->offset = (PF_FpLong)r / 65536;
-	}
-	ERR(ae->GetADD(ID_SEED, &infoP->seed));
-	infoP->seed %= 30000;
-	if (infoP->seed<0)infoP->seed += 30000;
+	
 	
 	ERR(ae->GetCOLOR(ID_COLOR, &infoP->color));
 	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->blend));
@@ -443,7 +474,12 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 	infoP->frame = ae->frame();
-	init_xorShift(infoP->seed);
+	A_long r = infoP->seed + infoP->seedPos;
+	r %= 30000;if (r < 0) r += 30000;
+	init_xorShift(r);
+	r = infoP->seed + infoP->seedMove;
+	r %= 30000; if (r < 0) r += 30000;
+	init_xorShiftM(r);
 	init_xorShiftR(infoP->lastRandSeed);
 
 	CLineDraw ld(ae->output, ae->in_data,ae->pixelFormat());
