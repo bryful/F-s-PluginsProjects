@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "SparkRing.h"
+#include "Spark5P.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -51,120 +51,188 @@ static PF_Err ParamsSetup (
 		ID_SEEDMOVE
 	);
 	//----------------------------------------------------------------
+//角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_OFFSET, 0, ID_OFFSET);
 	//----------------------------------------------------------------
 	//位置の指定
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_OFFSET,			/*"New Center"*/
-		50,	// X
-		50,	// Y
+	PF_ADD_POINT(STR_FIRST,			/*"New Center"*/
+		15,	// X
+		15,	// Y
 		0,	// Flag
-		ID_OFFSET
+		ID_FIRST_P
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_RADIUS,	//パラメータの名前
-		10, 			//数値入力する場合の最小値
-		5000,			//数値入力する場合の最大値
-		10,				//スライダーの最小値 
-		1000,			//スライダーの最大値
-		500,			//デフォルトの値
-		ID_RADIUS
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_ASPECT,	//Name
-		0,						//VALID_MIN
-		10,						//VALID_MAX
-		0,						//SLIDER_MIN
-		2,						//SLIDER_MAX
-		1,						//CURVE_TOLERANCE
-		1,						//DFLT
-		1,						//PREC
-		0,						//DISP
-		0,						//WANT_PHASE
-		ID_ASPECT
-
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_POINT_COUNT,	//パラメータの名前
-		3, 						//数値入力する場合の最小値
-		POINT_COUNT_MAX,		//数値入力する場合の最大値
-		3,				//スライダーの最小値 
-		24,				//スライダーの最大値
-		10,				//デフォルトの値
-		ID_POINT_COUNT
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_ANGLE(STR_POINT_ROT, 0, ID_POIN_ROT);
-	//----------------------------------------------------------------
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_POINT_ROND,	//パラメータの名前
+	PF_ADD_SLIDER(STR_FIRST_RX,	//パラメータの名前
 		0, 				//数値入力する場合の最小値
-		300,			//数値入力する場合の最大値
+		500,			//数値入力する場合の最大値
 		0,				//スライダーの最小値 
 		100,				//スライダーの最大値
-		30,				//デフォルトの値
-		ID_POINT_RAND
+		10,				//デフォルトの値
+		ID_FIRST_RX
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_ANGLE(STR_ROT, 0, ID_ROT);
-
+	PF_ADD_SLIDER(STR_FIRST_RY,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		500,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,				//スライダーの最大値
+		10,				//デフォルトの値
+		ID_FIRST_RY
+	);
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_LINE_SIZE,	//Name
+	PF_ADD_CHECKBOX(STR_2ND_CB,
+		STR_ON,
+		TRUE,
+		0,
+		ID_2ND_CB
+	);
+	//----------------------------------------------------------------
+	//位置の指定
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_POINT(STR_2ND_P,			/*"New Center"*/
+		30,	// X
+		30,	// Y
+		0,	// Flag
+		ID_2ND_P
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_CHECKBOX(STR_3RD_CB,
+		STR_ON,
+		TRUE,
+		0,
+		ID_3RD_CB
+	);
+	//----------------------------------------------------------------
+	//位置の指定
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_POINT(STR_3RD_P,			/*"New Center"*/
+		45,	// X
+		45,	// Y
+		0,	// Flag
+		ID_3RD_P
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_CHECKBOX(STR_4TH_CB,
+		STR_ON,
+		TRUE,
+		0,
+		ID_4TH_CB
+	);
+	//----------------------------------------------------------------
+	//位置の指定
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_POINT(STR_4TH_P,			/*"New Center"*/
+		60,	// X
+		60,	// Y
+		0,	// Flag
+		ID_4TH_P
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_MID_RX,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		500,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,				//スライダーの最大値
+		10,				//デフォルトの値
+		ID_MID_RX
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_MID_RY,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		500,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,				//スライダーの最大値
+		10,				//デフォルトの値
+		ID_MID_RY
+	);
+	//----------------------------------------------------------------
+		//位置の指定
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_POINT(STR_LAST,			/*"New Center"*/
+		75,	// X
+		75,	// Y
+		0,	// Flag
+		ID_LAST_P
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_LAST_RX,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		500,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,				//スライダーの最大値
+		10,				//デフォルトの値
+		ID_LAST_RX
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_LAST_RY,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		500,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,				//スライダーの最大値
+		10,				//デフォルトの値
+		ID_LAST_RY
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_LINESIZE,	//Name
 		0,						//VALID_MIN
 		300,						//VALID_MAX
 		0,						//SLIDER_MIN
 		100,						//SLIDER_MAX
 		1,						//CURVE_TOLERANCE
-		15,						//DFLT
+		25,						//DFLT
 		1,						//PREC
 		0,						//DISP
 		0,						//WANT_PHASE
-		ID_LINE_SIZE
+		ID_LINESIZE
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_LINE_MOVE,	//パラメータの名前
+	PF_ADD_SLIDER(STR_LINEMOVE,	//パラメータの名前
 		0, 				//数値入力する場合の最小値
 		2000,			//数値入力する場合の最大値
 		0,				//スライダーの最小値 
 		100,				//スライダーの最大値
-		60,				//デフォルトの値
-		ID_LINE_MOVE
-	);	
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_FOLDCOUNT,	//パラメータの名前
-		1, 				//数値入力する場合の最小値
-		9,			//数値入力する場合の最大値
-		1,				//スライダーの最小値 
-		6,				//スライダーの最大値
-		3,				//デフォルトの値
-		ID_FOLD_COUNT
+		50,				//デフォルトの値
+		ID_LINEMOVE
 	);	
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_SLIDER(STR_SUBCOUNT,	//パラメータの名前
 		0, 				//数値入力する場合の最小値
-		20,			//数値入力する場合の最大値
+		10,			//数値入力する場合の最大値
 		0,				//スライダーの最小値 
-		10,				//スライダーの最大値
+		5,				//スライダーの最大値
 		2,				//デフォルトの値
 		ID_SUB_COUNT
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_FOLDCOUNT,	//パラメータの名前
+		1, 				//数値入力する場合の最小値
+		5,			//数値入力する場合の最大値
+		1,				//スライダーの最小値 
+		5,				//スライダーの最大値
+		3,				//デフォルトの値
+		ID_FOLD_COUNT
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
 	PF_ADD_SLIDER(STR_DRAWCOUNT,	//パラメータの名前
 		1, 				//数値入力する場合の最小値
-		10,			//数値入力する場合の最大値
+		50,			//数値入力する場合の最大値
 		1,				//スライダーの最小値 
 		5,				//スライダーの最大値
 		1,				//デフォルトの値
@@ -361,21 +429,30 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
+	for (A_long i = 0; i < 5; i++)
+	{
+		infoP->point[i].p.x = 0;
+		infoP->point[i].p.y = 0;
+		infoP->point[i].s = 0;
+		infoP->pointON[i] = TRUE;
+	}
 
 	PF_InData* in_data = ae->in_data;
 	PF_FpLong ds = (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den;
 
+
+	PF_FixedPoint v;
+
 	ERR(ae->GetADD(ID_SEED, &infoP->seed));
 	infoP->seed %= 30000;
 	if (infoP->seed < 0)infoP->seed += 30000;
-
 	ERR(ae->GetADD(ID_SEEDPOS, &infoP->seedPos));
 	infoP->seedPos %= 30000;
 	if (infoP->seedPos < 0)infoP->seedPos += 30000;
-
 	ERR(ae->GetADD(ID_SEEDMOVE, &infoP->seedMove));
 	infoP->seedMove %= 30000;
 	if (infoP->seedMove < 0)infoP->seedMove += 30000;
+
 
 	PF_Fixed r;
 	ERR(ae->GetANGLE(ID_OFFSET, &r));
@@ -385,54 +462,78 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 		infoP->offset = (PF_FpLong)r / 65536;
 	}
 
-	PF_FixedPoint v;
-
-	ERR(ae->GetFIXEDPOINT(ID_CENTER, &v));
+	ERR(ae->GetFIXEDPOINT(ID_FIRST_P, &v));
 	if (!err) {
-		infoP->center.x = (int)((double)v.x / 65536 + 0.5);
-		infoP->center.y = (int)((double)v.y / 65536 + 0.5);
+		infoP->point[0].p.x = (int)((double)v.x / 65536 + 0.5);
+		infoP->point[0].p.y = (int)((double)v.y / 65536 + 0.5);
+	}
+	ERR(ae->GetADD(ID_FIRST_RX, &infoP->randX[0]));
+	if (!err) {
+		infoP->randX[0] = (A_long)((PF_FpLong)infoP->randX[0] * ds + 0.5);
+	}
+	ERR(ae->GetADD(ID_FIRST_RY, &infoP->randY[0]));
+	if (!err) {
+		infoP->randY[0] = (A_long)((PF_FpLong)infoP->randY[0] * ds + 0.5);
+	}
+	ERR(ae->GetCHECKBOX(ID_2ND_CB, &infoP->pointON[1]));
+	ERR(ae->GetFIXEDPOINT(ID_2ND_P, &v));
+	if (!err) {
+		infoP->point[1].p.x = (int)((double)v.x / 65536 + 0.5);
+		infoP->point[1].p.y = (int)((double)v.y / 65536 + 0.5);
+	}
+	ERR(ae->GetCHECKBOX(ID_3RD_CB, &infoP->pointON[2]));
+	ERR(ae->GetFIXEDPOINT(ID_3RD_P, &v));
+	if (!err) {
+		infoP->point[2].p.x = (int)((double)v.x / 65536 + 0.5);
+		infoP->point[2].p.y = (int)((double)v.y / 65536 + 0.5);
+	}
+	ERR(ae->GetCHECKBOX(ID_4TH_CB, &infoP->pointON[3]));
+	ERR(ae->GetFIXEDPOINT(ID_4TH_P, &v));
+	if (!err) {
+		infoP->point[3].p.x = (int)((double)v.x / 65536 + 0.5);
+		infoP->point[3].p.y = (int)((double)v.y / 65536 + 0.5);
+	}
+	ERR(ae->GetADD(ID_MID_RX, &infoP->randX[1]));
+	if (!err) {
+		infoP->randX[1] = (A_long)((PF_FpLong)infoP->randX[1] * ds + 0.5);
+		infoP->randX[2] = infoP->randX[1];
+		infoP->randX[3] = infoP->randX[1];
+	}
+	ERR(ae->GetADD(ID_MID_RX, &infoP->randY[1]));
+	if (!err) {
+		infoP->randY[1] = (A_long)((PF_FpLong)infoP->randY[1] * ds + 0.5);
+		infoP->randY[2] = infoP->randY[1];
+		infoP->randY[3] = infoP->randY[1];
+	}
+	ERR(ae->GetFIXEDPOINT(ID_LAST_P, &v));
+	if (!err) {
+		infoP->point[4].p.x = (int)((double)v.x / 65536 + 0.5);
+		infoP->point[4].p.y = (int)((double)v.y / 65536 + 0.5);
+	}
+	ERR(ae->GetADD(ID_LAST_RX, &infoP->randX[4]));
+	if (!err) {
+		infoP->randX[4] = (A_long)((PF_FpLong)infoP->randX[4] * ds + 0.5);
+	}
+	ERR(ae->GetADD(ID_LAST_RY, &infoP->randY[4]));
+	if (!err) {
+		infoP->randY[4] = (A_long)((PF_FpLong)infoP->randY[4] * ds + 0.5);
 	}
 
-	ERR(ae->GetADD(ID_RADIUS, &infoP->radius));
-	if (!err) {
-		infoP->radius = (A_long)((PF_FpLong)infoP->radius * ds + 0.5);
-	}
-
-	ERR(ae->GetFLOAT(ID_ASPECT, &infoP->aspect));
-
-	ERR(ae->GetADD(ID_POINT_COUNT, &infoP->point_count));
-
-	ERR(ae->GetANGLE(ID_POIN_ROT, &r));
-	if (!err) {
-		r = r % (360L << 16);
-		if (r < 0) r += (360L << 16);
-		infoP->point_rot = (PF_FpLong)r / 65536;
-	}
-
-	ERR(ae->GetADD(ID_POINT_RAND, &infoP->point_round));
-
-	ERR(ae->GetANGLE(ID_ROT, &r));
-	if (!err) {
-		r = r % (360L << 16);
-		if (r < 0) r += (360L << 16);
-		infoP->rot = (PF_FpLong)r / 65536;
-	}
-
-
-
-	ERR(ae->GetFLOAT(ID_LINE_SIZE, &infoP->lineSize));
+	ERR(ae->GetFLOAT(ID_LINESIZE, &infoP->lineSize));
 	if (!err) {
 		infoP->lineSize = (A_long)((PF_FpLong)infoP->lineSize * ds + 0.5);
 	}
-	ERR(ae->GetADD(ID_LINE_MOVE, &infoP->lineMove));
+	ERR(ae->GetADD(ID_LINEMOVE, &infoP->lineMove));
 	if (!err) {
 		infoP->lineMove = (A_long)((PF_FpLong)infoP->lineMove * ds + 0.5);
 	}
 
 	ERR(ae->GetADD(ID_SUB_COUNT, &infoP->subCount));
-	ERR(ae->GetADD(ID_FOLD_COUNT, &infoP->foldCount));	
+	ERR(ae->GetADD(ID_FOLD_COUNT, &infoP->foldCount));
 	ERR(ae->GetADD(ID_DRAW_COUNT, &infoP->drawCount));
 
+
+	
 	ERR(ae->GetCOLOR(ID_COLOR, &infoP->color));
 	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->blend));
 
@@ -446,66 +547,70 @@ static PF_Err
 	PF_Err	err = PF_Err_NONE;
 	infoP->frame = ae->frame();
 	A_long r = infoP->seed + infoP->seedPos;
-	r %= 30000;
-	if (r < 0) r += 30000;
+	r %= 30000; if (r < 0) r += 30000;
 	init_xorShift(r);
 	r = infoP->seed + infoP->seedMove;
-	r %= 30000;
-	if (r < 0) r += 30000;
+	r %= 30000; if (r < 0) r += 30000;
 	init_xorShiftM(r);
 
 	CLineDraw ld(ae->output, ae->in_data,ae->pixelFormat());
 
-	PF_FpLong dr = 360.0 / (PF_FpLong)infoP->point_count;
-	PointInfo points[POINT_COUNT_MAX];
-	
-	
 	for (A_long dc = 0; dc < infoP->drawCount; dc++)
 	{
-		for (A_long pc = 0; pc < infoP->point_count; pc++)
+		ld.Points.Clear();
+		PointInfo sub[5];
+		A_long subIndex = 0;
+		for (A_long k = 0; k < 5; k++)
 		{
-			PointInfo p = ld.Points.EnFromRot(
-				infoP->center,
-				infoP->point_rot + dr * pc,
-				infoP->radius,
-				infoP->aspect,
-				infoP->rot
-			);
-			p = ld.Points.Random(p, infoP->point_round, infoP->point_round);
-			p.s = infoP->lineSize * xorShiftDouble();
-			points[pc] = p;
-		}
-		for (A_long pc = 0; pc < infoP->point_count; pc++)
-		{
-			PointInfo p0 = points[pc];
-			PointInfo p1 = points[(pc + 1) % infoP->point_count];
-			ld.Points.Clear();
-			ld.Points.Push(p0);
-			ld.Points.Push(p1);
-			A_long depth = 0;
-			if (infoP->foldCount > 0) {
-				for (A_long fc = 0; fc < infoP->foldCount; fc++)
+			if (infoP->pointON[k] == TRUE)
+			{
+				PointInfo p = infoP->point[k];
+				p = ld.Points.Random(p, infoP->randX[k], infoP->randY[k]);
+				if ((k == 0) || (k == 4))
 				{
-					ld.Points.CalcCenterPos(
-						infoP->lineSize,
-						infoP->lineMove,
-						infoP->offset,
-						depth
-					);
-					depth++;
-
+					p.s = 0;
+					xorShiftDouble();
 				}
+				else {
+					p.s = (double)infoP->lineSize * (0.5 + 0.5*xorShiftDouble());
+				}
+				ld.Points.Push(p);
+				sub[subIndex] = p;
+				subIndex++;
 			}
-			ld.Line();
+			else {
+				xorShiftDouble();
+				xorShiftDouble();
+			}
+		}
 
-			if (infoP->subCount > 0) {
+
+		A_long depth = 0;
+		if (infoP->foldCount > 0) {
+			for (A_long fc = 0; fc < infoP->foldCount; fc++)
+			{
+				ld.Points.CalcCenterPos(
+					infoP->lineSize,
+					infoP->lineMove,
+					infoP->offset,
+					depth
+				);
+				depth++;
+
+			}
+		}
+		ld.Line();
+
+		if (infoP->subCount > 0) {
+			for (A_long k = 0; k < subIndex-1; k++)
+			{
+				PointInfo p2 = sub[k];
+				PointInfo p3 = sub[k+1];
 				for (A_long sc = 0; sc < infoP->subCount; sc++)
 				{
 					ld.Points.Clear();
-					p0 = points[pc];
-					p1 = points[(pc + 2) % infoP->point_count];
-					ld.Points.Push(p1);
-					ld.Points.Push(p0);
+					ld.Points.Push(p2);
+					ld.Points.Push(p3);
 					A_long depth = 0;
 					if (infoP->foldCount > 0) {
 						for (A_long fc = 0; fc < infoP->foldCount; fc++)
@@ -523,8 +628,10 @@ static PF_Err
 					ld.Line();
 				}
 			}
+			
 		}
 	}
+
 	ld.Colorize(infoP->color);
 
 	if (ae->pixelFormat() == PF_PixelFormat_ARGB128) {

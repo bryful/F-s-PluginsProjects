@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	SparkRing for VS2010
+	SparkGrand for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef SparkRing_H
-#define SparkRing_H
+#ifndef SparkGrand_H
+#define SparkGrand_H
 
 #include "Fs_Target.h"
 
@@ -117,4 +117,4 @@ EntryPointFunc (
 	void			*extra);
 }
 
-#endif // SparkRing_H
+#endif // SparkGrand_H

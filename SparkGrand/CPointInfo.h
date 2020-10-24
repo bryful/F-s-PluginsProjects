@@ -131,47 +131,6 @@ public:
 
 	}
 	// **************************************************************
-	inline PointInfo EnFromRot(
-		A_LPoint s, 
-		PF_FpLong rot,
-		A_long len,
-		PF_FpLong aspect,
-		PF_FpLong rot2
-		)
-	{
-		PointInfo ret;
-		ret.p.x = s.x;
-		ret.p.y = s.y;
-
-		if (len <= 0) return ret;
-		A_long rr = (A_long)((double)(1L << 16) * rot + 0.5);
-		rr %= (360L << 16);
-		if (rr < 0) rr += (360L << 16);
-		rot = (PF_FpShort)rr / (PF_FpShort)(1L << 16);
-
-		PF_FpShort r = (PF_FpShort)(rot * PF_PI / 180);
-		ret.p.x += (A_long)((PF_FpShort)len * PF_COS(r) + 0.5);
-		ret.p.y += (A_long)((PF_FpShort)len * PF_SIN(r) * aspect + 0.5);
-
-		if (rot2 != 0) {
-			PF_FpLong dx = (PF_FpLong)ret.p.x - (PF_FpLong)s.x;
-			PF_FpLong dy = (PF_FpLong)ret.p.y - (PF_FpLong)s.y;
-			PF_FpLong len2 = (PF_FpLong)PF_HYPOT(dx, dy);
-			PF_FpLong r2 = PF_ATAN2(dy, dx) * 180 / PF_PI;
-			r2 = r2 + rot2;
-			rr = (A_long)((double)(1L << 16) * r2 + 0.5);
-			rr %= (360L << 16);
-			if (rr < 0) rr += (360L << 16);
-			r2 = (PF_FpShort)rr / (PF_FpShort)(1L << 16);
-
-			r2 = (PF_FpShort)(r2 * PF_PI / 180);
-			ret.p.x = s.x + (A_long)((PF_FpShort)len2 * PF_COS(r2) + 0.5);
-			ret.p.y = s.y + (A_long)((PF_FpShort)len2 * PF_SIN(r2) + 0.5);
-		}
-		return ret;
-
-	}
-	// **************************************************************
 	inline PointInfo Random(PointInfo s, A_long rx, A_long ry)
 	{
 		PointInfo ret = s;
@@ -206,19 +165,19 @@ public:
 			PointInfo c;
 			c.p.x = (s.p.x + d.p.x) / 2;
 			c.p.y = (s.p.y + d.p.y) / 2;
-			A_long len = (A_long)((double)lineMove * xorShiftMDouble());
+			A_long len = (A_long)((double)lineMove * xorShiftDouble());
 			len = (A_long)((double)len + (double)len * 0.1 * (depth));
 
-			PF_FpLong r = (360 * xorShiftMDouble()) + RotOffset;
+			PF_FpLong r = (360 * xorShiftDouble()) + RotOffset;
 			if ((depth % 2) == 1) r = -r;
 			A_long rr = (A_long)(r * (PF_FpLong)(1L<<16) + 0.5);
 			rr %= (360L << 16);
 			if (rr < 0) rr += (360L << 16);
 			r = (PF_FpLong)rr / (PF_FpLong)(1L << 16);
 			PF_FpLong sz = lineSize;
-			sz *= (0.1 + 0.9 * xorShiftMDouble());
+			sz *= (0.1 + 0.9 * xorShiftDouble());
 			sz *= (1 - 0.1 * depth);
-			//if (sz < 1) sz = 1;
+			if (sz < 1) sz = 1;
 			c = ShiftFromRot(c, (PF_FpShort)r, len);
 			c.s = sz;
 			insert(i, c);
