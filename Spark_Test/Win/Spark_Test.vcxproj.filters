@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Spark5P.cpp" />
+    <ClCompile Include="..\Spark_Test.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c">
       <Filter>Header Files\AE</Filter>
     </ClCompile>
@@ -39,7 +39,7 @@
   <ItemGroup>
     <ClInclude Include="..\Fs_Entry.h" />
     <ClInclude Include="..\Fs_Target.h" />
-    <ClInclude Include="..\Spark5P.h" />
+    <ClInclude Include="..\Spark_Test.h" />
     <ClInclude Include="..\..\..\Headers\A.h">
       <Filter>Header Files\AE</Filter>
     </ClInclude>
@@ -166,12 +166,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\Spark5PPiPL.r">
+    <CustomBuild Include="..\Spark_TestPiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Spark5PPiPL.rc">
+    <ResourceCompile Include="Spark_TestPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

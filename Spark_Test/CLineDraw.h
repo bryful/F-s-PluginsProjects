@@ -116,8 +116,7 @@ private:
 
 		A_long dxi = xi1 - xi0;
 		if (dxi == 0) {
-			PF_FpLong xv3 = xv0 * xv1;
-			BlendPX8(xi0, y, (A_u_char)((1 - xv3) * PF_MAX_CHAN8));
+			BlendPX8(xi0, y, (A_u_char)((1 - xv0) * PF_MAX_CHAN8));
 		}
 		else {
 			BlendPX8(xi0, y, (A_u_char)((1 - xv0) * PF_MAX_CHAN8));
@@ -153,8 +152,7 @@ private:
 
 		A_long dxi = xi1 - xi0;
 		if (dxi == 0) {
-			PF_FpLong xv3 = xv0 * xv1;
-			BlendPX16(xi0, y, (A_u_short)((1 - xv3) * PF_MAX_CHAN16));
+			BlendPX16(xi0, y, (A_u_short)((1 - xv0) * PF_MAX_CHAN16));
 		}
 		else {
 			BlendPX16(xi0, y, (A_u_short)((1 - xv0) * PF_MAX_CHAN16));
@@ -190,8 +188,7 @@ private:
 
 		A_long dxi = xi1 - xi0;
 		if (dxi == 0) {
-			PF_FpLong xv3 = xv0 * xv1;
-			BlendPX32(xi0, y, (PF_FpShort)((1 - xv3)));
+			BlendPX32(xi0, y, (PF_FpShort)((1 - xv0)));
 		}
 		else {
 			BlendPX32(xi0, y, (PF_FpShort)((1 - xv0)));
@@ -229,8 +226,7 @@ private:
 
 		A_long dyi = yi1 - yi0;
 		if (dyi == 0) {
-			PF_FpLong yv3 = yv0 * yv1;
-			BlendPX8(x, yi0, (A_u_char)((1 - yv3) * PF_MAX_CHAN8));
+			BlendPX8(x, yi0, (A_u_char)((1 - yv0) * PF_MAX_CHAN8));
 		}
 		else {
 			BlendPX8(x, yi0, (A_u_char)((1 - yv0) * PF_MAX_CHAN8));
@@ -265,8 +261,7 @@ private:
 
 		A_long dyi = yi1 - yi0;
 		if (dyi == 0) {
-			PF_FpLong yv3 = yv0 * yv1;
-			BlendPX16(x, yi0, (A_u_short)((1 - yv3) * PF_MAX_CHAN16));
+			BlendPX16(x, yi0, (A_u_short)((1 - yv0) * PF_MAX_CHAN16));
 		}
 		else {
 			BlendPX16(x, yi0, (A_u_short)((1 - yv0) * PF_MAX_CHAN16));
@@ -301,8 +296,7 @@ private:
 
 		A_long dyi = yi1 - yi0;
 		if (dyi == 0) {
-			PF_FpLong yv3 = yv0 * yv1;
-			BlendPX32(x, yi0, (A_u_short)((1 - yv3)));
+			BlendPX32(x, yi0, (A_u_short)((1 - yv0)));
 		}
 		else {
 			BlendPX32(x, yi0, (A_u_short)((1 - yv0)));
@@ -326,7 +320,7 @@ private:
 	void Fill_EN(PointInfo p)
 	{
 
-		PF_FpLong r2 = p.s *0.85 / 2;
+		PF_FpLong r2 = p.s * 0.75 / 2;
 		A_long ri = (A_long)(r2 + 0.5);
 		if (ri <= 0) return;
 		for (A_long i = 0; i < ri; i++)
@@ -459,8 +453,6 @@ public:
 #pragma region Line
 	void Line(PointInfo start, PointInfo last)
 	{
-		if ((start.s <= 0) && (last.s <= 0)) return;
-
 		A_long dx = ABS(last.p.x - start.p.x);
 		A_long dy = ABS(last.p.y - start.p.y);
 
@@ -517,7 +509,6 @@ public:
 		for (A_long i = 0; i < pnts.Count(); i++)
 		{
 			PointInfo s = pnts.Points[i];
-			if (s.s < 0) break;
 			Fill_EN(s);
 			PointInfo d = pnts.Points[i+1];
 			if (d.s < 0) break;
@@ -606,7 +597,7 @@ public:
 
 
 			A_long bufLen = m_height * sizeof(A_long);
-			bufLen += bufSize * sizeof(PointInfo) * 2;
+			bufLen += bufSize * sizeof(PointInfo);
 			bufLen *= 3;
 			m_bufH = PF_NEW_HANDLE(bufLen);
 			if (m_bufH) {
@@ -617,7 +608,7 @@ public:
 					m_vurTbl[i] = i * m_widthTrue;
 				}
 				A_long* v = m_vurTbl + m_height + 10;
-				Points.SetParams(in_data, (PointInfoP)v, bufSize,0);
+				Points.SetParams(in_data, (PointInfoP)v, CPointInfo::PointsSizeMax,0);
 				Points.Clear();
 
 			}

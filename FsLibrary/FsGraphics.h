@@ -95,14 +95,6 @@ typedef struct GInfo {
 }GInfo;
 
 
-#ifndef PointInfo_H
-#define PointInfo_H
-typedef struct PointInfo {
-	A_LPoint	p;
-	PF_FpLong	s;
-
-} PointInfo, * PointInfoP, ** PointInfoH;
-#endif
 
 	
 
