@@ -27,18 +27,25 @@ enum {
 	ID_SEEDPOS,
 	ID_SEEDMOVE,
 	ID_OFFSET,
-	ID_CENTER,
-	ID_RADIUS,
-	ID_ASPECT,
-	ID_POINT_COUNT,
-	ID_POIN_ROT,
-	ID_POINT_RAND,
-	ID_ROT,
+	ID_WIPE,
+
+	ID_START,
+	ID_LAST1,
+	ID_LAST2,
+
+	ID_DRAW_COUNT,
+
+	ID_START_RX,
+	ID_START_RY,
+
+	ID_LAST_RX,
+	ID_LAST_RY,
+
+
 	ID_LINE_SIZE,
 	ID_LINE_MOVE,
 	ID_FOLD_COUNT,
 	ID_SUB_COUNT,
-	ID_DRAW_COUNT,
 	ID_COLOR,
 	ID_BLEND,
 
@@ -52,16 +59,17 @@ enum {
 #define	STR_SEEDPOS		"seedPos"
 #define	STR_SEEDMOVE	"seedMove"
 #define	STR_OFFSET		"offset"
+#define	STR_WIPE		"wipe"
 
-#define	STR_CENTER		"center"
-#define	STR_RADIUS		"radius"
-#define	STR_ASPECT		"aspect"
+#define	STR_START		"start"
+#define	STR_LAST1		"last1"
+#define	STR_LAST2		"last2"
 
-#define	STR_POINT_COUNT	"point_count"
-#define	STR_POINT_ROT	"point_rot"
-#define	STR_POINT_ROND	"point_rand"
+#define	STR_START_RX	"startRandX"
+#define	STR_START_RY	"startRandY"
 
-#define	STR_ROT			"rot"
+#define	STR_LAST_RX		"lastRandX"
+#define	STR_LAST_RY		"laxtRandY"
 
 
 #define	STR_LINE_SIZE	"lineSize"
@@ -83,14 +91,17 @@ typedef struct ParamInfo {
 	A_long		seedPos;
 	A_long		seedMove;
 	PF_FpLong	offset;
+	PF_FpLong	wipe;
 
-	A_LPoint	center;
-	A_long		radius;
-	PF_FpLong	aspect;
-	A_long		point_count;
-	PF_FpLong	point_rot;
-	A_long		point_round;
-	PF_FpLong	rot;
+	PointInfo	start;
+	PointInfo	last1;
+	PointInfo	last2;
+
+	A_long		startRandX;
+	A_long		startRandY;
+	A_long		lastRandX;
+	A_long		lastRandY;
+
 
 	PF_FpLong	lineSize;
 	A_long		lineMove;

@@ -27,6 +27,7 @@ enum {
 	ID_SEEDPOS,
 	ID_SEEDMOVE,
 	ID_OFFSET,
+	ID_WIPE,
 
 	ID_START,
 	ID_STARTRANDX,
@@ -59,6 +60,7 @@ enum {
 #define	STR_SEED		"seed"
 #define	STR_SEEDPOS		"seedPos"
 #define	STR_SEEDMOVE	"seedMove"
+#define	STR_WIPE		"wipe(%)"
 
 #define	STR_OFFSET		"offset"
 
@@ -114,6 +116,9 @@ typedef struct ParamInfo {
 	A_long		seedPos;
 	A_long		seedMove;
 	A_long		frame;
+
+	PF_FpLong	wipe;
+
 
 	PF_Pixel	color;
 	PF_Boolean	blend;

@@ -8,7 +8,6 @@
 typedef struct PointInfo {
 	A_LPoint	p;
 	PF_FpLong	s;
-	A_long		index;
 
 } PointInfo, * PointInfoP, ** PointInfoH;
 #endif
@@ -18,16 +17,13 @@ class CPointInfo
 	// **************************************************************
 private:
 	A_long m_Count = 0;
-	A_long m_CountBack = 0;
 	A_long m_Size = 0;
 	// **************************************************************
 public:
 	PointInfo* Points = NULL;
-	PointInfo* PointsBak = NULL;
 	static const A_long PointsSizeMax = 1024;
 	PF_InData* in_data = NULL;
 	A_long Count() {return m_Count;}
-	A_long CountBak() { return m_CountBack; }
 	A_long PointsSize() { return m_Size; }
 	// **************************************************************
 	CPointInfo()
@@ -37,7 +33,6 @@ public:
 	{
 		in_data = ind;
 		Points = buf;
-		PointsBak = buf + sz + 100;
 		m_Size = sz;
 		m_Count = cnt;
 
@@ -57,7 +52,6 @@ public:
 			Points[i].p.x = 0;
 			Points[i].p.y = 0;
 			Points[i].s = -1;
-			Points[i].index = -1;
 		}
 	}
 	// **************************************************************
@@ -65,7 +59,6 @@ public:
 	{
 		if (m_Count >= m_Size-1) return;
 		Points[m_Count] = p;
-		Points[m_Count].index = m_Count;
 		m_Count++;
 	}
 	// **************************************************************
@@ -92,8 +85,6 @@ public:
 		PointInfo temp = Points[idx0];
 		Points[idx0] = Points[idx1];
 		Points[idx1] = temp;
-		Points[idx0].index = idx0;
-		Points[idx1].index = idx1;
 
 	}
 		// **************************************************************
@@ -104,17 +95,14 @@ public:
 
 		if (idx >= m_Count) {
 			Points[m_Count] = p;
-			Points[m_Count].index = m_Count;
 		}
 		else {
 			A_long st = m_Count;
 			for (A_long i = st; i > idx; i--)
 			{
 				Points[i] = Points[i - 1];
-				Points[i].index = i;
 			}
 			Points[idx] = p;
-			Points[idx].index = idx;
 		}
 		m_Count++;
 	}
@@ -143,47 +131,6 @@ public:
 
 	}
 	// **************************************************************
-	inline PointInfo EnFromRot(
-		A_LPoint s, 
-		PF_FpLong rot,
-		A_long len,
-		PF_FpLong aspect,
-		PF_FpLong rot2
-		)
-	{
-		PointInfo ret;
-		ret.p.x = s.x;
-		ret.p.y = s.y;
-
-		if (len <= 0) return ret;
-		A_long rr = (A_long)((double)(1L << 16) * rot + 0.5);
-		rr %= (360L << 16);
-		if (rr < 0) rr += (360L << 16);
-		rot = (PF_FpShort)rr / (PF_FpShort)(1L << 16);
-
-		PF_FpShort r = (PF_FpShort)(rot * PF_PI / 180);
-		ret.p.x += (A_long)((PF_FpShort)len * PF_COS(r) + 0.5);
-		ret.p.y += (A_long)((PF_FpShort)len * PF_SIN(r) * aspect + 0.5);
-
-		if (rot2 != 0) {
-			PF_FpLong dx = (PF_FpLong)ret.p.x - (PF_FpLong)s.x;
-			PF_FpLong dy = (PF_FpLong)ret.p.y - (PF_FpLong)s.y;
-			PF_FpLong len2 = (PF_FpLong)PF_HYPOT(dx, dy);
-			PF_FpLong r2 = PF_ATAN2(dy, dx) * 180 / PF_PI;
-			r2 = r2 + rot2;
-			rr = (A_long)((double)(1L << 16) * r2 + 0.5);
-			rr %= (360L << 16);
-			if (rr < 0) rr += (360L << 16);
-			r2 = (PF_FpShort)rr / (PF_FpShort)(1L << 16);
-
-			r2 = (PF_FpShort)(r2 * PF_PI / 180);
-			ret.p.x = s.x + (A_long)((PF_FpShort)len2 * PF_COS(r2) + 0.5);
-			ret.p.y = s.y + (A_long)((PF_FpShort)len2 * PF_SIN(r2) + 0.5);
-		}
-		return ret;
-
-	}
-	// **************************************************************
 	inline PointInfo Random(PointInfo s, A_long rx, A_long ry)
 	{
 		PointInfo ret = s;
@@ -191,15 +138,9 @@ public:
 		{
 			ret.p.x += (A_long)(-(double)rx + (double)rx * 2 * xorShiftDouble());
 		}
-		else {
-			xorShiftDouble();
-		}
 		if (ry > 0)
 		{
 			ret.p.y += (A_long)(-(double)ry + (double)ry * 2 * xorShiftDouble());
-		}
-		else {
-			xorShiftDouble();
 		}
 		return ret;
 	}
@@ -224,19 +165,19 @@ public:
 			PointInfo c;
 			c.p.x = (s.p.x + d.p.x) / 2;
 			c.p.y = (s.p.y + d.p.y) / 2;
-			A_long len = (A_long)((double)lineMove * xorShiftMDouble());
+			A_long len = (A_long)((double)lineMove * xorShiftDouble());
 			len = (A_long)((double)len + (double)len * 0.1 * (depth));
 
-			PF_FpLong r = (360 * xorShiftMDouble()) + RotOffset;
+			PF_FpLong r = (360 * xorShiftDouble()) + RotOffset;
 			if ((depth % 2) == 1) r = -r;
 			A_long rr = (A_long)(r * (PF_FpLong)(1L<<16) + 0.5);
 			rr %= (360L << 16);
 			if (rr < 0) rr += (360L << 16);
 			r = (PF_FpLong)rr / (PF_FpLong)(1L << 16);
 			PF_FpLong sz = lineSize;
-			sz *= (0.1 + 0.9 * xorShiftMDouble());
+			sz *= (0.1 + 0.9 * xorShiftDouble());
 			sz *= (1 - 0.1 * depth);
-			//if (sz < 1) sz = 1;
+			if (sz < 1) sz = 1;
 			c = ShiftFromRot(c, (PF_FpShort)r, len);
 			c.s = sz;
 			insert(i, c);
@@ -275,82 +216,6 @@ public:
 		d.p.y = s.p.y + y;
 		return d;
 
-	}
-	// **************************************************************
-	void Wipe(PF_FpLong par)
-	{
-		if ((par == 1)||(m_Count==0)) return;
-		//‚·‚×‚ÄÁ‚¦‚Ä‚éó‘Ô
-		if ((par <= 0) || (par >= 2))
-		{
-			Points[0].s = -1;
-			Points[1].s = -1;
-			return;
-		}
-		else {
-			A_long c = m_Count - 1;
-			if ((par > 0) && (par < 1)) {
-				A_long idx = (A_long)((PF_FpLong)c * par);
-				PF_FpLong idxP = (double)c * par - (PF_FpLong)idx;
-				for (A_long i = 0; i < idx; i++)
-				{
-					//‰½‚à‚µ‚È‚¢
-				}
-				Points[idx+1].s *= idxP;
-				Points[idx + 2].s = -1;
-			}
-			else {
-				A_long idx = (A_long)((PF_FpLong)c * (par-1));
-				PF_FpLong idxP = (double)c * (par-1) - (PF_FpLong)idx;
-				for (A_long i = 0; i < idx; i++)
-				{
-					Points[i].s = 0;
-				}
-				Points[idx].s *= (1-idxP);
-			}
-
-		}
-	}
-	// **************************************************************
-	PointInfo PointInterRandom(PointInfo p0, PointInfo p1)
-	{
-		PointInfo ret;
-
-		A_long dx = p1.p.x - p0.p.x;
-		A_long dy = p1.p.y - p0.p.y;
-
-		dx = (A_long)((double)dx * xorShiftMDouble() + 0.5);
-		dy = (A_long)((double)dy * xorShiftMDouble() + 0.5);
-		ret.p.x = p0.p.x + dx;
-		ret.p.y = p0.p.y + dy;
-
-		return ret;
-
-	}
-	// **************************************************************
-	PointInfo PointInter(PointInfo p0, PointInfo p1)
-	{
-		PointInfo ret;
-		A_long dx = (p1.p.x - p0.p.x)/2;
-		A_long dy = (p1.p.y - p0.p.y)/2;
-
-		ret.p.x = p0.p.x + dx;
-		ret.p.y = p0.p.y + dy;
-
-		return ret;
-
-	}
-	// **************************************************************
-	void Backup()
-	{
-		if (m_Size > 0)
-		{
-			for (int i = 0; i < m_Size; i++)
-			{
-				PointsBak[i] = Points[i];
-			}
-		}
-		m_CountBack = m_Count;
 	}
 	// **************************************************************
 };

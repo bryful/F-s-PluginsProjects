@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	Spark5P for VS2010
+	SparkMult for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef Spark5P_H
-#define Spark5P_H
+#ifndef SparkMult_H
+#define SparkMult_H
 
 #include "Fs_Target.h"
 
@@ -27,22 +27,21 @@ enum {
 	ID_SEEDPOS,
 	ID_SEEDMOVE,
 	ID_OFFSET,
+	ID_WIPE,
 
-	ID_FIRST_P,
-	ID_FIRST_RX,
-	ID_FIRST_RY,
+	ID_POINT_COUNT,
+	ID_0_P,
+	ID_1_P,
+	ID_2_P,
+	ID_3_P,
+	ID_4_P,
+	ID_5_P,
+	ID_6_P,
 
-	ID_2ND_CB,
-	ID_2ND_P,
-	ID_3RD_CB,
-	ID_3RD_P,
-	ID_4TH_CB,
-	ID_4TH_P,
-
+	ID_START_RX,
+	ID_START_RY,
 	ID_MID_RX,
 	ID_MID_RY,
-
-	ID_LAST_P,
 	ID_LAST_RX,
 	ID_LAST_RY,
 
@@ -67,22 +66,21 @@ enum {
 #define	STR_SEEDPOS		"seedPos"
 #define	STR_SEEDMOVE	"seedMove"
 #define	STR_OFFSET		"offset"
+#define	STR_WIPE		"wipe(%)"
 
-#define	STR_FIRST		"first_point"
-#define	STR_FIRST_RX	"first_randX"
-#define	STR_FIRST_RY	"first_randY"
+#define	STR_POINT_COUNT	"pointCount"
+#define	STR_0_P			"point0"
+#define	STR_1_P			"point1"
+#define	STR_2_P			"point2"
+#define	STR_3_P			"point3"
+#define	STR_4_P			"point4"
+#define	STR_5_P			"point5"
+#define	STR_6_P			"point6"
 
-#define	STR_2ND_CB		"2nd"
-#define	STR_2ND_P		"2nd_point"
-#define	STR_3RD_CB		"3rd"
-#define	STR_3RD_P		"3rd_point"
-#define	STR_4TH_CB		"4th"
-#define	STR_4TH_P		"4th_point"
-
+#define	STR_START_RX	"first_randX"
+#define	STR_START_RY	"first_randY"
 #define	STR_MID_RX		"mid_randX"
 #define	STR_MID_RY		"mid_randY"
-
-#define	STR_LAST		"last_point"
 #define	STR_LAST_RX		"last_randX"
 #define	STR_LAST_RY		"last_randY"
 
@@ -108,11 +106,12 @@ typedef struct ParamInfo {
 	A_long		seedPos;
 	A_long		seedMove;
 	PF_FpLong	offset;
+	PF_FpLong	wipe;
 
-	PointInfo	point[5];
-	A_long		randX[5];
-	A_long		randY[5];
-	PF_Boolean	pointON[5];
+	A_long		pointCount;
+	PointInfo	point[7];
+	A_long		randX[7];
+	A_long		randY[7];
 
 	PF_FpLong	lineSize;
 	A_long		lineMove;
@@ -138,4 +137,4 @@ EntryPointFunc (
 	void			*extra);
 }
 
-#endif // Spark5P_H
+#endif // SparkMult_H
