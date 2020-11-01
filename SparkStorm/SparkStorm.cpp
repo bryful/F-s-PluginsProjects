@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "SparkMult.h"
+#include "SparkStorm.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -56,6 +56,16 @@ static PF_Err ParamsSetup (
 	PF_ADD_ANGLE(STR_OFFSET, 0, ID_OFFSET);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_SEEDDRAW,	//パラメータの名前
+		-30000, 				//数値入力する場合の最小値
+		30000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		1000,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_SEEDDRAW
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
 	PF_ADD_FLOAT_SLIDER(STR_WIPE,	//Name
 		0,						//VALID_MIN
 		200,						//VALID_MAX
@@ -69,76 +79,50 @@ static PF_Err ParamsSetup (
 		ID_WIPE
 	);
 	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_POINT_COUNT,	//パラメータの名前
-		2, 				//数値入力する場合の最小値
-		7,			//数値入力する場合の最大値
-		2,				//スライダーの最小値 
-		7,				//スライダーの最大値
-		5,				//デフォルトの値
-		ID_POINT_COUNT
-	);
-	//----------------------------------------------------------------
 	//位置の指定
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_0_P,		/*"New Center"*/
-		0,	// X
-		0,	// Y
-		0,	// Flag
-		ID_0_P
-	);
-	//----------------------------------------------------------------
-	//位置の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_1_P,		/*"New Center"*/
-		10,	// X
+	PF_ADD_POINT(STR_START_P0,		/*"New Center"*/
+		15,	// X
 		10,	// Y
 		0,	// Flag
-		ID_1_P
-	);
-	//----------------------------------------------------------------
-//位置の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_2_P,		/*"New Center"*/
-		20,	// X
-		20,	// Y
-		0,	// Flag
-		ID_2_P
-	);	//----------------------------------------------------------------
-	//位置の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_3_P,		/*"New Center"*/
-		30,	// X
-		30,	// Y
-		0,	// Flag
-		ID_3_P
-	);	
-	//----------------------------------------------------------------
-	//位置の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_4_P,		/*"New Center"*/
-		40,	// X
-		40,	// Y
-		0,	// Flag
-		ID_4_P
+		ID_START_P0
 	);
 	//----------------------------------------------------------------
 	//位置の指定
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_5_P,		/*"New Center"*/
-		50,	// X
-		50,	// Y
+	PF_ADD_POINT(STR_START_P1,		/*"New Center"*/
+		85,	// X
+		10,	// Y
 		0,	// Flag
-		ID_5_P
+		ID_START_P1
 	);
 	//----------------------------------------------------------------
-//位置の指定
+	//位置の指定
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_6_P,		/*"New Center"*/
-		60,	// X
-		60,	// Y
+	PF_ADD_POINT(STR_LAST_P0,		/*"New Center"*/
+		15,	// X
+		90,	// Y
 		0,	// Flag
-		ID_6_P
+		ID_LAST_P0
+	);
+	//----------------------------------------------------------------
+	//位置の指定
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_POINT(STR_LAST_P1,		/*"New Center"*/
+		85,	// X
+		90,	// Y
+		0,	// Flag
+		ID_LAST_P1
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_DRAWCOUNT,	//パラメータの名前
+		1, 				//数値入力する場合の最小値
+		100,			//数値入力する場合の最大値
+		1,				//スライダーの最小値 
+		10,				//スライダーの最大値
+		5,				//デフォルトの値
+		ID_DRAW_COUNT
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
@@ -159,26 +143,6 @@ static PF_Err ParamsSetup (
 		100,				//スライダーの最大値
 		10,				//デフォルトの値
 		ID_START_RY
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_MID_RX,	//パラメータの名前
-		0, 				//数値入力する場合の最小値
-		500,			//数値入力する場合の最大値
-		0,				//スライダーの最小値 
-		100,				//スライダーの最大値
-		10,				//デフォルトの値
-		ID_MID_RX
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_MID_RY,	//パラメータの名前
-		0, 				//数値入力する場合の最小値
-		500,			//数値入力する場合の最大値
-		0,				//スライダーの最小値 
-		100,				//スライダーの最大値
-		10,				//デフォルトの値
-		ID_MID_RY
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
@@ -231,28 +195,18 @@ static PF_Err ParamsSetup (
 		10,			//数値入力する場合の最大値
 		0,				//スライダーの最小値 
 		5,				//スライダーの最大値
-		2,				//デフォルトの値
+		3,				//デフォルトの値
 		ID_SUB_COUNT
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_SLIDER(STR_FOLDCOUNT,	//パラメータの名前
 		1, 				//数値入力する場合の最小値
-		5,			//数値入力する場合の最大値
+		8,			//数値入力する場合の最大値
 		1,				//スライダーの最小値 
-		5,				//スライダーの最大値
-		3,				//デフォルトの値
+		6,				//スライダーの最大値
+		4,				//デフォルトの値
 		ID_FOLD_COUNT
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_DRAWCOUNT,	//パラメータの名前
-		1, 				//数値入力する場合の最小値
-		50,			//数値入力する場合の最大値
-		1,				//スライダーの最小値 
-		5,				//スライダーの最大値
-		1,				//デフォルトの値
-		ID_DRAW_COUNT
 	);
 
 
@@ -446,13 +400,6 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
-	for (A_long i = 0; i < 5; i++)
-	{
-		infoP->point[i].p.x = 0;
-		infoP->point[i].p.y = 0;
-		infoP->point[i].s = 0;
-	}
-
 	PF_InData* in_data = ae->in_data;
 	PF_FpLong ds = (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den;
 
@@ -468,6 +415,9 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	ERR(ae->GetADD(ID_SEEDMOVE, &infoP->seedMove));
 	infoP->seedMove %= 30000;
 	if (infoP->seedMove < 0)infoP->seedMove += 30000;
+	ERR(ae->GetADD(ID_SEEDDRAW, &infoP->seedDraw));
+	infoP->seedDraw %= 30000;
+	if (infoP->seedDraw < 0)infoP->seedDraw += 30000;
 
 
 	PF_Fixed r;
@@ -483,79 +433,45 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 		if (infoP->wipe < 0) infoP->wipe = 0;
 		else if (infoP->wipe > 2) infoP->wipe = 2;
 	}
-	ERR(ae->GetADD(ID_POINT_COUNT, &infoP->pointCount));
 
-
-	ERR(ae->GetFIXEDPOINT(ID_0_P, &v));
+	ERR(ae->GetFIXEDPOINT(ID_START_P0, &v));
 	if (!err) {
 		infoP->point[0].p.x = (int)((double)v.x / 65536 + 0.5);
 		infoP->point[0].p.y = (int)((double)v.y / 65536 + 0.5);
 	}
-	ERR(ae->GetFIXEDPOINT(ID_1_P, &v));
+	ERR(ae->GetFIXEDPOINT(ID_START_P1, &v));
 	if (!err) {
 		infoP->point[1].p.x = (int)((double)v.x / 65536 + 0.5);
 		infoP->point[1].p.y = (int)((double)v.y / 65536 + 0.5);
 	}
-	ERR(ae->GetFIXEDPOINT(ID_2_P, &v));
+	ERR(ae->GetFIXEDPOINT(ID_LAST_P0, &v));
 	if (!err) {
 		infoP->point[2].p.x = (int)((double)v.x / 65536 + 0.5);
 		infoP->point[2].p.y = (int)((double)v.y / 65536 + 0.5);
 	}
-	ERR(ae->GetFIXEDPOINT(ID_3_P, &v));
+	ERR(ae->GetFIXEDPOINT(ID_LAST_P1, &v));
 	if (!err) {
 		infoP->point[3].p.x = (int)((double)v.x / 65536 + 0.5);
 		infoP->point[3].p.y = (int)((double)v.y / 65536 + 0.5);
 	}
-	ERR(ae->GetFIXEDPOINT(ID_4_P, &v));
-	if (!err) {
-		infoP->point[4].p.x = (int)((double)v.x / 65536 + 0.5);
-		infoP->point[4].p.y = (int)((double)v.y / 65536 + 0.5);
-	}
-	ERR(ae->GetFIXEDPOINT(ID_5_P, &v));
-	if (!err) {
-		infoP->point[5].p.x = (int)((double)v.x / 65536 + 0.5);
-		infoP->point[5].p.y = (int)((double)v.y / 65536 + 0.5);
-	}
-	ERR(ae->GetFIXEDPOINT(ID_6_P, &v));
-	if (!err) {
-		infoP->point[6].p.x = (int)((double)v.x / 65536 + 0.5);
-		infoP->point[6].p.y = (int)((double)v.y / 65536 + 0.5);
-	}
-	
-	A_long mx = 0;
-	A_long my = 0;
-	ERR(ae->GetADD(ID_MID_RX, &mx));
-	if (!err) {
-		mx = (A_long)((PF_FpLong)mx * ds + 0.5);
-	}
-	ERR(ae->GetADD(ID_MID_RX, &my));
-	if (!err) {
-		my = (A_long)((PF_FpLong)my * ds + 0.5);
-	}
-
-	for (A_long i = 0; i < 7; i++) 
-	{
-		infoP->randX[i] = mx;
-		infoP->randY[i] = my;
-	}
+	ERR(ae->GetADD(ID_DRAW_COUNT, &infoP->drawCount));
 
 
-	ERR(ae->GetADD(ID_START_RX, &infoP->randX[0]));
+	ERR(ae->GetADD(ID_START_RX, &infoP->startRandX));
 	if (!err) {
-		infoP->randX[0] = (A_long)((PF_FpLong)infoP->randX[0] * ds + 0.5);
+		infoP->startRandX = (A_long)((PF_FpLong)infoP->startRandX * ds + 0.5);
 	}
-	ERR(ae->GetADD(ID_START_RY, &infoP->randY[0]));
+	ERR(ae->GetADD(ID_START_RY, &infoP->startRandY));
 	if (!err) {
-		infoP->randY[0] = (A_long)((PF_FpLong)infoP->randY[0] * ds + 0.5);
+		infoP->startRandY = (A_long)((PF_FpLong)infoP->startRandY * ds + 0.5);
 	}
-	A_long p = infoP->pointCount - 1;
-	ERR(ae->GetADD(ID_LAST_RX, &infoP->randX[p]));
+	ERR(ae->GetADD(ID_LAST_RX, &infoP->lastRandX));
 	if (!err) {
-		infoP->randX[p] = (A_long)((PF_FpLong)infoP->randX[p] * ds + 0.5);
+		infoP->lastRandX = (A_long)((PF_FpLong)infoP->lastRandX * ds + 0.5);
 	}
-	ERR(ae->GetADD(ID_LAST_RY, &infoP->randY[p]));
+	ERR(ae->GetADD(ID_LAST_RY, &infoP->lastRandY));
 	if (!err) {
-		infoP->randY[p] = (A_long)((PF_FpLong)infoP->randY[p] * ds + 0.5);
+		infoP->lastRandY = (A_long)((PF_FpLong)infoP->lastRandY * ds + 0.5);
 	}
 
 
@@ -570,7 +486,6 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 
 	ERR(ae->GetADD(ID_SUB_COUNT, &infoP->subCount));
 	ERR(ae->GetADD(ID_FOLD_COUNT, &infoP->foldCount));
-	ERR(ae->GetADD(ID_DRAW_COUNT, &infoP->drawCount));
 
 
 	
@@ -589,32 +504,29 @@ static PF_Err
 	A_long r = infoP->seed + infoP->seedPos;
 	r %= 30000; if (r < 0) r += 30000;
 	init_xorShift(r);
+	
 	r = infoP->seed + infoP->seedMove;
 	r %= 30000; if (r < 0) r += 30000;
 	init_xorShiftM(r);
 
-	CLineDraw ld(ae->output, ae->in_data,ae->pixelFormat(),2048);
+	r =  infoP->seedDraw;
+	r %= 30000; if (r < 0) r += 30000;
+	init_xorShiftR(r);
 
-	A_long pc = infoP->pointCount;
+	CLineDraw ld(ae->output, ae->in_data,ae->pixelFormat(),1024);
+
 	for (A_long dc = 0; dc < infoP->drawCount; dc++)
 	{
+		PointInfo p0;
+		PointInfo p1;
+		ld.Points.PointStrom(infoP->point, &p0, &p1);
+		p0 = ld.Points.Random(p0, infoP->startRandX, infoP->startRandY);
+		p1 = ld.Points.Random(p1, infoP->lastRandX, infoP->lastRandY);
+		p0.s = 0;
+		p1.s = 0;
 		ld.Points.Clear();
-		PointInfo sub[10];
-		for (A_long k = 0; k < pc; k++)
-		{
-			PointInfo p = infoP->point[k];
-			p = ld.Points.Random(p, infoP->randX[k], infoP->randY[k]);
-			if ((k == 0) || (k == pc-1))
-			{
-				p.s = 0;
-				xorShiftDouble();
-			}
-			else {
-				p.s = (double)infoP->lineSize * (0.2 + 0.8*xorShiftDouble());
-			}
-			ld.Points.Push(p);
-			sub[k] = p;
-		}
+		ld.Points.Push(p0);
+		ld.Points.Push(p1);
 		A_long depth = 0;
 		if (infoP->foldCount > 0) {
 			for (A_long fc = 0; fc < infoP->foldCount; fc++)
@@ -631,19 +543,26 @@ static PF_Err
 		}
 		ld.Points.Wipe(infoP->wipe);
 		ld.Line();
-
 		if (infoP->subCount > 0) {
+			PointInfo p0 = ld.Points.First();
+			PointInfo p1 = ld.Points.Last();
+			PF_Boolean FF = (ld.Points.Count() >= 4);
+			PointInfo p2 = p0;
+			PointInfo p3 = p1;
+			if (FF == TRUE) {
+				p2 = ld.Points.First(1);
+				p3 = ld.Points.Last(1);
+			}
+
 			for (A_long sc = 0; sc < infoP->subCount; sc++)
 			{
 				ld.Points.Clear();
-				for (A_long k = 0; k < pc; k++)
-				{
-					PointInfo p = sub[k];
-					p = ld.Points.Random(p, infoP->randX[k], infoP->randY[k]);
-					ld.Points.Push(p);
-				}
+				ld.Points.Push(p0);
+				ld.Points.Push(p1);
 				A_long depth = 0;
 				if (infoP->foldCount > 0) {
+
+					depth = 0;
 					for (A_long fc = 0; fc < infoP->foldCount; fc++)
 					{
 						ld.Points.CalcCenterPos(
@@ -656,12 +575,21 @@ static PF_Err
 
 					}
 				}
+				if (FF == TRUE)
+				{
+					A_long c = ld.Points.Count();
+					ld.Points.Points[1] = p2;
+					ld.Points.Points[1].s = 0;
+
+					ld.Points.Points[c - 2] = p3;
+					ld.Points.Points[c - 2].s = 0;
+
+				}
 				ld.Points.Wipe(infoP->wipe);
 				ld.Line();
-				
 			}
-			
 		}
+
 	}
 
 	ld.Colorize(infoP->color);

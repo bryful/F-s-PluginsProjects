@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	SparkGrand for VS2010
+	SparkStorm for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef SparkGrand_H
-#define SparkGrand_H
+#ifndef SparkStorm_H
+#define SparkStorm_H
 
 #include "Fs_Target.h"
 
@@ -27,86 +27,90 @@ enum {
 	ID_SEEDPOS,
 	ID_SEEDMOVE,
 	ID_OFFSET,
+	ID_SEEDDRAW,
 	ID_WIPE,
 
-	ID_START,
-	ID_LAST1,
-	ID_LAST2,
+	ID_START_P0,
+	ID_START_P1,
+	ID_LAST_P0,
+	ID_LAST_P1,
 
 	ID_DRAW_COUNT,
 
+
 	ID_START_RX,
 	ID_START_RY,
-
 	ID_LAST_RX,
 	ID_LAST_RY,
 
-
-	ID_LINE_SIZE,
-	ID_LINE_MOVE,
+	ID_LINESIZE,
+	ID_LINEMOVE,
+	
+	ID_SUB_COUNT,
 	ID_FOLD_COUNT,
+
+
+
+
 	ID_COLOR,
 	ID_BLEND,
 
 	ID_NUM_PARAMS
 };
 
-
-
 //UI‚Ì•\Ž¦•¶Žš—ñ
 #define	STR_SEED		"seed"
 #define	STR_SEEDPOS		"seedPos"
 #define	STR_SEEDMOVE	"seedMove"
+#define	STR_SEEDDRAW	"seedDraw"
 #define	STR_OFFSET		"offset"
-#define	STR_WIPE		"wipe"
+#define	STR_WIPE		"wipe(%)"
 
-#define	STR_START		"start"
-#define	STR_LAST1		"last1"
-#define	STR_LAST2		"last2"
+#define	STR_START_P0	"start0"
+#define	STR_START_P1	"start1"
 
-#define	STR_START_RX	"startRandX"
-#define	STR_START_RY	"startRandY"
+#define	STR_LAST_P0		"last0"
+#define	STR_LAST_P1		"last1"
 
-#define	STR_LAST_RX		"lastRandX"
-#define	STR_LAST_RY		"laxtRandY"
+#define	STR_START_RX	"first_randX"
+#define	STR_START_RY	"first_randY"
+#define	STR_LAST_RX		"last_randX"
+#define	STR_LAST_RY		"last_randY"
 
-
-#define	STR_LINE_SIZE	"lineSize"
-#define	STR_LINE_MOVE	"lineMove"
+#define	STR_LINESIZE	"lineSize"
+#define	STR_LINEMOVE	"lineMove"
 #define	STR_FOLDCOUNT	"foldCount"
-#define	STR_SUBCOUNT	"subCount"
 #define	STR_DRAWCOUNT	"drawCount"
+#define	STR_SUBCOUNT	"subCount"
+
 
 #define	STR_COLOR		"color"
 #define	STR_BLEND		"blend"
 #define	STR_ON			"on"
 
 
-#define POINT_COUNT_MAX	36
+
 //-----------------------------------------------------------------------------------
 typedef struct ParamInfo {
 	A_long		frame;
 	A_long		seed;
 	A_long		seedPos;
 	A_long		seedMove;
+	A_long		seedDraw;
 	PF_FpLong	offset;
 	PF_FpLong	wipe;
 
-	PointInfo	start;
-	PointInfo	last1;
-	PointInfo	last2;
-
+	PointInfo	point[4];
 	A_long		startRandX;
 	A_long		startRandY;
 	A_long		lastRandX;
 	A_long		lastRandY;
 
-
 	PF_FpLong	lineSize;
 	A_long		lineMove;
 	A_long		foldCount;
 	A_long		drawCount;
-
+	A_long		subCount;
 
 	PF_Pixel	color;
 	PF_Boolean	blend;
@@ -126,4 +130,4 @@ EntryPointFunc (
 	void			*extra);
 }
 
-#endif // SparkGrand_H
+#endif // SparkStorm_H
