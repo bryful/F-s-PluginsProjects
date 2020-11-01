@@ -72,7 +72,7 @@ static PF_Err ParamsSetup (
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(STR_START,			/*"New Center"*/
 		25,	// X
-		25,	// Y
+		10,	// Y
 		0,	// Flag
 		ID_START
 	);
@@ -80,8 +80,8 @@ static PF_Err ParamsSetup (
 	//位置の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(STR_LAST1,			/*"New Center"*/
-		25,	// X
-		75,	// Y
+		15,	// X
+		90,	// Y
 		0,	// Flag
 		ID_LAST1
 	);
@@ -89,8 +89,8 @@ static PF_Err ParamsSetup (
 	//位置の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(STR_LAST2,			/*"New Center"*/
-		75,	// X
-		75,	// Y
+		85,	// X
+		90,	// Y
 		0,	// Flag
 		ID_LAST2
 	);
@@ -101,7 +101,7 @@ static PF_Err ParamsSetup (
 		10,			//数値入力する場合の最大値
 		1,				//スライダーの最小値 
 		5,				//スライダーの最大値
-		1,				//デフォルトの値
+		2,				//デフォルトの値
 		ID_DRAW_COUNT
 	);
 	
@@ -173,25 +173,14 @@ static PF_Err ParamsSetup (
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_SLIDER(STR_FOLDCOUNT,	//パラメータの名前
-		1, 				//数値入力する場合の最小値
+		2, 				//数値入力する場合の最小値
 		9,			//数値入力する場合の最大値
-		1,				//スライダーの最小値 
+		2,				//スライダーの最小値 
 		6,				//スライダーの最大値
-		3,				//デフォルトの値
+		4,				//デフォルトの値
 		ID_FOLD_COUNT
 	);	
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_SUBCOUNT,	//パラメータの名前
-		0, 				//数値入力する場合の最小値
-		20,			//数値入力する場合の最大値
-		0,				//スライダーの最小値 
-		10,				//スライダーの最大値
-		2,				//デフォルトの値
-		ID_SUB_COUNT
-	);
-
-
+	
 	//----------------------------------------------------------------
 //色の指定
 	AEFX_CLR_STRUCT(def);
@@ -444,7 +433,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	if (!err) {
 		infoP->lastRandX = (A_long)((PF_FpLong)infoP->lastRandX * ds + 0.5);
 	}
-	ERR(ae->GetADD(ID_LAST_RX, &infoP->lastRandY));
+	ERR(ae->GetADD(ID_LAST_RY, &infoP->lastRandY));
 	if (!err) {
 		infoP->lastRandY = (A_long)((PF_FpLong)infoP->lastRandY * ds + 0.5);
 	}
@@ -458,7 +447,6 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 		infoP->lineMove = (A_long)((PF_FpLong)infoP->lineMove * ds + 0.5);
 	}
 
-	ERR(ae->GetADD(ID_SUB_COUNT, &infoP->subCount));
 	ERR(ae->GetADD(ID_DRAW_COUNT, &infoP->drawCount));
 
 	ERR(ae->GetCOLOR(ID_COLOR, &infoP->color));
@@ -486,89 +474,86 @@ static PF_Err
 
 	CLineDraw ld(ae->output, ae->in_data,ae->pixelFormat());
 
-	//中心の1本を描く
-	PointInfo p0 = infoP->start;
-	PointInfo p1 = ld.Points.PointInter(infoP->last1, infoP->last2);
-	p0 = ld.Points.Random(p0, infoP->startRandX, infoP->startRandY);
-	p1 = ld.Points.Random(p1, infoP->lastRandX, infoP->lastRandY);
-	ld.Points.Clear();
-	ld.Points.Push(p0);
-	ld.Points.Push(p1);
-	A_long depth = 0;
-	for (A_long fc = 0; fc < infoP->foldCount; fc++)
+	for (A_long dc = 0; dc < infoP->drawCount; dc++)
 	{
-		ld.Points.CalcCenterPos(
-			infoP->lineSize,
-			infoP->lineMove,
-			infoP->offset,
-			depth
-		);
-		depth++;
 
-	}
-	ld.Points.Wipe(infoP->wipe);
-	ld.Line();
-	ld.Points.Backup();
-	A_long pcnt = ld.Points.Count();
-	if (infoP->subCount > 0)
-	{
-		for (A_long sc = 0; sc < infoP->subCount; sc++)
+		PointInfo p0 = infoP->start;
+		//中心の1本は中心へ
+		PointInfo p1;
+		if (dc == 0) 
 		{
-			A_long ff = (A_long)((PF_FpLong)infoP->foldCount * xorShiftMDouble() +0.5);
-			A_long ff2 = infoP->foldCount - ff;
-			PointInfo p = ld.Points.PointInterRandom(infoP->last1, infoP->last2);
-			p = ld.Points.Random(p, infoP->lastRandX, infoP->lastRandY);
-			ld.Points.Clear();
+			p1 = ld.Points.PointInter(infoP->last1, infoP->last2);
+			xorShiftMDouble();
+		}
+		else {
+			p1 = ld.Points.PointInterRandom(infoP->last1, infoP->last2);
+		}
 
-			if ((ff == 0) || (ff == infoP->foldCount)) {
-				ld.Points.Push(ld.Points.PointsBak[0]);
-				ld.Points.Push(p);
-				depth = 0;
-				for (A_long fc = 0; fc < infoP->foldCount; fc++)
-				{
-					ld.Points.CalcCenterPos(
-						infoP->lineSize * 0.7,
-						infoP->lineMove,
-						infoP->offset *= -1,
-						depth
-					);
-					depth++;
-				}
-			}
-			else 
+		p0 = ld.Points.Random(p0, infoP->startRandX, infoP->startRandY);
+		p1 = ld.Points.Random(p1, infoP->lastRandX, infoP->lastRandY);
+		ld.Points.Clear();
+		ld.Points.Push(p0);
+		ld.Points.Push(p1);
+		A_long depth = 0;
+		for (A_long fc = 0; fc < infoP->foldCount; fc++)
+		{
+			ld.Points.CalcCenterPos(
+				infoP->lineSize,
+				infoP->lineMove,
+				infoP->offset,
+				depth
+			);
+			depth++;
+
+		}
+		ld.Points.Wipe(infoP->wipe);
+		ld.Line();
+		ld.Points.Backup();
+		A_long pcnt = ld.Points.Count();
+		A_long ff = infoP->foldCount;
+		ff--;
+		A_long rc = 0;
+		A_long rcm = 0;
+		while (ff>2)
+		{
+			A_long pos = pcnt - (A_long)PF_POW(2, ff);
+			ld.Points.RemoveTail(pos);
+			p1 = ld.Points.PointInterRandom(infoP->last1, infoP->last2);
+			rcm++;
+			p1 = ld.Points.Random(p1, infoP->lastRandX, infoP->lastRandY);
+			rc += 2;
+			ld.Points.Push(p1);
+			A_long depth = 0;
+			for (A_long fc = 0; fc < ff; fc++)
 			{
-				A_long pos = pcnt - (A_long)PF_POW(2, ff);
-				ld.Points.Push(ld.Points.PointsBak[pos]);
-				ld.Points.Push(p);
-				depth = 0;
-				for (A_long fc = 0; fc < ff; fc++)
-				{
-					ld.Points.CalcCenterPos(
-						infoP->lineSize * 0.75,
-						infoP->lineMove * 4/3,
-						infoP->offset *= -1,
-						depth
-					);
-					depth++;
-				}
-				for (A_long fc = 0; fc < ff2; fc++)
-				{
-					xorShiftMDouble();
-					xorShiftMDouble();
-					xorShiftMDouble();
-				}
-				PointInfo pp = ld.Points.PointsBak[pos];
-				pp.s = 0;
-				for (A_long fc = 0; fc < pos; fc++)
-				{
-					ld.Points.insert(0, pp);
-				}
+				ld.Points.CalcCenterPos2(
+					infoP->lineSize * 0.7,
+					infoP->lineMove*4/3,
+					infoP->offset,
+					depth,
+					pos-1
+				);
+				rcm+=3;
+				depth++;
 			}
 			ld.Points.Wipe(infoP->wipe);
 			ld.Line();
+			ff--;
 		}
-	}
+		if (rc < 50) {
+			for (A_long i = 0; i < 50-rc; i++)
+			{
+				xorShiftDouble();
+			}
+		}
+		if (rcm < 50) {
+			for (A_long i = 0; i < 50 - rcm; i++)
+			{
+				xorShiftMDouble();
+			}
+		}
 
+	}
 
 
 	ld.Colorize(infoP->color);

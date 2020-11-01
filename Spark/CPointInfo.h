@@ -243,6 +243,58 @@ public:
 		}
 	}
 	// **************************************************************
+	void RemoveTail(A_long idx)
+	{
+		if ((m_Count <= 0)||(idx>=m_Count)) return;
+		for (A_long i = idx; i < m_Count; i++)
+		{
+			Points[i].p.x = 0;
+			Points[i].p.y = 0;
+			Points[i].s = -1;
+			Points[i].index = -1;
+		}
+		m_Count = idx;
+	}
+	// **************************************************************
+	void CalcCenterPos2(
+		PF_FpLong lineSize,
+		A_long lineMove,
+		PF_FpLong RotOffset,
+		A_long depth,
+		A_long start = 0
+		)
+	{
+		if (m_Count-start < 1) return;
+
+		A_long idx = 0;
+		A_long cnt = m_Count;
+		for (A_long i = cnt - 1; i >= start + 1; i--)
+		{
+			PointInfo s = Points[i - 1];
+			PointInfo d = Points[i];
+
+			PointInfo c;
+			c.p.x = (s.p.x + d.p.x) / 2;
+			c.p.y = (s.p.y + d.p.y) / 2;
+			A_long len = (A_long)((double)lineMove * xorShiftMDouble());
+			len = (A_long)((double)len + (double)len * 0.1 * (depth));
+
+			PF_FpLong r = (360 * xorShiftMDouble()) + RotOffset;
+			if ((depth % 2) == 1) r = -r;
+			A_long rr = (A_long)(r * (PF_FpLong)(1L << 16) + 0.5);
+			rr %= (360L << 16);
+			if (rr < 0) rr += (360L << 16);
+			r = (PF_FpLong)rr / (PF_FpLong)(1L << 16);
+			PF_FpLong sz = lineSize;
+			sz *= (0.1 + 0.9 * xorShiftMDouble());
+			sz *= (1 - 0.1 * depth);
+			//if (sz < 1) sz = 1;
+			c = ShiftFromRot(c, (PF_FpShort)r, len);
+			c.s = sz;
+			insert(i, c);
+		}
+	}
+	// **************************************************************
 	PF_FpLong RotFramPoints(PointInfo s, PointInfo d)
 	{
 		PF_FpLong ret = 0;
@@ -315,16 +367,61 @@ public:
 	PointInfo PointInterRandom(PointInfo p0, PointInfo p1)
 	{
 		PointInfo ret;
-
 		A_long dx = p1.p.x - p0.p.x;
 		A_long dy = p1.p.y - p0.p.y;
 
-		dx = (A_long)((double)dx * xorShiftMDouble() + 0.5);
-		dy = (A_long)((double)dy * xorShiftMDouble() + 0.5);
-		ret.p.x = p0.p.x + dx;
-		ret.p.y = p0.p.y + dy;
+		PF_FpLong len = PF_HYPOT(dx,dy);
+		PF_FpLong r = PF_ATAN2(dy, dx);
+
+		len = len * xorShiftMDouble();
+		ret.p.x = p0.p.x + (A_long)(PF_COS(r) * len +0.5);
+		ret.p.y = p0.p.y + (A_long)(PF_SIN(r) * len + 0.5);
 
 		return ret;
+
+	}
+	// **************************************************************
+	PointInfo PointInterRandomR(PointInfo p0, PointInfo p1)
+	{
+		PointInfo ret;
+		A_long dx = p1.p.x - p0.p.x;
+		A_long dy = p1.p.y - p0.p.y;
+
+		PF_FpLong len = PF_HYPOT(dx, dy);
+		PF_FpLong r = PF_ATAN2(dy, dx);
+
+		len = len * xorShiftRDouble();
+		ret.p.x = p0.p.x + (A_long)(PF_COS(r) * len + 0.5);
+		ret.p.y = p0.p.y + (A_long)(PF_SIN(r) * len + 0.5);
+
+		return ret;
+
+	}
+	// **************************************************************
+	void  PointStrom(PointInfo* tbl, PointInfo *st, PointInfo* lt)
+	{
+		//スタート位置
+		A_long sdx = tbl[1].p.x - tbl[0].p.x;
+		A_long sdy = tbl[1].p.y - tbl[0].p.y;
+		A_long ldx = tbl[3].p.x - tbl[2].p.x;
+		A_long ldy = tbl[3].p.y - tbl[2].p.y;
+
+		PF_FpLong lenStart = PF_HYPOT(sdx, sdy);
+		PF_FpLong lenLast = PF_HYPOT(ldx, ldy);
+		PF_FpLong sr = PF_ATAN2(sdy, sdx);
+		PF_FpLong lr = PF_ATAN2(ldy, ldx);
+
+		PF_FpLong rnd = xorShiftRDouble();
+
+		lenStart = lenStart * rnd;
+		st->p.x = tbl[0].p.x + (A_long)(PF_COS(sr) * lenStart + 0.5);
+		st->p.y = tbl[0].p.y + (A_long)(PF_SIN(sr) * lenStart + 0.5);
+
+		rnd += -0.1 + 0.2* xorShiftRDouble();
+		if (rnd < 0) rnd = 0; else if (rnd > 1)rnd = 1;
+		lenLast = lenLast * rnd;
+		lt->p.x = tbl[2].p.x + (A_long)(PF_COS(lr) * lenLast + 0.5);
+		lt->p.y = tbl[2].p.y + (A_long)(PF_SIN(lr) * lenLast + 0.5);
 
 	}
 	// **************************************************************
