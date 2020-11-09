@@ -51,8 +51,8 @@ enum {
 
 //UI‚Ì•\Ž¦•¶Žš—ñ
 #define	STR_TARGET_TOPIC	"target"
-#define	STR_TARGET_LEVEL	"tragetLevel"
-#define	STR_TARGET_COUNT	"tragetCount"
+#define	STR_TARGET_LEVEL	"targetLevel"
+#define	STR_TARGET_COUNT	"targetCount"
 #define	STR_TARGET_COL1		"color1"
 #define	STR_TARGET_COL2		"color2"
 #define	STR_TARGET_COL3		"color3"

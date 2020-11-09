@@ -182,7 +182,7 @@ static PF_Err ParamsSetup (
 	//----------------------------------------------------------------
 	//êFÇÃéwíË
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_COLOR(STR_LAST_COL,
+	PF_ADD_COLOR(STR_GUIDE_COLOR,
 		0xFF,
 		0x00,
 		0x00,
