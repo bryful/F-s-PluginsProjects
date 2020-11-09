@@ -807,6 +807,23 @@ public:
 	void Line8(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel col);
 	void Line16(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel16 col);
 	void Line32(A_long x0,A_long y0,A_long x1,A_long y1,PF_PixelFloat col);
+	void Line(A_long x0, A_long y0, A_long x1, A_long y1, PF_Pixel col)
+	{
+		switch (m_format)
+		{
+		case PF_PixelFormat_ARGB128:
+			PF_PixelFloat col32; col32 = CONV8TO32(col);
+			Line32(x0, y0, x1, y1, col32);
+			break;
+		case PF_PixelFormat_ARGB64:
+			PF_Pixel16 col16; col16 = CONV8TO16(col);
+			Line16(x0, y0, x1, y1, col16);
+			break;
+		case PF_PixelFormat_ARGB32:
+			Line8(x0, y0, x1, y1, col);
+			break;
+		}
+	}
 	//-----------------------
 	//Box
 	void boxFill8(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel col);

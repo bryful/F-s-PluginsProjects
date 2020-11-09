@@ -744,7 +744,38 @@ inline PF_Fixed RoundAngle360(PF_Fixed f)
 //*************************************************************rot************************************
 //Šp“xŒvŽZ
 //*************************************************************************************************
+inline PF_Boolean CrossPointer(
+	A_FloatPoint s0,
+	A_FloatPoint s1,
+	A_FloatPoint e0,
+	A_FloatPoint e1,
+	A_FloatPoint* p)
+{
+	PF_Boolean ret = FALSE;
+	p->x = 0;
+	p->y = 0;
 
+
+	PF_FpLong dx0 = s1.x - s0.x;
+	PF_FpLong dy0 = s1.y - s0.y;
+	PF_FpLong dx1 = e1.x - e0.x;
+	PF_FpLong dy1 = e1.y - e0.y;
+
+	PF_FpLong dBunbo = dx0 * dy1 - dy0 * dx1;
+
+	if (dBunbo == 0) return ret;
+	PF_FpLong ax = e0.x - s0.x;
+	PF_FpLong ay = e0.y - s0.y;
+
+	PF_FpLong dr = (dy1 * ax - dx1 * ay) / dBunbo;
+	//PF_FpLong ds = (dy0 * ax - dx0 * ay) / dBunbo;
+
+	p->x = s0.x + dr * dx0;
+	p->y = s0.y + dr * dy0;
+	ret = TRUE;
+
+	return ret;
+}
 class CRot
 {
 protected:
