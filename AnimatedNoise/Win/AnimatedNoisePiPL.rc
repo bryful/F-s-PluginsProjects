@@ -23,7 +23,7 @@ BEGIN
 	"gtac", 
 	0, 0x0,
 	20, 0x0,
-	"\x11F's Plugins-Noise\0\0", 
+	"\x12NF's Plugins-Noise\0", 
 
 	"MIB8",
 	"4668", 

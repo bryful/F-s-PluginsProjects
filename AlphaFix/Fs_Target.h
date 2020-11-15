@@ -13,13 +13,13 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名
-#define FS_CATEGORY "F's Plugins-Channel"
-//#define FS_CATEGORY "F's Plugins-Draw"
-//#define FS_CATEGORY "F's Plugins-Filter"
-//#define FS_CATEGORY "F's Plugins-FX"
-//#define FS_CATEGORY "F's Plugins-Cell"
-//#define FS_CATEGORY "F's Plugins-Script"
-//#define FS_CATEGORY "F's Plugins-Test"
+#define FS_CATEGORY "NF's Plugins-Channel"
+//#define FS_CATEGORY "NF's Plugins-Draw"
+//#define FS_CATEGORY "NF's Plugins-Filter"
+//#define FS_CATEGORY "NF's Plugins-FX"
+//#define FS_CATEGORY "NF's Plugins-Cell"
+//#define FS_CATEGORY "NF's Plugins-Script"
+//#define FS_CATEGORY "NF's Plugins-Test"
 
 
 //-----------------------------------------------------------

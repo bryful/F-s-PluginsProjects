@@ -30,7 +30,7 @@
 	//#define FS_CATEGORY "F's Plugins-{Legacy}"
 
 //#define FS_CATEGORY "F's Plugins-Draw"
-#define FS_CATEGORY "F's Plugins-{Legacy}"
+#define FS_CATEGORY "NF's Plugins-{Legacy}"
 
 	//-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//‚±‚ê‚ð—LŒø‚É‚·‚é‚ÆSmartFX+Float_Color‚É‘Î‰ž‚·‚é

@@ -26,7 +26,7 @@
 	//#define FS_CATEGORY "F's Plugins-Colorize"
 	//#define FS_CATEGORY "F's Plugins-Script"
 	//#define FS_CATEGORY "F's Plugins-Test"
-#define FS_CATEGORY "F's Plugins-Noise"
+#define FS_CATEGORY "NF's Plugins-Noise"
 
 //-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//‚±‚ê‚ð—LŒø‚É‚·‚é‚ÆSmartFX+Float_Color‚É‘Î‰ž‚·‚é
