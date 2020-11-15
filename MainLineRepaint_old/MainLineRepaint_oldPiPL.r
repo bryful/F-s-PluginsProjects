@@ -19,7 +19,7 @@ resource 'PiPL' (16000) {
 		/* [3] */
 		Category {
 			/*AE‚Ìƒƒjƒ…[‚Ég‚í‚ê‚é */
-			"F's Plugins-Cell"
+			"NF's Plugins-Cell"
 			/*"F's Plugins"*/
 		},
 		

@@ -20,7 +20,7 @@
 //#define FS_CATEGORY "F's Plugins-Channel"
 //#define FS_CATEGORY "F's Plugins-Draw"
 //#define FS_CATEGORY "F's Plugins-Filter"
-#define FS_CATEGORY "F's Plugins-Noise"
+#define FS_CATEGORY "NF's Plugins-Noise"
 
 //#define FS_CATEGORY "F's Plugins-Cell"
 //#define FS_CATEGORY "F's Plugins-Colorize"

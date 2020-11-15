@@ -1,119 +1,119 @@
-# F's Plugins
-Adone After Effects��EffectsPlugin�W�̃\�[�X�ꎮ�ƃo�C�i���ł��B  
+﻿# F's Plugins
+Adone After EffectsのEffectsPlugin集のソース一式とバイナリです。  
   
-�̂����ŃR�c�R�c�ƍ���Ă������̂ł��B  
-��Ƃ����Ă��l���g���{�̃A�j������҂Ȃ̂ŋƖ��Ɏg���Ă܂��B
+昔から趣味でコツコツと作っていたものです。  
+趣味といっても僕自身日本のアニメ制作者なので業務に使ってます。
 
-CC2019�p����github�Ńo�C�i���[�̔z�z���s���܂��B
-**_DL_windowsbinary**�t�H���_�̒��ɓ����Ă��܂��B  
+CC2019用からgithubでバイナリーの配布も行います。
+**_DL_windowsbinary**フォルダの中に入っています。  
 
 * [FsPlugins20200816.zip](https://bit.ly/2PZqemC)  
-8��16���łł��BVS2020�ɕύX���܂����B  
+8月16日版です。VS2020に変更しました。  
 * [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)  
-7��26���łł��BSDK��CC2020�ɕς��ăr���h���������̂��̂ł��B  
+7月26日版です。SDKをCC2020に変えてビルドしただけのものです。  
 
-# �ύX�_
+# 変更点
 2020/08/15  
-�R���p�C���� VS2017����VS2019�֕ύX�B  
-����ɔ����A�\���̃����o�[�̃A���C�����g��16byte�ɕύX�B/Zp16  
+コンパイラを VS2017からVS2019へ変更。  
+それに伴い、構造体メンバーのアライメントを16byteに変更。/Zp16  
   
-* F'sgrayToCountourLine.aex��ǉ�  
-�|�X�^���[�[�V�����̕ό`�o�[�W�����ł��A�~�����ϓ��Ɋ��炸��Hi/Mid/Lo���~����ς����܂��B  
-* F's grayToWaveLine.aex��ǉ�  
-�O���[�摜���^���RD�v���b�^���ɕ`�悵�܂��B�̂�SF�f��̃��j�^�ۂ����̂��ł��܂��B  
+* F'sgrayToCountourLine.aexを追加  
+ポスタリゼーションの変形バージョンです、諧調を均等に割らずにHi/Mid/Loで諧調を変えられます。  
+* F's grayToWaveLine.aexを追加  
+グレー画像を疑似３Dプロッタ風に描画します。昔のSF映画のモニタぽいものができます。  
   
 2020/07/26  
-CC2020 SDK�ɕύX�B  
+CC2020 SDKに変更。  
   
 2020/03/20  
-CC2019 SDK�ɕύX�B  
-���������Ȃ��Ďg���ɂ����Ȃ����̂ŁA�J�e�S���[�𐮗����܂����B  
+CC2019 SDKに変更。  
+数が多くなって使いにくくなったので、カテゴリーを整理しました。  
 * F's Plugins-Cell  
- �A�j���̃X���[�W���O�Ȃ��̃Z�����^�[�Q�b�g�ɂ������̂ł��B
+ アニメのスムージングなしのセルをターゲットにしたものです。
 * F's Plugins-Channel  
- �`�����l������n�ł��B
+ チャンネル操作系です。
 * F's Plugins-Colorize  
- �F��t������̂ł��B
+ 色を付けるものです。
 * F's Plugins-Draw  
- �`��n�̂��̂ł��B
+ 描画系のものです。
 * F's Plugins-Filter  
- �t�B���^�[�G�t�F�N�g�n�ł��B
+ フィルターエフェクト系です。
 * F's Plugins-Noise  
- �m�C�Y�t�B���^�n�ł��B
+ ノイズフィルタ系です。
 * F's Plugins-{Legacy}  
- �����g���ė~�����Ȃ��B�����͎g�����̂Ȃ����̂ł��B  
- ����s�@�쐬�⏕�v���O�C���Ƃ�
-### �ǉ��v���O�C��
-* F's EdgeLine-Hi.aex  �w�肵��2�F�̋��E�ɐ���`���܂��B���̎��`���������w��ł��܂��B
-* F's Flare.aex �����}�X�N�ɃO���[��t���܂��B���ߌ��ł��B
-* F's graytoneToColorize.aex �ȈՃR�����}�ł��B�S�[���h������T�[���O���t�����Ɏg���܂��B
-* F's PixelExtend.aex �w�肵���F���w�肵�������ɖc�������܂��B
-* F's Posterization8bit.aex �|�X�^���[�[�V�����ł��B�W���ƈ���ē�����8bit�����ł��B
-* F's Scanline.aex �X�L�������C���B�̂̌Â��p�\�R���̋����񂪍������C���̏�Ԃ��ł��܂��B
-* F's YuvControl.aex YUV�ł�RGBA�R���g���[���ł��B
+ もう使って欲しくない。或いは使い道のないものです。  
+ 紙飛行機作成補助プラグインとか
+### 追加プラグイン
+* F's EdgeLine-Hi.aex  指定した2色の境界に線を描きます。その時描く向きを指定できます。
+* F's Flare.aex 白黒マスクにグローを付けます。透過光です。
+* F's graytoneToColorize.aex 簡易コロラマです。ゴールド処理やサーモグラフ処理に使います。
+* F's PixelExtend.aex 指定した色を指定した方向に膨張させます。
+* F's Posterization8bit.aex ポスタリゼーションです。標準と違って内部は8bit処理です。
+* F's Scanline.aex スキャンライン。昔の古いパソコンの偶数列が黒いラインの状態ができます。
+* F's YuvControl.aex YUV版のRGBAコントロールです。
 
-# �J����
+# 開発環境
 Visual studio 2017 Community 2017 C++ or Visual studio 2019 Community 2017 C++
 
 AfterEffectsSDK CC2020
-SDK��CC2020���g�p���Ă��܂����ACS4/CS6��SDK�ł�build�\�ł��B  
+SDKはCC2020を使用していますが、CS4/CS6のSDKでもbuild可能です。  
 
 # Setup
-�v���W�F�N�g����SDK�t�H���_����Example�t�H���_���֔z�u���Ă��������B
+プロジェクト等はSDKフォルダ内のExampleフォルダ内へ配置してください。
 
-����Ȋ����ł��B
+こんな感じです。
 
         /AfterEffectsSDK CC2019  
-        ����Examples  
-            ����AEGP  
-            ����Effect  
-            ����F's PluginsProjects  
-            ��  ����AlphaFix  
-            ��  ����AlphaThreshold  
-            ��  ����AnimatedNoise  
-            <�ȗ�>  
-            ��  ����PluginSkeleton  
-            <�ȗ�>  
-            ��  ����whiteInOut  
-            ����GP 
-            ����Headers  
-            ����Resources  
-            ����Template  
-            ����UI  
-            ����Util  
+        └─Examples  
+            ├─AEGP  
+            ├─Effect  
+            ├─F's PluginsProjects  
+            │  ├─AlphaFix  
+            │  ├─AlphaThreshold  
+            │  ├─AnimatedNoise  
+            <省略>  
+            │  ├─PluginSkeleton  
+            <省略>  
+            │  ├─whiteInOut  
+            ├─GP 
+            ├─Headers  
+            ├─Resources  
+            ├─Template  
+            ├─UI  
+            └─Util  
 
-# �g����
+# 使い方
 
-SDK��CC2020��z�肵�Ă��܂����ACS6�y��CC2020�܂ł�SDK�Ńr���h�\�ł��B
+SDKはCC2020を想定していますが、CS6及びCC2020までのSDKでビルド可能です。
   
-F's PluginsProjects�t�H���_���e�o�[�W������Examples�t�H���_�Ɉړ�����΂ł��܂��B
+F's PluginsProjectsフォルダを各バージョンのExamplesフォルダに移動すればできます。
   
 
-�\����Pelease/Relese-MT�Ƃ���܂����A�����^�C�����C�u�����̃X�C�b�`(/MT/MD)���Ⴄ���̂ł��B����ȊO�͓����ł��B  
-Plugin��Binary��outAEXD�ɏ����o����܂��B  
+構成でPelease/Relese-MTとありますが、ランタイムライブラリのスイッチ(/MT/MD)が違うものです。それ以外は同じです。  
+PluginのBinaryはoutAEXDに書き出されます。  
 
-Plugin��Binary��After Effects��Plug-ins�փR�s�[���Ă��������B  
+PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。  
   
-��)  
+例)  
 "C:\Program Files\Adobe\Adobe After Effects CC 2019\Support Files\Plug-ins"
 
 
-# ���C�Z���X
+# ライセンス
 
 This software is released under the MIT License, see LICENSE. 
   
-���̃\�[�X�R�[�h���g�p���鎞��MIT���C�Z���X�ɏ����Ă��������B  
-�Ǝ��Ƀr���h���ĉf������g���ꍇ�́A�g�p�v���O�C�����X�g���ɂ�����url(https://github.com/bryful)�����Ă��炦���OK�ł��i�܂�����Ȃ��Ă��l�͋C�ɂ��܂���j  
+このソースコードを使用する時はMITライセンスに準じてください。  
+独自にビルドして映像制作使う場合は、使用プラグインリスト等にここのurl(https://github.com/bryful)を入れてもらえればOKです（まぁ入れなくても僕は気にしません）  
 
-���̃v���O�������f������Ɏg�p�����ꍇ�����ɐ�������܂���B�ꉞMIT���C�Z���X�̏����ł��钘�쌠�\������і{�����\���Ƃ���  
+このプログラムを映像制作に使用した場合も特に制限ありません。一応MITライセンスの条件である著作権表示および本許諾表示として  
 
-**�v���O�C������ bry-ful**  
+**プラグイン協力 bry-ful**  
 
-�ƃN���W�b�g���Ă����Ɗ������ł��B�v���O�C�����͈ȊO�ł��K���Ȍ����ł���Εʂ̂��̂ɕς��Ă��\���܂���B
+とクレジットしてくれると嬉しいです。プラグイン協力以外でも適当な肩書であれば別のものに変えても構いません。
 
-P�֌W�̃Q�[����Ђ̕��� 
-�g�p�Ɋւ��Ă͓��ɐ�������܂���B�������K�v����܂���B�g�p�����������܂���B 
-����͍����΂ɕς��܂���B
+P関係のゲーム会社の方へ 
+使用に関しては特に制限ありません。許諾も必要ありません。使用料も発生しません。 
+これは今後絶対に変わりません。
 
 
 

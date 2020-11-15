@@ -61,32 +61,29 @@ typedef struct FsPixelCopyParam{
 
 
 //******************************************************************************
-#define FS_ABOUT_DIALOG	"function FsAbout()\
+#define FS_ABOUT_DIALOG	"var  FsAbout = function()\
 {\
 	var strName = \"%s\";\
 	var strVersion = \"version %d.%d\";\
 	var strDis = \"%s\";\
-	var strMyName = \"bryful@gmail.com Twitte:bryful\";\
-	var winObj = new Window(\"dialog\", \"F's Plugins\", [ 709,  430,  709+ 485,  430+ 152] );\
-	this.edFsName = winObj.add(\"edittext\", [  32,   12,   32+ 441,   12+  39], strName, { readonly:true, borderless:true });\
-	this.edFsName.graphics.font = ScriptUI.newFont(\"Tahoma\",ScriptUI.FontStyle.BOLD, 32);\
-	this.edFsVersion = winObj.add(\"edittext\", [  71,   57,   71+ 384,   57+  20], strVersion, { readonly:true, borderless:true });\
-	this.edFsVersion.graphics.font = ScriptUI.newFont(\"Tahoma\",ScriptUI.FontStyle.BOLD, 16);\
-	this.edFsDis = winObj.add(\"edittext\", [  32,   85,   32+ 441,   85+  20], strDis, { readonly:true, borderless:true });\
-	this.edFsDis.graphics.font = ScriptUI.newFont(\"Tahoma\",ScriptUI.FontStyle.REGULAR, 16);\
-	this.edMyName = winObj.add(\"edittext\", [  32,  117,   32+ 304,  117+  20], strMyName, { readonly:true, borderless:true });\
-	this.edMyName.graphics.font = ScriptUI.newFont(\"Tahoma\",ScriptUI.FontStyle.REGULAR, 16);\
-	var btnOK = winObj.add(\"button\", [ 357,  117,  357+  98,  117+  23], \"OK\" , { name:\"ok\" });\
-	btnOK.graphics.font = ScriptUI.newFont(\"Tahoma\",ScriptUI.FontStyle.REGULAR, 11);\
+	var strMyName = \"https://github.com/bryful : bryful@gmail.com \";\
+    var nanae = \"Nanae Furuhashi - My daughter, May her soul rest in peaceÅD\";\
+	var winObj = new Window(\"dialog\", \"NF's Plugins\", [ 0,  0,  480, 180] );\
+\
+	var edFsName = winObj.add(\"edittext\", [  30,   10,   30+ 440,   10+  20], strName, { readonly:true, borderless:true });\
+	var edFsVersion = winObj.add(\"edittext\", [  70,   40,   70+ 400,   40+ 20], strVersion, { readonly:true, borderless:true });\
+	var edFsDis = winObj.add(\"edittext\", [  30,   70,   30+ 440,   70+  20], strDis, { readonly:true, borderless:true });\
+	var edMyName = winObj.add(\"edittext\", [  30,  100,   30+ 440,  100+  20], strMyName, { readonly:true, borderless:true });\
+    var stNana = winObj.add(\"statictext\", [  30,  120,   30+ 440,  120+  20], nanae, { readonly:true, borderless:true });\
+	var btnOK = winObj.add(\"button\", [ 360,  140,  360+ 100,  140+  24], \"OK\" , { name:\"ok\" });\
 	this.show = function()\
 	{\
-		winObj.center(); \
+		winObj.center();\
 		return winObj.show();\
 	}\
 }\
 var dlg = new FsAbout;\
 dlg.show();"
-
 
 #define FsAE_ITEM_COUNT	256
 

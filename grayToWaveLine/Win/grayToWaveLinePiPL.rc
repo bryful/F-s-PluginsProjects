@@ -23,7 +23,7 @@ BEGIN
 	"gtac", 
 	0, 0x0,
 	20, 0x0,
-	"\x10F's Plugins-Draw\0\0\0", 
+	"\x11NF's Plugins-Draw\0\0", 
 
 	"MIB8",
 	"4668", 

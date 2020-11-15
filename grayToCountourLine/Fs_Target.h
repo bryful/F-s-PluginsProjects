@@ -29,7 +29,7 @@
 	//#define FS_CATEGORY "F's Plugins-Script"
 	//#define FS_CATEGORY "F's Plugins-{Legacy}"
 
-#define FS_CATEGORY "F's Plugins-Colorize"
+#define FS_CATEGORY "NF's Plugins-Colorize"
 
 	//-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//‚±‚ê‚ð—LŒø‚É‚·‚é‚ÆSmartFX+Float_Color‚É‘Î‰ž‚·‚é
