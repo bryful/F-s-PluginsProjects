@@ -130,7 +130,7 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.aex</TargetExt>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release-MT|x64'">F's $(ProjectName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F's $(ProjectName)</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F's $(ProjectName)_d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F's $(ProjectName)</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.aex</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MT|Win32'">
@@ -464,20 +464,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\FsLibrary\Fs.h" />
-    <ClInclude Include="..\..\FsLibrary\FsBuffer.h" />
-    <ClInclude Include="..\..\FsLibrary\FsDebug.h" />
-    <ClInclude Include="..\..\FsLibrary\FsSputtering.h" />
-    <ClInclude Include="..\..\FsLibrary\FsVersion.h" />
     <ClInclude Include="..\..\NFsLibrary\AEInfo.h" />
     <ClInclude Include="..\..\NFsLibrary\AE_SDK.h" />
-    <ClInclude Include="..\Fs_Entry.h" />
-    <ClInclude Include="..\..\FsLibrary\FsAE.h" />
-    <ClInclude Include="..\..\FsLibrary\FsGraphics.h" />
-    <ClInclude Include="..\..\FsLibrary\FsHLS.h" />
-    <ClInclude Include="..\..\FsLibrary\FsRandom.h" />
-    <ClInclude Include="..\..\FsLibrary\FsScreenShake.h" />
-    <ClInclude Include="..\..\FsLibrary\FsUtils.h" />
     <ClInclude Include="..\..\..\Headers\A.h" />
     <ClInclude Include="..\..\..\Headers\AE_Effect.h" />
     <ClInclude Include="..\..\..\Headers\AE_EffectCB.h" />
@@ -502,7 +490,7 @@
     <ClInclude Include="..\..\..\Util\Param_Utils.h" />
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
-    <ClInclude Include="..\Fs_Target.h" />
+    <ClInclude Include="..\NFs_Target.h" />
     <ClInclude Include="..\NFsSkelton.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
@@ -561,18 +549,6 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsBlur.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsBox.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsCircle.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsLine.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsPaint.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsMat.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsMiniMax16.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsMiniMax32.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsMiniMax8.cpp" />
-    <ClCompile Include="..\..\FsLibrary\FsMosaic.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />

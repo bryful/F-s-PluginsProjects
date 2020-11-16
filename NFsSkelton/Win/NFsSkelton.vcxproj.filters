@@ -11,42 +11,6 @@
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp">
       <Filter>Header Files\AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsCircle.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsBox.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsLine.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsGraphicsPaint.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsMosaic.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsBlur.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsMat.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsMiniMax16.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsMiniMax32.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsMiniMax8.cpp">
-      <Filter>Supporting code\Fs</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
@@ -55,8 +19,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Fs_Entry.h" />
-    <ClInclude Include="..\Fs_Target.h" />
     <ClInclude Include="..\NFsSkelton.h" />
     <ClInclude Include="..\..\..\Headers\A.h">
       <Filter>Header Files\AE</Filter>
@@ -130,44 +92,11 @@
     <ClInclude Include="..\..\..\Headers\PrSDKPixelFormat.h">
       <Filter>Header Files\AE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsAE.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsGraphics.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsHLS.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsRandom.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsUtils.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Util\Smart_Utils.h">
       <Filter>Header Files\AE</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Util\String_Utils.h">
       <Filter>Header Files\AE</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsScreenShake.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\Fs.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsVersion.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsBuffer.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsDebug.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsSputtering.h">
-      <Filter>Header Files\Fs</Filter>
     </ClInclude>
     <ClInclude Include="..\..\NFsLibrary\AE_SDK.h">
       <Filter>Header Files\NFs</Filter>
@@ -175,6 +104,7 @@
     <ClInclude Include="..\..\NFsLibrary\AEInfo.h">
       <Filter>Header Files\NFs</Filter>
     </ClInclude>
+    <ClInclude Include="..\NFs_Target.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -186,20 +116,17 @@
     <Filter Include="Header Files\AE">
       <UniqueIdentifier>{e75a429c-b468-401c-a144-02b796f82d80}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Fs">
-      <UniqueIdentifier>{f4264efa-698d-4b8c-a8d0-7f3eb2c78dc2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{cdb81c98-3ca7-42a6-b749-d1e93ee74c94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Supporting code\Fs">
-      <UniqueIdentifier>{4babb3c8-c35c-49fc-9bfb-046ca0452f9c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Supporting code\AE">
       <UniqueIdentifier>{166bc5a9-489e-439e-bb26-0bb9a8f258df}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\NFs">
       <UniqueIdentifier>{20e7167e-7536-47e3-997f-55ea2337297d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Supporting code\NFs">
+      <UniqueIdentifier>{4babb3c8-c35c-49fc-9bfb-046ca0452f9c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

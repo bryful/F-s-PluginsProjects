@@ -1,22 +1,20 @@
-//-----------------------------------------------------------------------------------
-/*
-	F's Plugins for VS2010/VS2012
-*/
-//-----------------------------------------------------------------------------------
-
 
 #pragma once
-#ifndef Fs_TARGET_H
-#define Fs_TARGET_H
+#ifndef NFs_TARGET_H
+#define NFs_TARGET_H
+
+#include "../NFsLibrary/NFsVersion.h"
 
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define FS_NAME			"F's NFsSkelton"
+#define NFS_NAME			"NF's NFsSkelton"
+#define NFS_DISPNAME		"NF's NFsSkelton"
+
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
-#define FS_DESCRIPTION	"プラグインのスケルトン"
+#define NFS_DESCRIPTION	"プラグインのスケルトン"
 
 	//-----------------------------------------------------------------------------------
 	//プラグインが表示されるメニュー名
@@ -29,13 +27,11 @@
 	//#define FS_CATEGORY "NF's Plugins-Script"
 	//#define FS_CATEGORY "NF's Plugins-{Legacy}"
 
-#define FS_CATEGORY "NF's Plugins-{Legacy}"
+#define NFS_CATEGORY "NF's Plugins-{Legacy}"
 
 	//-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
-//#define NO_USE_FSGRAPHICS	//これを有効にするとFsGraphics関係がインクルードされない
 
-#include "../FsLibrary/FsVersion.h"
 
 //-----------------------------------------------------------------------------------
 //out_flags
@@ -49,9 +45,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//通常はこちら
-#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
-//#define FS_OUT_FLAGS	1600		//8bitのみ
+//#define NFS_OUT_FLAGS	33556032	//通常はこちら
+#define NFS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+//#define NFS_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------
 //out_flags2
@@ -64,9 +60,9 @@ out_data->out_flags2
 	PF_OutFlag2_DOESNT_NEED_EMPTY_PIXELS;
 */
 #if defined(SUPPORT_SMARTFX)
-#define FS_OUT_FLAGS2	5193
+#define NFS_OUT_FLAGS2	5193
 #else
-#define FS_OUT_FLAGS2	73
+#define NFS_OUT_FLAGS2	73
 #endif
 
 

@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Fs_Entry.h" />
-    <ClInclude Include="..\Fs_Target.h" />
     <ClInclude Include="..\PluginSkeleton.h" />
     <ClInclude Include="..\..\..\Headers\A.h">
       <Filter>Header Files\AE</Filter>
@@ -169,6 +168,10 @@
     <ClInclude Include="..\..\FsLibrary\FsSputtering.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\NFsLibrary\resource.h">
+      <Filter>Header Files\AE\N</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Fs_Target.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -192,6 +195,9 @@
     <Filter Include="Supporting code\AE">
       <UniqueIdentifier>{166bc5a9-489e-439e-bb26-0bb9a8f258df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AE\N">
+      <UniqueIdentifier>{0fe330fb-621e-48ae-9a30-8a8958dc4efd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\PluginSkeletonPiPL.r">
@@ -202,5 +208,11 @@
     <ResourceCompile Include="PluginSkeletonPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+    <ResourceCompile Include="..\..\NFsLibrary\Resource.rc">
+      <Filter>Header Files\AE\N</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\NFsLibrary\_about_thum.png" />
   </ItemGroup>
 </Project>
