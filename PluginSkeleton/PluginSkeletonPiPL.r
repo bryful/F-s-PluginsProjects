@@ -27,15 +27,11 @@ resource 'PiPL' (16000) {
 		
 #ifdef AE_OS_WIN
 	#ifdef AE_PROC_INTELx64
-		CodeWin64X86 {"EntryPointFunc"},
-	#else
-		CodeWin32X86 {"EntryPointFunc"},
+	CodeWin64X86 {"EffectMain"},
 	#endif	
 #else
 	#ifdef AE_OS_MAC
-		CodeMachOPowerPC {"EntryPointFunc"},
-		CodeMacIntel32 {"EntryPointFunc"},
-		CodeMacIntel64 {"EntryPointFunc"},
+		CodeMacIntel64 {"EffectMain"},
 	#endif
 #endif
 		/* [6] */
@@ -50,7 +46,6 @@ resource 'PiPL' (16000) {
 		},
 		/* [8] */
 		AE_Effect_Version {
-			/* v1.00 */
 			FS_VERSION 
 		},
 		/* [9] */

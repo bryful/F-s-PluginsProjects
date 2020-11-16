@@ -8,106 +8,189 @@
 #ifndef NFsSkelton_H
 #define NFsSkelton_H
 
-//#include "../FsLibrary/Fs.h"
 #include "../NFsLibrary/AE_SDK.h"
+#include "../NFsLibrary/AEInfo.h"
 
-#include "Fs_Target.h"
+
+#include "NFs_Target.h"
 
 
-#include "../FsLibrary/FsAE.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_R,
-	ID_G,
-	ID_B,
-
-	ID_NOISE,
-	ID_NOISE_FRAME,
-	ID_NOISE_OFFSET,
-
-
-	ID_HIDDEN_ON,
-
-	ID_TOPIC,
-	ID_ADD_SLIDER,
-	ID_FIXED_SLIDER,
-	ID_FLOAT_SLIDER,
-	ID_COLOR,
-	ID_CHECKBOX,
-	ID_ANGLE,
-	ID_POPUP,
-	ID_POINT,
-	ID_TOPIC_END,
-
+	ID_VALUE,
+	ID_CHECK,
 	ID_NUM_PARAMS
 };
 
 //UIの表示文字列
-#define	STR_R				"R"
-#define	STR_G				"G"
-#define	STR_B				"B"
-#define	STR_NOISE			"noise"
-#define	STR_NOISE_FRAME1	"frame rander"
-#define	STR_NOISE_FRAME2	"on"
-#define	STR_NOISE_OFFSET	"noise offset"
+#define	STR_VALUE			"value"
+#define	STR_CHECK			"check"
+#define	STR_ON				"on"
 
 
-#define	STR_HIDDEN_ON1		"Hidden UI"
-#define	STR_HIDDEN_ON2		"oba-Q!"
-
-#define	STR_TOPIC			"Sample Topics"
-#define	STR_ADD_SLIDER		"Add_Slider"
-#define	STR_FIXED_SLIDER	"Fixed_Slider"
-#define	STR_FLOAT_SLIDER	"Float_Slider"
-#define	STR_COLOR			"Color"
-#define	STR_CHECKBOX1		"Checkbox"
-#define	STR_CHECKBOX2		"on"
-#define	STR_ANGLE			"Angle"
-#define	STR_POPUP			"Popup"
-#define	STR_POPUP_ITEMS		"One|Two|Tree"
-#define	STR_POPUP_COUNT		3
-#define	STR_POPUP_DFLT		1
-#define	STR_POINT			"Point"
 
 
 //UIのパラメータ
 typedef struct ParamInfo {
-	PF_FpLong	r;
-	PF_FpLong	g;
-	PF_FpLong	b;
-	
-	PF_FpLong	noise;
-	PF_Boolean	noise_frame;
-	A_long		noise_offset;
-
-	A_long			add;
-	PF_Fixed		fxd;
-	PF_FpLong		flt;
-	PF_Pixel		col;
-	PF_Boolean		cbx;
-	PF_Fixed		agl;
-	A_long			pop;
-	PF_FixedPoint	pnt;
+	PF_FpLong	value;
+	PF_Boolean	check;
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------
+class NFsSkelton : public AEInfo
+{
+public:
+	NFsSkelton() 
+	{
+	};
 
+	NFsSkelton(
+		PF_Cmd			cmd,
+		PF_InData*		in_dataP,
+		PF_OutData*		out_data,
+		PF_ParamDef*	params[],
+		PF_LayerDef*	output,
+		void*			extraP
+	) :AEInfo(
+		cmd,
+		in_dataP,
+		out_data,
+		params,
+		output,
+		extraP,
+		ID_NUM_PARAMS,
+		sizeof(ParamInfo)
+	)
+	{
+
+	};
+	
+	// ******************************************************
+	PF_Err	About(
+		PF_InData* in_dataP,
+		PF_OutData* out_dataP,
+		PF_ParamDef* paramsP[],
+		PF_LayerDef* outputP) override
+	{
+		PF_Err err = PF_Err_NONE;
+		AEInfo::About(in_dataP, out_dataP, paramsP, outputP);
+
+		ERR(AboutBox(
+			NFS_DISPNAME,
+			MAJOR_VERSION,
+			MINOR_VERSION,
+			NFS_DESCRIPTION));
+
+		return err;
+
+	};
+	// ******************************************************
+	PF_Err	GlobalSetup(
+		PF_InData* in_dataP,
+		PF_OutData* out_dataP,
+		PF_ParamDef* paramsP[],
+		PF_LayerDef* outputP)
+	{
+		PF_Err	err = PF_Err_NONE;
+		Init();
+		in_data = in_dataP;
+		suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
+
+
+		return err;
+	}
+	// ******************************************************
+	PF_Err ParamsSetup(
+			PF_InData * in_data,
+			PF_OutData * out_data,
+			PF_ParamDef * params[],
+			PF_LayerDef * output) override
+	{
+		PF_Err err = PF_Err_NONE;
+
+		return err;
+	};
+};
 
 //-----------------------------------------------------------------------------------
 extern "C" {
 
-DllExport 
-PF_Err 
-EntryPointFunc (	
-	PF_Cmd			cmd,
-	PF_InData		*in_data,
-	PF_OutData		*out_data,
-	PF_ParamDef		*params[],
-	PF_LayerDef		*output,
-	void			*extra);
+	DllExport
+	PF_Err
+	EffectMain(
+			PF_Cmd			cmd,
+			PF_InData*		in_dataP,
+			PF_OutData*		out_dataP,
+			PF_ParamDef*	paramsP[],
+			PF_LayerDef*	outputP,
+			void*			extraP)
+	{
+		PF_Err err = PF_Err_NONE;
+
+		try
+		{
+			NFsSkelton ae;
+
+			switch (cmd) {
+			case PF_Cmd_ABOUT:
+				err = ae.About(in_dataP, out_dataP, paramsP, outputP);
+				break;
+			case PF_Cmd_GLOBAL_SETUP:
+				err = ae.GlobalSetup(in_dataP, out_dataP, paramsP, outputP);
+				break;
+			case PF_Cmd_GLOBAL_SETDOWN:
+				err = ae.GlobalSetdown(in_dataP);
+				break;
+			case PF_Cmd_PARAMS_SETUP:
+				err = ae.ParamsSetup(in_dataP, out_dataP, paramsP, outputP);
+				break;
+			case PF_Cmd_SEQUENCE_SETUP:
+				err = ae.SequenceSetup(in_dataP, out_dataP, paramsP, outputP);
+				break;
+			case PF_Cmd_SEQUENCE_SETDOWN:
+				err = ae.SequenceSetdown(in_dataP, out_dataP, paramsP, outputP);
+				break;
+			case PF_Cmd_SEQUENCE_RESETUP:
+				err = ae.SequenceResetup(in_dataP, out_dataP, paramsP, outputP);
+				break;
+			case PF_Cmd_RENDER:
+				err = ae.Render(in_dataP, out_dataP, paramsP, outputP);
+				break;
+			case PF_Cmd_SMART_PRE_RENDER:
+				err = ae.PreRender(in_dataP, out_dataP, reinterpret_cast<PF_PreRenderExtra*>(extraP));
+				break;
+			case PF_Cmd_SMART_RENDER:
+				err = ae.SmartRender(in_dataP, out_dataP, reinterpret_cast<PF_SmartRenderExtra*>(extraP));
+				break;
+			case PF_Cmd_COMPLETELY_GENERAL:
+				err = ae.RespondtoAEGP(in_dataP, out_dataP, paramsP, outputP, extraP);
+				break;
+			case PF_Cmd_DO_DIALOG:
+				//err = PopDialog(in_data,out_data,params,output);
+				break;
+			case PF_Cmd_USER_CHANGED_PARAM:
+				err = ae.HandleChangedParam(in_dataP,
+					out_dataP,
+					paramsP,
+					outputP,
+					reinterpret_cast<PF_UserChangedParamExtra*>(extraP));
+				break;
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
+				err = ae.QueryDynamicFlags(in_dataP,
+					out_dataP,
+					paramsP,
+					reinterpret_cast<PF_UserChangedParamExtra*>(extraP));
+				break;
+			}
+		}
+		catch (PF_Err& thrown_err) {
+			err = thrown_err;
+		}
+		return err;
+	}
 }
 #endif // NFsSkelton_H

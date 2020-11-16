@@ -1,8 +1,3 @@
-//-----------------------------------------------------------------------------------
-/*
-	F's Plugins for VS2010/VS2012
-*/
-//-----------------------------------------------------------------------------------
 
 
 #pragma once
@@ -12,7 +7,8 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define FS_NAME			"F's PluginSkeleton"
+#define FS_NAME		"F's PluginSkeleton"
+#define FS_DISPNAME	"NF's PluginSkeleton"
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
@@ -20,14 +16,14 @@
 
 	//-----------------------------------------------------------------------------------
 	//プラグインが表示されるメニュー名
-	//#define FS_CATEGORY "F's Plugins-Channel"
-	//#define FS_CATEGORY "F's Plugins-Draw"
-	//#define FS_CATEGORY "F's Plugins-Filter"
-	//#define FS_CATEGORY "F's Plugins-Noise"
-	//#define FS_CATEGORY "F's Plugins-Cell"
-	//#define FS_CATEGORY "F's Plugins-Colorize"
-	//#define FS_CATEGORY "F's Plugins-Script"
-	//#define FS_CATEGORY "F's Plugins-{Legacy}"
+	//#define NFS_CATEGORY "NF's Plugins-Channel"
+	//#define NFS_CATEGORY "NF's Plugins-Draw"
+	//#define NFS_CATEGORY "NF's Plugins-Filter"
+	//#define NFS_CATEGORY "NF's Plugins-Noise"
+	//#define NFS_CATEGORY "NF's Plugins-Cell"
+	//#define NFS_CATEGORY "NF's Plugins-Colorize"
+	//#define NFS_CATEGORY "NF's Plugins-Script"
+	//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
 
 #define FS_CATEGORY "NF's Plugins-{Legacy}"
 
@@ -49,8 +45,8 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//通常はこちら
-#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+#define FS_OUT_FLAGS	33556032	//通常はこちら
+//#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
 //#define FS_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------

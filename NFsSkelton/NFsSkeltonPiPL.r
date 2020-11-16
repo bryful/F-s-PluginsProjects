@@ -1,5 +1,5 @@
-/* 定義はFs_Target.hで行なっている。このファイルは編集する必要なし */
-#include "Fs_Target.h"
+/* 定義はNFs_Target.hで行なっている。このファイルは編集する必要なし */
+#include "NFs_Target.h"
 
 #include "AEConfig.h"
 #include "AE_EffectVers.h"
@@ -17,25 +17,21 @@ resource 'PiPL' (16000) {
 		/* [2] */
 		Name {
 			/*AEのメニューに使われる */
-			FS_NAME
+			NFS_DISPNAME
 		},
 		/* [3] */
 		Category {
 			/*AEのメニューに使われる */
-			FS_CATEGORY
+			NFS_CATEGORY
 		},
 		
 #ifdef AE_OS_WIN
 	#ifdef AE_PROC_INTELx64
-		CodeWin64X86 {"EntryPointFunc"},
-	#else
-		CodeWin32X86 {"EntryPointFunc"},
+		CodeWin64X86 {"EffectMain"},
 	#endif	
 #else
 	#ifdef AE_OS_MAC
-		CodeMachOPowerPC {"EntryPointFunc"},
-		CodeMacIntel32 {"EntryPointFunc"},
-		CodeMacIntel64 {"EntryPointFunc"},
+		CodeMacIntel64 {"EffectMain"},
 	#endif
 #endif
 		/* [6] */
@@ -51,7 +47,7 @@ resource 'PiPL' (16000) {
 		/* [8] */
 		AE_Effect_Version {
 			/* v1.00 */
-			FS_VERSION 
+			NFS_VERSION 
 		},
 		/* [9] */
 		AE_Effect_Info_Flags {
@@ -59,16 +55,16 @@ resource 'PiPL' (16000) {
 		},
 		/* [10] */
 		AE_Effect_Global_OutFlags {
-			FS_OUT_FLAGS
+			NFS_OUT_FLAGS
 		},
 		AE_Effect_Global_OutFlags_2 {
-			FS_OUT_FLAGS2
+			NFS_OUT_FLAGS2
 		},
 
 		/* [11] */
 		AE_Effect_Match_Name {
 			/*プラグインの識別に使われる */
-			FS_NAME
+			NFS_NAME
 		},
 		/* [12] */
 		AE_Reserved_Info {

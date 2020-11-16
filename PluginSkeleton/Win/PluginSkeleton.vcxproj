@@ -469,6 +469,7 @@
     <ClInclude Include="..\..\FsLibrary\FsDebug.h" />
     <ClInclude Include="..\..\FsLibrary\FsSputtering.h" />
     <ClInclude Include="..\..\FsLibrary\FsVersion.h" />
+    <ClInclude Include="..\..\NFsLibrary\resource.h" />
     <ClInclude Include="..\Fs_Entry.h" />
     <ClInclude Include="..\..\FsLibrary\FsAE.h" />
     <ClInclude Include="..\..\FsLibrary\FsGraphics.h" />
@@ -554,6 +555,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="..\..\NFsLibrary\Resource.rc" />
     <ResourceCompile Include="PluginSkeletonPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
@@ -596,6 +598,9 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release-MT|x64'">true</BrowseInformation>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\NFsLibrary\_about_thum.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
