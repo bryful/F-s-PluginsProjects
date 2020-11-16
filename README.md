@@ -1,4 +1,4 @@
-﻿# F's Plugins New
+﻿# F's Plugins Next and New
 Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。
 
 昔から趣味でコツコツと作っていたものです。
