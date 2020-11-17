@@ -490,6 +490,8 @@
     <ClInclude Include="..\..\..\Util\Param_Utils.h" />
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
+    <ClInclude Include="..\..\NFsLibrary\NFsUtils.h" />
+    <ClInclude Include="..\..\NFsLibrary\NFsWorld.h" />
     <ClInclude Include="..\NFs_Target.h" />
     <ClInclude Include="..\NFsSkelton.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />

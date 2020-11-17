@@ -5,6 +5,10 @@
 #include "AE_SDK.h"
 
 
+typedef struct {
+	PF_FpLong	x, y, z;
+} Point3D;
+
 /*
 	プラグインID獲得のための構造体
 */
@@ -51,7 +55,7 @@ protected:
 	A_long				m_paramsCount;
 	A_long				m_infoSize;
 	PF_Err				m_err;
-	PF_Boolean			m_isGetEffectStream;
+	//PF_Boolean			m_isGetEffectStream;
 
 public:
 	PF_PixelFormat		fromat() { return m_format; }
@@ -59,7 +63,7 @@ public:
 	PF_Cmd				cmd() { return m_cmd; }
 	A_long				paramsCount() { return m_paramsCount; }
 	PF_Err				err() { return m_err; }
-	PF_Boolean			isGetEffectStream() { return m_isGetEffectStream; }
+	//PF_Boolean			isGetEffectStream() { return m_isGetEffectStream; }
 
 
 	PF_InData*				in_data;
@@ -87,7 +91,7 @@ public:
 		m_cmd = PF_Cmd_ABOUT;
 		m_paramsCount = 0;
 		m_infoSize = 0;
-		m_isGetEffectStream = FALSE;
+		//m_isGetEffectStream = FALSE;
 		m_err = PF_Err_NONE;
 
 		in_data = NULL;
@@ -112,7 +116,39 @@ public:
 	{
 		Init();
 	}
+	~AEInfo()
+	{
+		PF_Err 	err = PF_Err_NONE;
+		PF_Err 		err2 = PF_Err_NONE;
+		if (ae_effect_refH != NULL) {
+			suitesP->EffectSuite2()->AEGP_DisposeEffect(ae_effect_refH);
+			ae_effect_refH = NULL;
+		}
+		/*
+		if (m_paramsCount > 0) {
+			if (m_isGetEffectStream == TRUE) {
+				for (A_long i = 0; i < m_paramsCount; i++) {
+					if (ae_item_streamH[i] != NULL) {
+						ERR2(suitesP->StreamSuite2()->AEGP_DisposeStream(ae_item_streamH[i]));
+						ae_item_streamH[i] = NULL;
+					}
+				}
+			}
+		}
+		*/
+		if (suitesP != NULL) {
+			delete suitesP;
+			suitesP = NULL;
+		}
 
+		if (ws2P != NULL) {
+			ERR2(AEFX_ReleaseSuite(in_data,
+				out_data,
+				kPFWorldSuite,
+				kPFWorldSuiteVersion2,
+				"Couldn't release suite."));
+		}
+	}
 protected:
 	//******************************************************************************
 	PF_Err GetFrame(
@@ -151,7 +187,80 @@ protected:
 		return err;
 	}
 public:
-	//******************************************************************************
+	//--------------------------------------------------------------------
+	void* LockPreRenderData()
+	{
+		if (m_cmd == PF_Cmd_SMART_PRE_RENDER) {
+			if (PreRenderH != NULL) {
+				return suitesP->HandleSuite1()->host_lock_handle(PreRenderH);
+			}
+		}
+		else if (m_cmd == PF_Cmd_SMART_RENDER) {
+			if (SRextraP != NULL) {
+				return suitesP->HandleSuite1()->host_lock_handle(reinterpret_cast<PF_Handle>(SRextraP->input->pre_render_data));
+			}
+		}
+		return NULL;
+	}	//******************************************************************************
+	PF_Err SetHostPreRenderData()
+	{
+		PF_Err err = PF_Err_BAD_CALLBACK_PARAM;
+		if (m_cmd == PF_Cmd_SMART_PRE_RENDER) {
+			if (PreRenderH != NULL) {
+				PRextraP->output->pre_render_data = PreRenderH;
+				err = PF_Err_NONE;
+			}
+		}
+		return err;
+	}
+	// ******************************************************************************
+	PF_Err UnSetPreRenderData(PF_RenderRequest* req, PF_CheckoutResult* in_result)
+	{
+		PF_Err err = PF_Err_NONE;
+		if (m_cmd == PF_Cmd_SMART_PRE_RENDER) {
+			ERR(PRextraP->cb->checkout_layer(in_data->effect_ref,
+				0,
+				0,
+				req,
+				in_data->current_time,
+				in_data->time_step,
+				in_data->time_scale,
+				in_result));
+
+			UnionLRect(&in_result->result_rect, &PRextraP->output->result_rect);
+			UnionLRect(&in_result->max_result_rect, &PRextraP->output->max_result_rect);
+		}
+		return err;
+	}
+	// ******************************************************************************
+	PF_Err UnSetPreRenderData()
+	{
+		PF_RenderRequest req = PRextraP->input->output_request;
+		PF_CheckoutResult in_result;
+		return UnSetPreRenderData(&req, &in_result);
+	}
+	// ******************************************************************************
+	PF_Err  UnlockPreRenderData()
+	{
+		PF_Err err = PF_Err_NONE;
+		if (m_cmd == PF_Cmd_SMART_PRE_RENDER) {
+			if (PreRenderH != NULL) {
+				suitesP->HandleSuite1()->host_unlock_handle(PreRenderH);
+			}
+		}
+		else if (m_cmd == PF_Cmd_SMART_RENDER) {
+			if (SRextraP != NULL) {
+				suitesP->HandleSuite1()->host_lock_handle(reinterpret_cast<PF_Handle>(SRextraP->input->pre_render_data));
+			}
+		}
+		return err;
+	}
+	// ******************************************************************************
+	PF_Err UnsetSmartRender()
+	{
+		return SRextraP->cb->checkin_layer_pixels(in_data->effect_ref, 0);
+	}
+	// ******************************************************************************
 	PF_Err AboutBox
 	(
 		A_char* Dispname,
@@ -164,7 +273,7 @@ public:
 		if (ae_plugin_idP != NULL) {
 			A_char scriptCode[2048] = { '\0' };
 
-			PF_SPRINTF(scriptCode, FS_ABOUT_DIALOG,
+			PF_SPRINTF(scriptCode, NFS_ABOUT_DIALOG,
 				Dispname,
 				majorver,
 				minorver,
@@ -212,6 +321,7 @@ public:
 	{
 		PF_Err	err = PF_Err_NONE;
 		Init();
+		m_cmd = PF_Cmd_GLOBAL_SETUP;
 		in_data = in_dataP;
 		suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
 
@@ -225,9 +335,15 @@ public:
 	{
 		PF_Err	err = PF_Err_NONE;
 		Init();
+		m_cmd = PF_Cmd_GLOBAL_SETDOWN;
+		suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
 		in_data = in_dataP;
 
-		return PF_Err_NONE;
+		//ae_plugin_idH
+		if (in_dataP->global_data) {
+			suitesP->HandleSuite1()->host_dispose_handle(in_dataP->global_data);
+		}
+		return err;
 	}
 	//******************************************************************************
 	virtual
@@ -239,6 +355,7 @@ public:
 	{
 		PF_Err			err = PF_Err_NONE;
 		Init();
+		m_cmd = PF_Cmd_PARAMS_SETUP;
 		in_data = in_dataP;
 
 		//PF_ParamDef		def;
@@ -255,6 +372,7 @@ public:
 			PF_LayerDef * outputP)
 	{
 		Init();
+		m_cmd = PF_Cmd_SEQUENCE_RESETUP;
 		in_data = in_dataP;
 
 		return PF_Err_NONE;
@@ -339,20 +457,22 @@ public:
 			PF_InData*		in_dataP,
 			PF_OutData*		out_dataP,
 			PF_ParamDef*	paramsP[],
-			PF_LayerDef*	outputP
+			PF_LayerDef*	outputP,
+			A_long			pc
 
 	)
 	{
 		PF_Err	err = PF_Err_NONE;
+
 		Init();
-		if ((in_dataP == NULL) || (out_dataP == NULL) || (paramsP == NULL) || (outputP == NULL)) {
+		if ((in_dataP == NULL) || (out_dataP == NULL) || (paramsP == NULL) || (outputP == NULL) || (pc <= 0)) {
 			m_err = PF_Err_BAD_CALLBACK_PARAM;
 			return m_err;
 		}
+		m_cmd = PF_Cmd_RENDER;
 		in_data = in_dataP;
-
-		GetFrame(in_dataP, out_dataP);
-
+		m_paramsCount = pc;
+		GetFrame(in_dataP);
 		out_data = out_dataP;
 		output = outputP;
 
@@ -366,174 +486,493 @@ public:
 
 		if (paramsP != NULL) {
 			input = &paramsP[0]->u.ld;
-			if (m_paramsCount > 0) {
-				for (A_long i = 0; i < m_paramsCount; i++) params[i] = paramsP[i];
+			if (pc > 0) {
+				for (A_long i = 0; i < pc; i++) params[i] = paramsP[i];
 			}
 		}
-
+		output = outputP;
 		return err;
 	}
 	//******************************************************************************
 	virtual
 	PF_Err	PreRender(
-			PF_InData* in_dataP,
-			PF_OutData* out_dataP,
-			PF_PreRenderExtra* extraP)
-	{
-		PF_Err		err = PF_Err_NONE;
-		in_data = in_dataP;
-
-		ERR(GetFrame(in_dataP, out_dataP));
-		if (err)
-		{
-			m_err = err;
-			return m_err;
-		}
-		out_data = out_dataP;
-		PRextraP = extraP;
-		suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
-
-		if (in_dataP->global_data) {
-			ae_plugin_idH = in_dataP->global_data;
-			ae_plugin_idP = reinterpret_cast<ae_global_dataP>(DH(in_dataP->global_data));
-		}
-
-		if (m_infoSize > 0) {
-			PreRenderH = suitesP->HandleSuite1()->host_new_handle(m_infoSize);
-			if (PreRenderH == NULL) {
-				m_err = PF_Err_OUT_OF_MEMORY;
-				return m_err;
-			}
-		}
-		suitesP->HandleSuite1()->host_lock_handle(PreRenderH);
-
-
-		/*
-		CFsAE ae(in_data, out_data, extraP, sizeof(ParamInfo), ID_NUM_PARAMS);
-		err = ae.resultErr();
-		if (!err) {
-
-			ParamInfo* infoP = reinterpret_cast<ParamInfo*>(ae.LockPreRenderData());
-			if (infoP) {
-				ae.SetHostPreRenderData();
-				ERR(GetParams(&ae, infoP));
-				ERR(ae.UnSetPreRenderData());
-				ae.UnlockPreRenderData();
-			}
-			else {
-				err = PF_Err_OUT_OF_MEMORY;
-			}
-		}
-		*/
-		return err;
-	}
-	//******************************************************************************
-	virtual
-	PF_Err	SmartRender(
-			PF_InData* in_dataP,
-			PF_OutData* out_dataP,
-			PF_SmartRenderExtra* extraP)
-	{
-		PF_Err	err = PF_Err_NONE;
-		PF_Err	err2 = PF_Err_NONE;
-		/*
-		CFsAE ae(in_data, out_data, extraP, ID_NUM_PARAMS);
-		err = ae.resultErr();
-		if (!err) {
-			ParamInfo* infoP = reinterpret_cast<ParamInfo*>(ae.LockPreRenderData());
-			if (infoP) {
-				ERR(Exec(&ae, infoP));
-				ERR2(ae.UnsetSmartRender());
-				ae.UnlockPreRenderData();
-			}
-			else {
-				err = PF_Err_OUT_OF_MEMORY;
-			}
-		}
-		*/
-		return err;
-	}
-	//******************************************************************************
-	AEInfo(
-		PF_Cmd			cmd,
-		PF_InData*		in_dataP,
-		PF_OutData*		out_dataP,
-		PF_ParamDef*	paramsP[],
-		PF_LayerDef*	outputP,
-		void*			extraP,
-		A_long			pc,
-		A_long			infoSz
+			PF_InData*			in_dataP,
+			PF_OutData*			out_dataP,
+			PF_PreRenderExtra*	extraP,
+			A_long				pc,
+			A_long				infoSize
 		)
 	{
 		PF_Err		err = PF_Err_NONE;
 		Init();
 
-		m_err = err;
-
-		m_cmd = cmd;
+		m_cmd = PF_Cmd_SMART_PRE_RENDER;
 		in_data = in_dataP;
+		out_data = out_dataP;
+		PRextraP = extraP;
 		m_paramsCount = pc;
-		m_infoSize = infoSz;
 
-		try
+
+		ERR(GetFrame(in_dataP));
+		if (err)
 		{
-			switch (cmd) {
-			case PF_Cmd_ABOUT:
-				err = About(in_dataP, out_dataP, paramsP, outputP);
-				break;
-			case PF_Cmd_GLOBAL_SETUP:
-				err = GlobalSetup(in_dataP, out_dataP, paramsP, outputP);
-				break;
-			case PF_Cmd_GLOBAL_SETDOWN:
-				err = GlobalSetdown(in_dataP);
-				break;
-			case PF_Cmd_PARAMS_SETUP:
-				err = ParamsSetup(in_dataP, out_dataP, paramsP, outputP);
-				break;
-			case PF_Cmd_SEQUENCE_SETUP:
-				err = SequenceSetup(in_dataP, out_dataP, paramsP, outputP);
-				break;
-			case PF_Cmd_SEQUENCE_SETDOWN:
-				err = SequenceSetdown(in_dataP, out_dataP, paramsP, outputP);
-				break;
-			case PF_Cmd_SEQUENCE_RESETUP:
-				err = SequenceResetup(in_dataP, out_dataP, paramsP, outputP);
+			m_err = err;
+			return m_err;
+		}
+		GetSuites(in_dataP);
+
+		if (infoSize > 0) {
+			PreRenderH = suitesP->HandleSuite1()->host_new_handle(infoSize);
+			if (PreRenderH == NULL) {
+				m_err = PF_Err_OUT_OF_MEMORY;
+				return m_err;
+			}
+		}
+		return err;
+	}
+	//******************************************************************************
+	virtual
+	PF_Err	SmartRender(
+			PF_InData*				in_dataP,
+			PF_OutData*				out_dataP,
+			PF_SmartRenderExtra*	extraP,
+			A_long					pc
+		)
+	{
+		PF_Err	err = PF_Err_NONE;
+		PF_Err	err2 = PF_Err_NONE;
+		if ((in_dataP == NULL) || (out_dataP == NULL) || (extraP == NULL)) {
+			m_err = PF_Err_BAD_CALLBACK_PARAM;
+			return m_err;
+		}
+
+		Init();
+		m_cmd = PF_Cmd_SMART_RENDER;
+		in_data = in_dataP;
+		out_data = out_dataP;
+		SRextraP = extraP;
+		m_paramsCount = pc;
+		GetFrame(in_dataP);
+		GetSuites(in_dataP);
+		ERR((extraP->cb->checkout_layer_pixels(in_dataP->effect_ref, 0, &(input))));
+		ERR(extraP->cb->checkout_output(in_dataP->effect_ref, &(output)));
+		ERR(AEFX_AcquireSuite(in_dataP,
+			out_dataP,
+			kPFWorldSuite,
+			kPFWorldSuiteVersion2,
+			"Couldn't load suite.",
+			(void**)&(ws2P)));
+		ERR(ws2P->PF_GetPixelFormat(input, &m_format));
+		if (err) {
+			m_err = PF_Err_BAD_CALLBACK_PARAM;
+			return m_err;
+		}
+
+		return err;
+	}
+	//******************************************************************************
+	PF_Err GetADD(A_long idx, A_long* a)
+	{
+		PF_Err err = PF_Err_NONE;
+		A_long ret = 0;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					ret = param.u.sd.value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
 				break;
 			case PF_Cmd_RENDER:
-				err = Render(in_dataP, out_dataP, paramsP, outputP);
-				break;
-			case PF_Cmd_SMART_PRE_RENDER:
-				err = PreRender(in_dataP, out_dataP, reinterpret_cast<PF_PreRenderExtra*>(extraP));
-				break;
-			case PF_Cmd_SMART_RENDER:
-				err = SmartRender(in_dataP, out_data, reinterpret_cast<PF_SmartRenderExtra*>(extraP));
-				break;
-			case PF_Cmd_COMPLETELY_GENERAL:
-				err = RespondtoAEGP(in_dataP, out_dataP, paramsP, outputP, extraP);
-				break;
-			case PF_Cmd_DO_DIALOG:
-				//err = PopDialog(in_data,out_data,params,output);
-				break;
 			case PF_Cmd_USER_CHANGED_PARAM:
-				err = HandleChangedParam(in_dataP,
-					out_dataP,
-					paramsP,
-					outputP,
-					reinterpret_cast<PF_UserChangedParamExtra*>(extraP));
+				ret = params[idx]->u.sd.value;
 				break;
-			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
-				err = QueryDynamicFlags(in_dataP,
-					out_dataP,
-					paramsP,
-					reinterpret_cast<PF_UserChangedParamExtra*>(extraP));
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
 				break;
 			}
 		}
-		catch (PF_Err& thrown_err) {
-			err = thrown_err;
+		else {
+			err = PF_Err_INVALID_INDEX;
 		}
-		m_err = err;
+		*a = ret;
+		return err;
 	}
+	//******************************************************************************
+	PF_Err GetFIXED(A_long idx, PF_Fixed* f)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_Fixed ret = 0;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					ret = param.u.sd.value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
+
+				break;
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				ret = params[idx]->u.sd.value;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		*f = ret;
+		return err;
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetANGLE_FIXED(A_long idx, PF_Fixed* r)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_Fixed ret = 0;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					ret = param.u.ad.value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
+				break;
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				ret = params[idx]->u.ad.value;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		*r = ret;
+		return err;
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetANGLE_DOUBLE(A_long idx, PF_FpLong* r)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_Fixed rr;
+		err = GetANGLE_FIXED(idx, &rr);
+
+		*r = (PF_FpLong)rr / 65536.0;
+
+		return err;
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetCHECKBOX(A_long idx, PF_Boolean* b)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_Boolean ret = FALSE;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				//case FsAE_QUERY_DYNAMIC_FLAGS:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					ret = (PF_Boolean)param.u.bd.value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
+				break;
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				ret = (PF_Boolean)params[idx]->u.bd.value;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		*b = ret;
+		return err;
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetCOLOR(A_long idx, PF_Pixel* c)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_Pixel ret = { 0,0,0,0 };
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				//case FsAE_QUERY_DYNAMIC_FLAGS:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					ret = param.u.cd.value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
+
+				break;
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				ret = params[idx]->u.cd.value;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		*c = ret;
+		return err;
+
+
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetFLOAT(A_long idx, PF_FpLong* f)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_FpLong ret = 0;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				//case FsAE_QUERY_DYNAMIC_FLAGS:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					ret = param.u.fs_d.value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
+
+				break;
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				ret = params[idx]->u.fs_d.value;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		*f = ret;
+		return err;
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetPOINT_FIXED(A_long idx, PF_FixedPoint* pos)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_FixedPoint ret;
+		ret.x = -1;
+		ret.y = -1;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				//case FsAE_QUERY_DYNAMIC_FLAGS:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					ret.x = param.u.td.x_value;
+					ret.y = param.u.td.y_value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
+
+				break;
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				ret.x = params[idx]->u.td.x_value;
+				ret.y = params[idx]->u.td.y_value;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		*pos = ret;
+		return err;
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetPOINT_DOUBLE(A_long idx, A_FloatPoint* pos)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_FixedPoint r;
+		r.x = 0; r.y = 0;
+		err = GetPOINT_FIXED(idx, &r);
+		if (!err) {
+
+			pos->x = (PF_FpLong)r.x / 65536;
+			pos->y = (PF_FpLong)r.y / 65536;
+		}
+		return err;
+
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetPOINT_INT(A_long idx, A_LPoint* pos)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_FixedPoint r;
+		r.x = 0; r.y = 0;
+		err = GetPOINT_FIXED(idx, &r);
+		if (!err) {
+
+			pos->x = (A_long)((PF_FpLong)r.x / 65536 + 0.5);
+			pos->y = (A_long)((PF_FpLong)r.y / 65536 + 0.5);
+		}
+		return err;
+
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetPOINT3D(A_long idx, Point3D* pos)
+	{
+		PF_Err err = PF_Err_NONE;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				//case FsAE_QUERY_DYNAMIC_FLAGS:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					pos->x = param.u.point3d_d.x_value;
+					pos->y = param.u.point3d_d.y_value;
+					pos->z = param.u.point3d_d.z_value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
+
+				break;
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				pos->x = params[idx]->u.point3d_d.x_value;
+				pos->y = params[idx]->u.point3d_d.y_value;
+				pos->z = params[idx]->u.point3d_d.z_value;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		return err;
+	}
+	//--------------------------------------------------------------------
+	PF_Err GetPOPUP(A_long idx, A_long* pop)
+	{
+		PF_Err err = PF_Err_NONE;
+		A_long ret = 1;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_SMART_PRE_RENDER:
+				//case FsAE_QUERY_DYNAMIC_FLAGS:
+				PF_ParamDef param;
+				AEFX_CLR_STRUCT(param);
+				ERR(PF_CHECKOUT_PARAM(
+					in_data,
+					idx,
+					in_data->current_time, in_data->time_step, in_data->time_scale,
+					&param));
+				if (!err) {
+					ret = param.u.pd.value;
+				}
+				else {
+					err = PF_Err_BAD_CALLBACK_PARAM;
+				}
+				break;
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				ret = params[idx]->u.pd.value;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		*pop = ret;
+		return err;
+	}
+
 	//******************************************************************************
 };
 //******************************************************************************

@@ -105,6 +105,12 @@
       <Filter>Header Files\NFs</Filter>
     </ClInclude>
     <ClInclude Include="..\NFs_Target.h" />
+    <ClInclude Include="..\..\NFsLibrary\NFsUtils.h">
+      <Filter>Header Files\NFs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\NFsLibrary\NFsWorld.h">
+      <Filter>Header Files\NFs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
