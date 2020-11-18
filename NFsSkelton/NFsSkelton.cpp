@@ -18,7 +18,7 @@ NFsNoise8 (
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
 	PF_FpLong v = PF_MAX_CHAN8 * infoP->value;
-	v = -v + 2 * v * xorShiftDouble();
+	v = v - 2 * v * xorShiftDouble();
 
 	outP->red = RoundByteFpLong((PF_FpLong)outP->red + v);
 	outP->green = RoundByteFpLong((PF_FpLong)outP->green + v);
@@ -39,7 +39,7 @@ NFsNoise16(
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
 	PF_FpLong v = PF_MAX_CHAN16 * infoP->value;
-	v = -v + 2 * v * xorShiftDouble();
+	v = v - 2 * v * xorShiftDouble();
 
 	outP->red = RoundShortFpLong((PF_FpLong)outP->red + v);
 	outP->green = RoundShortFpLong((PF_FpLong)outP->green + v);
@@ -60,8 +60,8 @@ NFsNoise32(
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
-	PF_FpLong v = infoP->value * xorShiftDouble();
-	v = -v + 2 * v * xorShiftDouble();
+	PF_FpLong v = infoP->value;
+	v = v - 2 * v * xorShiftDouble();
 
 	outP->red = RoundFpShortDouble((PF_FpLong)outP->red + v);
 	outP->green = RoundFpShortDouble((PF_FpLong)outP->green + v);
@@ -88,9 +88,9 @@ PF_Err NFsSkelton::ParamsSetup(
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_FLOAT_SLIDER(STR_VALUE,	//Name
 		0,						//VALID_MIN
-		100,					//VALID_MAX
+		400,					//VALID_MAX
 		0,						//SLIDER_MIN
-		100,					//SLIDER_MAX
+		200,					//SLIDER_MAX
 		1,						//CURVE_TOLERANCE
 		0,						//DFLT
 		1,						//PREC
@@ -129,23 +129,27 @@ PF_Err NFsSkelton::Exec(ParamInfo* infoP)
 	NFsWorld* src = new NFsWorld(input, in_data, pixelFormat());
 	NFsSkeltonFX* dst = new NFsSkeltonFX(output, in_data, pixelFormat());
 	dst->Copy(src);
-
-	if ((infoP->check == TRUE)&&(infoP->value>0)) {
+	if (infoP->value > 0) {
 		init_xorShift(frame());
+		if (infoP->check == TRUE) {
 
-		switch (pixelFormat())
-		{
-		case PF_PixelFormat_ARGB128:
-			iterate32(src->world, (void*)infoP, NFsNoise32, dst->world);
-			break;
-		case PF_PixelFormat_ARGB64:
-			iterate16(src->world, (void*)infoP, NFsNoise16, dst->world);
-			break;
-		case PF_PixelFormat_ARGB32:
-			iterate8(src->world, (void*)infoP, NFsNoise8, dst->world);
-			break;
-		default:
-			break;
+			switch (pixelFormat())
+			{
+			case PF_PixelFormat_ARGB128:
+				iterate32(src->world, (void*)infoP, NFsNoise32, dst->world);
+				break;
+			case PF_PixelFormat_ARGB64:
+				iterate16(src->world, (void*)infoP, NFsNoise16, dst->world);
+				break;
+			case PF_PixelFormat_ARGB32:
+				iterate8(src->world, (void*)infoP, NFsNoise8, dst->world);
+				break;
+			default:
+				break;
+			}
+		}
+		else {
+			dst->Noise(infoP);
 		}
 	}
 

@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef NFsSkelton_H
-#define NFsSkelton_H
+#ifndef NFsSkeltonMain_H
+#define NFsSkeltonMain_H
 
 #include "../NFsLibrary/AE_SDK.h"
 #include "../NFsLibrary/AEInfo.h"
@@ -14,8 +14,16 @@
 
 
 #include "NFs_Target.h"
-#include "NFsSkeltonFX.h"
 
+
+
+//UIのパラメータ
+typedef struct ParamInfo {
+	PF_FpLong	value;
+	PF_Boolean	check;
+} ParamInfo, * ParamInfoP, ** ParamInfoH;
+
+#include "NFsSkeltonFX.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
@@ -34,11 +42,6 @@ enum {
 
 
 
-//UIのパラメータ
-typedef struct ParamInfo {
-	PF_FpLong	value;
-	PF_Boolean	check;
-} ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------
 class NFsSkelton : public AEInfo
@@ -146,19 +149,21 @@ public:
 	
 
 };
-
+#ifndef EFFEC_TMAIN_H
+#define EFFEC_TMAIN_H
 //-----------------------------------------------------------------------------------
 extern "C" {
 
 	DllExport
-	PF_Err
-	EffectMain(
+		PF_Err
+		EffectMain(
 			PF_Cmd			cmd,
-			PF_InData*		in_dataP,
-			PF_OutData*		out_dataP,
-			PF_ParamDef*	paramsP[],
-			PF_LayerDef*	outputP,
-			void*			extraP)
+			PF_InData* in_dataP,
+			PF_OutData* out_dataP,
+			PF_ParamDef* paramsP[],
+			PF_LayerDef* outputP,
+			void* extraP)
+	
 	{
 		PF_Err err = PF_Err_NONE;
 		PF_Err err2 = PF_Err_NONE;
@@ -252,5 +257,6 @@ extern "C" {
 		}
 		return err;
 	}
+#endif
 }
 #endif // NFsSkelton_H
