@@ -1,4 +1,4 @@
-﻿# F's Plugins Next and New
+﻿# F's Plugins New and Next
 Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。
 
 昔から趣味でコツコツと作っていたものです。
@@ -6,24 +6,31 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 
 ***
 
-いろいろあって気分転換で*F's Pluginsを作り直すことにしました。
+いろいろあって気分転換で**F's Plugins**を作り直すことにしました。
 といっても一度に全部作り直しのは大変なので以下のステップで行います。
 
-1. 表示カテゴリを "NF's" に変更します。 Next and New F'sです。
+1. 表示カテゴリを "NF's" に変更します。 New and Next F'sです。
 2. 現在使用しているFsLibraryはCS4/CS6を同一コード化でビルドするために作成していたもので、SDKはCS4の機能しか使っていませんでした。それをAE2020に最適化します。
 3. 現在あるエフェクトは基本的に０からコーディングを行います。新しいライブラリに対応させるためです。
+
+すべてが切り替わるのは1年後位になると思います。最初はよく使うやつと新規のものを優先で行います。
 
 ***
 
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。
 
-* [FsPlugins20200816.zip](https://bit.ly/2PZqemC)
+* [FsPlugins20201111.zip](https://)<br>
+11月11日版です。NFsライブラリのひな型になります。
+* [FsPlugins20200816.zip](https://bit.ly/2PZqemC)<br>
 8月16日版です。VS2020に変更しました。
-* [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)
+* [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)<br>
 7月26日版です。SDKをCC2020に変えてビルドしただけのものです。
 
 # 変更点
+2020/11/11
+NFsライブラリのひな型を作成しました。
+
 2020/08/15
 コンパイラを VS2017からVS2019へ変更。
 それに伴い、構造体メンバーのアライメントを16byteに変更。/Zp16
@@ -53,7 +60,7 @@ CC2019 SDKに変更。
  ノイズフィルタ系です。
 * F's Plugins-{Legacy}
  もう使って欲しくない。或いは使い道のないものです。
- 紙飛行機作成補助プラグインとか
+ デバッグ前のものや、紙飛行機作成補助プラグインとかになります。
 ### 追加プラグイン
 * F's EdgeLine-Hi.aex  指定した2色の境界に線を描きます。その時描く向きを指定できます。
 * F's Flare.aex 白黒マスクにグローを付けます。透過光です。
@@ -97,6 +104,8 @@ SDKはCC2020を使用していますが、CS4/CS6のSDKでもbuild可能です�
 
 SDKはCC2020を想定していますが、CS6及びCC2020までのSDKでビルド可能です。
 
+**NFsLibrary**ではCC2020以降のサポートとなります。
+
 F's PluginsProjectsフォルダを各バージョンのExamplesフォルダに移動すればできます。
 
 
@@ -110,7 +119,7 @@ PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。
 
 # デバッグ
 
-1. デバッグ構成時のプロパティでバイナリの出力先をインストールされたAEの**Plug-ins**フォルダに設定します。
+1. デバッグ構成時のプロパティでバイナリの出力先をインストールされたAEの**Plug-ins**フォルダに設定します。SDKでは"[Program Files]\Adobe\Common\Plug-ins\[**version**]\MediaCore\"が推奨されていますが、バージョンがこっそり上がって困ったことがありました。
 > C:\Program Files\Adobe\Adobe After Effects 2020\Support Files\Plug-ins\debug\
 2. プロパティ「デバッグ」のコマンドをAEの実行ファイルにします。
 > C:\Program Files\Adobe\Adobe After Effects 2020\Support Files\AfterFX.exe
@@ -126,7 +135,7 @@ PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。
 This software is released under the MIT License, see LICENSE.
 
 このソースコードを使用する時はMITライセンスに準じてください。
-独自にビルドして映像制作使う場合は、使用プラグインリスト等にここのurl(https://github.com/bryful)を入れてもらえればOKです（まぁ入れなくても僕は気にしません）
+独自にビルドして映像制作使う場合は、使用プラグインリスト等にここの[url](https://github.com/bryful)を入れてもらえればOKです（まぁ入れなくても僕は気にしません）
 
 このプログラムを映像制作に使用した場合も特に制限ありません。一応MITライセンスの条件である著作権表示および本許諾表示として
 
@@ -142,12 +151,15 @@ P関係のゲーム会社の方へ
 
 # Authors
 
-bry-ful(Hiroshi Furuhashi)
-twitter:[bryful](https://twitter.com/bryful)
+bry-ful [Hiroshi Furuhashi]<br>
+github: [https://github.com/bryful](https://github.com/bryful)<br>
+twitter:[bryful](https://twitter.com/bryful)<br>
 bryful@gmail.com
 
 # Thanks
+
 Nanae Furuhashi
+
 My daughter,
 May her soul rest in peace．
 

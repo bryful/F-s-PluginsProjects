@@ -95,7 +95,8 @@ public:
 public:
 	virtual ~NFsWorld()
 	{
-		if (m_bufH != NULL)
+		if (in_data == NULL) return;
+		if (m_bufH)
 		{
 			PF_UNLOCK_HANDLE(m_bufH);
 			PF_DISPOSE_HANDLE(m_bufH);
@@ -165,13 +166,13 @@ protected:
 	// ***************************************************************
 #pragma region Copy
 	// ***************************************************************
-	PF_Err Copy8(NFsWorld d)
+	PF_Err Copy8(NFsWorld *d)
 	{
 		PF_Err err = PF_Err_NONE;
 
-		if ((m_data == NULL) || (d.m_data == NULL)) return PF_Err_OUT_OF_MEMORY;
-		if ((m_width != d.m_width) || (m_height != d.m_height)) return PF_Err_OUT_OF_MEMORY;
-		if (m_format != d.m_format) return PF_Err_OUT_OF_MEMORY;
+		if ((m_data == NULL) || (d->m_data == NULL)) return PF_Err_OUT_OF_MEMORY;
+		if ((m_width != d->m_width) || (m_height != d->m_height)) return PF_Err_OUT_OF_MEMORY;
+		if (m_format != d->m_format) return PF_Err_OUT_OF_MEMORY;
 
 		A_long target = 0;
 		A_long targetD = 0;
@@ -179,23 +180,23 @@ protected:
 		{
 			for (A_long x = 0; x < m_width; x++)
 			{
-				m_data8[target] = d.m_data8[targetD];
+				m_data8[target] = d->m_data8[targetD];
 				target++;
 				targetD++;
 			}
 			target += m_offsetWidth;
-			targetD += d.m_offsetWidth;
+			targetD += d->m_offsetWidth;
 		}
 		return err;
 	}
 	// ***************************************************************
-	PF_Err Copy16(NFsWorld d)
+	PF_Err Copy16(NFsWorld *d)
 	{
 		PF_Err err = PF_Err_NONE;
 
-		if ((m_data == NULL) || (d.m_data == NULL)) return PF_Err_OUT_OF_MEMORY;
-		if ((m_width != d.m_width) || (m_height != d.m_height)) return PF_Err_OUT_OF_MEMORY;
-		if (m_format != d.m_format) return PF_Err_OUT_OF_MEMORY;
+		if ((m_data == NULL) || (d->m_data == NULL)) return PF_Err_OUT_OF_MEMORY;
+		if ((m_width != d->m_width) || (m_height != d->m_height)) return PF_Err_OUT_OF_MEMORY;
+		if (m_format != d->m_format) return PF_Err_OUT_OF_MEMORY;
 
 		A_long target = 0;
 		A_long targetD = 0;
@@ -203,23 +204,23 @@ protected:
 		{
 			for (A_long x = 0; x < m_width; x++)
 			{
-				m_data16[target] = d.m_data16[targetD];
+				m_data16[target] = d->m_data16[targetD];
 				target++;
 				targetD++;
 			}
 			target += m_offsetWidth;
-			targetD += d.m_offsetWidth;
+			targetD += d->m_offsetWidth;
 		}
 		return err;
 	}
 	// ***************************************************************
-	PF_Err Copy32(NFsWorld d)
+	PF_Err Copy32(NFsWorld *d)
 	{
 		PF_Err err = PF_Err_NONE;
 
-		if ((m_data == NULL) || (d.m_data == NULL)) return PF_Err_OUT_OF_MEMORY;
-		if ((m_width != d.m_width) || (m_height != d.m_height)) return PF_Err_OUT_OF_MEMORY;
-		if (m_format != d.m_format) return PF_Err_OUT_OF_MEMORY;
+		if ((m_data == NULL) || (d->m_data == NULL)) return PF_Err_OUT_OF_MEMORY;
+		if ((m_width != d->m_width) || (m_height != d->m_height)) return PF_Err_OUT_OF_MEMORY;
+		if (m_format != d->m_format) return PF_Err_OUT_OF_MEMORY;
 
 		A_long target = 0;
 		A_long targetD = 0;
@@ -227,12 +228,12 @@ protected:
 		{
 			for (A_long x = 0; x < m_width; x++)
 			{
-				m_data32[target] = d.m_data32[targetD];
+				m_data32[target] = d->m_data32[targetD];
 				target++;
 				targetD++;
 			}
 			target += m_offsetWidth;
-			targetD += d.m_offsetWidth;
+			targetD += d->m_offsetWidth;
 		}
 		return err;
 	}
@@ -528,7 +529,7 @@ protected:
 #pragma endregion
 	// ***************************************************************
 public:
-	PF_Err Copy(NFsWorld d)
+	PF_Err Copy(NFsWorld *d)
 	{
 		PF_Err err = PF_Err_NONE;
 		switch (m_format)
@@ -596,5 +597,85 @@ public:
 		}
 		return err;
 	}
+
+#pragma region Iterate
+	// ******************************************************************
+	PF_Err Iterate8(
+		void* refcon,
+		PF_Err(*pix_fn)(void* refcon, A_long x, A_long y, PF_Pixel* p)
+	)
+	{
+		PF_Err	err = PF_Err_NONE;
+		PF_Pixel* d = data8();
+
+		for (int y = 0; y < m_height; y++)
+		{
+			for (int x = 0; x < m_width; x++)
+			{
+				pix_fn(refcon,
+					x,
+					y,
+					d
+				);
+				d++;
+			}
+			d += m_offsetWidth;
+		}
+
+		return err;
+	}
+	// ******************************************************************
+	PF_Err Iterate16(
+		void* refcon,
+		PF_Err(*pix_fn)(void* refcon, A_long x, A_long y, PF_Pixel16* p)
+	)
+	{
+		PF_Err	err = PF_Err_NONE;
+		PF_Pixel16* d = data16();
+
+		for (int y = 0; y < m_height; y++)
+		{
+			for (int x = 0; x < m_width; x++)
+			{
+				pix_fn(refcon,
+					x,
+					y,
+					d
+				);
+				d++;
+			}
+			d += m_offsetWidth;
+		}
+
+		return err;
+	}
+	// ******************************************************************
+	PF_Err Iterate32(
+		void* refcon,
+		PF_Err(*pix_fn)(void* refcon, A_long x, A_long y, PF_PixelFloat* p)
+	)
+	{
+		PF_Err	err = PF_Err_NONE;
+		PF_PixelFloat* d = data32();
+
+		for (int y = 0; y < m_height; y++)
+		{
+			for (int x = 0; x < m_width; x++)
+			{
+				pix_fn(refcon,
+					x,
+					y,
+					d
+				);
+				d++;
+			}
+			d += m_offsetWidth;
+		}
+
+		return err;
+	}
+#pragma endregion
+	// ******************************************************************
+
 };
 #endif

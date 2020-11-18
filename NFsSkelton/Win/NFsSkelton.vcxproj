@@ -98,7 +98,7 @@
     <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">*.obj%3b*.ilk%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.pgc%3b*.pgd%3b*.meta%3b*.asm%3b*.rr%3b*.rrc%3b$(TargetPath)</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\outAEX\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\Adobe\Adobe After Effects 2020\Support Files\Plug-ins\debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">*.tlog;*.asm;*.exp;*.sbr;*.rr;*.rrc;*.res;*.cdf;*.cache;*.obj;*.ilk;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.manifest;*.pch;*.idb;*.lib;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
@@ -492,6 +492,8 @@
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
     <ClInclude Include="..\..\NFsLibrary\NFsUtils.h" />
     <ClInclude Include="..\..\NFsLibrary\NFsWorld.h" />
+    <ClInclude Include="..\NFsFX.h" />
+    <ClInclude Include="..\NFsSkeltonFX.h" />
     <ClInclude Include="..\NFs_Target.h" />
     <ClInclude Include="..\NFsSkelton.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
@@ -576,6 +578,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release-MT|x64'">true</BrowseInformation>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
     </ClCompile>
+    <ClCompile Include="..\NFsSkeltonFX.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,7 +8,7 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define NFS_NAME			"NF's NFsSkelton"
+#define NFS_NAME			"F's NFsSkelton"
 #define NFS_DISPNAME		"NF's NFsSkelton"
 
 
@@ -18,14 +18,15 @@
 
 	//-----------------------------------------------------------------------------------
 	//プラグインが表示されるメニュー名
-	//#define FS_CATEGORY "NF's Plugins-Channel"
-	//#define FS_CATEGORY "NF's Plugins-Draw"
-	//#define FS_CATEGORY "NF's Plugins-Filter"
-	//#define FS_CATEGORY "NF's Plugins-Noise"
-	//#define FS_CATEGORY "NF's Plugins-Cell"
-	//#define FS_CATEGORY "NF's Plugins-Colorize"
-	//#define FS_CATEGORY "NF's Plugins-Script"
-	//#define FS_CATEGORY "NF's Plugins-{Legacy}"
+	//#define NFS_CATEGORY "NF's Plugins-Cell"
+	//#define NFS_CATEGORY "NF's Plugins-Channel"
+	//#define NFS_CATEGORY "NF's Plugins-Colorize"
+	//#define NFS_CATEGORY "NF's Plugins-Draw"
+	//#define NFS_CATEGORY "NF's Plugins-Filter"
+	//#define NFS_CATEGORY "NF's Plugins-Noise"
+	//#define NFS_CATEGORY "NF's Plugins-Script"
+	//#define NFS_CATEGORY "NF's Plugins-{DEBUG}"
+	//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
 
 #define NFS_CATEGORY "NF's Plugins-{Legacy}"
 

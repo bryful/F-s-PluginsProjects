@@ -17,21 +17,24 @@ typedef struct {
 	AEGP_PluginID	my_id;
 } ae_global_data, * ae_global_dataP, ** ae_global_dataH;
 
+#pragma region About
+
+
 //******************************************************************************
 #define NFS_ABOUT_DIALOG	"var  FsAbout = function()\
 {\
 	var strName = \"%s\";\
-	var strVersion = \"version %d.%d\";\
+	var strVersion = \"version %s.%s\";\
 	var strDis = \"%s\";\
 	var strMyName = \"https://github.com/bryful : bryful@gmail.com \";\
     var nanae = \"Nanae Furuhashi - My daughter, May her soul rest in peaceD\";\
 	var winObj = new Window(\"dialog\", \"NF's Plugins\", [ 0,  0,  480, 180] );\
 \
 	var edFsName = winObj.add(\"edittext\", [  30,   10,   30+ 440,   10+  20], strName, { readonly:true, borderless:true });\
-	var edFsVersion = winObj.add(\"edittext\", [  70,   40,   70+ 400,   40+ 20], strVersion, { readonly:true, borderless:true });\
+	var edFsVersion = winObj.add(\"edittext\", [  30,   40,   30+ 440,   40+ 20], strVersion, { readonly:true, borderless:true });\
 	var edFsDis = winObj.add(\"edittext\", [  30,   70,   30+ 440,   70+  20], strDis, { readonly:true, borderless:true });\
 	var edMyName = winObj.add(\"edittext\", [  30,  100,   30+ 440,  100+  20], strMyName, { readonly:true, borderless:true });\
-    var stNana = winObj.add(\"statictext\", [  30,  120,   30+ 440,  120+  20], nanae, { readonly:true, borderless:true });\
+    var stNana = winObj.add(\"statictext\", [  30,  130,   30+ 440,  130+  20], nanae, { readonly:true, borderless:true });\
 	var btnOK = winObj.add(\"button\", [ 360,  140,  360+ 100,  140+  24], \"OK\" , { name:\"ok\" });\
 	this.show = function()\
 	{\
@@ -42,9 +45,10 @@ typedef struct {
 var dlg = new FsAbout;\
 dlg.show();"
 
+#pragma endregion
+
 //******************************************************************************
 #define AEInfo_ITEM_COUNT	256
-//******************************************************************************
 //******************************************************************************
 class AEInfo {
 private:
@@ -58,7 +62,7 @@ protected:
 	//PF_Boolean			m_isGetEffectStream;
 
 public:
-	PF_PixelFormat		fromat() { return m_format; }
+	PF_PixelFormat		pixelFormat() { return m_format; }
 	A_long				frame() { return m_frame; }
 	PF_Cmd				cmd() { return m_cmd; }
 	A_long				paramsCount() { return m_paramsCount; }
@@ -187,6 +191,7 @@ protected:
 		return err;
 	}
 public:
+#pragma region Sub
 	//--------------------------------------------------------------------
 	void* LockPreRenderData()
 	{
@@ -260,6 +265,7 @@ public:
 	{
 		return SRextraP->cb->checkin_layer_pixels(in_data->effect_ref, 0);
 	}
+#pragma endregion
 	// ******************************************************************************
 	PF_Err AboutBox
 	(
@@ -293,6 +299,9 @@ public:
 
 		return err;
 	}
+#pragma region  Cmd
+
+
 	//******************************************************************************
 	virtual
 	PF_Err	About(
@@ -306,6 +315,7 @@ public:
 		m_cmd = PF_Cmd_ABOUT;
 
 		in_data = in_dataP;
+		out_data = out_dataP;
 		GetFrame(in_dataP);
 		GetSuites(in_dataP);
 
@@ -323,6 +333,7 @@ public:
 		Init();
 		m_cmd = PF_Cmd_GLOBAL_SETUP;
 		in_data = in_dataP;
+		out_data = out_dataP;
 		suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
 
 
@@ -357,6 +368,7 @@ public:
 		Init();
 		m_cmd = PF_Cmd_PARAMS_SETUP;
 		in_data = in_dataP;
+		out_data = out_dataP;
 
 		//PF_ParamDef		def;
 		//out_data->num_params = ID_NUM_PARAMS;
@@ -386,7 +398,10 @@ public:
 			PF_LayerDef* outputP)
 	{
 		Init();
+		m_cmd = PF_Cmd_SEQUENCE_SETDOWN;
 		in_data = in_dataP;
+		out_data = out_dataP;
+
 		return PF_Err_NONE;
 	}
 
@@ -398,8 +413,10 @@ public:
 			PF_ParamDef* paramsP[],
 			PF_LayerDef* outputP)
 	{
-		in_data = in_dataP;
 		Init();
+		m_cmd = PF_Cmd_SEQUENCE_RESETUP;
+		in_data = in_dataP;
+		out_data = out_dataP;
 		return PF_Err_NONE;
 	}
 	//******************************************************************************
@@ -413,7 +430,9 @@ public:
 	{
 		PF_Err				err = PF_Err_NONE;
 		Init();
+		m_cmd = PF_Cmd_USER_CHANGED_PARAM;
 		in_data = in_dataP;
+		out_data = out_dataP;
 		return err;
 	}
 	//******************************************************************************
@@ -426,7 +445,9 @@ public:
 	{
 		PF_Err 	err = PF_Err_NONE;
 		Init();
+		m_cmd = PF_Cmd_QUERY_DYNAMIC_FLAGS;
 		in_data = in_dataP;
+		out_data = out_dataP;
 		return err;
 	}
 	//******************************************************************************
@@ -441,6 +462,8 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		Init();
 		in_data = in_dataP;
+		out_data = out_dataP;
+		m_cmd = PF_Cmd_COMPLETELY_GENERAL;
 
 		AEGP_SuiteHandler suites(in_dataP->pica_basicP);
 
@@ -472,9 +495,9 @@ public:
 		m_cmd = PF_Cmd_RENDER;
 		in_data = in_dataP;
 		m_paramsCount = pc;
-		GetFrame(in_dataP);
 		out_data = out_dataP;
 		output = outputP;
+		GetFrame(in_dataP);
 
 		//Bit
 		if (PF_WORLD_IS_DEEP(outputP) == TRUE) {
@@ -556,6 +579,7 @@ public:
 		GetSuites(in_dataP);
 		ERR((extraP->cb->checkout_layer_pixels(in_dataP->effect_ref, 0, &(input))));
 		ERR(extraP->cb->checkout_output(in_dataP->effect_ref, &(output)));
+
 		ERR(AEFX_AcquireSuite(in_dataP,
 			out_dataP,
 			kPFWorldSuite,
@@ -563,6 +587,7 @@ public:
 			"Couldn't load suite.",
 			(void**)&(ws2P)));
 		ERR(ws2P->PF_GetPixelFormat(input, &m_format));
+
 		if (err) {
 			m_err = PF_Err_BAD_CALLBACK_PARAM;
 			return m_err;
@@ -570,6 +595,11 @@ public:
 
 		return err;
 	}
+#pragma endregion
+
+#pragma region Get Params
+
+
 	//******************************************************************************
 	PF_Err GetADD(A_long idx, A_long* a)
 	{
@@ -972,8 +1002,78 @@ public:
 		*pop = ret;
 		return err;
 	}
+#pragma endregion
 
+#pragma region Iterate
 	//******************************************************************************
+	PF_Err iterate8(
+		PF_EffectWorld *src,
+		void* refcon,
+		PF_Err(*pix_fn)(void* refcon, A_long x, A_long y, PF_Pixel* in, PF_Pixel* out),
+		PF_EffectWorld* dst
+	)
+	{
+		return suitesP->Iterate8Suite1()->iterate(in_data,
+			0,				// progress base
+			dst->height,	// progress final
+			src,			// src 
+			NULL,			// area - null for all pixels
+			refcon,			// refcon - your custom data pointer
+			pix_fn,			// pixel function pointer
+			dst);			// dest
+
+	}
+	//*********************************************************************************
+	PF_Err iterate16(
+		PF_EffectWorld* src,
+		void* refcon,
+		PF_Err(*pix_fn)(void* refcon, A_long x, A_long y, PF_Pixel16* in, PF_Pixel16* out),
+		PF_EffectWorld* dst
+	)
+	{
+		return suitesP->Iterate16Suite1()->iterate(in_data,
+			0,				// progress base
+			dst->height,	// progress final
+			src,			// src 
+			NULL,			// area - null for all pixels
+			refcon,			// refcon - your custom data pointer
+			pix_fn,			// pixel function pointer
+			dst);			// dest
+
+	}
+	//*********************************************************************************
+	PF_Err iterate32(
+		PF_EffectWorld* src,
+		void* refcon,
+		PF_Err(*pix_fn)(void* refcon, A_long x, A_long y, PF_PixelFloat* in, PF_PixelFloat* out),
+		PF_EffectWorld* dst
+	)
+	{
+		return suitesP->IterateFloatSuite1()->iterate(
+			in_data,
+			0,				// progress base
+			dst->height,	// progress final
+			src,			// src 
+			NULL,			// area - null for all pixels
+			refcon,			// refcon - your custom data pointer
+			pix_fn,			// pixel function pointer
+			dst);			// dest
+
+	}
+#pragma endregion
+
+	//--------------------------------------------------------------------
+	PF_Err Copy(PF_EffectWorld* src, PF_EffectWorld* dst)
+	{
+		PF_Err err = PF_Err_NONE;
+
+		err = suitesP->WorldTransformSuite1()->copy_hq(in_data->effect_ref,	// This effect ref (unique id)
+			src,						// Source
+			dst,						// Dest
+			NULL,						// Source rect - null for all pixels
+			NULL);						// Dest rect - null for all pixels
+		return err;
+	}
 };
 //******************************************************************************
 

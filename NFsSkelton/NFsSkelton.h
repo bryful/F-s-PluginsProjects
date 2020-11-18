@@ -10,11 +10,11 @@
 
 #include "../NFsLibrary/AE_SDK.h"
 #include "../NFsLibrary/AEInfo.h"
-#include "../NFsLibrary/NFWorld.h"
+#include "../NFsLibrary/NFsWorld.h"
 
 
 #include "NFs_Target.h"
-
+#include "NFsSkeltonFX.h"
 
 
 //ユーザーインターフェースのID
@@ -63,6 +63,8 @@ public:
 		Init();
 		m_cmd = PF_Cmd_ABOUT;
 		in_data = in_dataP;
+		out_data = out_dataP;
+
 		GetFrame(in_dataP);
 		GetSuites(in_dataP);
 
@@ -91,12 +93,14 @@ public:
 		Init();
 		m_cmd = PF_Cmd_GLOBAL_SETUP;
 		in_data = in_dataP;
+		out_data = out_dataP;
+
 		suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
 
 		//Fs_Target.hで定義
-		out_data->my_version = NFS_VERSION;
-		out_data->out_flags = NFS_OUT_FLAGS;
-		out_data->out_flags2 = NFS_OUT_FLAGS2;
+		out_dataP->my_version = NFS_VERSION;
+		out_dataP->out_flags = NFS_OUT_FLAGS;
+		out_dataP->out_flags2 = NFS_OUT_FLAGS2;
 		/*
 		プラグインIDを獲得して、グローバルにアクセスできるように保存
 		*/
@@ -161,7 +165,9 @@ extern "C" {
 
 		try
 		{
+			
 			NFsSkelton ae;
+			ae.in_data = in_dataP;
 
 			switch (cmd) {
 			case PF_Cmd_ABOUT:
