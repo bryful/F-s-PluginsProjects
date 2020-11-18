@@ -17,6 +17,7 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
+    <ClCompile Include="..\NFsSkeltonFX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\NFsSkelton.h" />
@@ -111,6 +112,8 @@
     <ClInclude Include="..\..\NFsLibrary\NFsWorld.h">
       <Filter>Header Files\NFs</Filter>
     </ClInclude>
+    <ClInclude Include="..\NFsFX.h" />
+    <ClInclude Include="..\NFsSkeltonFX.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

@@ -71,10 +71,10 @@ typedef struct FsPixelCopyParam{
 	var winObj = new Window(\"dialog\", \"NF's Plugins\", [ 0,  0,  480, 180] );\
 \
 	var edFsName = winObj.add(\"edittext\", [  30,   10,   30+ 440,   10+  20], strName, { readonly:true, borderless:true });\
-	var edFsVersion = winObj.add(\"edittext\", [  70,   40,   70+ 400,   40+ 20], strVersion, { readonly:true, borderless:true });\
+	var edFsVersion = winObj.add(\"edittext\", [  30,   40,   30+ 440,   40+ 20], strVersion, { readonly:true, borderless:true });\
 	var edFsDis = winObj.add(\"edittext\", [  30,   70,   30+ 440,   70+  20], strDis, { readonly:true, borderless:true });\
 	var edMyName = winObj.add(\"edittext\", [  30,  100,   30+ 440,  100+  20], strMyName, { readonly:true, borderless:true });\
-    var stNana = winObj.add(\"statictext\", [  30,  120,   30+ 440,  120+  20], nanae, { readonly:true, borderless:true });\
+    var stNana = winObj.add(\"statictext\", [  30,  130,   30+ 440,  130+  20], nanae, { readonly:true, borderless:true });\
 	var btnOK = winObj.add(\"button\", [ 360,  140,  360+ 100,  140+  24], \"OK\" , { name:\"ok\" });\
 	this.show = function()\
 	{\
@@ -1224,6 +1224,7 @@ public:
 		PF_Err		(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel *in, PF_Pixel *out)
 		)
 	{
+		
 		return suitesP->Iterate8Suite1()->iterate(	in_data,
 												0,														// progress base
 												 output->height,	// progress final
