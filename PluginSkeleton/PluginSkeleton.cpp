@@ -259,8 +259,8 @@ QueryDynamicFlags(
 	PF_ParamDef		*params[],	
 	void			*extra)	
 {
-	PF_Err 	err 	= PF_Err_NONE,
-			err2 	= PF_Err_NONE;
+	PF_Err 	err = PF_Err_NONE;
+	PF_Err 	err2 	= PF_Err_NONE;
 	//PF_OutFlag_NON_PARAM_VARYの値をout_flagsへ設定して
 	//毎フレームごとの描画をするか切り替える。
 	CFsAE ae;
