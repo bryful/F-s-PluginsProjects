@@ -601,6 +601,17 @@ public:
 
 
 	//******************************************************************************
+	PF_FpLong ParamDownScaleX()
+	{
+		return (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den;
+
+	}
+	PF_FpLong ParamDownScaleY()
+	{
+		return (PF_FpLong)in_data->downsample_y.num / (PF_FpLong)in_data->downsample_y.den;
+
+	}
+	//******************************************************************************
 	PF_Err GetADD(A_long idx, A_long* a)
 	{
 		PF_Err err = PF_Err_NONE;
@@ -1002,6 +1013,7 @@ public:
 		*pop = ret;
 		return err;
 	}
+	//--------------------------------------------------------------------
 #pragma endregion
 
 #pragma region Iterate

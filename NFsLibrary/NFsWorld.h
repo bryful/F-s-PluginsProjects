@@ -52,7 +52,6 @@ public:
 		world = wld;
 		m_format = fmt;
 
-
 		if (wld != NULL) {
 			m_data = wld->data;
 			m_width = wld->width;
