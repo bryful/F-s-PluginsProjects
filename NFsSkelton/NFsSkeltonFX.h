@@ -6,6 +6,8 @@
 #include "../NFsLibrary/AEInfo.h"
 #include "../NFsLibrary/NFsWorld.h"
 
+#include "NFsSkelton.h"
+
 class NFsSkeltonFX :public NFsWorld
 {
 public:
@@ -18,6 +20,7 @@ public:
 
 	}
 private:
+	/*
 	PF_Err Noise8(void* refcon, A_long x, A_long y, PF_Pixel* p)
 	{
 		PF_Err			err = PF_Err_NONE;
@@ -31,6 +34,7 @@ private:
 		p->blue = RoundByteFpLong((PF_FpLong)p->blue + v);
 		return err;
 	}
+	*/
 	
 };
 
