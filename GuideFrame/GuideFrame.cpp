@@ -8,7 +8,7 @@
 
 
 //-------------------------------------------------------------------------------------------------
-// Aboutƒ_ƒCƒAƒƒO
+// Aboutãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 static PF_Err About (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -74,8 +74,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -86,7 +86,7 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR, 
 					0xff,
@@ -95,7 +95,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR
 					);
 	//----------------------------------------------------------------
-	//ˆÊ’u‚Ìw’è
+	//ä½ç½®ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);	
 	PF_ADD_POINT(STR_TOPLEFT,			/*"New Center"*/ 
 				25,	// X
@@ -104,7 +104,7 @@ static PF_Err ParamsSetup (
 				ID_TOPLEFT
 				);
 	//----------------------------------------------------------------
-	//ˆÊ’u‚Ìw’è
+	//ä½ç½®ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);	
 	PF_ADD_POINT(STR_BOTTOMRIGHT,			/*"New Center"*/ 
 				75,	// X
@@ -113,7 +113,7 @@ static PF_Err ParamsSetup (
 				ID_BOTTOMRIGHT
 				);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_CHK1,
 					STR_CHK2,
@@ -122,7 +122,7 @@ static PF_Err ParamsSetup (
 					ID_CHK
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_SMOOTH1,
 					STR_SMOOTH2,
@@ -177,7 +177,7 @@ static void chkW8(CFsAE *ae)
 	A_long x0,x1,y0,y1;
 
 	A_long i,j,t;
-	//‚Ü‚¸ã‚©‚ç’T‚·
+	//ã¾ãšä¸Šã‹ã‚‰æ¢ã™
 	y0 = -1;
 	t = 0;
 	for (j=0;j<h;j++){
@@ -194,7 +194,7 @@ static void chkW8(CFsAE *ae)
 
 	}
 	if (y0==-1) return;
-	//‰º‚©‚ç’T‚·
+	//ä¸‹ã‹ã‚‰æ¢ã™
 	y1 = -1;
 	for (j = h-1;j>=0;j--){
 		t = j * tw;
@@ -209,7 +209,7 @@ static void chkW8(CFsAE *ae)
 		if (y1!=-1) break;
 	}
 
-	//‚Ü‚¸¶‚©‚ç’T‚·
+	//ã¾ãšå·¦ã‹ã‚‰æ¢ã™
 	x0 = -1;
 	t = 0;
 	for (j=0;j<w;j++){
@@ -225,7 +225,7 @@ static void chkW8(CFsAE *ae)
 		if (x0!=-1) break;
 
 	}
-	//‚Ü‚¸‰E‚©‚ç’T‚·
+	//ã¾ãšå³ã‹ã‚‰æ¢ã™
 	x1 = -1;
 	t = 0;
 	for (j=w-1;j>=0;j--){
@@ -272,7 +272,7 @@ static void chkW16(CFsAE *ae)
 	A_long x0,x1,y0,y1;
 
 	A_long i,j,t;
-	//‚Ü‚¸ã‚©‚ç’T‚·
+	//ã¾ãšä¸Šã‹ã‚‰æ¢ã™
 	y0 = -1;
 	t = 0;
 	for (j=0;j<h;j++){
@@ -289,7 +289,7 @@ static void chkW16(CFsAE *ae)
 
 	}
 	if (y0==-1) return;
-	//‰º‚©‚ç’T‚·
+	//ä¸‹ã‹ã‚‰æ¢ã™
 	y1 = -1;
 	for (j = h-1;j>=0;j--){
 		t = j * tw;
@@ -304,7 +304,7 @@ static void chkW16(CFsAE *ae)
 		if (y1!=-1) break;
 	}
 
-	//‚Ü‚¸¶‚©‚ç’T‚·
+	//ã¾ãšå·¦ã‹ã‚‰æ¢ã™
 	x0 = -1;
 	t = 0;
 	for (j=0;j<w;j++){
@@ -320,7 +320,7 @@ static void chkW16(CFsAE *ae)
 		if (x0!=-1) break;
 
 	}
-	//‚Ü‚¸‰E‚©‚ç’T‚·
+	//ã¾ãšå³ã‹ã‚‰æ¢ã™
 	x1 = -1;
 	t = 0;
 	for (j=w-1;j>=0;j--){
@@ -367,7 +367,7 @@ static void chkW32(CFsAE *ae)
 	A_long x0,x1,y0,y1;
 
 	A_long i,j,t;
-	//‚Ü‚¸ã‚©‚ç’T‚·
+	//ã¾ãšä¸Šã‹ã‚‰æ¢ã™
 	y0 = -1;
 	t = 0;
 	for (j=0;j<h;j++){
@@ -384,7 +384,7 @@ static void chkW32(CFsAE *ae)
 
 	}
 	if (y0==-1) return;
-	//‰º‚©‚ç’T‚·
+	//ä¸‹ã‹ã‚‰æ¢ã™
 	y1 = -1;
 	for (j = h-1;j>=0;j--){
 		t = j * tw;
@@ -399,7 +399,7 @@ static void chkW32(CFsAE *ae)
 		if (y1!=-1) break;
 	}
 
-	//‚Ü‚¸¶‚©‚ç’T‚·
+	//ã¾ãšå·¦ã‹ã‚‰æ¢ã™
 	x0 = -1;
 	t = 0;
 	for (j=0;j<w;j++){
@@ -415,7 +415,7 @@ static void chkW32(CFsAE *ae)
 		if (x0!=-1) break;
 
 	}
-	//‚Ü‚¸‰E‚©‚ç’T‚·
+	//ã¾ãšå³ã‹ã‚‰æ¢ã™
 	x1 = -1;
 	t = 0;
 	for (j=w-1;j>=0;j--){
@@ -466,7 +466,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 
 	A_long x0 = infoP->top_left.x >> 16;
@@ -495,7 +495,7 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err Render (
 	PF_InData			*in_data,
 	PF_OutData		*out_data,
@@ -517,7 +517,7 @@ static PF_Err Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX‘Î‰‚Ìê‡A‚Ü‚¸‚±‚ÌŠÖ”‚ªŒÄ‚Î‚ê‚Äƒpƒ‰ƒ[ƒ^‚ÌŠl“¾‚ğs‚¤
+	SmartFXå¯¾å¿œã®å ´åˆã€ã¾ãšã“ã®é–¢æ•°ãŒå‘¼ã°ã‚Œã¦ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ç²å¾—ã‚’è¡Œã†
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

@@ -310,7 +310,7 @@ public:
 		PF_FpLong ret = 0;
 		A_long dx = d.p.x - s.p.x;
 		A_long dy = d.p.y - s.p.y;
-		//äpìxÇãÅÇﬂÇÈ
+		//ËßíÂ∫¶„ÇíÊ±Ç„ÇÅ„Çã
 		PF_FpLong r = PF_ATAN2(dy ,dx);
 		if (r < 0) r = r + 2 * PF_PI;
 		r = r * 180 / PF_PI;
@@ -332,7 +332,7 @@ public:
 	void Wipe(PF_FpLong par)
 	{
 		if ((par == 1)||(m_Count==0)) return;
-		//Ç∑Ç◊Çƒè¡Ç¶ÇƒÇÈèÛë‘
+		//„Åô„Åπ„Å¶Ê∂à„Åà„Å¶„ÇãÁä∂ÊÖã
 		if ((par <= 0) || (par >= 2))
 		{
 			Points[0].s = -1;
@@ -346,7 +346,7 @@ public:
 				PF_FpLong idxP = (double)c * par - (PF_FpLong)idx;
 				for (A_long i = 0; i < idx; i++)
 				{
-					//âΩÇ‡ÇµÇ»Ç¢
+					//‰Ωï„ÇÇ„Åó„Å™„ÅÑ
 				}
 				Points[idx+1].s *= idxP;
 				Points[idx + 2].s = -1;
@@ -400,7 +400,7 @@ public:
 	// **************************************************************
 	void  PointStrom(PointInfo* tbl, PointInfo *st, PointInfo* lt)
 	{
-		//ÉXÉ^Å[Égà íu
+		//„Çπ„Çø„Éº„Éà‰ΩçÁΩÆ
 		A_long sdx = tbl[1].p.x - tbl[0].p.x;
 		A_long sdy = tbl[1].p.y - tbl[0].p.y;
 		A_long ldx = tbl[3].p.x - tbl[2].p.x;

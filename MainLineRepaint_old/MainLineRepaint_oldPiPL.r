@@ -13,12 +13,12 @@ resource 'PiPL' (16000) {
 		},
 		/* [2] */
 		Name {
-			/*AE‚Ìƒƒjƒ…[‚Ég‚í‚ê‚é */
+			/*AEã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ä½¿ã‚ã‚Œã‚‹ */
 			"F's MainLineRepaint_old"
 		},
 		/* [3] */
 		Category {
-			/*AE‚Ìƒƒjƒ…[‚Ég‚í‚ê‚é */
+			/*AEã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ä½¿ã‚ã‚Œã‚‹ */
 			"NF's Plugins-Cell"
 			/*"F's Plugins"*/
 		},
@@ -65,7 +65,7 @@ resource 'PiPL' (16000) {
 		},
 		/* [11] */
 		AE_Effect_Match_Name {
-			/*ƒvƒ‰ƒOƒCƒ“‚Ì¯•Ê‚Ég‚í‚ê‚é */
+			/*ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è­˜åˆ¥ã«ä½¿ã‚ã‚Œã‚‹ */
 			"F's MainLineRepaint_old"
 		},
 		/* [12] */

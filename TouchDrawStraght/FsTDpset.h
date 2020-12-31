@@ -67,7 +67,7 @@ inline PF_FpShort mixCh32(PF_FpShort c0, PF_FpShort c1)
 
 //-------------------------------------------------------
 /*
-	ÉAÉãÉtÉ@Å[Ç÷èëÇ´çûÇ›
+	„Ç¢„É´„Éï„Ç°„Éº„Å∏Êõ∏„ÅçËæº„Åø
 */
 inline PF_Boolean PsetAlpha8(PsetPrm *prm)
 {
@@ -102,34 +102,34 @@ inline PF_Boolean PsetAlpha8(PsetPrm *prm)
 
 	A_long vv;
 	A_long target = x1 + (y1 * wt);
-	//Ç‹Ç∏ÅAÇ“Ç¡ÇΩÇËÇÃéû
+	//„Åæ„Åö„ÄÅ„Å¥„Å£„Åü„Çä„ÅÆÊôÇ
 	if ( (xx2 == 0)&&(yy2 == 0) ) {
 		if ( (x1>=0)&&(y1>=0) ) {
 			data[target].green = mixCh8(data[target].green,v);
 			ret = TRUE;
 		}
 	}else{
-		//Ç‹Ç∏ç∂è„
+		//„Åæ„ÅöÂ∑¶‰∏ä
 		if ( ((x1>=0)&&(y1>=0)) == TRUE){
 			vv = (A_long)( (PF_FpShort)v * xx1 * yy1);
 			data[target].green = mixCh8(data[target].green,vv);
 			ret = TRUE;
 		}
-		//âEè„
+		//Âè≥‰∏ä
 		target++;
 		if ( ((x2<w)&&(y1>=0)) == TRUE){
 			vv = (A_long)( (PF_FpShort)v * xx2 * yy1);
 			data[target].green = mixCh8(data[target].green,vv);
 			ret = TRUE;
 		}
-		//âEâ∫
+		//Âè≥‰∏ã
 		target+= wt;
 		if ( ((x2<w)&&(y2<h)) == TRUE){
 			vv = (A_long)( (PF_FpShort)v * xx2 * yy2);
 			data[target].green = mixCh8(data[target].green,vv);
 			ret = TRUE;
 		}
-		//ç∂â∫
+		//Â∑¶‰∏ã
 		target--;
 		if ( ((x1>=0)&&(y2<h)) == TRUE){
 			vv = (A_long)( (PF_FpShort)v * xx1 * yy2);
@@ -141,7 +141,7 @@ inline PF_Boolean PsetAlpha8(PsetPrm *prm)
 }
 //-------------------------------------------------------
 /*
-	ÉAÉãÉtÉ@Å[Ç÷èëÇ´çûÇ›
+	„Ç¢„É´„Éï„Ç°„Éº„Å∏Êõ∏„ÅçËæº„Åø
 */
 inline PF_Boolean PsetAlpha16(PsetPrm *prm)
 {
@@ -176,34 +176,34 @@ inline PF_Boolean PsetAlpha16(PsetPrm *prm)
 
 	A_long vv;
 	A_long target = x1 + (y1 * wt);
-	//Ç‹Ç∏ÅAÇ“Ç¡ÇΩÇËÇÃéû
+	//„Åæ„Åö„ÄÅ„Å¥„Å£„Åü„Çä„ÅÆÊôÇ
 	if ( (xx2 == 0)&&(yy2 == 0) ) {
 		if ( (x1>=0)&&(y1>=0) ) {
 			data[target].green = mixCh16(data[target].green,v);
 			ret = TRUE;
 		}
 	}else{
-		//Ç‹Ç∏ç∂è„
+		//„Åæ„ÅöÂ∑¶‰∏ä
 		if ( ((x1>=0)&&(y1>=0)) == TRUE){
 			vv = (A_long)( (PF_FpShort)v * xx1 * yy1);
 			data[target].green = mixCh16(data[target].green,vv);
 			ret = TRUE;
 		}
-		//âEè„
+		//Âè≥‰∏ä
 		target++;
 		if ( ((x2<w)&&(y1>=0)) == TRUE){
 			vv = (A_long)( (PF_FpShort)v * xx2 * yy1);
 			data[target].green = mixCh16(data[target].green,vv);
 			ret = TRUE;
 		}
-		//âEâ∫
+		//Âè≥‰∏ã
 		target+= wt;
 		if ( ((x2<w)&&(y2<h)) == TRUE){
 			vv = (A_long)( (PF_FpShort)v * xx2 * yy2);
 			data[target].green = mixCh16(data[target].green,vv);
 			ret = TRUE;
 		}
-		//ç∂â∫
+		//Â∑¶‰∏ã
 		target--;
 		if ( ((x1>=0)&&(y2<h)) == TRUE){
 			vv = (A_long)( (PF_FpShort)v * xx1 * yy2);
@@ -215,7 +215,7 @@ inline PF_Boolean PsetAlpha16(PsetPrm *prm)
 }
 //-------------------------------------------------------
 /*
-	ÉAÉãÉtÉ@Å[Ç÷èëÇ´çûÇ›
+	„Ç¢„É´„Éï„Ç°„Éº„Å∏Êõ∏„ÅçËæº„Åø
 */
 inline PF_Boolean PsetAlpha32(PsetPrm *prm)
 {
@@ -251,34 +251,34 @@ inline PF_Boolean PsetAlpha32(PsetPrm *prm)
 
 	PF_FpShort vv;
 	long target = x1 + (y1 * wt);
-	//Ç‹Ç∏ÅAÇ“Ç¡ÇΩÇËÇÃéû
+	//„Åæ„Åö„ÄÅ„Å¥„Å£„Åü„Çä„ÅÆÊôÇ
 	if ( (xx2 == 0)&&(yy2 == 0) ) {
 		if ( (x1>=0)&&(y1>=0) ) {
 			data[target].green = mixCh32(data[target].green,v);
 			ret = TRUE;
 		}
 	}else{
-		//Ç‹Ç∏ç∂è„
+		//„Åæ„ÅöÂ∑¶‰∏ä
 		if ( ((x1>=0)&&(y1>=0)) == TRUE){
 			vv = v * xx1 * yy1;
 			data[target].green = mixCh32(data[target].green,vv);
 			ret = TRUE;
 		}
-		//âEè„
+		//Âè≥‰∏ä
 		target++;
 		if ( ((x2<w)&&(y1>=0)) == TRUE){
 			vv = v * xx2 * yy1;
 			data[target].green = mixCh32(data[target].green,vv);
 			ret = TRUE;
 		}
-		//âEâ∫
+		//Âè≥‰∏ã
 		target+= wt;
 		if ( ((x2<w)&&(y2<h)) == TRUE){
 			vv = v * xx2 * yy2;
 			data[target].green = mixCh32(data[target].green,vv);
 			ret = TRUE;
 		}
-		//ç∂â∫
+		//Â∑¶‰∏ã
 		target--;
 		if ( ((x1>=0)&&(y2<h)) == TRUE){
 			vv = v * xx1 * yy2;

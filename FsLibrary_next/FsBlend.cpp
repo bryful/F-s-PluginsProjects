@@ -1,4 +1,4 @@
-﻿#include "FsBlend.h"
+#include "FsBlend.h"
 
 
 typedef struct OpacityInfo

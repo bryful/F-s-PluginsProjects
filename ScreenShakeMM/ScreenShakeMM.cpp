@@ -85,8 +85,8 @@ static PF_Err SequenceResetup (
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (PF_InData		*in_data,
 					PF_OutData		*out_data,
 					PF_ParamDef		*params[],
@@ -95,15 +95,15 @@ static PF_Err ParamsSetup (PF_InData		*in_data,
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 
-	//‚PŒÂ–Ú‚Ìƒpƒ‰ƒ[ƒ^
+	//ï¼‘å€‹ç›®ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_MM,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 		//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					400,	//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,		//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					50,		//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					2,		//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,		//”’l•\¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_MM,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					400,	//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,		//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					50,		//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					2,		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,		//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_MM
@@ -111,12 +111,12 @@ static PF_Err ParamsSetup (PF_InData		*in_data,
 
 	AEFX_CLR_STRUCT(def);
 
-	PF_ADD_SLIDER(	STR_VALUE_RND,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					100,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					10,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_VALUE_RND,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					100,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					10,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_VALUE_RND
 					);
 	
@@ -124,48 +124,48 @@ static PF_Err ParamsSetup (PF_InData		*in_data,
 	PF_ADD_ANGLE(STR_DIR,15.0,ID_DIR);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_DIR_RND,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					360,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					45,				//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					10,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_DIR_RND,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					360,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					45,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					10,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_DIR_RND
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_RANDOMSEED,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					99,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					30,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					0,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_RANDOMSEED,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					99,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					30,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					0,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_RANDOMSEED
 					);
 
 	AEFX_CLR_STRUCT(def);	
 	PF_ADD_POPUP(		STR_EDGE_STATUS1, 
-						4,	//ƒƒjƒ…[‚Ì”
-						1,	//ƒfƒtƒHƒ‹ƒg
+						4,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ•°
+						1,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 						STR_EDGE_STATUS2,
 						ID_EDGE_STATUS
 						);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_DPI,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					10, 		//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					400,		//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					10,			//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					192,		//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					144,		//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,			//”’l•\¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_DPI,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					10, 		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					400,		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					10,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					192,		//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					144,		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,			//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_DPI
 					);
 	//----------------------------------------------------------------
 #ifdef TEST_MODE
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TEST_TIME_CB1,
 					STR_TEST_TIME_CB2,
@@ -278,19 +278,19 @@ static void PramSet(CFsAE *ae, ParamInfo *infoP)
 {
 
 	//---------------------------------------------------------------
-	//ˆÚ“®‹——£
+	//ç§»å‹•è·é›¢
 	PF_Fixed valueMin	= infoP->value * (100 - infoP->value_rand) / 100;
 	
 	PF_Fixed valueFin	= F_RAND2( valueMin,infoP->value);
 	//---------------------------------------------------------------
-	//ˆÚ“®•ûŒü
+	//ç§»å‹•æ–¹å‘
 	PF_Fixed dirFin = infoP->dir + F_RAND2((-1*infoP->dir_rand),infoP->dir_rand);
 		if ( (ae->frame() % 2)==0 ) {
 		dirFin += (180L<<16);
 	}
 	dirFin = RoundAngle360(dirFin);
 	//---------------------------------------------------------------
-	//ˆÚ“®‹——£‚ğXY‚É•ª‚¯‚é
+	//ç§»å‹•è·é›¢ã‚’XYã«åˆ†ã‘ã‚‹
 	CRotCalc rt(ae->in_data);
 	rt.SetRotLength(dirFin, valueFin);
 	infoP->shiftX = rt.x();
@@ -353,7 +353,7 @@ GetParams ( CFsAE *ae, ParamInfo * infoP)
 		infoP->dir = RoundAngle360(infoP->dir);
 	}
 	ERR(ae->GetFIXED(ID_DIR_RND,&infoP->dir_rand));
-	if (!err) infoP->dir_rand = infoP->dir_rand <<16;//PF_Fixed‚É‚ ‚í‚¹‚é
+	if (!err) infoP->dir_rand = infoP->dir_rand <<16;//PF_Fixedã«ã‚ã‚ã›ã‚‹
 	ERR(ae->GetADD(ID_RANDOMSEED,&infoP->randomseed));
 	ERR(ae->GetADD(ID_EDGE_STATUS,&infoP->edge_status));
 
@@ -387,7 +387,7 @@ static PF_Err Exec(CFsAE *ae, ParamInfo *infoP)
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err 
 Render ( 
 	PF_InData		*in_data,

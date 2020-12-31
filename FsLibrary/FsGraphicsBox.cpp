@@ -134,14 +134,14 @@ void CFsGraph::box8(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel colu,PF_Pix
 
 	if (hh>=0) {
 		for (i=0; i<=hh;i++){ 
-			//ã
+			//ä¸Š
 			XLine8(xx0,xx1,yy0,colu);
-			//¶
+			//å·¦
 			YLine8(xx0,yy0+1,yy1-1,colu);
 
-			//‰º
+			//ä¸‹
 			XLine8(xx0,xx1,yy1,cold);
-			//‰E
+			//å³
 			YLine8(xx1,yy0+1,yy1-1,cold);
 			xx0++;
 			yy0++;
@@ -178,14 +178,14 @@ void CFsGraph::box16(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel16 colu,PF_
 
 	if (hh>=0) {
 		for (i=0; i<=hh;i++){ 
-			//ã
+			//ä¸Š
 			XLine16(xx0,xx1,yy0,colu);
-			//¶
+			//å·¦
 			YLine16(xx0,yy0+1,yy1-1,colu);
 
-			//‰º
+			//ä¸‹
 			XLine16(xx0,xx1,yy1,cold);
-			//‰E
+			//å³
 			YLine16(xx1,yy0+1,yy1-1,cold);
 			xx0++;
 			yy0++;
@@ -223,14 +223,14 @@ void CFsGraph::box32(A_long x0,A_long y0,A_long x1,A_long y1,PF_PixelFloat colu,
 
 	if (hh>=0) {
 		for (i=0; i<=hh;i++){ 
-			//ã
+			//ä¸Š
 			XLine32(xx0,xx1,yy0,colu);
-			//¶
+			//å·¦
 			YLine32(xx0,yy0+1,yy1-1,colu);
 
-			//‰º
+			//ä¸‹
 			XLine32(xx0,xx1,yy1,cold);
-			//‰E
+			//å³
 			YLine32(xx1,yy0+1,yy1-1,cold);
 			xx0++;
 			yy0++;

@@ -45,25 +45,25 @@
 
 
 //-----------------------------------------------------------------------------
-//ParamsSetup�p�̒萔
+//ParamsSetup用の定数
 enum {
 	ID_INPUT = 0,
 
-	ID_SEED,				//�����̊
-	ID_Y,				//��
-	ID_OPACITY_RAND,		//�����x�̍ő�l
+	ID_SEED,				//乱数の基準
+	ID_Y,				//量
+	ID_OPACITY_RAND,		//透明度の最大値
 
-	ID_POS,				//�ʒu
-	ID_RADIUS,			//���a
-	ID_ASPECT,			//�A�X�y�N�g
-	ID_LENGTH_SCALE,		//�X�P�[��
+	ID_POS,				//位置
+	ID_RADIUS,			//半径
+	ID_ASPECT,			//アスペクト
+	ID_LENGTH_SCALE,		//スケール
 
-	ID_ANCHOR_ENABLED,	//�A���J�[�|�C���g��L���ɂ��邩
-	ID_ANCHOR,			//�A���J�[�|�C���g
+	ID_ANCHOR_ENABLED,	//アンカーポイントを有効にするか
+	ID_ANCHOR,			//アンカーポイント
 	
-	ID_POINT_VALUE,	//���̕`��őł_�̐�
-	ID_POINT_LENGTH,	//�_�̋���
-	ID_POINT_LEN_SYNC,	//�_�̋���
+	ID_POINT_VALUE,	//一回の描画で打つ点の数
+	ID_POINT_LENGTH,	//点の距離
+	ID_POINT_LEN_SYNC,	//点の距離
 
 	ID_SIZE,
 
@@ -80,7 +80,7 @@ enum {
 	ID_NUM_PARAMS
 };
 //-----------------------------------------------------------------------------
-//�p�����[�^UI�p�̕�����
+//パラメータUI用の文字列
 #define UI_SEED			"seed"
 #define UI_VALUE		"value"
 #define UI_OPA_RND		"opacity_rand"
@@ -99,7 +99,7 @@ enum {
 #define UI_POINT_LEN_SYSNC2	"ON"
 
 #define UI_SIZE1		"size"
-#define UI_SIZE2		"�ɏ�|��|��|��|����"
+#define UI_SIZE2		"極小|小|中|大|特大"
 #define UI_SIZE_COUNT	5
 #define UI_SIZE_DFLT	2
 
@@ -141,7 +141,7 @@ typedef struct
 
 
 //-----------------------------------------------------------------------------
-//�֐��̐錾
+//関数の宣言
 PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm);
 PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm);
 PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm);

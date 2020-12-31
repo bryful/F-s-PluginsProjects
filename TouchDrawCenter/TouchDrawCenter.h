@@ -54,29 +54,29 @@
 #define	STR_ORG_CB2			"ON"
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	
-	ID_SEED,		//ƒ‰ƒ“ƒ_ƒ€‚ÌŠî“_
+	ID_SEED,		//ãƒ©ãƒ³ãƒ€ãƒ ã®åŸºç‚¹
 	ID_CENTER,
-	ID_LENGTH_MAX,		//ƒ^ƒbƒ`ü‚Ì’·‚³
-	ID_LENGTH_RND,		//’·‚³‚Ìƒ‰ƒ“ƒ_ƒ€‚³
+	ID_LENGTH_MAX,		//ã‚¿ãƒƒãƒç·šã®é•·ã•
+	ID_LENGTH_RND,		//é•·ã•ã®ãƒ©ãƒ³ãƒ€ãƒ ã•
 
-	ID_Y,		//ƒ^ƒbƒ`‚ª”­¶‚·‚é”
-	ID_COLOR,				//ƒ^ƒbƒ`ü‚ÌF
-	ID_OPACITY,				//ƒ^ƒbƒ`ü‚ÌF
-	ID_OPACITY_RND,				//ƒ^ƒbƒ`ü‚ÌF
+	ID_Y,		//ã‚¿ãƒƒãƒãŒç™ºç”Ÿã™ã‚‹æ•°
+	ID_COLOR,				//ã‚¿ãƒƒãƒç·šã®è‰²
+	ID_OPACITY,				//ã‚¿ãƒƒãƒç·šã®è‰²
+	ID_OPACITY_RND,				//ã‚¿ãƒƒãƒç·šã®è‰²
 
-	ID_POINT_COUNT,		//ƒ^ƒbƒ`‚ª”­¶‚·‚é”
-	ID_POINT_LENGTH,		//ƒ^ƒbƒ`‚ª”­¶‚·‚é”ÍˆÍ
+	ID_POINT_COUNT,		//ã‚¿ãƒƒãƒãŒç™ºç”Ÿã™ã‚‹æ•°
+	ID_POINT_LENGTH,		//ã‚¿ãƒƒãƒãŒç™ºç”Ÿã™ã‚‹ç¯„å›²
 	ID_ORG,
 
 	ID_NUM_PARAMS
 	};
 
-//ƒvƒ‰ƒOƒCƒ““ÆŽ©‚Ìƒpƒ‰ƒ[ƒ^‚ðW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 #define GSeedLength 4
 
 typedef struct ParamInfo{

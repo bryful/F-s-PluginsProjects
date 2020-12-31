@@ -17,7 +17,7 @@
 
 #include "Filter_Target.h"
 
-//CAE�N���X�̓ǂݍ���
+//CAEクラスの読み込み
 #include "../FsLibrary_next/CAE.h"
 
 #ifdef AE_OS_WIN
@@ -63,7 +63,7 @@ enum
 
 //ID_NUM_PARAMS
 
-//UI�̕\��������
+//UIの表示文字列
 #define	STR_ON				"on"
 #define	STR_BASE_ENABLED	"BaseEnabled"
 #define	STR_BASE_OPACITY	"BaseOpacity"
@@ -100,7 +100,7 @@ enum EXTRACT_MODE
 	LO
 };
 
-//UI�̃p�����[�^
+//UIのパラメータ
 typedef struct ParamSetInfo {
 	PF_Boolean	enabled;
 	A_long		extract_mode;

@@ -2,7 +2,7 @@
 #ifndef FsAEHeader_H
 #define FsAEHeader_H
 
-//各種ヘッダー登録
+//蜷�遞ｮ繝倥ャ繝繝ｼ逋ｻ骭ｲ
 #include "AEConfig.h"
 #include "entry.h"
 #include "AEFX_SuiteHelper.h"
@@ -25,7 +25,7 @@
 #define refconType void*
 #endif
 /*
-//OpenCVのヘッダー
+//OpenCV縺ｮ繝倥ャ繝繝ｼ
 #include <open>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>

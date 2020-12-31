@@ -3,7 +3,7 @@
 #define CAE_H
 
 //******************************************************************************
-//ŠeŽíƒwƒbƒ_[“o˜^
+//å„ç¨®ãƒ˜ãƒƒãƒ€ãƒ¼ç™»éŒ²
 
 
 #include "FsAEHeader.h"
@@ -15,7 +15,7 @@
 
 //******************************************************************************
 
-//ŒÄ‚Ño‚³‚ê‚éŠÖ”‚Ì’è”
+//å‘¼ã³å‡ºã•ã‚Œã‚‹é–¢æ•°ã®å®šæ•°
 enum
 {
 	AE_NONE = 0,
@@ -40,7 +40,7 @@ enum
 #define AE_ERR	PF_Err_BAD_CALLBACK_PARAM
 //-----------------------------------------------------------------------------------
 /*
-	ƒvƒ‰ƒOƒCƒ“IDŠl“¾‚Ì‚½‚ß‚Ì\‘¢‘Ì
+	ãƒ—ãƒ©ã‚°ã‚¤ãƒ³IDç²å¾—ã®ãŸã‚ã®æ§‹é€ ä½“
 */
 typedef struct {
 	PF_Boolean		initializedB;
@@ -151,7 +151,7 @@ public:
 		}else{
 			m_format		= PF_PixelFormat_ARGB32;
 		}
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ((in_dataP->current_time >= 0) && (in_dataP->time_step > 0)) {
 			m_frame = (in_dataP->current_time / in_dataP->time_step);
 		}
@@ -211,7 +211,7 @@ public:
 		CAE::PRextraP		= extraP;
 		m_paramsCount		= paramsCount;
 
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ((in_dataP->current_time >= 0) && (in_dataP->time_step > 0)) {
 			m_frame = (in_dataP->current_time / in_dataP->time_step);
 		}
@@ -263,7 +263,7 @@ public:
 			return m_resultErr;
 		}
 
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ((in_dataP->current_time >= 0) && (in_dataP->time_step > 0)) {
 			m_frame = (in_dataP->current_time / in_dataP->time_step);
 		}
@@ -323,7 +323,7 @@ public:
 		CAE::out_data = out_dataP;
 		m_paramsCount = paramsCount;
 
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ((in_dataP->current_time >= 0) && (in_dataP->time_step > 0)) {
 			m_frame = (in_dataP->current_time / in_dataP->time_step);
 		}
@@ -342,7 +342,7 @@ public:
 	}
 	//*********************************************************************************
 	//*********************************************************************************
-	//‚»‚Ì‘¼‚Ìˆ—
+	//ãã®ä»–ã®å‡¦ç†
 	//*********************************************************************************
 	PF_Err About
 	(
@@ -357,12 +357,12 @@ public:
 			ae_plugin_idH	= in_data->global_data;
 			ae_plugin_idP = reinterpret_cast<ae_global_dataP>(DH(in_data->global_data));
 		}
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ((in_data->current_time >= 0) && (in_data->time_step > 0)) {
 			m_frame = (in_data->current_time / in_data->time_step);
 		}
 		if (ae_plugin_idP!=NULL){
-			//ƒXƒNƒŠƒvƒg‚Åƒ_ƒCƒAƒƒO•\Ž¦‚¾‚¯‚ÇŽg‚í‚È‚¢
+			//ã‚¹ã‚¯ãƒªãƒ—ãƒˆã§ãƒ€ã‚¤ã‚¢ãƒ­ã‚°è¡¨ç¤ºã ã‘ã©ä½¿ã‚ãªã„
 			A_char scriptCode[1024*4] = {'\0'}; 
 			PF_SPRINTF(	scriptCode,FS_ABOUT_STR,
 				FS_NAME, 
@@ -399,13 +399,13 @@ public:
 		PF_Err	err				= PF_Err_NONE;
 		CAE::suitesP			= new AEGP_SuiteHandler(in_data->pica_basicP);
 
-		//***_Target.h‚Å’è‹`
+		//***_Target.hã§å®šç¾©
 		out_data->my_version	=	FS_VERSION;
 		out_data->out_flags		=	FS_OUT_FLAGS;
 		out_data->out_flags2	=	FS_OUT_FLAGS2;
 
 		/**********************************************************
-		ƒvƒ‰ƒOƒCƒ“ID‚ðŠl“¾‚µ‚ÄAƒOƒ[ƒoƒ‹‚ÉƒAƒNƒZƒX‚Å‚«‚é‚æ‚¤‚É•Û‘¶
+		ãƒ—ãƒ©ã‚°ã‚¤ãƒ³IDã‚’ç²å¾—ã—ã¦ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹ã‚ˆã†ã«ä¿å­˜
 		*/
 		ae_plugin_idH	=	suitesP->HandleSuite1()->host_new_handle(sizeof(ae_global_data));
 	
@@ -471,7 +471,7 @@ public:
 			}
 			CAE::output		= outputP;
 		}
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ((in_dataP->current_time >= 0) && (in_dataP->time_step > 0)) {
 			m_frame = (in_dataP->current_time / in_dataP->time_step);
 		}
@@ -509,7 +509,7 @@ public:
 			m_resultErr = AE_ERR;
 			return m_resultErr;
 		}
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ((in_dataP->current_time >= 0) && (in_dataP->time_step > 0)) {
 			m_frame = (in_dataP->current_time / in_dataP->time_step);
 		}
@@ -534,7 +534,7 @@ public:
 
 	}
 	//*********************************************************************************
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	//*********************************************************************************
 	~CAE(){
 		PF_Err 	err 	= PF_Err_NONE,

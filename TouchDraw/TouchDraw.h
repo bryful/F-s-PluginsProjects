@@ -73,32 +73,32 @@
 
 #define	STR_ORG_CB1			"Original_Blend"
 #define	STR_ORG_CB2			"ON"
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	MY_INPUT = 0,	// default input layer 
 	
-	ID_SEED,			//ƒ‰ƒ“ƒ_ƒ€‚ÌŠî“_
-	ID_TARGET_VALUE,	//ƒ^ƒbƒ`‚ª”­¶‚·‚éŠm—¦
+	ID_SEED,			//ãƒ©ãƒ³ãƒ€ãƒ ã®åŸºç‚¹
+	ID_TARGET_VALUE,	//ã‚¿ãƒƒãƒãŒç™ºç”Ÿã™ã‚‹ç¢ºçŽ‡
 	ID_TARGRT_TOPIC,
-	ID_TARGET_MODE,		// 1:·•ª 2:color 
-	ID_TARGET_COLOR,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR_RANGE,	//F‚Ì”ÍˆÍ
-	ID_DELTA_RANGE,	//·•ª‚Ì”ÍˆÍ
+	ID_TARGET_MODE,		// 1:å·®åˆ† 2:color 
+	ID_TARGET_COLOR,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR_RANGE,	//è‰²ã®ç¯„å›²
+	ID_DELTA_RANGE,	//å·®åˆ†ã®ç¯„å›²
 	ID_TARGRT_TOPIC_END,
 
-	ID_CENTER,			//ƒ^ƒbƒ`ü‚Ì•ûŒü
-	ID_LENGTH_I_MAX,	//ƒ^ƒbƒ`ü‚Ì’·‚³in•ûŒü
-	ID_LENGTH_I_RND,	//ƒ^ƒbƒ`ü‚Ì’·‚³in•ûŒü‚Ìƒ‰ƒ“ƒ_ƒ€‚³
-	ID_LENGTH_O_MAX,	//ƒ^ƒbƒ`ü‚Ì’·‚³out•ûŒü
-	ID_LENGTH_O_RND,	//ƒ^ƒbƒ`ü‚Ì’·‚³out•ûŒü‚Ìƒ‰ƒ“ƒ_ƒ€‚³
+	ID_CENTER,			//ã‚¿ãƒƒãƒç·šã®æ–¹å‘
+	ID_LENGTH_I_MAX,	//ã‚¿ãƒƒãƒç·šã®é•·ã•inæ–¹å‘
+	ID_LENGTH_I_RND,	//ã‚¿ãƒƒãƒç·šã®é•·ã•inæ–¹å‘ã®ãƒ©ãƒ³ãƒ€ãƒ ã•
+	ID_LENGTH_O_MAX,	//ã‚¿ãƒƒãƒç·šã®é•·ã•outæ–¹å‘
+	ID_LENGTH_O_RND,	//ã‚¿ãƒƒãƒç·šã®é•·ã•outæ–¹å‘ã®ãƒ©ãƒ³ãƒ€ãƒ ã•
 
-	ID_COLOR,			//ƒ^ƒbƒ`ü‚ÌF
-	ID_OPACITY,			//ƒ^ƒbƒ`ü‚Ì•s“§–¾“x
-	ID_OPACITY_RND,		//ƒ^ƒbƒ`ü‚Ì•s“§–¾“x‚Ìƒ‰ƒ“ƒ_ƒ€
+	ID_COLOR,			//ã‚¿ãƒƒãƒç·šã®è‰²
+	ID_OPACITY,			//ã‚¿ãƒƒãƒç·šã®ä¸é€æ˜Žåº¦
+	ID_OPACITY_RND,		//ã‚¿ãƒƒãƒç·šã®ä¸é€æ˜Žåº¦ã®ãƒ©ãƒ³ãƒ€ãƒ 
 
-	ID_POINT_COUNT,		//ƒ^ƒbƒ`‚ª”­¶‚·‚é”
-	ID_POINT_LENGTH,	//ƒ^ƒbƒ`‚ª”­¶‚·‚é”ÍˆÍ
+	ID_POINT_COUNT,		//ã‚¿ãƒƒãƒãŒç™ºç”Ÿã™ã‚‹æ•°
+	ID_POINT_LENGTH,	//ã‚¿ãƒƒãƒãŒç™ºç”Ÿã™ã‚‹ç¯„å›²
 
 	ID_BLOCK_VALUE,
 	ID_BLOCK_SIZE,
@@ -110,7 +110,7 @@ enum {
 
 
 
-//ƒvƒ‰ƒOƒCƒ““ÆŽ©‚Ìƒpƒ‰ƒ[ƒ^‚ðW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 typedef struct{
 	A_long			seed;
 	PF_FpShort		target_value;

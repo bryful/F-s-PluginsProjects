@@ -223,7 +223,7 @@ static LABA RgbToLab(PF_PixelFloat rgb)
 	else
 		sb = pow((sb + 0.055) / 1.055, 2.4);
 
-	// XYZ�ɕϊ�
+	// XYZに変換
 	double x = 0.412453*sr + 0.357580*sg + 0.180423*sb;
 	double y = 0.212671*sr + 0.715160*sg + 0.072169*sb;
 	double z = 0.019334*sr + 0.119193*sg + 0.950227*sb;
@@ -231,7 +231,7 @@ static LABA RgbToLab(PF_PixelFloat rgb)
 	x /= 0.950456;
 	z /= 1.088754;
 
-	// Lab�ɕϊ�
+	// Labに変換
 	LABA lab;
 	double fy;
 	if (y > 0.008856) {
@@ -261,7 +261,7 @@ static PF_PixelFloat Lab2Rgb(LABA lab)
 	lab.A *= 100;
 	lab.B *= 100;
 	double x, y, z;
-	// XYZ�ɕϊ�
+	// XYZに変換
 	if (lab.L < 7.9996) {
 		y = lab.L / 903.3;
 		x = 0.950456*(lab.A / 3893.5 + y);
@@ -273,13 +273,13 @@ static PF_PixelFloat Lab2Rgb(LABA lab)
 		z = 1.088754*pow((lab.L + 16) / 116 - lab.B / 200, 3);
 	}
 
-	// sRGB�ɕϊ�
+	// sRGBに変換
 	double r, g, b;
 	r = 3.241*x - 1.5374*y - 0.4986*z;
 	g = -0.9692*x + 1.876*y + 0.0416*z;
 	b = 0.0556*x - 0.2040*y + 1.057*z;
 
-	// linear RGB�ɕϊ�
+	// linear RGBに変換
 	if (r > 0.00313080728)
 		r = pow(r, 10. / 24)*1.055 - 0.055;
 	else

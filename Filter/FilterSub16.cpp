@@ -13,7 +13,7 @@ PF_Err ToHarfSize16(PF_EffectWorldPtr world)
 	PF_Pixel16* data = (PF_Pixel16*)world->data;
 	PF_Pixel16 bl = { 0,0,0,0 };
 
-	//‚Ü‚¸…•½•ûŒü
+	//ã¾ãšæ°´å¹³æ–¹å‘
 	for (A_long y = 0; y < oh; y++)
 	{
 		A_long ypos = y * owt;
@@ -35,7 +35,7 @@ PF_Err ToHarfSize16(PF_EffectWorldPtr world)
 		}
 
 	}
-	//‚’¼
+	//åž‚ç›´
 	for (A_long x = 0; x < ow; x++)
 	{
 		A_long ypos = 0;
@@ -80,11 +80,11 @@ PF_Err ToDoubleSize16(PF_EffectWorldPtr world, PF_Handle bufH)
 	PF_Pixel16 bl = { 0,0,0,0 };
 	PF_Pixel16* scanline = *(PF_Pixel16**)bufH;
 
-	//‚Ü‚¸…•½•ûŒü
+	//ã¾ãšæ°´å¹³æ–¹å‘
 	for (A_long y = 0; y < oh; y++)
 	{
 		A_long ypos = y * owt;
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for (A_long x = 0; x < hw; x++) scanline[x] = data[x + ypos];
 		for (A_long x = 0; x < hw; x++)
 		{
@@ -111,13 +111,13 @@ PF_Err ToDoubleSize16(PF_EffectWorldPtr world, PF_Handle bufH)
 		}
 
 	}
-	//‚’¼
+	//åž‚ç›´
 	for (A_long x = 0; x < ow; x++)
 	{
 		A_long ypos = 0;
 		A_long ypos2 = 0;
 
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for (A_long y = 0; y < hh; y++)
 		{
 			scanline[y] = data[x + ypos];

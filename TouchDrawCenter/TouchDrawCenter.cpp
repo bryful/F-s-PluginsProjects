@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -20,19 +20,19 @@ static PF_Err ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
-	//�����̃X���C�_�[�o�[
+	//整数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SEED,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					32000,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					144,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_SEED,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					32000,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					144,			//スライダーの最大値
+					0,				//デフォルトの値
 					ID_SEED
 					);
 	
 	//----------------------------------------------------------------
-	//�ʒu�̎w��
+	//位置の指定
 	AEFX_CLR_STRUCT(def);	
 	PF_ADD_POINT(STR_CENTER,			/*"New Center"*/
 				50,	// X
@@ -41,47 +41,47 @@ static PF_Err ParamsSetup (
 				ID_CENTER
 				);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_LENGTH_MAX,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,			//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_LENGTH_MAX,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,			//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_LENGTH_MAX
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_LENGTH_RND,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					50,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_LENGTH_RND,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					50,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_LENGTH_RND
 					);
 	//----------------------------------------------------------------
-	//�����̃X���C�_�[�o�[
+	//整数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_Y,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					3000,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					30,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_Y,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					3000,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					30,				//デフォルトの値
 					ID_Y
 					);
 	
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR, 
 					0x00,
@@ -90,54 +90,54 @@ static PF_Err ParamsSetup (
 					ID_COLOR
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_OPACITY,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_OPACITY,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_OPACITY
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_OPACITY_RND,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					50,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_OPACITY_RND,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					50,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_OPACITY_RND
 					);
 	//----------------------------------------------------------------
-	//�����̃X���C�_�[�o�[
+	//整数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_POINT_COUNT,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					10,			//�X���C�_�[�̍ő�l
-					5,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_POINT_COUNT,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					10,			//スライダーの最大値
+					5,				//デフォルトの値
 					ID_POINT_COUNT
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_POINT_LENGTH,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					300,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					30,			//�X���C�_�[�̍ő�l
-					10,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_POINT_LENGTH,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					300,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					30,			//スライダーの最大値
+					10,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_POINT_LENGTH
@@ -145,7 +145,7 @@ static PF_Err ParamsSetup (
 	
 	
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_ORG_CB1,
 					STR_ORG_CB2,
@@ -188,18 +188,18 @@ QueryDynamicFlags(
 static PF_Err CalcParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
-	//�^�b�`���̏㉺���E�̔����񐔂��v�Z
+	//タッチ線の上下左右の発生回数を計算
 	infoP->value_left =
 	infoP->value_right =
 	infoP->value_top =
 	infoP->value_bottom = infoP->value;
 	if (infoP->value>0){
-		//�܂��㉺����
-		A_long c = ae->out->height()/2; //�Q���̈�ɂ��Ă���
+		//まず上下から
+		A_long c = ae->out->height()/2; //２分の一にしておく
 		A_long p = (A_long)infoP->centeY;
 		A_long vv=0;
 		if ( (c/2)==(p/2)){
-			//��̓����Ȃ琔���ꏏ�Ƃ���B
+			//大体同じなら数を一緒とする。
 		}else if (p<=0){
 			infoP->value_bottom += infoP->value_top;
 			infoP->value_top = 0;
@@ -215,12 +215,12 @@ static PF_Err CalcParams(CFsAE *ae, ParamInfo *infoP)
 			infoP->value_top -= vv;
 			infoP->value_bottom += vv;
 		}
-		//�܂����E����
-		c = ae->out->width()/2; //�Q���̈�ɂ��Ă���
+		//まず左右から
+		c = ae->out->width()/2; //２分の一にしておく
 		p = (A_long)infoP->centeX;
 		vv=0;
 		if ( (c/2)==(p/2)){
-			//��̓����Ȃ琔���ꏏ�Ƃ���B
+			//大体同じなら数を一緒とする。
 		}else if (p<=0){
 			infoP->value_right += infoP->value_left;
 			infoP->value_left = 0;
@@ -339,7 +339,7 @@ static PF_Err
 
 }
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 static PF_Err 
 Render ( 
 	PF_InData		*in_data,
@@ -362,7 +362,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

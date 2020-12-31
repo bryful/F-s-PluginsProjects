@@ -8,10 +8,10 @@
 class NFsWorld
 {
 protected:
-	//アドレス計算テーブル・ポイントテーブル用
+	//繧｢繝峨Ξ繧ｹ險育ｮ励ユ繝ｼ繝悶Ν繝ｻ繝昴う繝ｳ繝医ユ繝ｼ繝悶Ν逕ｨ
 	PF_Handle	m_bufH = NULL;
 
-	// アドレス計算テーブル
+	// 繧｢繝峨Ξ繧ｹ險育ｮ励ユ繝ｼ繝悶Ν
 	A_long* m_vurTbl = NULL;
 
 

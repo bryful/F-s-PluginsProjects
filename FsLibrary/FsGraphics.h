@@ -41,7 +41,7 @@ namespace MAT
 typedef  A_long ScanLineMode;
 namespace SCANLINE
 {
-	/// 1:…•½&‚’¼ 2: …•½ 3:‚’¼
+	/// 1:æ°´å¹³&åž‚ç›´ 2: æ°´å¹³ 3:åž‚ç›´
 	enum
 	{
 		HorAndVer = 1,
@@ -100,8 +100,8 @@ typedef struct GInfo {
 
 //*******************************************************************************************
 /*
-	•`‰æ—p‚ÌƒNƒ‰ƒX
-	EffectWorld‚Æin_data‚©‚çì¬
+	æç”»ç”¨ã®ã‚¯ãƒ©ã‚¹
+	EffectWorldã¨in_dataã‹ã‚‰ä½œæˆ
 */
 //*******************************************************************************************
 class CFsGraph{
@@ -125,10 +125,10 @@ private:
 	//--------------------------------------------------------------------
 	// paint start 
 	typedef struct  {
-		A_long Xleft;		/* —Ìˆæ¶’[‚ÌXÀ•W */
-		A_long Xright;		/* —Ìˆæ‰E’[‚ÌXÀ•W */
-		A_long Y;					/* —Ìˆæ‚ÌYÀ•W */
-		A_long Yparent;	/* eƒ‰ƒCƒ“‚ÌYÀ•W */
+		A_long Xleft;		/* é ˜åŸŸå·¦ç«¯ã®Xåº§æ¨™ */
+		A_long Xright;		/* é ˜åŸŸå³ç«¯ã®Xåº§æ¨™ */
+		A_long Y;					/* é ˜åŸŸã®Yåº§æ¨™ */
+		A_long Yparent;	/* è¦ªãƒ©ã‚¤ãƒ³ã®Yåº§æ¨™ */
 	} paintQue;
 
 	typedef struct  {
@@ -152,10 +152,10 @@ private:
 	typedef struct MiniMaxPrm
 	{
 		ScanLineMode	mode;
-		PF_PixelPtr		scanline;	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“ƒoƒbƒtƒ@[
-		A_long			*level;		//‰æ‘œ‚Ì–¾‚é‚³
+		PF_PixelPtr		scanline;	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ãƒãƒƒãƒ•ã‚¡ãƒ¼
+		A_long			*level;		//ç”»åƒã®æ˜Žã‚‹ã•
 	
-		A_long			value;	//Max/Min‚Ì’l
+		A_long			value;	//Max/Minã®å€¤
 		PF_Boolean		minusFlag;
 	}MiniMaxPrm;
 
@@ -221,7 +221,7 @@ public:
 	PF_Pixel16* data16() { return (PF_Pixel16*)m_data; }
 	PF_PixelFloat* data32() { return (PF_PixelFloat*)m_data; }
 	//-----------------------
-	//“h‚è‚Â‚Ô‚µ
+	//å¡—ã‚Šã¤ã¶ã—
 	PF_Err paint(A_long x, A_long y,PF_Pixel col);
 	PF_Err paint(PF_FixedPoint pos,PF_Pixel col);
 	//-----------------------
@@ -239,8 +239,8 @@ public:
 	PF_Err Max_alpha16(A_long value,ScanLineMode mode);
 	PF_Err Max_alpha32(A_long value,ScanLineMode mode);
 
-	PF_Err Max_rgb(A_long value,ScanLineMode mode); // 1:…•½&‚’¼ 2: …•½ 3:‚’¼
-	PF_Err Max_alpha(A_long value,ScanLineMode mode); // 1:…•½&‚’¼ 2: …•½ 3:‚’¼
+	PF_Err Max_rgb(A_long value,ScanLineMode mode); // 1:æ°´å¹³&åž‚ç›´ 2: æ°´å¹³ 3:åž‚ç›´
+	PF_Err Max_alpha(A_long value,ScanLineMode mode); // 1:æ°´å¹³&åž‚ç›´ 2: æ°´å¹³ 3:åž‚ç›´
 	*/
 
 	void Minimax_rgb8(MiniMaxPrm *prm);
@@ -307,7 +307,7 @@ public:
 		if (ad2>PF_MAX_CHAN8) ad2 = PF_MAX_CHAN8;
 
 		if (ad2<=0) {
-			//‚O‚ÌœŽZ‚ð–h‚®
+			//ï¼ã®é™¤ç®—ã‚’é˜²ã
 			return rr;
 		}else{
 			A_long r = ( dd.red   * dd.alpha + ss.red   * as2 );
@@ -752,9 +752,9 @@ public:
 	
 	//**************************************************************;************
 	//-----------------------
-	// Line•
-	//‚±‚ê‚ª‰e‹¿‚·‚é‚Ì‚Í¡‚Ì‚Æ‚±‚ë
-	// XLine YLine Box‚Ì‚Ý
+	// Lineå¹…
+	//ã“ã‚ŒãŒå½±éŸ¿ã™ã‚‹ã®ã¯ä»Šã®ã¨ã“ã‚
+	// XLine YLine Boxã®ã¿
 	A_long lineHeiht = 1;
 	//-----------------------
 	//Line
@@ -863,7 +863,7 @@ public:
 	void circleFill16(A_long x ,A_long y, A_long r,PF_Pixel16 col);
 	void circleFill32(A_long x ,A_long y, A_long r,PF_PixelFloat col);
 	//-----------------------
-	//‰æ–ÊÁ‹Ž
+	//ç”»é¢æ¶ˆåŽ»
 	PF_Err clear(){ PF_InData *in_data = m_in_data; return PF_FILL(NULL, NULL, m_world);}
 	PF_Err clear(PF_Pixel col){	PF_InData *in_data = m_in_data; return PF_FILL(&col, NULL, m_world);}
 	//-----------------------
@@ -880,8 +880,8 @@ public:
 };
 //******************************************************************************
 // FsGraphicsBlend.cpp
-// BlendŠÖ”
-// per‚Í(0L<<16)‚©‚ç(1L<<16)‚ÌŠÔ
+// Blendé–¢æ•°
+// perã¯(0L<<16)ã‹ã‚‰(1L<<16)ã®é–“
 //******************************************************************************
 PF_Err FsBlend8(PF_EffectWorld 	*input,PF_EffectWorld 	*output,PF_Fixed per);
 PF_Err FsBlend16(PF_EffectWorld 	*input,PF_EffectWorld 	*output,PF_Fixed per);
@@ -891,31 +891,31 @@ PF_Err FsBlend32(PF_EffectWorld 	*input,PF_EffectWorld 	*output,PF_Fixed per);
 
 //******************************************************************************
 /*
-ƒAƒ‹ƒtƒ@[ƒuƒŒƒ“ƒhŠÖ”
-ˆÈ‰º‚Ì‹LŽ–‚ð‚»‚Ì‚Ü‚Ü—¬—pB
+ã‚¢ãƒ«ãƒ•ã‚¡ãƒ¼ãƒ–ãƒ¬ãƒ³ãƒ‰é–¢æ•°
+ä»¥ä¸‹ã®è¨˜äº‹ã‚’ãã®ã¾ã¾æµç”¨ã€‚
 
-ŽQlŒ³
-Œå’ƒŽ«‰‘ƒb -‚²‚¿‚á‚½‚ñƒtƒ@ƒ“ƒNƒ‰ƒu‚­‚ç‚Ô-
+å‚è€ƒå…ƒ
+æ‚ŸèŒ¶è¾žè‹‘ãƒƒ -ã”ã¡ã‚ƒãŸã‚“ãƒ•ã‚¡ãƒ³ã‚¯ãƒ©ãƒ–ãã‚‰ã¶-
 http://d.hatena.ne.jp/GOCHA/20071027/alphablend
 
-‚Ì2007-10-27 “y—j“úuRGBA‚ÌƒAƒ‹ƒtƒ@ƒuƒŒƒ“ƒh‚ÉŠ´Œƒ -‘±EƒŒƒCƒ„[ˆ—- v‚Ì‹LŽ–
+ã®2007-10-27 åœŸæ›œæ—¥ã€ŒRGBAã®ã‚¢ãƒ«ãƒ•ã‚¡ãƒ–ãƒ¬ãƒ³ãƒ‰ã«æ„Ÿæ¿€ -ç¶šãƒ»ãƒ¬ã‚¤ãƒ¤ãƒ¼å‡¦ç†- ã€ã®è¨˜äº‹
 
-A(s): ‡¬Œ³i‰º‚ÌƒŒƒCƒ„[j‚Ì•s“§–¾“x 
-A(d): ‡¬æiã‚ÌƒŒƒCƒ„[j‚Ì•s“§–¾“x 
-A(s'): ‡¬Œ³i‰º‚ÌƒŒƒCƒ„[j‚Ì‡¬—Ê 
-A(d'): ‡¬Œ‹‰Ê‚Ì•s“§–¾“x 
+A(s): åˆæˆå…ƒï¼ˆä¸‹ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‰ã®ä¸é€æ˜Žåº¦ 
+A(d): åˆæˆå…ˆï¼ˆä¸Šã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‰ã®ä¸é€æ˜Žåº¦ 
+A(s'): åˆæˆå…ƒï¼ˆä¸‹ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‰ã®åˆæˆé‡ 
+A(d'): åˆæˆçµæžœã®ä¸é€æ˜Žåº¦ 
 
 A(s') = (1.0 - A(d)) * A(s);
 A(d') = A(d) + A(s');
 
 A(d') = A(d) + (1.0 - A(d)) * A(s)
 
-c(s): ‡¬Œ³i‰º‚ÌƒŒƒCƒ„[j‚Ì‹P“xiRGB‚»‚ê‚¼‚ê‚Ì’l‚É‘Î‰žj 
-c(d): ‡¬æiã‚ÌƒŒƒCƒ„[j‚Ì‹P“xiRGB‚»‚ê‚¼‚ê‚Ì’l‚É‘Î‰žj 
-c(d'): ‡¬Œ‹‰Ê‚Ì‹P“xiRGB‚»‚ê‚¼‚ê‚Ì’l‚É‘Î‰žj 
+c(s): åˆæˆå…ƒï¼ˆä¸‹ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‰ã®è¼åº¦ï¼ˆRGBãã‚Œãžã‚Œã®å€¤ã«å¯¾å¿œï¼‰ 
+c(d): åˆæˆå…ˆï¼ˆä¸Šã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‰ã®è¼åº¦ï¼ˆRGBãã‚Œãžã‚Œã®å€¤ã«å¯¾å¿œï¼‰ 
+c(d'): åˆæˆçµæžœã®è¼åº¦ï¼ˆRGBãã‚Œãžã‚Œã®å€¤ã«å¯¾å¿œï¼‰ 
 c(d') = c(d) * (A(d) / A(d')) + c(s) * (A(s') / A(d'))
 
-A(d')‚É‚æ‚éœŽZ•”•ª‚ð‚­‚­‚Á‚Ä•ÏŒ`‚·‚é‚ÆA
+A(d')ã«ã‚ˆã‚‹é™¤ç®—éƒ¨åˆ†ã‚’ããã£ã¦å¤‰å½¢ã™ã‚‹ã¨ã€
 
 c(d') = (c(d) * A(d) + c(s) * A(s')) / A(d');
 

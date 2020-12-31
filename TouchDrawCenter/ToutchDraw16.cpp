@@ -9,7 +9,7 @@ inline A_u_short mixCh16(A_long c0, A_long c1)
 }
 //-------------------------------------------------------
 /*
-	ÉAÉãÉtÉ@Å[Ç÷èëÇ´çûÇ›
+	„Ç¢„É´„Éï„Ç°„Éº„Å∏Êõ∏„ÅçËæº„Åø
 */
 inline void PsetAlpha16(CFsGraph *g, PsetAlphaPrm *prm)
 {
@@ -42,29 +42,29 @@ inline void PsetAlpha16(CFsGraph *g, PsetAlphaPrm *prm)
 	A_long v = (A_long)(PF_MAX_CHAN16 * opacity);
 	A_long target = x1 + (y1 * wt);
 
-	//Ç‹Ç∏ÅAÇ“Ç¡ÇΩÇËÇÃéû
+	//„Åæ„Åö„ÄÅ„Å¥„Å£„Åü„Çä„ÅÆÊôÇ
 	if ( (xx2 == 0)&&(yy2 == 0) ) {
 		data[target].alpha = mixCh16(data[target].alpha,v);
 		data[target].red = data[target].alpha;
 	}else{
-		//Ç‹Ç∏ç∂è„
+		//„Åæ„ÅöÂ∑¶‰∏ä
 		if ( ((x1>=0)&&(y1>=0)) == TRUE){
 			data[target].alpha = mixCh16(data[target].alpha,(A_long)(v * xx1 * yy1));
 			data[target].red = data[target].alpha;
 		}
-		//âEè„
+		//Âè≥‰∏ä
 		target++;
 		if ( ((x2<w)&&(y1>=0)) == TRUE){
 			data[target].alpha = mixCh16(data[target].alpha,(A_long)(v * xx2 *yy1));
 			data[target].red = data[target].alpha;
 		}
-		//âEâ∫
+		//Âè≥‰∏ã
 		target+= wt;
 		if ( ((x2<w)&&(y2<h)) == TRUE){
 			data[target].alpha = mixCh16(data[target].alpha,(A_long)(v * xx2 * yy2));
 			data[target].red = data[target].alpha;
 		}
-		//ç∂â∫
+		//Â∑¶‰∏ã
 		target--;
 		if ( ((x1>=0)&&(y2<h)) == TRUE){
 			data[target].alpha = mixCh16(data[target].alpha,(A_long)(v * xx1 * yy2));
@@ -138,21 +138,21 @@ void drawTouch16(CFsGraph *g, ParamInfo *info)
 	ti.centerX = info->centeX;
 	ti.centerY = info->centeY;	
 
-	//ïsìßñæìxÉâÉìÉ_ÉÄ
+	//‰∏çÈÄèÊòéÂ∫¶„É©„É≥„ÉÄ„É†
 	PF_FpShort p0,p1;
 	p0 = info->opacity * (1 - info->opacity_rnd);
 	p1 = info->opacity - p0;
 
-	//í∑Ç≥ÉâÉìÉ_ÉÄ
+	//Èï∑„Åï„É©„É≥„ÉÄ„É†
 	PF_FpShort r0,r1;
 	r0 = info->length_max * (1 - info->length_rnd);
 	r1 = info->length_max - r0;
 	
 	
-	//â°ÉâÉìÉ_ÉÄ
+	//Ê®™„É©„É≥„ÉÄ„É†
 	PF_FpShort w0 = (PF_FpShort)w / -5;
 	PF_FpShort w1 = (PF_FpShort)w + ((PF_FpShort)w/5)-w0;
-	//ècÉâÉìÉ_ÉÄ
+	//Á∏¶„É©„É≥„ÉÄ„É†
 	PF_FpShort h0 = (PF_FpShort)h / -5;
 	PF_FpShort h1 = (PF_FpShort)h + ((PF_FpShort)h/5)-h0;
 	
@@ -162,7 +162,7 @@ void drawTouch16(CFsGraph *g, ParamInfo *info)
 
 	A_long i,j;
 	PF_FpShort xx,yy;
-	//êÊÇ∏top
+	//ÂÖà„Åötop
 	if (info->value_top>0){
 		ti.startY = (PF_FpShort)((PF_FpShort)h/-20);
 		for(i=0;i<info->value_top;i++){

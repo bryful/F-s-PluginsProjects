@@ -46,12 +46,12 @@ enum {
 	ID_HEIGHT,
 	ID_NUM_PARAMS
 };
-#define STR_GRIDSIZE	"ƒOƒŠƒbƒhƒTƒCƒY"
-#define STR_MODE1		"ƒ‚[ƒh"
-#define STR_MODE2		"ƒ‚ƒUƒCƒN"
-#define STR_HILIGHT		"ƒnƒCƒ‰ƒCƒg(%)"
-#define STR_SHADOW		"ƒVƒƒƒhƒE(%)"
-#define STR_HEIGHT		"ƒ‰ƒCƒ“•"
+#define STR_GRIDSIZE	"ã‚°ãƒªãƒƒãƒ‰ã‚µã‚¤ã‚º"
+#define STR_MODE1		"ãƒ¢ãƒ¼ãƒ‰"
+#define STR_MODE2		"ãƒ¢ã‚¶ã‚¤ã‚¯"
+#define STR_HILIGHT		"ãƒã‚¤ãƒ©ã‚¤ãƒˆ(%)"
+#define STR_SHADOW		"ã‚·ãƒ£ãƒ‰ã‚¦(%)"
+#define STR_HEIGHT		"ãƒ©ã‚¤ãƒ³å¹…"
 
 typedef struct ParamInfo{
 	A_long			gridSize;

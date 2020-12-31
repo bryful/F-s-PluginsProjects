@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -24,11 +24,11 @@ static PF_Err ParamsSetup (
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_TOPIC(STR_TOPIC0, ID_TOPIC0);
 	//----------------------------------------------------------------
-	//�|�b�v�A�b�v���j���[
+	//ポップアップメニュー
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POPUP(STR_TARGET_KIND,
-		STR_TARGET_COUNT,	//���j���[�̐�
-		STR_TARGET_DFLT,	//�f�t�H���g
+		STR_TARGET_COUNT,	//メニューの数
+		STR_TARGET_DFLT,	//デフォルト
 		STR_TARGET_ITEMS,
 		ID_TAGET_KIND
 	);
@@ -62,7 +62,7 @@ static PF_Err ParamsSetup (
 		ID_TAGET_SOFT
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COLOR,
 		0xFF,
@@ -115,7 +115,7 @@ static PF_Err ParamsSetup (
 	);
 
 	//----------------------------------------------------------------
-	//�p�x
+	//角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_ROT, 0, ID_ROT);
 	//----------------------------------------------------------------
@@ -150,16 +150,16 @@ static PF_Err ParamsSetup (
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_TOPIC(STR_TOPIC1, ID_TOPIC1);
 	//----------------------------------------------------------------
-	//�|�b�v�A�b�v���j���[
+	//ポップアップメニュー
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POPUP(STR_COLOR_KIND,
-		STR_COLOR_COUNT,	//���j���[�̐�
-		STR_COLOR_DFLT,	//�f�t�H���g
+		STR_COLOR_COUNT,	//メニューの数
+		STR_COLOR_DFLT,	//デフォルト
 		STR_COLOR_ITEMS,
 		ID_COLOR_KIND
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_COLOR,
 		0xFF,
@@ -218,16 +218,16 @@ static PF_Err ParamsSetup (
 	PF_ADD_TOPIC(STR_TOPIC2, ID_TOPIC2);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_VER_LEN,	//�p�����[�^�̖��O
-		0, 				//���l���͂���ꍇ�̍ŏ��l
-		300,			//���l���͂���ꍇ�̍ő�l
-		0,				//�X���C�_�[�̍ŏ��l 
-		150,			//�X���C�_�[�̍ő�l
-		70,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(STR_VER_LEN,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		300,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		150,			//スライダーの最大値
+		70,				//デフォルトの値
 		ID_VER_LEN
 	);
 	//----------------------------------------------------------------
-	//�p�x
+	//角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_VER_ROT, 0, ID_VER_ROT);
 	//----------------------------------------------------------------
@@ -246,16 +246,16 @@ static PF_Err ParamsSetup (
 						);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_HOR_LEN,	//�p�����[�^�̖��O
-		0, 				//���l���͂���ꍇ�̍ŏ��l
-		300,			//���l���͂���ꍇ�̍ő�l
-		0,				//�X���C�_�[�̍ŏ��l 
-		150,			//�X���C�_�[�̍ő�l
-		70,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(STR_HOR_LEN,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		300,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		150,			//スライダーの最大値
+		70,				//デフォルトの値
 		ID_HOR_LEN
 	);
 	//----------------------------------------------------------------
-	//�p�x
+	//角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_HOR_ROT, 90, ID_HOR_ROT);
 	//----------------------------------------------------------------
@@ -274,20 +274,20 @@ static PF_Err ParamsSetup (
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_DIA_LEN,	//�p�����[�^�̖��O
-		0, 				//���l���͂���ꍇ�̍ŏ��l
-		300,			//���l���͂���ꍇ�̍ő�l
-		0,				//�X���C�_�[�̍ŏ��l 
-		150,			//�X���C�_�[�̍ő�l
-		50,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(STR_DIA_LEN,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		300,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		150,			//スライダーの最大値
+		50,				//デフォルトの値
 		ID_DIA_LEN
 	);
 	//----------------------------------------------------------------
-	//�p�x
+	//角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_DIA_ROT, 45, ID_DIA_ROT);
 	//----------------------------------------------------------------
-	//�p�x
+	//角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_DIA_ROT2, -45, ID_DIA_ROT2);
 	//----------------------------------------------------------------
@@ -310,11 +310,11 @@ static PF_Err ParamsSetup (
 	PF_END_TOPIC(ID_TOPIC2_END);
 
 	//----------------------------------------------------------------
-	//�|�b�v�A�b�v���j���[
+	//ポップアップメニュー
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POPUP(STR_BLEND,
-		STR_BLEND_COUNT,	//���j���[�̐�
-		STR_BLEND_DFLT,	//�f�t�H���g
+		STR_BLEND_COUNT,	//メニューの数
+		STR_BLEND_DFLT,	//デフォルト
 		STR_BLEND_ITEMS,
 		ID_BLEND
 	);
@@ -428,7 +428,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	
 	
@@ -448,10 +448,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -475,7 +475,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

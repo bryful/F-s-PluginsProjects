@@ -39,36 +39,36 @@
 #include "../FsLibrary/FsDebug.h"
 #include "../FsLibrary/FsHLS.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 	
-	//‹«ŠEü‚Ì‚İ
+	//å¢ƒç•Œç·šã®ã¿
 	ID_LINE_ONLY,
 	
-	//•ÏXŒã‚ÌF
+	//å¤‰æ›´å¾Œã®è‰²
 	ID_NEW_COLOR,
 
-	//•
+	//å¹…
 	ID_Y,
 
-	//åü•”•ªÅ‘åÅ¬
+	//ä¸»ç·šéƒ¨åˆ†æœ€å¤§æœ€å°
 	ID_LINE_MINMAX,
 	
-	//åü•”•ª‚Ì‚Ú‚©‚µ
+	//ä¸»ç·šéƒ¨åˆ†ã®ã¼ã‹ã—
 	ID_LINE_BLUR,
 
-	//åü‚ÌF
+	//ä¸»ç·šã®è‰²
 	ID_MN_COLOR1_ON,
 	ID_MN_COLOR1,
 	ID_MN_COLOR2_ON,
 	ID_MN_COLOR2,
 	
-	//åüŒŸoƒŒƒxƒ‹
+	//ä¸»ç·šæ¤œå‡ºãƒ¬ãƒ™ãƒ«
 	ID_LEVEL,
 	
-	//—×ÚF
+	//éš£æ¥è‰²
 	ID_AD_COLOR1_ON,
 	ID_AD_COLOR1,
 	ID_AD_COLOR2_ON,
@@ -85,7 +85,7 @@ enum {
 	ID_NUM_PARAMS
 };
 
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_LINE_ONLY		"LineOnly"
 
 #define	STR_NEW_COLOR		"NewColor"
@@ -133,7 +133,7 @@ enum {
 
 #define MN_COLOR_MAX	2
 #define AD_COLOR_MAX	6
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
 	PF_Boolean	lineOnly;
 

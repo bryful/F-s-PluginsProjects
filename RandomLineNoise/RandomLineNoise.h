@@ -40,8 +40,8 @@
 //#include "FsAE.h"
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_Y,
@@ -54,16 +54,16 @@ enum {
 	ID_NUM_PARAMS
 	};
 
-#define STR_Y		"ƒmƒCƒY—Ê"
-#define STR_STRONG		"ƒmƒCƒY‚Ì‹­‚³(%)"
-#define STR_LENGTH_MIN	"ƒmƒCƒY‚Ì’·‚³(Å¬)"
-#define STR_LENGTH_MAX	"ƒmƒCƒY‚Ì’·‚³(Å‘å)"
-#define STR_COLOR1		"ƒmƒCƒY‚ÌF"
-#define STR_COLOR2		"ƒJƒ‰["
+#define STR_Y		"ãƒã‚¤ã‚ºé‡"
+#define STR_STRONG		"ãƒã‚¤ã‚ºã®å¼·ã•(%)"
+#define STR_LENGTH_MIN	"ãƒã‚¤ã‚ºã®é•·ã•(æœ€å°)"
+#define STR_LENGTH_MAX	"ãƒã‚¤ã‚ºã®é•·ã•(æœ€å¤§)"
+#define STR_COLOR1		"ãƒã‚¤ã‚ºã®è‰²"
+#define STR_COLOR2		"ã‚«ãƒ©ãƒ¼"
 
-#define STR_WEIGHT		"ƒmƒCƒY‚Ì•"
-#define STR_VERTUAL1	"c•ûŒü‚É"
-#define STR_VERTUAL2	"c"
+#define STR_WEIGHT		"ãƒã‚¤ã‚ºã®å¹…"
+#define STR_VERTUAL1	"ç¸¦æ–¹å‘ã«"
+#define STR_VERTUAL2	"ç¸¦"
 
 
 typedef struct ParamInfo{

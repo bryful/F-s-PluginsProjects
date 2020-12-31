@@ -35,13 +35,13 @@ ParamsSetup (
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_BORDER_BLACK,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	UI_BORDER_BLACK,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					border_black
@@ -63,13 +63,13 @@ ParamsSetup (
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_BORDER_RED,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	UI_BORDER_RED,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					border_red
@@ -92,13 +92,13 @@ ParamsSetup (
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_BORDER_GREEN,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	UI_BORDER_GREEN,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					border_green
@@ -120,13 +120,13 @@ ParamsSetup (
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_BORDER_BLUE,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	UI_BORDER_BLUE,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					border_blue
@@ -148,13 +148,13 @@ ParamsSetup (
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_BORDER_YELLOW,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	UI_BORDER_YELLOW,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					border_yellow
@@ -176,13 +176,13 @@ ParamsSetup (
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_BORDER_VIOLET,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	UI_BORDER_VIOLET,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					border_violet
@@ -244,7 +244,7 @@ FilterImage8 (
 				}
 			}else{
 				A_long H = (A_long)( (hls[HLS_H]) >>16);
-				//��
+				//赤
 				if ( (H>=RANGE_RED2)||((H>=RANGE_RED0)&&(H<RANGE_RED1) )){
 					if ( (infoP->ParamTable[LT_RED].border > hls[HLS_L])&&( infoP->ParamTable[LT_RED].enabled == TRUE)){
 						p = infoP->ParamTable[LT_RED].color;
@@ -331,7 +331,7 @@ FilterImage16 (
 				}
 			}else{
 				A_long H = (A_long)( (hls[HLS_H]) >>16);
-				//��
+				//赤
 				if ( (H>=RANGE_RED2)||((H>=RANGE_RED0)&&(H<RANGE_RED1) )){
 					if ( (infoP->ParamTable[LT_RED].border > hls[HLS_L])&&( infoP->ParamTable[LT_RED].enabled == TRUE)){
 						p = infoP->ParamTable[LT_RED].color;
@@ -418,7 +418,7 @@ FilterImage32 (
 				}
 			}else{
 				A_long H = (A_long)( (hls[HLS_H]) >>16);
-				//��
+				//赤
 				if ( (H>=RANGE_RED2)||((H>=RANGE_RED0)&&(H<RANGE_RED1) )){
 					if ( (infoP->ParamTable[LT_RED].border > hls[HLS_L])&&( infoP->ParamTable[LT_RED].enabled == TRUE)){
 						p = infoP->ParamTable[LT_RED].color;
@@ -491,7 +491,7 @@ static PF_Err
 	PF_Err	err = PF_Err_NONE;
 	PF_Err	err2 = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	
 	switch(ae->pixelFormat())
@@ -614,7 +614,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

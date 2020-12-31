@@ -28,8 +28,8 @@ static PF_Err (*func32)(
 			PF_PixelFloat 	*inP, 
 			PF_PixelFloat	*outP);
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -54,7 +54,7 @@ static PF_Err ParamsSetup (
 						);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_COL1, 
 					0xFF,
 					0xF9,
@@ -63,7 +63,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_COL2, //F5DD6D
 					0xF5,
 					0xDD,
@@ -72,7 +72,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_COL3, //F3A447
 					0xF3,
 					0xA4,
@@ -81,7 +81,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_COL4, //DB9039
 					0xDB,
 					0x90,
@@ -90,7 +90,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_COL5, //F3C186
 					0xF3, 
 					0xC1,
@@ -99,7 +99,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_CHECKBOX(STR_MAT_CB,
 					STR_ON,
 					FALSE,
@@ -108,7 +108,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_MAT_COL, 
 					0xFF,
 					0xFF,
@@ -164,7 +164,7 @@ exec8 (
 
 	PF_Pixel c = *inP;
 	//******************
-	//Mat�J���[
+	//Matカラー
 	if (niP->mat_on){
 		PF_Pixel m = niP->mat_color;
 		c.red	= RoundByteLong((A_long)c.alpha*((A_long)c.red   -  (A_long)m.red)/PF_MAX_CHAN8 + (A_long)m.red);
@@ -172,7 +172,7 @@ exec8 (
 		c.blue	= RoundByteLong((A_long)c.alpha*((A_long)c.blue -   (A_long)m.blue)/PF_MAX_CHAN8 + (A_long)m.blue);
 	}
 	//******************
-	//�A���t�@�[
+	//アルファー
 	A_u_char a = 0;
 	if (c.alpha > niP->alpha_border){
 		a = PF_MAX_CHAN8;
@@ -204,7 +204,7 @@ exec16 (
 
 	PF_Pixel16 c = *inP;
 	//******************
-	//Mat�J���[
+	//Matカラー
 	if (niP->mat_on){
 		PF_Pixel16 m = niP->mat_color;
 		c.red	= RoundByteLong((A_long)c.alpha*((A_long)c.red   -  (A_long)m.red)/PF_MAX_CHAN16 + (A_long)m.red);
@@ -212,7 +212,7 @@ exec16 (
 		c.blue	= RoundByteLong((A_long)c.alpha*((A_long)c.blue -   (A_long)m.blue)/PF_MAX_CHAN16 + (A_long)m.blue);
 	}
 	//******************
-	//�A���t�@�[
+	//アルファー
 	A_u_short a = 0;
 	if (c.alpha > niP->alpha_border){
 		a = PF_MAX_CHAN16;
@@ -244,7 +244,7 @@ exec32 (
 
 	PF_PixelFloat c = *inP;
 	//******************
-	//Mat�J���[
+	//Matカラー
 	if (niP->mat_on){
 		PF_PixelFloat m = niP->mat_color;
 		c.red	= RoundFpShortDouble(c.alpha*(c.red   -  m.red) + m.red);
@@ -252,7 +252,7 @@ exec32 (
 		c.blue	= RoundFpShortDouble(c.alpha*(c.blue -   m.blue)/ + m.blue);
 	}
 	//******************
-	//�A���t�@�[
+	//アルファー
 	PF_FpShort a = 0;
 	if (c.alpha > niP->alpha_border){
 		a = 1.0;
@@ -335,7 +335,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	ParamInfo16 info16;
 	ParamInfo32 info32;
@@ -357,10 +357,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -384,7 +384,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

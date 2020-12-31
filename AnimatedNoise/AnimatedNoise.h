@@ -39,28 +39,28 @@
 
 #include "../FsLibrary/FsAE.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,			// default input layer 
-	ID_ANIMATED_CB,			//“®‚«
-	ID_ANIMATED_ADD,		//“®‚«
-	ID_VALUE_ADD,			//ƒmƒCƒY‚Ì—Ê
-	ID_LENGTH_FIXED,		//ƒmƒCƒY‚Ì‹­‚³
-	ID_COLOR_CB,			//ƒJƒ‰[‚©ƒ‚ƒmƒNƒ‚©
-	ID_BLOCK_VALUE_FIXED,	//ƒuƒƒbƒNƒmƒCƒY‚Ì—Ê
-	ID_BLOCK_LENGTH_FIXED,	//ƒuƒƒbƒNƒmƒCƒY‚Ì‹­‚³
-	ID_BLOCK_WIDTH_ADD,		//ƒuƒƒbƒNƒmƒCƒY‰¡•
-	ID_BLOCK_HEIGHT_ADD,	//ƒuƒƒbƒNƒmƒCƒYc•
-	ID_BLOCK_COLOR_CB,		//ƒJƒ‰[‚©ƒ‚ƒmƒNƒ‚©
+	ID_ANIMATED_CB,			//å‹•ã
+	ID_ANIMATED_ADD,		//å‹•ã
+	ID_VALUE_ADD,			//ãƒŽã‚¤ã‚ºã®é‡
+	ID_LENGTH_FIXED,		//ãƒŽã‚¤ã‚ºã®å¼·ã•
+	ID_COLOR_CB,			//ã‚«ãƒ©ãƒ¼ã‹ãƒ¢ãƒŽã‚¯ãƒ­ã‹
+	ID_BLOCK_VALUE_FIXED,	//ãƒ–ãƒ­ãƒƒã‚¯ãƒŽã‚¤ã‚ºã®é‡
+	ID_BLOCK_LENGTH_FIXED,	//ãƒ–ãƒ­ãƒƒã‚¯ãƒŽã‚¤ã‚ºã®å¼·ã•
+	ID_BLOCK_WIDTH_ADD,		//ãƒ–ãƒ­ãƒƒã‚¯ãƒŽã‚¤ã‚ºæ¨ªå¹…
+	ID_BLOCK_HEIGHT_ADD,	//ãƒ–ãƒ­ãƒƒã‚¯ãƒŽã‚¤ã‚ºç¸¦å¹…
+	ID_BLOCK_COLOR_CB,		//ã‚«ãƒ©ãƒ¼ã‹ãƒ¢ãƒŽã‚¯ãƒ­ã‹
 
 	ID_NUM_PARAMS
 	};
 typedef struct PrmTbl{
-	PF_PixelPtr	data;		//‰æ‘œ
-	A_long 		width;		//‰æ‘œ‚Ì‰¡•
-	A_long 		height;		//‰æ‘œ‚Ì‚‚³
-	A_long 		w;			//ƒ^[ƒQƒbƒg
+	PF_PixelPtr	data;		//ç”»åƒ
+	A_long 		width;		//ç”»åƒã®æ¨ªå¹…
+	A_long 		height;		//ç”»åƒã®é«˜ã•
+	A_long 		w;			//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 	A_long 		h;
 	A_long 		target;
 

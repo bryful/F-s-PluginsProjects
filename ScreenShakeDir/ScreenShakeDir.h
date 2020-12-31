@@ -39,13 +39,13 @@
 #include "../FsLibrary/FsScreenShake.h"
 
 
-#define	STR_Y			"�傫��(px)"
-#define	STR_VALUE_RND		"�傫���̂΂��(%)"
-#define	STR_DIR				"����(Rot)"
-#define	STR_DIR_RND			"�����̂΂��(Rot)"
+#define	STR_Y			"大きさ(px)"
+#define	STR_VALUE_RND		"大きさのばらつき(%)"
+#define	STR_DIR				"方向(Rot)"
+#define	STR_DIR_RND			"方向のばらつき(Rot)"
 #define	STR_RANDOMSEED		"Random Seed"
-#define	STR_EDGE_STATUS1	"���̏���"
-#define	STR_EDGE_STATUS2	"����|�L�΂�|�J��Ԃ�1|�J��Ԃ�2"
+#define	STR_EDGE_STATUS1	"縁の処理"
+#define	STR_EDGE_STATUS2	"透明|伸ばす|繰り返す1|繰り返す2"
 
 #ifdef TEST_MODE
 	#define	STR_TEST_TIME_CB1	"Time Disp"
@@ -55,10 +55,10 @@
 
 enum {
 	ID_INPUT = 0,	// default input layer 
-	ID_Y,		// ��ʓ��̑傫��
+	ID_Y,		// 画面動の大きさ
 	ID_VALUE_RND,
-	ID_DIR,			// ��ʓ��̕���
-	ID_DIR_RND,		// ��ʓ��̕����̂΂��
+	ID_DIR,			// 画面動の方向
+	ID_DIR_RND,		// 画面動の方向のばらつき
 	ID_RANDOMSEED,
 	ID_EDGE_STATUS,
 	ID_NUM_PARAMS
@@ -71,7 +71,7 @@ enum {
 	edge_mirror
 };
 
-//�v���O�C���Ǝ��̃p�����[�^���W�߂��\����
+//プラグイン独自のパラメータを集めた構造体
 typedef struct{
 	//PF_Fixed			dpi;
 	//PF_Fixed			mm;

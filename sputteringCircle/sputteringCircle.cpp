@@ -19,33 +19,33 @@ ParamsSetup (
 	
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	UI_SEED,		//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					32000,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					144,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	UI_SEED,		//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					32000,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					144,			//スライダーの最大値
+					0,				//デフォルトの値
 					ID_SEED
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	UI_VALUE,		//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					32000,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					20,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	UI_VALUE,		//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					32000,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					20,				//デフォルトの値
 					ID_Y
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_OPA_RND,		//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					5,				//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					2,				//�X���C�_�[�̍ő�l
-					1,				//�f�t�H���g�̒l
-					2,				//�\������鏬���̌���
+	PF_ADD_FIXED(	UI_OPA_RND,		//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					5,				//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					2,				//スライダーの最大値
+					1,				//デフォルトの値
+					2,				//表示される小数の桁数
 					0,
 					0,
 					ID_OPACITY_RAND
@@ -53,43 +53,43 @@ ParamsSetup (
 	//-----------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(	UI_POS, 
-					50,	// X(����%)
-					50,	// Y(�c��%)
-					FALSE,	// TRUE�Ȃ�0.0����100.0�̒l�Ɍ��肳���
+					50,	// X(横の%)
+					50,	// Y(縦の%)
+					FALSE,	// TRUEなら0.0から100.0の値に限定される
 					ID_POS
 				);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	UI_RADIUS,		//�p�����[�^�̖��O
-					1, 				//���l���͂���ꍇ�̍ŏ��l
-					32000,			//���l���͂���ꍇ�̍ő�l
-					1,				//�X���C�_�[�̍ŏ��l 
-					800,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	UI_RADIUS,		//パラメータの名前
+					1, 				//数値入力する場合の最小値
+					32000,			//数値入力する場合の最大値
+					1,				//スライダーの最小値 
+					800,			//スライダーの最大値
+					100,				//デフォルトの値
 					ID_RADIUS
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_ASPECT,		//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					2,				//�X���C�_�[�̍ő�l
-					1,				//�f�t�H���g�̒l
-					2,				//�\������鏬���̌���
+	PF_ADD_FIXED(	UI_ASPECT,		//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					2,				//スライダーの最大値
+					1,				//デフォルトの値
+					2,				//表示される小数の桁数
 					0,
 					0,
 					ID_ASPECT
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	UI_LENGTH_SCALE,//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					10000,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					400,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//�\������鏬���̌���
+	PF_ADD_FIXED(	UI_LENGTH_SCALE,//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					10000,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					400,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//表示される小数の桁数
 					0,
 					0,
 					ID_LENGTH_SCALE
@@ -105,29 +105,29 @@ ParamsSetup (
 	//-----------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(	UI_ANCHOR, 
-					50,	// X(����%)
-					60,	// Y(�c��%)
-					FALSE,	// TRUE�Ȃ�0.0����100.0�̒l�Ɍ��肳���
+					50,	// X(横の%)
+					60,	// Y(縦の%)
+					FALSE,	// TRUEなら0.0から100.0の値に限定される
 					ID_ANCHOR
 				);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	UI_POINT_VALUE,		//�p�����[�^�̖��O
-					1, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					1,				//�X���C�_�[�̍ŏ��l 
-					50,			//�X���C�_�[�̍ő�l
-					20,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	UI_POINT_VALUE,		//パラメータの名前
+					1, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					1,				//スライダーの最小値 
+					50,			//スライダーの最大値
+					20,				//デフォルトの値
 					ID_POINT_VALUE
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	UI_POINT_LENGTH,		//�p�����[�^�̖��O
-					5, 			//���l���͂���ꍇ�̍ŏ��l
-					1000,			//���l���͂���ꍇ�̍ő�l
-					5,				//�X���C�_�[�̍ŏ��l 
-					200,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	UI_POINT_LENGTH,		//パラメータの名前
+					5, 			//数値入力する場合の最小値
+					1000,			//数値入力する場合の最大値
+					5,				//スライダーの最小値 
+					200,			//スライダーの最大値
+					100,				//デフォルトの値
 					ID_POINT_LENGTH
 					);
 	//-----------------
@@ -139,11 +139,11 @@ ParamsSetup (
 					ID_POINT_LEN_SYNC
 					);
 	//-----------------
-	//�|�b�v�A�b�v
+	//ポップアップ
 	AEFX_CLR_STRUCT(def);	
 	PF_ADD_POPUP(	UI_SIZE1, 
-					UI_SIZE_COUNT,	//���j���[�̐�
-					UI_SIZE_DFLT,	//�f�t�H���g
+					UI_SIZE_COUNT,	//メニューの数
+					UI_SIZE_DFLT,	//デフォルト
 					UI_SIZE2,
 					ID_SIZE
 					);
@@ -158,7 +158,7 @@ ParamsSetup (
 					);
 	
 	//-----------------
-	//�g�s�b�N�\���̊J�n
+	//トピック表示の開始
 	AEFX_CLR_STRUCT(def);	
 	def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//
 	PF_ADD_TOPIC(	UI_COLOR_TOPIC,
@@ -166,12 +166,12 @@ ParamsSetup (
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	UI_COLOR_MAX,		//�p�����[�^�̖��O
-					1, 				//���l���͂���ꍇ�̍ŏ��l
-					UI_COLOR_MAX_V,			//���l���͂���ꍇ�̍ő�l
-					1,				//�X���C�_�[�̍ŏ��l 
-					UI_COLOR_MAX_V,			//�X���C�_�[�̍ő�l
-					20,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	UI_COLOR_MAX,		//パラメータの名前
+					1, 				//数値入力する場合の最小値
+					UI_COLOR_MAX_V,			//数値入力する場合の最大値
+					1,				//スライダーの最小値 
+					UI_COLOR_MAX_V,			//スライダーの最大値
+					20,				//デフォルトの値
 					ID_COLOR_MAX
 					);
 
@@ -200,11 +200,11 @@ ParamsSetup (
 					ID_COLOR4
 					);
 	//-----------------
-	//�g�s�b�N�\���̏I���
+	//トピック表示の終わり
 	AEFX_CLR_STRUCT(def);
 	PF_END_TOPIC(ID_COLOR_TOPIC_END);
 	//-----------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(UI_ORG1,
 					UI_ORG2,
@@ -324,7 +324,7 @@ Render (
 	
 }
  /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

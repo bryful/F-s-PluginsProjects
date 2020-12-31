@@ -1,29 +1,29 @@
 #include "IroTore.h"
 
 /*
-ƒRƒs[
-‚Ü‚¸åü•”•ª‚Ì’ŠoŒŸo‚ÍinData‚Å@alpha Max‚ªåü‚Æ‚µ‚ÄƒRƒs[
+ã‚³ãƒ”ãƒ¼
+ã¾ãšä¸»ç·šéƒ¨åˆ†ã®æŠ½å‡ºæ¤œå‡ºã¯inDataã§ã€€alpha MaxãŒä¸»ç·šã¨ã—ã¦ã‚³ãƒ”ãƒ¼
 
-åü‚ğÁ‚·B
+ä¸»ç·šã‚’æ¶ˆã™ã€‚
 
-c‚Á‚½‚ç“K“–‚ÈF‚Å“h‚é
+æ®‹ã£ãŸã‚‰é©å½“ãªè‰²ã§å¡—ã‚‹
 
 
-F•Ï‚¦Eü‚Ì‚İ‚ªOFF‚È‚çI—¹
+è‰²å¤‰ãˆãƒ»ç·šã®ã¿ãŒOFFãªã‚‰çµ‚äº†
 
-‚Ü‚¸åü•”•ª‚Ì’Šo@‚ğ‚à‚¤ˆê‰ñ‚â‚é
+ã¾ãšä¸»ç·šéƒ¨åˆ†ã®æŠ½å‡ºã€€ã‚’ã‚‚ã†ä¸€å›ã‚„ã‚‹
 
-F•Ï‚¦‚ªOFF‚È‚çI—¹
+è‰²å¤‰ãˆãŒOFFãªã‚‰çµ‚äº†
 
-F•Ï‚¦
+è‰²å¤‰ãˆ
 
-ƒuƒ‰[‚ªON‚È‚çƒuƒ‰[
+ãƒ–ãƒ©ãƒ¼ãŒONãªã‚‰ãƒ–ãƒ©ãƒ¼
 
-ü‚Ì‚İ‚ªON‚È‚çI—¹
+ç·šã®ã¿ãŒONãªã‚‰çµ‚äº†
 
-ƒAƒ‹ƒtƒ@[‚ğŒ³‚Ìó‘Ô‚ÖC³
+ã‚¢ãƒ«ãƒ•ã‚¡ãƒ¼ã‚’å…ƒã®çŠ¶æ…‹ã¸ä¿®æ­£
 
-I—¹
+çµ‚äº†
 
 */
 //################################################################################
@@ -34,7 +34,7 @@ inline A_long pixelValue(PF_Pixel p)
 //################################################################################
 inline void scanlineCopy3(ParamInfo *infoP, A_long y)
 {
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ÖƒRƒs[
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸ã‚³ãƒ”ãƒ¼
 	A_long v = 0; 
 	if (y ==0) {
 		for ( int i=0; i<infoP->w; i++ ){
@@ -58,7 +58,7 @@ inline void scanlineCopy3(ParamInfo *infoP, A_long y)
 //################################################################################
 inline void scanlineCopyH(ParamInfo *infoP, A_long y)
 {
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ÖƒRƒs[
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸ã‚³ãƒ”ãƒ¼
 	A_long v = y * infoP->wt;
 	for ( int i=0; i<infoP->w; i++ ){
 		infoP->scanline[i		      ] = infoP->data[i + v];
@@ -67,7 +67,7 @@ inline void scanlineCopyH(ParamInfo *infoP, A_long y)
 //################################################################################
 inline void scanlineCopyV(ParamInfo *infoP, A_long x)
 {
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ÖƒRƒs[
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸ã‚³ãƒ”ãƒ¼
 	A_long v = x;
 	for ( int i=0; i<infoP->h; i++ ){
 		infoP->scanline[i		      ] = infoP->data[v];
@@ -252,17 +252,17 @@ static PF_Err
 	PF_Boolean maxF = (value>0);
 	A_long value2 = F_ABS(value);
 
-	//‚Ü‚¸‰¡•ûŒü
+	//ã¾ãšæ¨ªæ–¹å‘
 	A_long now = 0;
 	for ( A_long y=0; y<infoP->h;y++){
 		scanlineCopyH(infoP,y);		
 		for ( A_long x=0; x<infoP->w;x++){
-			//ƒ^[ƒQƒbƒg‚¾
+			//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã 
 			if (infoP->data[now].alpha ==PF_MAX_CHAN8) {
 				PF_Pixel target = infoP->data[now];
 				A_long v = pixelValue(target);
 				PF_Boolean ok = FALSE;
-				//¶
+				//å·¦
 				for (A_long i =1; i<=value2;i++){
 					A_long xx = x - i;
 					if (xx<0) break;
@@ -283,7 +283,7 @@ static PF_Err
 						}
 					}
 				}
-				//‰E
+				//å³
 				for (A_long i =1; i<=value2;i++){
 					A_long xx = x + i;
 					if (xx>=infoP->w) break;
@@ -314,18 +314,18 @@ static PF_Err
 		}
 		now += infoP->offset;
 	}
-	//‚Ü‚¸c•ûŒü
+	//ã¾ãšç¸¦æ–¹å‘
 	now = 0;
 	for ( A_long x=0; x<infoP->w;x++){
 		scanlineCopyV(infoP,x);
 		now = x;
 		for ( A_long y=0; y<infoP->h;y++){
-			//ƒ^[ƒQƒbƒg‚¾
+			//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã 
 			if (infoP->data[now].alpha ==PF_MAX_CHAN8) {
 				PF_Pixel target = infoP->data[now];
 				A_long v = pixelValue(target);
 				PF_Boolean ok = FALSE;
-				//ã
+				//ä¸Š
 				for (A_long i =1; i<=value2;i++){
 					A_long yy = y - i;
 					if (yy<0) break;
@@ -346,7 +346,7 @@ static PF_Err
 						}
 					}
 				}
-				//‰º
+				//ä¸‹
 				for (A_long i =1; i<=value2;i++){
 					A_long yy = y + i;
 					if (yy>=infoP->h) break;
@@ -421,7 +421,7 @@ targetCount (CFsAE *ae)
 
 
 //################################################################################
-//ã‰º¶‰E‚ğƒ`ƒFƒbƒN
+//ä¸Šä¸‹å·¦å³ã‚’ãƒã‚§ãƒƒã‚¯
 static PF_Err 
 	targetRemove (CFsAE *ae,ParamInfo *infoP)
 {
@@ -434,7 +434,7 @@ static PF_Err
 		scanlineCopy3(infoP,y);		
 		for ( A_long x=0; x<infoP->w;x++){
 			infoP->nowX = x;
-			//ƒ^[ƒQƒbƒg‚¾
+			//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã 
 			if (infoP->data[now].alpha ==PF_MAX_CHAN8) {
 				PF_Pixel8 subpx,target;
 				A_long v=PF_MAX_CHAN8;
@@ -460,7 +460,7 @@ static PF_Err
 
 }
 //################################################################################
-//Î‚ß•ûŒü‚ğƒ`ƒFƒbƒN
+//æ–œã‚æ–¹å‘ã‚’ãƒã‚§ãƒƒã‚¯
 static PF_Err 
 	targetRemove2nd (CFsAE *ae,ParamInfo *infoP)
 {
@@ -473,7 +473,7 @@ static PF_Err
 		scanlineCopy3(infoP,y);		
 		for ( A_long x=0; x<infoP->w;x++){
 			infoP->nowX = x;
-			//ƒ^[ƒQƒbƒg‚¾
+			//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã 
 			if (infoP->data[now].alpha ==PF_MAX_CHAN8) {
 				PF_Pixel8 subpx,target;
 				A_long v=PF_MAX_CHAN8;
@@ -500,7 +500,7 @@ static PF_Err
 }
 //################################################################################
 //################################################################################
-//–â“š–³—p‚Å“h‚è‚Â‚Ô‚·
+//å•ç­”ç„¡ç”¨ã§å¡—ã‚Šã¤ã¶ã™
 static PF_Err 
 	targetRemoveMax (CFsAE *ae,ParamInfo *infoP)
 {
@@ -526,7 +526,7 @@ static PF_Err
 }
 //################################################################################
 //################################################################################
-//åü‚¾‚¯‚Ú‚©‚·
+//ä¸»ç·šã ã‘ã¼ã‹ã™
 static PF_Err 
 	targetBlur (CFsAE *ae,ParamInfo *infoP)
 {
@@ -536,7 +536,7 @@ static PF_Err
 	PF_Pixel p;
 
 	A_long now = 0;
-	//‚Ü‚¸‰¡•ûŒü
+	//ã¾ãšæ¨ªæ–¹å‘
 	for ( A_long y=0; y<infoP->h;y++){
 		scanlineCopyH(infoP,y);
 		for ( A_long x=0; x<infoP->w;x++){
@@ -545,12 +545,12 @@ static PF_Err
 				A_long g = 0;
 				A_long b = 0;
 				A_long cnt =0;
-				//’†‰›
+				//ä¸­å¤®
 				r = (A_long)infoP->scanline[x].red;
 				g = (A_long)infoP->scanline[x].green;
 				b = (A_long)infoP->scanline[x].blue;
 				cnt = 1;
-				//‚Ü‚¸‰E
+				//ã¾ãšå³
 				for ( A_long i=1; i<=v;i++){
 					A_long xx = x-i;
 					if (xx<0) break;
@@ -561,7 +561,7 @@ static PF_Err
 					b += (A_long)p.blue;
 					cnt++;
 				}
-				//Ÿ‚Í¶
+				//æ¬¡ã¯å·¦
 				for ( A_long i=1; i<=v;i++){
 					A_long xx = x+i;
 					if (xx>=infoP->w) break;
@@ -584,7 +584,7 @@ static PF_Err
 		}
 		now += infoP->offset;
 	}
-	//Ÿ‚Íc•ûŒü
+	//æ¬¡ã¯ç¸¦æ–¹å‘
 	for ( A_long x=0; x<infoP->w;x++){
 		scanlineCopyV(infoP,x);
 		now = x;
@@ -594,12 +594,12 @@ static PF_Err
 				A_long g = 0;
 				A_long b = 0;
 				A_long cnt =0;
-				//’†‰›
+				//ä¸­å¤®
 				r = (A_long)infoP->scanline[y].red;
 				g = (A_long)infoP->scanline[y].green;
 				b = (A_long)infoP->scanline[y].blue;
 				cnt = 1;
-				//‚Ü‚¸ã
+				//ã¾ãšä¸Š
 				for ( A_long i=1; i<=v;i++){
 					A_long yy = y-i;
 					if (yy<0) break;
@@ -610,7 +610,7 @@ static PF_Err
 					b += (A_long)p.blue;
 					cnt++;
 				}
-				//Ÿ‚Í‰º
+				//æ¬¡ã¯ä¸‹
 				for ( A_long i=1; i<=v;i++){
 					A_long yy = y+i;
 					if (yy>=infoP->h) break;
@@ -632,7 +632,7 @@ static PF_Err
 			now+= infoP->wt;
 		}
 	}
-	//ŒÒ‰¡•ûŒü
+	//è‚¡æ¨ªæ–¹å‘
 	v = v/2;
 	if (v<=0) return err;
 
@@ -645,12 +645,12 @@ static PF_Err
 				A_long g = 0;
 				A_long b = 0;
 				A_long cnt =0;
-				//’†‰›
+				//ä¸­å¤®
 				r = (A_long)infoP->scanline[x].red;
 				g = (A_long)infoP->scanline[x].green;
 				b = (A_long)infoP->scanline[x].blue;
 				cnt = 1;
-				//‚Ü‚¸‰E
+				//ã¾ãšå³
 				for ( A_long i=1; i<=v;i++){
 					A_long xx = x-i;
 					if (xx<0) break;
@@ -661,7 +661,7 @@ static PF_Err
 					b += (A_long)p.blue;
 					cnt++;
 				}
-				//Ÿ‚Í¶
+				//æ¬¡ã¯å·¦
 				for ( A_long i=1; i<=v;i++){
 					A_long xx = x+i;
 					if (xx>=infoP->w) break;
@@ -692,7 +692,7 @@ PF_Err irotoreExec8(CFsAE *ae , ParamInfo *infoP)
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//ƒpƒ‰ƒ[ƒ^‚ğì¬
+	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ä½œæˆ
 	infoP->data = (PF_Pixel *)ae->out->data();
 	infoP->w = ae->out->width();
 	infoP->wt = ae->out->widthTrue();
@@ -700,12 +700,12 @@ PF_Err irotoreExec8(CFsAE *ae , ParamInfo *infoP)
 	infoP->h = ae->out->height();
 	infoP->offset = ae->out->offsetWidth();
 
-	//åü‚ğ’Šo
+	//ä¸»ç·šã‚’æŠ½å‡º
 	ERR(ae->iterate8((refconType)infoP,targetSelect));
 	
-	//åü‚ÌƒsƒNƒZƒ‹”‚ğ”‚¦‚é
+	//ä¸»ç·šã®ãƒ”ã‚¯ã‚»ãƒ«æ•°ã‚’æ•°ãˆã‚‹
 	infoP->targetCount = targetCount(ae);
-	//0‚È‚çI‚í‚é
+	//0ãªã‚‰çµ‚ã‚ã‚‹
 	if (infoP->targetCount<=0) {
 		if (infoP->lineOnly==TRUE){
 			ae->out->clear();
@@ -714,29 +714,29 @@ PF_Err irotoreExec8(CFsAE *ae , ParamInfo *infoP)
 		}
 		return err;
 	}
-	//åü‚ğÁ‚·
-	//ƒƒ‚ƒŠ‚ÌŠm•ÛB”O‚Ì‚½‚ß‘å‚«‚ß‚É‚Æ‚é
+	//ä¸»ç·šã‚’æ¶ˆã™
+	//ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿ã€‚å¿µã®ãŸã‚å¤§ãã‚ã«ã¨ã‚‹
 	A_long mm = infoP->wt;
 	if (mm < infoP->h) mm = infoP->h; 
-	infoP->scanlineH = ae->NewHandle(mm * sizeof(PF_Pixel) * 4);// 3Line•ª@‚Æ—]—T
+	infoP->scanlineH = ae->NewHandle(mm * sizeof(PF_Pixel) * 4);// 3Lineåˆ†ã€€ã¨ä½™è£•
 	if ( !infoP->scanlineH ) return PF_Err_INTERNAL_STRUCT_DAMAGED;
 	infoP->scanline = *(PF_Pixel8**)infoP->scanlineH; ;
 
-	//åü•”•ª‚ª‚È‚­‚È‚é‚Ü‚ÅŒJ‚è•Ô‚·B
+	//ä¸»ç·šéƒ¨åˆ†ãŒãªããªã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™ã€‚
 	while(infoP->targetCount>0)
 	{
 		A_long bk = infoP->targetCount;
 		targetRemove(ae,infoP);
-		//“h‚è‚Â‚Ô‚¹‚È‚©‚Á‚½‚çÎ‚ß•ûŒüŒŸo
+		//å¡—ã‚Šã¤ã¶ã›ãªã‹ã£ãŸã‚‰æ–œã‚æ–¹å‘æ¤œå‡º
 		if (infoP->targetCount == bk) {
 			targetRemove2nd(ae,infoP);
 			if (infoP->targetCount == bk) {
-				//’ú‚ß‚é
+				//è«¦ã‚ã‚‹
 				targetRemoveMax(ae,infoP);
 			}
 		}
 	}
-	//åü”²‚«o‚µ‚â‚è’¼‚µ
+	//ä¸»ç·šæŠœãå‡ºã—ã‚„ã‚Šç›´ã—
 	PF_Boolean loFlag = TRUE;
 	if ( (infoP->blur>0)
 		||(infoP->hue!=0)||(infoP->sat!=0)||(infoP->light!=0)||(infoP->red!=0)||(infoP->green!=0)||(infoP->blue!=0)
@@ -753,18 +753,18 @@ PF_Err irotoreExec8(CFsAE *ae , ParamInfo *infoP)
 		targetMinMax(ae,infoP,infoP->minmax2);
 	}
 
-	//ƒuƒ‰[‚Ìˆ—
+	//ãƒ–ãƒ©ãƒ¼ã®å‡¦ç†
 	if (infoP->blur>0)
 	{
 		targetBlur(ae,infoP);
 	}
-	//F•Ï‚¦
+	//è‰²å¤‰ãˆ
 	if ( (infoP->hue!=0)||(infoP->sat!=0)||(infoP->light!=0)||(infoP->red!=0)||(infoP->green!=0)||(infoP->blue!=0))
 	{
 		ERR(ae->iterate8((refconType)infoP,targetColor));
 	}
 
-	//åü•”•ª‚ğ”²‚«o‚·
+	//ä¸»ç·šéƒ¨åˆ†ã‚’æŠœãå‡ºã™
 	if (infoP->lineOnly){
 		if (loFlag==TRUE){
 			ERR(ae->iterate8((refconType)infoP,targetLineOnly));
@@ -773,7 +773,7 @@ PF_Err irotoreExec8(CFsAE *ae , ParamInfo *infoP)
 		ERR(ae->iterate8((refconType)infoP,targetAlphaRedo));
 	}
 
-	//ƒƒ‚ƒŠ‚ÌŠJ•ú
+	//ãƒ¡ãƒ¢ãƒªã®é–‹æ”¾
 	if (infoP->scanlineH != NULL){
 		ae->DisposeHandle(infoP->scanlineH);
 		infoP->scanlineH = NULL;

@@ -11,15 +11,15 @@
 
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚ÌŽ¯•Ê‚ÉŽg‚í‚ê‚é–¼‘O
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è­˜åˆ¥ã«ä½¿ã‚ã‚Œã‚‹åå‰
 #define FS_NAME			"F's smokeThreshold"
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚Ìà–¾‚ÉŽg‚í‚ê‚é•¶Žš
-#define FS_DESCRIPTION	"ƒŠƒAƒ‹‰Œ‚ðƒZƒ‹‚¿‚Á‚­‚É"
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®èª¬æ˜Žã«ä½¿ã‚ã‚Œã‚‹æ–‡å­—
+#define FS_DESCRIPTION	"ãƒªã‚¢ãƒ«ç…™ã‚’ã‚»ãƒ«ã¡ã£ãã«"
 
 	//-----------------------------------------------------------------------------------
-	//ƒvƒ‰ƒOƒCƒ“‚ª•\Ž¦‚³‚ê‚éƒƒjƒ…[–¼
+	//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãŒè¡¨ç¤ºã•ã‚Œã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼å
 	//#define FS_CATEGORY "F's Plugins-Channel"
 	//#define FS_CATEGORY "F's Plugins-Draw"
 	//#define FS_CATEGORY "F's Plugins-Filter"
@@ -29,11 +29,11 @@
 	//#define FS_CATEGORY "F's Plugins-Test"
 
 //-----------------------------------------------------------
-#define SUPPORT_SMARTFX			//‚±‚ê‚ð—LŒø‚É‚·‚é‚ÆSmartFX+Float_Color‚É‘Î‰ž‚·‚é
-//#define NO_USE_FSGRAPHICS	//‚±‚ê‚ð—LŒø‚É‚·‚é‚ÆFsGraphicsŠÖŒW‚ªƒCƒ“ƒNƒ‹[ƒh‚³‚ê‚È‚¢
+#define SUPPORT_SMARTFX			//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨SmartFX+Float_Colorã«å¯¾å¿œã™ã‚‹
+//#define NO_USE_FSGRAPHICS	//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨FsGraphicsé–¢ä¿‚ãŒã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã•ã‚Œãªã„
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚Ìƒo[ƒWƒ‡ƒ“
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 #include "../FsLibrary/FsVersion.h"
 
 //-----------------------------------------------------------------------------------
@@ -48,9 +48,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//’Êí‚Í‚±‚¿‚ç
-#define FS_OUT_FLAGS	33556036	//‚±‚Á‚¿‚ð—LŒø‚É‚·‚é‚Æ–ˆƒtƒŒ[ƒ€‚²‚Æ‚É•`‰æ‚·‚éBNON_PARAM_VARY‚ð“®ì’†‚ÉØ‚è‘Ö‚¦‚é‚Æ‚«‚à‚±‚¿‚ç‚É
-//#define FS_OUT_FLAGS	1600		//8bit‚Ì‚Ý
+//#define FS_OUT_FLAGS	33556032	//é€šå¸¸ã¯ã“ã¡ã‚‰
+#define FS_OUT_FLAGS	33556036	//ã“ã£ã¡ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«æç”»ã™ã‚‹ã€‚NON_PARAM_VARYã‚’å‹•ä½œä¸­ã«åˆ‡ã‚Šæ›¿ãˆã‚‹ã¨ãã‚‚ã“ã¡ã‚‰ã«
+//#define FS_OUT_FLAGS	1600		//8bitã®ã¿
 
 //-----------------------------------------------------------------------------------
 //out_flags2

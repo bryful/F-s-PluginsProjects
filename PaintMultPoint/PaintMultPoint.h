@@ -43,19 +43,19 @@
 
 
 #define	STR_TOPIC			"Point_%d"
-#define	STR_EXECUTED_CB1	"塗りつぶす_%d"
+#define	STR_EXECUTED_CB1	"蝪励ｊ縺､縺ｶ縺兩%d"
 #define	STR_EXECUTED_CB2	"ON"
-#define	STR_POS				"位置_%d"
-#define	STR_COLOR			"ペイント色_%d"
+#define	STR_POS				"菴咲ｽｮ_%d"
+#define	STR_COLOR			"繝壹う繝ｳ繝郁牡_%d"
 
 #ifdef AE_OS_WIN
-#define	STR_GUIDE_CB1		"ガイド表示_%d"
-#define	STR_GUIDE_ALL_CB2	"非表示"
-#define STR_GUIDE_ALL_CB1 "ガイドをすべて非表示にする"
+#define	STR_GUIDE_CB1		"繧ｬ繧､繝芽｡ｨ遉ｺ_%d"
+#define	STR_GUIDE_ALL_CB2	"髱櫁｡ｨ遉ｺ"
+#define STR_GUIDE_ALL_CB1 "繧ｬ繧､繝峨ｒ縺吶∋縺ｦ髱櫁｡ｨ遉ｺ縺ｫ縺吶ｋ"
 #else
-#define	STR_GUIDE_CB1		"ガイド表\示_%d"
-#define	STR_GUIDE_ALL_CB2	"非表\示"
-#define STR_GUIDE_ALL_CB1 "ガイドをすべて非表\示にする"
+#define	STR_GUIDE_CB1		"繧ｬ繧､繝芽｡ｨ\遉ｺ_%d"
+#define	STR_GUIDE_ALL_CB2	"髱櫁｡ｨ\遉ｺ"
+#define STR_GUIDE_ALL_CB1 "繧ｬ繧､繝峨ｒ縺吶∋縺ｦ髱櫁｡ｨ\遉ｺ縺ｫ縺吶ｋ"
 #endif
 
 
@@ -73,7 +73,7 @@ typedef struct{
 	PF_Boolean		disp_guide_all;
 } ParamInfo;
 
-//ユーザーインターフェースのID
+//繝ｦ繝ｼ繧ｶ繝ｼ繧､繝ｳ繧ｿ繝ｼ繝輔ぉ繝ｼ繧ｹ縺ｮID
 #define ID_INPUT	0
 #define ID_UI_START	1
 #define ID_UI_COUNT	6

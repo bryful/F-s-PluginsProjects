@@ -26,10 +26,10 @@ typedef struct PointInfo {
 class CLineDraw
 {
 private:
-	//ƒAƒhƒŒƒXŒvŽZƒe[ƒuƒ‹Eƒ|ƒCƒ“ƒgƒe[ƒuƒ‹—p
+	//ã‚¢ãƒ‰ãƒ¬ã‚¹è¨ˆç®—ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ»ãƒã‚¤ãƒ³ãƒˆãƒ†ãƒ¼ãƒ–ãƒ«ç”¨
 	PF_Handle	m_bufH = NULL;
 
-	// ƒAƒhƒŒƒXŒvŽZƒe[ƒuƒ‹
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹è¨ˆç®—ãƒ†ãƒ¼ãƒ–ãƒ«
 	A_long* m_vurTbl = NULL;
 
 
@@ -40,7 +40,7 @@ private:
 	PF_PixelPtr m_data = NULL;
 	PF_PixelFormat	m_format = PF_PixelFormat_ARGB32;
 
-	//ŠÖ”ƒ|ƒCƒ“ƒ^—p‚ÌéŒ¾
+	//é–¢æ•°ãƒã‚¤ãƒ³ã‚¿ç”¨ã®å®£è¨€
 	typedef void (CLineDraw::* XLINE_FUNC)(PF_FpLong x0, PF_FpLong x1, A_long y);
 	XLINE_FUNC m_XLINE_FUNC = NULL;
 	//A_long x, PF_FpLong y0, PF_FpLong y1

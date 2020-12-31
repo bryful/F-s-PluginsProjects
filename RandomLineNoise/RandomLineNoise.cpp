@@ -77,8 +77,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -89,26 +89,26 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//----------------------------------------------------------------
-	//�P�ڂ̃p�����[�^
-	//�Œ菬���̃X���C�_�[�o�[
+	//１個目のパラメータ
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_Y,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					10000,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					1000,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_Y,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					10000,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					1000,			//スライダーの最大値
+					100,				//デフォルトの値
 					ID_Y
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_STRONG,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					50,			//�X���C�_�[�̍ő�l
-					10,			//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_STRONG,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					50,			//スライダーの最大値
+					10,			//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_STRONG
@@ -116,27 +116,27 @@ static PF_Err ParamsSetup (
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_LENGTH_MIN,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					1024,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					10,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_LENGTH_MIN,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					1024,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					10,				//デフォルトの値
 					ID_LENGTH_MIN
 					);
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_LENGTH_MAX,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					1024,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					30,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_LENGTH_MAX,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					1024,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					30,				//デフォルトの値
 					ID_LENGTH_MAX
 					);
 
 	//----------------------------------------------------------------
-	//�S�ڂ̃p�����[�^
-	//�`�F�b�N�{�b�N�X
+	//４個目のパラメータ
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR1,
 					STR_COLOR2,
@@ -145,20 +145,20 @@ static PF_Err ParamsSetup (
 					ID_COLOR
 					);
 	//----------------------------------------------------------------
-	//�S�ڂ̃p�����[�^
-	//�`�F�b�N�{�b�N�X
+	//４個目のパラメータ
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_WEIGHT,	//�p�����[�^�̖��O
-					1, 				//���l���͂���ꍇ�̍ŏ��l
-					16,			//���l���͂���ꍇ�̍ő�l
-					1,				//�X���C�_�[�̍ŏ��l 
-					4,			//�X���C�_�[�̍ő�l
-					2,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_WEIGHT,	//パラメータの名前
+					1, 				//数値入力する場合の最小値
+					16,			//数値入力する場合の最大値
+					1,				//スライダーの最小値 
+					4,			//スライダーの最大値
+					2,				//デフォルトの値
 					ID_WEIGHT
 					);
 	//----------------------------------------------------------------
-	//�S�ڂ̃p�����[�^
-	//�`�F�b�N�{�b�N�X
+	//４個目のパラメータ
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_VERTUAL1,
 					STR_VERTUAL2,
@@ -345,7 +345,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	if ( (infoP->value>0)&&(infoP->strong>0)){
 
@@ -376,10 +376,10 @@ static PF_Err
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -405,7 +405,7 @@ Render (
 //-------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

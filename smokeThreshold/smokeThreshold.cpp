@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -135,16 +135,16 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);	
-	//def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//���������ƕ\�����ɊJ������ԂɂȂ�
+	//def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//これをつけると表示時に開いた状態になる
 	PF_ADD_TOPIC(STR_OUTLINE, ID_LINE_TOPIC);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_LINE_WEIGHT,	//�p�����[�^�̖��O
-					1, 				//���l���͂���ꍇ�̍ŏ��l
-					5,			//���l���͂���ꍇ�̍ő�l
-					1,				//�X���C�_�[�̍ŏ��l 
-					5,			//�X���C�_�[�̍ő�l
-					2,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_LINE_WEIGHT,	//パラメータの名前
+					1, 				//数値入力する場合の最小値
+					5,			//数値入力する場合の最大値
+					1,				//スライダーの最小値 
+					5,			//スライダーの最大値
+					2,				//デフォルトの値
 					ID_LINE_WEIGHT
 					);
 	//----------------------------------------------------------------
@@ -609,7 +609,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 
 	ParamInfo8 info8;
@@ -646,10 +646,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -673,7 +673,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

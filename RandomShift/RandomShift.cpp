@@ -8,7 +8,7 @@
 
 
 //-------------------------------------------------------------------------------------------------
-// About�_�C�A���O
+// Aboutダイアログ
 static PF_Err About (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -74,8 +74,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -86,83 +86,83 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_Y,	//�p�����[�^�̖��O
-					0, 			//���l���͂���ꍇ�̍ŏ��l
-					32000,		//���l���͂���ꍇ�̍ő�l
-					0,			//�X���C�_�[�̍ŏ��l 
-					3000,		//�X���C�_�[�̍ő�l
-					1000,		//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_Y,	//パラメータの名前
+					0, 			//数値入力する場合の最小値
+					32000,		//数値入力する場合の最大値
+					0,			//スライダーの最小値 
+					3000,		//スライダーの最大値
+					1000,		//デフォルトの値
 					ID_Y
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SHIFTMAX,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					2000,		//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					5,			//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_SHIFTMAX,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					2000,		//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					5,			//デフォルトの値
 					ID_SHIFTMAX
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SHIFTMIN,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					2000,		//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					1,			//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_SHIFTMIN,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					2000,		//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					1,			//デフォルトの値
 					ID_SHIFTMIN
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_LENGTHMAX,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					2000,		//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					30,			//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_LENGTHMAX,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					2000,		//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					30,			//デフォルトの値
 					ID_LENGTHMAX
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_LENGTHMAX,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					2000,		//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					5,			//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_LENGTHMAX,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					2000,		//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					5,			//デフォルトの値
 					ID_LENGTHMIN
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_HEIGHTMAX,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					1000,		//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					50,			//�X���C�_�[�̍ő�l
-					30,			//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_HEIGHTMAX,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					1000,		//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					50,			//スライダーの最大値
+					30,			//デフォルトの値
 					ID_HEIGHTMAX
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_HEIGHTMIN,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					1000,		//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					50,			//�X���C�_�[�̍ő�l
-					5,			//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_HEIGHTMIN,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					1000,		//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					50,			//スライダーの最大値
+					5,			//デフォルトの値
 					ID_HEIGHTMIN
 					);
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_VERSHIFT_VALUE,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					1000,		//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					50,			//�X���C�_�[�̍ő�l
-					0,			//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_VERSHIFT_VALUE,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					1000,		//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					50,			//スライダーの最大値
+					0,			//デフォルトの値
 					ID_VERSHIFT_VALUE
 					);
 	
@@ -327,7 +327,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	
 	if (infoP->value>0){
@@ -348,10 +348,10 @@ static PF_Err
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -376,7 +376,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

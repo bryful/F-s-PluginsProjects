@@ -43,7 +43,7 @@ enum
 #define FsAE_ERR	PF_Err_BAD_CALLBACK_PARAM
 //-----------------------------------------------------------------------------------
 /*
-	ƒvƒ‰ƒOƒCƒ“IDŠl“¾‚Ì‚½‚ß‚Ì\‘¢‘Ì
+	ãƒ—ãƒ©ã‚°ã‚¤ãƒ³IDç²å¾—ã®ãŸã‚ã®æ§‹é€ ä½“
 */
 typedef struct {
 	PF_Boolean		initializedB;
@@ -67,7 +67,7 @@ typedef struct FsPixelCopyParam{
 	var strVersion = \"version %d.%d\";\
 	var strDis = \"%s\";\
 	var strMyName = \"https://github.com/bryful : bryful@gmail.com \";\
-    var nanae = \"Nanae Furuhashi - My daughter, May her soul rest in peaceD\";\
+    var nanae = \"Nanae Furuhashi - My daughter, May her soul rest in peaceï¼Ž\";\
 	var winObj = new Window(\"dialog\", \"NF's Plugins\", [ 0,  0,  480, 180] );\
 \
 	var edFsName = winObj.add(\"edittext\", [  30,   10,   30+ 440,   10+  20], strName, { readonly:true, borderless:true });\
@@ -89,7 +89,7 @@ dlg.show();"
 
 //******************************************************************************
 //-----------------------------------------------------------------------------
-//•`‰æ‚É•K—v‚Èî•ñ‚ðW‚ß‚½\‘¢‘Ì
+//æç”»ã«å¿…è¦ãªæƒ…å ±ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 typedef struct{
 	//
 	/*01*/PF_InData			*in_data;
@@ -241,7 +241,7 @@ public:
 		}else{
 			m_format		= PF_PixelFormat_ARGB32;
 		}
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ( (in_dataP->current_time>=0)&&(in_dataP->time_step>0) ) {
 			m_frame	=(in_dataP->current_time/in_dataP->time_step); 
 		}
@@ -308,7 +308,7 @@ public:
 		CFsAE::PRextraP		= extraP;
 		m_paramsCount		= paramsCount;
 		
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ( (in_dataP->current_time>=0)&&(in_dataP->time_step>0) ) {
 			m_frame	=(in_dataP->current_time/in_dataP->time_step); 
 		}
@@ -358,7 +358,7 @@ public:
 			m_resultErr = FsAE_ERR;
 			return m_resultErr;
 		}
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ( (in_dataP->current_time>=0)&&(in_dataP->time_step>0) ) {
 			m_frame	=(in_dataP->current_time/in_dataP->time_step); 
 		}
@@ -399,7 +399,7 @@ public:
 	}
 	//*********************************************************************************
 	//*********************************************************************************
-	//‚»‚Ì‘¼‚Ìˆ—
+	//ãã®ä»–ã®å‡¦ç†
 	//*********************************************************************************
 	PF_Err About
 	(
@@ -414,7 +414,7 @@ public:
 			ae_plugin_idH	= in_data->global_data;
 			ae_plugin_idP = reinterpret_cast<ae_global_dataP>(DH(in_data->global_data));
 		}
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ( (in_data->current_time>=0)&&(in_data->time_step>0) ) {
 			m_frame	=(in_data->current_time/in_data->time_step); 
 		}
@@ -452,13 +452,13 @@ public:
 		PF_Err	err				= PF_Err_NONE;
 		CFsAE::suitesP	= new AEGP_SuiteHandler(in_data->pica_basicP);
 
-		//Fs_Target.h‚Å’è‹`
+		//Fs_Target.hã§å®šç¾©
 		out_data->my_version	=	FS_VERSION;
 		out_data->out_flags		=	FS_OUT_FLAGS;
 		out_data->out_flags2	=	FS_OUT_FLAGS2;
 
 		/**********************************************************
-		ƒvƒ‰ƒOƒCƒ“ID‚ðŠl“¾‚µ‚ÄAƒOƒ[ƒoƒ‹‚ÉƒAƒNƒZƒX‚Å‚«‚é‚æ‚¤‚É•Û‘¶
+		ãƒ—ãƒ©ã‚°ã‚¤ãƒ³IDã‚’ç²å¾—ã—ã¦ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹ã‚ˆã†ã«ä¿å­˜
 		*/
 		ae_plugin_idH	=	suitesP->HandleSuite1()->host_new_handle(sizeof(ae_global_data));
 	
@@ -524,7 +524,7 @@ public:
 			}
 			CFsAE::output		= outputP;
 		}
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ( (in_dataP->current_time>=0)&&(in_dataP->time_step>0) ) {
 			m_frame	=(in_dataP->current_time/in_dataP->time_step); 
 		}
@@ -565,7 +565,7 @@ public:
 			return m_resultErr;
 		}
 		
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ( (in_dataP->current_time>=0)&&(in_dataP->time_step>0) ) {
 			m_frame	=(in_dataP->current_time/in_dataP->time_step); 
 		}
@@ -590,7 +590,7 @@ public:
 
 	}
 	//*********************************************************************************
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	//*********************************************************************************
 	~CFsAE(){
 		PF_Err 	err 	= PF_Err_NONE,

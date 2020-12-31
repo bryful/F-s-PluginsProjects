@@ -15,12 +15,12 @@ resource 'PiPL' (16000) {
 		},
 		/* [2] */
 		Name {
-			/*AE�̃��j���[�Ɏg���� */
+			/*AEのメニューに使われる */
 				FS_NAME
 		},
 		/* [3] */
 		Category {
-			/*AE�̃��j���[�Ɏg���� */
+			/*AEのメニューに使われる */
 			FS_CATEGORY
 		},
 		

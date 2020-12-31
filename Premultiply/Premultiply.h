@@ -40,8 +40,8 @@
 
 #include "../FsLibrary/FsAE.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_MODE,
@@ -50,11 +50,11 @@ enum {
 	};
 	
 #define STR_POP1	"mode"
-#define STR_POP2	"ƒ}ƒbƒg‚©‚çƒXƒgƒŒ[ƒg|ƒXƒgƒŒ[ƒg‚©‚çƒ}ƒbƒg"
+#define STR_POP2	"ãƒãƒƒãƒˆã‹ã‚‰ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆ|ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆã‹ã‚‰ãƒãƒƒãƒˆ"
 #define STR_POP		2
 #define STR_POP_DEF	1
 
-#define STR_COLOR	"ƒ}ƒbƒgƒJƒ‰["
+#define STR_COLOR	"ãƒãƒƒãƒˆã‚«ãƒ©ãƒ¼"
 
 typedef struct ParamInfo{
 	A_long		mode;

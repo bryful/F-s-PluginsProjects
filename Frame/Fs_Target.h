@@ -9,22 +9,22 @@
 #define FS_TAGET_H
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚Ì¯•Ê‚Ég‚í‚ê‚é–¼‘O
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è­˜åˆ¥ã«ä½¿ã‚ã‚Œã‚‹åå‰
 #define FS_NAME			"F's Frame"
 //#define FS_NAME			"FsSSFrame"
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚Ìà–¾‚Ég‚í‚ê‚é•¶š
-#define FS_DESCRIPTION	"ƒtƒŒ[ƒ€‚ğ•`‚­"
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®èª¬æ˜ã«ä½¿ã‚ã‚Œã‚‹æ–‡å­—
+#define FS_DESCRIPTION	"ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æã"
 
 	//-----------------------------------------------------------------------------------
-	//ƒvƒ‰ƒOƒCƒ“‚ª•\¦‚³‚ê‚éƒƒjƒ…[–¼
+	//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãŒè¡¨ç¤ºã•ã‚Œã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼å
 	#define FS_CATEGORY "NF's Plugins-{Legacy}"
 
 
 //-----------------------------------------------------------
-#define SUPPORT_SMARTFX			//‚±‚ê‚ğ—LŒø‚É‚·‚é‚ÆSmartFX+Float_Color‚É‘Î‰‚·‚é
-//#define NO_USE_FSGRAPHICS	//‚±‚ê‚ğ—LŒø‚É‚·‚é‚ÆFsGraphicsŠÖŒW‚ªƒCƒ“ƒNƒ‹[ƒh‚³‚ê‚È‚¢
+#define SUPPORT_SMARTFX			//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨SmartFX+Float_Colorã«å¯¾å¿œã™ã‚‹
+//#define NO_USE_FSGRAPHICS	//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨FsGraphicsé–¢ä¿‚ãŒã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã•ã‚Œãªã„
 
 //-----------------------------------------------------------------------------------
 #include "../FsLibrary/FsVersion.h"
@@ -42,9 +42,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-#define FS_OUT_FLAGS	33556032	//•W€16/32bit‘Î‰
-//#define FS_OUT_FLAGS	33556036	//–ˆƒtƒŒ[ƒ€•`‰æ
-//#define FS_OUT_FLAGS	1600		//8bitˆù‚İ
+#define FS_OUT_FLAGS	33556032	//æ¨™æº–16/32bitå¯¾å¿œ
+//#define FS_OUT_FLAGS	33556036	//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ æç”»
+//#define FS_OUT_FLAGS	1600		//8bité£²ã¿
 
 
 //-----------------------------------------------------------------------------------
@@ -64,6 +64,6 @@ out_data->out_flags2
 #define FS_OUT_FLAGS2	73
 #endif
 
-//#define FS_OUT_FLAGS2	73	//8Bit‚Ì‚İ
+//#define FS_OUT_FLAGS2	73	//8Bitã®ã¿
 
 #endif

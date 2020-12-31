@@ -1,7 +1,7 @@
 #include "LineDetection.h"
 
 //-------------------------------------------------------------------------------
-//RGB�̍ő�l�ƃA���t�@�[�̒l��K����8Bit�Ɋ���U��
+//RGBの最大値とアルファーの値を適当に8Bitに割り振る
 inline PF_FpShort rgbMax32(PF_PixelFloat c)
 {
 	PF_FpShort m0,m1;
@@ -142,8 +142,8 @@ void FindTargetDelta32(CFsAE *ae,ParamInfo	*prm)
 	c.alpha	= PF_MAX_CHAN16;
 	PF_FpShort lv_d = (PF_FpShort)prm->delta_opacity /65536;
 	PF_FpShort lv_a = (PF_FpShort)prm->alpha_opacity /65536;
-	//�܂��A�^�[�Q�b�g�̏ꏊ�𓾂�B
-	//red�փt���O�����Ă�
+	//まず、ターゲットの場所を得る。
+	//redへフラグを建てる
 	pp.adr =0;
 	if ( (prm->delta_flg==TRUE)&&(prm->alpha_flg==TRUE)){
 		for (j=0;j<h;j++){
@@ -246,7 +246,7 @@ void FindTarget32(CFsAE *ae,ParamInfo	*prm)
 	}
 	PF_FpShort lv = (PF_FpShort)prm->color_opacity/65536;
 
-	//�܂��A�^�[�Q�b�g�̏ꏊ�𓾂�B
+	//まず、ターゲットの場所を得る。
 	for (j=0;j<h;j++){
 		for (i=0;i<w;i++){
 			if ( cmpareTable32(iD[targetIn],color_tbl,level_tbl,count)==TRUE){

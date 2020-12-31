@@ -34,20 +34,20 @@ public:
 		PF_ParamDef		*params[],
 		PF_LayerDef		*output)
 		{
-		//‚Æ‚è‚ ‚¦‚¸‰Šú‰»
+		//ã¨ã‚Šã‚ãˆãšåˆæœŸåŒ–
 			m_Enabled				= FALSE;
 			m_is16Bit				= FALSE;
 			if ( (params==NULL)||(output==NULL) ) return;
 			
 			CFsAE::in_data		= in_data;
 			CFsAE::out_data		= out_data;
-			CFsAE::input			= &params[0]->u.ld;	//“ü—Í‰æ‘œ‚ÌƒAƒhƒŒƒX
+			CFsAE::input			= &params[0]->u.ld;	//å…¥åŠ›ç”»åƒã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 			CFsAE::output			= output;
 			m_is16Bit					= PF_WORLD_IS_DEEP( CFsAE::input );
 
 			if ( input==NULL ) return;
 			
-			//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ğ‹‚ß‚é‰æ“ª‚Í‚O
+			//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 			if ( (in_data->current_time>=0)&&(in_data->time_step>0) ) {
 				m_Frame	=(in_data->current_time/in_data->time_step); 
 			}else{
@@ -63,7 +63,7 @@ public:
 	~CFsAE(){
 		delete in;
 		delete out;
-	}   // ©ƒfƒXƒgƒ‰ƒNƒ^
+	}   // â†ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 	PF_InData				*in_data;
 	PF_OutData			*out_data;

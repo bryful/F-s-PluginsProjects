@@ -11,8 +11,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -88,8 +88,8 @@ static PF_Err ParamsSetup (
 		SPRINTF(STR_EXTRACT, i + 1);
 		AEFX_CLR_STRUCT(def);
 		PF_ADD_POPUP(num,
-			STR_EXTRACT_COUNT,	//���j���[�̐�
-			FLT_EXTRACT_MODE[i],	//�f�t�H���g
+			STR_EXTRACT_COUNT,	//メニューの数
+			FLT_EXTRACT_MODE[i],	//デフォルト
 			STR_EXTRACT_ITEMS,
 			ID_NUM(i, ID_EXTRACT)
 		);
@@ -187,12 +187,12 @@ static PF_Err ParamsSetup (
 #pragma region minmax
 		SPRINTF(STR_MINMAX, i + 1);
 		AEFX_CLR_STRUCT(def);
-		PF_ADD_SLIDER(num,	//�p�����[�^�̖��O
-			0, 			//���l���͂���ꍇ�̍ŏ��l
-			10,			//���l���͂���ꍇ�̍ő�l
-			0,				//�X���C�_�[�̍ŏ��l 
-			5,			//�X���C�_�[�̍ő�l
-			FLT_MINMAX[i],	//�f�t�H���g�̒l
+		PF_ADD_SLIDER(num,	//パラメータの名前
+			0, 			//数値入力する場合の最小値
+			10,			//数値入力する場合の最大値
+			0,				//スライダーの最小値 
+			5,			//スライダーの最大値
+			FLT_MINMAX[i],	//デフォルトの値
 			ID_NUM(i, ID_MINMAX)
 		);
 #pragma endregion
@@ -201,12 +201,12 @@ static PF_Err ParamsSetup (
 #pragma region max
 		SPRINTF(STR_MAX, i + 1);
 		AEFX_CLR_STRUCT(def);
-		PF_ADD_SLIDER(num,	//�p�����[�^�̖��O
-			0, 					//���l���͂���ꍇ�̍ŏ��l
-			50,				//���l���͂���ꍇ�̍ő�l
-			0,					//�X���C�_�[�̍ŏ��l 
-			20,				//�X���C�_�[�̍ő�l
-			FLT_MAX[i],			//�f�t�H���g�̒l
+		PF_ADD_SLIDER(num,	//パラメータの名前
+			0, 					//数値入力する場合の最小値
+			50,				//数値入力する場合の最大値
+			0,					//スライダーの最小値 
+			20,				//スライダーの最大値
+			FLT_MAX[i],			//デフォルトの値
 			ID_NUM(i, ID_MAX)
 		);
 #pragma endregion
@@ -215,12 +215,12 @@ static PF_Err ParamsSetup (
 #pragma region blur
 		SPRINTF(STR_BLUR, i + 1);
 		AEFX_CLR_STRUCT(def);
-		PF_ADD_SLIDER(num,	//�p�����[�^�̖��O
-			0, 					//���l���͂���ꍇ�̍ŏ��l
-			200,				//���l���͂���ꍇ�̍ő�l
-			0,					//�X���C�_�[�̍ŏ��l 
-			50,				//�X���C�_�[�̍ő�l
-			FLT_BLUR[i],		//�f�t�H���g�̒l
+		PF_ADD_SLIDER(num,	//パラメータの名前
+			0, 					//数値入力する場合の最小値
+			200,				//数値入力する場合の最大値
+			0,					//スライダーの最小値 
+			50,				//スライダーの最大値
+			FLT_BLUR[i],		//デフォルトの値
 			ID_NUM(i, ID_BLUR)
 		);
 #pragma endregion
@@ -248,8 +248,8 @@ static PF_Err ParamsSetup (
 		SPRINTF(STR_BLEND, i + 1);
 		AEFX_CLR_STRUCT(def);
 		PF_ADD_POPUP(num,
-			STR_BLEND_COUNT,	//���j���[�̐�
-			FLT_BLEND_MODE[i],	//�f�t�H���g
+			STR_BLEND_COUNT,	//メニューの数
+			FLT_BLEND_MODE[i],	//デフォルト
 			STR_BLEND_ITEMS,
 			ID_NUM(i, ID_BLEND)
 		);

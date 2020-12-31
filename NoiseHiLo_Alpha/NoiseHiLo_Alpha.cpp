@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -149,7 +149,7 @@ FilterImage8 (
 		if(v>st){
 			PF_FpLong md = ( 1 - niP->hiPos); 
 			if (v == md){
-				//���̂܂�
+				//そのまま
 			}else if (v<md){
 				a *= (v-st)/(md-st);
 			}else{
@@ -171,7 +171,7 @@ FilterImage8 (
 		PF_FpLong lt = (1 - niP->hiPos);  
 		if((v>st)&&(v<lt)){
 			if ((v >= md1)&&(v <= md2)){
-				//���̂܂�
+				//そのまま
 			}else if (v<md1){
 				m *= (v-st)/(md1-st);
 			}else{
@@ -188,7 +188,7 @@ FilterImage8 (
 		if(v<lt){
 			PF_FpLong md = ( niP->loPos); 
 			if (v == md){
-				//���̂܂�
+				//そのまま
 			}else if (v<md){
 				b *= v/md;
 			}else{
@@ -231,7 +231,7 @@ FilterImage16 (
 		if(v>st){
 			PF_FpLong md = ( 1 - niP->hiPos); 
 			if (v == md){
-				//���̂܂�
+				//そのまま
 			}else if (v<md){
 				a *= (v-st)/(md-st);
 			}else{
@@ -253,7 +253,7 @@ FilterImage16 (
 		PF_FpLong lt = (1 - niP->hiPos);  
 		if((v>st)&&(v<lt)){
 			if ((v >= md1)&&(v <= md2)){
-				//���̂܂�
+				//そのまま
 			}else if (v<md1){
 				m *= (v-st)/(md1-st);
 			}else{
@@ -270,7 +270,7 @@ FilterImage16 (
 		if(v<lt){
 			PF_FpLong md = ( niP->loPos); 
 			if (v == md){
-				//���̂܂�
+				//そのまま
 			}else if (v<md){
 				b *= v/md;
 			}else{
@@ -313,7 +313,7 @@ FilterImage32 (
 		if(v>st){
 			PF_FpLong md = ( 1 - niP->hiPos); 
 			if (v == md){
-				//���̂܂�
+				//そのまま
 			}else if (v<md){
 				a *= (v-st)/(md-st);
 			}else{
@@ -334,7 +334,7 @@ FilterImage32 (
 		PF_FpLong lt = (1 - niP->hiPos);  
 		if((v>st)&&(v<lt)){
 			if ((v >= md1)&&(v <= md2)){
-				//���̂܂�
+				//そのまま
 			}else if (v<md1){
 				m *= (v-st)/(md1-st);
 			}else{
@@ -350,7 +350,7 @@ FilterImage32 (
 		if(v<lt){
 			PF_FpLong md = ( niP->loPos); 
 			if (v == md){
-				//���̂܂�
+				//そのまま
 			}else if (v<md){
 				b *= v/md;
 			}else{
@@ -386,7 +386,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	
 	F_SRAND(ae->frame());
@@ -406,10 +406,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -433,7 +433,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

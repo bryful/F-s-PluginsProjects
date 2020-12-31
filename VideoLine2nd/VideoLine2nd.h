@@ -50,11 +50,11 @@ enum {
 	ID_NUM_PARAMS
 };
 
-#define	STR_BRIGHT "ƒ‰ƒCƒ“‚Ì–¾‚é‚³(%)"
-#define	STR_HEIGHT "ƒ‰ƒCƒ“‚Ì‚‚³(dot)"
-#define STR_INTER	"ŠÔŠu•â³(dot)"
-#define STR_DIR		"•ûŒü"
-#define STR_DIRSTR	"…•½|‚’¼"
+#define	STR_BRIGHT "ãƒ©ã‚¤ãƒ³ã®æ˜ã‚‹ã•(%)"
+#define	STR_HEIGHT "ãƒ©ã‚¤ãƒ³ã®é«˜ã•(dot)"
+#define STR_INTER	"é–“éš”è£œæ­£(dot)"
+#define STR_DIR		"æ–¹å‘"
+#define STR_DIRSTR	"æ°´å¹³|å‚ç›´"
 
 typedef struct{
 	PF_FpLong	bright;

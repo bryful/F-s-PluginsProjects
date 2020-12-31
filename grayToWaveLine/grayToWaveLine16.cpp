@@ -31,7 +31,7 @@ static PF_Err Line16(LineInfo16 *li)
 
 	A_long x = li->x0;
 	A_long y = li->y0;
-	/* ŒX‚«‚ª1ˆÈ‰º‚Ìê‡ */
+	/* å‚¾ããŒ1ä»¥ä¸‹ã®å ´åˆ */
 	if (dx >= dy) {
 		E = -dx;
 		for (A_long i = 0; i <= dx; i++) {
@@ -52,7 +52,7 @@ static PF_Err Line16(LineInfo16 *li)
 				E -= 2 * dx;
 			}
 		}
-		/* ŒX‚«‚ª1‚æ‚è‘å‚«‚¢ê‡ */
+		/* å‚¾ããŒ1ã‚ˆã‚Šå¤§ãã„å ´åˆ */
 	}
 	else {
 		E = -dy;
@@ -154,10 +154,10 @@ static PF_Err sampling16(CFsAE* ae, ParamInfo16* infoP)
 	A_long H = ae->out->height();
 
 
-	//c•ûŒü‚Ìˆ—
-	A_long sy = H / infoP->SYCount; //c•ûŒü‚ÌƒTƒ“ƒvƒŠƒ“ƒO”
+	//ç¸¦æ–¹å‘ã®å‡¦ç†
+	A_long sy = H / infoP->SYCount; //ç¸¦æ–¹å‘ã®ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°æ•°
 	if (H <= infoP->SYCount) {
-		//‰½‚à‚µ‚È‚¢
+		//ä½•ã‚‚ã—ãªã„
 	}
 	else {
 		for (A_long yy = 0; yy < infoP->SYCount; yy++) {
@@ -182,10 +182,10 @@ static PF_Err sampling16(CFsAE* ae, ParamInfo16* infoP)
 			}
 		}
 	}
-	//‰¡•ûŒü‚Ìˆ—
-	A_long sx = W / infoP->SXCount; //‰¡•ûŒü‚ÌƒTƒ“ƒvƒŠƒ“ƒO”
+	//æ¨ªæ–¹å‘ã®å‡¦ç†
+	A_long sx = W / infoP->SXCount; //æ¨ªæ–¹å‘ã®ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°æ•°
 	if (W <= infoP->SXCount) {
-		//‰½‚à‚µ‚È‚¢
+		//ä½•ã‚‚ã—ãªã„
 	}
 	else {
 		for (A_long yy = 0; yy < infoP->SYCount; yy++) {

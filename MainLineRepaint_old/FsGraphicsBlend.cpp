@@ -30,7 +30,7 @@ PF_Err FsBlend8(PF_EffectWorld 	*input,PF_EffectWorld 	*output,PF_Fixed per)
 	p2 = (1L<<16) - p;
 
 	if (p==0){
-		//‰½‚à‚µ‚È‚¢B
+		//ä½•ã‚‚ã—ãªã„ã€‚
 		return err;
 	}else if (p == (1L<<16)) {
 		targetIn = targetOut =0;
@@ -109,7 +109,7 @@ PF_Err FsBlend16(PF_EffectWorld 	*input,PF_EffectWorld 	*output,PF_Fixed per)
 	p2 = (1L<<14) - p;
 
 	if (p==0){
-		//‰½‚à‚µ‚È‚¢B
+		//ä½•ã‚‚ã—ãªã„ã€‚
 		return err;
 	}else if (p == (1L<<14)) {
 		targetIn = targetOut =0;

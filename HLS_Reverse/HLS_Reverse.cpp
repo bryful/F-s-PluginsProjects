@@ -83,7 +83,7 @@ ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_HUE,
 					STR_REV,
@@ -92,7 +92,7 @@ ParamsSetup (
 					ID_HUE
 					);
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_LUM,
 					STR_REV,
@@ -102,7 +102,7 @@ ParamsSetup (
 					);
 
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_SAT,
 					STR_REV,
@@ -112,15 +112,15 @@ ParamsSetup (
 					);
 
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_ORG_BLEND,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					3,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_ORG_BLEND,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					3,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_ORG_BLEND
@@ -170,8 +170,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY�̒l��out_flags�֐ݒ肵��
-	//���t���[�����Ƃ̕`������邩�؂�ւ���B
+	//PF_OutFlag_NON_PARAM_VARYの値をout_flagsへ設定して
+	//毎フレームごとの描画をするか切り替える。
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);

@@ -15,10 +15,10 @@ void CFsGraph::XLine8(A_long x0,A_long x1,A_long y,PF_Pixel col)
 	if (hh<0) return;
 	PF_Pixel c	= col;
 
-	//ƒNƒŠƒbƒsƒ“ƒO
+	//ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°
 	if ( ((yy+hh)<0)||((yy-hh)>=h) ) return;
 	
-	//‹N“_‚ÆI“_‚ÌŠm”F
+	//èµ·ç‚¹ã¨çµ‚ç‚¹ã®ç¢ºèª
 	if (xx0>xx1) swapLong(&xx0,&xx1);
 	if ( (xx0>=w) || (xx1<0) ) return;
 	if (xx0<0) xx0=0;
@@ -49,10 +49,10 @@ void CFsGraph::XLine16(A_long x0,A_long x1,A_long y,PF_Pixel16 col)
 	if (hh<0) return;
 	PF_Pixel16 c	= col;
 
-	//ƒNƒŠƒbƒsƒ“ƒO
+	//ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°
 	if ( ((yy+hh)<0)||((yy-hh)>=h) ) return;
 	
-	//‹N“_‚ÆI“_‚ÌŠm”F
+	//èµ·ç‚¹ã¨çµ‚ç‚¹ã®ç¢ºèª
 	if (xx0>xx1) swapLong(&xx0,&xx1);
 	if ( (xx0>=w) || (xx1<0) ) return;
 	if (xx0<0) xx0=0;
@@ -83,10 +83,10 @@ void CFsGraph::XLine32(A_long x0,A_long x1,A_long y,PF_PixelFloat col)
 	if (hh<0) return;
 	PF_PixelFloat c	= col;
 
-	//ƒNƒŠƒbƒsƒ“ƒO
+	//ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°
 	if ( ((yy+hh)<0)||((yy-hh)>=h) ) return;
 	
-	//‹N“_‚ÆI“_‚ÌŠm”F
+	//èµ·ç‚¹ã¨çµ‚ç‚¹ã®ç¢ºèª
 	if (xx0>xx1) swapLong(&xx0,&xx1);
 	if ( (xx0>=w) || (xx1<0) ) return;
 	if (xx0<0) xx0=0;
@@ -117,10 +117,10 @@ void CFsGraph::YLine8(A_long x,A_long y0,A_long y1,PF_Pixel col)
 	A_long hh = lineHeiht-1;
 	if (hh<0) return;
 
-	//ƒNƒŠƒbƒsƒ“ƒO
+	//ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°
 	if ( ((xx+hh)<0)||((xx-hh)>=w) ) return;
 	
-	//‹N“_‚ÆI“_‚ÌŠm”F
+	//èµ·ç‚¹ã¨çµ‚ç‚¹ã®ç¢ºèª
 	if (yy0>yy1)  swapLong(&yy0,&yy1);
 	if ( (yy0>=h) || (yy1<0) ) return;
 	if (yy0<0) yy0=0;
@@ -152,10 +152,10 @@ void CFsGraph::YLine16(A_long x,A_long y0,A_long y1,PF_Pixel16 col)
 	A_long hh = lineHeiht-1;
 	if (hh<0) return;
 
-	//ƒNƒŠƒbƒsƒ“ƒO
+	//ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°
 	if ( ((xx+hh)<0)||((xx-hh)>=w) ) return;
 	
-	//‹N“_‚ÆI“_‚ÌŠm”F
+	//èµ·ç‚¹ã¨çµ‚ç‚¹ã®ç¢ºèª
 	if (yy0>yy1)  swapLong(&yy0,&yy1);
 	if ( (yy0>=h) || (yy1<0) ) return;
 	if (yy0<0) yy0=0;
@@ -187,10 +187,10 @@ void CFsGraph::YLine32(A_long x,A_long y0,A_long y1,PF_PixelFloat col)
 	A_long hh = lineHeiht-1;
 	if (hh<0) return;
 
-	//ƒNƒŠƒbƒsƒ“ƒO
+	//ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°
 	if ( ((xx+hh)<0)||((xx-hh)>=w) ) return;
 	
-	//‹N“_‚ÆI“_‚ÌŠm”F
+	//èµ·ç‚¹ã¨çµ‚ç‚¹ã®ç¢ºèª
 	if (yy0>yy1)  swapLong(&yy0,&yy1);
 	if ( (yy0>=h) || (yy1<0) ) return;
 	if (yy0<0) yy0=0;
@@ -224,7 +224,7 @@ void CFsGraph::Line8(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel col)
 
 	A_long x = x0;
 	A_long y = y0;
-	/* ŒX‚«‚ª1ˆÈ‰º‚Ìê‡ */
+	/* å‚¾ããŒ1ä»¥ä¸‹ã®å ´åˆ */
 	if( dx >= dy ) {
 		E = -dx;
 		for( i = 0; i <= dx; i++ ) {
@@ -236,7 +236,7 @@ void CFsGraph::Line8(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel col)
 				E -= 2 * dx;
 			}
 		}
-	/* ŒX‚«‚ª1‚æ‚è‘å‚«‚¢ê‡ */
+	/* å‚¾ããŒ1ã‚ˆã‚Šå¤§ãã„å ´åˆ */
 	} else {
 		E = -dy;
 	  for( i = 0; i <= dy; i++ ) {
@@ -269,7 +269,7 @@ void CFsGraph::Line16(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel16 col)
 
 	A_long x = x0;
 	A_long y = y0;
-	/* ŒX‚«‚ª1ˆÈ‰º‚Ìê‡ */
+	/* å‚¾ããŒ1ä»¥ä¸‹ã®å ´åˆ */
 	if( dx >= dy ) {
 		E = -dx;
 		for( i = 0; i <= dx; i++ ) {
@@ -281,7 +281,7 @@ void CFsGraph::Line16(A_long x0,A_long y0,A_long x1,A_long y1,PF_Pixel16 col)
 				E -= 2 * dx;
 			}
 		}
-	/* ŒX‚«‚ª1‚æ‚è‘å‚«‚¢ê‡ */
+	/* å‚¾ããŒ1ã‚ˆã‚Šå¤§ãã„å ´åˆ */
 	} else {
 		E = -dy;
 	  for( i = 0; i <= dy; i++ ) {
@@ -313,7 +313,7 @@ void CFsGraph::Line32(A_long x0,A_long y0,A_long x1,A_long y1,PF_PixelFloat col)
 
 	A_long x = x0;
 	A_long y = y0;
-	/* ŒX‚«‚ª1ˆÈ‰º‚Ìê‡ */
+	/* å‚¾ããŒ1ä»¥ä¸‹ã®å ´åˆ */
 	if( dx >= dy ) {
 		E = -dx;
 		for( i = 0; i <= dx; i++ ) {
@@ -325,7 +325,7 @@ void CFsGraph::Line32(A_long x0,A_long y0,A_long x1,A_long y1,PF_PixelFloat col)
 				E -= 2 * dx;
 			}
 		}
-	/* ŒX‚«‚ª1‚æ‚è‘å‚«‚¢ê‡ */
+	/* å‚¾ããŒ1ã‚ˆã‚Šå¤§ãã„å ´åˆ */
 	} else {
 		E = -dy;
 	  for( i = 0; i <= dy; i++ ) {

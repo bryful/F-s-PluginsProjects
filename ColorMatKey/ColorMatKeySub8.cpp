@@ -3,7 +3,7 @@
 
 
 //-------------------------------------------------------------------------------------------------
-// ‰ÁŽZ‡¬
+// åŠ ç®—åˆæˆ
 inline void AddPxL(GInfo *gi, PF_Pixel p)
 {
 	PF_Pixel *data = (PF_Pixel *)gi->data;
@@ -16,7 +16,7 @@ inline void AddPxL(GInfo *gi, PF_Pixel p)
 
 }
 //-------------------------------------------------------------------------------------------------
-// ƒsƒNƒZƒ‹‚Ì”Z“x’²®
+// ãƒ”ã‚¯ã‚»ãƒ«ã®æ¿ƒåº¦èª¿æ•´
 inline PF_Pixel PxPer(PF_Pixel p, PF_FpLong per)
 {
 	PF_Pixel r;
@@ -27,7 +27,7 @@ inline PF_Pixel PxPer(PF_Pixel p, PF_FpLong per)
 	return r;
 }
 //-------------------------------------------------------------------------------------------------
-//¬”“_‘Î‰ž‚Ì‰ÁŽZ‡¬
+//å°æ•°ç‚¹å¯¾å¿œã®åŠ ç®—åˆæˆ
 inline void AddPxD(GInfo *gi, PF_Pixel p)
 {
 
@@ -108,7 +108,7 @@ TargetPixel8(
 		pf.alpha = 1.0;
 
 		LABA lab = RgbToLab(pf);
-		//F‚Ì‹——£‘ª’è
+		//è‰²ã®è·é›¢æ¸¬å®š
 		v2 = 1.0 - (PF_SQRT(
 			PF_POW(lab.L - infoP->taget_lab.L, 2)
 			+ PF_POW(lab.A - infoP->taget_lab.A, 2)
@@ -118,7 +118,7 @@ TargetPixel8(
 		v = (A_long)(v2 * PF_MAX_CHAN8 + 0.5);
 		
 		//HLSA hls = RGBtoHLS(pf);
-		//F‚Ì‹——£‘ª’è
+		//è‰²ã®è·é›¢æ¸¬å®š
 		/*
 		v2 = 1.0 - (PF_SQRT(
 			PF_POW(hls.H - infoP->target_hls.H, 2)
@@ -407,7 +407,7 @@ PF_Err StarExec8(CFsAE *ae, ParamInfo *infoP)
 	pi.verTable = (pi.horTable + pi.si.lenHor);
 	pi.diaTable = (pi.verTable + pi.si.lenVer);
 	*/
-	//ƒ^[ƒQƒbƒgƒGƒŠƒA
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚¨ãƒªã‚¢
 	ERR(ae->iterate8((refconType)&pi, TargetPixel8));
 	if (pi.info.target_maskDraw) {
 		ae->out->fromBlackMat8();
@@ -415,9 +415,9 @@ PF_Err StarExec8(CFsAE *ae, ParamInfo *infoP)
 	}
 	
 	/**
-	//G‚Ö”½“]‚µ‚ÄƒRƒs[
+	//Gã¸åè»¢ã—ã¦ã‚³ãƒ”ãƒ¼
 	ERR(ae->iterate8((refconType)&pi, RevCopyAtoG));
-	//Šg’£
+	//æ‹¡å¼µ
 	ERR(MaxHor8(ae, &pi));
 	ERR(MaxVer8(ae, &pi));
 	ERR(MaxHor8(ae, &pi));
@@ -430,7 +430,7 @@ PF_Err StarExec8(CFsAE *ae, ParamInfo *infoP)
 	*/
 
 
-	//ƒfƒoƒbƒO—p
+	//ãƒ‡ãƒãƒƒã‚°ç”¨
 	//ERR(ae->iterate8((refconType)&pi, AlphaON));
 
 	/*if (pi.bufH != NULL) {

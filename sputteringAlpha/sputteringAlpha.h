@@ -42,17 +42,17 @@
 
 
 //-----------------------------------------------------------------------------
-//ParamsSetup—p‚Ì’è”
+//ParamsSetupç”¨ã®å®šæ•°
 enum {
 	ID_INPUT = 0,
 
-	ID_SEED,		//—”‚ÌŠî€
-	ID_Y,		//—Ê
-	ID_EDGE_VALUE,		//—Ê
-	ID_OPACITY_RAND,		//—Ê
+	ID_SEED,		//ä¹±æ•°ã®åŸºæº–
+	ID_Y,		//é‡
+	ID_EDGE_VALUE,		//é‡
+	ID_OPACITY_RAND,		//é‡
 	
-	ID_POINT_VALUE,	//ˆê‰ñ‚Ì•`‰æ‚Å‘Å‚Â“_‚Ì”
-	ID_POINT_LENGTH,	//“_‚Ì‹——£
+	ID_POINT_VALUE,	//ä¸€å›ã®æç”»ã§æ‰“ã¤ç‚¹ã®æ•°
+	ID_POINT_LENGTH,	//ç‚¹ã®è·é›¢
 
 	ID_SIZE,
 
@@ -68,7 +68,7 @@ enum {
 	ID_NUM_PARAMS
 };
 //-----------------------------------------------------------------------------
-//ƒpƒ‰ƒ[ƒ^UI—p‚Ì•¶š—ñ
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿UIç”¨ã®æ–‡å­—åˆ—
 #define UI_SEED			"seed"
 #define UI_VALUE		"value(%)"
 #define UI_EDGE_VALUE	"edge_value(%)"
@@ -80,7 +80,7 @@ enum {
 #define UI_POINT_LEN_SYSNC2	"ON"
 
 #define UI_SIZE1		"size"
-#define UI_SIZE2		"‹É¬|¬|’†|‘å|“Á‘å"
+#define UI_SIZE2		"æ¥µå°|å°|ä¸­|å¤§|ç‰¹å¤§"
 #define UI_SIZE_COUNT	5
 #define UI_SIZE_DFLT	2
 
@@ -127,7 +127,7 @@ typedef struct
 
 
 //-----------------------------------------------------------------------------
-//ŠÖ”‚ÌéŒ¾
+//é–¢æ•°ã®å®£è¨€
 PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm);
 PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm);
 PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm);

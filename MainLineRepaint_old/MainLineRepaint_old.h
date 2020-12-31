@@ -26,7 +26,7 @@
 	#include <Windows.h>
 #endif
 
-//ƒo[ƒWƒ‡ƒ“‚ğ”ƒ‚¦‚½MainLineRepaintPiPL.r‚ÌAE_Effect_Version‚à•Ï‚¦‚é‚±‚Æ
+//ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’è²·ãˆãŸMainLineRepaintPiPL.rã®AE_Effect_Versionã‚‚å¤‰ãˆã‚‹ã“ã¨
 #define	MAJOR_VERSION		1
 #define	MINOR_VERSION		0
 #define	BUG_VERSION			0
@@ -38,8 +38,8 @@
 
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	MY_INPUT = 0,	// default input layer 
 	
@@ -71,13 +71,13 @@ public:
 			PF_Pixel16 fc16;
 		}findColorPrm;
 
-	//ƒpƒ‰ƒ[ƒ^‚ğŠl“¾‚·‚éŠÖ”
+	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ç²å¾—ã™ã‚‹é–¢æ•°
 	PF_Err getParams(
 		PF_InData			*in_data,
 		PF_OutData		*out_data,
 		PF_ParamDef		*params[],
 		PF_LayerDef		*output );
-	//ˆÈ‰ºŒÅ—L‚Ìƒpƒ‰ƒ[ƒ^
+	//ä»¥ä¸‹å›ºæœ‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	PF_Pixel  		Main_Color;
 
 	//------------------------------------------------------

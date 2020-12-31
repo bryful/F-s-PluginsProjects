@@ -16,10 +16,10 @@
 
 
 /*
-	CS5‚ÅƒRƒ“ƒpƒCƒ‹‚·‚é‚ÍATARGETCS5‚ğ—LŒø‚É‚µ‚Ä
-	Supporting code‚ÌCS4only‚ğƒrƒ‹ƒh‚©‚çœŠOACS5only‚ğƒrƒ‹ƒh—LŒø‚É‚·‚é
+	CS5ã§ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã™ã‚‹æ™‚ã¯ã€TARGETCS5ã‚’æœ‰åŠ¹ã«ã—ã¦
+	Supporting codeã®CS4onlyã‚’ãƒ“ãƒ«ãƒ‰ã‹ã‚‰é™¤å¤–ã€CS5onlyã‚’ãƒ“ãƒ«ãƒ‰æœ‰åŠ¹ã«ã™ã‚‹
 
-	‚»‚µ‚ÄAƒvƒ‰ƒbƒgƒtƒH[ƒ€‚ğx64‚ÖƒvƒƒpƒeƒB‚ğ•ÏX‚·‚é–
+	ãã—ã¦ã€ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ ã‚’x64ã¸ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å¤‰æ›´ã™ã‚‹äº‹
 */
 
 
@@ -94,41 +94,41 @@ enum {
 };
 
 
-#define STR_LV		"‹–—e’l"
-#define STR_MODE1	"ƒ‚[ƒh"
-#define STR_EXEC	"Às‚·‚é"
+#define STR_LV		"è¨±å®¹å€¤"
+#define STR_MODE1	"ãƒ¢ãƒ¼ãƒ‰"
+#define STR_EXEC	"å®Ÿè¡Œã™ã‚‹"
 
 #define STR_TARGET0	"Target0"
-#define STR_SRCCOL0	"Œ³‚ÌF0"
-#define STR_DSTCOL0	"V‚µ‚¢F0"
+#define STR_SRCCOL0	"å…ƒã®è‰²0"
+#define STR_DSTCOL0	"æ–°ã—ã„è‰²0"
 
 #define STR_TARGET1	"Target1"
-#define STR_SRCCOL1	"Œ³‚ÌF1"
-#define STR_DSTCOL1	"V‚µ‚¢F1"
+#define STR_SRCCOL1	"å…ƒã®è‰²1"
+#define STR_DSTCOL1	"æ–°ã—ã„è‰²1"
 
 #define STR_TARGET2	"Target2"
-#define STR_SRCCOL2	"Œ³‚ÌF2"
-#define STR_DSTCOL2	"V‚µ‚¢F2"
+#define STR_SRCCOL2	"å…ƒã®è‰²2"
+#define STR_DSTCOL2	"æ–°ã—ã„è‰²2"
 
 #define STR_TARGET3	"Target3"
-#define STR_SRCCOL3	"Œ³‚ÌF3"
-#define STR_DSTCOL3	"V‚µ‚¢F3"
+#define STR_SRCCOL3	"å…ƒã®è‰²3"
+#define STR_DSTCOL3	"æ–°ã—ã„è‰²3"
 
 #define STR_TARGET4	"Target4"
-#define STR_SRCCOL4	"Œ³‚ÌF4"
-#define STR_DSTCOL4	"V‚µ‚¢F4"
+#define STR_SRCCOL4	"å…ƒã®è‰²4"
+#define STR_DSTCOL4	"æ–°ã—ã„è‰²4"
 
 #define STR_TARGET5	"Target5"
-#define STR_SRCCOL5	"Œ³‚ÌF5"
-#define STR_DSTCOL5	"V‚µ‚¢F5"
+#define STR_SRCCOL5	"å…ƒã®è‰²5"
+#define STR_DSTCOL5	"æ–°ã—ã„è‰²5"
 
 #define STR_TARGET6	"Target6"
-#define STR_SRCCOL6	"Œ³‚ÌF6"
-#define STR_DSTCOL6	"V‚µ‚¢F6"
+#define STR_SRCCOL6	"å…ƒã®è‰²6"
+#define STR_DSTCOL6	"æ–°ã—ã„è‰²6"
 
 #define STR_TARGET7	"Target7"
-#define STR_SRCCOL7	"Œ³‚ÌF7"
-#define STR_DSTCOL7	"V‚µ‚¢F7"
+#define STR_SRCCOL7	"å…ƒã®è‰²7"
+#define STR_DSTCOL7	"æ–°ã—ã„è‰²7"
 
 
 typedef struct ParamInfo{

@@ -9,15 +9,15 @@
 #define FS_TARGET_H
 
 //-----------------------------------------------------------------------------------
-//�v���O�C���̎��ʂɎg���閼�O
+//プラグインの識別に使われる名前
 #define FS_NAME			"F's TouchDrawCenter"
 
 //-----------------------------------------------------------------------------------
-//�v���O�C���̐����Ɏg���镶��
-#define FS_DESCRIPTION	"���͂���̏W������`���܂�"
+//プラグインの説明に使われる文字
+#define FS_DESCRIPTION	"周囲からの集中線を描きます"
 
 //-----------------------------------------------------------------------------------
-//�v���O�C�����\������郁�j���[��
+//プラグインが表示されるメニュー名
 //#define FS_CATEGORY "F's Plugins-Fx"
 //#define FS_CATEGORY "F's Plugins-Channel"
 //#define FS_CATEGORY "F's Plugins-Cell"
@@ -25,12 +25,12 @@
 #define FS_CATEGORY "NF's Plugins-Draw"
 
 //-----------------------------------------------------------
-#define SUPPORT_SMARTFX			//�����L���ɂ����SmartFX+Float_Color�ɑΉ�����
-//#define NO_USE_FSGRAPHICS	//�����L���ɂ����FsGraphics�֌W���C���N���[�h����Ȃ�
+#define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
+//#define NO_USE_FSGRAPHICS	//これを有効にするとFsGraphics関係がインクルードされない
 
 
 //-----------------------------------------------------------------------------------
-//�v���O�C���̃o�[�W����
+//プラグインのバージョン
 #include "../FsLibrary/FsVersion.h"
 
 //-----------------------------------------------------------------------------------
@@ -45,9 +45,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//�ʏ�͂�����
-#define FS_OUT_FLAGS	33556036	//��������L���ɂ���Ɩ��t���[�����Ƃɕ`�悷��BNON_PARAM_VARY�𓮍쒆�ɐ؂�ւ���Ƃ����������
-//#define FS_OUT_FLAGS	1600		//8bit�̂�
+//#define FS_OUT_FLAGS	33556032	//通常はこちら
+#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+//#define FS_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------
 //out_flags2
@@ -73,19 +73,19 @@ out_data->out_flags2
 /*
 out_data->out_flags	  =	
 	PF_OutFlag_PIX_INDEPENDENT		//     1024
-	| PF_OutFlag_NON_PARAM_VARY		//        4(�t���[�����Ƀ����_�����O��p�Ȃ�)		
-	| PF_OutFlag_DEEP_COLOR_AWARE	// 33554432(16bit�Ή��v���O�C���ɂȂ�)
+	| PF_OutFlag_NON_PARAM_VARY		//        4(フレーム毎にレンダリングをp個なう)		
+	| PF_OutFlag_DEEP_COLOR_AWARE	// 33554432(16bit対応プラグインになる)
 	| PF_OutFlag_USE_OUTPUT_EXTENT	//       64
 	| PF_OutFlag_I_EXPAND_BUFFER;	//      512
 									//---------
-								//���v= 33556032	
-								//���v= 33556036 +PF_OutFlag_NON_PARAM_VARY
+								//合計= 33556032	
+								//合計= 33556036 +PF_OutFlag_NON_PARAM_VARY
 
-// �v���O�C���̏o�͐ݒ�2(PiPL.r��AE_Effect_Global_OutFlags2�Ɗ֘A)
+// プラグインの出力設定2(PiPL.rのAE_Effect_Global_OutFlags2と関連)
 
-out_data->out_flags2  =	PF_OutFlag2_FLOAT_COLOR_AWARE					// 4096(32bit�Ή��v���O�C���ɂȂ�)
+out_data->out_flags2  =	PF_OutFlag2_FLOAT_COLOR_AWARE					// 4096(32bit対応プラグインになる)
 					  | PF_OutFlag2_PARAM_GROUP_START_COLLAPSED_FLAG	//    8
-					  | PF_OutFlag2_SUPPORTS_SMART_RENDER				// 1024(SmartRender���g��)
+					  | PF_OutFlag2_SUPPORTS_SMART_RENDER				// 1024(SmartRenderを使う)
 					  | PF_OutFlag2_SUPPORTS_QUERY_DYNAMIC_FLAGS		//    1
 					  | PF_OutFlag2_DOESNT_NEED_EMPTY_PIXELS;			//   64
 																		//-----

@@ -14,7 +14,7 @@ void AlphaBlur16(CFsGraph *g)
 	A_long x,y;
 	A_long v;
 
-	//‚Ü‚¸A^‚ñ’†
+	//ã¾ãšã€çœŸã‚“ä¸­
 	A_long adr=wt+1;
 	A_long adr2;
 	for(y=1;y<h;y++){
@@ -45,7 +45,7 @@ void AlphaBlur16(CFsGraph *g)
 		}
 		adr+=(ow+2);
 	}
-	//ã‰º
+	//ä¸Šä¸‹
 	adr = 1;
 	A_long adrH = h*wt+1;
 	for(x=1;x<w;x++){
@@ -122,7 +122,7 @@ void AlphaBlur16(CFsGraph *g)
 		adr+=wt;
 		adrH+=wt;
 	}
-	//¶ã
+	//å·¦ä¸Š
 	v=0;
 	adr=0;
 	v += data[adr].red *8;
@@ -134,7 +134,7 @@ void AlphaBlur16(CFsGraph *g)
 	v += data[adr].red *2;
 	v = v / 18;
 	data[0].alpha = RoundShort(v);
-	//‰Eã
+	//å³ä¸Š
 	v=0;
 	adr = w-2;
 	v += data[adr].red *4;
@@ -146,7 +146,7 @@ void AlphaBlur16(CFsGraph *g)
 	v += data[adr].red *4;
 	v = v / 18;
 	data[w-2].alpha = RoundShort(v);
-	//¶‰º
+	//å·¦ä¸‹
 	v=0;
 	adr=(h-2)*wt;
 	v += data[adr].red *4;
@@ -158,7 +158,7 @@ void AlphaBlur16(CFsGraph *g)
 	v += data[adr].red *4;
 	v = v / 18;
 	data[(h-1)*wt].alpha = RoundShort(v);
-	//‰E‰º
+	//å³ä¸‹
 	v=0;
 	adr=(h-2)*wt + (w-1);
 	v += data[adr].red *2;

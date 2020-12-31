@@ -3,7 +3,7 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//‰æ‘œ‚ÌF‚ğŠl“¾
+//ç”»åƒã®è‰²ã‚’ç²å¾—
 inline PF_PixelFloat GetPX(GInfo *gi, A_long x, A_long y)
 {
 	PF_PixelFloat *data = (PF_PixelFloat *)gi->data;
@@ -17,7 +17,7 @@ inline PF_PixelFloat GetPX(GInfo *gi, A_long x, A_long y)
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒXƒNƒŠ[ƒ“‡¬‚ÌŠî–{•”•ª
+//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åˆæˆã®åŸºæœ¬éƒ¨åˆ†
 inline PF_FpShort scr(PF_FpShort s, PF_FpShort d)
 {
 	PF_FpShort v = d + s - s * d;
@@ -25,7 +25,7 @@ inline PF_FpShort scr(PF_FpShort s, PF_FpShort d)
 	return (PF_FpShort)v;
 }
 //-------------------------------------------------------------------------------------------------
-// ƒsƒNƒZƒ‹‚ÌƒXƒNƒŠ[ƒ“‡¬
+// ãƒ”ã‚¯ã‚»ãƒ«ã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åˆæˆ
 inline void AddPxL(GInfo *gi, A_long xL, A_long yL, PF_PixelFloat p)
 {
 	if ((xL < 0) || (xL >= gi->width) || (yL < 0) || (yL >= gi->height)) {
@@ -42,7 +42,7 @@ inline void AddPxL(GInfo *gi, A_long xL, A_long yL, PF_PixelFloat p)
 
 }
 //-------------------------------------------------------------------------------------------------
-// ƒsƒNƒZƒ‹‚Ì”Z“x’²®
+// ãƒ”ã‚¯ã‚»ãƒ«ã®æ¿ƒåº¦èª¿æ•´
 inline PF_PixelFloat PxPer(PF_PixelFloat p, PF_FpLong per)
 {
 	PF_PixelFloat r;
@@ -53,7 +53,7 @@ inline PF_PixelFloat PxPer(PF_PixelFloat p, PF_FpLong per)
 	return r;
 }
 //-------------------------------------------------------------------------------------------------
-//¬”“_‘Î‰‚ÌƒXƒNƒŠ[ƒ“‡¬
+//å°æ•°ç‚¹å¯¾å¿œã®ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åˆæˆ
 inline void AddPxD(GInfo *gi, PF_PixelFloat p)
 {
 
@@ -185,7 +185,7 @@ TargetPixel(
 		pf.alpha = a;
 
 		LABA lab = RgbToLab(pf);
-		//F‚Ì‹——£‘ª’è
+		//è‰²ã®è·é›¢æ¸¬å®š
 		v = 1.0 - (PF_SQRT(
 			PF_POW(lab.L - infoP->taget_lab.L, 2)
 			+ PF_POW(lab.A - infoP->taget_lab.A, 2)
@@ -353,7 +353,7 @@ MaxHor(ParamInfo32 *pi)
 			}
 
 		}
-		//red‚É–ß‚·
+		//redã«æˆ»ã™
 		for (A_long x = 0; x < gi.width; x++)
 		{
 			pos = x + hor;
@@ -405,7 +405,7 @@ MaxVer(ParamInfo32 *pi)
 			hor += gi.widthTrue;
 
 		}
-		//red‚É–ß‚·
+		//redã«æˆ»ã™
 		hor = 0;
 		for (A_long y = 0; y < gi.height; y++)
 		{
@@ -478,7 +478,7 @@ static PF_Err StarDrawColor(ParamInfo32 *pi)
 			posT++;
 			if (lv <= 0) continue;
 
-			//‚’¼
+			//å‚ç›´
 			if ((pi->ver.len > 0) && (pi->ver.opa > 0))
 			{
 				A_long vl = (A_long)(pi->ver.len * lv+0.5);
@@ -501,7 +501,7 @@ static PF_Err StarDrawColor(ParamInfo32 *pi)
 				}
 
 			}
-			//…•½
+			//æ°´å¹³
 			if ((pi->hor.len > 0) && (pi->hor.opa > 0))
 			{
 				A_long hl = (A_long)(pi->hor.len * lv+0.5);
@@ -523,7 +523,7 @@ static PF_Err StarDrawColor(ParamInfo32 *pi)
 					}
 				}
 			}
-			//Î‚ß
+			//æ–œã‚
 			if ((pi->dia.len > 0) && (pi->dia.opa > 0))
 			{
 				A_long dl = (A_long)(pi->dia.len * lv +0.5);
@@ -812,7 +812,7 @@ static PF_Err StarDrawScreen(ParamInfo32 *pi)
 			posT++;
 			if (lv <= 0) continue;
 
-			//‚’¼
+			//å‚ç›´
 			if ((pi->ver.len > 0) && (pi->ver.opa > 0))
 			{
 				A_long vl = (A_long)(pi->ver.len * lv+0.5);
@@ -840,7 +840,7 @@ static PF_Err StarDrawScreen(ParamInfo32 *pi)
 				}
 
 			}
-			//…•½
+			//æ°´å¹³
 			if ((pi->hor.len > 0) && (pi->hor.opa > 0))
 			{
 				A_long hl = (A_long)(pi->hor.len * lv+0.5);
@@ -867,7 +867,7 @@ static PF_Err StarDrawScreen(ParamInfo32 *pi)
 					}
 				}
 			}
-			//Î‚ß
+			//æ–œã‚
 			if ((pi->dia.len > 0) && (pi->dia.opa > 0))
 			{
 				A_long dl = (A_long)(pi->dia.len * lv+0.5);
@@ -982,7 +982,7 @@ static PF_Err StarDrawRainbow(ParamInfo32 *pi)
 			posT++;
 			if (lv <= 0) continue;
 
-			//‚’¼
+			//å‚ç›´
 			if ((pi->ver.len > 0) && (pi->ver.opa > 0))
 			{
 				A_long vl = (A_long)(pi->ver.len * lv+0.5);
@@ -1005,7 +1005,7 @@ static PF_Err StarDrawRainbow(ParamInfo32 *pi)
 				}
 
 			}
-			//…•½
+			//æ°´å¹³
 			if ((pi->hor.len > 0) && (pi->hor.opa > 0))
 			{
 				A_long hl = (A_long)(pi->hor.len * lv+0.5);
@@ -1027,7 +1027,7 @@ static PF_Err StarDrawRainbow(ParamInfo32 *pi)
 					}
 				}
 			}
-			//Î‚ß
+			//æ–œã‚
 			if ((pi->dia.len > 0) && (pi->dia.opa > 0))
 			{
 				A_long dl = (A_long)(pi->dia.len * lv+0.5);
@@ -1180,7 +1180,7 @@ PF_Err StarExec32(CFsAE *ae, ParamInfo *infoP)
 	pi.horTable = *(PF_PixelFloat**)(pi.bufH);
 	pi.verTable = (pi.horTable + pi.hor.len);
 	pi.diaTable = (pi.verTable + pi.ver.len);
-	//ƒ^[ƒQƒbƒgƒGƒŠƒA
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚¨ãƒªã‚¢
 	ERR(ae->iterate32((refconType)&pi, TargetPixel));
 	ae->out->SetMatMode(MAT::blackMat);
 	if (pi.info.target_maskDraw==TRUE) {

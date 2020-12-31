@@ -3,7 +3,7 @@
 static PF_Pixel32(*GetPX32)(ParamInfo32 *infoP, A_long x, A_long y);
 
 //-------------------------------------------------------------------------------------------------
-//‚Ú‚©‚µ—p‚ÌƒKƒEƒXƒe[ƒuƒ‹
+//ã¼ã‹ã—ç”¨ã®ã‚¬ã‚¦ã‚¹ãƒ†ãƒ¼ãƒ–ãƒ«
 static PF_Boolean makeTbl32(ParamInfo32 *infoP)
 {
 	PF_InData *in_data;
@@ -20,7 +20,7 @@ static PF_Boolean makeTbl32(ParamInfo32 *infoP)
 	return TRUE;
 }
 //----------------------------------------------------------------------------
-//Green‚Ì‚İ‚ğ…•½‚Ú‚©‚µ
+//Greenã®ã¿ã‚’æ°´å¹³ã¼ã‹ã—
 void horBlurG32(ParamInfo32 *infoP)
 {
 	A_long blur = 0;
@@ -41,7 +41,7 @@ void horBlurG32(ParamInfo32 *infoP)
 	for (y = 0; y < infoP->height; y++)
 	{
 		hor = wt * y;
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ÖƒRƒs[
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸ã‚³ãƒ”ãƒ¼
 		for (x = 0; x < infoP->width; x++) {
 			scanline[x] = data[x + hor].green;
 			scanlineM[x] = data[x + hor].red;
@@ -51,11 +51,11 @@ void horBlurG32(ParamInfo32 *infoP)
 			{
 				count = gauss = 0;
 				sg = 0.0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = infoP->blurTable[0];
 				sg += (double)scanline[x] * (double)gauss;
 				count += gauss;
-				//¶
+				//å·¦
 				for (i = 1; i <= blur; i++)
 				{
 					ix = x - i;
@@ -66,7 +66,7 @@ void horBlurG32(ParamInfo32 *infoP)
 						count += gauss;
 					}
 				}
-				//‰E
+				//å³
 				for (i = 1; i <= blur; i++)
 				{
 					ix = x + i;
@@ -109,7 +109,7 @@ void vurBlurG32(ParamInfo32 *infoP)
 	hor = 0;
 	for (x = 0; x < infoP->width; x++)
 	{
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ÖƒRƒs[
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸ã‚³ãƒ”ãƒ¼
 		hor = 0;
 		for (y = 0; y < infoP->height; y++) {
 			scanline[y] = data[x + hor].green;
@@ -122,11 +122,11 @@ void vurBlurG32(ParamInfo32 *infoP)
 			{
 				count = gauss = 0;
 				sg = 0.0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = infoP->blurTable[0];
 				sg += (double)scanline[y] * (double)gauss;
 				count += gauss;
-				//¶
+				//å·¦
 				for (i = 1; i <= blur; i++)
 				{
 					iy = y - i;
@@ -137,7 +137,7 @@ void vurBlurG32(ParamInfo32 *infoP)
 						count += gauss;
 					}
 				}
-				//‰E
+				//å³
 				for (i = 1; i <= blur; i++)
 				{
 					iy = y + i;
@@ -456,7 +456,7 @@ MoveG2R32(
 
 
 	//PF_MAX_CHAN16 = 32768 0b10000000_00000000
-	//‚¾‚Á‚½‚Ì‚Å
+	//ã ã£ãŸã®ã§
 	A_long r = 0;
 	if (outP->green > 0) r += 4;
 	if (p1.green > 0) r += 2;
@@ -813,14 +813,14 @@ PF_Err SitsuKanSub32(CFsAE *ae, ParamInfo *infoP)
 		GetPX32 = GetPX32_CLIP;
 	}
 
-	//ƒ^[ƒQƒbƒg‚ğalpha‚Ö’Šo
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’alphaã¸æŠ½å‡º
 	pi.TargetCount = 0;
 	ERR(ae->iterate32((refconType)&pi, GetTargetPixels32));
 
 	if (pi.TargetCount > 0) {
 
 		//Max
-		//alpha‚ğgreen‚Ö
+		//alphaã‚’greenã¸
 		ERR(ae->iterate32((refconType)&pi, AlphaTargetToGreen32));
 
 
@@ -828,7 +828,7 @@ PF_Err SitsuKanSub32(CFsAE *ae, ParamInfo *infoP)
 		A_long ll = ae->downScale(LENGTH_MIN);
 		if ((pi.info.hi_length > 0) || (pi.info.sw_length > 0)) {
 			
-			//LENGTH_MIN‰ñŒJ‚è•Ô‚·
+			//LENGTH_MINå›ç¹°ã‚Šè¿”ã™
 			for (int i = 0; i < ll; i++) {
 				ERR(ae->iterate32((refconType)&pi, MaxHorG2R32));
 				ERR(ae->iterate32((refconType)&pi, RedToGreen32));
@@ -836,13 +836,13 @@ PF_Err SitsuKanSub32(CFsAE *ae, ParamInfo *infoP)
 				ERR(ae->iterate32((refconType)&pi, RedToGreen32));
 			}
 			
-			//‚¸‚ç‚µ
+			//ãšã‚‰ã—
 			ERR(ae->iterate32((refconType)&pi, MoveG2R32));
 			ERR(ae->iterate32((refconType)&pi, RedToGreen32));
 			ERR(ae->iterate32((refconType)&pi, SplitG2RGB32));
 
 
-			//‚Ú‚©‚µ
+			//ã¼ã‹ã—
 			if ((pi.info.hi_blur > 0) || (pi.info.sw_blur > 0)) {
 				pi.scanlineH = ae->NewHandle(pi.scanlineSize * sizeof(PF_FpShort) * 4 + pi.blurSize*sizeof(A_long) + 100);
 
@@ -926,7 +926,7 @@ PF_Err SitsuKanSub32(CFsAE *ae, ParamInfo *infoP)
 }
 /*
 
-‚Ü‚¸Alpha‚ÉTargetƒGƒŠƒA‚Ìƒ}ƒXƒN‚ğì¬
+ã¾ãšAlphaã«Targetã‚¨ãƒªã‚¢ã®ãƒã‚¹ã‚¯ã‚’ä½œæˆ
 
 
 */

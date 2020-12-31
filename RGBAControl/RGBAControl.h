@@ -40,8 +40,8 @@
 //#include "FsAE.h"
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_RED_FIXED,	//PF_Fixed(long)
@@ -56,8 +56,8 @@ enum {
 #define STR_BLUE	"Blue(%)"
 #define STR_ALPHA	"Alpha(%)"
 
-//‚`‚dã‚Ìƒpƒ‰ƒ[ƒ^‚Í -100 ` 100‚Ì’l‚ğæ‚é‚ª
-//“à•”‚Å‚Í -1 ` 1‚Ì’l‚Æ‚·‚é
+//ï¼¡ï¼¥ä¸Šã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã¯ -100 ã€œ 100ã®å€¤ã‚’å–ã‚‹ãŒ
+//å†…éƒ¨ã§ã¯ -1 ã€œ 1ã®å€¤ã¨ã™ã‚‹
 typedef struct ParamInfo{
 	PF_FpShort		red;
 	PF_FpShort		green;

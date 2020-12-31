@@ -6,8 +6,8 @@
 #include "SelectedBlur.h"
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -18,31 +18,31 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//----------------------------------------------------------------
-	//®”‚ÌƒXƒ‰ƒCƒ_[ƒo[
+	//æ•´æ•°ã®ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ãƒãƒ¼
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_BLUR_VALUE,//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					300,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					30,				//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					0,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_BLUR_VALUE,//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					300,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					30,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					0,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_BLUR_VALUE
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_TARGET_RNG,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					16,				//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					0,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,				//”’l•\¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_TARGET_RNG,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					16,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					0,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,				//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_TARGET_RANGE
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TARGET_ENABLE0,
 					STR_TARGET_ENABLE1,
@@ -50,7 +50,7 @@ static PF_Err ParamsSetup (
 					0,
 					ID_TARGET_ENABLED0
 					);
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_TARGET_COL0, 
 					0xFF,
@@ -59,7 +59,7 @@ static PF_Err ParamsSetup (
 					ID_TARGET_COL0
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TARGET_ENABLE0,
 					STR_TARGET_ENABLE1,
@@ -67,7 +67,7 @@ static PF_Err ParamsSetup (
 					0,
 					ID_TARGET_ENABLED1
 					);
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_TARGET_COL1, 
 					0x00,
@@ -76,7 +76,7 @@ static PF_Err ParamsSetup (
 					ID_TARGET_COL1
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TARGET_ENABLE0,
 					STR_TARGET_ENABLE1,
@@ -84,7 +84,7 @@ static PF_Err ParamsSetup (
 					0,
 					ID_TARGET_ENABLED2
 					);
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_TARGET_COL2, 
 					0x00,
@@ -93,7 +93,7 @@ static PF_Err ParamsSetup (
 					ID_TARGET_COL2
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TARGET_ENABLE0,
 					STR_TARGET_ENABLE1,
@@ -101,7 +101,7 @@ static PF_Err ParamsSetup (
 					0,
 					ID_TARGET_ENABLED3
 					);
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_TARGET_COL3, 
 					0xFF,
@@ -110,7 +110,7 @@ static PF_Err ParamsSetup (
 					ID_TARGET_COL3
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TARGET_ENABLE0,
 					STR_TARGET_ENABLE1,
@@ -118,7 +118,7 @@ static PF_Err ParamsSetup (
 					0,
 					ID_TARGET_ENABLED4
 					);
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_TARGET_COL4, 
 					0x00,
@@ -127,7 +127,7 @@ static PF_Err ParamsSetup (
 					ID_TARGET_COL4
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TARGET_ENABLE0,
 					STR_TARGET_ENABLE1,
@@ -135,7 +135,7 @@ static PF_Err ParamsSetup (
 					0,
 					ID_TARGET_ENABLED5
 					);
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_TARGET_COL5, 
 					0x00,
@@ -144,7 +144,7 @@ static PF_Err ParamsSetup (
 					ID_TARGET_COL5
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TARGET_ENABLE0,
 					STR_TARGET_ENABLE1,
@@ -152,7 +152,7 @@ static PF_Err ParamsSetup (
 					0,
 					ID_TARGET_ENABLED6
 					);
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_TARGET_COL6, 
 					0x80,
@@ -161,7 +161,7 @@ static PF_Err ParamsSetup (
 					ID_TARGET_COL6
 					);
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_TARGET_ENABLE0,
 					STR_TARGET_ENABLE1,
@@ -169,7 +169,7 @@ static PF_Err ParamsSetup (
 					0,
 					ID_TARGET_ENABLED7
 					);
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_TARGET_COL7, 
 					0x80,
@@ -219,7 +219,7 @@ CopyImage8 (
 				outP->blue	= inP->blue;
 			}
 		}else{
-			//“§–¾‚Ì‚Æ‚±‚ë‚Ì‚İ‚ğ•¡Ê
+			//é€æ˜ã®ã¨ã“ã‚ã®ã¿ã‚’è¤‡å†™
 			if ( outP->alpha ==0){
 				outP->alpha	= inP->alpha;
 				outP->red	= inP->red;
@@ -272,7 +272,7 @@ CopyImage16 (
 				outP->blue	= inP->blue;
 			}
 		}else{
-			//“§–¾‚Ì‚Æ‚±‚ë‚Ì‚İ‚ğ•¡Ê
+			//é€æ˜ã®ã¨ã“ã‚ã®ã¿ã‚’è¤‡å†™
 			if ( outP->alpha ==0){
 				outP->alpha	= inP->alpha;
 				outP->red	= inP->red;
@@ -326,7 +326,7 @@ CopyImage32 (
 				outP->blue	= inP->blue;
 			}
 		}else{
-			//“§–¾‚Ì‚Æ‚±‚ë‚Ì‚İ‚ğ•¡Ê
+			//é€æ˜ã®ã¨ã“ã‚ã®ã¿ã‚’è¤‡å†™
 			if ( outP->alpha ==0){
 				outP->alpha	= inP->alpha;
 				outP->red	= inP->red;

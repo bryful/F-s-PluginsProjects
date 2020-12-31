@@ -1,4 +1,4 @@
-/* ��`��Fs_Target.h�ōs�Ȃ��Ă���B���̃t�@�C���͕ҏW����K�v�Ȃ� */
+/* 定義はFs_Target.hで行なっている。このファイルは編集する必要なし */
 #include "Fs_Target.h"
 
 #include "AEConfig.h"
@@ -16,12 +16,12 @@ resource 'PiPL' (16000) {
 		},
 		/* [2] */
 		Name {
-			/*AE�̃��j���[�Ɏg���� */
+			/*AEのメニューに使われる */
 			FS_NAME
 		},
 		/* [3] */
 		Category {
-			/*AE�̃��j���[�Ɏg���� */
+			/*AEのメニューに使われる */
 			FS_CATEGORY
 		},
 		
@@ -67,7 +67,7 @@ resource 'PiPL' (16000) {
 
 		/* [11] */
 		AE_Effect_Match_Name {
-			/*�v���O�C���̎��ʂɎg���� */
+			/*プラグインの識別に使われる */
 			FS_NAME
 		},
 		/* [12] */

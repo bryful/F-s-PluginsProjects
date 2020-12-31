@@ -48,19 +48,19 @@ typedef struct ParamInfo{
 
 enum {
 	ID_INPUT = 0,	// default input layer 
-	ID_Y,		// �m�C�Y��
-	ID_SIZEMAX,		// ���U�C�N�̑傫��(�ő�l)
-	ID_SIZEMIN,		// ���U�C�N�̑傫��(�ŏ��l)
-	ID_ASPECT,		// ���U�C�N�̍��E
-	ID_RANDCOLOR,	// �F�̂΂��
+	ID_Y,		// ノイズ量
+	ID_SIZEMAX,		// モザイクの大きさ(最大値)
+	ID_SIZEMIN,		// モザイクの大きさ(最小値)
+	ID_ASPECT,		// モザイクの左右
+	ID_RANDCOLOR,	// 色のばらつき
 	ID_NUM_PARAMS
 };
 
-#define STR_Y		"��"
-#define STR_SIZEMAX		"�T�C�Y(�ő�)"
-#define STR_SIZEMIN		"�T�C�Y(�ŏ�)"
-#define STR_ASPECT		"�c���̂΂��"
-#define STR_RANDOMCOLOR	"���邳�̂΂��"
+#define STR_Y		"量"
+#define STR_SIZEMAX		"サイズ(最大)"
+#define STR_SIZEMIN		"サイズ(最小)"
+#define STR_ASPECT		"縦横のばらつき"
+#define STR_RANDOMCOLOR	"明るさのばらつき"
 
 
 

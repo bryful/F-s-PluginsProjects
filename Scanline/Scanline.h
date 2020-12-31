@@ -37,8 +37,8 @@
 
 #include "../FsLibrary/FsAE.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 
@@ -52,16 +52,16 @@ enum {
 	ID_NUM_PARAMS
 };
 
-//UI‚Ì•\¦•¶š—ñ
-#define	STR_HEIGHT		"ƒ‰ƒCƒ“‚Ì‘¾‚³(pixel)"
-#define	STR_LEVEL0		"Šï”—ñƒ‰ƒCƒ“‚Ì–¾‚é‚³(%)"
-#define	STR_OPACITY0	"Šï”—ñƒ‰ƒCƒ“‚Ì•s“§–¾“x(%)"
-#define	STR_LEVEL1		"‹ô”—ñƒ‰ƒCƒ“‚Ì–¾‚é‚³(%)"
-#define	STR_OPACITY1	"‹ô”—ñƒ‰ƒCƒ“‚Ì•s“§–¾“x(%)"
-#define STR_DIR		"•ûŒü"
-#define STR_DIRSTR	"…•½|‚’¼"
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
+#define	STR_HEIGHT		"ãƒ©ã‚¤ãƒ³ã®å¤ªã•(pixel)"
+#define	STR_LEVEL0		"å¥‡æ•°åˆ—ãƒ©ã‚¤ãƒ³ã®æ˜ã‚‹ã•(%)"
+#define	STR_OPACITY0	"å¥‡æ•°åˆ—ãƒ©ã‚¤ãƒ³ã®ä¸é€æ˜åº¦(%)"
+#define	STR_LEVEL1		"å¶æ•°åˆ—ãƒ©ã‚¤ãƒ³ã®æ˜ã‚‹ã•(%)"
+#define	STR_OPACITY1	"å¶æ•°åˆ—ãƒ©ã‚¤ãƒ³ã®ä¸é€æ˜åº¦(%)"
+#define STR_DIR		"æ–¹å‘"
+#define STR_DIRSTR	"æ°´å¹³|å‚ç›´"
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
 	A_long		height;
 

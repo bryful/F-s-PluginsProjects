@@ -42,7 +42,7 @@ void horBlur32(blurPrmSub32 *sub)
 	for ( y=0; y<sub->height; y++)
 	{
 		hor = sub->widthTrue * y;
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for ( x=0; x<sub->width; x++) sub->scanline[x] = sub->data[hor + x];
 		for ( x=0; x<sub->width; x++){
 			c = sub->scanline[x];
@@ -50,13 +50,13 @@ void horBlur32(blurPrmSub32 *sub)
 			{
 				sr = sg = sb = 0; 
 				count = gauss = 0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = sub->tbl[0];
 				sr += c.red * gauss;
 				sg += c.green * gauss;
 				sb += c.blue * gauss;
 				count += gauss;
-				//¶
+				//å·¦
 				for (i=1; i<=sub->value;i++)
 				{
 					ix = x-i;
@@ -69,7 +69,7 @@ void horBlur32(blurPrmSub32 *sub)
 					sb += c.blue * gauss;
 					count += gauss;
 				}
-				//¶
+				//å·¦
 				for (i=1; i<=sub->value;i++)
 				{
 					ix = x+i;
@@ -106,7 +106,7 @@ void verBlur32(blurPrmSub32 *sub)
 	hor =0;
 	for ( x=0; x<sub->width; x++)
 	{
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		hor = x;
 		for ( y=0; y<sub->height; y++) {
 			sub->scanline[y] = sub->data[hor];
@@ -119,13 +119,13 @@ void verBlur32(blurPrmSub32 *sub)
 			{
 				sr = sg = sb = 0; 
 				count = gauss = 0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = sub->tbl[0];
 				sr += c.red * gauss;
 				sg += c.green * gauss;
 				sb += c.blue * gauss;
 				count += gauss;
-				//¶
+				//å·¦
 				for (i=1; i<=sub->value;i++)
 				{
 					ix = y-i;
@@ -138,7 +138,7 @@ void verBlur32(blurPrmSub32 *sub)
 					sb += c.blue * gauss;
 					count += gauss;
 				}
-				//¶
+				//å·¦
 				for (i=1; i<=sub->value;i++)
 				{
 					ix = y+i;
@@ -183,7 +183,7 @@ PF_Err BlurSub32(blurPrm *prm)
 		horBlur32(&sub);
 		verBlur32(&sub);
 
-		//ƒ{ƒP‚Ì”j’]‚ğ‚²‚Ü‚©‚·ˆ—
+		//ãƒœã‚±ã®ç ´ç¶»ã‚’ã”ã¾ã‹ã™å‡¦ç†
 		sub.value = prm->blur_value/4;
 		if ( makeTbl32(prm, &sub) == TRUE) horBlur32(&sub);
 		sub.value = prm->blur_value/16;

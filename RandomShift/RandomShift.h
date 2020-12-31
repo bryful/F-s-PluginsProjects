@@ -39,8 +39,8 @@
 //#include "FsAE.h"
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_Y,
@@ -54,17 +54,17 @@ enum {
 	ID_NUM_PARAMS
 	};
 
-#define STR_Y		"—Ê"
-#define STR_SHIFTMAX	"‚¸‚ç‚µ•‚ÌÅ‘å’l(px)"
-#define STR_SHIFTMIN	"‚¸‚ç‚µ•‚ÌÅ¬’l(px)"
-#define STR_LENGTHMAX	"‰¡•‚ÌÅ‘å’l(px)"
-#define STR_LEMGTHMIN	"‰¡•‚ÌÅ¬’l(px)"
-#define STR_HEIGHTMAX	"c•‚ÌÅ‘å’l(px)"
-#define STR_HEIGHTMIN	"c•‚ÌÅ¬’l(px)"
-#define STR_VERSHIFT_VALUE	"ã‰º‚Ì‚¸‚ç‚µ•(px)"
+#define STR_Y		"é‡"
+#define STR_SHIFTMAX	"ãšã‚‰ã—å¹…ã®æœ€å¤§å€¤(px)"
+#define STR_SHIFTMIN	"ãšã‚‰ã—å¹…ã®æœ€å°å€¤(px)"
+#define STR_LENGTHMAX	"æ¨ªå¹…ã®æœ€å¤§å€¤(px)"
+#define STR_LEMGTHMIN	"æ¨ªå¹…ã®æœ€å°å€¤(px)"
+#define STR_HEIGHTMAX	"ç¸¦å¹…ã®æœ€å¤§å€¤(px)"
+#define STR_HEIGHTMIN	"ç¸¦å¹…ã®æœ€å°å€¤(px)"
+#define STR_VERSHIFT_VALUE	"ä¸Šä¸‹ã®ãšã‚‰ã—å¹…(px)"
 
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
 	A_long					value;
 	A_long					shiftMax;
@@ -96,7 +96,7 @@ public:
 			getParams(in_data,out_data,params,output);
 			srand(m_Frame);
 		}
-	//ƒpƒ‰ƒ[ƒ^‚ğŠl“¾‚·‚éŠÖ”
+	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ç²å¾—ã™ã‚‹é–¢æ•°
 	PF_Err getParams(
 		PF_InData			*in_data,
 		PF_OutData		*out_data,
@@ -241,7 +241,7 @@ public:
 			}
 		}
 	}
-	//ˆÈ‰ºŒÅ—L‚Ìƒpƒ‰ƒ[ƒ^
+	//ä»¥ä¸‹å›ºæœ‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	long					value;
 	long					shiftMax;
 	long					shiftMin;

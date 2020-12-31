@@ -40,7 +40,7 @@
 //#include "FsAE.h"
 
 //-----------------------------------------------------------------------------
-//ParamsSetup—p‚Ì’è”
+//ParamsSetupç”¨ã®å®šæ•°
 #define PS_PRM_COUNT	24
 enum {
 	paramsOffset_topic = 0,
@@ -66,11 +66,11 @@ enum{
 #define PixelSelector_NUM_PARAMS (PixelSelector_NUM + PS_PRM_COUNT * paramsOffset_num+2)
 #define ID_NUM_PARAMS PixelSelector_NUM_PARAMS
 //-----------------------------------------------------------------------------
-//ƒpƒ‰ƒ[ƒ^UI—p‚Ì•¶š—ñ
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿UIç”¨ã®æ–‡å­—åˆ—
 #define UI_TOPIC	"Option"
 #define UI_ON		"ON"
-#define UI_REV		"”½“]‚·‚é"
-#define UI_FILL		"“h‚è‚Â‚Ô‚·"
+#define UI_REV		"åè»¢ã™ã‚‹"
+#define UI_FILL		"å¡—ã‚Šã¤ã¶ã™"
 #define UI_FILL_COLOR	"fillColor"
 #define UI_FILL_OPA		"fillColor_opacity"
 
@@ -82,8 +82,8 @@ enum{
 #define UI_POP1			"Disp"
 #define UI_POP2			"1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24"
 
-#define ERR_GET_AEPRM	"‚·‚İ‚Ü‚¹‚ñƒGƒ‰[‚Å‚·B\nAfterEffects_Params error!"
-#define ERR_GET_PRM		"‚·‚İ‚Ü‚¹‚ñƒGƒ‰[‚Å‚·B\nPixelSelector_Params error!"
+#define ERR_GET_AEPRM	"ã™ã¿ã¾ã›ã‚“ã‚¨ãƒ©ãƒ¼ã§ã™ã€‚\nAfterEffects_Params error!"
+#define ERR_GET_PRM		"ã™ã¿ã¾ã›ã‚“ã‚¨ãƒ©ãƒ¼ã§ã™ã€‚\nPixelSelector_Params error!"
 //-----------------------------------------------------------------------------
 
 typedef struct

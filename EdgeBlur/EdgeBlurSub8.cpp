@@ -41,7 +41,7 @@ void horMin(edgeBlurPrmSub8 *sub)
 	for ( y=0; y<sub->height; y++)
 	{
 		hor = sub->widthTrue * y;
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for ( x=0; x<sub->width; x++) sub->scanline[x] = sub->data[hor + x].alpha;
 
 		A_long minIndex = -1;
@@ -85,7 +85,7 @@ void verMin(edgeBlurPrmSub8 *sub)
 	for ( x=0; x<sub->width; x++)
 	{
 		hor = x;
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for ( y=0; y<sub->height; y++) {
 			sub->scanline[y] = sub->data[hor].alpha;
 			hor += sub->widthTrue;
@@ -136,12 +136,12 @@ void horBlur(edgeBlurPrmSub8 *sub)
 	for ( y=0; y<sub->height; y++)
 	{
 		hor = sub->widthTrue * y;
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for ( x=0; x<sub->width; x++) sub->scanline[x] = sub->data[hor + x].alpha;
 		for ( x=0; x<sub->width; x++){
 			count = gauss = 0;
 			sa = 0;
-			//^‚ñ’†
+			//çœŸã‚“ä¸­
 			gauss = sub->tbl[0];
 			sa += sub->scanline[x] * gauss;
 			count += gauss;
@@ -177,7 +177,7 @@ void verBlur(edgeBlurPrmSub8 *sub)
 	for ( x=0; x<sub->width; x++)
 	{
 		hor = x;
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for ( y=0; y<sub->height; y++) {
 			sub->scanline[y] = sub->data[hor].alpha;
 			hor += sub->widthTrue;
@@ -186,7 +186,7 @@ void verBlur(edgeBlurPrmSub8 *sub)
 		for ( y=0; y<sub->height; y++){
 			count = gauss = 0;
 			sa = 0;
-			//^‚ñ’†
+			//çœŸã‚“ä¸­
 			gauss = sub->tbl[0];
 			sa += sub->scanline[y] * gauss;
 			count += gauss;

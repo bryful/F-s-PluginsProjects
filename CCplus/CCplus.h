@@ -61,63 +61,63 @@
 #define	StrCOLOR_END			"end_color"//PF_Pixel
 #define	StrCOLOR_CENTER_POS		"center_color_pos(%)"
 
-#define	StrALPHA_START			"start_alpha(%)"	//“§–¾‚É‚·‚é
-#define	StrALPHA_END			"end_alpha(%)"//“§–¾‚É‚·‚é
+#define	StrALPHA_START			"start_alpha(%)"	//é€æ˜ã«ã™ã‚‹
+#define	StrALPHA_END			"end_alpha(%)"//é€æ˜ã«ã™ã‚‹
 
-#define	StrNOISE_VALUE			"noise_value"//ƒmƒCƒY‚ğ‹­‚³
+#define	StrNOISE_VALUE			"noise_value"//ãƒã‚¤ã‚ºã‚’å¼·ã•
 
-#define	StrERR_getFsAEParams	"‰æ‘œƒoƒbƒtƒ@[ƒTƒCƒYƒGƒ‰[‚Å‚·BŒä–Æ‚È‚³‚¢B"
-#define	StrERR_getParams		"ƒpƒ‰ƒ[ƒ^ƒGƒ‰[‚Å‚·BŒä–Æ‚È‚³‚¢B"
-
-
+#define	StrERR_getFsAEParams	"ç”»åƒãƒãƒƒãƒ•ã‚¡ãƒ¼ã‚µã‚¤ã‚ºã‚¨ãƒ©ãƒ¼ã§ã™ã€‚å¾¡å…ãªã•ã„ã€‚"
+#define	StrERR_getParams		"ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚¨ãƒ©ãƒ¼ã§ã™ã€‚å¾¡å…ãªã•ã„ã€‚"
 
 
-//AfterEffects‚Ìî•ñ‚ğ‚Ü‚Æ‚ß‚½\‘¢‘Ì
+
+
+//AfterEffectsã®æƒ…å ±ã‚’ã¾ã¨ã‚ãŸæ§‹é€ ä½“
 typedef struct{
 	PF_InData		*in_data;
 	PF_OutData		*out_data;
 
 	PF_EffectWorld 	*input;
 	PF_EffectWorld	*output;
-	PF_PixelPtr  	inData;			//“ü—Í‰æ‘œ‚ÌƒAƒhƒŒƒX	
-	PF_PixelPtr  	outData;		//o—Í‰æ‘œ‚ÌƒAƒhƒŒƒX	
-	A_long			width;					//‘ÎÛ‰æ‘œ‚Ì‰¡•(pixel)
-	A_long			height;					//‘ÎÛ‰æ‘œ‚Ìc	•(pixel)
+	PF_PixelPtr  	inData;			//å…¥åŠ›ç”»åƒã®ã‚¢ãƒ‰ãƒ¬ã‚¹	
+	PF_PixelPtr  	outData;		//å‡ºåŠ›ç”»åƒã®ã‚¢ãƒ‰ãƒ¬ã‚¹	
+	A_long			width;					//å¯¾è±¡ç”»åƒã®æ¨ªå¹…(pixel)
+	A_long			height;					//å¯¾è±¡ç”»åƒã®ç¸¦	å¹…(pixel)
 	
-	A_long			inWidth;				//“ü—Í‰æ‘œ‚Ì‰¡•‚ÌÀƒTƒCƒYpixel)
-	A_long			outWidth;				//o—Í‰æ‘œ‚Ì‰¡•‚ÌÀƒTƒCƒYpixel)
-	A_long			offsetInWidth;	// inWidth - width	•â³ƒTƒCƒY	
+	A_long			inWidth;				//å…¥åŠ›ç”»åƒã®æ¨ªå¹…ã®å®Ÿã‚µã‚¤ã‚ºpixel)
+	A_long			outWidth;				//å‡ºåŠ›ç”»åƒã®æ¨ªå¹…ã®å®Ÿã‚µã‚¤ã‚ºpixel)
+	A_long			offsetInWidth;	// inWidth - width	è£œæ­£ã‚µã‚¤ã‚º	
 	A_long			offsetOutWidth;	// outWidth - width
-	A_long			Frame;					//•`‰æ’†‚ÌƒtƒŒ[ƒ€i‚OƒXƒ^[ƒgj
-	PF_Boolean		is16Bit;		//ƒ‚[ƒh‚ª16Bit‚È‚çTRUE
+	A_long			Frame;					//æç”»ä¸­ã®ãƒ•ãƒ¬ãƒ¼ãƒ ï¼ˆï¼ã‚¹ã‚¿ãƒ¼ãƒˆï¼‰
+	PF_Boolean		is16Bit;		//ãƒ¢ãƒ¼ãƒ‰ãŒ16Bitãªã‚‰TRUE
 	A_u_char		reserve1;
 	A_u_short		reserve2;
 	A_long			reserve3;
 	A_long			reserve4;
-	/* –³—‚â‚è64byte‚É‚·‚é*/
+	/* ç„¡ç†ã‚„ã‚Š64byteã«ã™ã‚‹*/
 } FsAEParams;
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 
-	ID_ORG_REV,		//Œ³ŠG‚ğ”’•”½“]
+	ID_ORG_REV,		//å…ƒçµµã‚’ç™½é»’åè»¢
 
 	ID_COLOR_START,		//PF_Pixel
 	ID_COLOR_CENTER,	//PF_Pixel
 	ID_COLOR_END,		//PF_Pixel
 	ID_COLOR_CENTER_POS,
 
-	ID_ALPHA_START,		//“§–¾‚É‚·‚é
-	ID_ALPHA_END,		//“§–¾‚É‚·‚é
+	ID_ALPHA_START,		//é€æ˜ã«ã™ã‚‹
+	ID_ALPHA_END,		//é€æ˜ã«ã™ã‚‹
 
-	ID_NOISE_VALUE,		//ƒmƒCƒY‚Ì—Ê
+	ID_NOISE_VALUE,		//ãƒã‚¤ã‚ºã®é‡
 	ID_NUM_PARAMS
 
 	};
 /*
-//ƒvƒ‰ƒOƒCƒ““Æ©‚Ìƒpƒ‰ƒ[ƒ^‚ğW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 typedef struct{
 	PF_Boolean		org_rev;
 	
@@ -199,7 +199,7 @@ EntryPointFunc (
 	void			*extraP);
 }
 //-------------------------------------------------------
-// FsAEParams\‘¢‘Ì‚ğì¬‚·‚é
+// FsAEParamsæ§‹é€ ä½“ã‚’ä½œæˆã™ã‚‹
 PF_Err getFsAEParams (	
 	PF_InData		*in_data,
 	PF_OutData		*out_data,

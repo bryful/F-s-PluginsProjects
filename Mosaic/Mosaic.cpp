@@ -7,7 +7,7 @@
 #include "Mosaic.h"
 
 //-------------------------------------------------------------------------------------------------
-// Aboutƒ_ƒCƒAƒƒO
+// Aboutãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 static PF_Err About (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -67,8 +67,8 @@ static PF_Err SequenceResetup (	PF_InData		*in_data,
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (	PF_InData		*in_data,
 							PF_OutData		*out_data,
 							PF_ParamDef		*params[],
@@ -78,14 +78,14 @@ static PF_Err ParamsSetup (	PF_InData		*in_data,
 	PF_ParamDef		def;
 
 	//----------------------------------------------------
-	//‚PŒÂ–Ú‚Ìƒpƒ‰ƒ[ƒ^
+	//ï¼‘å€‹ç›®ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SIZE,//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					1, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					1920,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					1,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					256,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					1,					//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_SIZE,//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					1, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					1920,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					1,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					256,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					1,					//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_SIZE
 					);
 
@@ -99,13 +99,13 @@ static PF_Err ParamsSetup (	PF_InData		*in_data,
 				);
 	//----------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_RAND,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 			//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,		//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,			//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					20,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					0,			//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,			//”’l•\¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_RAND,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					20,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					0,			//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,			//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_RAND
@@ -170,8 +170,8 @@ QueryDynamicFlags(
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
 	
-	//PF_OutFlag_NON_PARAM_VARY‚Ì’l‚ğout_flags‚Öİ’è‚µ‚Ä
-	//–ˆƒtƒŒ[ƒ€‚²‚Æ‚Ì•`‰æ‚ğ‚·‚é‚©Ø‚è‘Ö‚¦‚éB
+	//PF_OutFlag_NON_PARAM_VARYã®å€¤ã‚’out_flagsã¸è¨­å®šã—ã¦
+	//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æç”»ã‚’ã™ã‚‹ã‹åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
 	if (!err){
@@ -242,7 +242,7 @@ static PF_Err Render (	PF_InData		*in_data,
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX‘Î‰‚Ìê‡A‚Ü‚¸‚±‚ÌŠÖ”‚ªŒÄ‚Î‚ê‚Äƒpƒ‰ƒ[ƒ^‚ÌŠl“¾‚ğs‚¤
+	SmartFXå¯¾å¿œã®å ´åˆã€ã¾ãšã“ã®é–¢æ•°ãŒå‘¼ã°ã‚Œã¦ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ç²å¾—ã‚’è¡Œã†
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

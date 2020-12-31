@@ -153,7 +153,7 @@ void BlockMosaic8(gridParam *prm)
 	data =(PF_Pixel8 *)(pr.data);
 	PF_Pixel col;
 
-	//ƒ‚ƒUƒCƒN‚©‚¯‚é”ÍˆÍ‚ğ‹‚ß‚é
+	//ãƒ¢ã‚¶ã‚¤ã‚¯ã‹ã‘ã‚‹ç¯„å›²ã‚’æ±‚ã‚ã‚‹
 	x0 = pr.x ;
 	x1 = pr.x + pr.info.gridSize -1;
 	y0 = pr.y;
@@ -161,7 +161,7 @@ void BlockMosaic8(gridParam *prm)
 
 	if ( (x1<0)||(x0>=pr.width)||(y1<0)||(y0>=pr.height) ) return;
 
-	//”ÍˆÍ‚ğƒNƒŠƒbƒsƒ“ƒO
+	//ç¯„å›²ã‚’ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°
 	if (x0<0) x0 = 0;
 	if (y0<0) y0 = 0;
 	if (x1>=pr.width)  x1 = pr.width -1;
@@ -169,7 +169,7 @@ void BlockMosaic8(gridParam *prm)
 	
 	w	= x1 - x0 + 1;
 	h	= y1 - y0 + 1;
-	//rga‚Ì•½‹Ï’l‚ğ‹‚ß‚é
+	//rgaã®å¹³å‡å€¤ã‚’æ±‚ã‚ã‚‹
 	r=g=b=a=0;
 	A_long count=0;
 	offset = pr.widthTrue - w;
@@ -191,7 +191,7 @@ void BlockMosaic8(gridParam *prm)
 	col.green	= RoundByteLong(g / count);
 	col.red		= RoundByteLong(r / count);
 
-	//“h‚è‚Â‚Ô‚·
+	//å¡—ã‚Šã¤ã¶ã™
 	target = x0 + (y0 * pr.widthTrue);
 	for (j=0; j<h;j++){
 		for (i=0; i<w;i++){

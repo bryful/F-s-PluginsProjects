@@ -52,8 +52,8 @@
 #define STR_SMOOTH2			"on"
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_COLOR,	//
@@ -92,13 +92,13 @@ public:
 		PF_LayerDef		*output ):CFsAE(in_data,out_data,params,output){
 			getParams(in_data,out_data,params,output);
 		}
-	//ƒpƒ‰ƒ[ƒ^‚ğŠl“¾‚·‚éŠÖ”
+	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ç²å¾—ã™ã‚‹é–¢æ•°
 	PF_Err getParams(
 		PF_InData			*in_data,
 		PF_OutData		*out_data,
 		PF_ParamDef		*params[],
 		PF_LayerDef		*output );
-	//ˆÈ‰ºŒÅ—L‚Ìƒpƒ‰ƒ[ƒ^
+	//ä»¥ä¸‹å›ºæœ‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	PF_Pixel  		color;
 	PF_FixedPoint	top_left;
 	PF_FixedPoint	bottom_right;
@@ -106,7 +106,7 @@ public:
 	PF_Boolean		smooth;
 
 
-	//˜g‚ğ•`‚­
+	//æ ã‚’æã
 	void drawRect(){
 		long x0 = top_left.x >> 16;
 		long y0 = top_left.y >> 16;
@@ -146,7 +146,7 @@ public:
 		long x0,x1,y0,y1;
 
 		long i,j,t;
-		//‚Ü‚¸ã‚©‚ç’T‚·
+		//ã¾ãšä¸Šã‹ã‚‰æ¢ã™
 		y0 = -1;
 		t = 0;
 		for (j=0;j<h;j++){
@@ -163,7 +163,7 @@ public:
 
 		}
 		if (y0==-1) return;
-		//‰º‚©‚ç’T‚·
+		//ä¸‹ã‹ã‚‰æ¢ã™
 		y1 = -1;
 		for (j = h-1;j>=0;j--){
 			t = j * tw;
@@ -178,7 +178,7 @@ public:
 			if (y1!=-1) break;
 		}
 
-		//‚Ü‚¸¶‚©‚ç’T‚·
+		//ã¾ãšå·¦ã‹ã‚‰æ¢ã™
 		x0 = -1;
 		t = 0;
 		for (j=0;j<w;j++){
@@ -194,7 +194,7 @@ public:
 			if (x0!=-1) break;
 
 		}
-		//‚Ü‚¸‰E‚©‚ç’T‚·
+		//ã¾ãšå³ã‹ã‚‰æ¢ã™
 		x1 = -1;
 		t = 0;
 		for (j=w-1;j>=0;j--){
@@ -241,7 +241,7 @@ public:
 		long x0,x1,y0,y1;
 
 		long i,j,t;
-		//‚Ü‚¸ã‚©‚ç’T‚·
+		//ã¾ãšä¸Šã‹ã‚‰æ¢ã™
 		y0 = -1;
 		t = 0;
 		for (j=0;j<h;j++){
@@ -258,7 +258,7 @@ public:
 
 		}
 		if (y0==-1) return;
-		//‰º‚©‚ç’T‚·
+		//ä¸‹ã‹ã‚‰æ¢ã™
 		y1 = -1;
 		for (j = h-1;j>=0;j--){
 			t = j * tw;
@@ -273,7 +273,7 @@ public:
 			if (y1!=-1) break;
 		}
 
-		//‚Ü‚¸¶‚©‚ç’T‚·
+		//ã¾ãšå·¦ã‹ã‚‰æ¢ã™
 		x0 = -1;
 		t = 0;
 		for (j=0;j<w;j++){
@@ -289,7 +289,7 @@ public:
 			if (x0!=-1) break;
 
 		}
-		//‚Ü‚¸‰E‚©‚ç’T‚·
+		//ã¾ãšå³ã‹ã‚‰æ¢ã™
 		x1 = -1;
 		t = 0;
 		for (j=w-1;j>=0;j--){

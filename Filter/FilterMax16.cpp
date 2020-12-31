@@ -19,14 +19,14 @@ static PF_Err MaxAllHor(PF_EffectWorldPtr g, A_long max, PF_Handle bufH)
 		A_long ypos = y * wt;
 
 		A_u_short mv = 0;
-		//scanline mv‚ÅÅ‘å’l‚ğ‹L‰¯‚µ‚Ä‚¨‚­
+		//scanline mvã§æœ€å¤§å€¤ã‚’è¨˜æ†¶ã—ã¦ãŠã
 		for (A_long i = 0; i < w; i++)
 		{
 			scanline[i] = data[ypos + i];
 			scanlineLv[i] = RoundShort(((A_long)data[ypos + i].red + (A_long)data[ypos + i].green + (A_long)data[ypos + i].blue) / 3);
 			if (mv < scanlineLv[i]) mv = scanlineLv[i];
 		}
-		if (mv <= 0) continue; // Å‘å’l‚ª‚O‚È‚ç•K—v‚È‚µ
+		if (mv <= 0) continue; // æœ€å¤§å€¤ãŒï¼ãªã‚‰å¿…è¦ãªã—
 
 		for (A_long x = 0; x < w; x++)
 		{
@@ -68,7 +68,7 @@ static PF_Err MaxAllVur(PF_EffectWorldPtr g, A_long max, PF_Handle bufH)
 
 		A_u_short mv = 0;
 		A_long ypos = 0;
-		//scanline mv‚ÅÅ‘å’l‚ğ‹L‰¯‚µ‚Ä‚¨‚­
+		//scanline mvã§æœ€å¤§å€¤ã‚’è¨˜æ†¶ã—ã¦ãŠã
 		for (A_long i = 0; i < h; i++)
 		{
 			A_long p = x + ypos;
@@ -77,7 +77,7 @@ static PF_Err MaxAllVur(PF_EffectWorldPtr g, A_long max, PF_Handle bufH)
 			if (mv < scanlineLv[i]) mv = scanlineLv[i];
 			ypos += wt;
 		}
-		if (mv <= 0) continue; // Å‘å’l‚ª‚O‚È‚ç•K—v‚È‚µ
+		if (mv <= 0) continue; // æœ€å¤§å€¤ãŒï¼ãªã‚‰å¿…è¦ãªã—
 		ypos = 0;
 		for (A_long y = 0; y < h; y++)
 		{

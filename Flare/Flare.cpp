@@ -12,8 +12,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -24,11 +24,11 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//mode
-	//�|�b�v�A�b�v���j���[
+	//ポップアップメニュー
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POPUP(STR_MODE1,
-		STR_MODE1_COUNT,	//���j���[�̐�
-		STR_MODE1_DEFL,	//�f�t�H���g
+		STR_MODE1_COUNT,	//メニューの数
+		STR_MODE1_DEFL,	//デフォルト
 		STR_MODE1_ITEMS,
 		ID_MODE
 	);
@@ -91,8 +91,8 @@ static PF_Err ParamsSetup (
 		SPRINTF(STR_REV, i + 1);
 		AEFX_CLR_STRUCT(def);
 		PF_ADD_POPUP(num,
-			STR_REV_COUNT,	//���j���[�̐�
-			FI_REV[i],	//�f�t�H���g
+			STR_REV_COUNT,	//メニューの数
+			FI_REV[i],	//デフォルト
 			STR_REV_ITEMS,
 			PIDX(i) + ID_REV
 		);
@@ -122,12 +122,12 @@ static PF_Err ParamsSetup (
 //inside
 		SPRINTF(STR_INSIDE, i + 1);
 		AEFX_CLR_STRUCT(def);
-		PF_ADD_SLIDER(num,	//�p�����[�^�̖��O
-			0, 				//���l���͂���ꍇ�̍ŏ��l
-			20,				//���l���͂���ꍇ�̍ő�l
-			0,				//�X���C�_�[�̍ŏ��l 
-			10,				//�X���C�_�[�̍ő�l
-			FI_INSIDE[i],				//�f�t�H���g�̒l
+		PF_ADD_SLIDER(num,	//パラメータの名前
+			0, 				//数値入力する場合の最小値
+			20,				//数値入力する場合の最大値
+			0,				//スライダーの最小値 
+			10,				//スライダーの最大値
+			FI_INSIDE[i],				//デフォルトの値
 			PIDX(i) + ID_INSIDE
 		);
 #pragma endregion
@@ -136,12 +136,12 @@ static PF_Err ParamsSetup (
 		//outside
 		SPRINTF(STR_OUTSIDE, i + 1);
 		AEFX_CLR_STRUCT(def);
-		PF_ADD_SLIDER(num,	//�p�����[�^�̖��O
-			0, 				//���l���͂���ꍇ�̍ŏ��l
-			20,				//���l���͂���ꍇ�̍ő�l
-			0,				//�X���C�_�[�̍ŏ��l 
-			20,				//�X���C�_�[�̍ő�l
-			FI_OUTSIDE[i],				//�f�t�H���g�̒l
+		PF_ADD_SLIDER(num,	//パラメータの名前
+			0, 				//数値入力する場合の最小値
+			20,				//数値入力する場合の最大値
+			0,				//スライダーの最小値 
+			20,				//スライダーの最大値
+			FI_OUTSIDE[i],				//デフォルトの値
 			PIDX(i) + ID_OUTSIDE
 		);
 #pragma endregion
@@ -158,12 +158,12 @@ static PF_Err ParamsSetup (
 		SPRINTF(STR_MAX, i + 1);
 		//----------------------------------------------------------------
 		AEFX_CLR_STRUCT(def);
-		PF_ADD_SLIDER(num,	//�p�����[�^�̖��O
-			0, 				//���l���͂���ꍇ�̍ŏ��l
-			100,			//���l���͂���ꍇ�̍ő�l
-			0,				//�X���C�_�[�̍ŏ��l 
-			20,				//�X���C�_�[�̍ő�l
-			FI_MAX[i],				//�f�t�H���g�̒l
+		PF_ADD_SLIDER(num,	//パラメータの名前
+			0, 				//数値入力する場合の最小値
+			100,			//数値入力する場合の最大値
+			0,				//スライダーの最小値 
+			20,				//スライダーの最大値
+			FI_MAX[i],				//デフォルトの値
 			PIDX(i) + ID_MAX
 		);
 #pragma endregion
@@ -173,12 +173,12 @@ static PF_Err ParamsSetup (
 		//blur
 		SPRINTF(STR_BLUR, i + 1);
 		AEFX_CLR_STRUCT(def);
-		PF_ADD_SLIDER(num,	//�p�����[�^�̖��O
-			0, 				//���l���͂���ꍇ�̍ŏ��l
-			100,			//���l���͂���ꍇ�̍ő�l
-			0,				//�X���C�_�[�̍ŏ��l 
-			50,				//�X���C�_�[�̍ő�l
-			FI_BLUR[i],		//�f�t�H���g�̒l
+		PF_ADD_SLIDER(num,	//パラメータの名前
+			0, 				//数値入力する場合の最小値
+			100,			//数値入力する場合の最大値
+			0,				//スライダーの最小値 
+			50,				//スライダーの最大値
+			FI_BLUR[i],		//デフォルトの値
 			PIDX(i) + ID_BLUR
 		);
 #pragma endregion
@@ -202,8 +202,8 @@ static PF_Err ParamsSetup (
 		SPRINTF(STR_BLEND, i + 1);
 		AEFX_CLR_STRUCT(def);
 		PF_ADD_POPUP(num,
-			STR_BLEND_COUNT,	//���j���[�̐�
-			FI_BLEND[i],	//�f�t�H���g
+			STR_BLEND_COUNT,	//メニューの数
+			FI_BLEND[i],	//デフォルト
 			STR_BLEND_ITEMS,
 			PIDX(i) + ID_BLEND
 		);
@@ -337,7 +337,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	//ERR(ae->CopyInToOut());
 
 
@@ -361,10 +361,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -388,7 +388,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

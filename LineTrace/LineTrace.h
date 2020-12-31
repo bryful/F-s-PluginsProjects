@@ -39,7 +39,7 @@
 #include "../FsLibrary/FsAE.h"
 
 //-----------------------------------------------------------------------------
-//ParamsSetup�p�̒萔
+//ParamsSetup用の定数
 #define PR_PRM_COUNT	24
 enum {
 	ID_INPUT = 0,
@@ -76,7 +76,7 @@ enum{
 	mode_simple
 };
 //-----------------------------------------------------------------------------
-//�p�����[�^UI�p�̕�����
+//パラメータUI用の文字列
 
 
 #define UI_ENABLED_BLACK	"Black"
@@ -104,8 +104,8 @@ enum{
 
 
 
-#define ERR_GET_AEPRM	"���݂܂���G���[�ł��B\nAfterEffects_Params error!"
-#define ERR_GET_PRM		"���݂܂���G���[�ł��B\nLineTrace_Params error!"
+#define ERR_GET_AEPRM	"すみませんエラーです。\nAfterEffects_Params error!"
+#define ERR_GET_PRM		"すみませんエラーです。\nLineTrace_Params error!"
 //-----------------------------------------------------------------------------
 #define	RANGE_RED2	330
 #define	RANGE_RED3	360

@@ -10,13 +10,13 @@ typedef struct {
 TableString		g_strs[StrID_NUMTYPES] = {
 	StrID_NONE,					"",
 	StrID_Name,					"F's MainLineRepaint",
-	StrID_Description,			"ƒZƒ‹‰æ‚Ìåü‚ğ–³‚­‚µ‚Ü‚·",
+	StrID_Description,			"ã‚»ãƒ«ç”»ã®ä¸»ç·šã‚’ç„¡ãã—ã¾ã™",
 	StrID_MADEBY,				"bry-ful",
 	
-	StrID_MY_Main_Color,		"åü‚ÌF",
+	StrID_MY_Main_Color,		"ä¸»ç·šã®è‰²",
 
-	StrID_ERR_getFsAEParams,	"‰æ‘œƒoƒbƒtƒ@[ƒTƒCƒYƒGƒ‰[‚Å‚·BŒä–Æ‚È‚³‚¢B",
-	StrID_ERR_getParams,	"ƒpƒ‰ƒ[ƒ^ƒGƒ‰[‚Å‚·BŒä–Æ‚È‚³‚¢B",
+	StrID_ERR_getFsAEParams,	"ç”»åƒãƒãƒƒãƒ•ã‚¡ãƒ¼ã‚µã‚¤ã‚ºã‚¨ãƒ©ãƒ¼ã§ã™ã€‚å¾¡å…ãªã•ã„ã€‚",
+	StrID_ERR_getParams,	"ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚¨ãƒ©ãƒ¼ã§ã™ã€‚å¾¡å…ãªã•ã„ã€‚",
 };
 
 

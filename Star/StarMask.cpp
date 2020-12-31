@@ -4,10 +4,10 @@ typedef struct MinParam
 {
 	A_long		*scanline;
 	PF_FpShort	*scanlineD;
-	A_long		scanlineLength;	//scanline‚Ì’·‚³
-	A_long		value;	//Max/Min‚Ì’l
+	A_long		scanlineLength;	//scanlineã®é•·ã•
+	A_long		value;	//Max/Minã®å€¤
 	
-	A_long		target;	//scanline‚Ìƒ^[ƒQƒbƒgƒCƒ“ƒfƒbƒNƒX
+	A_long		target;	//scanlineã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	A_long		maxIndex;
 }MinParam;
 
@@ -85,13 +85,13 @@ void MinMask8(CFsAE *ae,A_long min)
 		data = (PF_Pixel *)ae->out->data();
 		mm.scanline	= scanline.bufA_long();
 		mm.scanlineLength = ae->out->width();
-		//…•½•ûŒü
+		//æ°´å¹³æ–¹å‘
 		A_long hor =0; 
 		A_long x,y;
 		for (y=0; y< ae->out->height(); y++)
 		{
 			hor = ae->out->widthTrue() * y;
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“•ª“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³åˆ†è»¢é€
 			for (x=0; x<ae->out->width(); x++){
 				mm.scanline[x]	= (A_long)data[hor + x].alpha;
 			}
@@ -137,13 +137,13 @@ void MinMask16(CFsAE *ae,A_long min)
 		mm.scanline	= scanline.bufA_long();
 
 		mm.scanlineLength = ae->out->width();
-		//…•½•ûŒü
+		//æ°´å¹³æ–¹å‘
 		A_long hor =0; 
 		A_long x,y;
 		for (y=0; y< ae->out->height(); y++)
 		{
 			hor = ae->out->widthTrue() * y;
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“•ª“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³åˆ†è»¢é€
 			for (x=0; x<ae->out->width(); x++){
 				mm.scanline[x]	= (A_long)data[hor + x].alpha;
 			}
@@ -189,13 +189,13 @@ void MinMask32(CFsAE *ae,A_long min)
 		mm.scanlineD = scanline.bufFpShort();
 
 		mm.scanlineLength = ae->out->width();
-		//…•½•ûŒü
+		//æ°´å¹³æ–¹å‘
 		A_long hor =0; 
 		A_long x,y;
 		for (y=0; y< ae->out->height(); y++)
 		{
 			hor = ae->out->widthTrue() * y;
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“•ª“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³åˆ†è»¢é€
 			for (x=0; x<ae->out->width(); x++){
 				mm.scanlineD[x]	= (PF_FpShort)data[hor + x].alpha;
 			}

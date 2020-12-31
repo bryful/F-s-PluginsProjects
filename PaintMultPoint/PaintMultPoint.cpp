@@ -7,7 +7,7 @@
 
 
 //-------------------------------------------------------------------------------------------------
-// Aboutƒ_ƒCƒAƒƒO
+// Aboutãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 static PF_Err About (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -72,8 +72,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -97,7 +97,7 @@ static PF_Err ParamsSetup (
 	char cap[255] = {"\0"};
 	for (A_long i=0; i<POINT_COLOR_COUNT; i++){
 		AEFX_CLR_STRUCT(def);	
-		def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//‚±‚ê‚ğ‚Â‚¯‚é‚Æ•\¦‚ÉŠJ‚¢‚½ó‘Ô‚É‚È‚é
+		def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨è¡¨ç¤ºæ™‚ã«é–‹ã„ãŸçŠ¶æ…‹ã«ãªã‚‹
 		PF_SPRINTF(cap,STR_TOPIC,i);
 		PF_ADD_TOPIC(cap, ID_UI_TOPIC(i));
 		AEFX_CLR_STRUCT(def);
@@ -200,7 +200,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	if (!err){
 		if ( infoP->Count>0){
@@ -228,7 +228,7 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err Render (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
