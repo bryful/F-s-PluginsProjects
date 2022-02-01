@@ -10,8 +10,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -21,7 +21,7 @@ static PF_Err ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_DELTA_CB,
 					STR_CB,
@@ -30,21 +30,21 @@ static PF_Err ParamsSetup (
 					ID_DELTA_CB
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_DELTA_OPACITY,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					500,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					300,			//�X���C�_�[�̍ő�l
-					100,			//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_DELTA_OPACITY,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					500,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					300,			//スライダーの最大値
+					100,			//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_DELTA_OPACITY
 					);
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_ALPHA_CB,
 					STR_CB,
@@ -53,21 +53,21 @@ static PF_Err ParamsSetup (
 					ID_ALPHA_CB
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_ALPHA_OPACITY,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					500,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					300,			//�X���C�_�[�̍ő�l
-					100,			//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_ALPHA_OPACITY,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					500,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					300,			//スライダーの最大値
+					100,			//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_ALPHA_OPACITY
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_LINE_COLOR, 
 					0x0,
@@ -82,15 +82,15 @@ static PF_Err ParamsSetup (
 	PF_ADD_TOPIC(STR_TOPIC, ID_TOPIC);
 	//****************************************************************
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR_OPACITY,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					300,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,			//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR_OPACITY,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					300,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,			//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR_OPACITY
@@ -98,7 +98,7 @@ static PF_Err ParamsSetup (
 	//****************************************************************
 	//0
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR0_CB,
 					STR_CB,
@@ -107,7 +107,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR0_CB
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR0, 
 					0x10,
@@ -116,15 +116,15 @@ static PF_Err ParamsSetup (
 					ID_COLOR0
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR0_LEVEL,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR0_LEVEL,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR0_LEVEL
@@ -132,7 +132,7 @@ static PF_Err ParamsSetup (
 	//****************************************************************
 	//1
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR1_CB,
 					STR_CB,
@@ -141,7 +141,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR1_CB
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR1, 
 					0xFF,
@@ -150,15 +150,15 @@ static PF_Err ParamsSetup (
 					ID_COLOR1
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR1_LEVEL,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR1_LEVEL,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR1_LEVEL
@@ -166,7 +166,7 @@ static PF_Err ParamsSetup (
 	//****************************************************************
 	//2
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR2_CB,
 					STR_CB,
@@ -175,7 +175,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR2_CB
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR2, 
 					0x0,
@@ -184,15 +184,15 @@ static PF_Err ParamsSetup (
 					ID_COLOR2
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR2_LEVEL,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR2_LEVEL,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR2_LEVEL
@@ -200,7 +200,7 @@ static PF_Err ParamsSetup (
 	//****************************************************************
 	//3
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR3_CB,
 					STR_CB,
@@ -209,7 +209,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR3_CB
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR3, 
 					0x0,
@@ -218,15 +218,15 @@ static PF_Err ParamsSetup (
 					ID_COLOR1
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR3_LEVEL,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR3_LEVEL,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR3_LEVEL
@@ -234,7 +234,7 @@ static PF_Err ParamsSetup (
 	//****************************************************************
 	//4
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR4_CB,
 					STR_CB,
@@ -243,7 +243,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR4_CB
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR4, 
 					0xFF,
@@ -252,15 +252,15 @@ static PF_Err ParamsSetup (
 					ID_COLOR4
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR4_LEVEL,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR4_LEVEL,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR4_LEVEL
@@ -268,7 +268,7 @@ static PF_Err ParamsSetup (
 	//****************************************************************
 	//5
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR5_CB,
 					STR_CB,
@@ -277,7 +277,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR5_CB
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR5, 
 					0xFF,
@@ -286,15 +286,15 @@ static PF_Err ParamsSetup (
 					ID_COLOR6
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR5_LEVEL,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR5_LEVEL,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR5_LEVEL
@@ -302,7 +302,7 @@ static PF_Err ParamsSetup (
 	//****************************************************************
 	//6
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR6_CB,
 					STR_CB,
@@ -311,7 +311,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR6_CB
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR6, 
 					0x0,
@@ -320,15 +320,15 @@ static PF_Err ParamsSetup (
 					ID_COLOR6
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR6_LEVEL,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR6_LEVEL,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR6_LEVEL
@@ -336,7 +336,7 @@ static PF_Err ParamsSetup (
 	//****************************************************************
 	//7
 	//----------------------------------------------------------------
-	//�`�F�b�N�{�b�N�X
+	//チェックボックス
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_COLOR7_CB,
 					STR_CB,
@@ -345,7 +345,7 @@ static PF_Err ParamsSetup (
 					ID_COLOR7_CB
 					);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR7, 
 					0xFF,
@@ -354,15 +354,15 @@ static PF_Err ParamsSetup (
 					ID_COLOR7
 					);
 	//----------------------------------------------------------------
-	//�Œ菬���̃X���C�_�[�o�[
+	//固定小数のスライダーバー
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_COLOR7_LEVEL,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	STR_COLOR7_LEVEL,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR7_LEVEL
@@ -472,7 +472,7 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 static PF_Err Render (
 	PF_InData			*in_data,
 	PF_OutData		*out_data,
@@ -493,7 +493,7 @@ static PF_Err Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

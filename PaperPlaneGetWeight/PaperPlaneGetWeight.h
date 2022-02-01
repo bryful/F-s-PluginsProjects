@@ -37,8 +37,8 @@
 
 #include "../FsLibrary/FsAE.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 
@@ -57,7 +57,7 @@ enum {
 	pw360 = 360 / WEIGHT_SCALE,
 };
 
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_ISHALF		"HalfSize"
 #define	STR_COUNT		"Count"
 #define	STR_WEIGHT			"Weight"
@@ -66,7 +66,7 @@ enum {
 #define	STR_WEIGHT_DFLT		2
 
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
 	PF_Boolean		isHalf;
 	A_long			count;

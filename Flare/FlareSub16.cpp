@@ -16,7 +16,7 @@ static PF_Err ToHarfSize(CFsGraph* src)
 	PF_Pixel16* data = (PF_Pixel16*)src->data();
 	PF_Pixel16 bl = { 0,0,0,0 };
 
-	//‚Ü‚¸…•½•ûŒü
+	//ã¾ãšæ°´å¹³æ–¹å‘
 	for (A_long y = 0; y < oh; y++)
 	{
 		A_long ypos = y * owt;
@@ -38,7 +38,7 @@ static PF_Err ToHarfSize(CFsGraph* src)
 		}
 
 	}
-	//‚’¼
+	//å‚ç›´
 	for (A_long x = 0; x < ow; x++)
 	{
 		A_long ypos = 0;
@@ -83,11 +83,11 @@ static PF_Err ToDoubleSize(CFsGraph* src,PF_Handle bufH)
 	PF_Pixel16 bl = { 0,0,0,0 };
 	PF_Pixel16* scanline = *(PF_Pixel16**)bufH;
 
-	//‚Ü‚¸…•½•ûŒü
+	//ã¾ãšæ°´å¹³æ–¹å‘
 	for (A_long y = 0; y < oh; y++)
 	{
 		A_long ypos = y * owt;
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for (A_long x = 0; x < hw; x++) scanline[x] = data[x + ypos];
 		for (A_long x = 0; x < hw; x++)
 		{
@@ -114,13 +114,13 @@ static PF_Err ToDoubleSize(CFsGraph* src,PF_Handle bufH)
 		}
 
 	}
-	//‚’¼
+	//å‚ç›´
 	for (A_long x = 0; x < ow; x++)
 	{
 		A_long ypos = 0;
 		A_long ypos2 = 0;
 
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for (A_long y = 0; y < hh; y++)
 		{
 			scanline[y] = data[x + ypos];
@@ -324,7 +324,7 @@ BaseCopyWhiteBase(
 	else if (a < 0) a = 0;
 
 	A_long rgb = ((A_long)inP->red + (A_long)inP->green + (A_long)inP->blue) / 3;
-	//”½“]
+	//åè»¢
 	rgb = (PF_MAX_CHAN16 - rgb);
 	if (rgb < 0) rgb = 0;
 	else if (rgb > PF_MAX_CHAN16) rgb = PF_MAX_CHAN16;
@@ -450,7 +450,7 @@ WhiteBase(
 	else if (a < 0) a = 0;
 
 	A_long rgb = ((A_long)inP->red + (A_long)inP->green + (A_long)inP->blue) / 3;
-	//”½“]
+	//åè»¢
 	rgb = (PF_MAX_CHAN16 - rgb);
 	if (rgb < 0) rgb = 0;
 	else if (rgb > PF_MAX_CHAN16) rgb = PF_MAX_CHAN16;
@@ -654,7 +654,7 @@ BlendAdd(
 
 //==================================================================================
 /*
-Mat‚ğŒ³‚É–ß‚·
+Matã‚’å…ƒã«æˆ»ã™
 */
 static PF_Err fromBlackMat16(CFsAE *ae)
 {
@@ -724,7 +724,7 @@ PF_Err Exec16(CFsAE *ae, ParamInfo16 *infoP)
 	}
 
 
-	//–{”Ô
+	//æœ¬ç•ª
 	for (int i = 0; i < PCOUNT; i++)
 	{
 		ae->tmp->clear();
@@ -749,7 +749,7 @@ PF_Err Exec16(CFsAE *ae, ParamInfo16 *infoP)
 			ERR(ae->iterate16InputToTemp((refconType)&infoP->flareInfo[i], WhiteBase));
 			break;
 		}
-		//‰æ‘œ‚ğ”¼•ª‚É
+		//ç”»åƒã‚’åŠåˆ†ã«
 		ERR(ToHarfSize(ae->tmp));
 
 		if ((infoP->flareInfo[i].rev != REVMODE::None) && (infoP->mode != MODE::Image))
@@ -762,7 +762,7 @@ PF_Err Exec16(CFsAE *ae, ParamInfo16 *infoP)
 			ERR(Border16(ae, &infoP->flareInfo[i]));
 		}
 
-		//max‚Ìˆ—
+		//maxã®å‡¦ç†
 		if (infoP->mode == MODE::Image) {
 			ERR(MaxAll16(ae, &infoP->flareInfo[i]));
 			ERR(BlurAll16(ae, &infoP->flareInfo[i]));
@@ -777,10 +777,10 @@ PF_Err Exec16(CFsAE *ae, ParamInfo16 *infoP)
 			}
 			ERR(Colored(ae->tmp, &infoP->flareInfo[i]));
 		}
-		//‰æ‘œƒTƒCƒY‚ğŒ³‚É–ß‚·
+		//ç”»åƒã‚µã‚¤ã‚ºã‚’å…ƒã«æˆ»ã™
 		ERR(ToDoubleSize(ae->tmp,bufH));
 
-		//output‚Ö–ß‚·
+		//outputã¸æˆ»ã™
 		switch (infoP->flareInfo[i].blend)
 		{
 		case BLEND::Screen:

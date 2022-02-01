@@ -93,7 +93,7 @@ DeltaSub8 (
 	A_long v,mv,mx;
 	v =0;
 	mv =0;
-	mx = PF_MAX_CHAN8;//A_u_char Ç≈éØï 
+	mx = PF_MAX_CHAN8;//A_u_char „ÅßË≠òÂà•
 	
 	if (mv<mx) if (xL<=infoP->width) {
 		if (infoP->isAlpha==TRUE){
@@ -137,7 +137,7 @@ DeltaSub16 (
 	A_long v,mv,mx;
 	v =0;
 	mv =0;
-	mx = PF_MAX_CHAN8;//A_u_char Ç≈éØï 
+	mx = PF_MAX_CHAN8;//A_u_char „ÅßË≠òÂà•
 	
 	if (mv<mx) if (xL<=infoP->width) {
 		if (infoP->isAlpha==TRUE){
@@ -179,7 +179,7 @@ DeltaSub32 (
 	A_long v,mv,mx;
 	v =0;
 	mv =0;
-	mx = PF_MAX_CHAN8;//A_u_char Ç≈éØï 
+	mx = PF_MAX_CHAN8;//A_u_char „ÅßË≠òÂà•
 	if (mv<mx) if (xL<=infoP->width) {
 		if (infoP->isAlpha==TRUE){
 			v = SubtrucPixelAlpha32(*inP, inP[1]);

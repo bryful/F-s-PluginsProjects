@@ -9,7 +9,7 @@
 #include "PixelReplace_def.h"
 
 //-------------------------------------------------------------------------------------------------
-//About•\Ž¦
+//Aboutè¡¨ç¤º
 static PF_Err About (	PF_InData		*in_data,
 						PF_OutData		*out_data,
 						PF_ParamDef		*params[],
@@ -130,8 +130,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY‚Ì’l‚ðout_flags‚ÖÝ’è‚µ‚Ä
-	//–ˆƒtƒŒ[ƒ€‚²‚Æ‚Ì•`‰æ‚ð‚·‚é‚©Ø‚è‘Ö‚¦‚éB
+	//PF_OutFlag_NON_PARAM_VARYã®å€¤ã‚’out_flagsã¸è¨­å®šã—ã¦
+	//æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æç”»ã‚’ã™ã‚‹ã‹åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
@@ -227,8 +227,8 @@ static PF_Err ParamsSetup (	PF_InData		*in_data,
 						
 	//def.ui_flags	=	PF_PUI_STD_CONTROL_ONLY; 
 	PF_ADD_POPUP(UI_POP1, 
-				PR_PRM_COUNT,	//ƒƒjƒ…[‚Ì”
-				PR_PRM_COUNT,	//ƒfƒtƒHƒ‹ƒg
+				PR_PRM_COUNT,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ•°
+				PR_PRM_COUNT,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 				UI_POP2,
 				PixelReplace_POP
 				);
@@ -352,7 +352,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ðƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	
 	switch(ae->pixelFormat())

@@ -10,14 +10,14 @@
 
 
 //-----------------------------------------------------------------------------------
-//�v���O�C���̎��ʂɎg���閼�O
+//プラグインの識別に使われる名前
 #define FS_NAME			"F's AnimatedNoise"
 //-----------------------------------------------------------------------------------
-//�v���O�C���̐����Ɏg���镶��
-#define FS_DESCRIPTION	"�A�j���`�b�N�ȃm�C�Y"
+//プラグインの説明に使われる文字
+#define FS_DESCRIPTION	"アニメチックなノイズ"
 
 //-----------------------------------------------------------------------------------
-//�v���O�C�����\������郁�j���[��
+//プラグインが表示されるメニュー名
 //#define FS_CATEGORY "F's Plugins-Channel"
 //#define FS_CATEGORY "F's Plugins-Draw"
 //#define FS_CATEGORY "F's Plugins-Filter"
@@ -27,10 +27,10 @@
 //#define FS_CATEGORY "F's Plugins-Script"
 //#define FS_CATEGORY "F's Plugins-Test"
 //-----------------------------------------------------------
-#ifndef SUPPORT_SMARTFX			//�Q�d�o�^��h��
-#define SUPPORT_SMARTFX			//�����L���ɂ����SmartFX+Float_Color�ɑΉ�����
+#ifndef SUPPORT_SMARTFX			//２重登録を防ぐ
+#define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
 #endif
-//#define NO_USE_FSGRAPHICS	//�����L���ɂ����FsGraphics�֌W���C���N���[�h����Ȃ�
+//#define NO_USE_FSGRAPHICS	//これを有効にするとFsGraphics関係がインクルードされない
 
 
 //-----------------------------------------------------------------------------------
@@ -48,9 +48,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//�ʏ�͂�����
-#define FS_OUT_FLAGS	33556036	//��������L���ɂ���Ɩ��t���[�����Ƃɕ`�悷��BNON_PARAM_VARY�𓮍쒆�ɐ؂�ւ���Ƃ����������
-//#define FS_OUT_FLAGS	1600		//8bit�̂�
+//#define FS_OUT_FLAGS	33556032	//通常はこちら
+#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+//#define FS_OUT_FLAGS	1600		//8bitのみ
 
 
 

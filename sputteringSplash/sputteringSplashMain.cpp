@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 /*
-	AEP Project—p‚Ìƒvƒ‰ƒOƒCƒ“
+	AEP Projectç”¨ã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³
 	sputteringSplash
-	•`‰æ‚Ì‚Ý
+	æç”»ã®ã¿
 */
 #include "sputteringSplash.h"
 
@@ -13,7 +13,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 
 	PF_Fixed value = prm->value /10;
 	A_long pValue = prm->point_value;
-	PF_Fixed pLen = prm->point_length; //’l‚Í®”
+	PF_Fixed pLen = prm->point_length; //å€¤ã¯æ•´æ•°
 	A_long colRnd = prm->color_max -1;
 	A_long colR;
 
@@ -22,7 +22,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	A_long w = ae->out->width();
 	A_long h = ae->out->height();
 
-	//ƒGƒbƒW‚ÌêŠ‚ð’T‚µ‚Äoutput‚Ìalpha‚Ö•Û‘¶
+	//ã‚¨ãƒƒã‚¸ã®å ´æ‰€ã‚’æŽ¢ã—ã¦outputã®alphaã¸ä¿å­˜
 	A_u_long targetIn =0;
 	A_u_long targetOut =0;
 	PF_Pixel *iD;
@@ -84,7 +84,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 			c = iD[targetIn];
 			eg = 0;
 			if (c.alpha>=EDGE_BORDER8){
-				if ( (x>=1)&&(x<we)&&(y>=1)&&(y<he) ){ //’[‚Á‚±‚Í–³Ž‹
+				if ( (x>=1)&&(x<we)&&(y>=1)&&(y<he) ){ //ç«¯ã£ã“ã¯ç„¡è¦–
 					for (i=0; i<3;i++){
 						if (offset[i]!=0) {
 							if (iD[targetIn + offset[i]].alpha<EDGE_BORDER8){
@@ -104,7 +104,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 		targetOut += ae->out->offsetWidth();
 	}
 
-	//‚³‚ŸA•`‰æ‚¾
+	//ã•ãã€æç”»ã 
 	F_SRAND(prm->seed);	
 
 	sputDrawPrm sdp;
@@ -122,7 +122,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 				A_long rnd = FM_RAND((1L<<16));
 				if (value > rnd){
 					for (i=0; i<pValue;i++){
-						//‚Î‚ç‚Â‚«‚ðì‚é
+						//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 						if (FM_RAND(5)==0){
 							rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(pLen * 3));
 						}else{
@@ -153,7 +153,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 
 	PF_Fixed value = prm->value / 10;
 	A_long pValue = prm->point_value;
-	PF_Fixed pLen = prm->point_length; //’l‚Í®”
+	PF_Fixed pLen = prm->point_length; //å€¤ã¯æ•´æ•°
 	A_long colRnd = prm->color_max -1;
 	A_long colR;
 	A_long i;
@@ -168,7 +168,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 		colors[i] = CONV8TO16(prm->colors[i]);
 
 
-	//ƒGƒbƒW‚ÌêŠ‚ð’T‚µ‚Äoutput‚Ìalpha‚Ö•Û‘¶
+	//ã‚¨ãƒƒã‚¸ã®å ´æ‰€ã‚’æŽ¢ã—ã¦outputã®alphaã¸ä¿å­˜
 	A_u_long targetIn =0;
 	A_u_long targetOut =0;
 	PF_Pixel16 *iD;
@@ -231,7 +231,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 			c = iD[targetIn];
 			eg = 0;
 			if (c.alpha>=EDGE_BORDER16){
-				if ( (x>=1)&&(x<we)&&(y>=1)&&(y<he) ){ //’[‚Á‚±‚Í–³Ž‹
+				if ( (x>=1)&&(x<we)&&(y>=1)&&(y<he) ){ //ç«¯ã£ã“ã¯ç„¡è¦–
 					for (i=0; i<3;i++){
 						if (offset[i]!=0) {
 							if (iD[targetIn + offset[i]].alpha<EDGE_BORDER16){
@@ -251,7 +251,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 		targetOut += ae->out->offsetWidth();
 	}
 
-	//‚³‚ŸA•`‰æ‚¾
+	//ã•ãã€æç”»ã 
 	F_SRAND(prm->seed);	
 
 	sputDrawPrm sdp;
@@ -269,7 +269,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 				A_long rnd = FM_RAND((1L<<16));
 				if (value > rnd){
 					for (i=0; i<pValue;i++){
-						//‚Î‚ç‚Â‚«‚ðì‚é
+						//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 						if (FM_RAND(5)==0){
 							rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(pLen * 3));
 						}else{
@@ -300,7 +300,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 
 	PF_Fixed value = prm->value / 10;
 	A_long pValue = prm->point_value;
-	PF_Fixed pLen = prm->point_length; //’l‚Í®”
+	PF_Fixed pLen = prm->point_length; //å€¤ã¯æ•´æ•°
 	A_long colRnd = prm->color_max -1;
 	A_long colR;
 	A_long i;
@@ -315,7 +315,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 		colors[i] = CONV8TO32(prm->colors[i]);
 
 
-	//ƒGƒbƒW‚ÌêŠ‚ð’T‚µ‚Äoutput‚Ìalpha‚Ö•Û‘¶
+	//ã‚¨ãƒƒã‚¸ã®å ´æ‰€ã‚’æŽ¢ã—ã¦outputã®alphaã¸ä¿å­˜
 	A_u_long targetIn =0;
 	A_u_long targetOut =0;
 	PF_PixelFloat *iD;
@@ -378,7 +378,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 			c = iD[targetIn];
 			eg = 0;
 			if (c.alpha>=EDGE_BORDER32){
-				if ( (x>=1)&&(x<we)&&(y>=1)&&(y<he) ){ //’[‚Á‚±‚Í–³Ž‹
+				if ( (x>=1)&&(x<we)&&(y>=1)&&(y<he) ){ //ç«¯ã£ã“ã¯ç„¡è¦–
 					for (i=0; i<3;i++){
 						if (offset[i]!=0) {
 							if (iD[targetIn + offset[i]].alpha<EDGE_BORDER32){
@@ -398,7 +398,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 		targetOut += ae->out->offsetWidth();
 	}
 
-	//‚³‚ŸA•`‰æ‚¾
+	//ã•ãã€æç”»ã 
 	F_SRAND(prm->seed);	
 
 	sputDrawPrm sdp;
@@ -416,7 +416,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 				A_long rnd = FM_RAND((1L<<16));
 				if (value > rnd){
 					for (i=0; i<pValue;i++){
-						//‚Î‚ç‚Â‚«‚ðì‚é
+						//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 						if (FM_RAND(5)==0){
 							rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(pLen * 3));
 						}else{

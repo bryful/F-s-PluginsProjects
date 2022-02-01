@@ -16,7 +16,7 @@ void greenBlur8(CFsGraph *g)
 	w = g->width()-1;
 	h = g->height()-1;
 
-	//‚Ü‚¸A^‚ñ’†
+	//ã¾ãšã€çœŸã‚“ä¸­
 	A_long adr=wt+1;
 	A_long adr2;
 	for(y=1;y<h;y++){
@@ -47,7 +47,7 @@ void greenBlur8(CFsGraph *g)
 		}
 		adr+=(ow+2);
 	}
-	//ã‰º
+	//ä¸Šä¸‹
 	adr = 1;
 	long adrH = h*wt+1;
 	for(x=1;x<w;x++){
@@ -124,7 +124,7 @@ void greenBlur8(CFsGraph *g)
 		adr+=wt;
 		adrH+=wt;
 	}
-	//¶ã
+	//å·¦ä¸Š
 	v=0;
 	adr=0;
 	v += data[adr].green *8;
@@ -136,7 +136,7 @@ void greenBlur8(CFsGraph *g)
 	v += data[adr].green *2;
 	v = v / 18;
 	data[0].alpha = RoundByteLong(v);
-	//‰Eã
+	//å³ä¸Š
 	v=0;
 	adr = w-2;
 	v += data[adr].green *4;
@@ -148,7 +148,7 @@ void greenBlur8(CFsGraph *g)
 	v += data[adr].green *4;
 	v = v / 18;
 	data[w-2].alpha = RoundByteLong(v);
-	//¶‰º
+	//å·¦ä¸‹
 	v=0;
 	adr=(h-2)*wt;
 	v += data[adr].green *4;
@@ -160,7 +160,7 @@ void greenBlur8(CFsGraph *g)
 	v += data[adr].green *4;
 	v = v / 18;
 	data[(h-1)*wt].alpha = RoundByteLong(v);
-	//‰E‰º
+	//å³ä¸‹
 	v=0;
 	adr=(h-2)*wt + (w-1);
 	v += data[adr].green *2;
@@ -189,7 +189,7 @@ void greenBlur16(CFsGraph *g)
 	w = g->width()-1;
 	h = g->height()-1;
 
-	//‚Ü‚¸A^‚ñ’†
+	//ã¾ãšã€çœŸã‚“ä¸­
 	long adr=wt+1;
 	long adr2;
 	
@@ -222,7 +222,7 @@ void greenBlur16(CFsGraph *g)
 		adr+=(ow+2);
 	}
 	
-	//ã‰º
+	//ä¸Šä¸‹
 	adr = 1;
 	long adrH = h*wt+1;
 	for(x=1;x<w;x++){
@@ -299,7 +299,7 @@ void greenBlur16(CFsGraph *g)
 		adr+=wt;
 		adrH+=wt;
 	}
-	//¶ã
+	//å·¦ä¸Š
 	v=0;
 	adr=0;
 	v += data[adr].green *8;
@@ -311,7 +311,7 @@ void greenBlur16(CFsGraph *g)
 	v += data[adr].green *2;
 	v = v / 18;
 	data[0].alpha = RoundShort(v);
-	//‰Eã
+	//å³ä¸Š
 	v=0;
 	adr = w-2;
 	v += data[adr].green *4;
@@ -323,7 +323,7 @@ void greenBlur16(CFsGraph *g)
 	v += data[adr].green *4;
 	v = v / 18;
 	data[w-2].alpha = RoundShort(v);
-	//¶‰º
+	//å·¦ä¸‹
 	v=0;
 	adr=(h-2)*wt;
 	v += data[adr].green *4;
@@ -335,7 +335,7 @@ void greenBlur16(CFsGraph *g)
 	v += data[adr].green *4;
 	v = v / 18;
 	data[(h-1)*wt].alpha = RoundShort(v);
-	//‰E‰º
+	//å³ä¸‹
 	v=0;
 	adr=(h-2)*wt + (w-1);
 	v += data[adr].green *2;
@@ -364,7 +364,7 @@ void greenBlur32(CFsGraph *g)
 	w = g->width()-1;
 	h = g->height()-1;
 
-	//‚Ü‚¸A^‚ñ’†
+	//ã¾ãšã€çœŸã‚“ä¸­
 	long adr=wt+1;
 	long adr2;
 	
@@ -397,7 +397,7 @@ void greenBlur32(CFsGraph *g)
 		adr+=(ow+2);
 	}
 	
-	//ã‰º
+	//ä¸Šä¸‹
 	adr = 1;
 	long adrH = h*wt+1;
 	for(x=1;x<w;x++){
@@ -474,7 +474,7 @@ void greenBlur32(CFsGraph *g)
 		adr+=wt;
 		adrH+=wt;
 	}
-	//¶ã
+	//å·¦ä¸Š
 	v=0;
 	adr=0;
 	v += data[adr].green *8;
@@ -486,7 +486,7 @@ void greenBlur32(CFsGraph *g)
 	v += data[adr].green *2;
 	v = v / 18;
 	data[0].alpha = RoundFpShortDouble(v);
-	//‰Eã
+	//å³ä¸Š
 	v=0;
 	adr = w-2;
 	v += data[adr].green *4;
@@ -498,7 +498,7 @@ void greenBlur32(CFsGraph *g)
 	v += data[adr].green *4;
 	v = v / 18;
 	data[w-2].alpha = RoundFpShortDouble(v);
-	//¶‰º
+	//å·¦ä¸‹
 	v=0;
 	adr=(h-2)*wt;
 	v += data[adr].green *4;
@@ -510,7 +510,7 @@ void greenBlur32(CFsGraph *g)
 	v += data[adr].green *4;
 	v = v / 18;
 	data[(h-1)*wt].alpha = RoundFpShortDouble(v);
-	//‰E‰º
+	//å³ä¸‹
 	v=0;
 	adr=(h-2)*wt + (w-1);
 	v += data[adr].green *2;

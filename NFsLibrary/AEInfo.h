@@ -10,7 +10,7 @@ typedef struct {
 } Point3D;
 
 /*
-	ƒvƒ‰ƒOƒCƒ“IDŠl“¾‚Ì‚½‚ß‚Ì\‘¢‘Ì
+	ãƒ—ãƒ©ã‚°ã‚¤ãƒ³IDç²å¾—ã®ãŸã‚ã®æ§‹é€ ä½“
 */
 typedef struct {
 	PF_Boolean		initializedB;
@@ -27,7 +27,7 @@ typedef struct {
 	var strVersion = \"version %s.%s\";\
 	var strDis = \"%s\";\
 	var strMyName = \"https://github.com/bryful : bryful@gmail.com \";\
-    var nanae = \"Nanae Furuhashi - My daughter, May her soul rest in peaceD\";\
+    var nanae = \"Nanae Furuhashi - My daughter, May her soul rest in peaceï¼\";\
 	var winObj = new Window(\"dialog\", \"NF's Plugins\", [ 0,  0,  480, 180] );\
 \
 	var edFsName = winObj.add(\"edittext\", [  30,   10,   30+ 440,   10+  20], strName, { readonly:true, borderless:true });\

@@ -1,7 +1,7 @@
 #include "FsGraphics.h"
 
 //********************************************************
-//�w�肵���͈͂𕽒R������Bpr�̒l�Ő��l�������ł���
+//指定した範囲を平坦化する。prの値で数値を加減できる
 //********************************************************
 PF_Err CFsGraph::flat8(FsFlatParam *fp,FsPixelRand *pr)
 {
@@ -63,7 +63,7 @@ PF_Err CFsGraph::flat8(FsFlatParam *fp,FsPixelRand *pr)
 		yb += (xb / sx);
 	}
 	PF_Pixel c;
-	//�������̂Ƃ���̂݃����_����
+	//半透明のところのみランダムに
 	A_long a2 = RoundByteLong(ya/sy);
 	if ( a2<(PF_MAX_CHAN8-26)) a2 += pp.a;
 	c.alpha	= RoundByteLong(a2);
@@ -81,7 +81,7 @@ PF_Err CFsGraph::flat8(FsFlatParam *fp,FsPixelRand *pr)
 	return err;
 }
 //********************************************************
-//�w�肵���͈͂𕽒R������Bpr�̒l�Ő��l�������ł���
+//指定した範囲を平坦化する。prの値で数値を加減できる
 //********************************************************
 PF_Err CFsGraph::flat16(FsFlatParam *fp,FsPixelRand *pr)
 {
@@ -143,7 +143,7 @@ PF_Err CFsGraph::flat16(FsFlatParam *fp,FsPixelRand *pr)
 		yb += (xb / sx);
 	}
 	PF_Pixel16 c;
-	//�������̂Ƃ���̂݃����_����
+	//半透明のところのみランダムに
 	A_long a2 = RoundShort(ya/sy);
 	if (a2<(PF_MAX_CHAN16-65534)) a2 += pp.a;
 	c.alpha	= RoundShort(a2);
@@ -161,7 +161,7 @@ PF_Err CFsGraph::flat16(FsFlatParam *fp,FsPixelRand *pr)
 	return err;
 }
 //********************************************************
-//�w�肵���͈͂𕽒R������Bpr�̒l�Ő��l�������ł���
+//指定した範囲を平坦化する。prの値で数値を加減できる
 //********************************************************
 PF_Err CFsGraph::flat32(FsFlatParam *fp,FsPixelRandFloat *pr)
 {
@@ -223,7 +223,7 @@ PF_Err CFsGraph::flat32(FsFlatParam *fp,FsPixelRandFloat *pr)
 		yb += (xb / sx);
 	}
 	PF_PixelFloat c;
-	//�������̂Ƃ���̂݃����_����
+	//半透明のところのみランダムに
 	PF_FpLong a2 = RoundFpShortDouble(ya/sy);
 	if ( a2<(1.0-0.1)) a2 += pp.a;
 	c.alpha	= RoundFpShortDouble(a2);
@@ -245,7 +245,7 @@ PF_Err CFsGraph::flat32(FsFlatParam *fp,FsPixelRandFloat *pr)
 PF_Err CFsGraph::mosaic8(FsMosaicParam *mp)
 {
 	PF_Err err = PF_Err_NONE;
-	//��_�ƃ��[�v��
+	//基点とループ回数
 	FsFlatParam fp;
 	fp.sizeX	= mp->sizeX;
 	fp.sizeY	= mp->sizeY;
@@ -269,7 +269,7 @@ PF_Err CFsGraph::mosaic8(FsMosaicParam *mp)
 		cntY = 1;
 	}
 	
-	//�����_���̏�����
+	//ランダムの初期化
 	FsPixelRand pr;
 	pr.a = pr.b = pr.g = pr.r = 0;
 	A_long randValue;
@@ -307,7 +307,7 @@ PF_Err CFsGraph::mosaic8(FsMosaicParam *mp)
 PF_Err CFsGraph::mosaic16(FsMosaicParam *mp)
 {
 	PF_Err err = PF_Err_NONE;
-	//��_�ƃ��[�v��
+	//基点とループ回数
 	FsFlatParam fp;
 	fp.sizeX	= mp->sizeX;
 	fp.sizeY	= mp->sizeY;
@@ -331,7 +331,7 @@ PF_Err CFsGraph::mosaic16(FsMosaicParam *mp)
 		cntY = 1;
 	}
 	
-	//�����_���̏�����
+	//ランダムの初期化
 	FsPixelRand pr;
 	pr.a = pr.b = pr.g = pr.r = 0;
 	A_long randValue;
@@ -369,7 +369,7 @@ PF_Err CFsGraph::mosaic16(FsMosaicParam *mp)
 PF_Err CFsGraph::mosaic32(FsMosaicParam *mp)
 {
 	PF_Err err = PF_Err_NONE;
-	//��_�ƃ��[�v��
+	//基点とループ回数
 	FsFlatParam fp;
 	fp.sizeX	= mp->sizeX;
 	fp.sizeY	= mp->sizeY;
@@ -393,7 +393,7 @@ PF_Err CFsGraph::mosaic32(FsMosaicParam *mp)
 		cntY = 1;
 	}
 	
-	//�����_���̏�����
+	//ランダムの初期化
 	FsPixelRandFloat pr;
 	pr.a = pr.b = pr.g = pr.r = 0;
 	A_long randValue;

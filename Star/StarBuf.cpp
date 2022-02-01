@@ -3,10 +3,10 @@
 typedef struct bufMinParam
 {
 	A_long		*scanline;
-	A_long		scanlineLength;	//scanline‚Ì’·‚³
-	A_long		value;	//Max/Min‚Ì’l
+	A_long		scanlineLength;	//scanlineã®é•·ã•
+	A_long		value;	//Max/Minã®å€¤
 	
-	A_long		target;	//scanline‚Ìƒ^[ƒQƒbƒgƒCƒ“ƒfƒbƒNƒX
+	A_long		target;	//scanlineã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	A_long		maxIndex;
 }bufMinParam;
 
@@ -185,12 +185,12 @@ void MinBuf(CFsAE *ae, CFsBuffer *buf)
 		A_long x=0, y=0;
 
 		bm.scanlineLength = ae->out->width();
-		//…•½•ûŒü
+		//æ°´å¹³æ–¹å‘
 		A_long hor =0; 
 		for ( y=0; y<ae->out->height(); y++)
 		{
 			hor = ae->out->width() * y;
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“•ª“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³åˆ†è»¢é€
 			for ( x=0; x<ae->out->width(); x++){
 				bm.scanline[x]	= data[hor + x];
 			}

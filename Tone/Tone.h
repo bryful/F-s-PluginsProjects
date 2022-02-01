@@ -40,8 +40,8 @@
 #include "../FsLibrary/FsAE.h"
 //#include "FsAE.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_Highlights_COLOR,	//PF_Pixel
@@ -53,7 +53,7 @@ enum {
 	ID_NUM_PARAMS
 };
 
-//ƒvƒ‰ƒOƒCƒ““Æ©‚Ìƒpƒ‰ƒ[ƒ^‚ğW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 
 #define COLOR_TABLE_LENGTH8		256
 #define COLOR_TABLE_LENGTH16	(32768+1)
@@ -75,7 +75,7 @@ enum {
 #define STR_Midtones_OFFSET			"MidtonesOffset"
 #define STR_Blend_w_Original_FIXED	"Blend w. Original"
 
-//ƒpƒ‰ƒ[ƒ^‚Ì‰Šú’l
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åˆæœŸå€¤
 #define Highlights_def_red		0xFF
 #define Highlights_def_green	0xFF
 #define Highlights_def_blue		0xFF

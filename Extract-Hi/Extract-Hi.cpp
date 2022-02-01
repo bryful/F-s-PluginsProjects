@@ -12,8 +12,8 @@ static PF_FpLong(*levelFunc16)(PF_Pixel16	*col, ParamInfo *infoP);
 static PF_FpLong(*levelFunc32)(PF_Pixel32	*col, ParamInfo *infoP);
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -52,18 +52,18 @@ static PF_Err ParamsSetup (
 					ID_SOFTNESS
 						);
 	//----------------------------------------------------------------
-	//�|�b�v�A�b�v���j���[
+	//ポップアップメニュー
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POPUP(STR_TARGET,
-		STR_TARGET_COUNT,	//���j���[�̐�
-		STR_TARGET_DFLT,	//�f�t�H���g
+		STR_TARGET_COUNT,	//メニューの数
+		STR_TARGET_DFLT,	//デフォルト
 		STR_TARGET_ITEM,
 		ID_TARGET
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(STR_CUSTUM_COLOR,
 		0xFF,
 		0x00,
@@ -445,7 +445,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	
 	switch (infoP->taget) {
@@ -513,10 +513,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -540,7 +540,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

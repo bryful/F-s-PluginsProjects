@@ -100,7 +100,7 @@ enum {
 	edge_mirror
 };
 
-//ƒvƒ‰ƒOƒCƒ““Æ©‚Ìƒpƒ‰ƒ[ƒ^‚ğW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 typedef struct{
 	PF_Fixed			r_angle;
 	PF_Fixed			r_length;

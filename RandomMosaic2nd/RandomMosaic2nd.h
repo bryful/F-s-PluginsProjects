@@ -51,17 +51,17 @@ typedef struct ParamInfo{
 
 enum {
 	ID_INPUT = 0,			// default input layer 
-	ID_Y,				//ГВГUГCГNВ╠Ч╩(%)
-	ID_STRENGTH,			//ГВГUГCГNВ╠ЛнВ│
-	ID_SIZEX,				// ГВГUГCГNВ╠СхВлВ│
-	ID_SIZEY,				// ГВГUГCГNВ╠СхВлВ│
+	ID_Y,				//уГвуВ╢уВдуВпуБощЗП(%)
+	ID_STRENGTH,			//уГвуВ╢уВдуВпуБох╝╖уБХ
+	ID_SIZEX,				// уГвуВ╢уВдуВпуБохдзуБНуБХ
+	ID_SIZEY,				// уГвуВ╢уВдуВпуБохдзуБНуБХ
 	ID_NUM_PARAMS
 };
 
-#define STR_Y		"Ч╩(%)"
-#define STR_STRENGTH	"ЛнВ│"
-#define STR_SIZEX		"ЙбГTГCГY"
-#define STR_SIZEY		"ПcГTГCГY"
+#define STR_Y		"щЗП(%)"
+#define STR_STRENGTH	"х╝╖уБХ"
+#define STR_SIZEX		"цикуВ╡уВдуВ║"
+#define STR_SIZEY		"ч╕жуВ╡уВдуВ║"
 
 extern "C" {
 DllExport

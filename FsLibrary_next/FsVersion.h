@@ -4,7 +4,7 @@
 
 
 //-----------------------------------------------------------------------------------
-//バージョンを買えたAlphaFixPiPL.rのAE_Effect_Versionも変えること
+//繝舌�ｼ繧ｸ繝ｧ繝ｳ繧定ｲｷ縺医◆AlphaFixPiPL.r縺ｮAE_Effect_Version繧ょ､峨∴繧九％縺ｨ
 #define	MAJOR_VERSION		2
 #define	MINOR_VERSION		0
 #define	BUG_VERSION			0
@@ -14,7 +14,7 @@
 #define	STAGE_VERSION		PF_Stage_RELEASE
 #define	BUILD_VERSION		0
 
-//上の値を計算した結果
+//荳翫�ｮ蛟､繧定ｨ育ｮ励＠縺溽ｵ先棡
 #define FS_VERSION	1050112
 
 

@@ -52,14 +52,14 @@ enum {
 	ID_NUM_PARAMS
 };
 
-#define	STR_BRIGHT "ƒ‰ƒCƒ“‚Ì–¾‚é‚³(%)"
-#define	STR_HEIGHT "ƒ‰ƒCƒ“‚Ì‚‚³(dot)"
-#define	STR_REV1	"ƒ‰ƒCƒ“‚ÌˆÊ’u"
-#define	STR_REV2	"”½“]‚·‚é"
-#define STR_INTER	"ŠÔŠu•â³(dot)"
-#define STR_DIR		"•ûŒü"
-#define STR_DIRSTR	"…•½|‚’¼"
-#define STR_OFFSET	"ƒIƒtƒZƒbƒg"
+#define	STR_BRIGHT "ãƒ©ã‚¤ãƒ³ã®æ˜ã‚‹ã•(%)"
+#define	STR_HEIGHT "ãƒ©ã‚¤ãƒ³ã®é«˜ã•(dot)"
+#define	STR_REV1	"ãƒ©ã‚¤ãƒ³ã®ä½ç½®"
+#define	STR_REV2	"åè»¢ã™ã‚‹"
+#define STR_INTER	"é–“éš”è£œæ­£(dot)"
+#define STR_DIR		"æ–¹å‘"
+#define STR_DIRSTR	"æ°´å¹³|å‚ç›´"
+#define STR_OFFSET	"ã‚ªãƒ•ã‚»ãƒƒãƒˆ"
 
 typedef struct{
 	PF_FpShort	bright;

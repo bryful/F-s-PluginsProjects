@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -24,12 +24,12 @@ static PF_Err ParamsSetup (
 	PF_ADD_TOPIC(STR_TARGET_TOPIC, ID_TARGET_TOPIC);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_TARGET_COUNT,	//�p�����[�^�̖��O
-		0, 		//���l���͂���ꍇ�̍ŏ��l
-		8,			//���l���͂���ꍇ�̍ő�l
-		0,				//�X���C�_�[�̍ŏ��l 
-		8,			//�X���C�_�[�̍ő�l
-		0,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(STR_TARGET_COUNT,	//パラメータの名前
+		0, 		//数値入力する場合の最小値
+		8,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		8,			//スライダーの最大値
+		0,				//デフォルトの値
 		ID_TARGET_COUNT
 	);
 	//----------------------------------------------------------------
@@ -47,7 +47,7 @@ static PF_Err ParamsSetup (
 		ID_TARGET_LEVEL
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COL1,
 		0xFF,
@@ -56,7 +56,7 @@ static PF_Err ParamsSetup (
 		ID_TARGET_COL1
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COL2,
 		0xFF,
@@ -65,7 +65,7 @@ static PF_Err ParamsSetup (
 		ID_TARGET_COL2
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COL3,
 		0x00,
@@ -74,7 +74,7 @@ static PF_Err ParamsSetup (
 		ID_TARGET_COL3
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COL4,
 		0x00,
@@ -83,7 +83,7 @@ static PF_Err ParamsSetup (
 		ID_TARGET_COL4
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COL5,
 		0xFF,
@@ -92,7 +92,7 @@ static PF_Err ParamsSetup (
 		ID_TARGET_COL5
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COL6,
 		0xFF,
@@ -101,7 +101,7 @@ static PF_Err ParamsSetup (
 		ID_TARGET_COL6
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COL7,
 		0x80,
@@ -110,7 +110,7 @@ static PF_Err ParamsSetup (
 		ID_TARGET_COL7
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_TARGET_COL8,
 		0x80,
@@ -122,7 +122,7 @@ static PF_Err ParamsSetup (
 	AEFX_CLR_STRUCT(def);
 	PF_END_TOPIC(ID_TARGET_TOPIC_END);
 	//----------------------------------------------------------------
-	//�p�x
+	//角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_ANGLE, 0, ID_ANGLE);
 	//----------------------------------------------------------------
@@ -154,7 +154,7 @@ static PF_Err ParamsSetup (
 		ID_LAST_OVER
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_START_COL,
 		0xFF,
@@ -163,7 +163,7 @@ static PF_Err ParamsSetup (
 		ID_START_COL
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_LAST_COL,
 		0x00,
@@ -180,7 +180,7 @@ static PF_Err ParamsSetup (
 		ID_GUIDE_SHOW
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_GUIDE_COLOR,
 		0xFF,
@@ -320,7 +320,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	FWorldGrad fw(ae->output, ae->in_data, ae->out->pixelFormat());
 
@@ -370,10 +370,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -397,7 +397,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

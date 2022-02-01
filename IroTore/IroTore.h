@@ -39,14 +39,14 @@
 #include "../FsLibrary/FsDebug.h"
 #include "../FsLibrary/FsHLS.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 	
-	//‹«ŠEü‚Ì‚İ
+	//å¢ƒç•Œç·šã®ã¿
 	ID_LINE_ONLY,
-	//åü‚ÌF
+	//ä¸»ç·šã®è‰²
 	ID_COLOR1_ON,
 	ID_COLOR1,
 	ID_COLOR2_ON,
@@ -60,20 +60,20 @@ enum {
 	ID_COLOR6_ON,
 	ID_COLOR6,
 	
-	//åüŒŸoƒŒƒxƒ‹
+	//ä¸»ç·šæ¤œå‡ºãƒ¬ãƒ™ãƒ«
 	ID_LEVEL,
 	
-	//ƒ}ƒbƒ`‚µ‚È‚©‚Á‚½‚ÌF
+	//ãƒãƒƒãƒã—ãªã‹ã£ãŸæ™‚ã®è‰²
 	ID_IG_COLOR,
 	
-	//åü•”•ªÅ‘åÅ¬
+	//ä¸»ç·šéƒ¨åˆ†æœ€å¤§æœ€å°
 	ID_LINE_MINMAX1,
 	ID_LINE_MINMAX2,
 
-	//åü•”•ª‚Éƒuƒ‰[
+	//ä¸»ç·šéƒ¨åˆ†ã«ãƒ–ãƒ©ãƒ¼
 	ID_LINE_BLUR,
 	
-	//åü•”•ª‚ÌF•Ï‚¦
+	//ä¸»ç·šéƒ¨åˆ†ã®è‰²å¤‰ãˆ
 	ID_LINE_H,
 	ID_LINE_S,
 	ID_LINE_L,
@@ -94,7 +94,7 @@ enum {
 	ID_NUM_PARAMS
 };
 
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_LINE_ONLY		"LineOnly"
 #define	STR_ON				"on"
 #define	STR_COLOR1_ON		"EnabledColor1"
@@ -112,7 +112,7 @@ enum {
 #define	STR_COLOR6			"Color6"
 
 #define	STR_LEVEL			"level"
-#define	STR_IG_COLOR		"‚ ‚«‚ç‚ßF"
+#define	STR_IG_COLOR		"ã‚ãã‚‰ã‚è‰²"
 
 #define	STR_LINE_MINMAX1	"Min/Max1"
 #define	STR_LINE_MINMAX2	"Min/Max2"
@@ -139,7 +139,7 @@ enum {
 
 #define COLOR_MAX	6
 #define NEG_COLOR_MAX	4
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
 	PF_Boolean	lineOnly;
 	A_long		colorMax;

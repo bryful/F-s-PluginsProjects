@@ -8,7 +8,7 @@
 
 
 //-------------------------------------------------------------------------------------------------
-// About�_�C�A���O
+// Aboutダイアログ
 static PF_Err About (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -74,8 +74,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -87,78 +87,78 @@ static PF_Err ParamsSetup (
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	Str_RED_VALUE,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					300,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	Str_RED_VALUE,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					300,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_RED_NOISE
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	Str_RED_OPT,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	Str_RED_OPT,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_RED_OPT
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	Str_GREEN_VALUE,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					300,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	Str_GREEN_VALUE,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					300,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_GREEN_NOISE
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	Str_GREEN_OPT,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	Str_GREEN_OPT,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_GREEN_OPT
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	Str_BLUE_VALUE,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					300,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	Str_BLUE_VALUE,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					300,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_BLUE_NOISE
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	Str_BLUE_OPT,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	Str_BLUE_OPT,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_BLUE_OPT
@@ -208,8 +208,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY�̒l��out_flags�֐ݒ肵��
-	//���t���[�����Ƃ̕`������邩�؂�ւ���B
+	//PF_OutFlag_NON_PARAM_VARYの値をout_flagsへ設定して
+	//毎フレームごとの描画をするか切り替える。
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
@@ -271,9 +271,9 @@ FilterImage8 (
 				F_RAND();
 			}
 		}else{
-			F_RAND();//�����̐����킹
+			F_RAND();//乱数の数合わせ
 			F_RAND();
-			F_RAND();//�����̐����킹
+			F_RAND();//乱数の数合わせ
 		}
 	}
 
@@ -321,9 +321,9 @@ FilterImage16 (
 				F_RAND();
 			}
 		}else{
-			F_RAND();//�����̐����킹
+			F_RAND();//乱数の数合わせ
 			F_RAND();
-			F_RAND();//�����̐����킹
+			F_RAND();//乱数の数合わせ
 		}
 	}
 
@@ -372,9 +372,9 @@ FilterImage32 (
 				F_RAND();
 			}
 		}else{
-			F_RAND();//�����̐����킹
+			F_RAND();//乱数の数合わせ
 			F_RAND();
-			F_RAND();//�����̐����킹
+			F_RAND();//乱数の数合わせ
 		}
 	}
 
@@ -445,7 +445,7 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 static PF_Err Render (
 	PF_InData			*in_data,
 	PF_OutData		*out_data,

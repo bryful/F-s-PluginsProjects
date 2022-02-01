@@ -8,7 +8,7 @@ PF_Err CFsGraph::gblur8(PF_FpLong value,ScanLineMode mode)
 	PF_InData *in_data;
 	in_data = m_in_data;
 
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ì—pˆÓ
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã®ç”¨æ„
 	A_long w = m_width;
 	if (w<m_height) w = m_height;
 	PF_Handle sH = PF_NEW_HANDLE( w * sizeof(PF_Pixel) * 2);
@@ -36,7 +36,7 @@ PF_Err CFsGraph::gblur8(PF_FpLong value,ScanLineMode mode)
 		A_long adr = 0;
 		for (A_long y=0; y<m_height; y++)
 		{
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 			for ( A_long x=0; x<m_width; x++) {
 				PF_Pixel p = m_data[adr + x];
 				if (p.alpha ==0){
@@ -55,7 +55,7 @@ PF_Err CFsGraph::gblur8(PF_FpLong value,ScanLineMode mode)
 				A_long g = 0;
 				A_long b = 0;
 				A_long a = 0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = tbl[0];
 				if (scanline[x].alpha >0){
 					r += scanline[x].red * gauss;
@@ -116,7 +116,7 @@ PF_Err CFsGraph::gblur8(PF_FpLong value,ScanLineMode mode)
 		for (A_long x=0; x<m_width; x++)
 		{
 			adr = x;
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 			for ( A_long y=0; y<m_height; y++) {
 				PF_Pixel p = m_data[adr];
 				if (p.alpha ==0){
@@ -137,7 +137,7 @@ PF_Err CFsGraph::gblur8(PF_FpLong value,ScanLineMode mode)
 				A_long g = 0;
 				A_long b = 0;
 				A_long a = 0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = tbl[0];
 				if (scanline[y].alpha >0){
 					r += scanline[y].red * gauss;
@@ -210,7 +210,7 @@ PF_Err CFsGraph::gblur16(PF_FpLong value,ScanLineMode mode)
 	PF_Pixel16 *data;
 	data =(PF_Pixel16 *)m_data; 
 
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ì—pˆÓ
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã®ç”¨æ„
 	A_long w = m_width;
 	if (w<m_height) w = m_height;
 	PF_Handle sH = PF_NEW_HANDLE( w * sizeof(PF_Pixel16) * 2);
@@ -238,7 +238,7 @@ PF_Err CFsGraph::gblur16(PF_FpLong value,ScanLineMode mode)
 		A_long adr = 0;
 		for (A_long y=0; y<m_height; y++)
 		{
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 			for ( A_long x=0; x<m_width; x++) {
 				PF_Pixel16 p = data[adr + x];
 				if (p.alpha ==0){
@@ -257,7 +257,7 @@ PF_Err CFsGraph::gblur16(PF_FpLong value,ScanLineMode mode)
 				A_u_long g = 0;
 				A_u_long b = 0;
 				A_u_long a = 0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = tbl[0];
 				if (scanline[x].alpha >0){
 					r += (A_u_long)scanline[x].red * gauss;
@@ -318,7 +318,7 @@ PF_Err CFsGraph::gblur16(PF_FpLong value,ScanLineMode mode)
 		for (A_long x=0; x<m_width; x++)
 		{
 			adr = x;
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 			for ( A_long y=0; y<m_height; y++) {
 				PF_Pixel16 p = data[adr];
 				if (p.alpha ==0){
@@ -339,7 +339,7 @@ PF_Err CFsGraph::gblur16(PF_FpLong value,ScanLineMode mode)
 				A_u_long g = 0;
 				A_u_long b = 0;
 				A_u_long a = 0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = tbl[0];
 				if (scanline[y].alpha >0){
 					r += (A_u_long)scanline[y].red * gauss;
@@ -412,7 +412,7 @@ PF_Err CFsGraph::gblur32(PF_FpLong value,ScanLineMode mode)
 	PF_PixelFloat *data;
 	data =(PF_PixelFloat *)m_data; 
 
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ì—pˆÓ
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã®ç”¨æ„
 	A_long w = m_width;
 	if (w<m_height) w = m_height;
 	PF_Handle sH = PF_NEW_HANDLE( w * sizeof(PF_PixelFloat) * 2);
@@ -440,7 +440,7 @@ PF_Err CFsGraph::gblur32(PF_FpLong value,ScanLineMode mode)
 		A_long adr = 0;
 		for (A_long y=0; y<m_height; y++)
 		{
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 			for ( A_long x=0; x<m_width; x++) {
 				PF_PixelFloat p = data[adr + x];
 				if (p.alpha ==0){
@@ -459,7 +459,7 @@ PF_Err CFsGraph::gblur32(PF_FpLong value,ScanLineMode mode)
 				PF_FpLong g = 0;
 				PF_FpLong b = 0;
 				PF_FpLong a = 0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = tbl[0];
 				if (scanline[x].alpha >0){
 					r += (PF_FpLong)scanline[x].red * gauss;
@@ -520,7 +520,7 @@ PF_Err CFsGraph::gblur32(PF_FpLong value,ScanLineMode mode)
 		for (A_long x=0; x<m_width; x++)
 		{
 			adr = x;
-			//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+			//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 			for ( A_long y=0; y<m_height; y++) {
 				PF_PixelFloat p = data[adr];
 				if (p.alpha ==0){
@@ -541,7 +541,7 @@ PF_Err CFsGraph::gblur32(PF_FpLong value,ScanLineMode mode)
 				PF_FpLong g = 0;
 				PF_FpLong b = 0;
 				PF_FpLong a = 0;
-				//^‚ñ’†
+				//çœŸã‚“ä¸­
 				gauss = tbl[0];
 				if (scanline[y].alpha >0){
 					r += (PF_FpLong)scanline[y].red * gauss;

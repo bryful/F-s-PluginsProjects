@@ -59,12 +59,12 @@ void drawTouchS16(CFsAE *ae,ParamInfo	*prm)
 	PF_Pixel16 *oD;
 	oD = (PF_Pixel16 *)ae->out->data();
 	
-	//ターゲットランダム
+	//繧ｿ繝ｼ繧ｲ繝�繝医Λ繝ｳ繝繝
 	F_SRAND(prm->seed);
 	PF_Fixed t0;
 	t0 = F_RAND_MAX * prm->target_value >> 16;
 
-	//長さランダム
+	//髟ｷ縺輔Λ繝ｳ繝繝
 	PF_Fixed ir0;
 	ir0 = prm->length_i_max - (prm->length_i_max * prm->length_i_rnd >>16);
 	if (ir0<0) ir0=0;
@@ -73,7 +73,7 @@ void drawTouchS16(CFsAE *ae,ParamInfo	*prm)
 	or0 = prm->length_o_max - (prm->length_o_max * prm->length_o_rnd >>16);
 	if (or0<0) or0=0;
 
-	//不透明度ランダム
+	//荳埼乗�主ｺｦ繝ｩ繝ｳ繝繝
 	PF_Fixed p0;
 	p0 = prm->opacity - (prm->opacity >>8) * (prm->opacity_rnd >>8);
 	if (p0<0) p0=0;

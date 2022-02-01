@@ -11,8 +11,8 @@
 #include "AEDebugAngel.h"
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -24,7 +24,7 @@ static PF_Err ParamsSetup (
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_CHECKBOX(STR_DRAW_GRAPH,
 					"on",
 					TRUE,
@@ -33,13 +33,13 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
-	PF_ADD_SLIDER(STR_GLUE,	//�p�����[�^�̖��O
-		0, 		//���l���͂���ꍇ�̍ŏ��l
-		25,			//���l���͂���ꍇ�̍ő�l
-		0,				//�X���C�_�[�̍ŏ��l 
-		15,			//�X���C�_�[�̍ő�l
-		7,				//�f�t�H���g�̒l
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
+	PF_ADD_SLIDER(STR_GLUE,	//パラメータの名前
+		0, 		//数値入力する場合の最小値
+		25,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		15,			//スライダーの最大値
+		7,				//デフォルトの値
 		ID_GLUE
 	);	//----------------------------------------------------------------
 	out_data->num_params = 	ID_NUM_PARAMS; 
@@ -235,10 +235,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -262,7 +262,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

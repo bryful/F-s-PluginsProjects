@@ -37,8 +37,8 @@
 
 #include "../FsLibrary/FsAE.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 
@@ -49,7 +49,7 @@ enum {
 	ID_NUM_PARAMS
 };
 
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_LO				"Count_Lo"
 #define	STR_MID				"Count_Mid"
 #define	STR_HI				"Count_Hi"
@@ -64,7 +64,7 @@ enum GBDR
 	HI = 170,
 	MAX = 256
 };
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
 	A_u_char	tbl[256];
 	PF_Boolean	drawCol;

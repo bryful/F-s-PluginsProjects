@@ -9,11 +9,11 @@
 #define FS_TAGET_H
 
 //-----------------------------------------------------------------------------------
-//�v���O�C���̎��ʂɎg���閼�O
+//プラグインの識別に使われる名前
 #define	FS_NAME			"F's SelectColor"
 //-----------------------------------------------------------------------------------
-//�v���O�C���̐����Ɏg���镶��
-#define FS_DESCRIPTION	"�y�C���g�Z������F�}�X�N�쐬"
+//プラグインの説明に使われる文字
+#define FS_DESCRIPTION	"ペイントセルから色マスク作成"
 
 //#define FS_CATEGORY "F's Plugins-Fx"
 //#define FS_CATEGORY "F's Plugins-Channel"
@@ -23,8 +23,8 @@
 
 
 //-----------------------------------------------------------
-#define SUPPORT_SMARTFX			//�����L���ɂ����SmartFX+Float_Color�ɑΉ�����
-//#define NO_USE_FSGRAPHICS	//�����L���ɂ����FsGraphics�֌W���C���N���[�h����Ȃ�
+#define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
+//#define NO_USE_FSGRAPHICS	//これを有効にするとFsGraphics関係がインクルードされない
 
 //-----------------------------------------------------------------------------------
 #include "../FsLibrary/FsVersion.h"
@@ -41,9 +41,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-#define FS_OUT_FLAGS	33556032	//�ʏ�͂�����
-//#define FS_OUT_FLAGS	33556036	//��������L���ɂ���Ɩ��t���[�����Ƃɕ`�悷��BNON_PARAM_VARY�𓮍쒆�ɐ؂�ւ���Ƃ����������
-//#define FS_OUT_FLAGS	1600		//8bit�̂�
+#define FS_OUT_FLAGS	33556032	//通常はこちら
+//#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+//#define FS_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------
 //out_flags2

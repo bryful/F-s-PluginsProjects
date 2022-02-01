@@ -1,10 +1,10 @@
 #include "OpticalDiffusion.h"
 
-//ƒuƒŒƒ“ƒh“ü‚ê‘Ö‚¦—p
+//ãƒ–ãƒ¬ãƒ³ãƒ‰å…¥ã‚Œæ›¿ãˆç”¨
 static PF_Err (*blendFunc32)(refconType refcon, A_long xL, A_long yL,PF_PixelFloat *inP,PF_PixelFloat *outP);
 
 //-------------------------------------------------------------------------------------------------
-//ƒfƒoƒ“ƒh‘Îô‚Ì‹C‹x‚ßƒmƒCƒY
+//ãƒ‡ãƒãƒ³ãƒ‰å¯¾ç­–ã®æ°—ä¼‘ã‚ãƒã‚¤ã‚º
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
 noise32 (
@@ -30,7 +30,7 @@ noise32 (
 }
 
 //-------------------------------------------------------------------------------------------------
-//’Šo
+//æŠ½å‡º
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
 extract32 (
@@ -43,12 +43,12 @@ extract32 (
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
 	
-	//‚Æ‚è‚ ‚¦‚¸Á‚·B
+	//ã¨ã‚Šã‚ãˆãšæ¶ˆã™ã€‚
 	PF_FpShort a = outP->alpha;
 	outP->alpha	= 0;
 
-	//ƒAƒ‹ƒtƒ@[‚ğl—¶‚µ‚Ä‹P“x‚ğ‹‚ß‚é
-	//–³—‚â‚è®”‰»
+	//ã‚¢ãƒ«ãƒ•ã‚¡ãƒ¼ã‚’è€ƒæ…®ã—ã¦è¼åº¦ã‚’æ±‚ã‚ã‚‹
+	//ç„¡ç†ã‚„ã‚Šæ•´æ•°åŒ–
 	double vb = ( (0.29891 * outP->red) + ( 0.58661 * outP->green) + ( 0.11448 * outP->blue)) * a ;
 	A_long v = (A_long)((vb * PF_MAX_CHAN16) + 0.5);
 	double v2 = v;
@@ -73,7 +73,7 @@ extract32 (
 	}
 	outP->alpha	= RoundFpShortDouble(a * v2);
 
-	//w’è‚µ‚½F‚ğc‚·
+	//æŒ‡å®šã—ãŸè‰²ã‚’æ®‹ã™
 	if((niP->extract_color_Count>0)&&(outP->alpha<1.0)){
 		PF_PixelFloat p32 = *inP;
 		HLSA hlsa = RGBtoHLS(p32);
@@ -121,12 +121,12 @@ persentBlend32 (
 		if (o.alpha ==0){
 			o.blue = o.green = o.red = 0;
 		}else{
-			//ƒ}ƒbƒg‡¬‚É’¼‚·
+			//ãƒãƒƒãƒˆåˆæˆã«ç›´ã™
 			i.red	= RoundFpShortDouble( i.red	 * i.alpha);
 			i.green	= RoundFpShortDouble( i.green* i.alpha);
 			i.blue	= RoundFpShortDouble( i.blue * i.alpha );
 
-			//ƒ}ƒbƒg‡¬‚É’¼‚·
+			//ãƒãƒƒãƒˆåˆæˆã«ç›´ã™
 			o.red	= RoundFpShortDouble( o.red	 * o.alpha);
 			o.green	= RoundFpShortDouble( o.green* o.alpha);
 			o.blue	= RoundFpShortDouble( o.blue * o.alpha);
@@ -254,7 +254,7 @@ screenBlend32 (
 		o.blue = o.green = o.red = 0;
 		o.alpha = 0;
 	}else{
-		//ƒ}ƒbƒg‡¬‚É’¼‚·
+		//ãƒãƒƒãƒˆåˆæˆã«ç›´ã™
 		i.red	= RoundFpShortDouble( i.red	  * i.alpha);
 		i.green	= RoundFpShortDouble( i.green * i.alpha);
 		i.blue	= RoundFpShortDouble( i.blue  * i.alpha);
@@ -309,7 +309,7 @@ multiplyBlend32 (
 		o.alpha = 0;
 		
 	}else{
-		//”’ƒ}ƒbƒg‚Ö
+		//ç™½ãƒãƒƒãƒˆã¸
 		i.red	= RoundFpShortDouble( (i.red  * i.alpha) + 1.0 - i.alpha);
 		i.green	= RoundFpShortDouble( (i.green* i.alpha) + 1.0 - i.alpha);
 		i.blue	= RoundFpShortDouble( (i.blue * i.alpha) + 1.0 - i.alpha);
@@ -344,24 +344,24 @@ PF_Err DF32(CFsAE *ae , ParamInfo *infoP)
 		return err;
 	}
 
-	//‰æ‘œ’Šo
+	//ç”»åƒæŠ½å‡º
 	if (infoP->extractEnabled){
 		ERR(ae->iterate32((refconType)infoP,extract32));
 	}
 	
-	//Å‘å¥Å¬
-	//Å‘å¥Å¬
+	//æœ€å¤§ãƒ»æœ€å°
+	//æœ€å¤§ãƒ»æœ€å°
 	if (infoP->minimax1!=0){
 		ae->out->Minimax32(infoP->minimax1);
 	}
 	if (infoP->minimax2!=0){
 		ae->out->Minimax32(infoP->minimax2);
 	}
-	//‚Ú‚©‚µ
+	//ã¼ã‹ã—
 	if (infoP->blur>0){
 		ae->out->gblur32(infoP->blur);
 	}
-	//ƒuƒŒƒ“ƒh
+	//ãƒ–ãƒ¬ãƒ³ãƒ‰
 	if (infoP->blendMode != BLEND_MODE::none){
 		blendFunc32 = NULL;
 

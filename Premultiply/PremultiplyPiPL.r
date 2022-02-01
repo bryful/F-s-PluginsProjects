@@ -15,12 +15,12 @@ resource 'PiPL' (16000) {
 		},
 		/* [2] */
 		Name {
-			/*AE�̃��j���[�Ɏg���� */
+			/*AEのメニューに使われる */
 			FS_NAME
 		},
 		/* [3] */
 		Category {
-			/*AE�̃��j���[�Ɏg���� */
+			/*AEのメニューに使われる */
 			FS_CATEGORY
 		},
 		
@@ -65,7 +65,7 @@ resource 'PiPL' (16000) {
 		},
 		/* [11] */
 		AE_Effect_Match_Name {
-			/*�v���O�C���̎��ʂɎg���� */
+			/*プラグインの識別に使われる */
 			FS_NAME
 		},
 		/* [12] */

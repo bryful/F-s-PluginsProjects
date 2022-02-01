@@ -37,12 +37,12 @@
 
 #include "../FsLibrary/FsAE.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	//ƒ^[ƒQƒbƒgƒJƒ‰[
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚«ãƒ©ãƒ¼
 	ID_COLOR_TOPICS0,
 
 	ID_CBX_COLOR0,
@@ -116,7 +116,7 @@ enum {
 	ID_NUM_PARAMS
 };
 #define LENGTH_MIN 3
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_CBX_ON				"on"
 
 #define	STR_CBX_COLOR0			"Enabled0"
@@ -198,7 +198,7 @@ enum {
 
 
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
 
 	A_long		Color_Max;

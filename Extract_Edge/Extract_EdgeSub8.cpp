@@ -1,7 +1,7 @@
 #include "Extract_Edge.h"
 
 //-------------------------------------------------------------------------------------------------
-//‰æ‘œ‚ÌF‚ğŠl“¾
+//ç”»åƒã®è‰²ã‚’ç²å¾—
 inline PF_Pixel GetPX(GInfo *gi, A_long x, A_long y)
 {
 	PF_Pixel *data = (PF_Pixel *)gi->data;

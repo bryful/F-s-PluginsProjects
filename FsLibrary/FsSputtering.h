@@ -1120,7 +1120,7 @@ static PF_Err SetupSputData (A_long size,A_u_char *sputRandTable)
 	}
 	A_long i;
 	switch(size){
-		case 1: // ã…è¨
+		case 1: // Ê•µÂ∞è
 			for ( i=0; i<150;i++){
 				sputRandTable[i] = SPD_VSMALL_VALUE;
 			}
@@ -1130,7 +1130,7 @@ static PF_Err SetupSputData (A_long size,A_u_char *sputRandTable)
 			sputRandTable[198] = 8;
 			sputRandTable[199] = 9;
 		break;
-		case 2: // è¨
+		case 2: // Â∞è
 			for ( i=0; i<100;i++){
 				sputRandTable[i] = SPD_VSMALL_VALUE;
 			}
@@ -1143,7 +1143,7 @@ static PF_Err SetupSputData (A_long size,A_u_char *sputRandTable)
 			sputRandTable[198] = 12;
 			sputRandTable[199] = 13;
 		break;
-		case 3: // íÜ
+		case 3: // ‰∏≠
 			for ( i=0; i<86;i++){
 				sputRandTable[i] = SPD_VSMALL_VALUE;
 			}
@@ -1159,7 +1159,7 @@ static PF_Err SetupSputData (A_long size,A_u_char *sputRandTable)
 			sputRandTable[198] = 32;
 			sputRandTable[199] = 33;
 		break;
-		case 4: // ëÂ
+		case 4: // Â§ß
 			for ( i=0; i<70;i++){
 				sputRandTable[i] = SPD_VSMALL_VALUE;
 			}
@@ -1173,7 +1173,7 @@ static PF_Err SetupSputData (A_long size,A_u_char *sputRandTable)
 				sputRandTable[i] = (A_u_char)((i % 30) + 20) ;
 			}
 		break;
-		case 5: // ì¡ëÂ
+		case 5: // ÁâπÂ§ß
 		default:
 			for ( i=0; i<40;i++){
 				sputRandTable[i] = SPD_VSMALL_VALUE;

@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -22,12 +22,12 @@ static PF_Err ParamsSetup (
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_HEIGHT,	//�p�����[�^�̖��O
-		1, 			//���l���͂���ꍇ�̍ŏ��l
-		20,			//���l���͂���ꍇ�̍ő�l
-		2,			//�X���C�_�[�̍ŏ��l 
-		10,			//�X���C�_�[�̍ő�l
-		3,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(STR_HEIGHT,	//パラメータの名前
+		1, 			//数値入力する場合の最小値
+		20,			//数値入力する場合の最大値
+		2,			//スライダーの最小値 
+		10,			//スライダーの最大値
+		3,				//デフォルトの値
 		ID_HEIGHT
 	);
 	//----------------------------------------------------------------
@@ -88,11 +88,11 @@ static PF_Err ParamsSetup (
 	);
 
 	//----------------------------------------------------------------
-	//�|�b�v�A�b�v���j���[
+	//ポップアップメニュー
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POPUP(STR_DIR,
-		2,	//���j���[�̐�
-		1,	//�f�t�H���g
+		2,	//メニューの数
+		1,	//デフォルト
 		STR_DIRSTR,
 		ID_DIR
 	);
@@ -240,7 +240,7 @@ FilterImage8 (
 	if (infoP->dir == 1)
 	{
 		A_long y = yL / infoP->height;
-		if ((y % 2) == 0) {//����
+		if ((y % 2) == 0) {//偶数
 			if ((infoP->level0 != 0) || (infoP->opacity0 != 1)){
 				*outP = PX8(*outP, infoP->level0, infoP->opacity0);
 			}
@@ -253,7 +253,7 @@ FilterImage8 (
 	}
 	else {
 		A_long x = xL / infoP->height;
-		if ((x % 2) == 0) {//����
+		if ((x % 2) == 0) {//偶数
 			if ((infoP->level0 != 0) || (infoP->opacity0 != 1)) {
 				*outP = PX8(*outP, infoP->level0, infoP->opacity0);
 			}
@@ -285,7 +285,7 @@ FilterImage16 (
 	if (infoP->dir == 1)
 	{
 		A_long y = yL / infoP->height;
-		if ((y % 2) == 0) {//����
+		if ((y % 2) == 0) {//偶数
 			if ((infoP->level0 != 0) || (infoP->opacity0 != 1)) {
 				*outP = PX16(*outP, infoP->level0, infoP->opacity0);
 			}
@@ -298,7 +298,7 @@ FilterImage16 (
 	}
 	else {
 		A_long x = xL / infoP->height;
-		if ((x % 2) == 0) {//����
+		if ((x % 2) == 0) {//偶数
 			if ((infoP->level0 != 0) || (infoP->opacity0 != 1)) {
 				*outP = PX16(*outP, infoP->level0, infoP->opacity0);
 			}
@@ -326,7 +326,7 @@ FilterImage32 (
 	if (infoP->dir == 1)
 	{
 		A_long y = yL / infoP->height;
-		if ((y % 2) == 0) {//����
+		if ((y % 2) == 0) {//偶数
 			if ((infoP->level0 != 0) || (infoP->opacity0 != 1)) {
 				*outP = PX32(*outP, infoP->level0, infoP->opacity0);
 			}
@@ -339,7 +339,7 @@ FilterImage32 (
 	}
 	else {
 		A_long x = xL / infoP->height;
-		if ((x % 2) == 0) {//����
+		if ((x % 2) == 0) {//偶数
 			if ((infoP->level0 != 0) || (infoP->opacity0 != 1)) {
 				*outP = PX32(*outP, infoP->level0, infoP->opacity0);
 			}
@@ -382,7 +382,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	
 
@@ -402,10 +402,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -429,7 +429,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

@@ -13,8 +13,8 @@ PF_Err (*subFunc16)(refconType	refcon, A_long xL, A_long yL,PF_Pixel16	*inP, PF_
 PF_Err (*subFunc32)(refconType	refcon, A_long xL, A_long yL,PF_PixelFloat	*inP, PF_PixelFloat	*outP);
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (	PF_InData		*in_data,
 							PF_OutData		*out_data,
 							PF_ParamDef		*params[],
@@ -23,14 +23,14 @@ static PF_Err ParamsSetup (	PF_InData		*in_data,
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 
-	//‚PŒÂ–Ú‚Ìƒpƒ‰ƒ[ƒ^
+	//ï¼‘å€‹ç›®ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_LV,//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					PF_MAX_CHAN8,	//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					15,				//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					0,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_LV,//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					PF_MAX_CHAN8,	//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					15,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					0,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_LEVEL
 					);
 
@@ -382,7 +382,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	if ((infoP->enabled ==TRUE )&&(infoP->count>0)) {
 		if ( infoP->Lv ==0){
@@ -413,7 +413,7 @@ static PF_Err
 
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err 
 Render ( 
 	PF_InData		*in_data,

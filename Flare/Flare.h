@@ -45,11 +45,11 @@
 #define SPRINTF(STR,IDX) sprintf_(num, "%s%d", STR, IDX)
 #endif
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
-	ID_MODE,		//ƒ‚[ƒh  WhiteBaseMask or BlackBaseMask or Image(lumnan) 
+	ID_MODE,		//ãƒ¢ãƒ¼ãƒ‰  WhiteBaseMask or BlackBaseMask or Image(lumnan) 
 	ID_BASE_ON,
 	ID_BASE_COLOR,
 	ID_BASE_OPACITY,
@@ -58,16 +58,16 @@ enum {
 enum
 {
 	ID_TOPIC = 0,
-	ID_ENABLED,		// ‚±‚ê‚ª—LŒø
+	ID_ENABLED,		// ã“ã‚ŒãŒæœ‰åŠ¹
 	ID_REV,			// rev none rev or revandMask
 	ID_BORDER_TOPIC,
-	ID_BORDER,		//‹«ŠEü Image
-	ID_INSIDE,		// border‚Ì“à‘¤
-	ID_OUTSIDE,		// border‚ÌŠO‘¤
+	ID_BORDER,		//å¢ƒç•Œç·š Image
+	ID_INSIDE,		// borderæ™‚ã®å†…å´
+	ID_OUTSIDE,		// borderæ™‚ã®å¤–å´
 	ID_BORDER_TOPIC_END,
-	ID_MAX,			// –c’£ƒTƒCƒY
-	ID_BLUR,		// ‚Ú‚©‚µƒTƒCƒY
-	ID_COLOR,		// color and border‚Ì‚Ég‚¤
+	ID_MAX,			// è†¨å¼µã‚µã‚¤ã‚º
+	ID_BLUR,		// ã¼ã‹ã—ã‚µã‚¤ã‚º
+	ID_COLOR,		// color and borderã®æ™‚ã«ä½¿ã†
 	ID_BLEND,		// normal or screen or Add
 	ID_OPACITY,
 	ID_TOPIC_END,
@@ -100,7 +100,7 @@ enum BLEND
 	Normal,
 };
 
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_ON				"on"
 #define	STR_BASE_ON			"baseOn"
 #define	STR_BASE_COLOR		"baseColor"
@@ -134,7 +134,7 @@ enum BLEND
 
 
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct FlareInfo {
 	PF_Boolean enabled;
 	PF_Boolean	border;

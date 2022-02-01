@@ -40,18 +40,18 @@
 //#include "FsAE.h"
 
 
-#define STR_ENABLED_CB1	"Às‚·‚é"
+#define STR_ENABLED_CB1	"å®Ÿè¡Œã™ã‚‹"
 #define STR_ENABLED_CB2	"ON"
-#define STR_COLOR		"F"
-#define STR_OPA_FIXED	"•s“§–¾“x"
+#define STR_COLOR		"è‰²"
+#define STR_OPA_FIXED	"ä¸é€æ˜åº¦"
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	
-	//ˆÈ‰ºQl—p
+	//ä»¥ä¸‹å‚è€ƒç”¨
 	ID_ENABLED_CB,			//boolean
 	ID_FILL_COLOR,	//
 	ID_OPA_COLOR_FIXED,

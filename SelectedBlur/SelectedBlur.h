@@ -41,7 +41,7 @@
 //-----------------------------------------------------------------------------------
 #define	STR_BLUR_VALUE	"blur"
 #define	STR_TARGET_RNG	"range"
-#define	STR_TARGET_ENABLE0	"—LŒø"
+#define	STR_TARGET_ENABLE0	"æœ‰åŠ¹"
 #define	STR_TARGET_ENABLE1	"ON"
 
 #define	STR_TARGET_COL0	"target0"
@@ -57,12 +57,12 @@
 #define COLOR_COUNT 8
 
 //-----------------------------------------------------------------------------------
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	
-	//ˆÈ‰ºQl—p
+	//ä»¥ä¸‹å‚è€ƒç”¨
 	ID_BLUR_VALUE,
 	ID_TARGET_RANGE,
 	

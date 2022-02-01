@@ -75,8 +75,8 @@ static PF_Err SequenceResetup (
 	return PF_Err_NONE;
 }
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -87,7 +87,7 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_Highlights_COLOR, 
 					Highlights_def_red,
@@ -97,7 +97,7 @@ static PF_Err ParamsSetup (
 					);
 
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_Midtones_COLOR, 
 					Midtones_def_red,
@@ -107,7 +107,7 @@ static PF_Err ParamsSetup (
 					);
 
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_Shadows_COLOR, 
 					Shadows_def_red,
@@ -117,29 +117,29 @@ static PF_Err ParamsSetup (
 					);
 
 	//----------------------------------------------------------------
-	//ŒÅ’è¬”‚ÌƒXƒ‰ƒCƒ_[ƒo[
+	//å›ºå®šå°æ•°ã®ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ãƒãƒ¼
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_Midtones_OFFSET,//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					-100, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,				//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					-50,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					50,					//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					Midtones_def_offset,//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,					//”’l•\¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_Midtones_OFFSET,//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					-100, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					-50,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					50,					//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					Midtones_def_offset,//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,					//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_Midtones_OFFSET
 					);
 	//----------------------------------------------------------------
-	//ŒÅ’è¬”‚ÌƒXƒ‰ƒCƒ_[ƒo[
+	//å›ºå®šå°æ•°ã®ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ãƒãƒ¼
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_Blend_w_Original_FIXED,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					100,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					Blend_w_Original_def,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,				//”’l•\¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_Blend_w_Original_FIXED,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					100,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					Blend_w_Original_def,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,				//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_Blend_w_Original_FIXED
@@ -210,8 +210,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY‚Ì’l‚ğout_flags‚Öİ’è‚µ‚Ä
-	//–ˆƒtƒŒ[ƒ€‚²‚Æ‚Ì•`‰æ‚ğ‚·‚é‚©Ø‚è‘Ö‚¦‚éB
+	//PF_OutFlag_NON_PARAM_VARYã®å€¤ã‚’out_flagsã¸è¨­å®šã—ã¦
+	//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æç”»ã‚’ã™ã‚‹ã‹åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
@@ -464,7 +464,7 @@ Exec (CFsAE *ae , ToneParam *tp)
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err 
 Render ( 
 	PF_InData		*in_data,

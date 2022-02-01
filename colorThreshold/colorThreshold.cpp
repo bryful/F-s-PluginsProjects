@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include <Math.h>
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -65,7 +65,7 @@ static PF_Err ParamsSetup (
 						);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);	
-	//def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//���������ƕ\�����ɊJ������ԂɂȂ�
+	//def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//これをつけると表示時に開いた状態になる
 	PF_ADD_TOPIC(STR_TOPIC_NAIN_COL, ID_TOPIC_NAIN_COL);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
@@ -77,7 +77,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_MAIN_COL1, 
 					10,	// Red
 					10,	//Green
@@ -122,7 +122,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_MAIN_COL2, 
 					PF_MAX_CHAN8-1,	// Red
 					PF_MAX_CHAN8-1,	//Green
@@ -167,7 +167,7 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_MAIN_COL3, 
 					0,	// Red
 					0,	//Green
@@ -207,16 +207,16 @@ static PF_Err ParamsSetup (
 	PF_END_TOPIC(ID_TOPIC_NAIN_COL_END);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);	
-	//def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//���������ƕ\�����ɊJ������ԂɂȂ�
+	//def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//これをつけると表示時に開いた状態になる
 	PF_ADD_TOPIC(STR_TOPIC_SUB_COL, ID_TOPIC_SUB_COL);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SUB_COL_COUNT,	//�p�����[�^�̖��O
-					0, 		//���l���͂���ꍇ�̍ŏ��l
-					COUNT_OF_SUB,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					COUNT_OF_SUB,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_SUB_COL_COUNT,	//パラメータの名前
+					0, 		//数値入力する場合の最小値
+					COUNT_OF_SUB,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					COUNT_OF_SUB,			//スライダーの最大値
+					0,				//デフォルトの値
 					ID_SUB_COL_COUNT
 					);
 	//----------------------------------------------------------------
@@ -228,7 +228,7 @@ static PF_Err ParamsSetup (
 		sprintf(num,"UserColor_%d",i+1);
 #endif
 		AEFX_CLR_STRUCT(def);
-		def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+		def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 		PF_ADD_COLOR(	num, 
 						0,	// Red
 						0,	//Green
@@ -305,7 +305,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	PF_FpLong d;
 
 
-	//�s�N�Z���e�[�u���̏�����
+	//ピクセルテーブルの初期化
 	PF_Pixel bl = {0,0,0,0};
 	PF_Pixel16 bl16 = {0,0,0,0};
 	PF_Pixel32 bl32 = {0,0,0,0};
@@ -387,7 +387,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	//ERR(ae->CopyInToOut());
 	infoP->out = ae->out;
 	A_long cnt = infoP->main_col_count + infoP->sub_col_count;  
@@ -455,10 +455,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -482,7 +482,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

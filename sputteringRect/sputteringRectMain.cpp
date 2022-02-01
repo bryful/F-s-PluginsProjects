@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 /*
-	AEP Project—p‚Ìƒvƒ‰ƒOƒCƒ“
+	AEP Projectç”¨ã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³
 	sputteringRect
-	•`‰æ‚Ì‚Ý
+	æç”»ã®ã¿
 */
 #include "sputteringRect.h"
 //-----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	A_long colR;
 	A_long	opa = prm->opa;
 	
-	//”ÍˆÍ
+	//ç¯„å›²
 	A_long	x0 = prm->rect.left;
 	A_long	y0 = prm->rect.top;
 	A_long	dx = prm->rect.right - prm->rect.left -1;
@@ -40,10 +40,10 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	for ( i=0;i<value;i++){
 		A_long x = x0 + FM_RAND(dx);
 		A_long y = y0 + FM_RAND(dy);
-		//ŒJ‚è•Ô‚µ
+		//ç¹°ã‚Šè¿”ã—
 		for (j=0; j<pValue;j++){
 			
-			//‚Î‚ç‚Â‚«‚ðì‚é
+			//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 			if (FM_RAND(5)==0){
 				rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(pLen * 3));
 			}else{
@@ -77,7 +77,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 	for (i=0; i<UI_COLOR_MAX_V;i++) 
 		colors[i] = CONV8TO16(prm->colors[i]);
 	
-	//”ÍˆÍ
+	//ç¯„å›²
 	A_long	x0 = prm->rect.left;
 	A_long	y0 = prm->rect.top;
 	A_long	dx = prm->rect.right - prm->rect.left -1;
@@ -99,10 +99,10 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 	for ( i=0;i<value;i++){
 		A_long x = x0 + FM_RAND(dx);
 		A_long y = y0 + FM_RAND(dy);
-		//ŒJ‚è•Ô‚µ
+		//ç¹°ã‚Šè¿”ã—
 		for (j=0; j<pValue;j++){
 			
-			//‚Î‚ç‚Â‚«‚ðì‚é
+			//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 			if (FM_RAND(5)==0){
 				rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(pLen * 3));
 			}else{
@@ -137,7 +137,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 	for (i=0; i<UI_COLOR_MAX_V;i++) 
 		colors[i] = CONV8TO32(prm->colors[i]);
 	
-	//”ÍˆÍ
+	//ç¯„å›²
 	A_long	x0 = prm->rect.left;
 	A_long	y0 = prm->rect.top;
 	A_long	dx = prm->rect.right - prm->rect.left -1;
@@ -159,10 +159,10 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 	for ( i=0;i<value;i++){
 		A_long x = x0 + FM_RAND(dx);
 		A_long y = y0 + FM_RAND(dy);
-		//ŒJ‚è•Ô‚µ
+		//ç¹°ã‚Šè¿”ã—
 		for (j=0; j<pValue;j++){
 			
-			//‚Î‚ç‚Â‚«‚ðì‚é
+			//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 			if (FM_RAND(5)==0){
 				rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(pLen * 3));
 			}else{

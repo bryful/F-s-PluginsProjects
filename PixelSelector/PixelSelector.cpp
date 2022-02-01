@@ -148,8 +148,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY‚Ì’l‚ðout_flags‚ÖÝ’è‚µ‚Ä
-	//–ˆƒtƒŒ[ƒ€‚²‚Æ‚Ì•`‰æ‚ð‚·‚é‚©Ø‚è‘Ö‚¦‚éB
+	//PF_OutFlag_NON_PARAM_VARYã®å€¤ã‚’out_flagsã¸è¨­å®šã—ã¦
+	//æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æç”»ã‚’ã™ã‚‹ã‹åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
@@ -269,8 +269,8 @@ ParamsSetup (
 						PF_ParamFlag_CANNOT_INTERP;
 						
 	PF_ADD_POPUP(UI_POP1, 
-				24,	//ƒƒjƒ…[‚Ì”
-				24,	//ƒfƒtƒHƒ‹ƒg
+				24,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ•°
+				24,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 				UI_POP2,
 				PixelSelector_POP
 				);
@@ -442,7 +442,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ðƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	if (infoP->count>0){
 		switch(ae->pixelFormat())

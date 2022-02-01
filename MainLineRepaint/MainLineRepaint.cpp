@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -21,7 +21,7 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_Main_Color, 
 					0x00,
@@ -85,7 +85,7 @@ static PF_Err Exec8(CFsAE *ae, ParamInfo *infoP)
 
 	PF_Pixel *data;
 	data = (PF_Pixel *)ae->out->data();
-	//��������
+	//水平方向
 	A_long cnt = 0;
 	for ( A_long j=0; j<h; j++){
 		A_long adrY = j*wt;
@@ -184,7 +184,7 @@ static PF_Err Exec16(CFsAE *ae, ParamInfo *infoP)
 
 	PF_Pixel16 *data;
 	data = (PF_Pixel16 *)ae->out->data();
-	//��������
+	//水平方向
 	A_long cnt = 0;
 	for ( A_long j=0; j<h; j++){
 		A_long adrY = j*wt;
@@ -283,7 +283,7 @@ static PF_Err Exec32(CFsAE *ae, ParamInfo *infoP)
 
 	PF_PixelFloat *data;
 	data = (PF_PixelFloat *)ae->out->data();
-	//��������
+	//水平方向
 	A_long cnt = 0;
 	for ( A_long j=0; j<h; j++){
 		A_long adrY = j*wt;
@@ -396,7 +396,7 @@ static PF_Err
 	if ( w < ae->out->height() ) w = ae->out->height();
 	w *=2;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	
 
@@ -437,10 +437,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -464,7 +464,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

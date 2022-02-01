@@ -8,7 +8,7 @@
 
 
 //-------------------------------------------------------------------------------------------------
-// Aboutƒ_ƒCƒAƒƒO
+// Aboutãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 static PF_Err About (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -69,8 +69,8 @@ static PF_Err SequenceResetup (	PF_InData		*in_data,
 	return PF_Err_NONE;
 }
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -81,9 +81,9 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 	PF_ADD_COLOR(	STR_BASE_COLOR, 
 					0x00,
 					0x00,
@@ -246,7 +246,7 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err 
 Render ( 
 	PF_InData		*in_dataP,

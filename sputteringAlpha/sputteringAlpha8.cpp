@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 /*
-	AEP Project�p�̃v���O�C��
+	AEP Project用のプラグイン
 	sputteringAlpha
-	�`��̂�
+	描画のみ
 */
 //-----------------------------------------------------------------------------
 #include "sputteringAlpha.h"
@@ -15,14 +15,14 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	PF_Fixed value = prm->value /100;
 	PF_Fixed eValue = prm->edge_value /10;
 	A_long pValue = prm->point_value;
-	PF_Fixed pLen = prm->point_length; //�l�͐���
+	PF_Fixed pLen = prm->point_length; //値は整数
 	A_long colRnd = prm->color_max -1;
 	A_long colR;
 
 	A_long i;
 	A_long x,y;
 
-	//�G�b�W�̏ꏊ��T����output��alpha�֕ۑ�
+	//エッジの場所を探してoutputのalphaへ保存
 	A_u_long targetIn =0;
 	A_u_long targetOut =0;
 	PF_Pixel *iD;
@@ -35,7 +35,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	A_long we = ae->in->width()-1;
 	A_long he = ae->in->height()-1;
 	A_long offset[8];
-	//�e�[�u���쐬
+	//テーブル作成
 	offset[0] = -1 - ae->in->widthTrue(); 
 	offset[1] =  0 - ae->in->widthTrue(); 
 	offset[2] =  1 - ae->in->widthTrue(); 
@@ -45,10 +45,10 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	offset[6] =  0 + ae->in->widthTrue(); 
 	offset[7] =  1 + ae->in->widthTrue(); 
 	/*
-	�����ȂƂ���͂O
-	�G�b�W��TARGET_EDGE8
-	���ʂȂƂ����TARGET_SOLID8
-	��buf�ɏ�������
+	透明なところは０
+	エッジはTARGET_EDGE8
+	普通なところはTARGET_SOLID8
+	をbufに書き込む
 	*/
 	A_u_char eg = 0;
 	for( y=0; y<ae->out->height(); y++){
@@ -57,7 +57,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 			eg = 0;
 			if (c.alpha>=EDGE_BORDER8){
 				eg = TARGET_SOLID;
-				if ( (x>=1)&&(x<we)&&(y>=1)&&(y<he) ){ //�[�����͖���
+				if ( (x>=1)&&(x<we)&&(y>=1)&&(y<he) ){ //端っこは無視
 					for (i=0; i<=7;i++){
 						if (iD[targetIn + offset[i]].alpha<EDGE_BORDER8){
 							eg = TARGET_EDGE;
@@ -75,7 +75,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 		targetOut += ae->out->offsetWidth();
 	}
 
-	//�����A�`�悾
+	//さぁ、描画だ
 	F_SRAND(prm->seed);	
 
 	sputDrawPrm sdp;
@@ -105,7 +105,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 			}
 			if (flg>0){
 				for (i=0; i<pValue;i++){
-					//�΂�������
+					//ばらつきを作る
 					if (FM_RAND(5)==0){
 						rc.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(pLen * rndScale));
 					}else{

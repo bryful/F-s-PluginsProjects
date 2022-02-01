@@ -41,11 +41,11 @@
 	#include <Windows.h>
 #endif
 
-#define	STR_BASE_COLOR	"”wŒiF"
+#define	STR_BASE_COLOR	"èƒŒæ™¯è‰²"
 
 #include "../FsLibrary/FsAE.h"
 	
-//ƒvƒ‰ƒOƒCƒ““Æ©‚Ìƒpƒ‰ƒ[ƒ^‚ğW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 typedef struct ParamInfo8{
 	PF_Pixel8	base_color;	
 } ParamInfo8, *ParamInfo8P, **ParamInfo8H;
@@ -58,8 +58,8 @@ typedef struct ParamInfo32{
 	PF_PixelFloat	base_color;	
 } ParamInfo32, *ParamInfo32P, **ParamInfo32H;
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_BASE_COLOR,	//

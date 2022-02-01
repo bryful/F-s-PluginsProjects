@@ -41,8 +41,8 @@
 #include "../FsLibrary/FsAE.h"
 #include "../FsLibrary/FsHLS.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 
@@ -72,7 +72,7 @@ enum {
 	ID_NUM_PARAMS
 };
 
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_ALPHA_REV			"InvertAlpha"
 
 #define	STR_ON					"on"
@@ -97,7 +97,7 @@ enum {
 #define	STR_TAGET_SOFT3			"Softness3"
 
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct CInfo {
 	PF_Boolean	target_enabled;
 	PF_FpLong	target_border;

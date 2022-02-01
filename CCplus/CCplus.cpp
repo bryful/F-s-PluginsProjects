@@ -7,8 +7,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -53,39 +53,39 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	StrCOLOR_CENTER_POS,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					50,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	StrCOLOR_CENTER_POS,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					50,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_COLOR_CENTER_POS
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	StrALPHA_START,	//�p�����[�^�̖��O
-					-200, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					100,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	StrALPHA_START,	//パラメータの名前
+					-200, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					100,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_ALPHA_START
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	StrALPHA_END,	//�p�����[�^�̖��O
-					-200, 				//���l���͂���ꍇ�̍ŏ��l
-					200,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O 
+	PF_ADD_FIXED(	StrALPHA_END,	//パラメータの名前
+					-200, 				//数値入力する場合の最小値
+					200,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
+					1,				//数値表示に関するフラグ 
 					0,
 					0,
 					ID_ALPHA_END
@@ -93,12 +93,12 @@ static PF_Err ParamsSetup (
 
 //----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	StrNOISE_VALUE,	//�p�����[�^�̖��O
-					0, 		//���l���͂���ꍇ�̍ŏ��l
-					64,		//���l���͂���ꍇ�̍ő�l
-					0,		//�X���C�_�[�̍ŏ��l 
-					8,		//�X���C�_�[�̍ő�l
-					2,		//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	StrNOISE_VALUE,	//パラメータの名前
+					0, 		//数値入力する場合の最小値
+					64,		//数値入力する場合の最大値
+					0,		//スライダーの最小値 
+					8,		//スライダーの最大値
+					2,		//デフォルトの値
 					ID_NOISE_VALUE
 					);
 
@@ -220,14 +220,14 @@ PF_PixelFloat colorValue32(CCPInfo32 *infoP, PF_FpShort value)
 	return r;
 }
 //---------------------------------------------------------------------------------------------
-//�J���[�e�[�u���̍쐬
+//カラーテーブルの作成
 void makeColorTbl8(CCPInfo *infoP)
 {
 	for ( A_long i=0; i<PF_MAX_CHAN8; i++)
 		infoP->colorTbl[i] = colorValue8(infoP,(A_u_char)i);
 }
 //---------------------------------------------------------------------------------------------
-//�J���[�e�[�u���̍쐬
+//カラーテーブルの作成
 void makeColorTbl16(CCPInfo16 *infoP)
 {
 	for ( A_long i=0; i<PF_MAX_CHAN16; i++)
@@ -552,7 +552,7 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 static PF_Err Render (
 	PF_InData			*in_data,
 	PF_OutData		*out_data,

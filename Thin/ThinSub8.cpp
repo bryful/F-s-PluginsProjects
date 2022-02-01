@@ -46,7 +46,7 @@ inline PF_Boolean CompPxs2(thinInfo8 *ti, PF_Pixel p1,PF_Pixel p2)
 //*****************************************************************************
 inline void scanlineCopy(thinInfo8 *ti, A_long y)
 {
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ÖƒRƒs[
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸ã‚³ãƒ”ãƒ¼
 	A_long v = 0; 
 	if (y ==0) {
 		for ( int i=0; i<ti->w; i++ ){
@@ -70,7 +70,7 @@ inline void scanlineCopy(thinInfo8 *ti, A_long y)
 //*****************************************************************************
 inline void scanlineCopyB(thinInfo8 *ti, A_long y)
 {
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ÖƒRƒs[
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸ã‚³ãƒ”ãƒ¼
 	A_long v0 = 0; 
 	A_long v1 = 0; 
 	A_long v2 = 0; 
@@ -183,10 +183,10 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 	table[7] = getScanLine(ti, 1, 1);
 
 	/*
-	’–Ú‚·‚éƒsƒNƒZƒ‹‚ÌüˆÍ8“_‚ğ’²‚×“¯‚¶F‚©‚Ç‚¤‚©‚ğ8bit‚Ìƒrƒbƒgƒtƒ‰ƒO‚ÅŠÇ—
-	256’Ê‚è‚Ìƒpƒ^[ƒ“‚ªl‚¦‚ç‚ê‚é‚Ì‚Å‚»‚ê‚É‡‚í‚¹‚ÄğŒ•ªŠò
+	æ³¨ç›®ã™ã‚‹ãƒ”ã‚¯ã‚»ãƒ«ã®å‘¨å›²8ç‚¹ã‚’èª¿ã¹åŒã˜è‰²ã‹ã©ã†ã‹ã‚’8bitã®ãƒ“ãƒƒãƒˆãƒ•ãƒ©ã‚°ã§ç®¡ç†
+	256é€šã‚Šã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãŒè€ƒãˆã‚‰ã‚Œã‚‹ã®ã§ãã‚Œã«åˆã‚ã›ã¦æ¡ä»¶åˆ†å²
 	*/
-	//ƒpƒ^[ƒ“‰»
+	//ãƒ‘ã‚¿ãƒ¼ãƒ³åŒ–
 	A_long pat = 0;
 	A_long patCount = 0;
 	for (A_long i = 0; i<8; i++){
@@ -197,14 +197,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 		}
 	}
 	////
-	//œ››
-	//›œœ
-	//œœœ
+	//â—â—‹â—‹
+	//â—‹â—â—
+	//â—â—â—
 	//0X8F(143)
 	//10001111
-	//œ››
-	//›œœ
-	//œœ›
+	//â—â—‹â—‹
+	//â—‹â—â—
+	//â—â—â—‹
 	//0X8E(142)
 	//10001110
 	if ((pat==0x8F)||(pat==0x8E)) {
@@ -213,14 +213,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[1];
 		}
 		return ret;
-	//›œœ
-	//›œœ
-	//œ›œ
+	//â—‹â—â—
+	//â—‹â—â—
+	//â—â—‹â—
 	//0X6D(109)
 	//01101101
-	//›œ›
-	//›œœ
-	//œ›œ
+	//â—‹â—â—‹
+	//â—‹â—â—
+	//â—â—‹â—
 	//0X4D(77)
 	//01001101
 	}else if ((pat==0x6D)||(pat==0x4D)) {
@@ -229,14 +229,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[0];
 		}
 		return ret;
-	//œœœ
-	//œœ›
-	//››œ
+	//â—â—â—
+	//â—â—â—‹
+	//â—‹â—‹â—
 	//0XF1(241)
 	//11110001
-	//›œœ
-	//œœ›
-	//››œ
+	//â—‹â—â—
+	//â—â—â—‹
+	//â—‹â—‹â—
 	//0X71(113)
 	//01110001
 	}else if ((pat==0xF1)||(pat==0x71)) {
@@ -245,14 +245,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[4];
 		}
 		return ret;
-	//œ›œ
-	//œœ›
-	//œœ›
+	//â—â—‹â—
+	//â—â—â—‹
+	//â—â—â—‹
 	//0XB6(182)
 	//10110110
-	//œ›œ
-	//œœ›
-	//›œ›
+	//â—â—‹â—
+	//â—â—â—‹
+	//â—‹â—â—‹
 	//0XB2(178)
 	//10110010
 	}else if ((pat==0x86)||(pat==0xB2)) {
@@ -261,14 +261,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[1];
 		}
 		return ret;
-	//››œ
-	//œœ›
-	//œœœ
+	//â—‹â—‹â—
+	//â—â—â—‹
+	//â—â—â—
 	//0X37(55)
 	//00110111
-	//››œ
-	//œœ›
-	//›œœ
+	//â—‹â—‹â—
+	//â—â—â—‹
+	//â—‹â—â—
 	//0X33(51)
 	//00110011
 	}else if ((pat==0x35)||(pat==0x33)) {
@@ -277,14 +277,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[0];
 		}
 		return ret;
-	//œœ›
-	//œœ›
-	//œ›œ
+	//â—â—â—‹
+	//â—â—â—‹
+	//â—â—‹â—
 	//0XD5(213)
 	//11010101
-	//›œ›
-	//œœ›
-	//œ›œ
+	//â—‹â—â—‹
+	//â—â—â—‹
+	//â—â—‹â—
 	//0X55(85)
 	//01010101
 	}else if ((pat==0xD5)||(pat==0x55)) {
@@ -293,14 +293,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[2];
 		}
 		return ret;
-	//œœœ
-	//›œœ
-	//œ››
+	//â—â—â—
+	//â—‹â—â—
+	//â—â—‹â—‹
 	//0XEC(236)
 	//11101100
-	//œœ›
-	//›œœ
-	//œ››
+	//â—â—â—‹
+	//â—‹â—â—
+	//â—â—‹â—‹
 	//0XCC(204)
 	//11001100
 	}else if ((pat==0xEC)||(pat==0xCC)) {
@@ -309,14 +309,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[3];
 		}
 		return ret;
-	//œ›œ
-	//›œœ
-	//›œœ
+	//â—â—‹â—
+	//â—‹â—â—
+	//â—‹â—â—
 	//0XAB(171)
 	//10101011
-	//œ›œ
-	//›œœ
-	//›œ›
+	//â—â—‹â—
+	//â—‹â—â—
+	//â—‹â—â—‹
 	//0XAA(170)
 	//10101010
 	}else if ((pat==0xAB)||(pat==0xAA)) {
@@ -325,14 +325,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[1];
 		}
 		return ret;
-	//œœœ
-	//›œœ
-	//œ›œ
+	//â—â—â—
+	//â—‹â—â—
+	//â—â—‹â—
 	//0XED(237)
 	//11101101
-	//œœ›
-	//›œœ
-	//œ›œ
+	//â—â—â—‹
+	//â—‹â—â—
+	//â—â—‹â—
 	//0XCD(205)
 	//11001101
 	}else if ((pat==0xED)||(pat==0xCD)) {
@@ -341,14 +341,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[3];
 		}
 		return ret;
-//œ›œ
-//›œœ
-//œœœ
+//â—â—‹â—
+//â—‹â—â—
+//â—â—â—
 //0XAF(175)
 //10101111
-//œ›œ
-//›œœ
-//œœ›
+//â—â—‹â—
+//â—‹â—â—
+//â—â—â—‹
 //0XAE(174)
 //10101110
 	}else if ((pat==0xAF)||(pat==0xAE)) {
@@ -357,14 +357,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[1];
 		}
 		return ret;
-	//œ›œ
-	//œœ›
-	//œœœ
+	//â—â—‹â—
+	//â—â—â—‹
+	//â—â—â—
 	//0XB7(183)
 	//10110111
-	//œ›œ
-	//œœ›
-	//›œœ
+	//â—â—‹â—
+	//â—â—â—‹
+	//â—‹â—â—
 	//0XB3(179)
 	//10110011
 	}else if ((pat==0xB7)||(pat==0xB3)) {
@@ -373,14 +373,14 @@ inline thinBak8 getPatEdge(thinInfo8 *ti)
 			ret.color = table[1];
 		}
 		return ret;
-	//œœœ
-	//œœ›
-	//œ›œ
+	//â—â—â—
+	//â—â—â—‹
+	//â—â—‹â—
 	//0XF5(245)
 	//11110101
-	//›œœ
-	//œœ›
-	//œ›œ
+	//â—‹â—â—
+	//â—â—â—‹
+	//â—â—‹â—
 	//0X75(117)
 	//01110101
 	}else if ((pat==0xF5)||(pat==0x75)) {
@@ -415,10 +415,10 @@ inline thinBak8 getPatDot(thinInfo8 *ti)
 	table[7] = getScanLine(ti, 1, 1);
 
 	/*
-	’–Ú‚·‚éƒsƒNƒZƒ‹‚ÌüˆÍ8“_‚ğ’²‚×“¯‚¶F‚©‚Ç‚¤‚©‚ğ8bit‚Ìƒrƒbƒgƒtƒ‰ƒO‚ÅŠÇ—
-	256’Ê‚è‚Ìƒpƒ^[ƒ“‚ªl‚¦‚ç‚ê‚é‚Ì‚Å‚»‚ê‚É‡‚í‚¹‚ÄğŒ•ªŠò
+	æ³¨ç›®ã™ã‚‹ãƒ”ã‚¯ã‚»ãƒ«ã®å‘¨å›²8ç‚¹ã‚’èª¿ã¹åŒã˜è‰²ã‹ã©ã†ã‹ã‚’8bitã®ãƒ“ãƒƒãƒˆãƒ•ãƒ©ã‚°ã§ç®¡ç†
+	256é€šã‚Šã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãŒè€ƒãˆã‚‰ã‚Œã‚‹ã®ã§ãã‚Œã«åˆã‚ã›ã¦æ¡ä»¶åˆ†å²
 	*/
-	//ƒpƒ^[ƒ“‰»
+	//ãƒ‘ã‚¿ãƒ¼ãƒ³åŒ–
 	A_long pat = 0;
 	A_long patCount = 0;
 	for (A_long i = 0; i<8; i++){
@@ -429,36 +429,36 @@ inline thinBak8 getPatDot(thinInfo8 *ti)
 		}
 	}
 	//if (patCount == 3) {
-		//œœœ
-		//›œ›
-		//›››
+		//â—â—â—
+		//â—‹â—â—‹
+		//â—‹â—‹â—‹
 		//0XE0(224)
 		//11100000
 		if ( pat == 0XE0){
 			ret.drawFlag = TRUE;
 			ret.color = minColor(table[3],minColor(table[4],table[6]));
 			return ret;
-		//››œ
-		//›œœ
-		//››œ
+		//â—‹â—‹â—
+		//â—‹â—â—
+		//â—‹â—‹â—
 		//0X29(41)
 		//00101001
 		}else if ( pat == 0X29) {
 			ret.drawFlag = TRUE;
 			ret.color = minColor(table[1],minColor(table[3],table[6]));
 			return ret;
-		//›››
-		//›œ›
-		//œœœ
+		//â—‹â—‹â—‹
+		//â—‹â—â—‹
+		//â—â—â—
 		//0X7(7)
 		//00000111
 		}else if ( pat == 0X07) {
 			ret.drawFlag = TRUE;
 			ret.color = minColor(table[1],minColor(table[3],table[4]));
 			return ret;
-		//œ››
-		//œœ›
-		//œ››
+		//â—â—‹â—‹
+		//â—â—â—‹
+		//â—â—‹â—‹
 		//0X94(148)
 		//10010100
 		}else if ( pat == 0X94) {
@@ -493,10 +493,10 @@ inline thinBak8 getPatDot2nd(thinInfo8 *ti)
 	table[7] = getScanLine(ti, 1, 1);
 
 	/*
-	’–Ú‚·‚éƒsƒNƒZƒ‹‚ÌüˆÍ8“_‚ğ’²‚×“¯‚¶F‚©‚Ç‚¤‚©‚ğ8bit‚Ìƒrƒbƒgƒtƒ‰ƒO‚ÅŠÇ—
-	256’Ê‚è‚Ìƒpƒ^[ƒ“‚ªl‚¦‚ç‚ê‚é‚Ì‚Å‚»‚ê‚É‡‚í‚¹‚ÄğŒ•ªŠò
+	æ³¨ç›®ã™ã‚‹ãƒ”ã‚¯ã‚»ãƒ«ã®å‘¨å›²8ç‚¹ã‚’èª¿ã¹åŒã˜è‰²ã‹ã©ã†ã‹ã‚’8bitã®ãƒ“ãƒƒãƒˆãƒ•ãƒ©ã‚°ã§ç®¡ç†
+	256é€šã‚Šã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãŒè€ƒãˆã‚‰ã‚Œã‚‹ã®ã§ãã‚Œã«åˆã‚ã›ã¦æ¡ä»¶åˆ†å²
 	*/
-	//ƒpƒ^[ƒ“‰»
+	//ãƒ‘ã‚¿ãƒ¼ãƒ³åŒ–
 	A_long pat = 0;
 	A_long patCount = 0;
 	for (A_long i = 0; i<8; i++){
@@ -507,9 +507,9 @@ inline thinBak8 getPatDot2nd(thinInfo8 *ti)
 		}
 	}
 	//if (patCount == 3) {
-		//›››
-		//œœœ
-		//œ›œ
+		//â—‹â—‹â—‹
+		//â—â—â—
+		//â—â—‹â—
 		//0X1D(29)
 		//00011101
 		if ( (pat & 0x1F) == 0X1D){
@@ -517,9 +517,9 @@ inline thinBak8 getPatDot2nd(thinInfo8 *ti)
 			ret.color = table[3];
 			ret.dir = 2;
 			return ret;
-		//œœ›
-		//›œ›
-		//œœ›
+		//â—â—â—‹
+		//â—‹â—â—‹
+		//â—â—â—‹
 		//0XC6(198)
 		//11000110
 		}else if ( (pat & 0xD6) == 0XC6) {
@@ -527,9 +527,9 @@ inline thinBak8 getPatDot2nd(thinInfo8 *ti)
 			ret.color = table[0];
 			ret.dir = 3;
 			return ret;
-		//œ›œ
-		//œœœ
-		//›››
+		//â—â—‹â—
+		//â—â—â—
+		//â—‹â—‹â—‹
 		//0XB8(184)
 		//10111000
 		}else if ( (pat & 0xF8) == 0XB8) {
@@ -537,9 +537,9 @@ inline thinBak8 getPatDot2nd(thinInfo8 *ti)
 			ret.color = table[0];
 			ret.dir = 0;
 			return ret;
-		//›œœ
-		//›œ›
-		//›œœ
+		//â—‹â—â—
+		//â—‹â—â—‹
+		//â—‹â—â—
 		//0X63(99)
 		//01100011
 		}else if ((pat & 0x6B) == 0X63) {
@@ -578,10 +578,10 @@ inline thinBak8 getPat(thinInfo8 *ti)
 	table[7] = getScanLine(ti, 1, 1);
 
 	/*
-	’–Ú‚·‚éƒsƒNƒZƒ‹‚ÌüˆÍ8“_‚ğ’²‚×“¯‚¶F‚©‚Ç‚¤‚©‚ğ8bit‚Ìƒrƒbƒgƒtƒ‰ƒO‚ÅŠÇ—
-	256’Ê‚è‚Ìƒpƒ^[ƒ“‚ªl‚¦‚ç‚ê‚é‚Ì‚Å‚»‚ê‚É‡‚í‚¹‚ÄğŒ•ªŠò
+	æ³¨ç›®ã™ã‚‹ãƒ”ã‚¯ã‚»ãƒ«ã®å‘¨å›²8ç‚¹ã‚’èª¿ã¹åŒã˜è‰²ã‹ã©ã†ã‹ã‚’8bitã®ãƒ“ãƒƒãƒˆãƒ•ãƒ©ã‚°ã§ç®¡ç†
+	256é€šã‚Šã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãŒè€ƒãˆã‚‰ã‚Œã‚‹ã®ã§ãã‚Œã«åˆã‚ã›ã¦æ¡ä»¶åˆ†å²
 	*/
-	//ƒpƒ^[ƒ“‰»
+	//ãƒ‘ã‚¿ãƒ¼ãƒ³åŒ–
 	A_long pat = 0;
 	A_long patCount = 0;
 	for (A_long i = 0; i<8; i++){
@@ -593,18 +593,18 @@ inline thinBak8 getPat(thinInfo8 *ti)
 	}
 
 	/*
-	“¯‚¶F‚Ì”(patCount)‚ğ‹L‰¯‚µ‚Ä‚¨‚¢‚ÄğŒ•ªŠò‚Ì”‚ğ‚È‚é‚×‚­Œ¸‚ç‚·B
+	åŒã˜è‰²ã®æ•°(patCount)ã‚’è¨˜æ†¶ã—ã¦ãŠã„ã¦æ¡ä»¶åˆ†å²ã®æ•°ã‚’ãªã‚‹ã¹ãæ¸›ã‚‰ã™ã€‚
 	*/
 //
-//œœœ
-//œœœ
-//œœœ
+//â—â—â—
+//â—â—â—
+//â—â—â—
 
-//›››
-//›œ›
-//›››
+//â—‹â—‹â—‹
+//â—‹â—â—‹
+//â—‹â—‹â—‹
 	/*
-	‘S•”“¯‚¶ê‡‚Í“Á‚É‰½‚à‚µ‚È‚¢
+	å…¨éƒ¨åŒã˜å ´åˆã¯ç‰¹ã«ä½•ã‚‚ã—ãªã„
 	*/
 	if (patCount>7) {
 		return ret;
@@ -617,9 +617,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			return ret;
 	}else if (patCount==7){
 		//******************************************
-//œ›œ
-//œœœ
-//œœœ
+//â—â—‹â—
+//â—â—â—
+//â—â—â—
 //0XBF(191)
 //10111111
 		if (pat==0xBF) {
@@ -629,9 +629,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œœœ
-//›œœ
-//œœœ
+//â—â—â—
+//â—‹â—â—
+//â—â—â—
 //0XEF(239)
 //11101111
 		if (pat==0xEF) {
@@ -641,9 +641,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œœœ
-//œœœ
-//œ›œ
+//â—â—â—
+//â—â—â—
+//â—â—‹â—
 //0XFD(253)
 //11111101
 		if (pat==0xFD) {
@@ -653,9 +653,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œœœ
-//œœ›
-//œœœ
+//â—â—â—
+//â—â—â—‹
+//â—â—â—
 //0XF7(247)
 //11110111
 		if (pat==0x7F) {
@@ -667,14 +667,14 @@ inline thinBak8 getPat(thinInfo8 *ti)
 		}
 	}else if (patCount==6){
 		//******************************************
-//œ›
-//œœœ
-//œœœ
+//â—â—â—‹
+//â—â—â—
+//â—â—â—
 //0X9F(159)
 //10011111
-//›œ
-//œœœ
-//œœœ
+//â—‹â—â—
+//â—â—â—
+//â—â—â—
 //0X3F(63)
 //00111111
 		if ((pat==0x9F)||(pat==0x3F)) {
@@ -685,14 +685,14 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			return ret;
 		}
 
-//›œœ
-//œœ
-//œœœ
+//â—‹â—â—
+//â—â—â—
+//â—â—â—
 //0X6F(111)
 //01101111
-//œœœ
-//œœ
-//›œœ
+//â—â—â—
+//â—â—â—
+//â—‹â—â—
 //0XEB(235)
 //11101011		
 		else if ((pat==0x6F)||(pat==0xEB)) {
@@ -702,14 +702,14 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œœœ
-//œœœ
-//›œ
+//â—â—â—
+//â—â—â—
+//â—‹â—â—
 //0XF9(249)
 //11111001
-//œœœ
-//œœœ
-//œ›
+//â—â—â—
+//â—â—â—
+//â—â—â—‹
 //0XFC(252)
 //11111100
 		else if ((pat==0xF9)||(pat==0xFC)) {
@@ -719,14 +719,14 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œœœ
-//œœ
-//œœ›
+//â—â—â—
+//â—â—â—
+//â—â—â—‹
 //0XF6(246)
 //11110110
-//œœ›
-//œœ
-//œœœ
+//â—â—â—‹
+//â—â—â—
+//â—â—â—
 //0XD7(215)
 //11010111
 		else if ((pat==0xF6)||(pat==0xD7)) {
@@ -738,9 +738,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 		}
 		//******************************************
 	}else if (patCount == 5){
-//œœœ
-//œœœ
-//››
+//â—â—â—
+//â—â—â—
+//â—‹â—â—‹
 //0XF8(248)
 //11111000
 		if (pat==0xF8) {
@@ -750,9 +750,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//››
-//œœœ
-//œœœ
+//â—‹â—â—‹
+//â—â—â—
+//â—â—â—
 //0X1F(31)
 //00011111
 		if (pat==0x1F) {
@@ -762,9 +762,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›œœ
-//œœ
-//›œœ
+//â—‹â—â—
+//â—â—â—
+//â—‹â—â—
 //0X6B(107)
 //01101011
 		else if (pat==0x6B) {
@@ -774,9 +774,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œœ›
-//œœ
-//œœ›
+//â—â—â—‹
+//â—â—â—
+//â—â—â—‹
 //0XD6(214)
 //11010110
 		else if (pat==0xF8) {
@@ -786,9 +786,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œ›
-//œœ›
-//œœœ
+//â—â—‹â—
+//â—â—â—‹
+//â—â—â—
 //0X97(151)
 //10010111
 		else if (pat==0x97) {
@@ -796,9 +796,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			ret.color = minColor(table[1],table[4]);
 			return ret;
 		}
-//›œ
-//›œœ
-//œœœ
+//â—â—‹â—
+//â—‹â—â—
+//â—â—â—
 //0X2F(47)
 //00101111
 		else if (pat==0x2F) {
@@ -806,9 +806,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			ret.color = minColor(table[1],table[3]);
 			return ret;
 		}
-//œœœ
-//›œœ
-//›œ
+//â—â—â—
+//â—‹â—â—
+//â—â—‹â—
 //0XE9(233)
 //11101001
 		else if (pat==0xE9) {
@@ -816,9 +816,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			ret.color = minColor(table[3],table[6]);
 			return ret;
 		}
-//œœœ
-//œœ›
-//œ›
+//â—â—â—
+//â—â—â—‹
+//â—â—‹â—
 //0XF4(244)
 //11110100
 		else if (pat==0xF4) {
@@ -826,9 +826,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			ret.color = minColor(table[4],table[6]);
 			return ret;
 		}
-//›œ›
-//œœœ
-//œ›œ
+//â—‹â—â—‹
+//â—â—â—
+//â—â—‹â—
 //0X5D(93)
 //01011101
 		else if (pat==0x5D) {
@@ -838,9 +838,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›œœ
-//œœ›
-//›œœ
+//â—‹â—â—
+//â—â—â—‹
+//â—‹â—â—
 //0X73(115)
 //01110011
 		else if (pat==0x73) {
@@ -850,9 +850,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œ›œ
-//œœœ
-//›œ›
+//â—â—‹â—
+//â—â—â—
+//â—‹â—â—‹
 //0XBA(186)
 //10111010
 		else if (pat==0xBA) {
@@ -862,9 +862,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œœ›
-//›œœ
-//œœ›
+//â—â—â—‹
+//â—‹â—â—
+//â—â—â—‹
 //0XCE(206)
 //11001110
 		else if (pat==0xCE) {
@@ -876,14 +876,14 @@ inline thinBak8 getPat(thinInfo8 *ti)
 		}
 		//******************************************
 	}else if (patCount == 4){
-//››
-//›œœ
-//œœœ
+//â—â—‹â—‹
+//â—‹â—â—
+//â—â—â—
 //0XF(15)
 //00001111
-//›œ
-//›œœ
-//›œœ
+//â—â—‹â—
+//â—‹â—â—
+//â—‹â—â—
 //0X2B(43)
 //00101011
 		if ((pat==0x0F)||(pat==0x2B)) {
@@ -891,14 +891,14 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			ret.color = minColor(table[1],table[3]);
 			return ret;
 		}
-//›œœ
-//›œœ
-//›œ
+//â—‹â—â—
+//â—‹â—â—
+//â—â—‹â—
 //0X69(105)
 //01101001
-//œœœ
-//›œœ
-//››
+//â—â—â—
+//â—‹â—â—
+//â—â—‹â—‹
 //0XE8(232)
 //11101000
 		else if ((pat==0x69)||(pat==0xE8)) {
@@ -907,14 +907,14 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			return ret;
 		}
 
-//œœœ
-//œœ›
-//››
+//â—â—â—
+//â—â—â—‹
+//â—‹â—‹â—
 //0XF0(240)
 //11110000
-//œœ›
-//œœ›
-//œ›
+//â—â—â—‹
+//â—â—â—‹
+//â—â—‹â—
 //0XD4(212)
 //11010100
 		else if ((pat==0xF0)||(pat==0xD4)) {
@@ -922,14 +922,14 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			ret.color = minColor(table[4],table[6]);
 			return ret;
 		}
-//œ›
-//œœ›
-//œœ›
+//â—â—‹â—
+//â—â—â—‹
+//â—â—â—‹
 //0X96(150)
 //10010110
-//››
-//œœ›
-//œœœ
+//â—‹â—‹â—
+//â—â—â—‹
+//â—â—â—
 //0X17(23)
 //00010111
 		else if ((pat==0x96)||(pat==0x17)) {
@@ -937,9 +937,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			ret.color = minColor(table[1],table[4]);
 			return ret;
 		}
-//œœ›
-//›œœ
-//››œ
+//â—â—â—‹
+//â—‹â—â—
+//â—‹â—‹â—
 //0XC9(201)
 //11001001	
 		else if (pat==0xC9) {
@@ -949,9 +949,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›œœ
-//œœ›
-//œ››
+//â—‹â—â—
+//â—â—â—‹
+//â—â—‹â—‹
 //0X74(116)
 //01110100
 		else if (pat==0x74) {
@@ -961,9 +961,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œ››
-//œœ›
-//›œœ
+//â—â—‹â—‹
+//â—â—â—‹
+//â—‹â—â—
 //0X93(147)
 //10010011
 		else if (pat==0x93) {
@@ -973,9 +973,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//››œ
-//›œœ
-//œœ›
+//â—‹â—‹â—
+//â—‹â—â—
+//â—â—â—‹
 //0X2E(46)
 //00101110
 		else if (pat==0x2E) {
@@ -987,9 +987,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 		}
 		//******************************************
 	}else if (patCount == 3){
-//œœœ
-//›œ›
-//››
+//â—â—â—
+//â—‹â—â—‹
+//â—‹â—â—‹
 //0XE0(224)
 //11100000
 		if (pat==0xE0) {
@@ -999,9 +999,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œ››
-//œœ
-//œ››
+//â—â—‹â—‹
+//â—â—â—
+//â—â—‹â—‹
 		else if (pat==0x94) {
 			if (getData(ti,-1,0)==TRUE){
 				ret.drawFlag = TRUE;
@@ -1009,9 +1009,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//››
-//›œ›
-//œœœ
+//â—‹â—â—‹
+//â—‹â—â—‹
+//â—â—â—
 		else if (pat==0x07) {
 			if (getData(ti,0,1)==TRUE){
 				ret.drawFlag = TRUE;
@@ -1019,9 +1019,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//››œ
-//œœ
-//››œ
+//â—‹â—‹â—
+//â—â—â—
+//â—‹â—‹â—
 		else if (pat==0x29) {
 			if (getData(ti,1,0)==TRUE){
 				ret.drawFlag = TRUE;
@@ -1029,9 +1029,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›œœ
-//œœ
-//›››
+//â—‹â—â—
+//â—â—â—
+//â—‹â—‹â—‹
 //0X70(112)
 //01110000
 		else if (pat==0x70) {
@@ -1041,9 +1041,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›››
-//œœ
-//›œœ
+//â—‹â—‹â—‹
+//â—â—â—
+//â—‹â—â—
 //0X13(19)
 //00010011
 		else if (pat==0x13) {
@@ -1053,9 +1053,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›œ
-//›œœ
-//›œ›
+//â—‹â—â—
+//â—‹â—â—
+//â—‹â—â—‹
 //0X2A(42)
 //00101010
 		else if (pat==0x2A) {
@@ -1065,9 +1065,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œ›
-//œœ›
-//›œ›
+//â—â—â—‹
+//â—â—â—‹
+//â—‹â—â—‹
 //0X92(146)
 //10010010
 		else if (pat==0x92) {
@@ -1077,9 +1077,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//œœ›
-//œœ
-//›››
+//â—â—â—‹
+//â—â—â—
+//â—‹â—‹â—‹
 //0XC8(200)
 //11001000
 		else if (pat==0x2A) {
@@ -1089,9 +1089,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›››
-//œœ
-//œœ›
+//â—‹â—‹â—‹
+//â—â—â—
+//â—â—â—‹
 //0XE(14)
 //00001110
 		else if (pat==0x0E) {
@@ -1102,9 +1102,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			return ret;
 		}
 
-//œœ›
-//œœ›
-//›››
+//â—â—â—‹
+//â—â—â—‹
+//â—‹â—‹â—‹
 //0XD0(208)
 //11010000
 		if (pat==0xD0) {
@@ -1114,9 +1114,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›››
-//œœ›
-//œœ›
+//â—‹â—‹â—‹
+//â—â—â—‹
+//â—â—â—‹
 //0X16(22)
 //00010110
 		if (pat==0x16) {
@@ -1126,9 +1126,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›››
-//›œœ
-//›œœ
+//â—‹â—‹â—‹
+//â—‹â—â—
+//â—‹â—â—
 //0XB(11)
 //00001011
 		if (pat==0x0B) {
@@ -1140,9 +1140,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 		}
 		//******************************************
 	}else if (patCount == 2){
-//›œ›
-//œœ›
-//›››
+//â—‹â—â—‹
+//â—â—â—‹
+//â—‹â—‹â—‹
 //0X50(80)
 //01010000
 		if (pat==0x50) {
@@ -1152,9 +1152,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›››
-//œœ›
-//›œ›
+//â—‹â—‹â—‹
+//â—â—â—‹
+//â—‹â—â—‹
 //0X12(18)
 //00010010
 		else if (pat==0x12) {
@@ -1164,9 +1164,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›››
-//›œœ
-//›œ›
+//â—‹â—‹â—‹
+//â—‹â—â—
+//â—‹â—â—‹
 //0XA(10)
 //00001010
 		else if (pat==0x0A) {
@@ -1176,9 +1176,9 @@ inline thinBak8 getPat(thinInfo8 *ti)
 			}
 			return ret;
 		}
-//›œ›
-//›œœ
-//›››
+//â—‹â—â—‹
+//â—‹â—â—
+//â—‹â—‹â—‹
 //0X48(72)
 //01001000
 		else if (pat==0x48) {
@@ -1212,8 +1212,8 @@ PF_Err thinExec8(CFsAE *ae , ParamInfo *infoP)
 	ti.h  = ae->out->height();
 	ti.offset = ti.wt - ti.w; 
 
-	//ƒƒ‚ƒŠ‚ÌŠm•Û
-	ti.scanlineH = ae->NewHandle(ti.wt * sizeof(PF_Pixel) * 4);// 3Line•ª@‚Æ—]—T
+	//ãƒ¡ãƒ¢ãƒªã®ç¢ºä¿
+	ti.scanlineH = ae->NewHandle(ti.wt * sizeof(PF_Pixel) * 4);// 3Lineåˆ†ã€€ã¨ä½™è£•
 	if ( !ti.scanlineH ) return PF_Err_INTERNAL_STRUCT_DAMAGED;
 
 	ti.scanline = *(PF_Pixel8**)ti.scanlineH; ;
@@ -1298,7 +1298,7 @@ PF_Err thinExec8(CFsAE *ae , ParamInfo *infoP)
 			now += ti.offset;
 
 		}
-		//Œãˆ—
+		//å¾Œå‡¦ç†
 		now = 0;
 		for (A_long j = 0; j<ti.h; j++)
 		{

@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -22,7 +22,7 @@ static PF_Err ParamsSetup (
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_CHECKBOX(STR_ISHALF,
 					"on",
 					FALSE,
@@ -31,23 +31,23 @@ static PF_Err ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
-	PF_ADD_SLIDER(STR_COUNT,	//�p�����[�^�̖��O
-					0, 		//���l���͂���ꍇ�̍ŏ��l
-					5,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					5,			//�X���C�_�[�̍ő�l
-					1,				//�f�t�H���g�̒l
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
+	PF_ADD_SLIDER(STR_COUNT,	//パラメータの名前
+					0, 		//数値入力する場合の最小値
+					5,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					5,			//スライダーの最大値
+					1,				//デフォルトの値
 					ID_COUNT
 					);
 
 	//----------------------------------------------------------------
-	//�|�b�v�A�b�v���j���[
+	//ポップアップメニュー
 	AEFX_CLR_STRUCT(def);	
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_POPUP(		STR_WEIGHT, 
-						STR_WEIGHT_COUNT,	//���j���[�̐�
-						STR_WEIGHT_DFLT,	//�f�t�H���g
+						STR_WEIGHT_COUNT,	//メニューの数
+						STR_WEIGHT_DFLT,	//デフォルト
 						STR_WEIGHT_ITEMS,
 						ID_WEIGHT
 						);
@@ -154,7 +154,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	if (infoP->count<=0) {
 		ERR(ae->out->clear());
 		return err;
@@ -178,10 +178,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -205,7 +205,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err

@@ -74,8 +74,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -85,46 +85,46 @@ static PF_Err ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 
-	//‚PŒÂ–Ú‚Ìƒpƒ‰ƒ[ƒ^
+	//ï¼‘å€‹ç›®ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_Y,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					100,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					0,			//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,				//”’l•\¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_Y,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					100,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					0,			//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,				//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_Y
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_STRENGTH,//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					255,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					128,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					10,					//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_STRENGTH,//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					255,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					128,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					10,					//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_STRENGTH
 					);
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SIZEX,//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					1, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					256,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					1,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					256,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					8,					//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_SIZEX,//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					1, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					256,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					1,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					256,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					8,					//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_SIZEX
 					);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SIZEY,//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					1, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					256,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					1,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					256,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					8,					//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_SIZEY,//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					1, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					256,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					1,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					256,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					8,					//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_SIZEY
 					);
 	out_data->num_params = ID_NUM_PARAMS;
@@ -279,7 +279,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	if (infoP->value>0){
 		F_SRAND(ae->frame());
@@ -323,7 +323,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX‘Î‰‚Ìê‡A‚Ü‚¸‚±‚ÌŠÖ”‚ªŒÄ‚Î‚ê‚Äƒpƒ‰ƒ[ƒ^‚ÌŠl“¾‚ğs‚¤
+	SmartFXå¯¾å¿œã®å ´åˆã€ã¾ãšã“ã®é–¢æ•°ãŒå‘¼ã°ã‚Œã¦ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ç²å¾—ã‚’è¡Œã†
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err
@@ -486,7 +486,7 @@ PF_Err GetParams (
 						)
 {
 	PF_Err		err 		= PF_Err_NONE;
-	PF_EffectWorld 	*input	=	&params[MY_INPUT]->u.ld;	//“ü—Í‰æ‘œ‚ÌƒAƒhƒŒƒX
+	PF_EffectWorld 	*input	=	&params[MY_INPUT]->u.ld;	//å…¥åŠ›ç”»åƒã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 	if ( (params==NULL)||(output==NULL)||(input==NULL) ) {
 		return 0xFF;
 	}
@@ -514,7 +514,7 @@ PF_Err GetParams (
 	if ( input->height != output->height) {
 		err = 0xFF;
 	}
-	//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ğ‹‚ß‚é‰æ“ª‚Í‚O
+	//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 	if ( (in_data->current_time>=0)&&(in_data->time_step>0) ) {
 		aeprm->Frame	=(in_data->current_time/in_data->time_step); 
 	}else{
@@ -534,14 +534,14 @@ PF_Err GetParams (
 	mprm->width			= aeprm->width;
 
 	//-----------------------
-	//ƒ‚ƒUƒCƒN‚Ì—Ê
+	//ãƒ¢ã‚¶ã‚¤ã‚¯ã®é‡
 	prm->value	= params[MY_VALUE]->u.sd.value /100;
 	prm->strangth = params[MY_STRENGTH]->u.sd.value;
 	if (aeprm->is16Bit) {
 		prm->strangth =  CONVERT8TO16(prm->strangth);	
 	}
 	mprm->randValue = prm->strangth;
-	//ƒ‚ƒUƒCƒN‚Ì‘å‚«‚³
+	//ãƒ¢ã‚¶ã‚¤ã‚¯ã®å¤§ãã•
 	prm->sizeX	=params[MY_SIZEX]->u.sd.value * in_data->downsample_x.num / in_data->downsample_x.den;
 	if (prm->sizeX<1) {prm->sizeX=1;}
 	prm->sizeY	=params[MY_SIZEY]->u.sd.value * in_data->downsample_x.num / in_data->downsample_x.den;
@@ -567,13 +567,13 @@ static PF_Err Render (	PF_InData		*in_data,
 
 	if  ( GetParams(in_data,out_data,params,output,&aprm,&prm,&mprm) != PF_Err_NONE ) {
 		PF_SPRINTF(	out_data->return_msg, 
-					"[%s] ‰æ‘œƒTƒCƒYƒGƒ‰[‚Å‚·BŒä–Æ‚È‚³‚¢B",
+					"[%s] ç”»åƒã‚µã‚¤ã‚ºã‚¨ãƒ©ãƒ¼ã§ã™ã€‚å¾¡å…ãªã•ã„ã€‚",
 					FS_NAME
 					);
 		return err;
 	}
 	
-	//æ‚è‚ ‚¦‚¸•¡Ê
+	//å–ã‚Šã‚ãˆãšè¤‡å†™
 	PF_COPY(input, output, NULL, NULL);
 
 	if ( prm.value<=0 ){

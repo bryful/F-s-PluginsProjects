@@ -199,7 +199,7 @@ public:
 		PF_FpLong ret = 0;
 		A_long dx = d.p.x - s.p.x;
 		A_long dy = d.p.y - s.p.y;
-		//äpìxÇãÅÇﬂÇÈ
+		//ËßíÂ∫¶„ÇíÊ±Ç„ÇÅ„Çã
 		PF_FpLong r = PF_ATAN2(dy ,dx);
 		if (r < 0) r = r + 2 * PF_PI;
 		r = r * 180 / PF_PI;

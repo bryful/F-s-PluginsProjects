@@ -38,8 +38,8 @@
 #include "../FsLibrary/FsAE.h"
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_LEVEL_FIXED,	//long
@@ -48,9 +48,9 @@ enum {
 	ID_NUM_PARAMS
 	};
 
-#define STR_LEVEL	"‹–—e’l"
-#define STR_SRC		"Œ³‚ÌF"
-#define STR_DST		"V‚µ‚¢F"
+#define STR_LEVEL	"è¨±å®¹å€¤"
+#define STR_SRC		"å…ƒã®è‰²"
+#define STR_DST		"æ–°ã—ã„è‰²"
 
 typedef struct ParamInfo{
 	A_u_char		level;

@@ -7,7 +7,7 @@
 
 
 //-------------------------------------------------------------------------------------------------
-// Aboutƒ_ƒCƒAƒƒO
+// Aboutãƒ€ã‚¤ã‚¢ãƒ­ã‚°
 static PF_Err About (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -34,7 +34,7 @@ static PF_Err GlobalSetup (
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//AE_Effect.h‚Å’è‹`‚³‚ê‚éPF_VERSIONƒ}ƒNƒ‚Å‹‚ß‚ç‚ê‚é’l‚ğƒŠƒ\[ƒXƒtƒ@ƒCƒ‹‚ÌAE_Effect_Version‚Æˆê’v‚³‚¹‚é–
+	//AE_Effect.hã§å®šç¾©ã•ã‚Œã‚‹PF_VERSIONãƒã‚¯ãƒ­ã§æ±‚ã‚ã‚‰ã‚Œã‚‹å€¤ã‚’ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®AE_Effect_Versionã¨ä¸€è‡´ã•ã›ã‚‹äº‹
 	out_data->my_version = PF_VERSION(	MAJOR_VERSION, 
 										MINOR_VERSION,
 										BUG_VERSION, 
@@ -42,12 +42,12 @@ static PF_Err GlobalSetup (
 										BUILD_VERSION);
 
 	//Output Flags
-	//AE_Effect.h‚ÌOutput Flags‚ğQÆ
-	//16Bit‘Î‰‚³‚¹‚éˆ×w‚É‚ÍPF_OutFlag_DEEP_COLOR_AWARE‚ğ’Ç‰Á‚·‚é
+	//AE_Effect.hã®Output Flagsã‚’å‚ç…§
+	//16Bitå¯¾å¿œã•ã›ã‚‹ç‚ºwã«ã¯PF_OutFlag_DEEP_COLOR_AWAREã‚’è¿½åŠ ã™ã‚‹
 	//
 	//-------------------------------
-	//•K—v‚ÈƒtƒŒ[ƒ€‚ÍƒŒƒ“ƒ_ƒŠƒ“ƒO‚µ‚È‚¢B’Êí‚Í‚±‚êB
-	//ƒŠƒ\[ƒXƒtƒ@ƒCƒ‹‚ÌAE_Effect_Global_OutFlags‚Ì’l‚Í33555520
+	//å¿…è¦ãªãƒ•ãƒ¬ãƒ¼ãƒ ã¯ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã—ãªã„ã€‚é€šå¸¸ã¯ã“ã‚Œã€‚
+	//ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®AE_Effect_Global_OutFlagsã®å€¤ã¯33555520
 	/*
 out_data->out_flags	|=
 		PF_OutFlag_USE_OUTPUT_EXTENT	|
@@ -55,8 +55,8 @@ out_data->out_flags	|=
 		PF_OutFlag_DEEP_COLOR_AWARE;
 	*/
 	//-------------------------------
-	//ƒmƒCƒY“™‚Å‘SƒtƒŒ[ƒ€•`‰æ‚·‚éê‡‚Í‚±‚ê
-	//ƒŠƒ\[ƒXƒtƒ@ƒCƒ‹‚ÌAE_Effect_Global_OutFlags‚Ì’l‚Í33559620
+	//ãƒã‚¤ã‚ºç­‰ã§å…¨ãƒ•ãƒ¬ãƒ¼ãƒ æç”»ã™ã‚‹å ´åˆã¯ã“ã‚Œ
+	//ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®AE_Effect_Global_OutFlagsã®å€¤ã¯33559620
 	/*
 out_data->out_flags	|=
 		PF_OutFlag_NON_PARAM_VARY	|
@@ -104,8 +104,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -116,7 +116,7 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR(StrID_MY_Main_Color), 
 					0x00,
@@ -151,7 +151,7 @@ PF_Err CMainLineRepaint::getParams(
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err Render (
 	PF_InData			*in_data,
 	PF_OutData		*out_data,
@@ -171,7 +171,7 @@ static PF_Err Render (
 		return err;
 	}
 	
-	//‰æ‘œ‚ğ•¡Ê‚·‚é
+	//ç”»åƒã‚’è¤‡å†™ã™ã‚‹
 	exe.Copy();
 	
 	if (exe.is16Bit()==FALSE){

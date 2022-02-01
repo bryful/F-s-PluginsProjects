@@ -38,7 +38,7 @@
 //#include "FsAE.h"
 
 //-----------------------------------------------------------------------------
-//ParamsSetup—p‚Ì’è”
+//ParamsSetupç”¨ã®å®šæ•°
 #define PR_PRM_COUNT	24
 enum {
 	paramsOffset_topic =0,
@@ -54,11 +54,11 @@ enum {
 #define PixelReplace_LV  (PR_PRM_COUNT * paramsOffset_num +1)
 #define PixelReplace_POP  (PR_PRM_COUNT * paramsOffset_num +2)
 #define PixelReplace_NUM_PARAMS (PR_PRM_COUNT * paramsOffset_num +3)
-#define ID_NUM_PARAMS PixelReplace_NUM_PARAMS //ƒR[ƒfƒBƒ“ƒO‘Îô
+#define ID_NUM_PARAMS PixelReplace_NUM_PARAMS //ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°å¯¾ç­–
 
 #define PARAMS_IDX(I,J) ((I) *paramsOffset_num + (J) +1)
 //-----------------------------------------------------------------------------
-//ƒpƒ‰ƒ[ƒ^UI—p‚Ì•¶š—ñ
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿UIç”¨ã®æ–‡å­—åˆ—
 #define UI_TOPIC	"Target"
 
 #define UI_ENABLED1	"Enabled"

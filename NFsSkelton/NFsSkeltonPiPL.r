@@ -1,4 +1,4 @@
-/* ��`��NFs_Target.h�ōs�Ȃ��Ă���B���̃t�@�C���͕ҏW����K�v�Ȃ� */
+/* 定義はNFs_Target.hで行なっている。このファイルは編集する必要なし */
 #include "NFs_Target.h"
 
 #include "AEConfig.h"
@@ -16,12 +16,12 @@ resource 'PiPL' (16000) {
 		},
 		/* [2] */
 		Name {
-			/*AE�̃��j���[�Ɏg���� */
+			/*AEのメニューに使われる */
 			NFS_DISPNAME
 		},
 		/* [3] */
 		Category {
-			/*AE�̃��j���[�Ɏg���� */
+			/*AEのメニューに使われる */
 			NFS_CATEGORY
 		},
 		
@@ -63,7 +63,7 @@ resource 'PiPL' (16000) {
 
 		/* [11] */
 		AE_Effect_Match_Name {
-			/*�v���O�C���̎��ʂɎg���� */
+			/*プラグインの識別に使われる */
 			NFS_NAME
 		},
 		/* [12] */

@@ -80,8 +80,8 @@ static PF_Err SequenceResetup (
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ð’Ê’B‚·‚é
-//Param_Utils.h‚ðŽQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (PF_InData		*in_data,
 					PF_OutData		*out_data,
 					PF_ParamDef		*params[],
@@ -90,51 +90,51 @@ static PF_Err ParamsSetup (PF_InData		*in_data,
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 
-	//‚PŒÂ–Ú‚Ìƒpƒ‰ƒ[ƒ^
+	//ï¼‘å€‹ç›®ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_BRIGHT,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					200,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					200,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					75,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,//”’l•\Ž¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_BRIGHT,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					200,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					200,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					75,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_BRIGHT
 					);
 
-	//2ŒÂ–Ú‚Ìƒpƒ‰ƒ[ƒ^
+	//2å€‹ç›®ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_HEIGHT,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					1, 			//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,		//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					1,			//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					16,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					2,	//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_HEIGHT,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					1, 			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					1,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					16,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					2,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_HEIGHT
 					);
 
 
-	//3ŒÂ–Ú‚Ìƒpƒ‰ƒ[ƒ^
+	//3å€‹ç›®ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_REV1,STR_REV2, FALSE,0, ID_REV);
 
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_INTER,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					-100, 		//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,		//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,			//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					10,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					0,	//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(	STR_INTER,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					-100, 		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					10,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					0,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 					ID_INTER
 					);
 
-	//ƒ|ƒbƒvƒAƒbƒvƒƒjƒ…[
+	//ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãƒ¡ãƒ‹ãƒ¥ãƒ¼
 	AEFX_CLR_STRUCT(def);	
 	PF_ADD_POPUP(		STR_DIR, 
-						2,	//ƒƒjƒ…[‚Ì”
-						1,	//ƒfƒtƒHƒ‹ƒg
+						2,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ•°
+						1,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 						STR_DIRSTR,
 						ID_DIR
 						);
@@ -208,8 +208,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY‚Ì’l‚ðout_flags‚ÖÝ’è‚µ‚Ä
-	//–ˆƒtƒŒ[ƒ€‚²‚Æ‚Ì•`‰æ‚ð‚·‚é‚©Ø‚è‘Ö‚¦‚éB
+	//PF_OutFlag_NON_PARAM_VARYã®å€¤ã‚’out_flagsã¸è¨­å®šã—ã¦
+	//æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æç”»ã‚’ã™ã‚‹ã‹åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
@@ -449,7 +449,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ðƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	
 	if (infoP->bright!=0){

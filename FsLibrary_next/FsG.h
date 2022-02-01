@@ -6,13 +6,13 @@
 #include "FsAEHeader.h"
 #include "FsUtils.h"
 
-//ƒAƒ‹ƒtƒ@[‚ğ‚·‚×‚ÄON‚É‚·‚é
+//ã‚¢ãƒ«ãƒ•ã‚¡ãƒ¼ã‚’ã™ã¹ã¦ONã«ã™ã‚‹
 PF_Err AlphaON08(PF_EffectWorldPtr world);
 PF_Err AlphaON16(PF_EffectWorldPtr world);
 PF_Err AlphaON32(PF_EffectWorldPtr world);
 PF_Err AlphaON(PF_EffectWorldPtr world, PF_PixelFormat format);
 
-//Mat‚ğƒXƒgƒŒ[ƒg‚É’¼‚·
+//Matã‚’ã‚¹ãƒˆãƒ¬ãƒ¼ãƒˆã«ç›´ã™
 PF_Err FromPremultiply08(PF_EffectWorldPtr world);
 PF_Err FromPremultiply16(PF_EffectWorldPtr world);
 PF_Err FromPremultiply32(PF_EffectWorldPtr world);

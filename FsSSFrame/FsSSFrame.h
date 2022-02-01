@@ -41,8 +41,8 @@
 #include "../FsLibrary/FsAE.h"
 //#include "FsAE.h"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_WIDTH_ADD,	//long
@@ -78,7 +78,7 @@ enum {
 #define	Str_OUT_OPACITY			"out_opacity"
 #define	Str_LINE_HEIGHT			"line_height"
 #define	Str_SIZE_POP1			"size"
-#define	Str_SIZE_POP2			"ã‚Ì”’l|720x540|1024x576|1024x768|1280x720|1440x810|1920x1080"
+#define	Str_SIZE_POP2			"ä¸Šã®æ•°å€¤|720x540|1024x576|1024x768|1280x720|1440x810|1920x1080"
 
 
 typedef struct {

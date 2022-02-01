@@ -8,7 +8,7 @@
 #include "CreateAlpha.h"
 
 //-------------------------------------------------------------------------------------------------
-//About•\¦
+//Aboutè¡¨ç¤º
 static PF_Err About (	PF_InData		*in_data,
 						PF_OutData		*out_data,
 						PF_ParamDef		*params[],
@@ -74,7 +74,7 @@ static PF_Err SequenceResetup (
 
 
 //-------------------------------------------------------------------------------------------------
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (	PF_InData		*in_data,
 							PF_OutData		*out_data,
 							PF_ParamDef		*params[],
@@ -126,8 +126,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY‚Ì’l‚ğout_flags‚Öİ’è‚µ‚Ä
-	//–ˆƒtƒŒ[ƒ€‚²‚Æ‚Ì•`‰æ‚ğ‚·‚é‚©Ø‚è‘Ö‚¦‚éB
+	//PF_OutFlag_NON_PARAM_VARYã®å€¤ã‚’out_flagsã¸è¨­å®šã—ã¦
+	//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æç”»ã‚’ã™ã‚‹ã‹åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
@@ -207,7 +207,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	
 	switch(ae->pixelFormat())
@@ -228,7 +228,7 @@ static PF_Err
 
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err 
 Render ( 
 	PF_InData		*in_data,

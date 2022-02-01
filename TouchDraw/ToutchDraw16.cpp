@@ -100,11 +100,11 @@ void drawTouch16(CFsGraph *g,ParamInfo	*prm)
 	PF_Pixel16 *oD;
 	oD = (PF_Pixel16 *)g->data();
 	
-	//ターゲットランダム
+	//繧ｿ繝ｼ繧ｲ繝�繝医Λ繝ｳ繝繝
 	F_SRAND(prm->seed);
 	A_long t0;
 	t0 = (A_long)(F_RAND_MAX * prm->target_value);
-	//長さランダム
+	//髟ｷ縺輔Λ繝ｳ繝繝
 	PF_Fixed ir0,ir1;
 	ir1 = (prm->length_i_max  >>8) * (prm->length_i_rnd >>8);
 	ir0 = prm->length_i_max - ir1;
@@ -115,7 +115,7 @@ void drawTouch16(CFsGraph *g,ParamInfo	*prm)
 	or0 = prm->length_o_max - or1;
 	if (or0<0) or0=0;
 
-	//不透明度ランダム
+	//荳埼乗�主ｺｦ繝ｩ繝ｳ繝繝
 	PF_Fixed p0,p1;
 	p1 = (prm->opacity >>8) * (prm->opacity_rnd >>8);
 	p0 = prm->opacity -p1;

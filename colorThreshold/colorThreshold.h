@@ -42,8 +42,8 @@
 #include <stdio.h>
 #include <Math.h>
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 
@@ -79,7 +79,7 @@ enum {
 #define ID_MAIN_COL_HS(idx)	(ID_MAIN_COL1_HS + idx*4)
 #define ID_MAIN_COL_L(idx)	(ID_MAIN_COL1_LV + idx*4)
 
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_ALPHA_LV		"alpha_Level"
 #define	STR_HS_LV			"colorMatch_level"
 #define	STR_L_LV			"colorLightness_level"
@@ -109,9 +109,9 @@ typedef struct hls {
 
 
 /*
-	0bit 1‚Å‘ÎÛƒsƒNƒZƒ‹
-	1bit 1‚ÅŒˆ’èƒsƒNƒZƒ‹
-	2bitˆÈ~‚ªƒe[ƒuƒ‹ƒCƒ“ƒfƒbƒNƒXB
+	0bit 1ã§å¯¾è±¡ãƒ”ã‚¯ã‚»ãƒ«
+	1bit 1ã§æ±ºå®šãƒ”ã‚¯ã‚»ãƒ«
+	2bitä»¥é™ãŒãƒ†ãƒ¼ãƒ–ãƒ«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã€‚
 
 
 */

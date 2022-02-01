@@ -31,7 +31,7 @@ PF_Pixel16 (*getPixel16_CS_sub)(getPixelPrm *prm,channelShiftPrm *sft);
 PF_PixelFloat (*getPixel32_CS_sub)(getPixelPrm *prm,channelShiftPrm *sft);
 
 //-------------------------------------------------------------------------------------------------
-//âèÇÕìßñæ
+//Á∏Å„ÅØÈÄèÊòé
 inline PF_Pixel getPixel8_none(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_Pixel blank ={0,0,0,0};
@@ -83,7 +83,7 @@ inline PF_PixelFloat getPixel32_none(getPixelPrm *prm,A_long x,A_long y)
 	return data[x + y * prm->widthTrue];
 }
 //-------------------------------------------------------------------------------------------------
-//âèÇÕìhÇËÇ¬Ç‘Çµ
+//Á∏Å„ÅØÂ°ó„Çä„Å§„Å∂„Åó
 inline PF_Pixel getPixel8_fill(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_Pixel *data;
@@ -100,7 +100,7 @@ inline PF_Pixel getPixel8_fill(getPixelPrm *prm,A_long x,A_long y)
 	return data[xx + yy * prm->widthTrue];
 }
 ///-------------------------------------------------------------------------------------------------
-//âèÇÕìhÇËÇ¬Ç‘Çµ
+//Á∏Å„ÅØÂ°ó„Çä„Å§„Å∂„Åó
 inline PF_Pixel16 getPixel16_fill(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_Pixel16 *data;
@@ -117,7 +117,7 @@ inline PF_Pixel16 getPixel16_fill(getPixelPrm *prm,A_long x,A_long y)
 	return data[xx + yy * prm->widthTrue];
 }
 ///-------------------------------------------------------------------------------------------------
-//âèÇÕìhÇËÇ¬Ç‘Çµ
+//Á∏Å„ÅØÂ°ó„Çä„Å§„Å∂„Åó
 inline PF_PixelFloat getPixel32_fill(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_PixelFloat *data;
@@ -134,7 +134,7 @@ inline PF_PixelFloat getPixel32_fill(getPixelPrm *prm,A_long x,A_long y)
 	return data[xx + yy * prm->widthTrue];
 }
 //-------------------------------------------------------------------------------------------------
-//åJÇËï‘Çµ
+//Áπ∞„ÇäËøî„Åó
 inline PF_Pixel getPixel8_rep(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_Pixel *data;
@@ -152,7 +152,7 @@ inline PF_Pixel getPixel8_rep(getPixelPrm *prm,A_long x,A_long y)
 	return data[xx + yy * prm->widthTrue];
 }
 //-------------------------------------------------------------------------------------------------
-//åJÇËï‘Çµ
+//Áπ∞„ÇäËøî„Åó
 inline PF_Pixel16 getPixel16_rep(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_Pixel16 *data;
@@ -170,7 +170,7 @@ inline PF_Pixel16 getPixel16_rep(getPixelPrm *prm,A_long x,A_long y)
 	return data[xx + yy * prm->widthTrue];
 }
 //-------------------------------------------------------------------------------------------------
-//åJÇËï‘Çµ
+//Áπ∞„ÇäËøî„Åó
 inline PF_PixelFloat getPixel32_rep(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_PixelFloat *data;
@@ -188,7 +188,7 @@ inline PF_PixelFloat getPixel32_rep(getPixelPrm *prm,A_long x,A_long y)
 	return data[xx + yy * prm->widthTrue];
 }
 //-------------------------------------------------------------------------------------------------
-//åJÇËï‘Çµ
+//Áπ∞„ÇäËøî„Åó
 inline PF_Pixel getPixel8_mirror(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_Pixel *data;
@@ -207,7 +207,7 @@ inline PF_Pixel getPixel8_mirror(getPixelPrm *prm,A_long x,A_long y)
 	return data[xx + yy * prm->widthTrue];
 }
 //-------------------------------------------------------------------------------------------------
-//åJÇËï‘Çµ
+//Áπ∞„ÇäËøî„Åó
 inline PF_Pixel16 getPixel16_mirror(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_Pixel16 *data;
@@ -226,7 +226,7 @@ inline PF_Pixel16 getPixel16_mirror(getPixelPrm *prm,A_long x,A_long y)
 	return data[xx + yy * prm->widthTrue];
 }
 //-------------------------------------------------------------------------------------------------
-//åJÇËï‘Çµ
+//Áπ∞„ÇäËøî„Åó
 inline PF_PixelFloat getPixel32_mirror(getPixelPrm *prm,A_long x,A_long y)
 {
 	PF_PixelFloat *data;

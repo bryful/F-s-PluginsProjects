@@ -136,10 +136,10 @@ PF_Err EdgeLineSub8(CFsAE *ae, ParamInfo *infoP)
 
 	PF_Err err = PF_Err_NONE;
 	
-	//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“ƒoƒbƒtƒ@[‚ÌŠm•Û
+	//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ç¢ºä¿
 	A_long w = ae->out->width();
 	if (ae->out->height() > w) w = ae->out->height();
-	infoP->scanlineH = PF_NEW_HANDLE(w * sizeof(PF_Pixel) * 2); //”O‚Ì‚½‚ß2”{ƒTƒCƒYŠm•Û
+	infoP->scanlineH = PF_NEW_HANDLE(w * sizeof(PF_Pixel) * 2); //å¿µã®ãŸã‚2å€ã‚µã‚¤ã‚ºç¢ºä¿
 	if (!infoP->scanlineH) return PF_Err_OUT_OF_MEMORY;
 
 	EdgeLineHor8(ae, infoP);

@@ -75,8 +75,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err 
 ParamsSetup (
 	PF_InData		*in_data,
@@ -87,7 +87,7 @@ ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
-	//ƒ`ƒFƒbƒNƒ{ƒbƒNƒX
+	//ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(STR_ENABLED_CB1,
 					STR_ENABLED_CB2,
@@ -97,7 +97,7 @@ ParamsSetup (
 					);
 
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_COLOR, 
 					0xff,
@@ -107,13 +107,13 @@ ParamsSetup (
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FIXED(	STR_OPA_FIXED,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-					0, 				//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-					100,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-					0,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-					100,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-					100,			//ƒfƒtƒHƒ‹ƒg‚Ì’l
-					1,				//”’l•\¦‚ÉŠÖ‚·‚éƒtƒ‰ƒO 
+	PF_ADD_FIXED(	STR_OPA_FIXED,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+					0, 				//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+					100,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+					0,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+					100,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+					100,			//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
+					1,				//æ•°å€¤è¡¨ç¤ºã«é–¢ã™ã‚‹ãƒ•ãƒ©ã‚° 
 					0,
 					0,
 					ID_OPA_COLOR_FIXED
@@ -164,8 +164,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY‚Ì’l‚ğout_flags‚Öİ’è‚µ‚Ä
-	//–ˆƒtƒŒ[ƒ€‚²‚Æ‚Ì•`‰æ‚ğ‚·‚é‚©Ø‚è‘Ö‚¦‚éB
+	//PF_OutFlag_NON_PARAM_VARYã®å€¤ã‚’out_flagsã¸è¨­å®šã—ã¦
+	//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æç”»ã‚’ã™ã‚‹ã‹åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
@@ -330,7 +330,7 @@ static PF_Err
 
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err 
 Render ( 
 	PF_InData		*in_data,

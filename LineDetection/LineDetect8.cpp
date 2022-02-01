@@ -1,7 +1,7 @@
 #include "LineDetection.h"
 
 //-------------------------------------------------------------------------------
-//RGB�̍ő�l�ƃA���t�@�[�̒l��K����8Bit�Ɋ���U��
+//RGBの最大値とアルファーの値を適当に8Bitに割り振る
 inline A_u_char rgbMax8(PF_Pixel c)
 {
 	A_u_char m0,m1;
@@ -136,8 +136,8 @@ void FindTargetDelta8(CFsAE *ae,ParamInfo	*prm)
 	PF_Pixel c		= prm->line_color;
 	PF_Fixed lv_d	= prm->delta_opacity;
 	PF_Fixed lv_a	= prm->alpha_opacity;
-	//�܂��A�^�[�Q�b�g�̏ꏊ�𓾂�B
-	//red�փt���O�����Ă�
+	//まず、ターゲットの場所を得る。
+	//redへフラグを建てる
 	pp.adr =0;
 	if ( (prm->delta_flg==TRUE)&&(prm->alpha_flg==TRUE)){
 		for (j=0;j<h;j++){
@@ -234,7 +234,7 @@ void FindTarget8(CFsAE *ae,ParamInfo	*prm)
 	}
 	A_long lv = PF_MAX_CHAN8 * prm->color_opacity >> 16;
 
-	//�܂��A�^�[�Q�b�g�̏ꏊ�𓾂�B
+	//まず、ターゲットの場所を得る。
 	for (j=0;j<h;j++){
 		for (i=0;i<w;i++){
 			if ( cmpareTable8(iD[targetIn],color_tbl,level_tbl,count)==TRUE){

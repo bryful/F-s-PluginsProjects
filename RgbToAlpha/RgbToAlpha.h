@@ -40,8 +40,8 @@
 //#include "FsAE.h"
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_POP,
@@ -50,13 +50,13 @@ enum {
 	ID_NUM_PARAMS
 	};
 
-#define STR_POP1	"“h‚è‚Â‚Ô‚µF"
-#define STR_POP2	"”’|•|w’èF"
+#define STR_POP1	"å¡—ã‚Šã¤ã¶ã—è‰²"
+#define STR_POP2	"ç™½|é»’|æŒ‡å®šè‰²"
 #define STR_POP		3
 #define STR_POP_DEF	1
 
-#define STR_COLOR	"w’èF"
-#define STR_REV1	"Alpha‚ğ”½“]"
+#define STR_COLOR	"æŒ‡å®šè‰²"
+#define STR_REV1	"Alphaã‚’åè»¢"
 #define STR_REV2	"Rev"
 
 typedef struct ParamInfo8{

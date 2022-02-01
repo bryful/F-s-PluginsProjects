@@ -75,8 +75,8 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -86,50 +86,50 @@ static PF_Err ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
 
-	//�P�ڂ̃p�����[�^
+	//１個目のパラメータ
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_Y,//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					2048,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					512,			//�X���C�_�[�̍ő�l
-					0,					//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_Y,//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					2048,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					512,			//スライダーの最大値
+					0,					//デフォルトの値
 					ID_Y
 					);
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SIZEMAX,//�p�����[�^�̖��O
-					3, 				//���l���͂���ꍇ�̍ŏ��l
-					1024,			//���l���͂���ꍇ�̍ő�l
-					12,				//�X���C�_�[�̍ŏ��l 
-					64,				//�X���C�_�[�̍ő�l
-					24,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_SIZEMAX,//パラメータの名前
+					3, 				//数値入力する場合の最小値
+					1024,			//数値入力する場合の最大値
+					12,				//スライダーの最小値 
+					64,				//スライダーの最大値
+					24,				//デフォルトの値
 					ID_SIZEMAX
 					);
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_SIZEMIN,//�p�����[�^�̖��O
-					3, 				//���l���͂���ꍇ�̍ŏ��l
-					1024,			//���l���͂���ꍇ�̍ő�l
-					6,				//�X���C�_�[�̍ŏ��l 
-					64,			//�X���C�_�[�̍ő�l
-					6,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_SIZEMIN,//パラメータの名前
+					3, 				//数値入力する場合の最小値
+					1024,			//数値入力する場合の最大値
+					6,				//スライダーの最小値 
+					64,			//スライダーの最大値
+					6,				//デフォルトの値
 					ID_SIZEMIN
 					);
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_ASPECT,//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					100,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_ASPECT,//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					100,			//スライダーの最大値
+					0,				//デフォルトの値
 					ID_ASPECT
 					);
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(	STR_RANDOMCOLOR,//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					255,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l 
-					16,			//�X���C�_�[�̍ő�l
-					0,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_RANDOMCOLOR,//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					255,			//数値入力する場合の最大値
+					0,				//スライダーの最小値 
+					16,			//スライダーの最大値
+					0,				//デフォルトの値
 					ID_RANDCOLOR
 					);
 
@@ -197,10 +197,10 @@ static PF_Err Exec8(CFsAE *ae, ParamInfo *infoP)
 		FsPixelRand	pr;
 		pr.a = pr.b = pr.g = pr.r = prValue;
 
-		//value��J��Ԃ�
+		//value回繰り返す
 		for(A_long i=0;i<infoP->value;i++ ){
-			//�T�C�Y
-			fp.sizeX = F_RAND2(infoP->sizeMin,infoP->sizeMax); //�T�C�Y��K���ɕς���
+			//サイズ
+			fp.sizeX = F_RAND2(infoP->sizeMin,infoP->sizeMax); //サイズを適当に変える
 			fp.sizeY = fp.sizeX;
 			if (infoP->aspect>0){
 				A_long temp = (infoP->sizeMax - infoP->sizeMin) * infoP->aspect / 100;
@@ -212,10 +212,10 @@ static PF_Err Exec8(CFsAE *ae, ParamInfo *infoP)
 				F_RAND();
 				F_RAND();
 			}
-			//�ʒu
+			//位置
 			fp.x = F_RAND2(-fp.sizeX,ae->out->width());
 			fp.y = F_RAND2(-fp.sizeY,ae->out->height());
-			//���邳
+			//明るさ
 			if ( prValue>0){
 				pr.b = pr.g = pr.r =
 				pr.a =F_RAND2(-prValue,prValue);
@@ -239,10 +239,10 @@ static PF_Err Exec16(CFsAE *ae, ParamInfo *infoP)
 		FsPixelRand	pr;
 		pr.a = pr.b = pr.g = pr.r = prValue;
 
-		//value��J��Ԃ�
+		//value回繰り返す
 		for(A_long i=0;i<infoP->value;i++ ){
-			//�T�C�Y
-			fp.sizeX = F_RAND2(infoP->sizeMin,infoP->sizeMax); //�T�C�Y��K���ɕς���
+			//サイズ
+			fp.sizeX = F_RAND2(infoP->sizeMin,infoP->sizeMax); //サイズを適当に変える
 			fp.sizeY = fp.sizeX;
 			if (infoP->aspect>0){
 				A_long temp = (infoP->sizeMax - infoP->sizeMin) * infoP->aspect / 100;
@@ -254,10 +254,10 @@ static PF_Err Exec16(CFsAE *ae, ParamInfo *infoP)
 				F_RAND();
 				F_RAND();
 			}
-			//�ʒu
+			//位置
 			fp.x = F_RAND2(-fp.sizeX,ae->out->width());
 			fp.y = F_RAND2(-fp.sizeY,ae->out->height());
-			//���邳
+			//明るさ
 			if ( prValue>0){
 				pr.b = pr.g = pr.r =
 				pr.a = F_RAND2(-prValue,prValue);
@@ -280,10 +280,10 @@ static PF_Err Exec32(CFsAE *ae, ParamInfo *infoP)
 		A_long prValue = FS_CONVERT8TO16(infoP->randomColor);
 		FsPixelRandFloat pr;
 
-		//value��J��Ԃ�
+		//value回繰り返す
 		for(A_long i=0;i<infoP->value;i++ ){
-			//�T�C�Y
-			fp.sizeX = F_RAND2(infoP->sizeMin,infoP->sizeMax); //�T�C�Y��K���ɕς���
+			//サイズ
+			fp.sizeX = F_RAND2(infoP->sizeMin,infoP->sizeMax); //サイズを適当に変える
 			fp.sizeY = fp.sizeX;
 			if (infoP->aspect>0){
 				A_long temp = (infoP->sizeMax - infoP->sizeMin) * infoP->aspect / 100;
@@ -295,10 +295,10 @@ static PF_Err Exec32(CFsAE *ae, ParamInfo *infoP)
 				F_RAND();
 				F_RAND();
 			}
-			//�ʒu
+			//位置
 			fp.x = F_RAND2(-fp.sizeX,ae->out->width());
 			fp.y = F_RAND2(-fp.sizeY,ae->out->height());
-			//���邳
+			//明るさ
 			if ( prValue>0){
 				PF_FpShort rr = (PF_FpShort)F_RAND2(-prValue,prValue)/PF_MAX_CHAN16;
 				pr.b = pr.g = pr.r =
@@ -317,7 +317,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//��ʂ��R�s�[
+	//画面をコピー
 	ERR(ae->CopyInToOut());
 	if (infoP->value>0){
 		F_SRAND(ae->frame());
@@ -361,7 +361,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err
