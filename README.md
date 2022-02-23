@@ -25,7 +25,15 @@ twitterがMailでお願いします。<br>
 * [FsPlugins20220223.zip](https://bit.ly/351YokT)<br>
 ***
 
-
+Fs_Target.hの
+```
+#if defined(SUPPORT_SMARTFX)
+#define FS_OUT_FLAGS2 134222921
+#else
+#define FS_OUT_FLAGS2 134217801
+#endif
+```
+に変えただけなので中国語バージョン作る時はそこだけの変更で良いはずです。
 
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。
