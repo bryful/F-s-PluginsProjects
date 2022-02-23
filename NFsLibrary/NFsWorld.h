@@ -596,7 +596,23 @@ public:
 		}
 		return err;
 	}
-
+	PF_Pixel GetPixelValue8(A_long x, A_long y)
+	{
+		PF_Pixel ret = { 0,0,0,0 };
+		switch (m_format)
+		{
+		case PF_PixelFormat_ARGB128:
+			ret = CONV32TO8(GetPix32(x, y));
+			break;
+		case PF_PixelFormat_ARGB64:
+			ret = CONV16TO8( GetPix16(x, y));
+			break;
+		case PF_PixelFormat_ARGB32:
+			ret = GetPix8(x, y);
+			break;
+		}
+		return ret;
+	}
 #pragma region Iterate
 	// ******************************************************************
 	PF_Err Iterate8(

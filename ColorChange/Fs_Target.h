@@ -50,9 +50,9 @@ out_data->out_flags
 //#define FS_OUT_FLAGS	1600		//8bit‚Ì‚Ý
 
 #if defined(SUPPORT_SMARTFX)
-#define FS_OUT_FLAGS2	5193
+#define FS_OUT_FLAGS2	134222921
 #else
-#define FS_OUT_FLAGS2	73
+#define FS_OUT_FLAGS2 134217801
 #endif
 
 

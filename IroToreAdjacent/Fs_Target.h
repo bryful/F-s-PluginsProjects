@@ -61,10 +61,10 @@ out_data->out_flags2
 	PF_OutFlag2_DOESNT_NEED_EMPTY_PIXELS;
 */
 #if defined(SUPPORT_SMARTFX)
-//#define FS_OUT_FLAGS2	5193
+//#define FS_OUT_FLAGS2 134222921
 #define FS_OUT_FLAGS2	1097
 #else
-#define FS_OUT_FLAGS2	73
+#define FS_OUT_FLAGS2 134217801
 #endif
 
 

@@ -56,11 +56,11 @@ out_data->out_flags2
 */
 
 #if defined(SUPPORT_SMARTFX)
-#define FS_OUT_FLAGS2	5193
+#define FS_OUT_FLAGS2 134222921
 #else
-#define FS_OUT_FLAGS2	73
+#define FS_OUT_FLAGS2 134217801
 #endif
 
-//#define FS_OUT_FLAGS2	73	//8Bit‚Ì‚Ý
+//#define FS_OUT_FLAGS2 134217801	//8Bit‚Ì‚Ý
 
 #endif
