@@ -193,6 +193,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CellGrad", "CellGrad\Win\Ce
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NFsSkelton", "NFsSkelton\Win\NFsSkelton.vcxproj", "{4F34A43D-CF5B-4672-84EF-BDC105F68A6E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ColorChangeFromPoint", "ColorChangeFromPoint\Win\ColorChangeFromPoint.vcxproj", "{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1281,6 +1283,18 @@ Global
 		{4F34A43D-CF5B-4672-84EF-BDC105F68A6E}.Release-MT|x64.Build.0 = Release-MT|x64
 		{4F34A43D-CF5B-4672-84EF-BDC105F68A6E}.Release-MT|x86.ActiveCfg = Release-MT|Win32
 		{4F34A43D-CF5B-4672-84EF-BDC105F68A6E}.Release-MT|x86.Build.0 = Release-MT|Win32
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Debug|x64.ActiveCfg = Debug|x64
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Debug|x64.Build.0 = Debug|x64
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Debug|x86.ActiveCfg = Debug|Win32
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Debug|x86.Build.0 = Debug|Win32
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Release|x64.ActiveCfg = Release|x64
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Release|x64.Build.0 = Release|x64
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Release|x86.ActiveCfg = Release|Win32
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Release|x86.Build.0 = Release|Win32
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Release-MT|x64.ActiveCfg = Release-MT|x64
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Release-MT|x64.Build.0 = Release-MT|x64
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Release-MT|x86.ActiveCfg = Release-MT|Win32
+		{27ADFC15-D8F9-445F-84DC-6CEAA3C19117}.Release-MT|x86.Build.0 = Release-MT|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
