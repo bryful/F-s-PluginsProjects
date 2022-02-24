@@ -1,1 +1,0 @@
-MKLINK /D "C:\Program Files\Adobe\Adobe After Effects 2020\Support Files\Plug-ins\outAEX"  "C:\Users\bryfu\Documents\AdobeSDK\AfterEffectsSDK CC2020\Examples\F's PluginsProjects\outAEX" 
