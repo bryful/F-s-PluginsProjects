@@ -113,17 +113,22 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		if (infoP->ColorCount <= 0) return err;
 
-		int sx = width() / infoP->GridWidth;
-		int sy = height() / infoP->GridHeight;
+		int gw = (int)((double)infoP->GridWidth * downScale());
+		int gh = (int)((double)infoP->GridHeight * downScale());
+
+		int sx = width() / gw;
+		if (sx * gw > width()) sx--;
+		int sy = height() / gh;
+		if (sy * gh > height()) sy--;
 
 
 		for (A_long i = 0; i < infoP->ColorCount; i++)
 		{
 			A_Rect r = { 0,0,0,0 };
-			r.left = (i / sx) * infoP->GridWidth;
-			r.top = (i % sx) * infoP->GridHeight;
-			r.right = r.left + infoP->GridWidth;
-			r.bottom = r.top + infoP->GridHeight;
+			r.left = (i / sy) * gw;
+			r.top = (i % sy) * gh;
+			r.right = r.left + gw;
+			r.bottom = r.top + gh;
 
 			DrawGrid(infoP->Colors[i], r);
 		}

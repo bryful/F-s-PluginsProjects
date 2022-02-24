@@ -38,6 +38,16 @@ public:
 	PF_Pixel16* data16() { return (PF_Pixel16*)m_data; }
 	PF_PixelFloat* data32() { return (PF_PixelFloat*)m_data; }
 	PF_PixelFormat pixelFormat() { return m_format; }
+	PF_FpLong downScale() {
+		PF_FpLong ret = 1;
+		if (in_data->downsample_x.den <= 0)
+		{
+			return ret;
+		}
+		ret = (double)in_data->downsample_x.num / (double)in_data->downsample_x.den;
+		if (ret <= 0) ret = 1;
+		return ret;
+	}
 
 	// ***************************************************************
 #pragma region  Constractor
