@@ -98,7 +98,7 @@ static PF_Err ParamsSetup (PF_InData		*in_data,
 						);
 
 	AEFX_CLR_STRUCT(def);
-	def.ui_flags = PF_PUI_DISABLED;
+	//def.ui_flags = PF_PUI_DISABLED;
 	PF_ADD_COLOR(	STR_COLOR, 
 					0xFF,
 					0x00,
@@ -130,6 +130,7 @@ HandleChangedParam(
 						err2				= PF_Err_NONE;
 
 	try{
+		/*
 		CFsAE ae;
 		err =ae.HandleChangedParam(in_data,out_data,params,outputP,extraP,ID_NUM_PARAMS);
 		if (!err){
@@ -140,6 +141,7 @@ HandleChangedParam(
 				out_data->out_flags |= PF_OutFlag_FORCE_RERENDER | PF_OutFlag_REFRESH_UI;
 			}
 		}
+		*/
 	}catch ( PF_Err & errP){
 		err = errP;
 	}
