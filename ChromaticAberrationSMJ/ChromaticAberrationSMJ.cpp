@@ -1,13 +1,13 @@
 
 
-#include "NFsSkelton.h"
+#include "ChromaticAberrationSMJ.h"
 
 
 // **********************************************************
 
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
-NFsNoise8 (
+CA8 (
 	void* refcon,
 	A_long		xL, 
 	A_long		yL, 
@@ -17,12 +17,11 @@ NFsNoise8 (
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
-	PF_FpLong v = PF_MAX_CHAN8 * infoP->value;
-	v = v - 2 * v * xorShiftDouble();
 
-	outP->red = RoundByteFpLong((PF_FpLong)outP->red + v);
-	outP->green = RoundByteFpLong((PF_FpLong)outP->green + v);
-	outP->blue = RoundByteFpLong((PF_FpLong)outP->blue + v);
+	PF_Pixel p = infoP->inIn->GetPixD8((PF_FpLong)xL + 20.5, (PF_FpLong)yL + 20.5);
+
+	*outP = p;
+
 
 	return err;
 }
@@ -37,13 +36,6 @@ NFsNoise16(
 {
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
-
-	PF_FpLong v = PF_MAX_CHAN16 * infoP->value;
-	v = v - 2 * v * xorShiftDouble();
-
-	outP->red = RoundShortFpLong((PF_FpLong)outP->red + v);
-	outP->green = RoundShortFpLong((PF_FpLong)outP->green + v);
-	outP->blue = RoundShortFpLong((PF_FpLong)outP->blue + v);
 
 
 	return err;
@@ -60,19 +52,12 @@ NFsNoise32(
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
-	PF_FpLong v = infoP->value;
-	v = v - 2 * v * xorShiftDouble();
-
-	outP->red = RoundFpShortDouble((PF_FpLong)outP->red + v);
-	outP->green = RoundFpShortDouble((PF_FpLong)outP->green + v);
-	outP->blue = RoundFpShortDouble((PF_FpLong)outP->blue + v);
-
 
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
 // **********************************************************
-PF_Err NFsSkelton::ParamsSetup(
+PF_Err ChromaticAberrationSMJ::ParamsSetup(
 	PF_InData* in_dataP,
 	PF_OutData* out_dataP,
 	PF_ParamDef* paramsP[],
@@ -86,25 +71,82 @@ PF_Err NFsSkelton::ParamsSetup(
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_VALUE,	//Name
-		0,						//VALID_MIN
-		400,					//VALID_MAX
-		0,						//SLIDER_MIN
-		200,					//SLIDER_MAX
+	PF_ADD_FLOAT_SLIDER(STR_R_SCALE,	//Name
+		50,						//VALID_MIN
+		150,					//VALID_MAX
+		80,						//SLIDER_MIN
+		120,					//SLIDER_MAX
 		1,						//CURVE_TOLERANCE
-		0,						//DFLT
+		100,						//DFLT
 		1,						//PREC
 		0,						//DISP
 		0,						//WANT_PHASE
-		ID_VALUE
+		ID_R_SCALE
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_CHECK,
-		STR_ON,
-		FALSE,
-		0,
-		ID_CHECK
+	PF_ADD_FLOAT_SLIDER(STR_G_SCALE,	//Name
+		50,						//VALID_MIN
+		150,					//VALID_MAX
+		80,						//SLIDER_MIN
+		120,					//SLIDER_MAX
+		1,						//CURVE_TOLERANCE
+		100,						//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_G_SCALE
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_B_SCALE,	//Name
+		50,						//VALID_MIN
+		150,					//VALID_MAX
+		80,						//SLIDER_MIN
+		120,					//SLIDER_MAX
+		1,						//CURVE_TOLERANCE
+		100,						//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_B_SCALE
+	);
+	//----------------------------------------------------------------
+	//位置の指定
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_POINT(STR_CENTER,		//"New Center"
+		50,	// X
+		50,	// Y
+		0,	// Flag
+		ID_CENTER
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_H_OFFSET,	//Name
+		0,						//VALID_MIN
+		100,					//VALID_MAX
+		0,						//SLIDER_MIN
+		100,					//SLIDER_MAX
+		1,						//CURVE_TOLERANCE
+		100,					//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_H_OFFSET
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_V_OFFSET,	//Name
+		0,						//VALID_MIN
+		100,					//VALID_MAX
+		0,						//SLIDER_MIN
+		100,					//SLIDER_MAX
+		1,						//CURVE_TOLERANCE
+		100,					//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_V_OFFSET
 	);
 	/*
 	//----------------------------------------------------------------
@@ -188,14 +230,7 @@ PF_Err NFsSkelton::ParamsSetup(
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_ANGLE,0,ID_ANGLE);
 	//----------------------------------------------------------------
-	//位置の指定
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_POINT,			//"New Center"
-	50,	// X
-		50,	// Y
-		0,	// Flag
-		ID_POINT
-		);
+
 	*/
 
 					
@@ -204,48 +239,65 @@ PF_Err NFsSkelton::ParamsSetup(
 	return err;
 };
 // **********************************************************
-PF_Err NFsSkelton::GetParams(ParamInfo* infoP)
+PF_Err ChromaticAberrationSMJ::GetParams(ParamInfo* infoP)
 {
 	PF_Err err = PF_Err_NONE;
-	ERR(GetFLOAT(ID_VALUE, &infoP->value));
+	ERR(GetFLOAT(ID_R_SCALE, &infoP->rscale));
 	if (!err)
 	{
-		infoP->value /= 100;
+		infoP->rscale /= 100;
 	}
-	ERR(GetCHECKBOX(ID_CHECK, &infoP->check));
+	ERR(GetFLOAT(ID_G_SCALE, &infoP->gscale));
+	if (!err)
+	{
+		infoP->gscale /= 100;
+	}
+	ERR(GetFLOAT(ID_B_SCALE, &infoP->bscale));
+	if (!err)
+	{
+		infoP->bscale /= 100;
+	}
+	PF_FixedPoint fp;
+	ERR(GetPOINT_FIXED(ID_CENTER, &fp));
+	if (!err)
+	{
+		infoP->center.x = (A_FpLong)((A_FpLong)fp.x / 65536);
+		infoP->center.y = (A_FpLong)((A_FpLong)fp.y / 65536);
+	}
+	ERR(GetFLOAT(ID_H_OFFSET, &infoP->hoffset));
+	if (!err)
+	{
+		infoP->hoffset /= 100;
+	}
+	ERR(GetFLOAT(ID_V_OFFSET, &infoP->voffset));
+	if (!err)
+	{
+		infoP->voffset /= 100;
+	}
 	return err;
 };
 // **********************************************************
-PF_Err NFsSkelton::Exec(ParamInfo* infoP)
+PF_Err ChromaticAberrationSMJ::Exec(ParamInfo* infoP)
 {
 	PF_Err err = PF_Err_NONE;
 	NFsWorld* src = new NFsWorld(input, in_data, pixelFormat());
-	NFsSkeltonFX* dst = new NFsSkeltonFX(output, in_data, pixelFormat());
+	ChromaticAberrationSMJFX* dst = new ChromaticAberrationSMJFX(output, in_data, pixelFormat());
+	infoP->inIn = src;
 	dst->Copy(src);
-	if (infoP->value > 0) {
-		init_xorShift(frame());
-		if (infoP->check == TRUE) {
-
-			switch (pixelFormat())
-			{
-			case PF_PixelFormat_ARGB128:
-				iterate32(src->world, (void*)infoP, NFsNoise32, dst->world);
-				break;
-			case PF_PixelFormat_ARGB64:
-				iterate16(src->world, (void*)infoP, NFsNoise16, dst->world);
-				break;
-			case PF_PixelFormat_ARGB32:
-				iterate8(src->world, (void*)infoP, NFsNoise8, dst->world);
-				break;
-			default:
-				break;
-			}
-		}
-		else {
-			dst->Noise(infoP);
-		}
+	switch (pixelFormat())
+	{
+	case PF_PixelFormat_ARGB128:
+		//iterate32(src->world, (void*)infoP, NFsNoise32, dst->world);
+		break;
+	case PF_PixelFormat_ARGB64:
+		//iterate16(src->world, (void*)infoP, NFsNoise16, dst->world);
+		break;
+	case PF_PixelFormat_ARGB32:
+		iterate8(src->world, (void*)infoP, CA8, dst->world);
+		break;
+	default:
+		break;
 	}
-
 
 	delete src;
 	delete dst;

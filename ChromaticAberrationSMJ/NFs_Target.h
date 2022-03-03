@@ -8,8 +8,8 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define NFS_NAME			"F's NFsSkelton"
-#define NFS_DISPNAME		"NF's NFsSkelton"
+#define NFS_NAME			"F's ChromaticAberrationSMJ"
+#define NFS_DISPNAME		"NF's ChromaticAberrationSMJ"
 
 
 //-----------------------------------------------------------------------------------
@@ -46,8 +46,8 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define NFS_OUT_FLAGS	33556032	//通常はこちら
-#define NFS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+#define NFS_OUT_FLAGS	33556032	//通常はこちら
+//#define NFS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
 //#define NFS_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------

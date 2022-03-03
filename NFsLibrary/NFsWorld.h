@@ -173,6 +173,41 @@ protected:
 #pragma endregion
 
 	// ***************************************************************
+	public:
+#pragma region PixelDouble
+	PF_Pixel GetPixD8(PF_FpLong x, PF_FpLong y)
+	{
+		A_long ax = (A_long)x;
+		A_long ay = (A_long)y;
+
+		PF_FpLong dx1 = x - (PF_FpLong)ax;
+		PF_FpLong dy1 = y - (PF_FpLong)ay;
+		PF_FpLong dx0 = 1 -dx1;
+		PF_FpLong dy0 = 1 - dy1;
+
+		PF_Pixel a = GetPix8(ax, ay);
+		PF_Pixel b = GetPix8(ax+1, ay);
+		PF_Pixel c = GetPix8(ax, ay+1);
+		PF_Pixel d = GetPix8(ax+1, ay + 1);
+
+		PF_FpLong rd = (PF_FpLong)a.red * dx0 * dy0 + (PF_FpLong)b.red * dx1 * dy0 + (PF_FpLong)c.red * dx0 * dy1 + (PF_FpLong)d.red * dx1 * dy1;
+		PF_FpLong gn = (PF_FpLong)a.green * dx0 * dy0 + (PF_FpLong)b.green * dx1 * dy0 + (PF_FpLong)c.green * dx0 * dy1 + (PF_FpLong)d.green * dx1 * dy1;
+		PF_FpLong bu = (PF_FpLong)a.blue * dx0 * dy0 + (PF_FpLong)b.blue * dx1 * dy0 + (PF_FpLong)c.blue * dx0 * dy1 + (PF_FpLong)d.blue * dx1 * dy1;
+		PF_FpLong al = (PF_FpLong)a.alpha * dx0 * dy0 + (PF_FpLong)b.alpha * dx1 * dy0 + (PF_FpLong)c.alpha * dx0 * dy1 + (PF_FpLong)d.alpha * dx1 * dy1;
+
+		PF_Pixel ret;
+		ret.alpha = RoundByteDouble(al);
+		ret.red = RoundByteDouble(rd);
+		ret.green = RoundByteDouble(gn);
+		ret.blue = RoundByteDouble(bu);
+
+		return ret;
+
+	}
+
+#pragma endregion
+	protected:
+	// ***************************************************************
 #pragma region Copy
 	// ***************************************************************
 	PF_Err Copy8(NFsWorld *d)
@@ -624,6 +659,8 @@ public:
 		return ret;
 	}
 #pragma region Iterate
+
+
 	// ******************************************************************
 	PF_Err Iterate8(
 		void* refcon,
