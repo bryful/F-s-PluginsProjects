@@ -111,10 +111,10 @@ sub8 (
 		cy
 	);
 	A_long len = (A_long)(lenD + 0.5);
-	if (len > infoP->length/2)
-	{
+	//if (len > infoP->length/2)
+	//{
 		len = infoP->length/2;
-	}
+	//}
 	if (len <= 0) return err;
 
 	PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)lenD;
@@ -136,9 +136,9 @@ sub8 (
 		g += (PF_FpLong)c.green * av;
 		b += (PF_FpLong)c.blue * av;
 	}
-	outP->red = RoundByteFpLong((PF_FpLong)(outP->red) + r*infoP->strong);
-	outP->green = RoundByteFpLong((PF_FpLong)(outP->green) + g * infoP->strong);
-	outP->blue = RoundByteFpLong((PF_FpLong)(outP->blue) + b * infoP->strong);
+	outP->red = ScrBlend8((outP->red), RoundByteDouble( r * infoP->strong));
+	outP->green = ScrBlend8((outP->green), RoundByteDouble(g * infoP->strong));
+	outP->blue = ScrBlend8((outP->blue), RoundByteDouble(b * infoP->strong));
 	outP->alpha = MAX(outP->red, MAX(outP->green, outP->blue));
 	//outP->alpha = PF_MAX_CHAN8;
 	return err;
@@ -342,6 +342,9 @@ PF_Err Shine::Exec(ParamInfo* infoP)
 
 	infoP->inP = new NFsWorld(input, in_data, pixelFormat());
 	infoP->outP = new NFsWorld(output, in_data, pixelFormat());
+
+	infoP->length = (A_long)((PF_FpLong)infoP->length * ParamDownScaleX() + 0.5);
+
 	if ((infoP->length <= 0) || (infoP->strong <= 0))
 	{
 		infoP->outP->Copy(infoP->inP);

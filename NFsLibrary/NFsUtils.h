@@ -566,12 +566,32 @@ inline PF_PixelFloat PixelBlend32(PF_PixelFloat src,PF_PixelFloat dst)
 		return rr;
 	}
 }
+//*************************************************************************************************
 inline PF_Pixel PMat8(PF_Pixel p)
 {
 	p.red = RoundByteFpLong((PF_FpLong)p.red * (PF_FpLong)p.alpha / PF_MAX_CHAN8 + 0.5);
 	p.green = RoundByteFpLong((PF_FpLong)p.green * (PF_FpLong)p.alpha / PF_MAX_CHAN8 + 0.5);
 	p.blue = RoundByteFpLong((PF_FpLong)p.blue * (PF_FpLong)p.alpha / PF_MAX_CHAN8 + 0.5);
 	return p;
+}
+inline PF_Pixel16 PMat16(PF_Pixel16 p)
+{
+	p.red = RoundShortFpLong((PF_FpLong)p.red * (PF_FpLong)p.alpha / PF_MAX_CHAN16 + 0.5);
+	p.green = RoundShortFpLong((PF_FpLong)p.green * (PF_FpLong)p.alpha / PF_MAX_CHAN16 + 0.5);
+	p.blue = RoundShortFpLong((PF_FpLong)p.blue * (PF_FpLong)p.alpha / PF_MAX_CHAN16 + 0.5);
+	return p;
+}
+inline PF_PixelFloat PMat32(PF_PixelFloat p)
+{
+	p.red = RoundFpShortDouble((PF_FpLong)p.red * (PF_FpLong)p.alpha);
+	p.green = RoundFpShortDouble((PF_FpLong)p.green * (PF_FpLong)p.alpha);
+	p.blue = RoundFpShortDouble((PF_FpLong)p.blue * (PF_FpLong)p.alpha);
+	return p;
+}
+//*************************************************************************************************
+A_u_char ScrBlend8(A_u_char c0, A_u_char c1)
+{
+	return RoundByteLong(PF_MAX_CHAN8 - ((PF_MAX_CHAN8 - (A_long)c0) * (PF_MAX_CHAN8 - (A_long)c1)/PF_MAX_CHAN8));
 }
 //*************************************************************************************************
 //ƒ~ƒŠŒvŽZ
