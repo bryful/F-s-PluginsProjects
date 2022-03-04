@@ -566,7 +566,13 @@ inline PF_PixelFloat PixelBlend32(PF_PixelFloat src,PF_PixelFloat dst)
 		return rr;
 	}
 }
-
+inline PF_Pixel PMat8(PF_Pixel p)
+{
+	p.red = RoundByteFpLong((PF_FpLong)p.red * (PF_FpLong)p.alpha / PF_MAX_CHAN8 + 0.5);
+	p.green = RoundByteFpLong((PF_FpLong)p.green * (PF_FpLong)p.alpha / PF_MAX_CHAN8 + 0.5);
+	p.blue = RoundByteFpLong((PF_FpLong)p.blue * (PF_FpLong)p.alpha / PF_MAX_CHAN8 + 0.5);
+	return p;
+}
 //*************************************************************************************************
 //É~ÉäåvéZ
 //*************************************************************************************************
@@ -582,6 +588,14 @@ inline PF_Fixed px2mm(PF_Fixed px,PF_Fixed dpi)
 	ret = ((double)px/65536) * 25.4 / ((double)dpi/65536);
 	return FLT2FIX(ret);
 }
+//*************************************************************rot************************************
+//ç¿ïWåvéZ
+//*************************************************************************************************
+inline PF_FpLong pointLength(PF_InData* in_data,PF_FpLong x0, PF_FpLong y0, PF_FpLong x1, PF_FpLong y1)
+{
+	//sqrt( (x1-x2)^2 + (y1-y2)^2 )
+	return PF_SQRT( PF_POW(x1 - x0, 2) + PF_POW(y1 - y0, 2));
+}	
 //*************************************************************rot************************************
 //äpìxåvéZ
 //*************************************************************************************************

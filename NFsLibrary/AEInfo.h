@@ -1086,6 +1086,26 @@ public:
 			NULL);						// Dest rect - null for all pixels
 		return err;
 	}
+	//--------------------------------------------------------------------
+	PF_EffectWorld NewEffectWorld(A_long w, A_long h, PF_PixelFormat fmt)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_EffectWorld ret;
+		AEFX_CLR_STRUCT(ret);
+		if (m_cmd == PF_Cmd_SMART_RENDER) {
+			ERR(ws2P->PF_NewWorld(in_data->effect_ref, w, h, TRUE, fmt, &ret));
+		}
+		else 
+		{
+			PF_NewWorldFlags f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_NONE;
+			if (fmt == PF_PixelFormat_ARGB64)
+				f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_DEEP_PIXELS;
+
+			ERR((*in_data->utils->new_world)(in_data->effect_ref, w, h, f, &ret));
+		}
+		
+		return ret;
+	}
 };
 //******************************************************************************
 

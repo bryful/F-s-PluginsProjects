@@ -28,8 +28,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{82A14D7D-963B-4639-9CA5-FB7D76688AAB}</ProjectGuid>
-    <RootNamespace>ChromaticAberrationSMJ</RootNamespace>
-    <ProjectName>ChromaticAberrationSMJ</ProjectName>
+    <RootNamespace>Shine</RootNamespace>
+    <ProjectName>Shine</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -145,7 +145,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/ChromaticAberrationSMJ.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Shine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -194,7 +194,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/ChromaticAberrationSMJ.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Shine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -246,7 +246,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/ChromaticAberrationSMJ.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Shine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -300,7 +300,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/ChromaticAberrationSMJ.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Shine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -354,7 +354,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/ChromaticAberrationSMJ.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Shine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -411,7 +411,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/ChromaticAberrationSMJ.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Shine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -492,9 +492,9 @@
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
     <ClInclude Include="..\..\NFsLibrary\NFsUtils.h" />
     <ClInclude Include="..\..\NFsLibrary\NFsWorld.h" />
-    <ClInclude Include="..\ChromaticAberrationSMJFX.h" />
+    <ClInclude Include="..\ShineFX.h" />
     <ClInclude Include="..\NFs_Target.h" />
-    <ClInclude Include="..\ChromaticAberrationSMJ.h">
+    <ClInclude Include="..\Shine.h">
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
@@ -509,7 +509,7 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\ChromaticAberrationSMJPiPL.r">
+    <CustomBuild Include="..\ShinePiPL.r">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling the PiPL</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
@@ -549,7 +549,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ChromaticAberrationSMJPiPL.rc" />
+    <ResourceCompile Include="ShinePiPL.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
@@ -557,7 +557,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
-    <ClCompile Include="..\ChromaticAberrationSMJ.cpp">
+    <ClCompile Include="..\Shine.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MSWindows;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>

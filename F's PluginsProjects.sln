@@ -193,7 +193,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ColorChangeFromPoint", "Col
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UsedColorList", "UsedColorList\Win\UsedColorList.vcxproj", "{22812BC6-D3E8-46FE-A2B5-2FB9E3C67B94}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChromaticAberrationSMJ", "ChromaticAberrationSMJ\Win\ChromaticAberrationSMJ.vcxproj", "{82A14D7D-963B-4639-9CA5-FB7D76688AAB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shine", "Shine\Win\Shine.vcxproj", "{82A14D7D-963B-4639-9CA5-FB7D76688AAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

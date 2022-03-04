@@ -8,13 +8,13 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define NFS_NAME			"F's ChromaticAberrationSMJ"
-#define NFS_DISPNAME		"NF's ChromaticAberrationSMJ"
+#define NFS_NAME			"F's Shine"
+#define NFS_DISPNAME		"NF's Shine"
 
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
-#define NFS_DESCRIPTION	"プラグインのスケルトン"
+#define NFS_DESCRIPTION	"Fake shine"
 
 	//-----------------------------------------------------------------------------------
 	//プラグインが表示されるメニュー名
@@ -28,7 +28,8 @@
 	//#define NFS_CATEGORY "NF's Plugins-{DEBUG}"
 	//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
 
-#define NFS_CATEGORY "NF's Plugins-{Legacy}"
+//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
+#define NFS_CATEGORY "NF's Plugins-{DEBUG}"
 
 	//-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
