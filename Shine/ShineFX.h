@@ -1,12 +1,12 @@
 #pragma once
-#ifndef ChromaticAberrationSMJFX_H
-#define ChromaticAberrationSMJFX_H
+#ifndef ShineFX_H
+#define ShineFX_H
 
 #include "../NFsLibrary/AE_SDK.h"
 #include "../NFsLibrary/AEInfo.h"
 #include "../NFsLibrary/NFsWorld.h"
 
-#include "ChromaticAberrationSMJ.h"
+#include "Shine.h"
 
 
 /*
@@ -56,12 +56,12 @@ static PF_Err Noise32(void* refcon, A_long x, A_long y, PF_PixelFloat* p)
 	return err;
 }
 */
-class ChromaticAberrationSMJFX :public NFsWorld
+class ShineFX :public NFsWorld
 {
 private:
 
 public:
-	ChromaticAberrationSMJFX(
+	ShineFX(
 		PF_EffectWorld* wld = NULL,
 		PF_InData* ind = NULL,
 		PF_PixelFormat	fmt = PF_PixelFormat_ARGB32

@@ -114,7 +114,6 @@ public:
 	}
 #pragma endregion
 	// ***************************************************************
-protected:
 #pragma region Pixel
 
 	PF_Pixel GetPix8(A_long x, A_long y)
@@ -204,7 +203,64 @@ protected:
 		return ret;
 
 	}
+	PF_Pixel16 GetPixD16(PF_FpLong x, PF_FpLong y)
+	{
+		A_long ax = (A_long)x;
+		A_long ay = (A_long)y;
 
+		PF_FpLong dx1 = x - (PF_FpLong)ax;
+		PF_FpLong dy1 = y - (PF_FpLong)ay;
+		PF_FpLong dx0 = 1 - dx1;
+		PF_FpLong dy0 = 1 - dy1;
+
+		PF_Pixel16 a = GetPix16(ax, ay);
+		PF_Pixel16 b = GetPix16(ax + 1, ay);
+		PF_Pixel16 c = GetPix16(ax, ay + 1);
+		PF_Pixel16 d = GetPix16(ax + 1, ay + 1);
+
+		PF_FpLong rd = (PF_FpLong)a.red * dx0 * dy0 + (PF_FpLong)b.red * dx1 * dy0 + (PF_FpLong)c.red * dx0 * dy1 + (PF_FpLong)d.red * dx1 * dy1;
+		PF_FpLong gn = (PF_FpLong)a.green * dx0 * dy0 + (PF_FpLong)b.green * dx1 * dy0 + (PF_FpLong)c.green * dx0 * dy1 + (PF_FpLong)d.green * dx1 * dy1;
+		PF_FpLong bu = (PF_FpLong)a.blue * dx0 * dy0 + (PF_FpLong)b.blue * dx1 * dy0 + (PF_FpLong)c.blue * dx0 * dy1 + (PF_FpLong)d.blue * dx1 * dy1;
+		PF_FpLong al = (PF_FpLong)a.alpha * dx0 * dy0 + (PF_FpLong)b.alpha * dx1 * dy0 + (PF_FpLong)c.alpha * dx0 * dy1 + (PF_FpLong)d.alpha * dx1 * dy1;
+
+		PF_Pixel16 ret;
+		ret.alpha = RoundShortFpLong(al);
+		ret.red = RoundShortFpLong(rd);
+		ret.green = RoundShortFpLong(gn);
+		ret.blue = RoundShortFpLong(bu);
+
+		return ret;
+
+	}
+	PF_PixelFloat GetPixD32(PF_FpLong x, PF_FpLong y)
+	{
+		A_long ax = (A_long)x;
+		A_long ay = (A_long)y;
+
+		PF_FpLong dx1 = x - (PF_FpLong)ax;
+		PF_FpLong dy1 = y - (PF_FpLong)ay;
+		PF_FpLong dx0 = 1 - dx1;
+		PF_FpLong dy0 = 1 - dy1;
+
+		PF_PixelFloat a = GetPix32(ax, ay);
+		PF_PixelFloat b = GetPix32(ax + 1, ay);
+		PF_PixelFloat c = GetPix32(ax, ay + 1);
+		PF_PixelFloat d = GetPix32(ax + 1, ay + 1);
+
+		PF_FpLong rd = (PF_FpLong)a.red * dx0 * dy0 + (PF_FpLong)b.red * dx1 * dy0 + (PF_FpLong)c.red * dx0 * dy1 + (PF_FpLong)d.red * dx1 * dy1;
+		PF_FpLong gn = (PF_FpLong)a.green * dx0 * dy0 + (PF_FpLong)b.green * dx1 * dy0 + (PF_FpLong)c.green * dx0 * dy1 + (PF_FpLong)d.green * dx1 * dy1;
+		PF_FpLong bu = (PF_FpLong)a.blue * dx0 * dy0 + (PF_FpLong)b.blue * dx1 * dy0 + (PF_FpLong)c.blue * dx0 * dy1 + (PF_FpLong)d.blue * dx1 * dy1;
+		PF_FpLong al = (PF_FpLong)a.alpha * dx0 * dy0 + (PF_FpLong)b.alpha * dx1 * dy0 + (PF_FpLong)c.alpha * dx0 * dy1 + (PF_FpLong)d.alpha * dx1 * dy1;
+
+		PF_PixelFloat ret;
+		ret.alpha = RoundFpShortDouble(al);
+		ret.red = RoundFpShortDouble(rd);
+		ret.green = RoundFpShortDouble(gn);
+		ret.blue = RoundFpShortDouble(bu);
+
+		return ret;
+
+	}
 #pragma endregion
 	protected:
 	// ***************************************************************

@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	ChromaticAberrationSMJ for VS2010
+	Shine for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef ChromaticAberrationSMJMain_H
-#define ChromaticAberrationSMJMain_H
+#ifndef ShineMain_H
+#define ShineMain_H
 
 #include "../NFsLibrary/AE_SDK.h"
 #include "../NFsLibrary/AEInfo.h"
@@ -19,46 +19,46 @@
 
 //UIのパラメータ
 typedef struct ParamInfo {
-	PF_FpLong	rscale;
-	PF_FpLong	gscale;
-	PF_FpLong	bscale;
-	A_FloatPoint	center;
-	PF_FpLong	hoffset;
-	PF_FpLong	voffset;
-
-	NFsWorld* inIn;
+	A_FloatPoint	pos;
+	A_long			length;
+	PF_FpLong		strong;
+	PF_Boolean		isColor;
+	PF_Pixel		Color;
+	NFsWorld*		inP;
+	NFsWorld*		outP;
+	NFsWorld* bufP1;
+	NFsWorld* bufP2;
 
 } ParamInfo, * ParamInfoP, ** ParamInfoH;
 
-#include "ChromaticAberrationSMJFX.h"
+#include "ShineFX.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer
-	ID_R_SCALE,
-	ID_G_SCALE,
-	ID_B_SCALE,
-	ID_CENTER,
-	ID_H_OFFSET,
-	ID_V_OFFSET,
+	ID_POS,
+	ID_LENGTH,
+	ID_STRONG,
+	ID_ISCOLOR,
+	ID_COLOR,
 	ID_NUM_PARAMS
 };
 
 //UIの表示文字列
-#define	STR_R_SCALE			"RedScale"
-#define	STR_G_SCALE			"GreenScale"
-#define	STR_B_SCALE			"BlueScale"
-#define	STR_CENTER			"Center"
-#define	STR_H_OFFSET		"HorizonOffset"
-#define	STR_V_OFFSET		"VerticalOffset"
+#define	STR_POS			"pos"
+#define	STR_LENGTH		"length"
+#define	STR_STRONG		"strong"
+#define	STR_ISCOLOR		"useColor"
+#define	STR_COLOR		"color"
+#define	STR_ON			"on"
 
 
 
 
 
 //-------------------------------------------------------
-class ChromaticAberrationSMJ : public AEInfo
+class Shine : public AEInfo
 {
 public:
 	// ******************************************************
@@ -185,7 +185,7 @@ extern "C" {
 		try
 		{
 			
-			ChromaticAberrationSMJ ae;
+			Shine ae;
 			ae.in_data = in_dataP;
 
 			switch (cmd) {
@@ -273,4 +273,4 @@ extern "C" {
 	}
 #endif
 }
-#endif // ChromaticAberrationSMJ_H
+#endif // Shine_H

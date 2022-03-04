@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\ChromaticAberrationSMJ.cpp" />
+    <ClCompile Include="..\Shine.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c">
       <Filter>Header Files\AE</Filter>
     </ClCompile>
@@ -19,7 +19,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ChromaticAberrationSMJ.h" />
+    <ClInclude Include="..\Shine.h" />
     <ClInclude Include="..\..\..\Headers\A.h">
       <Filter>Header Files\AE</Filter>
     </ClInclude>
@@ -111,7 +111,7 @@
     <ClInclude Include="..\..\NFsLibrary\NFsWorld.h">
       <Filter>Header Files\NFs</Filter>
     </ClInclude>
-    <ClInclude Include="..\ChromaticAberrationSMJFX.h" />
+    <ClInclude Include="..\ShineFX.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -137,12 +137,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\ChromaticAberrationSMJPiPL.r">
+    <CustomBuild Include="..\ShinePiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ChromaticAberrationSMJPiPL.rc">
+    <ResourceCompile Include="ShinePiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
