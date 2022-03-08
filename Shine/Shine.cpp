@@ -409,19 +409,24 @@ PF_Err CopyBuf2ToDst_32(ParamInfo* infoP)
 
 
 static PF_Err
-sub8 (
+sub8(
 	void* refcon,
-	A_long		xL, 
-	A_long		yL, 
-	PF_Pixel8	*inP, 
-	PF_Pixel8	*outP)
+	A_long		xL,
+	A_long		yL,
+	PF_Pixel8* inP,
+	PF_Pixel8* outP)
 {
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
+	A_long vlen = (A_long)((double)infoP->length / 2 + 0.5);
+	if (vlen == 0)
+	{
+		return err;
+	}
 	//bufがハーフサイズなので位置補正
-	PF_FpLong cx = infoP->pos.x/2;
-	PF_FpLong cy = infoP->pos.y/2;
+	PF_FpLong cx = infoP->pos.x / 2;
+	PF_FpLong cy = infoP->pos.y / 2;
 
 	//sqrt( (x1-x2)^2 + (y1-y2)^2 )
 	//lenDターゲットからの距離
@@ -433,23 +438,31 @@ sub8 (
 	);
 	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
-	if (len <= 0) return err;
+	if (len <= 0)
+	{
+		outP->red = RoundByteDouble((PF_FpLong)inP->red * infoP->strong);
+		outP->green = RoundByteDouble((PF_FpLong)inP->green * infoP->strong);
+		outP->blue = RoundByteDouble((PF_FpLong)inP->blue * infoP->strong);
+		outP->alpha = MAX(outP->red, MAX(outP->green, outP->blue));
+		return err;
+	}
 
-	A_long vlen = infoP->length / 2;
 
 	A_long len2 = vlen;
-	if (len2>len)
+
+	if (len2 > len)
 	{
 		len2 = len;
 	}
 
-	PF_FpLong r = 0;
-	PF_FpLong g = 0;
-	PF_FpLong b = 0;
+	PF_FpLong r = (PF_FpLong)inP->red;
+	PF_FpLong g = (PF_FpLong)inP->green;
+	PF_FpLong b = (PF_FpLong)inP->blue;
+
 	if (len2 > 0) {
 
-		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)lenD;
-		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)lenD;
+		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)len;
+		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)len;
 
 		PF_FpLong xD = (PF_FpLong)xL;
 		PF_FpLong yD = (PF_FpLong)yL;
@@ -459,7 +472,7 @@ sub8 (
 		{
 			PF_Pixel c = infoP->bufP1->GetPixD8(xD, yD);
 			PF_FpLong av = 1;
-			av = ((PF_FpLong)vlen - (PF_FpLong)i) / ((PF_FpLong)vlen);
+			av = ((PF_FpLong)len2 - (PF_FpLong)i) / ((PF_FpLong)len2);
 			r += (PF_FpLong)c.red * av;
 			g += (PF_FpLong)c.green * av;
 			b += (PF_FpLong)c.blue * av;
@@ -467,10 +480,15 @@ sub8 (
 			yD += dy;
 		}
 		
+		r = r * infoP->strong / (PF_FpLong)len2;
+		g = g * infoP->strong / (PF_FpLong)len2;
+		b = b * infoP->strong / (PF_FpLong)len2;
 	}
-	outP->red = RoundByteDouble(r * infoP->strong/len2);
-	outP->green = RoundByteDouble(g * infoP->strong / len2);
-	outP->blue = RoundByteDouble(b * infoP->strong / len2);
+
+	
+	outP->red = RoundByteDouble(r);
+	outP->green = RoundByteDouble(g);
+	outP->blue = RoundByteDouble(b);
 	outP->alpha = MAX(outP->red, MAX(outP->green, outP->blue));
 	return err;
 }
@@ -485,7 +503,11 @@ sub16(
 {
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
-
+	A_long vlen = (A_long)((double)infoP->length / 2 + 0.5);
+	if (vlen == 0)
+	{
+		return err;
+	}
 	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
@@ -500,23 +522,31 @@ sub16(
 	);
 	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
-	if (len <= 0) return err;
+	if (len <= 0)
+	{
+		outP->red = RoundShortFpLong((PF_FpLong)inP->red * infoP->strong);
+		outP->green = RoundShortFpLong((PF_FpLong)inP->green * infoP->strong);
+		outP->blue = RoundShortFpLong((PF_FpLong)inP->blue * infoP->strong);
+		outP->alpha = MAX(outP->red, MAX(outP->green, outP->blue));
+		return err;
+	}
 
-	A_long vlen = infoP->length / 2;
 
 	A_long len2 = vlen;
+
 	if (len2 > len)
 	{
 		len2 = len;
 	}
 
-	PF_FpLong r = 0;
-	PF_FpLong g = 0;
-	PF_FpLong b = 0;
+	PF_FpLong r = (PF_FpLong)inP->red;
+	PF_FpLong g = (PF_FpLong)inP->green;
+	PF_FpLong b = (PF_FpLong)inP->blue;
+
 	if (len2 > 0) {
 
-		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)lenD;
-		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)lenD;
+		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)len;
+		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)len;
 
 		PF_FpLong xD = (PF_FpLong)xL;
 		PF_FpLong yD = (PF_FpLong)yL;
@@ -526,8 +556,7 @@ sub16(
 		{
 			PF_Pixel16 c = infoP->bufP1->GetPixD16(xD, yD);
 			PF_FpLong av = 1;
-			av = ((PF_FpLong)vlen - (PF_FpLong)i) / ((PF_FpLong)vlen);
-			av = av / PF_MAX_CHAN16;
+			av = ((PF_FpLong)len2 - (PF_FpLong)i) / ((PF_FpLong)len2);
 			r += (PF_FpLong)c.red * av;
 			g += (PF_FpLong)c.green * av;
 			b += (PF_FpLong)c.blue * av;
@@ -535,12 +564,15 @@ sub16(
 			yD += dy;
 		}
 
+		r = r * infoP->strong / (PF_FpLong)len2;
+		g = g * infoP->strong / (PF_FpLong)len2;
+		b = b * infoP->strong / (PF_FpLong)len2;
 	}
-	PF_FpLong bb =infoP->strong / (PF_FpLong)len2;
-	bb = bb * PF_MAX_CHAN16;
-	outP->red = RoundShortFpLong(r * bb);
-	outP->green = RoundShortFpLong(g * bb);
-	outP->blue = RoundShortFpLong(b * bb);
+
+
+	outP->red = RoundShortFpLong(r);
+	outP->green = RoundShortFpLong(g);
+	outP->blue = RoundShortFpLong(b);
 	outP->alpha = MAX(outP->red, MAX(outP->green, outP->blue));
 	return err;
 }
@@ -548,13 +580,18 @@ sub16(
 static PF_Err 
 sub32(
 	void* refcon,
-	A_long		xL, 
-	A_long		yL, 
-	PF_PixelFloat	*inP, 
-	PF_PixelFloat	*outP)
+	A_long		xL,
+	A_long		yL,
+	PF_PixelFloat* inP,
+	PF_PixelFloat* outP)
 {
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
+	A_long vlen = (A_long)((double)infoP->length / 2 + 0.5);
+	if (vlen == 0)
+	{
+		return err;
+	}
 	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
@@ -569,23 +606,31 @@ sub32(
 	);
 	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
-	if (len <= 0) return err;
+	if (len <= 0)
+	{
+		outP->red = RoundFpShortDouble((PF_FpLong)inP->red * infoP->strong);
+		outP->green = RoundFpShortDouble((PF_FpLong)inP->green * infoP->strong);
+		outP->blue = RoundFpShortDouble((PF_FpLong)inP->blue * infoP->strong);
+		outP->alpha = MAX(outP->red, MAX(outP->green, outP->blue));
+		return err;
+	}
 
-	A_long vlen = infoP->length / 2;
 
 	A_long len2 = vlen;
+
 	if (len2 > len)
 	{
 		len2 = len;
 	}
 
-	PF_FpLong r = 0;
-	PF_FpLong g = 0;
-	PF_FpLong b = 0;
+	PF_FpLong r = (PF_FpLong)inP->red;
+	PF_FpLong g = (PF_FpLong)inP->green;
+	PF_FpLong b = (PF_FpLong)inP->blue;
+
 	if (len2 > 0) {
 
-		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)lenD;
-		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)lenD;
+		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)len;
+		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)len;
 
 		PF_FpLong xD = (PF_FpLong)xL;
 		PF_FpLong yD = (PF_FpLong)yL;
@@ -595,7 +640,7 @@ sub32(
 		{
 			PF_PixelFloat c = infoP->bufP1->GetPixD32(xD, yD);
 			PF_FpLong av = 1;
-			av = ((PF_FpLong)vlen - (PF_FpLong)i) / ((PF_FpLong)vlen);
+			av = ((PF_FpLong)len2 - (PF_FpLong)i) / ((PF_FpLong)len2);
 			r += (PF_FpLong)c.red * av;
 			g += (PF_FpLong)c.green * av;
 			b += (PF_FpLong)c.blue * av;
@@ -603,10 +648,15 @@ sub32(
 			yD += dy;
 		}
 
+		r = r * infoP->strong / (PF_FpLong)len2;
+		g = g * infoP->strong / (PF_FpLong)len2;
+		b = b * infoP->strong / (PF_FpLong)len2;
 	}
-	outP->red = RoundFpShortDouble(r * infoP->strong / len2);
-	outP->green = RoundFpShortDouble(g * infoP->strong / len2);
-	outP->blue = RoundFpShortDouble(b * infoP->strong / len2);
+
+
+	outP->red = RoundFpShortDouble(r);
+	outP->green = RoundFpShortDouble(g);
+	outP->blue = RoundFpShortDouble(b);
 	outP->alpha = MAX(outP->red, MAX(outP->green, outP->blue));
 	return err;
 }
@@ -626,6 +676,13 @@ subG8(
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
+	A_long vlen = (A_long)((PF_FpLong)infoP->length / 2+0.5);
+	if (vlen <= 0)
+	{
+		return err;
+	}
+
+
 	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
@@ -640,9 +697,12 @@ subG8(
 	);
 	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
-	if (len <= 0) return err;
+	if (len <= 0) {
+		*outP = infoP->Color;
+		outP->alpha = RoundByteFpLong((PF_FpLong)inP->alpha * infoP->strong);
+		return err;
+	}
 
-	A_long vlen = infoP->length / 2;
 
 	A_long len2 = vlen;
 	if (len2 > len)
@@ -650,11 +710,11 @@ subG8(
 		len2 = len;
 	}
 
-	PF_FpLong a = 0;
+	PF_FpLong a = (PF_FpLong)inP->alpha;
 	if (len2 > 0) {
 
-		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)lenD;
-		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)lenD;
+		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)len;
+		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)len;
 
 		PF_FpLong xD = (PF_FpLong)xL;
 		PF_FpLong yD = (PF_FpLong)yL;
@@ -664,7 +724,7 @@ subG8(
 		{
 			PF_Pixel c = infoP->bufP1->GetPixDA8(xD, yD);
 			PF_FpLong av = 1;
-			av = ((PF_FpLong)vlen - (PF_FpLong)i) / ((PF_FpLong)vlen);
+			av = ((PF_FpLong)len2 - (PF_FpLong)i) / ((PF_FpLong)len2);
 			a += (PF_FpLong)c.alpha * av;
 			xD += dx;
 			yD += dy;
@@ -672,7 +732,7 @@ subG8(
 
 	}
 	*outP = infoP->Color;
-	outP->alpha = RoundByteFpLong(a*infoP->strong /len2);
+	outP->alpha = RoundByteFpLong(a*infoP->strong / (PF_FpLong)len2);
 	return err;
 }
 static PF_Err
@@ -686,6 +746,13 @@ subG16(
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
+	A_long vlen = (A_long)((PF_FpLong)infoP->length / 2 + 0.5);
+	if (vlen <= 0)
+	{
+		return err;
+	}
+
+
 	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
@@ -700,9 +767,12 @@ subG16(
 	);
 	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
-	if (len <= 0) return err;
+	if (len <= 0) {
+		*outP = infoP->Color16;
+		outP->alpha = RoundShortFpLong((PF_FpLong)inP->alpha * infoP->strong);
+		return err;
+	}
 
-	A_long vlen = infoP->length / 2;
 
 	A_long len2 = vlen;
 	if (len2 > len)
@@ -710,11 +780,11 @@ subG16(
 		len2 = len;
 	}
 
-	PF_FpLong a = 0;
+	PF_FpLong a = (PF_FpLong)inP->alpha;
 	if (len2 > 0) {
 
-		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)lenD;
-		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)lenD;
+		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)len;
+		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)len;
 
 		PF_FpLong xD = (PF_FpLong)xL;
 		PF_FpLong yD = (PF_FpLong)yL;
@@ -724,7 +794,7 @@ subG16(
 		{
 			PF_Pixel16 c = infoP->bufP1->GetPixDA16(xD, yD);
 			PF_FpLong av = 1;
-			av = ((PF_FpLong)vlen - (PF_FpLong)i) / ((PF_FpLong)vlen);
+			av = ((PF_FpLong)len2 - (PF_FpLong)i) / ((PF_FpLong)len2);
 			a += (PF_FpLong)c.alpha * av;
 			xD += dx;
 			yD += dy;
@@ -732,7 +802,7 @@ subG16(
 
 	}
 	*outP = infoP->Color16;
-	outP->alpha = RoundShortFpLong(a * infoP->strong / len2);
+	outP->alpha = RoundShortFpLong(a * infoP->strong / (PF_FpLong)len2);
 	return err;
 }
 static PF_Err
@@ -745,6 +815,12 @@ subG32(
 {
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
+	A_long vlen = (A_long)((PF_FpLong)infoP->length / 2 + 0.5);
+	if (vlen <= 0)
+	{
+		return err;
+	}
+
 
 	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
@@ -760,9 +836,12 @@ subG32(
 	);
 	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
-	if (len <= 0) return err;
+	if (len <= 0) {
+		*outP = infoP->Color32;
+		outP->alpha = RoundFpShortDouble((PF_FpLong)inP->alpha * infoP->strong);
+		return err;
+	}
 
-	A_long vlen = infoP->length / 2;
 
 	A_long len2 = vlen;
 	if (len2 > len)
@@ -770,11 +849,11 @@ subG32(
 		len2 = len;
 	}
 
-	PF_FpLong a = 0;
+	PF_FpLong a = (PF_FpLong)inP->alpha;
 	if (len2 > 0) {
 
-		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)lenD;
-		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)lenD;
+		PF_FpLong dx = (cx - (PF_FpLong)xL) / (PF_FpLong)len;
+		PF_FpLong dy = (cy - (PF_FpLong)yL) / (PF_FpLong)len;
 
 		PF_FpLong xD = (PF_FpLong)xL;
 		PF_FpLong yD = (PF_FpLong)yL;
@@ -784,19 +863,96 @@ subG32(
 		{
 			PF_PixelFloat c = infoP->bufP1->GetPixDA32(xD, yD);
 			PF_FpLong av = 1;
-			av = ((PF_FpLong)vlen - (PF_FpLong)i) / ((PF_FpLong)vlen);
+			av = ((PF_FpLong)len2 - (PF_FpLong)i) / ((PF_FpLong)len2);
 			a += (PF_FpLong)c.alpha * av;
 			xD += dx;
 			yD += dy;
 		}
-
+		a = a * infoP->strong / (PF_FpLong)len2;
 	}
 	*outP = infoP->Color32;
-	outP->alpha = RoundFpShortDouble(a * infoP->strong / len2);
+	outP->alpha = RoundFpShortDouble(a);
 	return err;
 }
 #pragma endregion
+static PF_Err
+subScr8(
+	void* refcon,
+	A_long		xL,
+	A_long		yL,
+	PF_Pixel8* inP,
+	PF_Pixel8* outP)
+{
+	PF_Err			err = PF_Err_NONE;
+	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 
+	PF_Pixel c = *inP;
+	PF_FpLong v = (PF_FpLong)c.alpha/PF_MAX_CHAN8;
+	c.red = RoundByteFpLong((PF_FpLong)c.red * v);
+	c.green = RoundByteFpLong((PF_FpLong)c.green * v);
+	c.blue = RoundByteFpLong((PF_FpLong)c.blue * v);
+
+
+	outP->alpha = ScrBlend8( outP->alpha ,c.alpha);
+	outP->red = ScrBlend8(outP->red, c.red);
+	outP->green = ScrBlend8(outP->green, c.green);
+	outP->blue = ScrBlend8(outP->blue, c.blue);
+
+
+	return err;
+}
+static PF_Err
+subScr16(
+	void* refcon,
+	A_long		xL,
+	A_long		yL,
+	PF_Pixel16* inP,
+	PF_Pixel16* outP)
+{
+	PF_Err			err = PF_Err_NONE;
+	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
+
+	PF_Pixel16 c = *inP;
+	PF_FpLong v = (PF_FpLong)c.alpha / PF_MAX_CHAN16;
+	c.red = RoundShortFpLong((PF_FpLong)c.red * v);
+	c.green = RoundShortFpLong((PF_FpLong)c.green * v);
+	c.blue = RoundShortFpLong((PF_FpLong)c.blue * v);
+
+
+	outP->alpha = ScrBlend16(outP->alpha, c.alpha);
+	outP->red = ScrBlend16(outP->red, c.red);
+	outP->green = ScrBlend16(outP->green, c.green);
+	outP->blue = ScrBlend16(outP->blue, c.blue);
+
+
+	return err;
+}
+static PF_Err
+subScr32(
+	void* refcon,
+	A_long		xL,
+	A_long		yL,
+	PF_PixelFloat* inP,
+	PF_PixelFloat* outP)
+{
+	PF_Err			err = PF_Err_NONE;
+	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
+
+	PF_PixelFloat c = *inP;
+	PF_FpLong v = (PF_FpLong)c.alpha;
+	c.red = RoundFpShortDouble((PF_FpLong)c.red * v);
+	c.green = RoundFpShortDouble((PF_FpLong)c.green * v);
+	c.blue = RoundFpShortDouble((PF_FpLong)c.blue * v);
+
+
+	outP->alpha = ScrBlend32(outP->alpha, c.alpha);
+	outP->red = ScrBlend32(outP->red, c.red);
+	outP->green = ScrBlend32(outP->green, c.green);
+	outP->blue = ScrBlend32(outP->blue, c.blue);
+
+
+	return err;
+}
 //-------------------------------------------------------------------------------------------------
 // **********************************************************
 
@@ -921,7 +1077,7 @@ PF_Err Shine::Exec(ParamInfo* infoP)
 
 	if ((infoP->length <= 0) || (infoP->strong <= 0))
 	{
-		infoP->outP->Copy(infoP->inP);
+		//infoP->outP->Copy(infoP->inP);
 	}
 	else {
 		PF_EffectWorld buf1 = NewEffectWorld(infoP->outP->width() / 2, infoP->outP->height() / 2, pixelFormat());
@@ -939,7 +1095,6 @@ PF_Err Shine::Exec(ParamInfo* infoP)
 			}
 			else {
 				CopyIntoBuf1_32(infoP);
-				//CopyBuf1ToDst_32(infoP);
 				iterate32(infoP->bufP1->world, (void*)infoP, sub32, infoP->bufP2->world);
 				CopyBuf2ToDst_32(infoP);
 				infoP->outP->FromMat();
@@ -954,7 +1109,6 @@ PF_Err Shine::Exec(ParamInfo* infoP)
 			}
 			else {
 				CopyIntoBuf1_16(infoP);
-				//CopyBuf1ToDst_16(infoP);
 				iterate16(infoP->bufP1->world, (void*)infoP, sub16, infoP->bufP2->world);
 				CopyBuf2ToDst_16(infoP);
 				infoP->outP->FromMat();
@@ -969,9 +1123,9 @@ PF_Err Shine::Exec(ParamInfo* infoP)
 			}
 			else {
 				CopyIntoBuf1_8(infoP);
-				//CopyBuf1ToDst_8(infoP);
 				iterate8(infoP->bufP1->world, (void*)infoP, sub8, infoP->bufP2->world);
 				CopyBuf2ToDst_8(infoP);
+
 				infoP->outP->FromMat();
 			}
 			break;
