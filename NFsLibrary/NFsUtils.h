@@ -606,7 +606,15 @@ inline PF_FpLong gray32(PF_PixelFloat p)
 //*************************************************************************************************
 A_u_char ScrBlend8(A_u_char c0, A_u_char c1)
 {
-	return RoundByteLong(PF_MAX_CHAN8 - ((PF_MAX_CHAN8 - (A_long)c0) * (PF_MAX_CHAN8 - (A_long)c1)/PF_MAX_CHAN8));
+	return RoundByteLong((A_u_long)c0 + (A_u_long)c1 - (A_u_long)c0 * (A_u_long)c1/PF_MAX_CHAN8);
+}
+A_u_short ScrBlend16(A_u_short c0, A_u_short c1)
+{
+	return RoundShort((A_u_long)c0 + (A_u_long)c1 - (A_u_long)c0 * (A_u_long)c1 / PF_MAX_CHAN16);
+}
+PF_FpShort ScrBlend32(PF_FpShort c0, PF_FpShort c1)
+{
+	return RoundFpShortDouble((double)c0 + (double)c1 - (double)c0 * (double)c1);
 }
 //*************************************************************************************************
 //ƒ~ƒŠŒvŽZ
