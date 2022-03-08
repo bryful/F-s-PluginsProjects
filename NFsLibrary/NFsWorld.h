@@ -261,6 +261,75 @@ public:
 		return ret;
 
 	}
+	PF_Pixel GetPixDA8(PF_FpLong x, PF_FpLong y)
+	{
+		A_long ax = (A_long)x;
+		A_long ay = (A_long)y;
+
+		PF_FpLong dx1 = x - (PF_FpLong)ax;
+		PF_FpLong dy1 = y - (PF_FpLong)ay;
+		PF_FpLong dx0 = 1 - dx1;
+		PF_FpLong dy0 = 1 - dy1;
+
+		PF_Pixel a = GetPix8(ax, ay);
+		PF_Pixel b = GetPix8(ax + 1, ay);
+		PF_Pixel c = GetPix8(ax, ay + 1);
+		PF_Pixel d = GetPix8(ax + 1, ay + 1);
+
+		PF_FpLong al = (PF_FpLong)a.alpha * dx0 * dy0 + (PF_FpLong)b.alpha * dx1 * dy0 + (PF_FpLong)c.alpha * dx0 * dy1 + (PF_FpLong)d.alpha * dx1 * dy1;
+
+		PF_Pixel ret = { PF_MAX_CHAN8,PF_MAX_CHAN8,PF_MAX_CHAN8,PF_MAX_CHAN8 };
+		ret.alpha = RoundByteDouble(al);
+
+		return ret;
+
+	}
+	PF_Pixel16 GetPixDA16(PF_FpLong x, PF_FpLong y)
+	{
+		A_long ax = (A_long)x;
+		A_long ay = (A_long)y;
+
+		PF_FpLong dx1 = x - (PF_FpLong)ax;
+		PF_FpLong dy1 = y - (PF_FpLong)ay;
+		PF_FpLong dx0 = 1 - dx1;
+		PF_FpLong dy0 = 1 - dy1;
+
+		PF_Pixel16 a = GetPix16(ax, ay);
+		PF_Pixel16 b = GetPix16(ax + 1, ay);
+		PF_Pixel16 c = GetPix16(ax, ay + 1);
+		PF_Pixel16 d = GetPix16(ax + 1, ay + 1);
+
+		PF_FpLong al = (PF_FpLong)a.alpha * dx0 * dy0 + (PF_FpLong)b.alpha * dx1 * dy0 + (PF_FpLong)c.alpha * dx0 * dy1 + (PF_FpLong)d.alpha * dx1 * dy1;
+
+		PF_Pixel16 ret = { PF_MAX_CHAN16,PF_MAX_CHAN16,PF_MAX_CHAN16,PF_MAX_CHAN16 };
+		ret.alpha = RoundShortFpLong(al);
+
+		return ret;
+
+	}
+	PF_PixelFloat GetPixDA32(PF_FpLong x, PF_FpLong y)
+	{
+		A_long ax = (A_long)x;
+		A_long ay = (A_long)y;
+
+		PF_FpLong dx1 = x - (PF_FpLong)ax;
+		PF_FpLong dy1 = y - (PF_FpLong)ay;
+		PF_FpLong dx0 = 1 - dx1;
+		PF_FpLong dy0 = 1 - dy1;
+
+		PF_PixelFloat a = GetPix32(ax, ay);
+		PF_PixelFloat b = GetPix32(ax + 1, ay);
+		PF_PixelFloat c = GetPix32(ax, ay + 1);
+		PF_PixelFloat d = GetPix32(ax + 1, ay + 1);
+
+		PF_FpLong al = (PF_FpLong)a.alpha * dx0 * dy0 + (PF_FpLong)b.alpha * dx1 * dy0 + (PF_FpLong)c.alpha * dx0 * dy1 + (PF_FpLong)d.alpha * dx1 * dy1;
+
+		PF_PixelFloat ret = { 1,1,1,1 };
+		ret.alpha = RoundFpShortDouble(al);
+
+		return ret;
+
+	}
 #pragma endregion
 	protected:
 	// ***************************************************************
@@ -547,9 +616,9 @@ public:
 				{
 					m_data16[target] = emp;
 				}
-				else if (s.alpha < PF_MAX_CHAN8)
+				else if (s.alpha < PF_MAX_CHAN16)
 				{
-					PF_FpLong a = (PF_FpLong)s.alpha;
+					PF_FpLong a = (PF_FpLong)s.alpha / PF_MAX_CHAN16;
 					s.red = RoundShortFpLong((PF_FpLong)s.red / a);
 					s.green = RoundShortFpLong((PF_FpLong)s.green / a);
 					s.blue = RoundShortFpLong((PF_FpLong)s.blue / a);

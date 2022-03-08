@@ -588,6 +588,21 @@ inline PF_PixelFloat PMat32(PF_PixelFloat p)
 	p.blue = RoundFpShortDouble((PF_FpLong)p.blue * (PF_FpLong)p.alpha);
 	return p;
 }
+inline PF_FpLong gray8(PF_Pixel p)
+{
+	return (0.29891 * (PF_FpLong)p.red) + (0.58661 * (PF_FpLong)p.green) + (0.11448 * (PF_FpLong)p.blue);
+
+}
+inline PF_FpLong gray16(PF_Pixel16 p)
+{
+	return (0.29891 * (PF_FpLong)p.red) + (0.58661 * (PF_FpLong)p.green) + (0.11448 * (PF_FpLong)p.blue);
+
+}
+inline PF_FpLong gray32(PF_PixelFloat p)
+{
+	return (0.29891 * (PF_FpLong)p.red) + (0.58661 * (PF_FpLong)p.green) + (0.11448 * (PF_FpLong)p.blue);
+
+}
 //*************************************************************************************************
 A_u_char ScrBlend8(A_u_char c0, A_u_char c1)
 {

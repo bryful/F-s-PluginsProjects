@@ -24,10 +24,12 @@ typedef struct ParamInfo {
 	PF_FpLong		strong;
 	PF_Boolean		isColor;
 	PF_Pixel		Color;
+	PF_Pixel16		Color16;
+	PF_PixelFloat	Color32;
 	NFsWorld*		inP;
 	NFsWorld*		outP;
-	NFsWorld* bufP1;
-	NFsWorld* bufP2;
+	NFsWorld*		bufP1;
+	NFsWorld*		bufP2;
 
 } ParamInfo, * ParamInfoP, ** ParamInfoH;
 
