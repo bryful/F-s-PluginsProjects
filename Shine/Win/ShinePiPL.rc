@@ -17,7 +17,7 @@ BEGIN
 	"eman",
 	0, 0x0,
 	12, 0x0,
-	"\x0ANF's Shine\0", 
+	"\x09F's Shine\0\0", 
 
 	"MIB8",
 	"gtac", 
