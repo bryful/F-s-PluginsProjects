@@ -37,8 +37,6 @@
 #include "../FsLibrary/FsVersion.h"
 
 
-//ã‚Ì’l‚ğŒvZ‚µ‚½Œ‹‰Ê
-#define FS_VERSION		1050112
 //-----------------------------------------------------------
 /*
 out_data->out_flags
