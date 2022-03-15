@@ -36,8 +36,9 @@ CC2019用からgithubでバイナリーの配布も行います。
 * [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)<br>
 7月26日版です。SDKをCC2020に変えてビルドしただけのものです。
 
+<br>
 
-**  chinese translated version **
+* **chinese translated version**<br>
 [https://www.lookae.com/fsplugins/](https://www.lookae.com/fsplugins/)
 
 # 変更点
