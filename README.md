@@ -5,24 +5,12 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。
 
 ***
+しばらく使って特に問題なかったので普通のリリースバージョンにしました。
+* [FsPlugins20220315.zip](https://bit.ly/3KHlV9P)<br>
+
+
 **重要なお知らせ**
-
 AE2022のマルチフレームレンダーに対応させました。<br>
-ただし、対応フラグをONにしただけでコードの変更はしていません。
-対応条件をSDKで調べる限り元々対応しているコーディングをしていたみたいです。<br>
-なので、下のアーカイブはAE2022のSDKで再ビルドを行っただけの物です。<br>
-<br>
-普段なら全部を僕自身で動作確認するのですが、仕事でほとんど撮影を行っていないのでそれをする時間がありません。<br>
-忘れてるだけで未対応なコードが残っている可能性があります。<br>
-<br>
-**このバージョンのF's Pluginsは人柱バグ取りバージョンと考えてください。**<br>
-出来れば各個で動作確認して大丈夫あるいはNGであるかを教えてもらえると助かります<br>
-<br>
-twitterがMailでお願いします。<br>
-<br>
-**そういうわけで仕事業務で使用する時はそのことを踏まえて使用してください。**<br>
-
-* [FsPlugins20220223.zip](https://bit.ly/351YokT)<br>
 ***
 
 Fs_Target.hの
@@ -37,7 +25,10 @@ Fs_Target.hの
 
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。
+* [FsPlugins20220315.zip](https://bit.ly/3KHlV9P)<br>
 
+* [FsPlugins20220223.zip](https://bit.ly/351YokT)<br>
+人柱バージョン
 * [FsPlugins20201111.zip](https://bit.ly/2KknG31)<br>
 11月11日版です。NFsライブラリのひな型になります。
 * [FsPlugins20200816.zip](https://bit.ly/2PZqemC)<br>
@@ -45,13 +36,20 @@ CC2019用からgithubでバイナリーの配布も行います。
 * [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)<br>
 7月26日版です。SDKをCC2020に変えてビルドしただけのものです。
 
-# 変更点
-2020/11/11
-NFsライブラリのひな型を作成しました。
 
-2020/08/15
-コンパイラを VS2017からVS2019へ変更。
-それに伴い、構造体メンバーのアライメントを16byteに変更。/Zp16
+**  chinese translated version **
+[https://www.lookae.com/fsplugins/](https://www.lookae.com/fsplugins/)
+
+# 変更点
+2022/03/15<br>
+AE2022のマルチフレームレンダリングに対応しました。 <br>
+<br>
+2020/11/11<br>
+NFsライブラリのひな型を作成しました。<br>
+<br>
+2020/08/15<br>
+コンパイラを VS2017からVS2019へ変更。<br>
+それに伴い、構造体メンバーのアライメントを16byteに変更。/Zp16<br>
 
 * F'sgrayToCountourLine.aexを追加
 ポスタリゼーションの変形バージョンです、諧調を均等に割らずにHi/Mid/Loで諧調を変えられます。
