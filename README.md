@@ -5,6 +5,15 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。
 
 ***
+最近モチベーションが全然無くてメンテナンスさぼり気味です。自分でほとんど使わなくなってしまったせいですかな？<br>
+少しでもやる気が出るようにAmazonの欲しいものリストを試しに公開してみます。<br>
+* [bry-fulの欲しいものリスト(https://amzn.to/3qIhMep)](https://amzn.to/3qIhMep)<br>
+
+<br>
+まぁ、バグ報告のほうがありがたいです。<br>
+<br>
+
+***
 しばらく使って特に問題なかったので普通のリリースバージョンにしました。
 * [FsPlugins20220315.zip](https://bit.ly/3KHlV9P)<br>
 <br>
@@ -26,20 +35,17 @@ Fs_Target.hの
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。
 * [FsPlugins20220315.zip](https://bit.ly/3KHlV9P)<br>
-
 * [FsPlugins20220223.zip](https://bit.ly/351YokT)<br>
-人柱バージョン
 * [FsPlugins20201111.zip](https://bit.ly/2KknG31)<br>
 11月11日版です。NFsライブラリのひな型になります。
 * [FsPlugins20200816.zip](https://bit.ly/2PZqemC)<br>
 8月16日版です。VS2020に変更しました。
 * [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)<br>
 7月26日版です。SDKをCC2020に変えてビルドしただけのものです。
-
-<br>
-
 * **chinese translated version**<br>
 [https://www.lookae.com/fsplugins/](https://www.lookae.com/fsplugins/)
+
+<br>
 
 # 変更点
 2022/03/15<br>
