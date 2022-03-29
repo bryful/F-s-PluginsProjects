@@ -10,7 +10,7 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 * [bry-fulの欲しいものリスト(https://amzn.to/3qIhMep)](https://amzn.to/3qIhMep)<br>
 
 <br>
-まぁ、バグ報告のほうがありがたいです。<br>
+まぁ、バグ報告のほうがありがたいです。 <br>
 <br>
 
 ***
