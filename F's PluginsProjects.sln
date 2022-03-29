@@ -199,6 +199,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unmult_RG_Fake", "Unmult_RG
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unmult_KNSW_Fake", "Unmult_KNSW_Fake\Win\Unmult_KNSW_Fake.vcxproj", "{9C969558-7F3E-47C3-A57B-D1F3864E1D13}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShineParallel", "ShineParallel\Win\ShineParallel.vcxproj", "{F820120E-583A-4672-A1C7-8940180ED689}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1323,6 +1325,18 @@ Global
 		{9C969558-7F3E-47C3-A57B-D1F3864E1D13}.Release-MT|x64.Build.0 = Release-MT|x64
 		{9C969558-7F3E-47C3-A57B-D1F3864E1D13}.Release-MT|x86.ActiveCfg = Release-MT|Win32
 		{9C969558-7F3E-47C3-A57B-D1F3864E1D13}.Release-MT|x86.Build.0 = Release-MT|Win32
+		{F820120E-583A-4672-A1C7-8940180ED689}.Debug|x64.ActiveCfg = Debug|x64
+		{F820120E-583A-4672-A1C7-8940180ED689}.Debug|x64.Build.0 = Debug|x64
+		{F820120E-583A-4672-A1C7-8940180ED689}.Debug|x86.ActiveCfg = Debug|Win32
+		{F820120E-583A-4672-A1C7-8940180ED689}.Debug|x86.Build.0 = Debug|Win32
+		{F820120E-583A-4672-A1C7-8940180ED689}.Release|x64.ActiveCfg = Release|x64
+		{F820120E-583A-4672-A1C7-8940180ED689}.Release|x64.Build.0 = Release|x64
+		{F820120E-583A-4672-A1C7-8940180ED689}.Release|x86.ActiveCfg = Release|Win32
+		{F820120E-583A-4672-A1C7-8940180ED689}.Release|x86.Build.0 = Release|Win32
+		{F820120E-583A-4672-A1C7-8940180ED689}.Release-MT|x64.ActiveCfg = Release-MT|x64
+		{F820120E-583A-4672-A1C7-8940180ED689}.Release-MT|x64.Build.0 = Release-MT|x64
+		{F820120E-583A-4672-A1C7-8940180ED689}.Release-MT|x86.ActiveCfg = Release-MT|Win32
+		{F820120E-583A-4672-A1C7-8940180ED689}.Release-MT|x86.Build.0 = Release-MT|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
