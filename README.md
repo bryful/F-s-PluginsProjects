@@ -35,18 +35,13 @@ Fs_Target.hの
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。
 
-* [FsPlugins20220704.zip](https://bit.ly/3y6byYE)<br>
-<br>
+* [FsPlugins20220704.zip](https://bit.ly/3y6byYE)<br><br>
 * [FsPlugins20220315.zip](https://bit.ly/3KHlV9P)<br>
 * [FsPlugins20220223.zip](https://bit.ly/351YokT)<br>
-* [FsPlugins20201111.zip](https://bit.ly/2KknG31)<br>
-11月11日版です。NFsライブラリのひな型になります。
-* [FsPlugins20200816.zip](https://bit.ly/2PZqemC)<br>
-8月16日版です。VS2020に変更しました。
-* [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)<br>
-7月26日版です。SDKをCC2020に変えてビルドしただけのものです。
-* **chinese translated version**<br>
-[https://www.lookae.com/fsplugins/](https://www.lookae.com/fsplugins/)
+* [FsPlugins20201111.zip](https://bit.ly/2KknG31)<br>11月11日版です。NFsライブラリのひな型になります。<br>
+* [FsPlugins20200816.zip](https://bit.ly/2PZqemC)<br>8月16日版です。VS2020に変更しました。<br>
+* [Fsplugins20200726.zip](https://bit.ly/2OXxZJj)<br>7月26日版です。SDKをCC2020に変えてビルドしただけのものです。<br>
+* **chinese translated version**<br>[https://www.lookae.com/fsplugins/](https://www.lookae.com/fsplugins/)<br>
 
 
 <br>
