@@ -1300,6 +1300,22 @@ public:
 
 	}
 	//*********************************************************************************
+	PF_Err iterate32TempToOutput(
+		refconType refcon,
+		PF_Err(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel32* in, PF_Pixel32* out)
+	)
+	{
+		return suitesP->IterateFloatSuite1()->iterate(in_data,
+			0,// progress base
+			output->height,
+			tmpP,		// src 
+			NULL,		// area - null for all pixels
+			refcon,		// refcon - your custom data pointer
+			pix_fn,		// pixel function pointer
+			output);	// dest
+
+	}
+	//*********************************************************************************
 	PF_Err iterateBuf2_8(
 		refconType refcon,
 		PF_Err		(*pix_fn)(refconType refcon, A_long x, A_long y, PF_Pixel *in, PF_Pixel *out)

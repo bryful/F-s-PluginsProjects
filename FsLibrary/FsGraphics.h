@@ -435,29 +435,29 @@ public:
 		ret.alpha = RoundByteLong( 
 			(A_long)( 
 			  (double)(p[0].alpha) * dx0 *dy0  
-			+ (double)(p[1].alpha) * dx0 *dy0  
-			+ (double)(p[2].alpha) * dx0 *dy0 
-			+ (double)(p[3].alpha) * dx1 *dy0 +0.5));
+			+ (double)(p[1].alpha) * dx1 *dy0  
+			+ (double)(p[2].alpha) * dx0 *dy1 
+			+ (double)(p[3].alpha) * dx1 *dy1 +0.5));
 
 		ret.red = RoundByteLong( 
 			(A_long)( 
-			  (double)(p[0].red) * dx1 *dy0  
+			  (double)(p[0].red) * dx0 *dy0  
 			+ (double)(p[1].red) * dx1 *dy0  
-			+ (double)(p[2].red) * dx1 *dy0 
-			+ (double)(p[3].red) * dx1 *dy0  +0.5));
+			+ (double)(p[2].red) * dx0 *dy1 
+			+ (double)(p[3].red) * dx1 *dy1  +0.5));
 
 		ret.green = RoundByteLong( 
 			(A_long)( 
-			  (double)(p[0].green) * dx0 *dy1  
-			+ (double)(p[1].green) * dx0 *dy1  
+			  (double)(p[0].green) * dx0 *dy0  
+			+ (double)(p[1].green) * dx1 *dy0  
 			+ (double)(p[2].green) * dx0 *dy1 
-			+ (double)(p[3].green) * dx0 *dy1  +0.5));
+			+ (double)(p[3].green) * dx1 *dy1  +0.5));
 
 		ret.blue = RoundByteLong( 
 			(A_long)( 
-			  (double)(p[0].blue) * dx1 *dy1  
-			+ (double)(p[1].blue) * dx1 *dy1  
-			+ (double)(p[2].blue) * dx1 *dy1 
+			  (double)(p[0].blue) * dx0 *dy0  
+			+ (double)(p[1].blue) * dx1 *dy0  
+			+ (double)(p[2].blue) * dx0 *dy1 
 			+ (double)(p[3].blue) * dx1 *dy1  +0.5));
 
 		return ret;
@@ -485,30 +485,80 @@ public:
 		ret.alpha = RoundShort( 
 			(A_long)( 
 			  (double)(p[0].alpha) * dx0 *dy0  
-			+ (double)(p[1].alpha) * dx0 *dy0  
-			+ (double)(p[2].alpha) * dx0 *dy0 
-			+ (double)(p[3].alpha) * dx1 *dy0 +0.5));
+			+ (double)(p[1].alpha) * dx1 *dy0  
+			+ (double)(p[2].alpha) * dx1 *dy0 
+			+ (double)(p[3].alpha) * dx1 *dy1 +0.5));
 
 		ret.red = RoundShort( 
 			(A_long)( 
-			  (double)(p[0].red) * dx1 *dy0  
+			  (double)(p[0].red) * dx0 *dy0  
 			+ (double)(p[1].red) * dx1 *dy0  
-			+ (double)(p[2].red) * dx1 *dy0 
-			+ (double)(p[3].red) * dx1 *dy0  +0.5));
+			+ (double)(p[2].red) * dx0 *dy1 
+			+ (double)(p[3].red) * dx1 *dy1  +0.5));
 
 		ret.green = RoundShort( 
 			(A_long)( 
-			  (double)(p[0].green) * dx0 *dy1  
-			+ (double)(p[1].green) * dx0 *dy1  
+			  (double)(p[0].green) * dx0 *dy0  
+			+ (double)(p[1].green) * dx1 *dy0  
 			+ (double)(p[2].green) * dx0 *dy1 
-			+ (double)(p[3].green) * dx0 *dy1  +0.5));
+			+ (double)(p[3].green) * dx1 *dy1  +0.5));
 
 		ret.blue = RoundShort( 
 			(A_long)( 
-			  (double)(p[0].blue) * dx1 *dy1  
-			+ (double)(p[1].blue) * dx1 *dy1  
-			+ (double)(p[2].blue) * dx1 *dy1 
+			  (double)(p[0].blue) * dx0 *dy0  
+			+ (double)(p[1].blue) * dx1 *dy0  
+			+ (double)(p[2].blue) * dx0 *dy1 
 			+ (double)(p[3].blue) * dx1 *dy1  +0.5));
+
+		return ret;
+	}
+	//-----------------------
+	//point/pset
+	inline PF_Pixel32 getPixelFloat32(PF_FpLong x, PF_FpLong y) {
+		A_long x0 = (A_long)x;
+		A_long x1 = x0 + 1;
+		A_long y0 = (A_long)y;
+		A_long y1 = y0 + 1;
+
+		double dx1 = x - (double)x0;
+		double dx0 = 1.0 - dx1;
+		double dy1 = y - (double)y0;
+		double dy0 = 1.0 - dy1;
+
+		PF_Pixel32 p[4];
+		PF_Pixel32 ret;
+		p[0] = getPixel32_F(x0, y0);
+		p[1] = getPixel32_F(x1, y0);
+		p[2] = getPixel32_F(x0, y1);
+		p[3] = getPixel32_F(x1, y1);
+
+		ret.alpha = RoundFpShortDouble(
+			(
+				(double)(p[0].alpha) * dx0 * dy0
+				+ (double)(p[1].alpha) * dx1 * dy0
+				+ (double)(p[2].alpha) * dx1 * dy0
+				+ (double)(p[3].alpha) * dx1 * dy1 ));
+
+		ret.red = RoundFpShortDouble(
+			(
+				(double)(p[0].red) * dx0 * dy0
+				+ (double)(p[1].red) * dx1 * dy0
+				+ (double)(p[2].red) * dx0 * dy1
+				+ (double)(p[3].red) * dx1 * dy1 ));
+
+		ret.green = RoundFpShortDouble(
+			(
+				(double)(p[0].green) * dx0 * dy0
+				+ (double)(p[1].green) * dx1 * dy0
+				+ (double)(p[2].green) * dx0 * dy1
+				+ (double)(p[3].green) * dx1 * dy1 ));
+
+		ret.blue = RoundFpShortDouble(
+			(
+				(double)(p[0].blue) * dx0 * dy0
+				+ (double)(p[1].blue) * dx1 * dy0
+				+ (double)(p[2].blue) * dx0 * dy1
+				+ (double)(p[3].blue) * dx1 * dy1 ));
 
 		return ret;
 	}
