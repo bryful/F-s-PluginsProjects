@@ -486,7 +486,7 @@ public:
 			(A_long)( 
 			  (double)(p[0].alpha) * dx0 *dy0  
 			+ (double)(p[1].alpha) * dx1 *dy0  
-			+ (double)(p[2].alpha) * dx1 *dy0 
+			+ (double)(p[2].alpha) * dx0 *dy1 
 			+ (double)(p[3].alpha) * dx1 *dy1 +0.5));
 
 		ret.red = RoundShort( 
@@ -536,7 +536,7 @@ public:
 			(
 				(double)(p[0].alpha) * dx0 * dy0
 				+ (double)(p[1].alpha) * dx1 * dy0
-				+ (double)(p[2].alpha) * dx1 * dy0
+				+ (double)(p[2].alpha) * dx0 * dy1
 				+ (double)(p[3].alpha) * dx1 * dy1 ));
 
 		ret.red = RoundFpShortDouble(

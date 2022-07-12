@@ -183,13 +183,27 @@ FilterImage16 (
 	pdy = dy * infoP->g + infoP->cy;
 	col = infoP->ae->in->getPixelFloat16(pdx, pdy);
 	g = col.green;
-	a = RoundShort((A_long)a + (A_long)col.alpha - (A_long)a * (A_long)col.alpha / PF_MAX_CHAN16);
+	a = RoundShort((A_long)a + (A_long)col.alpha - (A_long)a * (A_long)col.alpha/PF_MAX_CHAN16);
 
 	pdx = dx * infoP->b + infoP->cx;
 	pdy = dy * infoP->b + infoP->cy;
 	col = infoP->ae->in->getPixelFloat16(pdx, pdy);
 	b = col.blue;
 	a = RoundShort((A_long)a + (A_long)col.alpha - (A_long)a * (A_long)col.alpha / PF_MAX_CHAN16);
+
+	/*
+		PF_MAX_CHAN16-((PF_MAX_CHAN16-a)*(PF_MAX_CHAN16-b))
+		PF_MAX_CHAN16-PF_MAX_CHAN16*(PF_MAX_CHAN16-b) +a *(PF_MAX_CHAN16-b)
+		PF_MAX_CHAN16-(PF_MAX_CHAN16*PF_MAX_CHAN16 - PF_MAX_CHAN16*b) + (a *PF_MAX_CHAN16 - a *b)
+		
+		PF_MAX_CHAN16-PF_MAX_CHAN16*PF_MAX_CHAN16 + PF_MAX_CHAN16*b + a *PF_MAX_CHAN16 - a *b
+		PF_MAX_CHAN16(1-PF_MAX_CHAN16 + b + a - a *b/PF_MAX_CHAN16)
+
+
+
+
+
+	*/
 
 	outP->red = r;
 	outP->green = g;
