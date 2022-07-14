@@ -7,7 +7,7 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 ***
 最近モチベーションが全然無くてメンテナンスさぼり気味です。自分でほとんど使わなくなってしまったせいですかな？<br>
 少しでもやる気が出るようにAmazonの欲しいものリストを試しに公開してみます。<br>
-* [bry-fulの欲しいものリスト(https://amzn.to/3qIhMep)](https://amzn.to/3qIhMep)<br>
+* [bry-fulの欲しいものリスト(https://www.amazon.jp/hz/wishlist/ls/2ME5VSS8WJOX8?ref_=wl_share)](https://www.amazon.jp/hz/wishlist/ls/2ME5VSS8WJOX8?ref_=wl_share)<br>
 
 <br>
 まぁ、バグ報告のほうがありがたいです。 <br>
