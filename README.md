@@ -1,10 +1,17 @@
 ﻿# F's Plugins New and Next
-Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。
+Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。　<b>no supporot MacOS!</b>
+　
 
 昔から趣味でコツコツと作っていたものです。
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。
 
 ***
+次のバージョンはかなり大がかりな改変を考えています。時間かかりそうなので、とりあえず SDK2023 でビルドした物をアップします。
+
+* [FsPlugins202４0４１４.zip]()<br>
+
+***
+
 最近モチベーションが全然無くてメンテナンスさぼり気味です。自分でほとんど使わなくなってしまったせいですかな？<br>
 少しでもやる気が出るようにAmazonの欲しいものリストを試しに公開してみます。<br>
 * [bry-fulの欲しいものリスト(https://www.amazon.co.jp/hz/wishlist/ls/2ME5VSS8WJOX8?ref_=wl_sha)<br>
@@ -13,10 +20,6 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 まぁ、バグ報告のほうがありがたいです。 <br>
 <br>
 
-***
-しばらく使って特に問題なかったので普通のリリースバージョンにしました。
-* [FsPlugins20220315.zip](https://bit.ly/3KHlV9P)<br>
-<br>
 
 **重要なお知らせ**
 AE2022のマルチフレームレンダーに対応させました。<br>
@@ -35,7 +38,7 @@ Fs_Target.hの
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。
 
-* [FsPlugins20220707.zip](https://bit.ly/3Pb35ug)<br><br>
+* [FsPlugins20220707.zip](https://bit.ly/3Pb35ug)<br>
 * [FsPlugins20220704.zip](https://bit.ly/3y6byYE)<br>
 * [FsPlugins20220315.zip](https://bit.ly/3KHlV9P)<br>
 * [FsPlugins20220223.zip](https://bit.ly/351YokT)<br>
@@ -48,6 +51,9 @@ CC2019用からgithubでバイナリーの配布も行います。
 <br>
 
 # 変更点
+202４/04/14<br>
+SDK2023でブルドし直しました。<br>
+<br>
 2022/03/15<br>
 AE2022のマルチフレームレンダリングに対応しました。 <br>
 <br>

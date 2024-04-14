@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30406.217
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlphaFix", "AlphaFix\Win\AlphaFix.vcxproj", "{82675920-EFDC-4880-84E3-4D234C1A86BC}"
 EndProject
@@ -198,8 +198,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unmult_RG_Fake", "Unmult_RG_Fake\Win\Unmult_RG_Fake.vcxproj", "{41B4E35B-56F8-4C55-8F5F-63671F67F044}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unmult_KNSW_Fake", "Unmult_KNSW_Fake\Win\Unmult_KNSW_Fake.vcxproj", "{9C969558-7F3E-47C3-A57B-D1F3864E1D13}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShineParallel", "ShineParallel\Win\ShineParallel.vcxproj", "{F820120E-583A-4672-A1C7-8940180ED689}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChromaticAberration", "ChromaticAberration\Win\ChromaticAberration.vcxproj", "{F318250A-E25C-4C8B-8C0F-240111026374}"
 EndProject
@@ -1327,18 +1325,6 @@ Global
 		{9C969558-7F3E-47C3-A57B-D1F3864E1D13}.Release-MT|x64.Build.0 = Release-MT|x64
 		{9C969558-7F3E-47C3-A57B-D1F3864E1D13}.Release-MT|x86.ActiveCfg = Release-MT|Win32
 		{9C969558-7F3E-47C3-A57B-D1F3864E1D13}.Release-MT|x86.Build.0 = Release-MT|Win32
-		{F820120E-583A-4672-A1C7-8940180ED689}.Debug|x64.ActiveCfg = Debug|x64
-		{F820120E-583A-4672-A1C7-8940180ED689}.Debug|x64.Build.0 = Debug|x64
-		{F820120E-583A-4672-A1C7-8940180ED689}.Debug|x86.ActiveCfg = Debug|Win32
-		{F820120E-583A-4672-A1C7-8940180ED689}.Debug|x86.Build.0 = Debug|Win32
-		{F820120E-583A-4672-A1C7-8940180ED689}.Release|x64.ActiveCfg = Release|x64
-		{F820120E-583A-4672-A1C7-8940180ED689}.Release|x64.Build.0 = Release|x64
-		{F820120E-583A-4672-A1C7-8940180ED689}.Release|x86.ActiveCfg = Release|Win32
-		{F820120E-583A-4672-A1C7-8940180ED689}.Release|x86.Build.0 = Release|Win32
-		{F820120E-583A-4672-A1C7-8940180ED689}.Release-MT|x64.ActiveCfg = Release-MT|x64
-		{F820120E-583A-4672-A1C7-8940180ED689}.Release-MT|x64.Build.0 = Release-MT|x64
-		{F820120E-583A-4672-A1C7-8940180ED689}.Release-MT|x86.ActiveCfg = Release-MT|Win32
-		{F820120E-583A-4672-A1C7-8940180ED689}.Release-MT|x86.Build.0 = Release-MT|Win32
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Debug|x64.ActiveCfg = Debug|x64
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Debug|x64.Build.0 = Debug|x64
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Debug|x86.ActiveCfg = Debug|Win32
