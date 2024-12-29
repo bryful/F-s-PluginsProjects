@@ -1002,7 +1002,7 @@ static void SputDataDraw8(sputDrawPrm *sdp,PF_Pixel col)
 	A_long h = sdp->height;
 
 	PF_Pixel c = col;
-	if (sdp->sptIdx>=50){
+	if (sdp->sptIdx>=60){
 		if ( (sdp->x>=0)&&(sdp->x<w)&&(sdp->y>=0)&&(sdp->y<h) ){
 			c.alpha = RoundByteFpShort(PF_MAX_CHAN8 * sdp->opa);
 			A_long adr = sdp->x + sdp->y * wt;
@@ -1040,7 +1040,7 @@ static void SputDataDraw16(sputDrawPrm *sdp,PF_Pixel16 col)
 	A_long h = sdp->height;
 
 	PF_Pixel16 c = col;
-	if (sdp->sptIdx>=50){
+	if (sdp->sptIdx>=60){
 		if ( (sdp->x>=0)&&(sdp->x<w)&&(sdp->y>=0)&&(sdp->y<h) ){
 			c.alpha = RoundShortFpLong(PF_MAX_CHAN16 * sdp->opa);
 			A_long adr = sdp->x + sdp->y * wt;
@@ -1081,7 +1081,7 @@ static void SputDataDraw32(sputDrawPrm *sdp,PF_PixelFloat col)
 	A_long h = sdp->height;
 
 	PF_PixelFloat c = col;
-	if (sdp->sptIdx>=50){
+	if (sdp->sptIdx>=60){
 		if ( (sdp->x>=0)&&(sdp->x<w)&&(sdp->y>=0)&&(sdp->y<h) ){
 			c.alpha = sdp->opa;
 			A_long adr = sdp->x + sdp->y * wt;

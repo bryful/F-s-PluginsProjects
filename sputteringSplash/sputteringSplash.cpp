@@ -203,6 +203,14 @@ static PF_Err
 		ERR(ae->out->clear());
 	}
 	if (infoP->value>0){
+
+		PF_EffectWorld bw1;
+		PF_EffectWorld bw2;
+
+		ERR(ae->NewWorld(SPD_RAND_MAX, 4, PF_PixelFormat_ARGB32, &bw1));
+		ERR(ae->NewWorld(ae->out->width(), ae->out->height()/4+8, PF_PixelFormat_ARGB32, &bw2));
+
+		/*
 		CFsBuffer buf = ae->NewBuffer((SPD_RAND_MAX+3)*sizeof(A_u_char));// + SPD_RAND_MAX
 		if (buf.alive()==FALSE){
 			ae->out_data->out_flags |= PF_OutFlag_DISPLAY_ERROR_MESSAGE;
@@ -216,9 +224,10 @@ static PF_Err
 			err = PF_Err_INTERNAL_STRUCT_DAMAGED;
 			return err;
 		}
-		infoP->sputRandTable = buf.bufA_u_char();
+		*/
+		infoP->sputRandTable = (A_u_char*)bw1.data;
 		SetupSputData(infoP->size,infoP->sputRandTable);
-		infoP->buf = buf1.bufA_u_char();
+		infoP->buf = (A_u_char*)bw2.data;
 
 		F_SRAND(infoP->seed);	
 		switch(ae->pixelFormat())
@@ -233,9 +242,13 @@ static PF_Err
 			ERR(MainRender8(ae,infoP));
 			break;
 		}
+		ae->DisposeWorld(&bw1);
+		ae->DisposeWorld(&bw2);
+		/*
 		buf.Dispose();
 		buf1.Dispose();
-	}
+		*/
+	}	
 	return err;
 }
 

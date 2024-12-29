@@ -200,6 +200,7 @@ static PF_Err
 	Exec (CFsAE *ae , ParamInfo *infoP)
 {
 	PF_Err	err = PF_Err_NONE;
+	PF_InData* in_data = ae->in_data;
 
 	if (infoP->org == TRUE) {
 		ERR( ae->CopyInToOut());
@@ -207,6 +208,28 @@ static PF_Err
 		ERR(ae->out->clear());
 	}
 	if ( ((infoP->value>0)&&(infoP->edge_value>0))&&(infoP->opa>0) ){
+		A_long hsize1 = ae->out->width() * (ae->out->height() + 8) * sizeof(A_u_char);
+		A_long hsize2 = (SPD_RAND_MAX + 8) * sizeof(A_u_char);
+
+		A_long xx = ae->out->width();
+		A_long yy = ((hsize1 + hsize2)/2) / ae->out->width() + 8;
+
+		PF_EffectWorld bw1;
+		PF_EffectWorld bw2;
+
+		ERR(ae->NewWorld(ae->out->width(), ae->out->height()/4+8, PF_PixelFormat_ARGB32, &bw1));
+		ERR(ae->NewWorld(SPD_RAND_MAX, 4, PF_PixelFormat_ARGB32, &bw2));
+
+		/*
+		PF_Handle bufH = PF_NEW_HANDLE(hsize1+ hsize2+1024);
+		if (!bufH) {
+			err = PF_Err_OUT_OF_MEMORY;
+			return err;
+		}
+		PF_LOCK_HANDLE(bufH);
+		*/
+		//ae->LockHandle(bufH);
+		/*
 		CFsBuffer buf1 = ae->NewBuffer( ae->out->width() *(ae->out->height()+8)*sizeof(A_u_char));// + SPD_RAND_MAX
 		if (buf1.alive()==FALSE){
 			ae->out_data->out_flags |= PF_OutFlag_DISPLAY_ERROR_MESSAGE;
@@ -220,8 +243,13 @@ static PF_Err
 			err = PF_Err_INTERNAL_STRUCT_DAMAGED;
 			return err;
 		}
-		infoP->buf		= buf1.bufA_u_char();	
+		buf1.Lock();
+		buf2.Lock();
+		infoP->buf		= buf1.bufA_u_char();
 		infoP->sputRandTable = buf2.bufA_u_char();
+		*/
+		infoP->buf		= (A_u_char*)bw1.data;
+		infoP->sputRandTable = (A_u_char*)bw2.data;
 		SetupSputData(infoP->size,infoP->sputRandTable);
 
 		switch(ae->pixelFormat())
@@ -236,8 +264,11 @@ static PF_Err
 			ERR(MainRender8(ae,infoP));
 			break;
 		}
-		buf1.Dispose();
-		buf2.Dispose();
+		
+		ae->DisposeWorld(&bw1);
+		ae->DisposeWorld(&bw2);
+		//PF_UNLOCK_HANDLE(bufH);
+		//PF_DISPOSE_HANDLE(bufH);
 	}
 
 	return err;
