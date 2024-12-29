@@ -1675,6 +1675,37 @@ public:
 		return err;
 	}
 	//*********************************************************************************
+	PF_Err NewWorld(A_long w, A_long h,PF_PixelFormat pf, PF_EffectWorld *wld)
+	{
+		PF_Err err = PF_Err_NONE;
+		AEFX_CLR_STRUCT(m_tmp);
+		if (m_mode == FsAE_SMART_RENDER) {
+			ERR(CFsAE::ws2P->PF_NewWorld(in_data->effect_ref, w, h, TRUE, pf, wld));
+
+		}
+		else {
+			PF_NewWorldFlags f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_NONE;
+			if (pf == PF_PixelFormat_ARGB64)
+				f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_DEEP_PIXELS;
+
+			ERR((*in_data->utils->new_world)(in_data->effect_ref, w, h, f, wld));
+		}
+		return err;
+	}
+	PF_Err DisposeWorld(PF_EffectWorld* wld)
+	{
+		PF_Err err = PF_Err_NONE;
+		if (wld != NULL) {
+			if (m_mode == FsAE_SMART_RENDER) {
+				ERR(CFsAE::ws2P->PF_DisposeWorld(in_data->effect_ref, wld));
+			}
+			else {
+				ERR((*in_data->utils->dispose_world)(in_data->effect_ref, wld));
+			}
+		}
+		return err;
+	}
+	//*********************************************************************************
 	PF_Handle NewHandle(A_long size)
 	{
 		return PF_NEW_HANDLE(size);
