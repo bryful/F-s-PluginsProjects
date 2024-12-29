@@ -5,6 +5,7 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 昔から趣味でコツコツと作っていたものです。<br>
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。<br>
 <br>
+
 ## <b>**重要なお知らせ**</b><br>
 2025年度からAdobeCCの料金がかなり高価に値上がりしたので、プライベートではとっても払えないので次回の更新はしないことにしました。その為F's Pluginsの更新はi今以上にかなりロースペースになります。<br>
 一応僕も仕事でたまには使うのでAfter Effects自体のバージョンに合わせて再ビルドは行うつもりです(SDKの更新に合わせます)<br>
@@ -20,7 +21,11 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 まぁ、バグ報告のほうがありがたいです。 <br>
 <br>
 
+## 進捗
 
+F's sputteringAlpha.aex/F's sputteringSplash.aexが内部エラーで落ちるバグに対処。<br>
+まだ原因が特定できていないので、直っていないかも。<br>
+[FssputteringAS20241229.zip](https://github.com/bryful/F-s-PluginsProjects/raw/refs/heads/master/_DL_windowsbinary/FssputteringAS20241229.zip)<br>
 
 AE2022のマルチフレームレンダーに対応させました。<br>
 ***
