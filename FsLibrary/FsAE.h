@@ -1708,21 +1708,25 @@ public:
 	//*********************************************************************************
 	PF_Handle NewHandle(A_long size)
 	{
+		//return suitesP->HandleSuite1()->host_new_handle(size);
 		return PF_NEW_HANDLE(size);
 	}
 	//*********************************************************************************
 	void LockHandle(PF_Handle h)
 	{
+		//suitesP->HandleSuite1()->host_lock_handle(h);
 		PF_LOCK_HANDLE(h);
 	}
 	//*********************************************************************************
 	void UnlockHandle(PF_Handle h)
 	{
+		//suitesP->HandleSuite1()->host_unlock_handle(h);
 		PF_UNLOCK_HANDLE(h);
 	}
 	//*********************************************************************************
 	void DisposeHandle(PF_Handle h)
 	{
+		//suitesP->HandleSuite1()->host_dispose_handle(h);
 		PF_DISPOSE_HANDLE(h);
 	}
 	//*********************************************************************************

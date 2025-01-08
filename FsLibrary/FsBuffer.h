@@ -19,6 +19,7 @@ protected:
 	PF_Boolean	m_isLock;
 	A_long		m_width;
 	A_long		m_height;
+	AEGP_SuiteHandler* suitesP;
 	//-----------------------------
 	void Init(){
 		in_data		= NULL;
@@ -28,6 +29,7 @@ protected:
 		m_isLock	= FALSE;
 		m_width		=0;
 		m_height	=0;
+		suitesP		= NULL;
 	}
 public:
 	//-----------------------------
@@ -36,7 +38,10 @@ public:
 		PF_Err err	= PF_Err_NONE;
 		if (in_data!= NULL) {
 			try{
-				if (size>0) m_bufH = PF_NEW_HANDLE(size);
+				if (size > 0) {
+					m_bufH = suitesP->HandleSuite1()->host_new_handle(size);
+					//m_bufH = PF_NEW_HANDLE(size);
+				}
 			}catch(PF_Err & e){
 				err = e;
 			}
@@ -58,8 +63,10 @@ public:
 			if ( m_bufH) {
 				if ( m_isLock ==TRUE){
 					PF_UNLOCK_HANDLE(m_bufH);
+					//suitesP->HandleSuite1()->host_unlock_handle(m_bufH);
 					m_isLock = FALSE;
 				}
+				//suitesP->HandleSuite1()->host_dispose_handle(m_bufH);
 				PF_DISPOSE_HANDLE(m_bufH);
 				m_bufH = NULL;
 				m_size = 0;
@@ -80,6 +87,8 @@ public:
 		Init();
 		if ((sz>0)&&(in_dataP !=NULL)){
 			in_data = in_dataP;
+			suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
+
 			m_err = Create(sz);
 			if (m_err==PF_Err_NONE){
 				m_size		= sz; 
@@ -96,6 +105,7 @@ public:
 		Init();
 		if (in_dataP !=NULL){
 			in_data = in_dataP;
+			suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
 			m_err = Create(size);
 			if (!m_err){
 				m_size		= size; 
@@ -109,6 +119,11 @@ public:
 	//-----------------------------
 	~CFsBuffer(){
 		Dispose();
+		if (suitesP != NULL)
+		{
+			delete suitesP;
+			suitesP = NULL;
+		}
 	}
 	//-----------------------------
 	void Lock()
@@ -116,6 +131,7 @@ public:
 		if ( in_data != NULL)
 			if ( m_bufH != NULL)
 				if ( m_isLock ==FALSE){
+					//suitesP->HandleSuite1()->host_lock_handle(m_bufH);
 					PF_LOCK_HANDLE(m_bufH);
 					m_isLock = TRUE;
 				}
@@ -126,7 +142,8 @@ public:
 		if ( in_data != NULL)
 			if ( m_bufH != NULL)
 				if ( m_isLock ==TRUE) {
-					PF_LOCK_HANDLE(m_bufH);
+					//suitesP->HandleSuite1()->host_unlock_handle(m_bufH);
+					PF_UNLOCK_HANDLE(m_bufH);
 					m_isLock = FALSE;
 				}
 	}
