@@ -220,15 +220,15 @@ static PF_Err
 		ERR(ae->NewWorld(ae->out->width(), ae->out->height()/4+8, PF_PixelFormat_ARGB32, &bw1));
 		ERR(ae->NewWorld(SPD_RAND_MAX, 4, PF_PixelFormat_ARGB32, &bw2));
 
-		/*
-		PF_Handle bufH = PF_NEW_HANDLE(hsize1+ hsize2+1024);
-		if (!bufH) {
-			err = PF_Err_OUT_OF_MEMORY;
-			return err;
-		}
-		PF_LOCK_HANDLE(bufH);
-		*/
+		
+		//PF_Handle bufH = ae->NewHandle(hsize1+ hsize2+1024);
+		//if (!bufH) {
+		//	err = PF_Err_OUT_OF_MEMORY;
+		//	return err;
+		//}
 		//ae->LockHandle(bufH);
+		//PF_LOCK_HANDLE(bufH);
+		
 		/*
 		CFsBuffer buf1 = ae->NewBuffer( ae->out->width() *(ae->out->height()+8)*sizeof(A_u_char));// + SPD_RAND_MAX
 		if (buf1.alive()==FALSE){
@@ -250,6 +250,8 @@ static PF_Err
 		*/
 		infoP->buf		= (A_u_char*)bw1.data;
 		infoP->sputRandTable = (A_u_char*)bw2.data;
+		//infoP->buf = *(A_u_char**)bufH;
+		//infoP->sputRandTable = infoP->buf + hsize1 + 512;
 		SetupSputData(infoP->size,infoP->sputRandTable);
 
 		switch(ae->pixelFormat())
@@ -269,6 +271,10 @@ static PF_Err
 		ae->DisposeWorld(&bw2);
 		//PF_UNLOCK_HANDLE(bufH);
 		//PF_DISPOSE_HANDLE(bufH);
+		//buf1.Dispose();
+		//buf2.Dispose();
+		//ae->UnlockHandle(bufH);
+		//ae->DisposeHandle(bufH);
 	}
 
 	return err;

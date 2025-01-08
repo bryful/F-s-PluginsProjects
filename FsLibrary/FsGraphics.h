@@ -122,6 +122,7 @@ private:
 	A_long* m_vurTbl = NULL;
 	PF_Handle	m_vurTblH = NULL;
 
+
 	//--------------------------------------------------------------------
 	// paint start 
 	typedef struct  {
@@ -195,9 +196,9 @@ protected:
 	void horBlur32(blurPrm *sub);
 public:
 	//-----------------------
-	CFsGraph( 
-		PF_EffectWorld *world, 
-		PF_InData *in_data,
+	CFsGraph(
+		PF_EffectWorld* world,
+		PF_InData* in_data,
 		PF_PixelFormat	format = PF_PixelFormat_ARGB32
 		);
 	//-----------------------
@@ -927,6 +928,8 @@ public:
 		gi->height = m_height;
 		gi->data = m_data;
 	}
+	//******************************************************************************
+	
 };
 //******************************************************************************
 // FsGraphicsBlend.cpp
@@ -972,4 +975,5 @@ c(d') = (c(d) * A(d) + c(s) * A(s')) / A(d');
 
 */
 //******************************************************************************
+
 #endif

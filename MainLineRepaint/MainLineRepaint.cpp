@@ -400,39 +400,40 @@ static PF_Err
 	ERR(ae->CopyInToOut());
 	
 
-	PF_Handle lH;
+	//PF_Handle lH;
+	PF_EffectWorld bw1;
 	switch(ae->pixelFormat())
 	{
 	case PF_PixelFormat_ARGB128:
-		lH = PF_NEW_HANDLE(w * sizeof(PF_PixelFloat));
-		if (!lH) return PF_Err_OUT_OF_MEMORY;
+		ERR(ae->NewWorld(ae->out->width(), 8, PF_PixelFormat_ARGB128, &bw1));
+			
+		infoP->scanline = bw1.data;
 		for ( int i=0; i<20; i++){
 			Exec32(ae,infoP);
 			if (infoP->count<=0) break;
 		}
 		break;
 	case PF_PixelFormat_ARGB64:
-		lH = PF_NEW_HANDLE(w * sizeof(PF_Pixel16));
-		if (!lH) return PF_Err_OUT_OF_MEMORY;
+		ERR(ae->NewWorld(ae->out->width(), 8, PF_PixelFormat_ARGB64, &bw1));
 		
-		infoP->scanline =  *(PF_PixelPtr *)lH;
+		infoP->scanline = bw1.data;
 		for ( int i=0; i<20; i++){
 			Exec16(ae,infoP);
 			if (infoP->count<=0) break;
 		}
 		break;
 	case PF_PixelFormat_ARGB32:
-		lH = PF_NEW_HANDLE(w * sizeof(PF_Pixel));
-		if (!lH) return PF_Err_OUT_OF_MEMORY;
-		
-		infoP->scanline =  *(PF_PixelPtr *)lH;
+		ERR(ae->NewWorld(ae->out->width(), 8, PF_PixelFormat_ARGB32, &bw1));
+
+		infoP->scanline = bw1.data;
 		for ( int i=0; i<20; i++){
 			Exec8(ae,infoP);
 			if (infoP->count<=0) break;
 		}
 		break;
 	}
-	PF_DISPOSE_HANDLE(lH);
+	ae->DisposeWorld(&bw1);
+//	PF_DISPOSE_HANDLE(lH);
 	return err;
 }
 

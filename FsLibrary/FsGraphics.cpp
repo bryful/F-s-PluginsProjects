@@ -24,6 +24,7 @@ CFsGraph::CFsGraph(
 		if ( (in_data->current_time>=0)&&(in_data->time_step>0) ) {
 			m_frame	=(in_data->current_time/in_data->time_step); 
 		}
+
 	}
 	m_format = format;
 	if ( world!=NULL){
@@ -57,6 +58,7 @@ CFsGraph::CFsGraph(
 
 			m_Enabled = TRUE;
 		}
+
 	}
 
 
