@@ -24,6 +24,8 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 
 F's sputteringAlpha.aex/F's sputteringSplash.aexが内部エラーで落ちるバグに対処。<br>
 まだ原因が特定できていないので、直っていないかも。<br>
+MainLineReplaceも同様なバグがあったので修正。<br>
+[Fssputtering_MainLineReplace20250109.zip](https://github.com/bryful/F-s-PluginsProjects/raw/refs/heads/master/_DL_windowsbinary/Fssputtering_MainLineReplace20250109.zip)<br>
 [FssputteringAS20241229.zip](https://github.com/bryful/F-s-PluginsProjects/raw/refs/heads/master/_DL_windowsbinary/FssputteringAS20241229.zip)<br>
 
 AE2022のマルチフレームレンダーに対応させました。<br>
