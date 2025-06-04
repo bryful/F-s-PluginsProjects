@@ -154,6 +154,16 @@ static PF_Err Exec8(CFsAE *ae, ParamInfo *infoP)
 					//dst = { 255,0,255,255 };
 					dst = lp;
 				}
+				else if ((lv == PPTRANS) && (rv <=  PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
+					dst = lp;
+				}
 				else if ((lv == PPTRANS) && (rv == PPTRANS))
 				{
 					dst = {0,0,0,0};
@@ -245,6 +255,16 @@ static PF_Err Exec8(CFsAE *ae, ParamInfo *infoP)
 				}
 				else if ((lv <= PF_MAX_CHAN8) && (rv == PPMAIN))
 				{
+					dst = lp;
+				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
 					dst = lp;
 				}
 				else if ((rv == PPTRANS) && (lv == PPTRANS))
@@ -356,6 +376,16 @@ static PF_Err Exec16(CFsAE* ae, ParamInfo* infoP)
 						dst = rp;
 					}
 				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
+					dst = lp;
+				}
 				else if ((lv == PPMAIN) && (rv <= PF_MAX_CHAN8))
 				{
 					//dst = { 255,0,255,0 };
@@ -459,6 +489,16 @@ static PF_Err Exec16(CFsAE* ae, ParamInfo* infoP)
 				}
 				else if ((lv <= PF_MAX_CHAN8) && (rv == PPMAIN))
 				{
+					dst = lp;
+				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
 					dst = lp;
 				}
 				else if ((rv == PPTRANS) && (lv == PPTRANS))
@@ -580,6 +620,16 @@ static PF_Err Exec32(CFsAE* ae, ParamInfo* infoP)
 					//dst = { 255,0,255,255 };
 					dst = lp;
 				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
 				else if ((lv == PPTRANS) && (rv == PPTRANS))
 				{
 					dst = { 0,0,0,0 };
@@ -678,6 +728,16 @@ static PF_Err Exec32(CFsAE* ae, ParamInfo* infoP)
 				else if ((rv == PPTRANS) && (lv == PPTRANS))
 				{
 					dst = { 0,0,0,0 };
+				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
 				}
 				else {
 					dv = FALSE;
