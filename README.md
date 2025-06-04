@@ -8,6 +8,9 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 
 ## F's MainLineRepaint_beta.aex 高速版ベータテスト版
 
+
+[FsMainLineRepaint_beta_20250604.zip](https://github.com/bryful/F-s-PluginsProjects/raw/refs/heads/master/_DL_windowsbinary/FsMainLineRepaint_beta_20250604.zip)<br>
+<br>
 F's MainLineRepaintの高速版を作りました。ベータテスト版ですので本番には使わないように。<br>
 matchNameを変えてあるので前のバージョンと同時素養可能ですが、正式版では上書き予定です。<br>
 <br>
