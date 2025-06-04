@@ -201,6 +201,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unmult_KNSW_Fake", "Unmult_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChromaticAberration", "ChromaticAberration\Win\ChromaticAberration.vcxproj", "{F318250A-E25C-4C8B-8C0F-240111026374}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainLineRepaint2", "MainLineRepaint2\Win\MainLineRepaint2.vcxproj", "{BC5440FD-F500-4932-A9E2-5EDFAC807762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1337,6 +1339,18 @@ Global
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Release-MT|x64.Build.0 = Release-MT|x64
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Release-MT|x86.ActiveCfg = Release-MT|Win32
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Release-MT|x86.Build.0 = Release-MT|Win32
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Debug|x64.ActiveCfg = Debug|x64
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Debug|x64.Build.0 = Debug|x64
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Debug|x86.ActiveCfg = Debug|Win32
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Debug|x86.Build.0 = Debug|Win32
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Release|x64.ActiveCfg = Release|x64
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Release|x64.Build.0 = Release|x64
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Release|x86.ActiveCfg = Release|Win32
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Release|x86.Build.0 = Release|Win32
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Release-MT|x64.ActiveCfg = Release-MT|x64
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Release-MT|x64.Build.0 = Release-MT|x64
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Release-MT|x86.ActiveCfg = Release-MT|Win32
+		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Release-MT|x86.Build.0 = Release-MT|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
