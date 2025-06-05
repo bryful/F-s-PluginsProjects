@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Header Files">
@@ -32,7 +32,7 @@
     <ClInclude Include="..\Fs_Target.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\MainLineRepaint.h">
+    <ClInclude Include="..\CellLineEraser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H">
@@ -131,17 +131,17 @@
     <ClInclude Include="..\..\..\Util\AEFX_SuiteHelper.h">
       <Filter>Supporting code\AE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\F%27s PluginsProjects_2013\F%27s MainLineRepaint_2013\Fs_Entry.h">
+    <ClInclude Include="..\..\..\F%27s PluginsProjects_2013\F%27s CellLineEraser_2013\Fs_Entry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MainLineRepaintPiPL.rc">
+    <ResourceCompile Include="CellLineEraserPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\MainLineRepaint.cpp" />
+    <ClCompile Include="..\CellLineEraser.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp">
       <Filter>Supporting code\Fs</Filter>
     </ClCompile>
@@ -175,9 +175,12 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
+    <ClCompile Include="..\CellLineEraser8.cpp" />
+    <ClCompile Include="..\CellLineEraser16.cpp" />
+    <ClCompile Include="..\CellLineEraser32.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\MainLineRepaintPiPL.r">
+    <CustomBuild Include="..\CellLineEraserPiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------------
 /*
-	MainLineRepaint for VS2010
+	CellLineEraser for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef MainLineRepaint_H
-#define MainLineRepaint_H
+#ifndef CellLineEraser_H
+#define CellLineEraser_H
 
 #include "Fs_Target.h"
 
@@ -43,20 +43,51 @@
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_Main_Color,
-	ID_level,
-
+	ID_Color_COUNT,
+	ID_Color1,
+	ID_Color2,
+	ID_Color3,
+	ID_Color4,
+	ID_Color5,
+	ID_Color6,
+	ID_Color7,
+	ID_Color8,
+	ID_Color9,
+	ID_Color10,
+	ID_KEEP_PIXELS,
+	ID_Fill_Unknown_Colors,
+	ID_Fill_Color,
+	ID_MakeWhiteTransparent,
 	ID_NUM_PARAMS
 };
 
 //UIの表示文字列
-#define	STR_Main_Color	"主線の色"
-#define	STR_level		"許容値(%)"
+#define	STR_Use			"TargetColorCount"
+#define	STR_Color1		"color1"
+#define	STR_Color2		"color2"
+#define	STR_Color3		"color3"
+#define	STR_Color4		"color4"
+#define	STR_Color5		"color5"
+#define	STR_Color6		"color6"
+#define	STR_Color7		"color7"
+#define	STR_Color8		"color8"
+#define	STR_Color9		"color9"
+#define	STR_Color10		"color10"
+#define	STR_KEEP_PIXELS	"KeepPixels"
+#define	STR_FillUnknownColors	"FillUnknownColors"
+#define	STR_FillColor	"FilColor"
+#define	STR_MakeWhiteTransparent	"Make White Transparent"
+
 
 //UIのパラメータ
 typedef struct ParamInfo {
-	PF_Pixel  		Main_Color;
-	A_u_char		lv;
+	A_long			TargetColorCount;
+	PF_Pixel  		Colors[16];
+	PF_Boolean		KeepPixel;
+	PF_Boolean		FillUnknownColors;
+	PF_Pixel  		GiveUpColor;
+	PF_Boolean		MakeWhiteTransparent;
+
 	A_long			count;
 	PF_PixelPtr		scanline;
 	A_long			scanLength;
@@ -78,7 +109,7 @@ typedef struct ParamInfo {
 
 inline A_long PxStatus(A_long v)
 {
-	if (v == PPMAIN) {
+	if (v >= PPMAIN) {
 		return PS_MAIN;
 	}
 	else if (v == PPTRANS)
@@ -91,17 +122,20 @@ inline A_long PxStatus(A_long v)
 	}
 }
 //-------------------------------------------------------
-inline A_long pV8(PF_Pixel p,PF_Pixel m,A_u_char lv)
+inline A_long pV8(PF_Pixel p,ParamInfo* infoP)
 {
 	A_long ret = PF_MAX_CHAN8;
 	if (p.alpha == 0) {
 		ret = PPTRANS;
 		return ret;
 	}
-	if (compPix8Lv(p, m, lv) == TRUE)
+	for (int i = 0; i < infoP->TargetColorCount; i++)
 	{
-		ret = PPMAIN;
-		return ret;
+		if (compPix8(p, infoP->Colors[i]) == TRUE)
+		{
+			ret = PPMAIN;
+			return ret;
+		}
 	}
 	double r = (double)p.red / PF_MAX_CHAN8;
 	double g = (double)p.green / PF_MAX_CHAN8;
@@ -115,7 +149,7 @@ inline A_long pV8(PF_Pixel p,PF_Pixel m,A_u_char lv)
 	return ret;
 }
 //-------------------------------------------------------
-inline A_long pV16(PF_Pixel16 p, PF_Pixel m, A_u_char lv)
+inline A_long pV16(PF_Pixel16 p, ParamInfo* infoP)
 {
 	A_long ret = PF_MAX_CHAN8;
 	if (p.alpha == 0) {
@@ -123,10 +157,13 @@ inline A_long pV16(PF_Pixel16 p, PF_Pixel m, A_u_char lv)
 		return ret;
 	}
 	PF_Pixel p2 = CONV16TO8(p);
-	if (compPix8Lv(p2, m, lv) == TRUE)
+	for (int i = 0; i < infoP->TargetColorCount; i++)
 	{
-		ret = PPMAIN;
-		return ret;
+		if (compPix8(p2, infoP->Colors[i]) == TRUE)
+		{
+			ret = PPMAIN;
+			return ret;
+		}
 	}
 	double r = (double)p.red / PF_MAX_CHAN16;
 	double g = (double)p.green / PF_MAX_CHAN16;
@@ -140,7 +177,7 @@ inline A_long pV16(PF_Pixel16 p, PF_Pixel m, A_u_char lv)
 	return ret;
 }
 //-------------------------------------------------------
-inline A_long pV32(PF_PixelFloat p, PF_Pixel m, A_u_char lv)
+inline A_long pV32(PF_PixelFloat p, ParamInfo* infoP)
 {
 	A_long ret = PF_MAX_CHAN8;
 	if (p.alpha == 0) {
@@ -148,10 +185,13 @@ inline A_long pV32(PF_PixelFloat p, PF_Pixel m, A_u_char lv)
 		return ret;
 	}
 	PF_Pixel p2 = CONV32TO8(p);
-	if (compPix8Lv(p2, m, lv) == TRUE)
+	for (int i = 0; i < infoP->TargetColorCount; i++)
 	{
-		ret = PPMAIN;
-		return ret;
+		if (compPix8(p2, infoP->Colors[i]) == TRUE)
+		{
+			ret = PPMAIN;
+			return ret;
+		}
 	}
 	double r = (double)p.red;
 	if (r > 1) r = 1;
@@ -172,6 +212,12 @@ inline A_long pV32(PF_PixelFloat p, PF_Pixel m, A_u_char lv)
  PF_Err Exec8(CFsAE* ae, ParamInfo* infoP);
 PF_Err Exec16(CFsAE* ae, ParamInfo* infoP);
 PF_Err Exec32(CFsAE* ae, ParamInfo* infoP);
+PF_Err Giveup8(CFsAE* ae, ParamInfo* infoP);
+PF_Err Giveup16(CFsAE* ae, ParamInfo* infoP);
+PF_Err Giveup32(CFsAE* ae, ParamInfo* infoP);
+PF_Err White8(CFsAE* ae, ParamInfo* infoP);
+PF_Err White16(CFsAE* ae, ParamInfo* infoP);
+PF_Err White32(CFsAE* ae, ParamInfo* infoP);
 
 extern "C" {
 
@@ -185,4 +231,4 @@ EntryPointFunc (
 	PF_LayerDef		*output,
 	void			*extra);
 }
-#endif // MainLineRepaint_H
+#endif // CellLineEraser_H

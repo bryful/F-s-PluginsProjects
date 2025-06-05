@@ -32,7 +32,7 @@
     <ClInclude Include="..\Fs_Target.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\MainLineRepaint.h">
+    <ClInclude Include="..\MainLineRepaint_old2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H">
@@ -136,12 +136,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MainLineRepaintPiPL.rc">
+    <ResourceCompile Include="MainLineRepaint_old2PiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\MainLineRepaint.cpp" />
+    <ClCompile Include="..\MainLineRepaint_old2.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp">
       <Filter>Supporting code\Fs</Filter>
     </ClCompile>
@@ -175,12 +175,9 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\MainLineRepaint8.cpp" />
-    <ClCompile Include="..\MainLineRepaint16.cpp" />
-    <ClCompile Include="..\MainLineRepaint32.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\MainLineRepaintPiPL.r">
+    <CustomBuild Include="..\MainLineRepaint_old2PiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
