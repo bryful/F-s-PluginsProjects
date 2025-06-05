@@ -73,98 +73,234 @@ QueryDynamicFlags(
 	PF_Err 	err 	= PF_Err_NONE;
 	return err;
 }
+/*
 //-------------------------------------------------------------------------------------------------
-static PF_Err Exec8(CFsAE *ae, ParamInfo *infoP)
+static PF_Err Exec16(CFsAE* ae, ParamInfo* infoP)
 {
-	PF_Err 	err 	= PF_Err_NONE;
-	PF_Pixel *scanline;
-	scanline = (PF_Pixel *)infoP->scanline;
+	PF_Err 	err = PF_Err_NONE;
 	A_long w = ae->out->width();
 	A_long wt = ae->out->widthTrue();
 	A_long h = ae->out->height();
+	PF_Pixel16* scanline;
+	A_long* scanlineV;
+	scanline = (PF_Pixel16*)infoP->scanline;
+	scanlineV = (A_long*)(scanline + w * 2);
 
-	PF_Pixel *data;
-	data = (PF_Pixel *)ae->out->data();
+	PF_Pixel16* data;
+	data = (PF_Pixel16*)ae->out->data();
+	
+	PF_Pixel16 m2 = CONV8TO16(infoP->Main_Color);
 	//水平方向
 	A_long cnt = 0;
-	for ( A_long j=0; j<h; j++){
-		A_long adrY = j*wt;
-		for (A_long i=0; i<w; i++) scanline[i] = data[adrY + i];
-		for (A_long i=1; i<w-1; i++){
-			if ( compPix8Lv(infoP->Main_Color,scanline[i],infoP->lv)==TRUE){
-				PF_Pixel d = scanline[i];
-				A_long dv = PF_MAX_CHAN16;
+	for (A_long j = 0; j < h; j++) {
+		A_long adrY = j * wt;
+		//元画像をスキャンラインごとに退避
+		for (A_long i = 0; i < w; i++) {
+			scanline[i] = data[adrY + i];
+			//主線・透明と明るさのテーブル
+			//　明るさ 0-255
+			// 透明 256 PPTRANS
+			// 主線 257 PPMAIN
+			scanlineV[i] = pV16(data[adrY + i], infoP->Main_Color, infoP->lv);
+		}
 
-				if (compPix8Lv(infoP->Main_Color,scanline[i-1],infoP->lv)==FALSE){
-					d = scanline[i-1];
-					dv = pxV8(d);
-				}
+		for (A_long i = 1; i < w - 1; i++) {
+			if (scanlineV[i] == PPMAIN) {
+				PF_Pixel16 dst = m2;
+				PF_Boolean dv = TRUE;
+				PF_Pixel16 lp = m2;
+				A_long lv = PPMAIN;
+				PF_Pixel16 rp = m2;
+				A_long rv = PPMAIN;
 
-				if (compPix8Lv(infoP->Main_Color,scanline[i+1],infoP->lv)==FALSE){
-					if ( dv > pxV8(scanline[i+1])){
-						d = scanline[i+1];
+				for (int k = 1; k < infoP->scanLength; k++)
+				{
+					int k2 = i - k;
+					if (k2 < 0) break;
+					if (scanlineV[k2] < PPMAIN)
+					{
+						lp = scanline[k2];
+						lv = scanlineV[k2];
+						break;
 					}
 				}
-				if (compPix8Lv(infoP->Main_Color,d,infoP->lv)==FALSE){
-					data[adrY + i] = d;
-				}else{
+				for (int k = 1; k < infoP->scanLength; k++)
+				{
+					int k3 = i + k;
+					if (k3 >= w) break;
+					if (scanlineV[k3] < PPMAIN)
+					{
+						rp = scanline[k3];
+						rv = scanlineV[k3];
+						break;
+					}
+				}
+				if ((lv <= PF_MAX_CHAN8) && (rv <= PF_MAX_CHAN8))
+				{
+					if (lv <= rv)
+					{
+						//dst = { 255,255,0,0 };
+						dst = lp;
+					}
+					else {
+						//dst = { 255,255,255,0 };
+						dst = rp;
+					}
+				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
+					dst = lp;
+				}
+				else if ((lv == PPMAIN) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,0 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPMAIN))
+				{
+					//dst = { 255,0,255,255 };
+					dst = lp;
+				}
+				else if ((lv == PPTRANS) && (rv == PPTRANS))
+				{
+					dst = { 0,0,0,0 };
+				}
+				else {
+					dv = FALSE;
+				}
+
+				if (dv == TRUE) {
+					data[adrY + i] = dst;
+				}
+				else {
 					cnt++;
 				}
 			}
 		}
-		if (compPix8Lv(infoP->Main_Color,data[adrY],infoP->lv)==TRUE){
-			if (compPix8Lv(infoP->Main_Color,data[adrY+1],infoP->lv)==FALSE){
-				data[adrY] = data[adrY+1];
-			}else{
+		if (scanlineV[0] >= PPMAIN) {
+			if (scanlineV[1] < PPMAIN) {
+				data[adrY] = scanline[1];
+			}
+			else {
 				cnt++;
 			}
 		}
-		if (compPix8Lv(infoP->Main_Color,data[adrY+ w-1],infoP->lv)==TRUE){
-			if (compPix8Lv(infoP->Main_Color,data[adrY+w -2],infoP->lv)==FALSE){
-				data[adrY+ w-1] = data[adrY+ w-2];
-			}else{
+		if (scanlineV[w - 1] >= PPMAIN) {
+			if (scanlineV[w - 2] < PPMAIN) {
+				data[adrY + w - 1] = scanline[w - 1];
+			}
+			else {
 				cnt++;
 			}
 		}
 	}
-	if ( cnt == 0) return err;
+	if (cnt == 0) return err;
+	// 垂直方向
 	cnt = 0;
-	for ( A_long i=0; i<w; i++){
-		for (A_long j=0; j<h; j++) scanline[j] = data[j * wt + i];
-		for (A_long j=1; j<h-1; j++){
-			if ( compPix8Lv(infoP->Main_Color,scanline[j],infoP->lv)==TRUE){
-				PF_Pixel d = scanline[j];
-				A_long dv = PF_MAX_CHAN16;
+	for (A_long i = 0; i < w; i++) {
+		for (A_long j = 0; j < h; j++) {
+			scanline[j] = data[j * wt + i];
+			scanlineV[j] = pV16(data[j * wt + i], infoP->Main_Color, infoP->lv);
+		}
 
-				if (compPix8Lv(infoP->Main_Color,scanline[j-1],infoP->lv)==FALSE){
-					d = scanline[j-1];
-					dv = pxV8(d);
-				}
 
-				if (compPix8Lv(infoP->Main_Color,scanline[j+1],infoP->lv)==FALSE){
-					if ( dv > pxV8(scanline[j+1])){
-						d = scanline[j+1];
+
+		for (A_long j = 1; j < h - 1; j++) {
+			if (scanlineV[j] == PPMAIN) {
+				PF_Pixel16 dst = m2;
+				PF_Boolean dv = TRUE;
+				PF_Pixel16 lp = m2;
+				PF_Pixel16 rp = m2;
+				A_long lv = PPMAIN;
+				A_long rv = PPMAIN;
+				for (int k = 1; k < infoP->scanLength; k++)
+				{
+					int k2 = j - k;
+					if (k2 < 0) break;
+					if (scanlineV[k2] != PPMAIN)
+					{
+						lp = scanline[k2];
+						lv = scanlineV[k2];
+						break;
 					}
 				}
-				if (compPix8Lv(infoP->Main_Color,d,infoP->lv)==FALSE){
-					data[j* wt + i] = d;
-				}else{
+
+				for (int k = 1; k < infoP->scanLength; k++)
+				{
+					int k2 = j + k;
+					if (k2 >= h) break;
+					if (scanlineV[k2] != PPMAIN)
+					{
+						rp = scanline[k2];
+						rv = scanlineV[k2];
+						break;
+					}
+				}
+
+
+				if ((lv <= PF_MAX_CHAN8) && (rv <= PF_MAX_CHAN8))
+				{
+					if (lv <= rv)
+					{
+						dst = lp;
+					}
+					else {
+						dst = rp;
+					}
+				}
+				else if ((lv == PPMAIN) && (rv <= PF_MAX_CHAN8))
+				{
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPMAIN))
+				{
+					dst = lp;
+				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
+					dst = lp;
+				}
+				else if ((rv == PPTRANS) && (lv == PPTRANS))
+				{
+					dst = { 0,0,0,0 };
+				}
+				else {
+					dv = FALSE;
+				}
+
+				if (dv == TRUE) {
+					data[j * wt + i] = dst;
+				}
+				else {
 					cnt++;
 				}
 			}
 		}
-		A_long ay = wt * (h-1);
-		if (compPix8Lv(infoP->Main_Color,data[i],infoP->lv)==TRUE){
-			if (compPix8Lv(infoP->Main_Color,data[i+ wt],infoP->lv)==FALSE){
-				data[i] = data[i + wt];
-			}else{
+		if (scanlineV[0] >= PPMAIN) {
+			if (scanlineV[1] < PPMAIN) {
+				data[i] = scanline[1];
+			}
+			else {
 				cnt++;
 			}
 		}
-		if (compPix8Lv(infoP->Main_Color,data[i + ay],infoP->lv)==TRUE){
-			if (compPix8Lv(infoP->Main_Color,data[i + ay - wt],infoP->lv)==FALSE){
-				data[i + ay] = data[i + ay - wt];
-			}else{
+		if (scanlineV[w - 1] >= PPMAIN) {
+			if (scanlineV[w - 2] < PPMAIN) {
+				data[wt * (h - 1) + i] = scanline[w - 1];
+			}
+			else {
 				cnt++;
 			}
 		}
@@ -173,196 +309,232 @@ static PF_Err Exec8(CFsAE *ae, ParamInfo *infoP)
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
-static PF_Err Exec16(CFsAE *ae, ParamInfo *infoP)
+static PF_Err Exec32(CFsAE* ae, ParamInfo* infoP)
 {
-	PF_Err 	err 	= PF_Err_NONE;
-	PF_Pixel16 *scanline;
-	scanline = (PF_Pixel16 *)infoP->scanline;
+	PF_Err 	err = PF_Err_NONE;
 	A_long w = ae->out->width();
 	A_long wt = ae->out->widthTrue();
 	A_long h = ae->out->height();
-
-	PF_Pixel16 *data;
-	data = (PF_Pixel16 *)ae->out->data();
-	//水平方向
-	A_long cnt = 0;
-	for ( A_long j=0; j<h; j++){
-		A_long adrY = j*wt;
-		for (A_long i=0; i<w; i++) scanline[i] = data[adrY + i];
-		for (A_long i=1; i<w-1; i++){
-			if ( compPix16_8Lv(scanline[i],infoP->Main_Color,infoP->lv)==TRUE){
-				PF_Pixel16 d = scanline[i];
-				A_long dv = PF_MAX_CHAN16;
-
-				if (compPix16_8Lv(scanline[i-1],infoP->Main_Color,infoP->lv)==FALSE){
-					d = scanline[i-1];
-					dv = pxV16(d);
-				}
-
-				if (compPix16_8Lv(scanline[i+1],infoP->Main_Color,infoP->lv)==FALSE){
-					if ( dv > pxV16(scanline[i+1])){
-						d = scanline[i+1];
-					}
-				}
-				if (compPix16_8Lv(d,infoP->Main_Color,infoP->lv)==FALSE){
-					data[adrY + i] = d;
-				}else{
-					cnt++;
-				}
-			}
-		}
-		if (compPix16_8Lv(data[adrY],infoP->Main_Color,infoP->lv)==TRUE){
-			if (compPix16_8Lv(data[adrY+1],infoP->Main_Color,infoP->lv)==FALSE){
-				data[adrY] = data[adrY+1];
-			}else{
-				cnt++;
-			}
-		}
-		if (compPix16_8Lv(data[adrY+ w-1],infoP->Main_Color,infoP->lv)==TRUE){
-			if (compPix16_8Lv(data[adrY+w -2],infoP->Main_Color,infoP->lv)==FALSE){
-				data[adrY+ w-1] = data[adrY+ w-2];
-			}else{
-				cnt++;
-			}
-		}
-	}
-	if ( cnt == 0) return err;
-	cnt = 0;
-	for ( A_long i=0; i<w; i++){
-		for (A_long j=0; j<h; j++) scanline[j] = data[j * wt + i];
-		for (A_long j=1; j<h-1; j++){
-			if ( compPix16_8Lv(scanline[j],infoP->Main_Color,infoP->lv)==TRUE){
-				PF_Pixel16 d = scanline[j];
-				A_long dv = PF_MAX_CHAN16;
-
-				if (compPix16_8Lv(scanline[j-1],infoP->Main_Color,infoP->lv)==FALSE){
-					d = scanline[j-1];
-					dv = pxV16(d);
-				}
-
-				if (compPix16_8Lv(scanline[j+1],infoP->Main_Color,infoP->lv)==FALSE){
-					if ( dv > pxV16(scanline[j+1])){
-						d = scanline[j+1];
-					}
-				}
-				if (compPix16_8Lv(d,infoP->Main_Color,infoP->lv)==FALSE){
-					data[j* wt + i] = d;
-				}else{
-					cnt++;
-				}
-			}
-		}
-		A_long ay = wt * (h-1);
-		if (compPix16_8Lv(data[i],infoP->Main_Color,infoP->lv)==TRUE){
-			if (compPix16_8Lv(data[i+ wt],infoP->Main_Color,infoP->lv)==FALSE){
-				data[i] = data[i + wt];
-			}else{
-				cnt++;
-			}
-		}
-		if (compPix16_8Lv(data[i + ay],infoP->Main_Color,infoP->lv)==TRUE){
-			if (compPix16_8Lv(data[i + ay - wt],infoP->Main_Color,infoP->lv)==FALSE){
-				data[i + ay] = data[i + ay - wt];
-			}else{
-				cnt++;
-			}
-		}
-	}
-	infoP->count = cnt;
-	return err;
-}
-//-------------------------------------------------------------------------------------------------
-static PF_Err Exec32(CFsAE *ae, ParamInfo *infoP)
-{
-	PF_Err 	err 	= PF_Err_NONE;
 	PF_PixelFloat *scanline;
-	scanline = (PF_PixelFloat *)infoP->scanline;
-	A_long w = ae->out->width();
-	A_long wt = ae->out->widthTrue();
-	A_long h = ae->out->height();
+	A_long* scanlineV;
+	scanline = (PF_PixelFloat*)infoP->scanline;
+	scanlineV = (A_long*)(scanline + w * 2);
 
-	PF_PixelFloat *data;
-	data = (PF_PixelFloat *)ae->out->data();
+	PF_PixelFloat* data;
+	data = (PF_PixelFloat*)ae->out->data();
+
+	PF_PixelFloat m2 = CONV8TO32(infoP->Main_Color);
 	//水平方向
 	A_long cnt = 0;
-	for ( A_long j=0; j<h; j++){
-		A_long adrY = j*wt;
-		for (A_long i=0; i<w; i++) scanline[i] = data[adrY + i];
-		for (A_long i=1; i<w-1; i++){
-			if ( compPix32_8Lv(scanline[i],infoP->Main_Color,infoP->lv)==TRUE){
-				PF_PixelFloat d = scanline[i];
-				A_long dv = PF_MAX_CHAN16;
+	for (A_long j = 0; j < h; j++) {
+		A_long adrY = j * wt;
+		//元画像をスキャンラインごとに退避
+		for (A_long i = 0; i < w; i++) {
+			scanline[i] = data[adrY + i];
+			//主線・透明と明るさのテーブル
+			//　明るさ 0-255
+			// 透明 256 PPTRANS
+			// 主線 257 PPMAIN
+			scanlineV[i] = pV32(data[adrY + i], infoP->Main_Color, infoP->lv);
+		}
 
-				if (compPix32_8Lv(scanline[i-1],infoP->Main_Color,infoP->lv)==FALSE){
-					d = scanline[i-1];
-					dv = pxV32(d);
-				}
+		for (A_long i = 1; i < w - 1; i++) {
+			if (scanlineV[i] == PPMAIN) {
+				PF_PixelFloat dst = m2;
+				PF_Boolean dv = TRUE;
+				PF_PixelFloat lp = m2;
+				A_long lv = PPMAIN;
+				PF_PixelFloat rp = m2;
+				A_long rv = PPMAIN;
 
-				if (compPix32_8Lv(scanline[i+1],infoP->Main_Color,infoP->lv)==FALSE){
-					if ( dv > pxV32(scanline[i+1])){
-						d = scanline[i+1];
+				for (int k = 1; k < infoP->scanLength; k++)
+				{
+					int k2 = i - k;
+					if (k2 < 0) break;
+					if (scanlineV[k2] < PPMAIN)
+					{
+						lp = scanline[k2];
+						lv = scanlineV[k2];
+						break;
 					}
 				}
-				if (compPix32_8Lv(d,infoP->Main_Color,infoP->lv)==FALSE){
-					data[adrY + i] = d;
-				}else{
+				for (int k = 1; k < infoP->scanLength; k++)
+				{
+					int k3 = i + k;
+					if (k3 >= w) break;
+					if (scanlineV[k3] < PPMAIN)
+					{
+						rp = scanline[k3];
+						rv = scanlineV[k3];
+						break;
+					}
+				}
+				if ((lv <= PF_MAX_CHAN8) && (rv <= PF_MAX_CHAN8))
+				{
+					if (lv <= rv)
+					{
+						//dst = { 255,255,0,0 };
+						dst = lp;
+					}
+					else {
+						//dst = { 255,255,255,0 };
+						dst = rp;
+					}
+				}
+				else if ((lv == PPMAIN) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,0 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPMAIN))
+				{
+					//dst = { 255,0,255,255 };
+					dst = lp;
+				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv == PPTRANS) && (rv == PPTRANS))
+				{
+					dst = { 0,0,0,0 };
+				}
+				else {
+					dv = FALSE;
+				}
+
+				if (dv == TRUE) {
+					data[adrY + i] = dst;
+				}
+				else {
 					cnt++;
 				}
 			}
 		}
-		if (compPix32_8Lv(data[adrY],infoP->Main_Color,infoP->lv)==TRUE){
-			if (compPix32_8Lv(data[adrY+1],infoP->Main_Color,infoP->lv)==FALSE){
-				data[adrY] = data[adrY+1];
-			}else{
+		if (scanlineV[0] >= PPMAIN) {
+			if (scanlineV[1] < PPMAIN) {
+				data[adrY] = scanline[1];
+			}
+			else {
 				cnt++;
 			}
 		}
-		if (compPix32_8Lv(data[adrY+ w-1],infoP->Main_Color,infoP->lv)==TRUE){
-			if (compPix32_8Lv(data[adrY+w -2],infoP->Main_Color,infoP->lv)==FALSE){
-				data[adrY+ w-1] = data[adrY+ w-2];
-			}else{
+		if (scanlineV[w - 1] >= PPMAIN) {
+			if (scanlineV[w - 2] < PPMAIN) {
+				data[adrY + w - 1] = scanline[w - 1];
+			}
+			else {
 				cnt++;
 			}
 		}
 	}
-	if ( cnt == 0) return err;
+	if (cnt == 0) return err;
+	// 垂直方向
 	cnt = 0;
-	for ( A_long i=0; i<w; i++){
-		for (A_long j=0; j<h; j++) scanline[j] = data[j * wt + i];
-		for (A_long j=1; j<h-1; j++){
-			if ( compPix32_8Lv(scanline[j],infoP->Main_Color,infoP->lv)==TRUE){
-				PF_PixelFloat d = scanline[j];
-				A_long dv = PF_MAX_CHAN16;
+	for (A_long i = 0; i < w; i++) {
+		for (A_long j = 0; j < h; j++) {
+			scanline[j] = data[j * wt + i];
+			scanlineV[j] = pV32(data[j * wt + i], infoP->Main_Color, infoP->lv);
+		}
 
-				if (compPix32_8Lv(scanline[j-1],infoP->Main_Color,infoP->lv)==FALSE){
-					d = scanline[j-1];
-					dv = pxV32(d);
-				}
 
-				if (compPix32_8Lv(scanline[j+1],infoP->Main_Color,infoP->lv)==FALSE){
-					if ( dv > pxV32(scanline[j+1])){
-						d = scanline[j+1];
+
+		for (A_long j = 1; j < h - 1; j++) {
+			if (scanlineV[j] == PPMAIN) {
+				PF_PixelFloat dst = m2;
+				PF_Boolean dv = TRUE;
+				PF_PixelFloat lp = m2;
+				PF_PixelFloat rp = m2;
+				A_long lv = PPMAIN;
+				A_long rv = PPMAIN;
+				for (int k = 1; k < infoP->scanLength; k++)
+				{
+					int k2 = j - k;
+					if (k2 < 0) break;
+					if (scanlineV[k2] != PPMAIN)
+					{
+						lp = scanline[k2];
+						lv = scanlineV[k2];
+						break;
 					}
 				}
-				if (compPix32_8Lv(d,infoP->Main_Color,infoP->lv)==FALSE){
-					data[j* wt + i] = d;
-				}else{
+
+				for (int k = 1; k < infoP->scanLength; k++)
+				{
+					int k2 = j + k;
+					if (k2 >= h) break;
+					if (scanlineV[k2] != PPMAIN)
+					{
+						rp = scanline[k2];
+						rv = scanlineV[k2];
+						break;
+					}
+				}
+
+
+				if ((lv <= PF_MAX_CHAN8) && (rv <= PF_MAX_CHAN8))
+				{
+					if (lv <= rv)
+					{
+						dst = lp;
+					}
+					else {
+						dst = rp;
+					}
+				}
+				else if ((lv == PPMAIN) && (rv <= PF_MAX_CHAN8))
+				{
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPMAIN))
+				{
+					dst = lp;
+				}
+				else if ((rv == PPTRANS) && (lv == PPTRANS))
+				{
+					dst = { 0,0,0,0 };
+				}
+				else if ((lv == PPTRANS) && (rv <= PF_MAX_CHAN8))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else if ((lv <= PF_MAX_CHAN8) && (rv == PPTRANS))
+				{
+					//dst = { 255,0,255,255 };
+					dst = rp;
+				}
+				else {
+					dv = FALSE;
+				}
+
+				if (dv == TRUE) {
+					data[j * wt + i] = dst;
+				}
+				else {
 					cnt++;
 				}
 			}
 		}
-		A_long ay = wt * (h-1);
-		if (compPix32_8Lv(data[i],infoP->Main_Color,infoP->lv)==TRUE){
-			if (compPix32_8Lv(data[i+ wt],infoP->Main_Color,infoP->lv)==FALSE){
-				data[i] = data[i + wt];
-			}else{
+		if (scanlineV[0] >= PPMAIN) {
+			if (scanlineV[1] < PPMAIN) {
+				data[i] = scanline[1];
+			}
+			else {
 				cnt++;
 			}
 		}
-		if (compPix32_8Lv(data[i + ay],infoP->Main_Color,infoP->lv)==TRUE){
-			if (compPix32_8Lv(data[i + ay - wt],infoP->Main_Color,infoP->lv)==FALSE){
-				data[i + ay] = data[i + ay - wt];
-			}else{
+		if (scanlineV[w - 1] >= PPMAIN) {
+			if (scanlineV[w - 2] < PPMAIN) {
+				data[wt * (h - 1) + i] = scanline[w - 1];
+			}
+			else {
 				cnt++;
 			}
 		}
@@ -370,6 +542,7 @@ static PF_Err Exec32(CFsAE *ae, ParamInfo *infoP)
 	infoP->count = cnt;
 	return err;
 }
+*/
 //-------------------------------------------------------------------------------------------------
 static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
@@ -379,6 +552,8 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	PF_FpLong d;
 	ERR(ae->GetFLOAT(ID_level,&d));
 	infoP->lv = (A_u_char)(PF_MAX_CHAN8 * d/100);
+	infoP->scanCount = 10;
+	infoP->scanLength = 4;
 	infoP->count = 0;
 
 	return err;
@@ -402,33 +577,37 @@ static PF_Err
 
 	//PF_Handle lH;
 	PF_EffectWorld bw1;
+	int count = -1;
 	switch(ae->pixelFormat())
 	{
 	case PF_PixelFormat_ARGB128:
-		ERR(ae->NewWorld(ae->out->width(), 8, PF_PixelFormat_ARGB128, &bw1));
+		ERR(ae->NewWorld(w, 8, PF_PixelFormat_ARGB128, &bw1));
 			
 		infoP->scanline = bw1.data;
-		for ( int i=0; i<20; i++){
+		for ( int i=0; i<infoP->scanCount; i++){
 			Exec32(ae,infoP);
-			if (infoP->count<=0) break;
+			if ((count == infoP->count) || (infoP->count <= 0))break;
+			count = infoP->count;
 		}
 		break;
 	case PF_PixelFormat_ARGB64:
-		ERR(ae->NewWorld(ae->out->width(), 8, PF_PixelFormat_ARGB64, &bw1));
+		ERR(ae->NewWorld(w, 8, PF_PixelFormat_ARGB64, &bw1));
 		
 		infoP->scanline = bw1.data;
-		for ( int i=0; i<20; i++){
+		for (int i = 0; i < infoP->scanCount; i++) {
 			Exec16(ae,infoP);
-			if (infoP->count<=0) break;
+			if ((count == infoP->count) || (infoP->count <= 0))break;
+			count = infoP->count;
 		}
 		break;
 	case PF_PixelFormat_ARGB32:
-		ERR(ae->NewWorld(ae->out->width(), 8, PF_PixelFormat_ARGB32, &bw1));
+		ERR(ae->NewWorld(w, 8, PF_PixelFormat_ARGB32, &bw1));
 
 		infoP->scanline = bw1.data;
-		for ( int i=0; i<20; i++){
+		for (int i = 0; i < infoP->scanCount; i++) {
 			Exec8(ae,infoP);
-			if (infoP->count<=0) break;
+			if ((count == infoP->count) || (infoP->count <= 0))break;
+			count = infoP->count;
 		}
 		break;
 	}

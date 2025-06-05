@@ -12,7 +12,7 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define FS_NAME			"F's MainLineRepaint-beta"
+#define FS_NAME			"F's CellLineEraser"
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
@@ -22,7 +22,7 @@
 //プラグインが表示されるメニュー名
 //#define FS_CATEGORY "F's Plugins-Fx"
 //#define FS_CATEGORY "F's Plugins-Channel"
-#define FS_CATEGORY "NF's Plugins-Beta"
+#define FS_CATEGORY "NF's Plugins-Cell"
 //#define FS_CATEGORY "F's Plugins-Script"
 //#define FS_CATEGORY "F's Plugins-Draw"
 

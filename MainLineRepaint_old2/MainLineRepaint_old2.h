@@ -59,8 +59,6 @@ typedef struct ParamInfo {
 	A_u_char		lv;
 	A_long			count;
 	PF_PixelPtr		scanline;
-	A_long			scanLength;
-	A_long			scanCount;
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 
@@ -78,86 +76,6 @@ inline A_long pxV8(PF_Pixel p)
 		pp.blue = (PF_FpShort)(pp.blue * pp.alpha +  1.0 *(1.0- pp.alpha)); 
 	}
 	return (A_long)((( 0.29891 * pp.red) + ( 0.58661 * pp.green) + ( 0.11448 * pp.blue)) * PF_MAX_CHAN16);
-}
-#define PPMAIN 257
-#define PPTRANS 256
-
-//-------------------------------------------------------
-inline A_long pV8(PF_Pixel p,PF_Pixel m,A_u_char lv)
-{
-	A_long ret = PF_MAX_CHAN8;
-	if (p.alpha == 0) {
-		ret = PPTRANS;
-		return ret;
-	}
-	if (compPix8Lv(p, m, lv) == TRUE)
-	{
-		ret = PPMAIN;
-		return ret;
-	}
-	double r = (double)p.red / PF_MAX_CHAN8;
-	double g = (double)p.green / PF_MAX_CHAN8;
-	double b = (double)p.blue / PF_MAX_CHAN8;
-	ret= (A_long)(((0.29891 * r) + (0.58661 * g) + (0.11448 * b)) * PF_MAX_CHAN8+0.5);
-	if (ret > PF_MAX_CHAN8) 
-		ret = PF_MAX_CHAN8;
-	else if (ret < 0)
-		ret = 0;
-
-	return ret;
-}
-//-------------------------------------------------------
-inline A_long pV16(PF_Pixel16 p, PF_Pixel m, A_u_char lv)
-{
-	A_long ret = PF_MAX_CHAN8;
-	if (p.alpha == 0) {
-		ret = PPTRANS;
-		return ret;
-	}
-	PF_Pixel p2 = CONV16TO8(p);
-	if (compPix8Lv(p2, m, lv) == TRUE)
-	{
-		ret = PPMAIN;
-		return ret;
-	}
-	double r = (double)p.red / PF_MAX_CHAN16;
-	double g = (double)p.green / PF_MAX_CHAN16;
-	double b = (double)p.blue / PF_MAX_CHAN16;
-	ret = (A_long)(((0.29891 * r) + (0.58661 * g) + (0.11448 * b)) * PF_MAX_CHAN8 + 0.5);
-	if (ret > PF_MAX_CHAN8)
-		ret = PF_MAX_CHAN8;
-	else if (ret < 0)
-		ret = 0;
-
-	return ret;
-}
-//-------------------------------------------------------
-inline A_long pV32(PF_PixelFloat p, PF_Pixel m, A_u_char lv)
-{
-	A_long ret = PF_MAX_CHAN8;
-	if (p.alpha == 0) {
-		ret = PPTRANS;
-		return ret;
-	}
-	PF_Pixel p2 = CONV32TO8(p);
-	if (compPix8Lv(p2, m, lv) == TRUE)
-	{
-		ret = PPMAIN;
-		return ret;
-	}
-	double r = (double)p.red;
-	if (r > 1) r = 1;
-	double g = (double)p.green;
-	if (g > 1) g = 1;
-	double b = (double)p.blue;
-	if (b > 1) b = 1;
-	ret = (A_long)(((0.29891 * r) + (0.58661 * g) + (0.11448 * b)) * PF_MAX_CHAN8 + 0.5);
-	if (ret > PF_MAX_CHAN8)
-		ret = PF_MAX_CHAN8;
-	else if (ret < 0)
-		ret = 0;
-
-	return ret;
 }
 //-------------------------------------------------------
 inline A_long pxV16(PF_Pixel16 p)
