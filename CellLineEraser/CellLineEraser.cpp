@@ -255,7 +255,7 @@ static PF_Err
 	case PF_PixelFormat_ARGB32:
 		if (infoP->MakeWhiteTransparent == TRUE)
 		{
-			White32(ae, infoP);
+			White8(ae, infoP);
 		}
 
 		ERR(ae->NewWorld(w, 8, PF_PixelFormat_ARGB32, &bw1));
