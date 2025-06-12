@@ -277,7 +277,7 @@ PF_Err White32(CFsAE* ae, ParamInfo* infoP)
 		for (int i = 0; i < w; i++)
 		{
 			PF_Pixel p = CONV32TO8(data[adrY + i]);
-			if ((p.red == 0xFF) && (p.green == 0xFF) && (p.red == 0xFF))
+			if ((p.red == 0xFF) && (p.green == 0xFF) && (p.blue == 0xFF))
 			{
 				data[adrY + i] = { 0,0,0,0 };
 			}
