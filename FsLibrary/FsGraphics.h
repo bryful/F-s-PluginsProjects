@@ -120,7 +120,9 @@ private:
 	A_long				m_mat = MAT::none;
 
 	A_long* m_vurTbl = NULL;
-	PF_Handle	m_vurTblH = NULL;
+	//PF_Handle	m_vurTblH = NULL;
+
+	PF_EffectWorld m_vurWorld;
 
 
 	//--------------------------------------------------------------------
