@@ -8,6 +8,12 @@ Adobe‚ÌƒTƒuƒXƒN‚ª‚Šz‚É‚È‚Á‚½‚Ì‚ÅXV‚ðŽ~‚ß‚Ü‚µ‚½B‚±‚ê‚©‚ç‚Í”N‚É‚P‰ñˆêƒ–ŒŽ‚¾‚¯‚
 ‚½‚¾‚µAd“x‚ÌƒoƒO“™‚ð”FŽ¯‚µ‚½‚ç‘¬‚â‚©‚É‘Î‰ž‚·‚é‚Â‚à‚è‚Å‚·B
 
 
+# ƒƒ‚ƒŠ—‚Ý‚Ì‚Æ‚±‚ë‚ðƒGƒ‰[‚ðo‚³‚È‚¢‚æ‚¤‚É‘Îˆ‚µ‚Ü‚µ‚½B
+—‘z“I‚È•û–@‚Å‚Í‚È‚¢‚Å‚·‚ªAƒƒ‚ƒŠŠm•Û‚ÌƒR[ƒh‚ð‚·‚×‚Ä‚Ìƒvƒ‰ƒOƒCƒ“‚É“K‰ž‚³‚¹‚Ü‚µ‚½B
+‹t‚ÉƒGƒ“ƒoƒO‚µ‚Ä‚¢‚é‰Â”\«‚à‚ ‚è‚Ü‚·‚Ì‚Å’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢B
+
+
+
 # ‚±‚Ìƒo[ƒWƒ‡ƒ“‚ÌŽ–
 
 AfterEffectsSDK_25.2_20_win‚ª‚¢‚Â‚ÌŠÔ‚É‚©ƒŠƒŠ[ƒX‚³‚ê‚Ä‚¢‚½‚Ì‚Å‚»‚ê‚ðŽg‚¨‚¤‚ÆŽv‚Á‚½‚çA

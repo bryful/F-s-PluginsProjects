@@ -103,8 +103,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoiseHiLo_RGB", "NoiseHiLo_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpticalDiffusion", "OpticalDiffusion\Win\OpticalDiffusion.vcxproj", "{EEAFB167-BD4D-4CD8-BB63-083C667979D4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainLineRepaint_old", "MainLineRepaint_old\Win\MainLineRepaint_old.vcxproj", "{AA6B61AB-FE84-4800-B04E-7470C9773B86}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "alphaThreshold", "AlphaThreshold\Win\alphaThreshold.vcxproj", "{7C83E956-B2B9-430B-959E-BA86D9E4E624}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "colorThreshold", "colorThreshold\Win\colorThreshold.vcxproj", "{237FD67B-9D84-415B-ADE7-61D01A74ED16}"
@@ -198,8 +196,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unmult_KNSW_Fake", "Unmult_KNSW_Fake\Win\Unmult_KNSW_Fake.vcxproj", "{9C969558-7F3E-47C3-A57B-D1F3864E1D13}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChromaticAberration", "ChromaticAberration\Win\ChromaticAberration.vcxproj", "{F318250A-E25C-4C8B-8C0F-240111026374}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainLineRepaint_old2", "MainLineRepaint_old2\Win\MainLineRepaint2.vcxproj", "{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainLineRepaint", "MainLineRepaint\Win\MainLineRepaint.vcxproj", "{BC5440FD-F500-4932-A9E2-5EDFAC807762}"
 EndProject
@@ -758,18 +754,6 @@ Global
 		{EEAFB167-BD4D-4CD8-BB63-083C667979D4}.Release-MT|x64.Build.0 = Release-MT|x64
 		{EEAFB167-BD4D-4CD8-BB63-083C667979D4}.Release-MT|x86.ActiveCfg = Release-MT|Win32
 		{EEAFB167-BD4D-4CD8-BB63-083C667979D4}.Release-MT|x86.Build.0 = Release-MT|Win32
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Debug|x64.ActiveCfg = Debug|x64
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Debug|x64.Build.0 = Debug|x64
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Debug|x86.ActiveCfg = Debug|Win32
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Debug|x86.Build.0 = Debug|Win32
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Release|x64.ActiveCfg = Release|x64
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Release|x64.Build.0 = Release|x64
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Release|x86.ActiveCfg = Release|Win32
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Release|x86.Build.0 = Release|Win32
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Release-MT|x64.ActiveCfg = Release-MT|x64
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Release-MT|x64.Build.0 = Release-MT|x64
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Release-MT|x86.ActiveCfg = Release-MT|Win32
-		{AA6B61AB-FE84-4800-B04E-7470C9773B86}.Release-MT|x86.Build.0 = Release-MT|Win32
 		{7C83E956-B2B9-430B-959E-BA86D9E4E624}.Debug|x64.ActiveCfg = Debug|x64
 		{7C83E956-B2B9-430B-959E-BA86D9E4E624}.Debug|x64.Build.0 = Debug|x64
 		{7C83E956-B2B9-430B-959E-BA86D9E4E624}.Debug|x86.ActiveCfg = Debug|Win32
@@ -1329,18 +1313,6 @@ Global
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Release-MT|x64.Build.0 = Release-MT|x64
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Release-MT|x86.ActiveCfg = Release-MT|Win32
 		{F318250A-E25C-4C8B-8C0F-240111026374}.Release-MT|x86.Build.0 = Release-MT|Win32
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Debug|x64.ActiveCfg = Debug|x64
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Debug|x64.Build.0 = Debug|x64
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Debug|x86.ActiveCfg = Debug|Win32
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Debug|x86.Build.0 = Debug|Win32
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Release|x64.ActiveCfg = Release|x64
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Release|x64.Build.0 = Release|x64
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Release|x86.ActiveCfg = Release|Win32
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Release|x86.Build.0 = Release|Win32
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Release-MT|x64.ActiveCfg = Release-MT|x64
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Release-MT|x64.Build.0 = Release-MT|x64
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Release-MT|x86.ActiveCfg = Release-MT|Win32
-		{D083FA16-AF6A-409F-8A7B-43B782BFFB0F}.Release-MT|x86.Build.0 = Release-MT|Win32
 		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Debug|x64.ActiveCfg = Debug|x64
 		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Debug|x64.Build.0 = Debug|x64
 		{BC5440FD-F500-4932-A9E2-5EDFAC807762}.Debug|x86.ActiveCfg = Debug|Win32

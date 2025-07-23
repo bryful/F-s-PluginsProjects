@@ -513,34 +513,19 @@ static PF_Err
 	case PF_PixelFormat_ARGB64:
 		CCPInfo16 info16;
 		info16 = to16(infoP);
-		if (buf.Create(COLOR_TABLE_SIZE16) == PF_Err_NONE){
-			info16.colorTbl	= buf.bufPixel16();
-			makeColorTbl16(&info16);
-			ERR(ae->iterate16((refconType)&info16,AddColor16));
-			buf.Dispose();
-
-			if(!err){
-				if (info16.noise_value>0){
-					ERR(ae->iterate16((refconType)&info16,AddNoise16));	
-				}
+		ERR(ae->iterate16((refconType)&info16, AddColor16));
+		if (!err) {
+			if (info16.noise_value > 0) {
+				ERR(ae->iterate16((refconType)&info16, AddNoise16));
 			}
-		}else{
-			err = PF_Err_INTERNAL_STRUCT_DAMAGED;
 		}
 		break;
 	case PF_PixelFormat_ARGB32:
-		if (buf.Create(COLOR_TABLE_SIZE8) ==PF_Err_NONE){
-			infoP->colorTbl	= buf.bufPixel();
-			makeColorTbl8(infoP);
-			ERR(ae->iterate8((refconType)infoP,AddColor8));
-			buf.Dispose();
-			if(!err){
-				if (infoP->noise_value>0){
-					ERR(ae->iterate8((refconType)infoP,AddNoise8));	
-				}
+		ERR(ae->iterate8((refconType)infoP, AddColor8));
+		if (!err) {
+			if (infoP->noise_value > 0) {
+				ERR(ae->iterate8((refconType)infoP, AddNoise8));
 			}
-		}else{
-			err = PF_Err_INTERNAL_STRUCT_DAMAGED;
 		}
 		break;
 	default:

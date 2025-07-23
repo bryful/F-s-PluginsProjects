@@ -1,18 +1,12 @@
 #include "FsGraphics.h"
 
 
-//******************************************************************************
-/*
-	CFsGraph
-	描画用のクラス
-*/
-//******************************************************************************
-	//-----------------------
 CFsGraph::CFsGraph(
 		PF_EffectWorld	*world, 
 		PF_InData		*in_data,
 		PF_PixelFormat	format)
 {
+	PF_Err err = PF_Err_NONE;
 	//メンバの初期化
 
 	lineHeiht		= 1;
@@ -46,30 +40,31 @@ CFsGraph::CFsGraph(
 				break;
 		}
 		m_offsetWidth	= m_widthTrue - m_width;
-		m_vurTblH = PF_NEW_HANDLE(sizeof(A_long) * m_height * 2);
 
-		if (m_vurTblH) {
-			PF_LOCK_HANDLE(m_vurTblH);
-			m_vurTbl = *(A_long**)m_vurTblH;
-			for (A_long i = 0; i < m_height; i++)
-			{
-				m_vurTbl[i] = m_widthTrue*i;
+		PF_NewWorldFlags f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_NONE;
+
+		// NULLチェックを追加
+		if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
+			m_vurWorld.data = NULL;
+			ERR((*m_in_data->utils->new_world)(m_in_data->effect_ref, m_height/4, 8, PF_PixelFormat_ARGB32, &m_vurWorld));
+			if (m_vurWorld.data != NULL) {
+				m_vurTbl = (A_long*)m_vurWorld.data;
+				for (A_long i = 0; i < m_height; i++)
+				{
+					m_vurTbl[i] = m_widthTrue * i;
+				}
+				m_Enabled = TRUE;
 			}
-
-			m_Enabled = TRUE;
 		}
 
+
 	}
-
-
 }
 CFsGraph::~CFsGraph()
 {
-	if (m_vurTblH != NULL)
-	{
-		PF_InData* in_data = m_in_data;
-		PF_UNLOCK_HANDLE(m_vurTblH);
-		PF_DISPOSE_HANDLE(m_vurTblH);
+	if (m_in_data != NULL && m_vurWorld.data != NULL) {
+		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &m_vurWorld);
+		m_vurWorld.data = NULL;
 	}
 }
 //******************************************************************************
