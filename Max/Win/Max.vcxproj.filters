@@ -125,6 +125,9 @@
     <ClInclude Include="..\..\..\F%27s PluginsProjects_2014\F%27s Max\Fs_Entry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\FsLibrary\FsBuffer.h">
+      <Filter>Header Files\Fs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MaxPiPL.rc">
