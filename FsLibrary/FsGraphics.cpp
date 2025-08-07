@@ -44,8 +44,9 @@ CFsGraph::CFsGraph(
 		PF_NewWorldFlags f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_NONE;
 
 		// NULLチェックを追加
+		m_vurWorld.data = NULL;
+		m_scanlineWorld.data = NULL;
 		if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
-			m_vurWorld.data = NULL;
 			ERR((*m_in_data->utils->new_world)(m_in_data->effect_ref, m_height/4, 8, PF_PixelFormat_ARGB32, &m_vurWorld));
 			if (m_vurWorld.data != NULL) {
 				m_vurTbl = (A_long*)m_vurWorld.data;
@@ -66,6 +67,25 @@ CFsGraph::~CFsGraph()
 		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &m_vurWorld);
 		m_vurWorld.data = NULL;
 	}
+	if (m_in_data != NULL && m_scanlineWorld.data != NULL) {
+		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &m_scanlineWorld);
+		m_scanlineWorld.data = NULL;
+	}
 }
 //******************************************************************************
 //******************************************************************************
+PF_Err CFsGraph::MakeScanlineworld(A_long size)
+{
+	PF_Err err = PF_Err_NONE;
+	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
+		if (m_scanlineWorld.data == NULL) {
+			ERR((*m_in_data->utils->new_world)(m_in_data->effect_ref, size / 4, 8, PF_PixelFormat_ARGB32, &m_scanlineWorld));
+			if (m_scanlineWorld.data != NULL) {
+				m_scanlineWorld.rowbytes = m_widthTrue * sizeof(PF_Pixel);
+			} else {
+				err = PF_Err_OUT_OF_MEMORY;
+			}
+		}
+	}
+	return err;
+}

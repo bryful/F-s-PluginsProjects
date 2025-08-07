@@ -123,6 +123,7 @@ private:
 	//PF_Handle	m_vurTblH = NULL;
 
 	PF_EffectWorld m_vurWorld;
+	PF_EffectWorld m_scanlineWorld;
 
 
 	//--------------------------------------------------------------------
@@ -246,6 +247,14 @@ public:
 	PF_Err Max_alpha(A_long value,ScanLineMode mode); // 1:êÖïΩ&êÇíº 2: êÖïΩ 3:êÇíº
 	*/
 
+	PF_Err MakeScanlineworld(A_long size);
+	PF_PixelPtr ScanLineWorldData()
+	{
+		if (m_scanlineWorld.data) {
+			return (PF_PixelPtr)m_scanlineWorld.data;
+		}
+		return NULL;
+	}
 	void Minimax_rgb8(MiniMaxPrm *prm);
 	void Minimax_alpha8(MiniMaxPrm *prm);
 	PF_Err Minimax8(A_long value,ScanLineMode mode = SCANLINE::HorAndVer,TargetChannelMode target = TARGET_CHANNEL::rgbAndAlpha);
