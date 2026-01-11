@@ -8,9 +8,15 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
 <br>
+
+DaVinci Resolve - Fusion 移植版<br>
+詳細はリンク先で<br>
+[https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports](https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports)<br>
+
 ## <b>**残念なお知らせ**</b><br>
 2025年度からAdobeCCの料金がかなり高価に値上がりしたので、プライベートではとっても払えないので次回の更新はしないことにしました。その為F's Pluginsの更新はi今以上にかなりロースペースになります。<br>
 一応僕も仕事でたまには使うのでAfter Effects自体のバージョンに合わせて再ビルドは行うつもりです(SDKの更新に合わせます)<br>
+
 
 
 ***
@@ -179,9 +185,9 @@ This software is released under the MIT License, see LICENSE.
 
 **プラグイン協力 bry-ful**
 
-とクレジットしてくれると嬉しいです。プラグイン協力以外でも適当な肩書であれば別のものに変えても構いません。
+とクレジットしてくれると嬉しいです。プラグイン協力以外でも適当な肩書であれば別のものに変えても構いません。<br>
 
-P関係のゲーム会社の方へ
+パチンコパチスロ遊技機開発会社の方へ<br>
 使用に関しては特に制限ありません。許諾も必要ありません。使用料も発生しません。
 これは今後絶対に変わりません。
 
