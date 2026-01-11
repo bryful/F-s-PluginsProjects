@@ -105,17 +105,21 @@ PF_Err CFsGraph::paint8(A_long x, A_long y, PF_Pixel col)
 	}
 	
 	//バッファーの作成。初期値を代入
-	queTable = PF_NEW_HANDLE(m_width * sizeof(paintQue));
-	if (!queTable) {
-		err = PF_Err_INTERNAL_STRUCT_DAMAGED;
-		return err;
+	PF_EffectWorld sw;
+	prm.buf = NULL;
+	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
+		int w = m_width * sizeof(paintQue);
+		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 4, 8, PF_PixelFormat_ARGB32, &sw);
+		prm.buf = (paintQue*)(sw.data);
 	}
-	prm.buf = *(paintQue**)queTable;
-
+	if (prm.buf == NULL)
+	{
+		return PF_Err_OUT_OF_MEMORY;
+	}
   prm.max   = m_width;
   prm.start = 0;
   prm.last  = 1;
-	prm.buf[prm.start].Xleft		= x;
+  prm.buf[prm.start].Xleft		= x;
   prm.buf[prm.start].Xright		= x;
   prm.buf[prm.start].Y				= y;
   prm.buf[prm.start].Yparent	= y;
@@ -202,9 +206,9 @@ PF_Err CFsGraph::paint8(A_long x, A_long y, PF_Pixel col)
 	}while(prm.start != prm.last);
 
 	//メモリの破棄
-	if (queTable){
-		PF_DISPOSE_HANDLE(queTable);
-		queTable =NULL;
+	if (m_in_data != NULL && m_scanlineWorld.data != NULL) {
+		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &sw);
+		sw.data = NULL;
 	}
 	return err;
 }
@@ -232,12 +236,17 @@ PF_Err CFsGraph::paint16(A_long x, A_long y, PF_Pixel col)
 	paintCol.blue	= (A_u_short)CONVERT8TO16(col.blue);
 	
 	//バッファーの作成。初期値を代入
-	queTable = PF_NEW_HANDLE(m_width * sizeof(paintQue));
-	if (!queTable) {
-		err = PF_Err_INTERNAL_STRUCT_DAMAGED;
-		return err;
+	PF_EffectWorld sw;
+	prm.buf = NULL;
+	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
+		int w = m_width * sizeof(paintQue);
+		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 4, 8, PF_PixelFormat_ARGB32, &sw);
+		prm.buf = (paintQue*)(sw.data);
 	}
-	prm.buf = *(paintQue**)queTable;
+	if (prm.buf == NULL)
+	{
+		return PF_Err_OUT_OF_MEMORY;
+	}
 
   prm.max   = m_width;
   prm.start = 0;
@@ -329,9 +338,9 @@ PF_Err CFsGraph::paint16(A_long x, A_long y, PF_Pixel col)
 	}while(prm.start != prm.last);
 
 	//メモリの破棄
-	if (queTable){
-		PF_DISPOSE_HANDLE(queTable);
-		queTable =NULL;
+	if (m_in_data != NULL && m_scanlineWorld.data != NULL) {
+		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &sw);
+		sw.data = NULL;
 	}
 	return err;
 }
@@ -359,12 +368,17 @@ PF_Err CFsGraph::paint32(A_long x, A_long y, PF_Pixel col)
 	paintCol.blue	= (PF_FpShort)((PF_FpShort)col.blue	/ PF_MAX_CHAN8);
 	
 	//バッファーの作成。初期値を代入
-	queTable = PF_NEW_HANDLE(m_width * sizeof(paintQue));
-	if (!queTable) {
-		err = PF_Err_INTERNAL_STRUCT_DAMAGED;
-		return err;
+	PF_EffectWorld sw;
+	prm.buf = NULL;
+	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
+		int w = m_width * sizeof(paintQue);
+		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 4, 8, PF_PixelFormat_ARGB32, &sw);
+		prm.buf = (paintQue*)(sw.data);
 	}
-	prm.buf = *(paintQue**)queTable;
+	if (prm.buf == NULL)
+	{
+		return PF_Err_OUT_OF_MEMORY;
+	}
 
 	prm.max   = m_width;
 	prm.start = 0;
@@ -456,9 +470,10 @@ PF_Err CFsGraph::paint32(A_long x, A_long y, PF_Pixel col)
 	}while(prm.start != prm.last);
 
 	//メモリの破棄
-	if (queTable){
-		PF_DISPOSE_HANDLE(queTable);
-		queTable =NULL;
+		//メモリの破棄
+	if (m_in_data != NULL && m_scanlineWorld.data != NULL) {
+		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &sw);
+		sw.data = NULL;
 	}
 	return err;
 }

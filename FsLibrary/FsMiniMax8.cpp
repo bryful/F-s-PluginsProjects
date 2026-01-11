@@ -267,18 +267,7 @@ PF_Err CFsGraph::MinimaxA8(A_long value)
 	{
 		return PF_Err_OUT_OF_MEMORY;
 	}
-	/*
-	PF_Handle sH = PF_NEW_HANDLE( w * sizeof(PF_Pixel));
-	if (!sH) return PF_Err_OUT_OF_MEMORY;
-	PF_Handle lH = PF_NEW_HANDLE(w * sizeof(A_long));
-	if (!lH) {
-		PF_DISPOSE_HANDLE(sH);
-		return PF_Err_OUT_OF_MEMORY;
-	}
-
-	mp.scanline	= *(PF_PixelPtr*)sH;
-	mp.level	= *(A_long **)lH;
-	*/
+	
 
 	//alpha
 	Minimax_alpha8(&mp);	
@@ -290,8 +279,7 @@ PF_Err CFsGraph::MinimaxA8(A_long value)
 		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &lw);
 		lw.data = NULL;
 	}
-	//PF_DISPOSE_HANDLE(sH);
-	//PF_DISPOSE_HANDLE(lH);
+	
 
 
 	return err;
