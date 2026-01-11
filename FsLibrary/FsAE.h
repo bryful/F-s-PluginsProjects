@@ -1059,6 +1059,18 @@ public:
 		*b = ret;
 		return err;
 	}
+	PF_Err SetCHECKBOX(A_long idx, PF_Boolean b)
+	{
+		PF_Err err = PF_Err_NONE;
+		if ((idx >= 1) && (idx < m_paramsCount) && (m_mode == FsAE_USER_CHANGED_PARAM)) {
+			params[idx]->u.bd.value = b;
+			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		return err;
+	}
 	//--------------------------------------------------------------------
 	PF_Err GetCOLOR(A_long idx,PF_Pixel* c)
 	{
@@ -1098,6 +1110,19 @@ public:
 		return err;
 
 
+	}
+	PF_Err SetCOLOR(A_long idx, PF_Pixel col)
+	{
+		PF_Err err = PF_Err_NONE;
+		if ((idx >= 1) && (idx < m_paramsCount) && (m_mode == FsAE_USER_CHANGED_PARAM))
+		{
+			params[idx]->u.cd.value.alpha = col.alpha;
+			params[idx]->u.cd.value.red = col.red;
+			params[idx]->u.cd.value.green = col.green;
+			params[idx]->u.cd.value.blue = col.blue;
+			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
+		}
+		return err;
 	}
 	//--------------------------------------------------------------------
 	PF_Err GetFLOAT(A_long idx,PF_FpLong *f)
@@ -1217,7 +1242,16 @@ public:
 		*pop = ret;
 		return err;
 	}
-
+	PF_Err SetPOPUP(A_long idx, A_long b)
+	{
+		PF_Err err = PF_Err_NONE;
+		if ((idx >= 1) && (idx < m_paramsCount) && (m_mode == FsAE_USER_CHANGED_PARAM))
+		{
+			params[idx]->u.pd.value = b;
+			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
+		}
+		return err;
+	}
 	//*********************************************************************************
 	PF_Err iterate8(
 		refconType refcon,

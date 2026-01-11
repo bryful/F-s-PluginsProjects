@@ -529,79 +529,8 @@ private:
 		}
 	}// ***************************************************************
 public:
-	void exec(A_FloatPoint start, A_FloatPoint last,PF_Pixel stc, PF_Pixel ltc )
+	void exec(A_FloatPoint start, A_FloatPoint last )
 	{
-		GradInfo gi;
-		gi.start = start;
-		gi.last = last;
-		gi.dx = gi.last.x - gi.start.x;
-		gi.dy = gi.last.y - gi.start.y;
-		gi.rad = PF_ATAN2(gi.dy, gi.dx);
-		gi.ax = gi.dx*10;
-		gi.ay = gi.dy*10;
-
-		gi.length = PF_HYPOT(gi.dx, gi.dy);
-
-		PF_FpLong rd2 = gi.rad + 90 * PF_PI / 180;
-
-		PF_FpLong px0 = 8000 * PF_COS(rd2);
-		PF_FpLong py0 = 8000 * PF_SIN(rd2);
-
-		gi.sV.s.x = gi.start.x - px0;
-		gi.sV.s.y = gi.start.y - py0;
-		gi.sV.e.x = gi.start.x + px0;
-		gi.sV.e.y = gi.start.y + py0;
-
-		gi.eV.s.x = gi.last.x - px0;
-		gi.eV.s.y = gi.last.y - py0;
-		gi.eV.e.x = gi.last.x + px0;
-		gi.eV.e.y = gi.last.y + py0;
-
-
-		switch (m_format)
-		{
-		case PF_PixelFormat_ARGB128:
-			PF_PixelFloat sc32 = CONV8TO32(stc);
-			PF_PixelFloat lc32 = CONV8TO32(ltc);
-			gi.startColP = (PF_PixelPtr)&sc32;
-			gi.lastColP = (PF_PixelPtr)&lc32;
-			if (F_ABS(gi.dx) >= F_ABS(gi.dy))
-			{
-				execX32(gi);
-			}
-			else {
-				execY32(gi);
-			}
-			break;
-		case PF_PixelFormat_ARGB64:
-			PF_Pixel16 sc16 = CONV8TO16(stc);
-			PF_Pixel16 lc16 = CONV8TO16(ltc);
-			gi.startColP = (PF_PixelPtr)&sc16;
-			gi.lastColP = (PF_PixelPtr)&lc16;
-			if (F_ABS(gi.dx) >= F_ABS(gi.dy))
-			{
-				execX16(gi);
-			}
-			else {
-				execY16(gi);
-			}
-			break;
-		default:
-		case PF_PixelFormat_ARGB32:
-			PF_Pixel sc = stc;
-			PF_Pixel lc = ltc;
-			gi.startColP = (PF_PixelPtr)&sc;
-			gi.lastColP = (PF_PixelPtr)&lc;
-			if (F_ABS(gi.dx) >= F_ABS(gi.dy))
-			{
-				execX8(gi);
-			}
-			else {
-				execY8(gi);
-			}
-			break;
-		}
-
 
 	}
 	// ***************************************************************
