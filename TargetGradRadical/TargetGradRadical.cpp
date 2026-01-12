@@ -1,11 +1,11 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
 //-----------------------------------------------------------------------------------
 
 
-#include "TargetGrad.h"
+#include "TargetGradRadical.h"
 #include <string>
 
 static json PixelToJson(PF_Pixel8 p)
@@ -51,8 +51,6 @@ static json PixelTableToJson(PixelTable* tableP)
 	ret["enables"] = jcole;
 	ret["gradColor"] = PixelToJson(tableP->gradColor);
 	ret["invert"] = tableP->invert;
-	ret["guideEnabled"] = tableP->guideEnabled;
-	ret["guideColor"] = PixelToJson(tableP->guideColor);
 	return ret;
 }
 static PixelTable JsonToPixelTable(json jsn)
@@ -102,14 +100,6 @@ static PixelTable JsonToPixelTable(json jsn)
 		json ct = jsn["invert"];
 		table.invert = ct.get<PF_Boolean>();
 	}
-	if (jsn.find("guideEnabled") != jsn.end()) {
-		json ct = jsn["guideEnabled"];
-		table.guideEnabled = ct.get<PF_Boolean>();
-	}
-	if (jsn.find("guideColor") != jsn.end()) {
-		json ct = jsn["guideColor"];
-		table.guideColor = JsonToPixel(ct);
-	}
 	return table;
 }
 //-------------------------------------------------------------------------------------------------
@@ -125,8 +115,6 @@ static PF_Err GetPT(CFsAE* ae, PixelTable* table)
 	}
 	ERR(ae->GetCOLOR(ID_GRAD_COLOR, &table->gradColor));
 	ERR(ae->GetCHECKBOX(ID_INVERT, &table->invert));
-	ERR(ae->GetCHECKBOX(ID_GUIDE_ENABLED, &table->guideEnabled));
-	ERR(ae->GetCOLOR(ID_GUIDE_COLOR, &table->guideColor));
 
 	return err;
 }
@@ -142,8 +130,6 @@ static PF_Err PTSet(CFsAE* ae, PixelTable* table)
 	}
 	ERR(ae->SetCOLOR(ID_GRAD_COLOR, table->gradColor));
 	ERR(ae->SetCHECKBOX(ID_INVERT, table->invert));
-	ERR(ae->SetCHECKBOX(ID_GUIDE_ENABLED, table->guideEnabled));
-	ERR(ae->SetCOLOR(ID_GUIDE_COLOR, table->guideColor));
 	return err;
 }
 static std::string directoryPath = "";
@@ -153,7 +139,7 @@ static PixelTable loadPref()
 	PixelTable table;
 	AEFX_CLR_STRUCT(table);
 	table.ok = false;
-	std::string p = GetPluginConfigFilePath("TargetGrad.pref");
+	std::string p = GetPluginConfigFilePath("TargetGradRadical.pref");
 	if (!p.empty())
 	{
 		std::ifstream f(p.c_str(), std::ios::binary);
@@ -173,7 +159,7 @@ static PixelTable loadPref()
 static std::string loadPath()
 {
 	std::string ret;
-	std::string p = GetPluginConfigFilePath("TargetGrad.dir");
+	std::string p = GetPluginConfigFilePath("TargetGradRadical.dir");
 	if (!p.empty())
 	{
 		std::ifstream f(p.c_str(), std::ios::binary);
@@ -191,7 +177,7 @@ static std::string loadPath()
 static void savePath(std::string path)
 {
 	std::string ret;
-	std::string p = GetPluginConfigFilePath("TargetGrad.dir");
+	std::string p = GetPluginConfigFilePath("TargetGradRadical.dir");
 	if (!p.empty())
 	{
 		std::ifstream f(p.c_str(), std::ios::binary);
@@ -205,8 +191,8 @@ static void savePath(std::string path)
 	}
 }
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -245,21 +231,21 @@ static PF_Err ParamsSetup (
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POPUP(STR_TARGET,
-		STR_TARGET_COUNT,	//ƒƒjƒ…[‚Ì”
-		table.targetColorMode,	//ƒfƒtƒHƒ‹ƒg
+		STR_TARGET_COUNT,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ•°
+		table.targetColorMode,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 		STR_TARGET_ITEMS,
 		ID_TARGET
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_START_COLLAPSED;	//‚±‚ê‚ğ‚Â‚¯‚é‚Æ•\¦‚ÉŠJ‚¢‚½ó‘Ô‚É‚È‚é
+	def.flags = PF_ParamFlag_START_COLLAPSED;	//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨è¡¨ç¤ºæ™‚ã«é–‹ã„ãŸçŠ¶æ…‹ã«ãªã‚‹
 	PF_ADD_TOPIC(STR_TOPIC_COLOR, ID_TOPIC_COLOR);
 	//----------------------------------------------------------------
 
 	std::string str;
 	for (A_long i = 0; i < COLOR_TABLE_COUNT; i++) {
 		AEFX_CLR_STRUCT(def);
-		//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+		//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 		str = STR_TARGET_CB + std::to_string(i + 1);
 		PF_ADD_CHECKBOX(str.c_str(),
 			STR_TARGET_CB2,
@@ -268,7 +254,7 @@ static PF_Err ParamsSetup (
 			ID_COLOR_ENABLED(i)
 		);
 		AEFX_CLR_STRUCT(def);
-		//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+		//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 		str = STR_TARGET + std::to_string(i + 1);
 		PF_ADD_COLOR(
 			str.c_str(),
@@ -294,13 +280,52 @@ static PF_Err ParamsSetup (
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 	PF_ADD_CHECKBOX(STR_INVERT,
 		STR_INVERT2,
 		table.invert,
 		0,
 		ID_INVERT
 	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_POINT(STR_CENTER,
+		50,	// X
+		50,	// Y
+		0,	// Flag
+		ID_CENTER_POS
+	);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_RADIUS,	//Name
+		0,						//VALID_MIN
+		4000,						//VALID_MAX
+		0,						//SLIDER_MIN
+		1000,						//SLIDER_MAX
+		1,						//CURVE_TOLERANCE
+		500,						//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_RADIUS
+	);
+	//----------------------------------------------------------------
+
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_FEATHER,	//Name
+		0.02f,						//VALID_MIN
+		100,					//VALID_MAX
+		0.02f,						//SLIDER_MIN
+		100,					//SLIDER_MAX
+		1,						//CURVE_TOLERANCE
+		100,					//DFLT
+		1,						//PREC
+		0,						//DISP
+		0,						//WANT_PHASE
+		ID_FEATHER
+	);
+	//----------------------------------------------------------------
+
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_FLOAT_SLIDER(STR_HYPERBOLIC,	//Name
 		0,						//VALID_MIN
@@ -316,117 +341,23 @@ static PF_Err ParamsSetup (
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_START_COLLAPSED;	//‚±‚ê‚ğ‚Â‚¯‚é‚Æ•\¦‚ÉŠJ‚¢‚½ó‘Ô‚É‚È‚é
-	PF_ADD_TOPIC(STR_TOPIC_2POINT, ID_TOPIC_2POINT);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_START,	
-		75,	// X
-		50,	// Y
-		0,	// Flag
-		ID_START_POS
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_POINT(STR_LAST,
-		25,	// X
-		50,	// Y
-		0,	// Flag
-		ID_LAST_POS
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_END_TOPIC(ID_TOPIC_2POINT_END);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
-	PF_ADD_CHECKBOX(STR_AUTO_POS,
-		STR_AUTO_POS2,
-		FALSE,
-		0,
-		ID_AUTO_POS
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_ANGLE(STR_ROT, 0, ID_ROT);
-
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_START_PER,	//Name
-		-300,						//VALID_MIN
-		300,						//VALID_MAX
-		-50,						//SLIDER_MIN
-		50,						//SLIDER_MAX
-		1,						//CURVE_TOLERANCE
-		0,						//DFLT
-		1,						//PREC
-		0,						//DISP
-		0,						//WANT_PHASE
-		ID_START_PER
-	);
-	//----------------------------------------------------------------
-
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_LAST_PER,	//Name
-		-300,						//VALID_MIN
-		300,						//VALID_MAX
-		-50,						//SLIDER_MIN
-		50,						//SLIDER_MAX
-		1,						//CURVE_TOLERANCE
-		0,						//DFLT
-		1,						//PREC
-		0,						//DISP
-		0,						//WANT_PHASE
-		ID_LAST_PER
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_OFFSET_X,	//Name
-		-2000,						//VALID_MIN
+	PF_ADD_FLOAT_SLIDER(STR_ASPECT,	//Name
+		0,						//VALID_MIN
 		2000,						//VALID_MAX
-		-200,						//SLIDER_MIN
+		0,						//SLIDER_MIN
 		200,						//SLIDER_MAX
 		1,						//CURVE_TOLERANCE
-		0,						//DFLT
+		100,					//DFLT
 		1,						//PREC
 		0,						//DISP
 		0,						//WANT_PHASE
-		ID_OFFSET_X
+		ID_ASPECT
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_OFFSET_Y,	//Name
-		-2000,						//VALID_MIN
-		2000,						//VALID_MAX
-		-200,						//SLIDER_MIN
-		200,						//SLIDER_MAX
-		1,						//CURVE_TOLERANCE
-		0,						//DFLT
-		1,						//PREC
-		0,						//DISP
-		0,						//WANT_PHASE
-		ID_OFFSET_Y
-	);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
-	PF_ADD_CHECKBOX(STR_GUIDE_ENABLED,
-		STR_GUIDE_ENABLED,
-		table.guideEnabled,
-		0,
-		ID_GUIDE_ENABLED
-	);
+	PF_ADD_ANGLE(STR_ANGLE, 0, ID_ANGLE);
 
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
-	PF_ADD_COLOR(
-		STR_GUIDE_COLOR,
-		table.guideColor.red,
-		table.guideColor.green,
-		table.guideColor.blue,
-		ID_GUIDE_COLOR
-	);
+
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_BUTTON(STR_LAOD_CAP,
@@ -465,7 +396,7 @@ HandleChangedParam(
 	if (extraP->param_index == ID_SAVE_BTN)
 	{
 		std::string ppath = loadPath();
-		std::string p = SaveJsonFileDialog(std::string("tgj Json save"), ppath);
+		std::string p = SaveJsonFileDialog(std::string("tgr Json save"), ppath);
 		if (p.empty() == FALSE)
 		{
 			savePath(p);
@@ -483,7 +414,7 @@ HandleChangedParam(
 	else if (extraP->param_index == ID_LOAD_BTN)
 	{
 		std::string ppath = loadPath();
-		std::string p = OpenJsonFileDialog(std::string("tgj Json load"), ppath);
+		std::string p = OpenJsonFileDialog(std::string("tgr Json load"), ppath);
 		if (p.empty() == FALSE)
 		{
 			savePath(p);
@@ -562,44 +493,30 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	//
 	ERR(ae->GetCOLOR(ID_GRAD_COLOR, &infoP->gradColor));
 	ERR(ae->GetCHECKBOX(ID_INVERT, &infoP->invert));
-	ERR(ae->GetFLOAT(ID_HYPERBOLIC, &infoP->hyperbolic));
 
 	//
 	PF_FixedPoint pp;
-	ERR(ae->GetFIXEDPOINT(ID_START_POS, &pp));
+	ERR(ae->GetFIXEDPOINT(ID_CENTER_POS, &pp));
 	if (!err)
 	{
-		infoP->startPos.x = (PF_FpLong)pp.x/ 65536.0;
-		infoP->startPos.y = (PF_FpLong)pp.y/ 65536.0;
-	}
-	ERR(ae->GetFIXEDPOINT(ID_LAST_POS, &pp));
-	if (!err)
-	{
-		infoP->lastPos.x = (PF_FpLong)pp.x / 65536.0;
-		infoP->lastPos.y = (PF_FpLong)pp.y / 65536.0;
-	}
-	if (infoP->invert == TRUE)
-	{
-		A_FloatPoint temp = infoP->startPos;
-		infoP->startPos = infoP->lastPos;
-		infoP->lastPos = temp;
+		infoP->cenertPos.x = (PF_FpLong)pp.x/ 65536.0;
+		infoP->cenertPos.y = (PF_FpLong)pp.y/ 65536.0;
 	}
 	//
-	ERR(ae->GetCHECKBOX(ID_AUTO_POS, &infoP->autoPos));
+	ERR(ae->GetFLOAT(ID_RADIUS, &infoP->radius));
+
+	ERR(ae->GetFLOAT(ID_FEATHER, &infoP->feather));
+	infoP->feather /= 100;
+	if (infoP->feather < 0.02) infoP->feather = 0.02;
+	ERR(ae->GetFLOAT(ID_HYPERBOLIC, &infoP->hyperbolic));
+	ERR(ae->GetFLOAT(ID_ASPECT, &infoP->aspect));
+	infoP->aspect /= 100;
+	if (infoP->aspect <= 0) infoP->aspect = 0.01;
+
+
 	PF_Fixed rot;
-	ERR(ae->GetANGLE(ID_ROT, &rot));
-	infoP->rot = FIX2FLT(rot);
-
-	ERR(ae->GetFLOAT(ID_START_PER, &infoP->startPercent));
-	infoP->startPercent /= 100.0;
-	ERR(ae->GetFLOAT(ID_LAST_PER, &infoP->lastPercent));
-	infoP->lastPercent /= 100.0;
-
-	ERR(ae->GetFLOAT(ID_OFFSET_X, &infoP->offsetX));
-	ERR(ae->GetFLOAT(ID_OFFSET_Y, &infoP->offsetY));
-
-	ERR(ae->GetCHECKBOX(ID_GUIDE_ENABLED, &infoP->guideEnabled));
-	ERR(ae->GetCOLOR(ID_GUIDE_COLOR, &infoP->guideColor));
+	ERR(ae->GetANGLE(ID_ANGLE, &rot));
+	infoP->angle = FIX2FLT(rot);
 
 	return err;
 }
@@ -608,103 +525,30 @@ static PF_Err
 Exec(CFsAE* ae, ParamInfo* infoP)
 {
 	PF_Err	err = PF_Err_NONE;
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	//ERR(ae->CopyInToOut());
-	if((infoP->targetColorMode==1)&&(infoP->targetColorCount<=0)){
+
+	if (infoP->radius <= 0) {
+		return err;
+	}
+	if ((infoP->targetColorMode == 1) && (infoP->targetColorCount <= 0)) {
 		return err;
 	}
 	if (infoP->targetColorMode != 3)
 	{
 		ERR(ExtractColor(ae, infoP));
 	}
+	ERR(RenderTargetGradRadial(ae, infoP,ae->output));
 
-	RotPoint rp;
-	if (infoP->autoPos)
-	{
-		rp.SetRect(infoP->area,
-			infoP->rot,
-			infoP->startPercent,
-			infoP->lastPercent,
-			infoP->offsetX,
-			infoP->offsetY
-			);
-	}
-	else {
-		rp.Set2Point(
-			infoP->startPos, infoP->lastPos,
-			infoP->startPercent,
-			infoP->lastPercent,
-			infoP->offsetX,
-			infoP->offsetY
-		);
-	}
-	infoP->startPos2 = rp.startPos2();
-	infoP->lastPos2 = rp.lastPos2();
-	infoP->startPos2D = rp.startPos2D();
-	infoP->lastPos2D = rp.lastPos2D();
-
-	ERR(RenderSimpleMask(ae, infoP,ae->output));
-
-	if (infoP->guideEnabled) {
-		A_long sx = static_cast<A_long>(std::lround(infoP->startPos2.x));
-		A_long sy = static_cast<A_long>(std::lround(infoP->startPos2.y));
-		A_long lx = static_cast<A_long>(std::lround(infoP->lastPos2.x));
-		A_long ly = static_cast<A_long>(std::lround(infoP->lastPos2.y));
-		A_long cx = static_cast<A_long>(std::lround(rp.centerPos2().x));
-		A_long cy = static_cast<A_long>(std::lround(rp.centerPos2().y));
-
-		if (infoP->autoPos) {
-			ae->out->box(infoP->area.left,
-				infoP->area.top,
-				infoP->area.right,
-				infoP->area.bottom,
-				infoP->guideColor,
-				infoP->guideColor
-			);
-		}
-
-		//ƒKƒCƒhü‚Ì•`‰æ
-		ae->out->Line(sx, sy,lx, ly, infoP->guideColor);
-		ae->out->Line(sx+1, sy, lx+1, ly, infoP->guideColor);
-		ae->out->Line(sx, sy+1, lx, ly+1, infoP->guideColor);
-
-		A_FloatPoint c2DG = rp.centerPos2G(20);
-		A_long x2 = static_cast<A_long>(std::lround(c2DG.x));
-		A_long y2 = static_cast<A_long>(std::lround(c2DG.y));
-		ae->out->Line(cx, cy, x2, y2, infoP->guideColor);
-		ae->out->Line(cx+1, cy, x2+1, y2, infoP->guideColor);
-		ae->out->Line(cx, cy+1, x2, y2+1, infoP->guideColor);
-
-		A_FloatPoint s2D = rp.startPos2D();
-		A_FloatPoint s2DG = rp.startPos2DG(40);
-		sx = static_cast<A_long>(std::lround(s2D.x));
-		sy = static_cast<A_long>(std::lround(s2D.y));
-		x2 = static_cast<A_long>(std::lround(s2DG.x));
-		y2 = static_cast<A_long>(std::lround(s2DG.y));
-		ae->out->Line(sx, sy, x2, y2, infoP->guideColor);
-		ae->out->Line(sx+1, sy, x2+1, y2, infoP->guideColor);
-		ae->out->Line(sx, sy+1, x2, y2+1, infoP->guideColor);
-
-		A_FloatPoint l2D = rp.lastPos2D();
-		A_FloatPoint l2DG = rp.lastPos2DG(40);
-		lx = static_cast<A_long>(std::lround(l2D.x));
-		ly = static_cast<A_long>(std::lround(l2D.y));
-		x2 = static_cast<A_long>(std::lround(l2DG.x));
-		y2 = static_cast<A_long>(std::lround(l2DG.y));
-		ae->out->Line(lx, ly, x2, y2, infoP->guideColor);
-		ae->out->Line(lx+1, ly, x2+1, y2, infoP->guideColor);
-		ae->out->Line(lx, ly+1, x2, y2+1, infoP->guideColor);
-
-	}
 
 	return err;
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 /*
-	SmartFX‚É‘Î‰‚µ‚Ä‚¢‚È‚¢ƒzƒXƒg(After Effects7ˆÈ‘O‚Ì‚à‚Ì)‚Í‚±‚ÌŠÖ”‚ªŒÄ‚Ño‚³‚ê‚Ä•`‰æ‚·‚é
-	‚±‚ÌŠÖ”‚ğ‘‚¢‚Ä‚¨‚¯‚Îˆê‰v6.5‘Î‰‚É‚È‚é
+	SmartFXã«å¯¾å¿œã—ã¦ã„ãªã„ãƒ›ã‚¹ãƒˆ(After Effects7ä»¥å‰ã®ã‚‚ã®)ã¯ã“ã®é–¢æ•°ãŒå‘¼ã³å‡ºã•ã‚Œã¦æç”»ã™ã‚‹
+	ã“ã®é–¢æ•°ã‚’æ›¸ã„ã¦ãŠã‘ã°ä¸€å¿œv6.5å¯¾å¿œã«ãªã‚‹
 */
 static PF_Err 
 Render ( 
@@ -728,7 +572,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX‘Î‰‚Ìê‡A‚Ü‚¸‚±‚ÌŠÖ”‚ªŒÄ‚Î‚ê‚Äƒpƒ‰ƒ[ƒ^‚ÌŠl“¾‚ğs‚¤
+	SmartFXå¯¾å¿œã®å ´åˆã€ã¾ãšã“ã®é–¢æ•°ãŒå‘¼ã°ã‚Œã¦ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ç²å¾—ã‚’è¡Œã†
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err
