@@ -16,8 +16,8 @@ BEGIN
 	"MIB8",
 	"eman",
 	0, 0x0,
-	16, 0x0,
-	"\x0EF's TargetGrad\0", 
+	24, 0x0,
+	"\x15F's TargetGradRadical\0\0", 
 
 	"MIB8",
 	"gtac", 
@@ -70,8 +70,8 @@ BEGIN
 	"MIB8",
 	"ANMe",
 	0, 0x0,
-	16, 0x0,
-	"\x0EF's TargetGrad\0", 
+	24, 0x0,
+	"\x15F's TargetGradRadical\0\0", 
 
 	"MIB8",
 	0x6165464CL, 

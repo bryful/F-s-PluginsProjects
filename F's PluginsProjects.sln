@@ -205,6 +205,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainLineRepaint_old", "Main
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TargetGrad", "TargetGrad\Win\TargetGrad.vcxproj", "{0B77ADEE-126F-4E85-9093-F8E70D3A04EF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TargetGradRadical", "TargetGradRadical\Win\TargetGradRadical.vcxproj", "{377CEA99-8F34-494C-8E48-80C27DBE72E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1365,6 +1367,18 @@ Global
 		{0B77ADEE-126F-4E85-9093-F8E70D3A04EF}.Release-MT|x64.Build.0 = Release-MT|x64
 		{0B77ADEE-126F-4E85-9093-F8E70D3A04EF}.Release-MT|x86.ActiveCfg = Release-MT|Win32
 		{0B77ADEE-126F-4E85-9093-F8E70D3A04EF}.Release-MT|x86.Build.0 = Release-MT|Win32
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Debug|x64.ActiveCfg = Debug|x64
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Debug|x64.Build.0 = Debug|x64
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Debug|x86.ActiveCfg = Debug|Win32
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Debug|x86.Build.0 = Debug|Win32
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Release|x64.ActiveCfg = Release|x64
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Release|x64.Build.0 = Release|x64
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Release|x86.ActiveCfg = Release|Win32
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Release|x86.Build.0 = Release|Win32
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Release-MT|x64.ActiveCfg = Release-MT|x64
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Release-MT|x64.Build.0 = Release-MT|x64
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Release-MT|x86.ActiveCfg = Release-MT|Win32
+		{377CEA99-8F34-494C-8E48-80C27DBE72E4}.Release-MT|x86.Build.0 = Release-MT|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -52,8 +52,6 @@ static PF_Err SimpleMaskIterator32(
 {
     return SimpleMaskIteratorF<PF_PixelFloat, float>(refcon, static_cast<A_FpShort>(x), static_cast<A_FpShort>(y), in, out);
 }
-
-// 元のテンプレート本体はA_FpShortで定義
 template <typename T, typename T_COMP>
 static PF_Err SimpleMaskIteratorF(
     void* refcon,
@@ -62,36 +60,44 @@ static PF_Err SimpleMaskIteratorF(
     T* in,
     T* out)
 {
-    if (in->alpha == 0) {
-        // 元画像のアルファが0の場合は処理しない
-        return PF_Err_NONE;
-	}   
-    MaskInfo* info = static_cast<MaskInfo*>(refcon);
 
-    // 投影比率 t の計算 (点Pから点1へのベクトルとベクトルABの内積)
+    MaskInfo* info = static_cast<MaskInfo*>(refcon);
+    if ((out->alpha == 0) && (info->isAll == FALSE)) {
+        return PF_Err_NONE;
+    }
+
+    // 1. 投影比率 t の計算
     float px = static_cast<float>(x) - static_cast<float>(info->p1.x);
     float py = static_cast<float>(y) - static_cast<float>(info->p1.y);
     float t = (px * info->dx + py * info->dy) * info->inv_len_sq;
 
-    // 0.0 ? 1.0 にクランプ
-    //float v = std::max(0.0f, std::min(1.0f, t));
-    float v = t;
-    if (v < 0.0f) v = 0.0f;
-    else if (v > 1.0f) v = 1.0f;
+    // 2. 0.0 - 1.0 にクランプ
+    if (t < 0.0f) t = 0.0f;
+    else if (t > 1.0f) t = 1.0f;
 
-    // 反転設定
-    if (!info->invert) v = 1.0f - v;
+    // 3. 双曲線（Hyperbolic）階調変換の適用
+    // info->hyperbolic が 0.0 の時はリニア、正の値で急峻なカーブになります
+    float k = info->hyperbolic;
+    float v = ((1.0f + k) * t) / (1.0f + k * t);
 
-    // 各深度の最大値を取得 (8bit:255, 16bit:32768, 32bit:1.0)
-    float max_val = static_cast<float>(T_COMP(-1));
-    if (sizeof(T_COMP) == 2) max_val = 32768.0f;
-    if (sizeof(T_COMP) > 2)  max_val = 1.0f;
+    // 4. 反転設定
+    // !info->invert の条件は既存コードの仕様を維持
+    //if (!info->invert) 
+        v = 1.0f - v;
 
+    // 5. 各深度の最大値を取得 (8bit:255, 16bit:32768, 32bit:1.0)
+    // T_COMP が無符号整数の場合があるため、オーバーフローに注意した既存ロジックを維持
+    float max_val = 1.0f;
+    if (sizeof(T_COMP) == 1)      max_val = 255.0f;
+    else if (sizeof(T_COMP) == 2) max_val = 32768.0f;
+    else                          max_val = 1.0f;
+
+    // 最終的なアルファ値を計算
     T_COMP final_pixel_val = static_cast<T_COMP>(v * max_val);
 
-    AssignGrad(info, out);
-    out->alpha = final_pixel_val;
-
+    // 6. 出力への書き込み
+    AssignGrad(info, out); // 色情報をコピー
+    out->alpha = final_pixel_val; // アルファにグラデーション値を代入
 
     return PF_Err_NONE;
 }
@@ -112,7 +118,9 @@ static PF_Err RenderSimpleMaskImpl(
     info.p1 = infoP->startPos2D;
     info.dx = (A_FpShort)(infoP->lastPos2D.x - infoP->startPos2D.x);
     info.dy = (A_FpShort)(infoP->lastPos2D.y - infoP->startPos2D.y);
-    info.invert = infoP->invert;
+ 
+    //info.invert = infoP->invert;
+    info.hyperbolic = infoP->hyperbolic; // 追加：UIからの係数をセット
     info.grad8 = infoP->gradColor;
     info.grad16 = CONV8TO16( infoP->gradColor);
     info.grad32 = CONV8TO32(infoP->gradColor);
@@ -120,6 +128,7 @@ static PF_Err RenderSimpleMaskImpl(
     float len_sq = (info.dx * info.dx) + (info.dy * info.dy);
     info.inv_len_sq = (len_sq < 0.0001f) ? 1.0f : (1.0f / len_sq);
 
+	info.isAll = (infoP->targetColorMode == 3) ? TRUE : FALSE;
 
     if (!err) {
         switch (ae->pixelFormat()) {
