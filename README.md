@@ -13,7 +13,6 @@ F's Plugins for MacOS<br>
 詳細はリンク先で<br>
 [https://github.com/CubeZeero/F-s-PluginsProjects_forMac](https://github.com/CubeZeero/F-s-PluginsProjects_forMac)<br>
 
-https://github.com/CubeZeero/F-s-PluginsProjects_forMac
 DaVinci Resolve - Fusion 移植版<br>
 詳細はリンク先で<br>
 [https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports](https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports)<br>
