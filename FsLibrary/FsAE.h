@@ -15,6 +15,7 @@
 
 #include "FsUtils.h"
 #include "FsBuffer.h"
+#include "FsVersion.h"
 
 #ifndef NO_USE_FSGRAPHICS
 	#include "FsGraphics.h"
@@ -2197,5 +2198,6 @@ public:
 	}
 };
 */
+
 
 #endif
