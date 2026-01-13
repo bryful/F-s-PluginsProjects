@@ -131,21 +131,54 @@ static PF_Err RenderSimpleMaskImpl(
 	info.isAll = (infoP->targetColorMode == 3) ? TRUE : FALSE;
 
     if (!err) {
+        PF_Point			origin;
+        origin.h = (A_short)ae->in_data->output_origin_x;
+        origin.v = (A_short)ae->in_data->output_origin_y;
         switch (ae->pixelFormat()) {
         case PF_PixelFormat_ARGB32:
-            err = ae->suitesP->Iterate8Suite1()->iterate(
-                ae->in_data, 0, output->height, NULL, NULL, &info,
-                SimpleMaskIterator8, output);
+            ERR(ae->suitesP->Iterate8Suite2()->iterate_origin(
+                ae->in_data,
+                0,
+                output->height,
+                ae->input,
+                &output->extent_hint,
+                &origin,
+                &info,
+                SimpleMaskIterator8,
+                output));
+           // err = ae->suitesP->Iterate8Suite1()->iterate(
+           //     ae->in_data, 0, output->height, NULL, NULL, &info,
+           //     SimpleMaskIterator8, output);
             break;
         case PF_PixelFormat_ARGB64:
-            err = ae->suitesP->Iterate16Suite1()->iterate(
-                ae->in_data, 0, output->height, NULL, NULL, &info,
-                SimpleMaskIterator16, output);
+            ERR(ae->suitesP->Iterate16Suite2()->iterate_origin(
+                ae->in_data,
+                0,
+                output->height,
+                ae->input,
+                &output->extent_hint,
+                &origin,
+                &info,
+                SimpleMaskIterator16,
+                output));
+            // err = ae->suitesP->Iterate16Suite1()->iterate(
+           //     ae->in_data, 0, output->height, NULL, NULL, &info,
+           //     SimpleMaskIterator16, output);
             break;
         case PF_PixelFormat_ARGB128:
-            err = ae->suitesP->IterateFloatSuite1()->iterate(
-                ae->in_data, 0, output->height, NULL, NULL, &info,
-                SimpleMaskIterator32, output);
+            ERR(ae->suitesP->IterateFloatSuite2()->iterate_origin(
+                ae->in_data,
+                0,
+                output->height,
+                ae->input,
+                &output->extent_hint,
+                &origin,
+                &info,
+                SimpleMaskIterator32,
+                output));
+            //err = ae->suitesP->IterateFloatSuite1()->iterate(
+            //    ae->in_data, 0, output->height, NULL, NULL, &info,
+            //    SimpleMaskIterator32, output);
             break;
         default:
             err = PF_Err_BAD_CALLBACK_PARAM;
