@@ -9,6 +9,11 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
 <br>
 
+F's Plugins for MacOS<br>
+詳細はリンク先で<br>
+[https://github.com/CubeZeero/F-s-PluginsProjects_forMac](https://github.com/CubeZeero/F-s-PluginsProjects_forMac)<br>
+
+https://github.com/CubeZeero/F-s-PluginsProjects_forMac
 DaVinci Resolve - Fusion 移植版<br>
 詳細はリンク先で<br>
 [https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports](https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports)<br>
@@ -16,8 +21,6 @@ DaVinci Resolve - Fusion 移植版<br>
 ## <b>**残念なお知らせ**</b><br>
 2025年度からAdobeCCの料金がかなり高価に値上がりしたので、プライベートではとっても払えないので次回の更新はしないことにしました。その為F's Pluginsの更新はi今以上にかなりロースペースになります。<br>
 一応僕も仕事でたまには使うのでAfter Effects自体のバージョンに合わせて再ビルドは行うつもりです(SDKの更新に合わせます)<br>
-
-
 
 ***
 
@@ -33,7 +36,9 @@ DaVinci Resolve - Fusion 移植版<br>
 バージョン管理の方法をいろいろ考えましたが、プラグインファイル名に日付を入れるという一番チープな方法を採用しました。<br>
 <br>
 
-
+TargetGrad.aex/TargetGradradical.aex<br>
+グラデーションエフェクトを追加<br>
+[FsTargetGrad_finalBeta.zip](https://github.com/bryful/F-s-PluginsProjects/raw/refs/heads/master/_DL_windowsbinary/FsTargetGrad_finalBeta.zip) からDLしてください。近いうちに正式版出します。
 
 F's sputteringAlpha.aex/F's sputteringSplash.aexが内部エラーで落ちるバグに対処。<br>
 まだ原因が特定できていないので、直っていないかも。<br>

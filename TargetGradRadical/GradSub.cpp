@@ -172,8 +172,23 @@ static PF_Err RenderTargetGradRadialImpl(
 
 	info.hyperbolic = infoP->hyperbolic; // 双曲線の曲がり具合の係数（必要に応じて調整可能）
     if (!err) {
+        PF_Point			origin;
+        origin.h = (A_short)ae->in_data->output_origin_x;
+        origin.v = (A_short)ae->in_data->output_origin_y;
+
         switch (ae->pixelFormat()) {
         case PF_PixelFormat_ARGB32:
+            ERR(ae->suitesP->Iterate8Suite2()->iterate_origin(
+                ae->in_data,
+                0,
+                output->height,
+                ae->input,
+                &output->extent_hint,
+                &origin,
+                &info,
+                reinterpret_cast<PF_Err(*)(void*, A_long, A_long, PF_Pixel*, PF_Pixel*)>(TargetGradRadialIterator<PF_Pixel, A_u_char>),
+                output));
+            /*
             err = ae->suitesP->Iterate8Suite1()->iterate(
                 ae->in_data,
                 0,
@@ -182,10 +197,21 @@ static PF_Err RenderTargetGradRadialImpl(
                 NULL,
                 &info,
                 reinterpret_cast<PF_Err(*)(void*, A_long, A_long, PF_Pixel*, PF_Pixel*)>(TargetGradRadialIterator<PF_Pixel, A_u_char>),
-                output);
+                output);*/
             break;
 
         case PF_PixelFormat_ARGB64:
+            ERR(ae->suitesP->Iterate16Suite1()->iterate_origin(
+                ae->in_data,
+                0,
+                output->height,
+                ae->input,
+                &output->extent_hint,
+                &origin,
+                &info,
+                reinterpret_cast<PF_Err(*)(void*, A_long, A_long, PF_Pixel16*, PF_Pixel16*)>(TargetGradRadialIterator<PF_Pixel16, A_u_short>),
+                output));
+            /*
             err = ae->suitesP->Iterate16Suite1()->iterate(
                 ae->in_data,
                 0,
@@ -194,10 +220,21 @@ static PF_Err RenderTargetGradRadialImpl(
                 NULL,
                 &info,
                 reinterpret_cast<PF_Err(*)(void*, A_long, A_long, PF_Pixel16*, PF_Pixel16*)>(TargetGradRadialIterator<PF_Pixel16, A_u_short>),
-                output);
+                output);*/
             break;
 
         case PF_PixelFormat_ARGB128:
+            ERR(ae->suitesP->IterateFloatSuite1()->iterate_origin(
+                ae->in_data,
+                0,
+                output->height,
+                ae->input,
+                &output->extent_hint,
+                &origin,
+                &info,
+                reinterpret_cast<PF_Err(*)(void*, A_long, A_long, PF_PixelFloat*, PF_PixelFloat*)>(TargetGradRadialIterator<PF_PixelFloat, PF_FpShort>),
+                output));
+            /*
             err = ae->suitesP->IterateFloatSuite1()->iterate(
                 ae->in_data,
                 0,
@@ -207,6 +244,7 @@ static PF_Err RenderTargetGradRadialImpl(
                 &info,
                 reinterpret_cast<PF_Err(*)(void*, A_long, A_long, PF_PixelFloat*, PF_PixelFloat*)>(TargetGradRadialIterator<PF_PixelFloat, PF_FpShort>),
                 output);
+            */
             break;
 
         default:
