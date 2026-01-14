@@ -132,10 +132,10 @@ CC2019 SDKに変更。
 * F's YuvControl.aex YUV版のRGBAコントロールです。
 
 # 開発環境
-Visual studio 2017 Community 2017 C++ or Visual studio 2019 Community 2017 C++
+Visual studio 2026 Community C++
 
-AfterEffectsSDK CC2020
-SDKはCC2020を使用していますが、CS4/CS6のSDKでもbuild可能です。
+AfterEffectsSDK CC2025
+SDKはCC2025を使用しています。
 
 # Setup
 プロジェクト等はSDKフォルダ内のExampleフォルダ内へ配置してください。
@@ -163,7 +163,7 @@ SDKはCC2020を使用していますが、CS4/CS6のSDKでもbuild可能です�
 
 # 使い方
 
-SDKはCC2020を想定していますが、CS6及びCC2020までのSDKでビルド可能です。
+SDKはCC2025を想定しています。
 
 **NFsLibrary**ではCC2020以降のサポートとなります。
 
@@ -176,14 +176,14 @@ PluginのBinaryはoutAEXに書き出されます。
 PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。
 
 例)
-"C:\Program Files\Adobe\Adobe After Effects CC 2019\Support Files\Plug-ins"
+"C:\Program Files\Adobe\Adobe After Effects CC 2040\Support Files\Plug-ins"
 
 # デバッグ
 
 1. デバッグ構成時のプロパティでバイナリの出力先をインストールされたAEの**Plug-ins**フォルダに設定します。SDKでは"[Program Files]\Adobe\Common\Plug-ins\[**version**]\MediaCore\"が推奨されていますが、バージョンがこっそり上がって困ったことがありました。
-> C:\Program Files\Adobe\Adobe After Effects 2020\Support Files\Plug-ins\debug\
+> C:\Program Files\Adobe\Adobe After Effects 2040\Support Files\Plug-ins\debug\
 2. プロパティ「デバッグ」のコマンドをAEの実行ファイルにします。
-> C:\Program Files\Adobe\Adobe After Effects 2020\Support Files\AfterFX.exe
+> C:\Program Files\Adobe\Adobe After Effects 2040\Support Files\AfterFX.exe
 3. その他必要な項目（作業ディレクトリ）も設定します。
 4. 念のためにプラグインフォルダの設定をフルコントロールにしておきます。アクセス権が無くて書き出しができなことがあります。
 
@@ -215,7 +215,6 @@ This software is released under the MIT License, see LICENSE.
 bry-ful [Hiroshi Furuhashi]<br>
 github: [https://github.com/bryful](https://github.com/bryful)<br>
 twitter:[bryful](https://twitter.com/bryful)<br>
-bryful@gmail.com
 
 # Thanks
 
