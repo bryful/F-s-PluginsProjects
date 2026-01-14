@@ -8,6 +8,13 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
 <br>
+## ビルド時の注意 ##
+今回から**Directory.Build.props**/**Directory.Build.Targets**を使ってプロジェクト設定の一括変更を行っています。<br>
+VS2026でSDK2025を使うとものすごいWarnigが出るのでDirectory.Build.propsで抑制しています。プロパティのUIで変更しても上書きされるので注意です。<br>
+<br>
+出力ファイル名にDirectory.Build.Targetで指定して自動的に日付が入るようにしました。Debug時の出力先もここで変更しています。<br>
+<br>
+こんな便利な機能あるの知らなかった。<br>
 
 F's Plugins for MacOS<br>
 詳細はリンク先で<br>
