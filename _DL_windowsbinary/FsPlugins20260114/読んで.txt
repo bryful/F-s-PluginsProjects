@@ -1,0 +1,12 @@
+# Fs_Plugins_20260114
+
+* VisualStudio2025に変更
+* SDK2025に変更
+* F's TargetGrad/F's TargetGradRadicalを追加
+
+
+## 注意
+すみません。動作確認していません。動作不良あったらX(Twitter)で教えてください。
+
+bry-ful
+https://github.com/bryful/F-s-PluginsProjects
