@@ -249,8 +249,10 @@ static PF_Err
 		ae->CopyInToOut();
 		break;
 	case PF_PixelFormat_ARGB64:
+	{
 		ParamInfo16 info16 = ToParamInfo16(infoP);
 		ERR(exec16(ae, &info16));
+	}
 		break;
 	case PF_PixelFormat_ARGB32:
 		ERR(exec8(ae, infoP));

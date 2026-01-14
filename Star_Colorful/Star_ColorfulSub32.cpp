@@ -4,7 +4,7 @@
 
 //-------------------------------------------------------------------------------------------------
 //画像の色を獲得
-inline PF_PixelFloat GetPX(GInfo *gi, A_long x, A_long y)
+static inline PF_PixelFloat GetPX(GInfo *gi, A_long x, A_long y)
 {
 	PF_PixelFloat *data = (PF_PixelFloat *)gi->data;
 
@@ -18,7 +18,7 @@ inline PF_PixelFloat GetPX(GInfo *gi, A_long x, A_long y)
 
 //-------------------------------------------------------------------------------------------------
 //スクリーン合成の基本部分
-inline PF_FpShort scr(PF_FpShort s, PF_FpShort d)
+static inline PF_FpShort scr(PF_FpShort s, PF_FpShort d)
 {
 	PF_FpShort v = d + s - s * d;
 	if (v < 0) v = 0; else if (v > 1) v = 1;
@@ -26,7 +26,7 @@ inline PF_FpShort scr(PF_FpShort s, PF_FpShort d)
 }
 //-------------------------------------------------------------------------------------------------
 // ピクセルのスクリーン合成
-inline void AddPxL(GInfo *gi, A_long xL, A_long yL, PF_PixelFloat p)
+static inline void AddPxL(GInfo *gi, A_long xL, A_long yL, PF_PixelFloat p)
 {
 	if ((xL < 0) || (xL >= gi->width) || (yL < 0) || (yL >= gi->height)) {
 		return;
@@ -43,9 +43,9 @@ inline void AddPxL(GInfo *gi, A_long xL, A_long yL, PF_PixelFloat p)
 }
 //-------------------------------------------------------------------------------------------------
 // ピクセルの濃度調整
-inline PF_PixelFloat PxPer(PF_PixelFloat p, PF_FpLong per)
+static inline PF_PixelFloat PxPer(PF_PixelFloat p, PF_FpLong per)
 {
-	PF_PixelFloat r;
+	PF_PixelFloat r = { 0,0,0,0 };
 	r.red = RoundFpShortDouble( (PF_FpLong)p.red * per);
 	r.green = RoundFpShortDouble((PF_FpLong)p.green * per);
 	r.blue = RoundFpShortDouble((PF_FpLong)p.blue * per);
@@ -54,7 +54,7 @@ inline PF_PixelFloat PxPer(PF_PixelFloat p, PF_FpLong per)
 }
 //-------------------------------------------------------------------------------------------------
 //小数点対応のスクリーン合成
-inline void AddPxD(GInfo *gi, PF_PixelFloat p)
+static inline void AddPxD(GInfo *gi, PF_PixelFloat p)
 {
 
 
@@ -168,7 +168,7 @@ TargetPixel(
 
 
 	PF_InData	*in_data = infoP->gout.in_data;
-	PF_PixelFloat pf;
+	PF_PixelFloat pf = { 0,0,0,0 };
 
 	switch (infoP->info.target_kind)
 	{
@@ -179,6 +179,7 @@ TargetPixel(
 		v = (0.29891 * r) + (0.58661 * g) + (0.11448 * b);
 		break;
 	case 4:
+	{
 		pf.red = r;
 		pf.green = g;
 		pf.blue = b;
@@ -192,6 +193,7 @@ TargetPixel(
 			+ PF_POW(lab.B - infoP->taget_lab.B, 2))
 			/ PF_SQRT(3)
 			);
+	}
 		break;
 	case 1:
 	default:
@@ -923,7 +925,7 @@ MakeRainbowTable(PF_PixelFloat *tbl, A_long len,  PF_FpLong ro, PF_FpLong rd, PF
 
 
 	PF_FpLong p = per;
-	HLSA hls;
+	HLSA hls = { 0,0,0,0 };
 	for (A_long i = 0; i < len; i++)
 	{
 		p = per * (1 - (PF_FpLong)i / (PF_FpLong)len)*0.5;
