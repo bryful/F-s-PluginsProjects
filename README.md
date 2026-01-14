@@ -1,21 +1,14 @@
 ﻿# F's Plugins New and Next
 Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。　<b>no supporot MacOS!</b>
+<br>
 　
-
 昔から趣味でコツコツと作っていたものです。<br>
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。<br>
 <br>
 
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
 <br>
-## ビルド時の注意 ##
-今回から**Directory.Build.props**/**Directory.Build.Targets**を使ってプロジェクト設定の一括変更を行っています。<br>
-VS2026でSDK2025を使うとものすごいWarnigが出るのでDirectory.Build.propsで抑制しています。プロパティのUIで変更しても上書きされるので注意です。<br>
-<br>
-出力ファイル名にDirectory.Build.Targetで指定して自動的に日付が入るようにしました。Debug時の出力先もここで変更しています。<br>
-<br>
-こんな便利な機能あるの知らなかった。<br>
-
+## 関連プロジェクト ##
 F's Plugins for MacOS<br>
 詳細はリンク先で<br>
 [https://github.com/CubeZeero/F-s-PluginsProjects_forMac](https://github.com/CubeZeero/F-s-PluginsProjects_forMac)<br>
@@ -23,6 +16,15 @@ F's Plugins for MacOS<br>
 DaVinci Resolve - Fusion 移植版<br>
 詳細はリンク先で<br>
 [https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports](https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports)<br>
+
+## ビルド時の注意 ##
+今回から**Directory.Build.props**/**Directory.Build.Targets**を使ってプロジェクト設定の一括変更を行っています。<br>
+VS2026でSDK2025を使うとものすごいWarnigが出るのでDirectory.Build.propsで抑制しています。プロパティのUIで変更しても上書きされるので注意です。<br>
+<br>
+出力ファイル名にDirectory.Build.Targetで指定して自動的に日付が入るようにしました。Debug時の出力先もここで変更しています。<br>
+<br>
+こんな便利な機能あるの知らなかった。<br>
+<br>
 
 ## <b>**残念なお知らせ**</b><br>
 2025年度からAdobeCCの料金がかなり高価に値上がりしたので、プライベートではとっても払えないので次回の更新はしないことにしました。その為F's Pluginsの更新はi今以上にかなりロースペースになります。<br>
