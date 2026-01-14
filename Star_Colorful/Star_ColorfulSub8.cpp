@@ -179,6 +179,7 @@ TargetPixel(
 		v = (0.29891 * r) + (0.58661 * g) + (0.11448 * b);
 		break;
 	case 4:
+	{
 		pf.red = r;
 		pf.green = g;
 		pf.blue = b;
@@ -192,6 +193,7 @@ TargetPixel(
 			+ PF_POW(lab.B - infoP->taget_lab.B, 2))
 			/ PF_SQRT(3)
 			);
+	}
 		break;
 	case 1:
 	default:

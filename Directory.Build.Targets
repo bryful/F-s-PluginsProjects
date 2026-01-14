@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <BuildDate>$([System.DateTime]::Now.ToString("yyyyMMdd"))</BuildDate>
+    
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\Adobe\Adobe After Effects 2024\Support Files\Plug-ins\debug\</OutDir>
+    <!-- <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\outPluginsX$(BuildDate)_d\</OutDir> -->
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\F's Plugins_$(BuildDate)\</OutDir>
+    <!-- Release x64 ビルド時のファイル名を直接指定 -->
+    <TargetName Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">F's $(ProjectName)_$(BuildDate)</TargetName>
+    <TargetPath Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">$(OutDir)F's $(ProjectName)_$(BuildDate)$(TargetExt)</TargetPath>
+    <TargetName Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">F's $(ProjectName)_d</TargetName>
+    <TargetPath Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">$(OutDir)F's $(ProjectName)_d$(TargetExt)</TargetPath>
+  </PropertyGroup>
+</Project>

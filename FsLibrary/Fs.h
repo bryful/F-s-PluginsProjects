@@ -9,7 +9,6 @@
 #ifdef AE_OS_WIN
 #include "string.h"
 #endif
-
 #include "AE_Effect.h"
 #include "AE_EffectCB.h"
 #include "AE_EffectCBSuites.h"
@@ -27,6 +26,5 @@
 	#include "PF_Suite_Helper.h"
 	#define refconType A_long
 #endif
-
 
 #endif
