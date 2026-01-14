@@ -1,6 +1,6 @@
 ﻿# F's Plugins New and Next
 Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。 
-**No macOS support** **不支持 macOS**<br>
+(**No macOS support** / **不支持 macOS**)<br>
 　
 昔から趣味でコツコツと作っていたものです。<br>
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。<br>
