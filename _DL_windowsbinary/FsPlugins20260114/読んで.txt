@@ -8,5 +8,11 @@
 ## 注意
 すみません。動作確認していません。動作不良あったらX(Twitter)で教えてください。
 
+
+## おまけ
+◎(Fake)フォルダにUnmultにMatchNameを合わせたCreateAlphaが入っています。
+他から来たAEPでKNSW版やRG版が混在していた時に必要に応じて有効にしてください。
+
+
 bry-ful
 https://github.com/bryful/F-s-PluginsProjects
