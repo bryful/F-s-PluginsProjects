@@ -17,6 +17,9 @@ DaVinci Resolve - Fusion 移植版<br>
 詳細はリンク先で<br>
 [https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports](https://github.com/akahito-ot/Fs-Plugins-Fusion-Ports)<br>
 
+chinese translated version<br>
+[https://www.lookae.com/fsplugins/](https://www.lookae.com/fsplugins/)<br>
+
 ## ビルド時の注意 ##
 今回から**Directory.Build.props**/**Directory.Build.Targets**を使ってプロジェクト設定の一括変更を行っています。<br>
 VS2026でSDK2025を使うとものすごいWarnigが出るのでDirectory.Build.propsで抑制しています。プロパティのUIで変更しても上書きされるので注意です。<br>
@@ -43,11 +46,13 @@ VS2026でSDK2025を使うとものすごいWarnigが出るのでDirectory.Build.
 ## 進捗
 バージョン管理の方法をいろいろ考えましたが、プラグインファイル名に日付を入れるという一番チープな方法を採用しました。<br>
 <br>
-
+Visual studio 2025に変更。SDKを2025に変更（まだ動作確認できていません）<br>
+Visual studioのプロジェクト設定を一括で変更できるDirectory.Build.props/Directory.Build.targetsを使って、出力ファイル名に日付を入れるようにしました。<br>
+<br>
 TargetGrad.aex/TargetGradradical.aex<br>
 グラデーションエフェクトを追加<br>
 [FsTargetGrad_finalBeta.zip](https://github.com/bryful/F-s-PluginsProjects/raw/refs/heads/master/_DL_windowsbinary/FsTargetGrad_finalBeta.zip) からDLしてください。近いうちに正式版出します。
-
+<br>
 F's sputteringAlpha.aex/F's sputteringSplash.aexが内部エラーで落ちるバグに対処。<br>
 まだ原因が特定できていないので、直っていないかも。<br>
 MainLineReplaceも同様なバグがあったので修正。<br>
@@ -70,7 +75,6 @@ Fs_Target.hの
 CC2019用からgithubでバイナリーの配布も行います。
 **_DL_windowsbinary**フォルダの中に入っています。
 
-* **chinese translated version**<br>[https://www.lookae.com/fsplugins/](https://www.lookae.com/fsplugins/)<br>
 
 
 <br>
