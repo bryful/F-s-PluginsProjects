@@ -1,4 +1,4 @@
-#include "FsGraphics.h"
+ï»¿#include "FsGraphics.h"
 
 
 CFsGraph::CFsGraph(
@@ -7,14 +7,14 @@ CFsGraph::CFsGraph(
 		PF_PixelFormat	format)
 {
 	PF_Err err = PF_Err_NONE;
-	//ƒƒ“ƒo‚Ì‰Šú‰»
+	//ãƒ¡ãƒ³ãƒã®åˆæœŸåŒ–
 
 	lineHeiht		= 1;
 
 	m_frame = 0;
 	if (in_data!=NULL){
 		m_in_data = in_data;
-		//ƒJƒŒƒ“ƒgƒtƒŒ[ƒ€‚ð‹‚ß‚é‰æ“ª‚Í‚O
+		//ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚’æ±‚ã‚ã‚‹ç”»é ­ã¯ï¼
 		if ( (in_data->current_time>=0)&&(in_data->time_step>0) ) {
 			m_frame	=(in_data->current_time/in_data->time_step); 
 		}
@@ -43,7 +43,7 @@ CFsGraph::CFsGraph(
 
 		PF_NewWorldFlags f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_NONE;
 
-		// NULLƒ`ƒFƒbƒN‚ð’Ç‰Á
+		// NULLãƒã‚§ãƒƒã‚¯ã‚’è¿½åŠ 
 		m_vurWorld.data = NULL;
 		m_scanlineWorld.data = NULL;
 		if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {

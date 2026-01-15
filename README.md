@@ -2,6 +2,7 @@
 Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。 
 (**No macOS support** / **不支持 macOS**)<br>
 　
+
 昔から趣味でコツコツと作っていたものです。<br>
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。<br>
 <br>
@@ -9,6 +10,10 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
 <br>
 ## 関連プロジェクト ##
+F-s-PluginsProjects_TLed<br>
+(Oops, sorry!　^^;) 詳細はリンク先で<br>
+[https://github.com/ilyasok/F-s-PluginsProjects_TLed](https://github.com/ilyasok/F-s-PluginsProjects_TLed)
+<br>
 F's Plugins for MacOS<br>
 詳細はリンク先で<br>
 [https://github.com/CubeZeero/F-s-PluginsProjects_forMac](https://github.com/CubeZeero/F-s-PluginsProjects_forMac)<br>

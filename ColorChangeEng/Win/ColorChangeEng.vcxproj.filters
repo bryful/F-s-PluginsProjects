@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Header Files">
@@ -29,7 +29,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ColorChange.h">
+    <ClInclude Include="..\ColorChangeEng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Fs_Target.h">
@@ -127,12 +127,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ColorChangePiPL.rc">
+    <ResourceCompile Include="ColorChangeEngPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\ColorChange.cpp" />
+    <ClCompile Include="..\ColorChangeEng.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
@@ -150,7 +150,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\ColorChangePiPL.r">
+    <CustomBuild Include="..\ColorChangeEngPiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>

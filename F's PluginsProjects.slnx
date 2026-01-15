@@ -32,6 +32,9 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
+  <Project Path="ColorChangeEng/Win/ColorChangeEng.vcxproj" Id="2c003939-ce32-414d-acea-ba67c122c698">
+    <Platform Project="x64" />
+  </Project>
   <Project Path="ColorChangeFromPoint/Win/ColorChangeFromPoint.vcxproj" Id="27adfc15-d8f9-445f-84dc-6ceaa3c19117" />
   <Project Path="ColorChangeSimple/Win/ColorChangeSimple.vcxproj" Id="6eb2a53d-63db-462b-990a-14d37f42e338">
     <Platform Project="x64" />

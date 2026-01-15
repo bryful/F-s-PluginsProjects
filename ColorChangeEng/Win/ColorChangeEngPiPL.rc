@@ -17,13 +17,13 @@ BEGIN
 	"eman",
 	0, 0x0,
 	20, 0x0,
-	"\x10NF's ColorChange\0\0\0", 
+	"\x13NF's ColorChangeEng", 
 
 	"MIB8",
 	"gtac", 
 	0, 0x0,
-	24, 0x0,
-	"\x15NF's Plugins-{Legacy}\0\0", 
+	20, 0x0,
+	"\x11NF's Plugins-Cell\0\0", 
 
 	"MIB8",
 	"4668", 
@@ -70,8 +70,8 @@ BEGIN
 	"MIB8",
 	"ANMe",
 	0, 0x0,
-	16, 0x0,
-	"\x0FF's ColorChange", 
+	20, 0x0,
+	"\x12F's ColorChangeEng\0", 
 
 	"MIB8",
 	0x6165464CL, 
