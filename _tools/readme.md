@@ -2,14 +2,23 @@
 
 ## renPrj.ps1
 
-./renPrj.ps1 <targetDIrPath> <srcWord> <dstword><br>
-<br>
-プロジェクトのあるフォルダーのリネームを行います。<br>
+```
+./renPrj.ps1 <targetDirPath> <srcWord> <dstword><br>
+```
+プロジェクトのあるフォルダーのリネームを行うPowerShellスクリプト。<br>
 ファイル名のリネームと同時にテキストの中身の置換も行います。<br>
 
-## AE_FlagManager.ps1
+## projectDup.exe
 
-outflagsの計算を行うスクリプト
+```
+projectDup <targetDirPath> <DupDirPath> <srcWord> <dstword><br>
+```
+projectDup.exeは複製しながら名前の変更を行うC++コンソールアプリです。<br>
+
+## AE_FlagManager.ps1 / outflags.exe
+
+outflagsの計算を行うPowerShellスクリプト
+outflags.exeは全く同じ機能を持つC++製のGUIアプリケーションです。<br>
 
 -write/-outflag/-outflag2で設定ファイルを書き出し。<br>
 設定ファイルを編集。 行頭の;を外すとその項目が有効になる<br>
