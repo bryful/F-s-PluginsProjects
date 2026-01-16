@@ -47,9 +47,11 @@ VS2026でSDK2025を使うとものすごいWarnigが出るのでDirectory.Build.
 <br>
 まぁ、バグ報告のほうがありがたいです。 <br>
 <br>
+
 ## _tools フォルダについて<br>
 _toolsフォルダ内にはプラグイン開発に便利なツールを入れています。<br>
 今までC#で作ってましたが、PowerShellスクリプトに置き換えました。<br>
+詳細は_toolsフォルダ内のREADME.mdを見てください。<br>
 
 
 ## 進捗
