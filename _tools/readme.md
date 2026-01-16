@@ -17,7 +17,7 @@ outflagsの計算を行うスクリプト
 <br>
 -routflag/-routflag2で数値を指定すれば、その値のリストが書き出される。
 
-プロジェクトフォルダでpowershellを起動（エクスプローラーで上のurk欄に"powershell"と入力してEnter）<br>
+プロジェクトフォルダでpowershellを起動（エクスプローラーで上のurl欄に"powershell"と入力してEnter）<br>
 まず最初に
 
 ```
