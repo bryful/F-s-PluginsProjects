@@ -29,7 +29,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 ``` 
 .\_tools\AE_FlagManager.ps1 -write
 ```
-で実行。".\_"と打ち込んだらTabキーで補完できます。<br>
+で実行。".\\_"と打ち込んだらTabキーで補完できます。<br>
 
 ``` 
 AE_FlagManager - After Effects SDK Flag Utility
