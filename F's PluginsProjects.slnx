@@ -10,6 +10,7 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
+  <Project Path="AlphaHyperbolic/Win/AlphaHyperbolic.vcxproj" />
   <Project Path="AlphaThreshold/Win/alphaThreshold.vcxproj" Id="7c83e956-b2b9-430b-959e-ba86d9e4e624" />
   <Project Path="AnimatedNoise/Win/AnimatedNoise.vcxproj" Id="aa3a8cbe-4ace-4728-9579-7904cca685a1">
     <Platform Project="x64" />

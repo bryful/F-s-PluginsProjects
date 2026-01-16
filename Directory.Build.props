@@ -2,12 +2,20 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <LocalDebuggerCommand>C:\Program Files\Adobe\Adobe After Effects 2024\Support Files\AfterFX.exe</LocalDebuggerCommand>
-  </PropertyGroup>
+		<!-- C++言語標準 -->
+		<LanguageStandard>stdcpp17</LanguageStandard>
+
+		<!-- オプション: 標準準拠モード -->
+		<ConformanceMode>true</ConformanceMode>
+
+		<!-- オプション: UTF-8ソースとエグゼキューション文字セット -->
+		<!-- <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>  -->
+  
+</PropertyGroup>
   
   <ItemDefinitionGroup>
     <ClCompile>
       <DisableSpecificWarnings>4103;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <!-- <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions> -->
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>
