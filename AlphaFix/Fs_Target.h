@@ -9,7 +9,7 @@
 #define FS_TAGET_H
 
 #define FS_NAME			"F's AlphaFix"
-#define FS_DESCRIPTION	"不透明部分を塗りつぶします。"
+#define FS_DESCRIPTION	"Fill transparent areas."
 
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名

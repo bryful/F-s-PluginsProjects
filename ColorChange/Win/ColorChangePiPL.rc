@@ -16,8 +16,8 @@ BEGIN
 	"MIB8",
 	"eman",
 	0, 0x0,
-	20, 0x0,
-	"\x10NF's ColorChange\0\0\0", 
+	16, 0x0,
+	"\x0FF's ColorChange", 
 
 	"MIB8",
 	"gtac", 
