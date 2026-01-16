@@ -19,15 +19,20 @@ outflagsの計算を行うスクリプト
 
 プロジェクトフォルダでpowershellを起動（エクスプローラーで上のurk欄に"powershell"と入力してEnter）<br>
 まず最初に
-``` Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 ```
 を実行して、スクリプトの実行を許可してください。<br>
 その後
-``` .\_tools\AE_FlagManager.ps1 -write
+
+``` 
+.\_tools\AE_FlagManager.ps1 -write
 ```
 で実行。".\_"と打ち込んだらTabキーで補完できます。<br>
-``` AE_FlagManager - After Effects SDK Flag Utility
 
+``` 
+AE_FlagManager - After Effects SDK Flag Utility
 Usage:
   .\AE_FlagManager.ps1 -write               : 全リストを書き出し (; 付き)
   .\AE_FlagManager.ps1 -outflag             : outFlags1 を書き出し (; 付き)
