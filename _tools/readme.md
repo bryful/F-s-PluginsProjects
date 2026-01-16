@@ -1,0 +1,31 @@
+﻿# tools
+
+## renPrj.ps1
+
+./renPrj.ps1 <targetDIrPath> <srcWord> <dstword><br>
+<br>
+プロジェクトのあるフォルダーのリネームを行います。<br>
+ファイル名のリネームと同時にテキストの中身の置換も行います。<br>
+
+## AE_FlagManager.ps1
+
+outflagsの計算を行うスクリプト
+
+-write/-outflag/-outflag2ｄ設定ファイルを書き出し。<br>
+設定ファイルを編集。 行頭の;を外すとその項目が有効になる<br>
+-calcでそのファイルを指定すると結果を出力される。<br>
+<br>
+-routflag/-routflag2で数値を指定すれば、その値のリストが書き出される。
+
+
+```
+AE_FlagManager - After Effects SDK Flag Utility
+
+Usage:
+  .\AE_FlagManager.ps1 -write               : 全リストを書き出し (; 付き)
+  .\AE_FlagManager.ps1 -outflag             : outFlags1 を書き出し (; 付き)
+  .\AE_FlagManager.ps1 -outflag2            : outFlags2 を書き出し (; 付き)
+  .\AE_FlagManager.ps1 -calc <File>         : 有効な行の値を合算
+  .\AE_FlagManager.ps1 -routflag <Value>    : 値に含まれるFlagの ";" を外して書き出し
+  .\AE_FlagManager.ps1 -routflag2 <Value>   : 値に含まれるFlag2の ";" を外して書き出し
+```
