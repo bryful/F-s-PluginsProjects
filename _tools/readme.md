@@ -17,9 +17,16 @@ outflagsの計算を行うスクリプト
 <br>
 -routflag/-routflag2で数値を指定すれば、その値のリストが書き出される。
 
-
+プロジェクトフォルダでpowershellを起動（エクスプローラーで上のurk欄に"powershell"と入力してEnter）<br>
+まず最初に
+``` Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 ```
-AE_FlagManager - After Effects SDK Flag Utility
+を実行して、スクリプトの実行を許可してください。<br>
+その後
+``` .\_tools\AE_FlagManager.ps1 -write
+```
+で実行。".\_"と打ち込んだらTabキーで補完できます。<br>
+``` AE_FlagManager - After Effects SDK Flag Utility
 
 Usage:
   .\AE_FlagManager.ps1 -write               : 全リストを書き出し (; 付き)
