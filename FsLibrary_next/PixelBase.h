@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef PIXELBASE_H
 #define PIXELBASE_H
 
@@ -260,5 +260,6 @@ public:
 
 
 #endif
+
 
 

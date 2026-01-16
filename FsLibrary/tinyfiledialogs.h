@@ -1,4 +1,4 @@
-/* If you are using a C++ compiler to compile tinyfiledialogs.c (maybe renamed with an extension ".cpp")
+﻿/* If you are using a C++ compiler to compile tinyfiledialogs.c (maybe renamed with an extension ".cpp")
 then comment out << extern "C" >> bellow in this header file) */
 
 /*_________
@@ -301,3 +301,4 @@ wchar_t * tinyfd_colorChooserW(
   It can be found at the bottom of the following page:
   http://andrear.altervista.org/home/cdialog.php
 */
+

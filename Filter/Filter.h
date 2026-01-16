@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	Filter for VS2010
 */
@@ -17,7 +17,7 @@
 
 #include "Filter_Target.h"
 
-//CAEƒNƒ‰ƒX‚Ì“Ç‚İ‚İ
+//CAEã‚¯ãƒ©ã‚¹ã®èª­ã¿è¾¼ã¿
 #include "../FsLibrary_next/CAE.h"
 
 #ifdef AE_OS_WIN
@@ -63,7 +63,7 @@ enum
 
 //ID_NUM_PARAMS
 
-//UI‚Ì•\¦•¶š—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_ON				"on"
 #define	STR_BASE_ENABLED	"BaseEnabled"
 #define	STR_BASE_OPACITY	"BaseOpacity"
@@ -100,7 +100,7 @@ enum EXTRACT_MODE
 	LO
 };
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamSetInfo {
 	PF_Boolean	enabled;
 	A_long		extract_mode;
@@ -157,3 +157,4 @@ extern "C" {
 }
 
 #endif // Filter_H
+

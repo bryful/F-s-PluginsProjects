@@ -1,4 +1,4 @@
-#include "TouchDraw.h"
+ï»¿#include "TouchDraw.h"
 
 //-------------------------------------------------------
 inline long lineLen(PF_Fixed a,PF_Fixed b)
@@ -100,11 +100,11 @@ void drawTouch32(CFsGraph *g,ParamInfo	*prm)
 	PF_PixelFloat *oD;
 	oD = (PF_PixelFloat *)g->data();
 	
-	//ƒ^[ƒQƒbƒgƒ‰ƒ“ƒ_ƒ€
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ©ãƒ³ãƒ€ãƒ 
 	F_SRAND(prm->seed);
 	A_long t0;
 	t0 = (A_long)(F_RAND_MAX * prm->target_value);
-	//’·‚³ƒ‰ƒ“ƒ_ƒ€
+	//é•·ã•ãƒ©ãƒ³ãƒ€ãƒ 
 	PF_Fixed ir0,ir1;
 	ir1 = (prm->length_i_max  >>8) * (prm->length_i_rnd >>8);
 	ir0 = prm->length_i_max - ir1;
@@ -115,7 +115,7 @@ void drawTouch32(CFsGraph *g,ParamInfo	*prm)
 	or0 = prm->length_o_max - or1;
 	if (or0<0) or0=0;
 
-	//•s“§–¾“xƒ‰ƒ“ƒ_ƒ€
+	//ä¸é€æ˜Žåº¦ãƒ©ãƒ³ãƒ€ãƒ 
 	PF_Fixed p0,p1;
 	p1 = (prm->opacity >>8) * (prm->opacity_rnd >>8);
 	p0 = prm->opacity -p1;

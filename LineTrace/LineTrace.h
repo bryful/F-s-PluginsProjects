@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	PluginSkeleton for VS2010
 */
@@ -39,7 +39,7 @@
 #include "../FsLibrary/FsAE.h"
 
 //-----------------------------------------------------------------------------
-//ParamsSetup—p‚Ì’è”
+//ParamsSetupç”¨ã®å®šæ•°
 #define PR_PRM_COUNT	24
 enum {
 	ID_INPUT = 0,
@@ -76,7 +76,7 @@ enum{
 	mode_simple
 };
 //-----------------------------------------------------------------------------
-//ƒpƒ‰ƒ[ƒ^UI—p‚Ì•¶š—ñ
+//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿UIç”¨ã®æ–‡å­—åˆ—
 
 
 #define UI_ENABLED_BLACK	"Black"
@@ -104,8 +104,8 @@ enum{
 
 
 
-#define ERR_GET_AEPRM	"‚·‚İ‚Ü‚¹‚ñƒGƒ‰[‚Å‚·B\nAfterEffects_Params error!"
-#define ERR_GET_PRM		"‚·‚İ‚Ü‚¹‚ñƒGƒ‰[‚Å‚·B\nLineTrace_Params error!"
+#define ERR_GET_AEPRM	"ã™ã¿ã¾ã›ã‚“ã‚¨ãƒ©ãƒ¼ã§ã™ã€‚\nAfterEffects_Params error!"
+#define ERR_GET_PRM		"ã™ã¿ã¾ã›ã‚“ã‚¨ãƒ©ãƒ¼ã§ã™ã€‚\nLineTrace_Params error!"
 //-----------------------------------------------------------------------------
 #define	RANGE_RED2	330
 #define	RANGE_RED3	360
@@ -208,3 +208,4 @@ EntryPointFunc (
 //-----------------------------------------------------------------------------
 
 #endif // LineTrace_H
+

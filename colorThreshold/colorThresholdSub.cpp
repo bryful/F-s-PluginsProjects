@@ -1,4 +1,4 @@
-#include "colorThreshold.h"
+﻿#include "colorThreshold.h"
 
 #define SQMAX_2 1.4142135623730950488016887242097
 #define SQMAX_3 1.7320508075688772935274463415059
@@ -112,3 +112,4 @@ PF_Boolean colorCompare(hls s,PF_PixelFloat c,PF_FpLong hs,PF_FpLong l )
 	return colorCompare(s,CONV32TO8(c),hs,l);
 }
 //*************************************************************************************************
+

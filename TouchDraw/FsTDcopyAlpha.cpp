@@ -1,4 +1,4 @@
-#include "TouchDraw.h"
+﻿#include "TouchDraw.h"
 
 typedef struct {
 	PF_Pixel	color;
@@ -110,3 +110,4 @@ PF_Err copyAlpha(CFsAE *ae , PF_Pixel color, PF_Boolean org)
 	}
 	return err;
 }
+

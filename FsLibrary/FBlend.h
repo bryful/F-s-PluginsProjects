@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef FBlend_H
 #define FBlend_H
 

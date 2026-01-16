@@ -1,4 +1,4 @@
-#include "FsG.h"
+﻿#include "FsG.h"
 // ****************************************************************************************
 PF_Err To16WorldSub08(refconType refcon, A_long x, A_long y, PF_Pixel* inP, PF_Pixel16* outP)
 {
@@ -79,3 +79,4 @@ PF_Err World16To32(PF_EffectWorld *src, PF_EffectWorld *dst)
 	ERR(iterateWorld16to32(NULL, src, dst, From16WorldSub32));
 	return err;
 }
+

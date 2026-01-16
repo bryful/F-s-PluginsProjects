@@ -1,6 +1,6 @@
-//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ �Ő������ꂽ�C���N���[�h �t�@�C���B
-// Resource.rc �Ŏg�p
+﻿//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ で生成されたインクルード ファイル。
+// Resource.rc で使用
 //
 #define IDB_PNG1                        101
 
@@ -14,3 +14,4 @@
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
+

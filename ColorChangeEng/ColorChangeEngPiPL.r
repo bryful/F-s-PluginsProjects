@@ -15,7 +15,7 @@ resource 'PiPL' (16000) {
 		},
 		/* [2] */
 		Name {
-			NFS_NAME
+			FS_NAME
 		},
 		/* [3] */
 		Category {
@@ -72,4 +72,5 @@ resource 'PiPL' (16000) {
 		}
 	}
 };
+
 

@@ -1,4 +1,4 @@
-#include "FsGraphics.h"
+﻿#include "FsGraphics.h"
 
 
 static bool levelMin(A_long s,A_long d){ return (s>=d);}
@@ -305,3 +305,4 @@ PF_Err CFsGraph::Minimax(A_long value,ScanLineMode mode,TargetChannelMode target
 	}
 	return err;
 }
+

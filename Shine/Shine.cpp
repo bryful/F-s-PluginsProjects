@@ -1,11 +1,11 @@
-
+﻿
 
 #include "Shine.h"
 
 
 // **********************************************************
-/*in�摜����buf1�։摜���k���R�s�[
-* 4�_����Ԗ��邢�F��I��
+/*in画像からbuf1へ画像を縮小コピー
+* 4点中一番明るい色を選ぶ
 */
 // **********************************************************
 #pragma region Copy in to buf1
@@ -129,8 +129,8 @@ PF_Err CopyIntoBuf1_32(ParamInfo* infoP)
 #pragma endregion
 
 // **********************************************************
-/*in�摜����buf1�։摜���k���R�s�[
-* 4�_����Ԗ��邢�F��I�� �O���[
+/*in画像からbuf1へ画像を縮小コピー
+* 4点中一番明るい色を選ぶ グレー
 */
 // **********************************************************
 #pragma region CopyG in to buf1
@@ -321,8 +321,8 @@ PF_Err CopyBuf1ToDst_32(ParamInfo* infoP)
 	return err;
 }
 // **********************************************************
-/*buf2�摜����out�։摜���g��R�s�[
-* 4�_����Ԗ��邢�F��I��
+/*buf2画像からoutへ画像を拡大コピー
+* 4点中一番明るい色を選ぶ
 */
 // **********************************************************
 #pragma region Copy buf2 to out
@@ -402,7 +402,7 @@ PF_Err CopyBuf2ToDst_32(ParamInfo* infoP)
 
 
 // **********************************************************
-/*�@shine�̎���
+/*　shineの実態
 */
 // **********************************************************
 #pragma region sub
@@ -424,19 +424,19 @@ sub8(
 	{
 		return err;
 	}
-	//buf���n�[�t�T�C�Y�Ȃ̂ňʒu�␳
+	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
 
 	//sqrt( (x1-x2)^2 + (y1-y2)^2 )
-	//lenD�^�[�Q�b�g����̋���
+	//lenDターゲットからの距離
 	PF_FpLong lenD = pointLength(infoP->outP->in_data,
 		(PF_FpLong)xL,
 		(PF_FpLong)yL,
 		cx,
 		cy
 	);
-	// len �^�[�Q�b�g����̋��� long
+	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
 	if (len <= 0)
 	{
@@ -508,19 +508,19 @@ sub16(
 	{
 		return err;
 	}
-	//buf���n�[�t�T�C�Y�Ȃ̂ňʒu�␳
+	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
 
 	//sqrt( (x1-x2)^2 + (y1-y2)^2 )
-	//lenD�^�[�Q�b�g����̋���
+	//lenDターゲットからの距離
 	PF_FpLong lenD = pointLength(infoP->outP->in_data,
 		(PF_FpLong)xL,
 		(PF_FpLong)yL,
 		cx,
 		cy
 	);
-	// len �^�[�Q�b�g����̋��� long
+	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
 	if (len <= 0)
 	{
@@ -592,19 +592,19 @@ sub32(
 	{
 		return err;
 	}
-	//buf���n�[�t�T�C�Y�Ȃ̂ňʒu�␳
+	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
 
 	//sqrt( (x1-x2)^2 + (y1-y2)^2 )
-	//lenD�^�[�Q�b�g����̋���
+	//lenDターゲットからの距離
 	PF_FpLong lenD = pointLength(infoP->outP->in_data,
 		(PF_FpLong)xL,
 		(PF_FpLong)yL,
 		cx,
 		cy
 	);
-	// len �^�[�Q�b�g����̋��� long
+	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
 	if (len <= 0)
 	{
@@ -683,19 +683,19 @@ subG8(
 	}
 
 
-	//buf���n�[�t�T�C�Y�Ȃ̂ňʒu�␳
+	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
 
 	//sqrt( (x1-x2)^2 + (y1-y2)^2 )
-	//lenD�^�[�Q�b�g����̋���
+	//lenDターゲットからの距離
 	PF_FpLong lenD = pointLength(infoP->outP->in_data,
 		(PF_FpLong)xL,
 		(PF_FpLong)yL,
 		cx,
 		cy
 	);
-	// len �^�[�Q�b�g����̋��� long
+	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
 	if (len <= 0) {
 		*outP = infoP->Color;
@@ -753,19 +753,19 @@ subG16(
 	}
 
 
-	//buf���n�[�t�T�C�Y�Ȃ̂ňʒu�␳
+	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
 
 	//sqrt( (x1-x2)^2 + (y1-y2)^2 )
-	//lenD�^�[�Q�b�g����̋���
+	//lenDターゲットからの距離
 	PF_FpLong lenD = pointLength(infoP->outP->in_data,
 		(PF_FpLong)xL,
 		(PF_FpLong)yL,
 		cx,
 		cy
 	);
-	// len �^�[�Q�b�g����̋��� long
+	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
 	if (len <= 0) {
 		*outP = infoP->Color16;
@@ -822,19 +822,19 @@ subG32(
 	}
 
 
-	//buf���n�[�t�T�C�Y�Ȃ̂ňʒu�␳
+	//bufがハーフサイズなので位置補正
 	PF_FpLong cx = infoP->pos.x / 2;
 	PF_FpLong cy = infoP->pos.y / 2;
 
 	//sqrt( (x1-x2)^2 + (y1-y2)^2 )
-	//lenD�^�[�Q�b�g����̋���
+	//lenDターゲットからの距離
 	PF_FpLong lenD = pointLength(infoP->outP->in_data,
 		(PF_FpLong)xL,
 		(PF_FpLong)yL,
 		cx,
 		cy
 	);
-	// len �^�[�Q�b�g����̋��� long
+	// len ターゲットからの距離 long
 	A_long len = (A_long)(lenD + 0.5);
 	if (len <= 0) {
 		*outP = infoP->Color32;
@@ -972,7 +972,7 @@ PF_Err Shine::ParamsSetup(
 	out_data = out_dataP;
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
-	//�ʒu�̎w��
+	//位置の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(STR_POS,		//"New Center"
 		50,	// X
@@ -982,12 +982,12 @@ PF_Err Shine::ParamsSetup(
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_LENGTH,	//�p�����[�^�̖��O
-		0, 		//���l���͂���ꍇ�̍ŏ��l
-		1000,			//���l���͂���ꍇ�̍ő�l
-		0,				//�X���C�_�[�̍ŏ��l
-		200,			//�X���C�_�[�̍ő�l
-		0,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(STR_LENGTH,	//パラメータの名前
+		0, 		//数値入力する場合の最小値
+		1000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値
+		200,			//スライダーの最大値
+		0,				//デフォルトの値
 		ID_LENGTH
 	);		
 	//----------------------------------------------------------------
@@ -1013,7 +1013,7 @@ PF_Err Shine::ParamsSetup(
 		ID_ISCOLOR
 	);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_COLOR,
 		0xFF,
@@ -1142,3 +1142,4 @@ PF_Err Shine::Exec(ParamInfo* infoP)
 
 };
 // **********************************************************
+

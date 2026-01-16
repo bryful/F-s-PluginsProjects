@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../FsLibrary/json.hpp"
 #include <windows.h>
 #include <iostream>
@@ -9,3 +9,4 @@
 using json = nlohmann::json;
 
 std::string GetPluginConfigFilePath(const std::string& filename);
+

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef NFJSON_H
 #define NFJSON_H
 

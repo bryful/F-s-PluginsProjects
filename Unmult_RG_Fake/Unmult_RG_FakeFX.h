@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef Unmult_RG_FakeFX_H
 #define Unmult_RG_FakeFX_H
 

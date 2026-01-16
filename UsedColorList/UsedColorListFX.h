@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef UsedColorListFX_H
 #define UsedColorListFX_H
 
@@ -154,11 +154,11 @@ public:
 	void bubbleSort(PF_Pixel *p,A_long *s, A_long array_num) 
 	{
 		for (A_long i = 0; i < array_num - 1; i++) {
-			//‰E‚©‚çƒ\[ƒgi¶‚©‚ç‚â‚é‚Æ•Ï”‚ª1‚Â‘‚¦‚éj
+			//å³ã‹ã‚‰ã‚½ãƒ¼ãƒˆï¼ˆå·¦ã‹ã‚‰ã‚„ã‚‹ã¨å¤‰æ•°ãŒ1ã¤å¢—ãˆã‚‹ï¼‰
 			for (A_long j = array_num - 1; i < j; j--) {
 
-				if (s[j] < s[j - 1]) { //¶‚Ì”’l‚ª‘å‚«‚¯‚ê‚ÎƒXƒƒbƒviŒðŠ·j
-					//ƒXƒƒbƒv
+				if (s[j] < s[j - 1]) { //å·¦ã®æ•°å€¤ãŒå¤§ãã‘ã‚Œã°ã‚¹ãƒ¯ãƒƒãƒ—ï¼ˆäº¤æ›ï¼‰
+					//ã‚¹ãƒ¯ãƒƒãƒ—
 					PF_Pixel tc = p[j];
 					p[j] = p[j - 1];
 					p[j - 1] = tc;

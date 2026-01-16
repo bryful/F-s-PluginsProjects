@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef Unmult_KNSW_FakeFX_H
 #define Unmult_KNSW_FakeFX_H
 

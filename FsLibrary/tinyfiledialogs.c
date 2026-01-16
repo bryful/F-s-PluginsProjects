@@ -1,4 +1,4 @@
-/* this file can be renamed with extension ".cpp" and compiled as C++.
+﻿/* this file can be renamed with extension ".cpp" and compiled as C++.
 The code is 100% compatible C C++
 (just comment out << extern "C" >> in the header file) */
 
@@ -7756,3 +7756,4 @@ tinyfd_messageBox("The selected hexcolor is",
 #pragma warning(default:4100)
 #pragma warning(default:4706)
 #endif
+

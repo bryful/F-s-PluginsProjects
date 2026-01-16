@@ -1,4 +1,4 @@
-#include "FsGraphics.h"
+﻿#include "FsGraphics.h"
 
 //-------------------------------------------------------
 void CFsGraph::toBlackMat8()
@@ -376,3 +376,4 @@ void CFsGraph::toStraightMat32()
 		fromWhiteMat32();
 	}
 }
+

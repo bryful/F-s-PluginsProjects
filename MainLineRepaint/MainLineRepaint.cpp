@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -21,7 +21,7 @@ static PF_Err ParamsSetup (
 	PF_ParamDef		def;
 
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(	STR_Main_Color, 
 					0x00,
@@ -90,17 +90,17 @@ static PF_Err Exec16(CFsAE* ae, ParamInfo* infoP)
 	data = (PF_Pixel16*)ae->out->data();
 	
 	PF_Pixel16 m2 = CONV8TO16(infoP->Main_Color);
-	//…•½•ûŒü
+	//æ°´å¹³æ–¹å‘
 	A_long cnt = 0;
 	for (A_long j = 0; j < h; j++) {
 		A_long adrY = j * wt;
-		//Œ³‰æ‘œ‚ğƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚²‚Æ‚É‘Ş”ğ
+		//å…ƒç”»åƒã‚’ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã”ã¨ã«é€€é¿
 		for (A_long i = 0; i < w; i++) {
 			scanline[i] = data[adrY + i];
-			//åüE“§–¾‚Æ–¾‚é‚³‚Ìƒe[ƒuƒ‹
-			//@–¾‚é‚³ 0-255
-			// “§–¾ 256 PPTRANS
-			// åü 257 PPMAIN
+			//ä¸»ç·šãƒ»é€æ˜ã¨æ˜ã‚‹ã•ã®ãƒ†ãƒ¼ãƒ–ãƒ«
+			//ã€€æ˜ã‚‹ã• 0-255
+			// é€æ˜ 256 PPTRANS
+			// ä¸»ç·š 257 PPMAIN
 			scanlineV[i] = pV16(data[adrY + i], infoP->Main_Color, infoP->lv);
 		}
 
@@ -201,7 +201,7 @@ static PF_Err Exec16(CFsAE* ae, ParamInfo* infoP)
 		}
 	}
 	if (cnt == 0) return err;
-	// ‚’¼•ûŒü
+	// å‚ç›´æ–¹å‘
 	cnt = 0;
 	for (A_long i = 0; i < w; i++) {
 		for (A_long j = 0; j < h; j++) {
@@ -324,17 +324,17 @@ static PF_Err Exec32(CFsAE* ae, ParamInfo* infoP)
 	data = (PF_PixelFloat*)ae->out->data();
 
 	PF_PixelFloat m2 = CONV8TO32(infoP->Main_Color);
-	//…•½•ûŒü
+	//æ°´å¹³æ–¹å‘
 	A_long cnt = 0;
 	for (A_long j = 0; j < h; j++) {
 		A_long adrY = j * wt;
-		//Œ³‰æ‘œ‚ğƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚²‚Æ‚É‘Ş”ğ
+		//å…ƒç”»åƒã‚’ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã”ã¨ã«é€€é¿
 		for (A_long i = 0; i < w; i++) {
 			scanline[i] = data[adrY + i];
-			//åüE“§–¾‚Æ–¾‚é‚³‚Ìƒe[ƒuƒ‹
-			//@–¾‚é‚³ 0-255
-			// “§–¾ 256 PPTRANS
-			// åü 257 PPMAIN
+			//ä¸»ç·šãƒ»é€æ˜ã¨æ˜ã‚‹ã•ã®ãƒ†ãƒ¼ãƒ–ãƒ«
+			//ã€€æ˜ã‚‹ã• 0-255
+			// é€æ˜ 256 PPTRANS
+			// ä¸»ç·š 257 PPMAIN
 			scanlineV[i] = pV32(data[adrY + i], infoP->Main_Color, infoP->lv);
 		}
 
@@ -435,7 +435,7 @@ static PF_Err Exec32(CFsAE* ae, ParamInfo* infoP)
 		}
 	}
 	if (cnt == 0) return err;
-	// ‚’¼•ûŒü
+	// å‚ç›´æ–¹å‘
 	cnt = 0;
 	for (A_long i = 0; i < w; i++) {
 		for (A_long j = 0; j < h; j++) {
@@ -571,7 +571,7 @@ static PF_Err
 	if ( w < ae->out->height() ) w = ae->out->height();
 	w *=2;
 
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	
 
@@ -617,10 +617,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 /*
-	SmartFX‚É‘Î‰‚µ‚Ä‚¢‚È‚¢ƒzƒXƒg(After Effects7ˆÈ‘O‚Ì‚à‚Ì)‚Í‚±‚ÌŠÖ”‚ªŒÄ‚Ño‚³‚ê‚Ä•`‰æ‚·‚é
-	‚±‚ÌŠÖ”‚ğ‘‚¢‚Ä‚¨‚¯‚Îˆê‰v6.5‘Î‰‚É‚È‚é
+	SmartFXã«å¯¾å¿œã—ã¦ã„ãªã„ãƒ›ã‚¹ãƒˆ(After Effects7ä»¥å‰ã®ã‚‚ã®)ã¯ã“ã®é–¢æ•°ãŒå‘¼ã³å‡ºã•ã‚Œã¦æç”»ã™ã‚‹
+	ã“ã®é–¢æ•°ã‚’æ›¸ã„ã¦ãŠã‘ã°ä¸€å¿œv6.5å¯¾å¿œã«ãªã‚‹
 */
 static PF_Err 
 Render ( 
@@ -644,7 +644,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX‘Î‰‚Ìê‡A‚Ü‚¸‚±‚ÌŠÖ”‚ªŒÄ‚Î‚ê‚Äƒpƒ‰ƒ[ƒ^‚ÌŠl“¾‚ğs‚¤
+	SmartFXå¯¾å¿œã®å ´åˆã€ã¾ãšã“ã®é–¢æ•°ãŒå‘¼ã°ã‚Œã¦ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ç²å¾—ã‚’è¡Œã†
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err
@@ -699,3 +699,4 @@ SmartRender(
 #endif
 
 #include "Fs_Entry.h"
+

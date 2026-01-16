@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #ifndef FS_VAERSION_H
 #define FS_VAERSION_H
 
 
 //-----------------------------------------------------------------------------------
-//ƒo[ƒWƒ‡ƒ“‚ğ”ƒ‚¦‚½AlphaFixPiPL.r‚ÌAE_Effect_Version‚à•Ï‚¦‚é‚±‚Æ
+//ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’è²·ãˆãŸAlphaFixPiPL.rã®AE_Effect_Versionã‚‚å¤‰ãˆã‚‹ã“ã¨
 #define	MAJOR_VERSION		2
 #define	MINOR_VERSION		0
 #define	BUG_VERSION			0
@@ -14,8 +14,9 @@
 #define	STAGE_VERSION		PF_Stage_RELEASE
 #define	BUILD_VERSION		0
 
-//ã‚Ì’l‚ğŒvZ‚µ‚½Œ‹‰Ê
+//ä¸Šã®å€¤ã‚’è¨ˆç®—ã—ãŸçµæœ
 #define FS_VERSION	1050112
 
 
 #endif // FS_VAERSION_H
+

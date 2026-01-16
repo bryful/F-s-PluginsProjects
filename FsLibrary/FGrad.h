@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef FGrad_H
 #define FGrad_H
 
@@ -37,10 +37,10 @@ typedef struct GradInfo {
 class FGrad
 {
 private:
-	//ƒAƒhƒŒƒXŒvZƒe[ƒuƒ‹Eƒ|ƒCƒ“ƒgƒe[ƒuƒ‹—p
+	//ã‚¢ãƒ‰ãƒ¬ã‚¹è¨ˆç®—ãƒ†ãƒ¼ãƒ–ãƒ«ãƒ»ãƒã‚¤ãƒ³ãƒˆãƒ†ãƒ¼ãƒ–ãƒ«ç”¨
 	PF_Handle	m_bufH = NULL;
 
-	// ƒAƒhƒŒƒXŒvZƒe[ƒuƒ‹
+	// ã‚¢ãƒ‰ãƒ¬ã‚¹è¨ˆç®—ãƒ†ãƒ¼ãƒ–ãƒ«
 	A_long* m_vurTbl = NULL;
 
 

@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+Ôªø//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -51,17 +51,17 @@ typedef struct ParamInfo{
 
 enum {
 	ID_INPUT = 0,			// default input layer 
-	ID_Y,				//ÉÇÉUÉCÉNÇÃó (%)
-	ID_STRENGTH,			//ÉÇÉUÉCÉNÇÃã≠Ç≥
-	ID_SIZEX,				// ÉÇÉUÉCÉNÇÃëÂÇ´Ç≥
-	ID_SIZEY,				// ÉÇÉUÉCÉNÇÃëÂÇ´Ç≥
+	ID_Y,				//„É¢„Ç∂„Ç§„ÇØ„ÅÆÈáè(%)
+	ID_STRENGTH,			//„É¢„Ç∂„Ç§„ÇØ„ÅÆÂº∑„Åï
+	ID_SIZEX,				// „É¢„Ç∂„Ç§„ÇØ„ÅÆÂ§ß„Åç„Åï
+	ID_SIZEY,				// „É¢„Ç∂„Ç§„ÇØ„ÅÆÂ§ß„Åç„Åï
 	ID_NUM_PARAMS
 };
 
-#define STR_Y		"ó (%)"
-#define STR_STRENGTH	"ã≠Ç≥"
-#define STR_SIZEX		"â°ÉTÉCÉY"
-#define STR_SIZEY		"ècÉTÉCÉY"
+#define STR_Y		"Èáè(%)"
+#define STR_STRENGTH	"Âº∑„Åï"
+#define STR_SIZEX		"Ê®™„Çµ„Ç§„Ç∫"
+#define STR_SIZEY		"Á∏¶„Çµ„Ç§„Ç∫"
 
 extern "C" {
 DllExport
@@ -78,3 +78,4 @@ EntryPointFunc (
 
 
 #endif // RandomMosaic2nd
+

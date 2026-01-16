@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+Ôªø//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -46,12 +46,12 @@ enum {
 	ID_HEIGHT,
 	ID_NUM_PARAMS
 };
-#define STR_GRIDSIZE	"ÉOÉäÉbÉhÉTÉCÉY"
-#define STR_MODE1		"ÉÇÅ[Éh"
-#define STR_MODE2		"ÉÇÉUÉCÉN"
-#define STR_HILIGHT		"ÉnÉCÉâÉCÉg(%)"
-#define STR_SHADOW		"ÉVÉÉÉhÉE(%)"
-#define STR_HEIGHT		"ÉâÉCÉìïù"
+#define STR_GRIDSIZE	"„Ç∞„É™„ÉÉ„Éâ„Çµ„Ç§„Ç∫"
+#define STR_MODE1		"„É¢„Éº„Éâ"
+#define STR_MODE2		"„É¢„Ç∂„Ç§„ÇØ"
+#define STR_HILIGHT		"„Éè„Ç§„É©„Ç§„Éà(%)"
+#define STR_SHADOW		"„Ç∑„É£„Éâ„Ç¶(%)"
+#define STR_HEIGHT		"„É©„Ç§„É≥ÂπÖ"
 
 typedef struct ParamInfo{
 	A_long			gridSize;

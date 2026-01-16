@@ -1,4 +1,4 @@
-#include "Flare.h"
+Ôªø#include "Flare.h"
 
 //==================================================================================
 static PF_Err BlurRedHor(CFsGraph *g, A_long blue, A_u_short *scanline, A_long *tbl)
@@ -14,7 +14,7 @@ static PF_Err BlurRedHor(CFsGraph *g, A_long blue, A_u_short *scanline, A_long *
 	A_long adr = 0;
 	for (A_long y = 0; y < h; y++)
 	{
-		//ÉXÉLÉÉÉìÉâÉCÉìÇ÷ì]ëó
+		//„Çπ„Ç≠„É£„É≥„É©„Ç§„É≥„Å∏Ëª¢ÈÄÅ
 		for (A_long x = 0; x < w; x++) {
 			scanline[x] = data[adr + x].red;
 		}
@@ -22,7 +22,7 @@ static PF_Err BlurRedHor(CFsGraph *g, A_long blue, A_u_short *scanline, A_long *
 			A_long count = 0;
 			A_long gauss = 0;
 			A_long r = 0;
-			//ê^ÇÒíÜ
+			//Áúü„Çì‰∏≠
 			gauss = tbl[0];
 			if (scanline[x] > 0) {
 				r += scanline[x] * gauss;
@@ -67,7 +67,7 @@ static PF_Err BlurRedVur(CFsGraph *g, A_long blue, A_u_short *scanline, A_long *
 	A_long adr = 0;
 	for (A_long x = 0; x < w; x++)
 	{
-		//ÉXÉLÉÉÉìÉâÉCÉìÇ÷ì]ëó
+		//„Çπ„Ç≠„É£„É≥„É©„Ç§„É≥„Å∏Ëª¢ÈÄÅ
 		adr = 0;
 		for (A_long y = 0; y < h; y++) {
 			scanline[y] = data[x + adr].red;
@@ -78,7 +78,7 @@ static PF_Err BlurRedVur(CFsGraph *g, A_long blue, A_u_short *scanline, A_long *
 			A_long count = 0;
 			A_long gauss = 0;
 			A_long r = 0;
-			//ê^ÇÒíÜ
+			//Áúü„Çì‰∏≠
 			gauss = tbl[0];
 			if (scanline[y] > 0) {
 				r += scanline[y] * gauss;
@@ -126,7 +126,7 @@ static PF_Err MakeTbl(CFsAE *ae, A_long blur, A_long *tbl)
 
 }
 //==================================================================================
-/*redÉ`ÉÉÉìÉlÉãÇÃÇ›ëŒâû
+/*red„ÉÅ„É£„É≥„Éç„É´„ÅÆ„ÅøÂØæÂøú
 */
 
 PF_Err BlurRed16(CFsAE *ae, FlareInfo16 *infoP)
@@ -169,7 +169,7 @@ static PF_Err BlurAllHor(CFsGraph *g, A_long blue, PF_Pixel16 *scanline, A_long 
 	A_long adr = 0;
 	for (A_long y = 0; y < h; y++)
 	{
-		//ÉXÉLÉÉÉìÉâÉCÉìÇ÷ì]ëó
+		//„Çπ„Ç≠„É£„É≥„É©„Ç§„É≥„Å∏Ëª¢ÈÄÅ
 		for (A_long x = 0; x < w; x++) {
 			scanline[x] = data[adr + x];
 		}
@@ -180,7 +180,7 @@ static PF_Err BlurAllHor(CFsGraph *g, A_long blue, PF_Pixel16 *scanline, A_long 
 			A_long g = 0;
 			A_long b = 0;
 			A_long a = 0;
-			//ê^ÇÒíÜ
+			//Áúü„Çì‰∏≠
 			gauss = tbl[0];
 			if (scanline[x].alpha > 0) {
 				r += scanline[x].red * gauss;
@@ -238,7 +238,7 @@ static PF_Err BlurAllVur(CFsGraph *g, A_long blue, PF_Pixel16 *scanline, A_long 
 	A_long adr = 0;
 	for (A_long x = 0; x < w; x++)
 	{
-		//ÉXÉLÉÉÉìÉâÉCÉìÇ÷ì]ëó
+		//„Çπ„Ç≠„É£„É≥„É©„Ç§„É≥„Å∏Ëª¢ÈÄÅ
 		adr = 0;
 		for (A_long y = 0; y < h; y++) {
 			scanline[y] = data[x + adr];
@@ -252,7 +252,7 @@ static PF_Err BlurAllVur(CFsGraph *g, A_long blue, PF_Pixel16 *scanline, A_long 
 			A_long g = 0;
 			A_long b = 0;
 			A_long a = 0;
-			//ê^ÇÒíÜ
+			//Áúü„Çì‰∏≠
 			gauss = tbl[0];
 			if (scanline[y].alpha > 0) {
 				r += scanline[y].red * gauss;
@@ -323,3 +323,4 @@ PF_Err BlurAll16(CFsAE *ae, FlareInfo16 *infoP)
 
 	return err;
 }
+

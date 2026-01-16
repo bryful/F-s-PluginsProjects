@@ -1,4 +1,4 @@
-
+Ôªø
 #include <stdio.h>
 #include "AEDebugAngel.h"
 #define STR_START	32
@@ -2028,7 +2028,7 @@ PF_Err DispAngelStr16(AngelWing *wing,char c,A_long x,A_long y)
 //--------------------------------------------------------------------
 PF_Err DispAngelStr8(AngelWing *wing,char c,A_long x,A_long y)
 {
-	//STR_STARTÇÕÉXÉyÅ[ÉXÇæÇ¡ÇΩ
+	//STR_START„ÅØ„Çπ„Éö„Éº„Çπ„Å†„Å£„Åü
 	if ( ( c<=STR_START)||(c>STR_LAST) ) return PF_Err_NONE;
 	
 	A_long targetFont = c - STR_START;
@@ -2090,3 +2090,4 @@ PF_Err DispAngel(CFsGraph *scr,char *msg,A_long x, A_long y,PF_Pixel8 col)
 	return PF_Err_NONE;
 }
 //--------------------------------------------------------------------
+

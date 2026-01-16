@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -43,19 +43,19 @@
 
 
 #define	STR_TOPIC			"Point_%d"
-#define	STR_EXECUTED_CB1	"“h‚è‚Â‚Ô‚·_%d"
+#define	STR_EXECUTED_CB1	"å¡—ã‚Šã¤ã¶ã™_%d"
 #define	STR_EXECUTED_CB2	"ON"
-#define	STR_POS				"ˆÊ’u_%d"
-#define	STR_COLOR			"ƒyƒCƒ“ƒgF_%d"
+#define	STR_POS				"ä½ç½®_%d"
+#define	STR_COLOR			"ãƒšã‚¤ãƒ³ãƒˆè‰²_%d"
 
 #ifdef AE_OS_WIN
-#define	STR_GUIDE_CB1		"ƒKƒCƒh•\¦_%d"
-#define	STR_GUIDE_ALL_CB2	"”ñ•\¦"
-#define STR_GUIDE_ALL_CB1 "ƒKƒCƒh‚ğ‚·‚×‚Ä”ñ•\¦‚É‚·‚é"
+#define	STR_GUIDE_CB1		"ã‚¬ã‚¤ãƒ‰è¡¨ç¤º_%d"
+#define	STR_GUIDE_ALL_CB2	"éè¡¨ç¤º"
+#define STR_GUIDE_ALL_CB1 "ã‚¬ã‚¤ãƒ‰ã‚’ã™ã¹ã¦éè¡¨ç¤ºã«ã™ã‚‹"
 #else
-#define	STR_GUIDE_CB1		"ƒKƒCƒh•\\¦_%d"
-#define	STR_GUIDE_ALL_CB2	"”ñ•\\¦"
-#define STR_GUIDE_ALL_CB1 "ƒKƒCƒh‚ğ‚·‚×‚Ä”ñ•\\¦‚É‚·‚é"
+#define	STR_GUIDE_CB1		"ã‚¬ã‚¤ãƒ‰è¡¨\ç¤º_%d"
+#define	STR_GUIDE_ALL_CB2	"éè¡¨\ç¤º"
+#define STR_GUIDE_ALL_CB1 "ã‚¬ã‚¤ãƒ‰ã‚’ã™ã¹ã¦éè¡¨\ç¤ºã«ã™ã‚‹"
 #endif
 
 
@@ -73,7 +73,7 @@ typedef struct{
 	PF_Boolean		disp_guide_all;
 } ParamInfo;
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
 #define ID_INPUT	0
 #define ID_UI_START	1
 #define ID_UI_COUNT	6
@@ -100,3 +100,4 @@ EntryPointFunc (
 }
 
 #endif // Paint_H
+

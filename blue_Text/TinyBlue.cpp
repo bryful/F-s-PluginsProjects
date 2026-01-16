@@ -1,5 +1,5 @@
-#include "TinyBlue.h"
-/* --- ƒeƒ“ƒvƒŒ[ƒg‚É‚æ‚é…•½ƒ{ƒbƒNƒXƒuƒ‰[ --- */
+ï»¿#include "TinyBlue.h"
+/* --- ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«ã‚ˆã‚‹æ°´å¹³ãƒœãƒƒã‚¯ã‚¹ãƒ–ãƒ©ãƒ¼ --- */
 template <typename P>
 static PF_Err BoxBlurH(
 	void* refcon,
@@ -15,14 +15,14 @@ static PF_Err BoxBlurH(
 	if (r <= 0) return PF_Err_NONE;
 
 
-	// 32bit(float)‚ÍfloatA8/16bit‚ÍA_u_long‚ğg—p
+	// 32bit(float)æ™‚ã¯floatã€8/16bitæ™‚ã¯A_u_longã‚’ä½¿ç”¨
 	double sumR = 0, sumG = 0, sumB = 0, sumA = 0;
 	A_long window = (r * 2) + 1;
 
-	// s‚Ìæ“ªƒ|ƒCƒ“ƒ^‚ğrowbytes‚©‚ç³Šm‚ÉŒvZ‚·‚é
+	// è¡Œã®å…ˆé ­ãƒã‚¤ãƒ³ã‚¿ã‚’rowbytesã‹ã‚‰æ­£ç¢ºã«è¨ˆç®—ã™ã‚‹
 	P* src_row = (P*)((char*)bi->src->data + (y * bi->src->rowbytes));
 	P* dst_row = (P*)((char*)bi->src->data + (y * bi->src->rowbytes));
-	//P* dst_row = (P*)((char*)out); // iterate‚ª“n‚·out‚Íys–Ú‚Ìæ“ª‚ğw‚µ‚Ä‚¢‚é
+	//P* dst_row = (P*)((char*)out); // iterateãŒæ¸¡ã™outã¯yè¡Œç›®ã®å…ˆé ­ã‚’æŒ‡ã—ã¦ã„ã‚‹
 
 	for (A_long i = -r; i <= r; i++) {
 		P* p = src_row + AE_CLAMP(i, 0, width - 1);
@@ -31,15 +31,15 @@ static PF_Err BoxBlurH(
 
 	for (A_long i = 0; i < width; i++) {
 
-		// Š„‚èZ‚ÌŒ‹‰Ê‚ğˆê“I‚É A_long ‚Åó‚¯‚é
+		// å‰²ã‚Šç®—ã®çµæœã‚’ä¸€æ™‚çš„ã« A_long ã§å—ã‘ã‚‹
 		A_long avgR = static_cast<A_long>(sumR / window);
 		A_long avgG = static_cast<A_long>(sumG / window);
 		A_long avgB = static_cast<A_long>(sumB / window);
 		A_long avgA = static_cast<A_long>(sumA / window);
-		// AE_CLAMP ‚Å 0`255 (‚Ü‚½‚Í 16bit ‚È‚ç 0`32768) ‚Éû‚ß‚é
+		// AE_CLAMP ã§ 0ï½255 (ã¾ãŸã¯ 16bit ãªã‚‰ 0ï½32768) ã«åã‚ã‚‹
 		// 8bit: 255, 16bit: 32768, 32bit: 1.0
 		A_long max_val = (sizeof(typename P::red) == 1) ? 255 : 32768;
-		// ¦ 32bit float ‚Ìê‡‚Í‚±‚ÌƒƒWƒbƒN‚ğ•Ê“r•ªŠò‚³‚¹‚é
+		// â€» 32bit float ã®å ´åˆã¯ã“ã®ãƒ­ã‚¸ãƒƒã‚¯ã‚’åˆ¥é€”åˆ†å²ã•ã›ã‚‹
 		dst_row[i].red = static_cast<decltype(P::red)>(AE_CLAMP(avgR, 0, max_val));
 		dst_row[i].green = static_cast<decltype(P::green)>(AE_CLAMP(avgG, 0, max_val));
 		dst_row[i].blue = static_cast<decltype(P::blue)>(AE_CLAMP(avgB, 0, max_val));
@@ -57,7 +57,7 @@ static PF_Err BoxBlurH(
 	return PF_Err_NONE;
 }
 
-/* --- ƒeƒ“ƒvƒŒ[ƒg‚É‚æ‚é‚’¼ƒ{ƒbƒNƒXƒuƒ‰[ (y=0ƒgƒŠƒK[•û®) --- */
+/* --- ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã«ã‚ˆã‚‹å‚ç›´ãƒœãƒƒã‚¯ã‚¹ãƒ–ãƒ©ãƒ¼ (y=0ãƒˆãƒªã‚¬ãƒ¼æ–¹å¼) --- */
 template <typename P>
 static PF_Err BoxBlurV(
 	void* refcon,
@@ -66,7 +66,7 @@ static PF_Err BoxBlurV(
 	P* in,
 	P* out)
 {
-	// ‚’¼ƒpƒX‚Å‚Í y=0 ‚Ì‚¾‚¯‚»‚Ìu—ñ(x)v‚ğŠ®‹‚³‚¹‚é
+	// å‚ç›´ãƒ‘ã‚¹ã§ã¯ y=0 ã®æ™‚ã ã‘ãã®ã€Œåˆ—(x)ã€ã‚’å®Œé‚ã•ã›ã‚‹
 	if (y != 0) return PF_Err_NONE;
 
 	BlurInfo* bi = (BlurInfo*)refcon;
@@ -76,7 +76,7 @@ static PF_Err BoxBlurV(
 	A_long window = (r * 2) + 1;
 	A_long stride = dst->rowbytes / sizeof(P);
 
-	P* col_top = out; // y=0‚È‚Ì‚Åout‚Íx—ñ‚Ìæ“ª‚ğw‚µ‚Ä‚¢‚é
+	P* col_top = out; // y=0ãªã®ã§outã¯xåˆ—ã®å…ˆé ­ã‚’æŒ‡ã—ã¦ã„ã‚‹
 	double sumR = 0, sumG = 0, sumB = 0, sumA = 0;
 
 	for (A_long i = -r; i <= r; i++) {
@@ -117,8 +117,8 @@ static PF_Err TinyBlueLm(CFsAE* ae, A_long bl)
 	PF_Err err = PF_Err_NONE;
 
 	BlurInfo bi;
-	bi.radius = bl; // ”¼Œa‚ğæ“¾
-	bi.src = ae->output; // o—Íƒoƒbƒtƒ@‚ğ‚»‚Ì‚Ü‚Ü‰ÁH
+	bi.radius = bl; // åŠå¾„ã‚’å–å¾—
+	bi.src = ae->output; // å‡ºåŠ›ãƒãƒƒãƒ•ã‚¡ã‚’ãã®ã¾ã¾åŠ å·¥
 	if (bi.radius <= 0) return err;
 
 	switch (ae->pixelFormat()) {

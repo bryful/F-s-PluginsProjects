@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef FWorldTranst_H
 #define FWorldTranst_H
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef TINY_BLUE_H
 #define TINY_BLUE_H
 
@@ -11,16 +11,16 @@
 #include <cmath>
 #include <algorithm>
 
-// ƒuƒ‰[E’Šo—p‹¤’Ê\‘¢‘Ì
+// ãƒ–ãƒ©ãƒ¼ãƒ»æŠ½å‡ºç”¨å…±é€šæ§‹é€ ä½“
 typedef struct {
 	PF_EffectWorld* src;
 	A_long radius;
 } BlurInfo;
-// ƒrƒbƒg[“x‚²‚Æ‚ÌŒvZ—pƒeƒ“ƒvƒŒ[ƒg\‘¢‘ÌiŒ^‚É‚æ‚éˆá‚¢‚ğ‹zûj
+// ãƒ“ãƒƒãƒˆæ·±åº¦ã”ã¨ã®è¨ˆç®—ç”¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆæ§‹é€ ä½“ï¼ˆå‹ã«ã‚ˆã‚‹é•ã„ã‚’å¸åï¼‰
 template <typename P, typename COMP>
 struct PixelTrait {
-	// P: ƒsƒNƒZƒ‹\‘¢‘Ì (PF_Pixel8“™)
-	// COMP: ŒvZ—pŒ^ (A_u_long‚âfloat“™)
+	// P: ãƒ”ã‚¯ã‚»ãƒ«æ§‹é€ ä½“ (PF_Pixel8ç­‰)
+	// COMP: è¨ˆç®—ç”¨å‹ (A_u_longã‚„floatç­‰)
 };
 #define AE_CLAMP(val, min, max)  ((val) < (min) ? (min) : ((val) > (max) ? (max) : (val)))
 

@@ -1,4 +1,4 @@
-#include "TouchDraw.h"
+﻿#include "TouchDraw.h"
 
 #define TARGET_CHNNEL	blue
 
@@ -117,3 +117,4 @@ PF_Err blockDraw(CFsAE *ae , A_long bSize, A_long bCount)
 	}
 	return err;
 }
+

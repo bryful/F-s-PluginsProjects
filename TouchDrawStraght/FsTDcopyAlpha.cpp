@@ -1,4 +1,4 @@
-#include "TouchDrawStraght.h"
+﻿#include "TouchDrawStraght.h"
 
 
 typedef struct {
@@ -111,3 +111,4 @@ PF_Err copyAlpha(CFsAE *ae , PF_Pixel color, PF_Boolean org)
 	}
 	return err;
 }
+

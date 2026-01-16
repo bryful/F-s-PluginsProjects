@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -45,8 +45,8 @@
 #define STR_GRAY_MODE_DEF	1
 #define STR_ORG_BLEND		"blend original(%)"
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 	ID_GRAY_MODE,	//long 1..
@@ -54,7 +54,7 @@ enum {
 	ID_NUM_PARAMS
 	};
 
-//ƒvƒ‰ƒOƒCƒ““Æ©‚Ìƒpƒ‰ƒ[ƒ^‚ğW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 typedef struct ParamsInfo{
 	PF_InData	*in_data;
 	A_long		gray_mode;
@@ -75,3 +75,4 @@ EntryPointFunc (
 	void			*extra);
 }
 #endif // ToGray_H
+

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef DRAW_SQ_10_H
 #define DRAW_SQ_10_H
 
@@ -1143,3 +1143,4 @@ unsigned char data200[40000] = {
 };
 
 #endif
+

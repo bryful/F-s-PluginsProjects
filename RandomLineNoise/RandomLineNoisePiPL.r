@@ -1,4 +1,4 @@
-#include "Fs_Target.h"
+ï»¿#include "Fs_Target.h"
 
 #include "AEConfig.h"
 #include "AE_EffectVers.h"
@@ -15,12 +15,12 @@ resource 'PiPL' (16000) {
 		},
 		/* [2] */
 		Name {
-			/*AE‚Ìƒƒjƒ…[‚Ég‚í‚ê‚é */
+			/*AEã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ä½¿ã‚ã‚Œã‚‹ */
 				FS_NAME
 		},
 		/* [3] */
 		Category {
-			/*AE‚Ìƒƒjƒ…[‚Ég‚í‚ê‚é */
+			/*AEã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ä½¿ã‚ã‚Œã‚‹ */
 			FS_CATEGORY
 		},
 		
@@ -73,4 +73,5 @@ resource 'PiPL' (16000) {
 		}
 	}
 };
+
 

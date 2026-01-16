@@ -1,4 +1,4 @@
-#include "Star.h"
+﻿#include "Star.h"
 //***********************************************************************************
 //-----------------------------------------------------------------------------------
 inline PF_Pixel MixPx8(PF_Pixel s,PF_Pixel d,PF_FpShort a)
@@ -796,3 +796,4 @@ PF_Err StarDraw (CFsAE *ae, ParamInfo *infoP)
 	}
 	return err;
 }
+

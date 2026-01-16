@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -11,7 +11,7 @@ static PF_Pixel COL_W = {0xFF,0xFF,0xFF,0xFF};
 static PF_Pixel COL_BL = {0xFF,0,0,0};
 
 //-------------------------------------------------------------------------------------------------
-//About•\¦
+//Aboutè¡¨ç¤º
 static PF_Err About (	PF_InData		*in_data,
 						PF_OutData		*out_data,
 						PF_ParamDef		*params[],
@@ -76,8 +76,8 @@ static PF_Err SequenceResetup (
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (PF_InData		*in_data,
 					PF_OutData		*out_data,
 					PF_ParamDef		*params[],
@@ -91,8 +91,8 @@ static PF_Err ParamsSetup (PF_InData		*in_data,
 						PF_ParamFlag_CANNOT_INTERP;
 						
 	PF_ADD_POPUP(		STR_POP1, 
-						STR_POP,	//ƒƒjƒ…[‚Ì”
-						STR_POP_DEF,	//ƒfƒtƒHƒ‹ƒg
+						STR_POP,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ•°
+						STR_POP_DEF,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 						STR_POP2,
 						ID_POP
 						);
@@ -157,8 +157,8 @@ QueryDynamicFlags(
 {
 	PF_Err 	err 	= PF_Err_NONE,
 			err2 	= PF_Err_NONE;
-	//PF_OutFlag_NON_PARAM_VARY‚Ì’l‚ğout_flags‚Öİ’è‚µ‚Ä
-	//–ˆƒtƒŒ[ƒ€‚²‚Æ‚Ì•`‰æ‚ğ‚·‚é‚©Ø‚è‘Ö‚¦‚éB
+	//PF_OutFlag_NON_PARAM_VARYã®å€¤ã‚’out_flagsã¸è¨­å®šã—ã¦
+	//æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®æç”»ã‚’ã™ã‚‹ã‹åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚
 	/*
 	CFsAE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
@@ -302,7 +302,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	ERR(ae->CopyInToOut());
 	switch(ae->pixelFormat())
 	{
@@ -323,7 +323,7 @@ static PF_Err
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 static PF_Err 
 Render ( 
 	PF_InData		*in_data,
@@ -491,3 +491,4 @@ EntryPointFunc (
 }
 
 //-------------------------------------------------------------------------------------------------
+

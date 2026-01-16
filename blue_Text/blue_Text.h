@@ -51,3 +51,4 @@ EffectMain(
 	void			*extra);
 }
 #endif // blue_Text_H
+

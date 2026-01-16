@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef FRectGrad_H
 #define FRectGrad_H
 
@@ -187,3 +187,4 @@ public:
 };
 
 #endif
+

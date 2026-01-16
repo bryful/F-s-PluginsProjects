@@ -276,3 +276,4 @@ EffectMain(
 	void			*extra);
 }
 #endif // TargetGradRadical_H
+

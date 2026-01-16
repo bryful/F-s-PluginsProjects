@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "AE_Effect.h"
 
@@ -221,6 +221,7 @@ public:
 		m_a = m_a / v;
 	}
 };
+
 
 
 

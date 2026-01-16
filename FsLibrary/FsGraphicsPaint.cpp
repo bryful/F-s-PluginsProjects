@@ -1,4 +1,4 @@
-#include "FsGraphics.h"
+ï»¿#include "FsGraphics.h"
 
 //------------------------------------------------------------------------------
 void CFsGraph::paint_scan_line8(paintPrm *prm)
@@ -104,7 +104,7 @@ PF_Err CFsGraph::paint8(A_long x, A_long y, PF_Pixel col)
 		return err;
 	}
 	
-	//ƒoƒbƒtƒ@[‚Ìì¬B‰Šú’l‚ğ‘ã“ü
+	//ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ä½œæˆã€‚åˆæœŸå€¤ã‚’ä»£å…¥
 	PF_EffectWorld sw;
 	prm.buf = NULL;
 	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
@@ -137,29 +137,29 @@ PF_Err CFsGraph::paint8(A_long x, A_long y, PF_Pixel col)
     prm.start+=1;
     if (prm.start == prm.max) prm.start =0;
 
-		// ˆ—Ï‚ÌƒV[ƒh‚È‚ç–³‹
+		// å‡¦ç†æ¸ˆã®ã‚·ãƒ¼ãƒ‰ãªã‚‰ç„¡è¦–
 		if (paint_cmp8(paint_getPix8(lx,uy),paintCol)==TRUE) continue;
 
-		//‰E•ûŒü‚Ì‹«ŠE‚ğ’T‚·
+		//å³æ–¹å‘ã®å¢ƒç•Œã‚’æ¢ã™
 		while (rx < (m_width -1) ) {
 			if (paint_cmp8(paint_getPix8(rx+1,uy),prm.targetCol)==FALSE) break;
       rx++;
 		}
 
-		//¶•ûŒü‚Ì‹«ŠE‚ğ’T‚·
+		//å·¦æ–¹å‘ã®å¢ƒç•Œã‚’æ¢ã™
 		while(lx>0) {
 			if (paint_cmp8(paint_getPix8(lx-1,uy),prm.targetCol)==FALSE) break;
       lx--;
 		}
 
-	//lx-rx‚Ìü•ª‚ğ•`‰æ
+	//lx-rxã®ç·šåˆ†ã‚’æç”»
 		target = lx + uy * wt;
 		for (i=lx;i<=rx;i++) {
 			data[target] = col;
 			target++;
 		}
 
-  //^ã‚ÌƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ğ‘–¸‚·‚é
+  //çœŸä¸Šã®ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã‚’èµ°æŸ»ã™ã‚‹
 		uy--;
 		if (uy>=0) {
 			if (uy==oy) {
@@ -181,7 +181,7 @@ PF_Err CFsGraph::paint8(A_long x, A_long y, PF_Pixel col)
 				paint_scan_line8(&prm);
 			}
 		}
-		//^‰º‚ÌƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ğ‘–¸‚·‚é
+		//çœŸä¸‹ã®ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã‚’èµ°æŸ»ã™ã‚‹
 		dy++;
 		if (dy<m_height) {
 			if (dy==oy) {
@@ -205,7 +205,7 @@ PF_Err CFsGraph::paint8(A_long x, A_long y, PF_Pixel col)
 		}
 	}while(prm.start != prm.last);
 
-	//ƒƒ‚ƒŠ‚Ì”jŠü
+	//ãƒ¡ãƒ¢ãƒªã®ç ´æ£„
 	if (m_in_data != NULL && m_scanlineWorld.data != NULL) {
 		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &sw);
 		sw.data = NULL;
@@ -235,7 +235,7 @@ PF_Err CFsGraph::paint16(A_long x, A_long y, PF_Pixel col)
 	paintCol.green	= (A_u_short)CONVERT8TO16(col.green);
 	paintCol.blue	= (A_u_short)CONVERT8TO16(col.blue);
 	
-	//ƒoƒbƒtƒ@[‚Ìì¬B‰Šú’l‚ğ‘ã“ü
+	//ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ä½œæˆã€‚åˆæœŸå€¤ã‚’ä»£å…¥
 	PF_EffectWorld sw;
 	prm.buf = NULL;
 	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
@@ -269,29 +269,29 @@ PF_Err CFsGraph::paint16(A_long x, A_long y, PF_Pixel col)
     prm.start+=1;
     if (prm.start == prm.max) prm.start =0;
 
-		// ˆ—Ï‚ÌƒV[ƒh‚È‚ç–³‹
+		// å‡¦ç†æ¸ˆã®ã‚·ãƒ¼ãƒ‰ãªã‚‰ç„¡è¦–
 		if (paint_cmp16(paint_getPix16(lx,uy),paintCol)==TRUE) continue;
 
-		//‰E•ûŒü‚Ì‹«ŠE‚ğ’T‚·
+		//å³æ–¹å‘ã®å¢ƒç•Œã‚’æ¢ã™
 		while (rx < (m_width -1) ) {
 			if (paint_cmp16(paint_getPix16(rx+1,uy),prm.targetCol16)==FALSE) break;
       rx++;
 		}
 
-		//¶•ûŒü‚Ì‹«ŠE‚ğ’T‚·
+		//å·¦æ–¹å‘ã®å¢ƒç•Œã‚’æ¢ã™
 		while(lx>0) {
 			if (paint_cmp16(paint_getPix16(lx-1,uy),prm.targetCol16)==FALSE) break;
       lx--;
 		}
 
-	//lx-rx‚Ìü•ª‚ğ•`‰æ
+	//lx-rxã®ç·šåˆ†ã‚’æç”»
 		target = lx + uy * wt;
 		for (i=lx;i<=rx;i++) {
 			data[target] = paintCol;
 			target++;
 		}
 
-  //^ã‚ÌƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ğ‘–¸‚·‚é
+  //çœŸä¸Šã®ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã‚’èµ°æŸ»ã™ã‚‹
 		uy--;
 		if (uy>=0) {
 			if (uy==oy) {
@@ -313,7 +313,7 @@ PF_Err CFsGraph::paint16(A_long x, A_long y, PF_Pixel col)
 				paint_scan_line16(&prm);
 			}
 		}
-		//^‰º‚ÌƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ğ‘–¸‚·‚é
+		//çœŸä¸‹ã®ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã‚’èµ°æŸ»ã™ã‚‹
 		dy++;
 		if (dy<m_height) {
 			if (dy==oy) {
@@ -337,7 +337,7 @@ PF_Err CFsGraph::paint16(A_long x, A_long y, PF_Pixel col)
 		}
 	}while(prm.start != prm.last);
 
-	//ƒƒ‚ƒŠ‚Ì”jŠü
+	//ãƒ¡ãƒ¢ãƒªã®ç ´æ£„
 	if (m_in_data != NULL && m_scanlineWorld.data != NULL) {
 		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &sw);
 		sw.data = NULL;
@@ -367,7 +367,7 @@ PF_Err CFsGraph::paint32(A_long x, A_long y, PF_Pixel col)
 	paintCol.green	= (PF_FpShort)((PF_FpShort)col.green/ PF_MAX_CHAN8);
 	paintCol.blue	= (PF_FpShort)((PF_FpShort)col.blue	/ PF_MAX_CHAN8);
 	
-	//ƒoƒbƒtƒ@[‚Ìì¬B‰Šú’l‚ğ‘ã“ü
+	//ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ä½œæˆã€‚åˆæœŸå€¤ã‚’ä»£å…¥
 	PF_EffectWorld sw;
 	prm.buf = NULL;
 	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
@@ -401,29 +401,29 @@ PF_Err CFsGraph::paint32(A_long x, A_long y, PF_Pixel col)
 		prm.start+=1;
 		if (prm.start == prm.max) prm.start =0;
 
-		// ˆ—Ï‚ÌƒV[ƒh‚È‚ç–³‹
+		// å‡¦ç†æ¸ˆã®ã‚·ãƒ¼ãƒ‰ãªã‚‰ç„¡è¦–
 		if (paint_cmp32(paint_getPix32(lx,uy),paintCol)==TRUE) continue;
 
-		//‰E•ûŒü‚Ì‹«ŠE‚ğ’T‚·
+		//å³æ–¹å‘ã®å¢ƒç•Œã‚’æ¢ã™
 		while (rx < (m_width -1) ) {
 			if (paint_cmp32(paint_getPix32(rx+1,uy),prm.targetCol32)==FALSE) break;
 			rx++;
 		}
 
-		//¶•ûŒü‚Ì‹«ŠE‚ğ’T‚·
+		//å·¦æ–¹å‘ã®å¢ƒç•Œã‚’æ¢ã™
 		while(lx>0) {
 			if (paint_cmp32(paint_getPix32(lx-1,uy),prm.targetCol32)==FALSE) break;
 			lx--;
 		}
 
-		//lx-rx‚Ìü•ª‚ğ•`‰æ
+		//lx-rxã®ç·šåˆ†ã‚’æç”»
 		target = lx + uy * wt;
 		for (i=lx;i<=rx;i++) {
 			data[target] = paintCol;
 			target++;
 		}
 
-  //^ã‚ÌƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ğ‘–¸‚·‚é
+  //çœŸä¸Šã®ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã‚’èµ°æŸ»ã™ã‚‹
 		uy--;
 		if (uy>=0) {
 			if (uy==oy) {
@@ -445,7 +445,7 @@ PF_Err CFsGraph::paint32(A_long x, A_long y, PF_Pixel col)
 				paint_scan_line32(&prm);
 			}
 		}
-		//^‰º‚ÌƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚ğ‘–¸‚·‚é
+		//çœŸä¸‹ã®ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã‚’èµ°æŸ»ã™ã‚‹
 		dy++;
 		if (dy<m_height) {
 			if (dy==oy) {
@@ -469,8 +469,8 @@ PF_Err CFsGraph::paint32(A_long x, A_long y, PF_Pixel col)
 		}
 	}while(prm.start != prm.last);
 
-	//ƒƒ‚ƒŠ‚Ì”jŠü
-		//ƒƒ‚ƒŠ‚Ì”jŠü
+	//ãƒ¡ãƒ¢ãƒªã®ç ´æ£„
+		//ãƒ¡ãƒ¢ãƒªã®ç ´æ£„
 	if (m_in_data != NULL && m_scanlineWorld.data != NULL) {
 		(*m_in_data->utils->dispose_world)(m_in_data->effect_ref, &sw);
 		sw.data = NULL;
@@ -506,3 +506,4 @@ PF_Err CFsGraph::paint(PF_FixedPoint pos, PF_Pixel col)
 	return paint( pos.x >>16, pos.y >>16,col);
 }
 //******************************************************************************
+

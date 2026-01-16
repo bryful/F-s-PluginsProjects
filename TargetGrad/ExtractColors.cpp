@@ -1,9 +1,9 @@
-#include "TargetGrad.h"
+ï»¿#include "TargetGrad.h"
 //-----------------------------------------------------------------------------------
 
 
 /**
- * 8bit”äŠr—p‚ÌƒCƒ“ƒ‰ƒCƒ“ŠÖ”
+ * 8bitæ¯”è¼ƒç”¨ã®ã‚¤ãƒ³ãƒ©ã‚¤ãƒ³é–¢æ•°
  */
 static inline PF_Boolean IsMatch(ColorFilterInfo* ci, PF_Pixel c) {
     for (A_long i = 0; i < ci->color_count; i++) {
@@ -18,7 +18,7 @@ static inline PF_Boolean IsMatch(ColorFilterInfo* ci, PF_Pixel c) {
 }
 
 /**
- * 8-bitŠÂ‹« (ARGB32)
+ * 8-bitç’°å¢ƒ (ARGB32)
  */
 static PF_Err ExtractColor8(
     void* refcon, 
@@ -37,8 +37,8 @@ static PF_Err ExtractColor8(
 }
 
 /**
- * 16-bitŠÂ‹« (ARGB64)
- * ŒvZ®: (double)V / 128 + 0.5 ‚ğ“K—p
+ * 16-bitç’°å¢ƒ (ARGB64)
+ * è¨ˆç®—å¼: (double)V / 128 + 0.5 ã‚’é©ç”¨
  */
 static PF_Err ExtractColor16(
     void* refcon, A_long x,
@@ -59,7 +59,7 @@ static PF_Err ExtractColor16(
 }
 
 /**
- * 32-bit FloatŠÂ‹« (ARGB128)
+ * 32-bit Floatç’°å¢ƒ (ARGB128)
  */
 static PF_Err ExtractColorFloat(
     void* refcon, 
@@ -199,7 +199,7 @@ static PF_Err ExtractColorL(CFsAE* ae, ParamInfo* info)
     PF_EffectWorld* output = ae->output;
     //PF_ParamDef* params[],
     ColorFilterInfo ci;
-    ci.color_count = info->targetColorCount; // ÀÛ‚ÌF”
+    ci.color_count = info->targetColorCount; // å®Ÿéš›ã®è‰²æ•°
     for(int i=0; i< ci.color_count; i++) {
         ci.match_colors[i] = info->targetColors[i];
 	}
@@ -243,3 +243,4 @@ PF_Err ExtractColor(CFsAE* ae, ParamInfo* info)
 {
     return ExtractColorL(ae, info);
 }
+

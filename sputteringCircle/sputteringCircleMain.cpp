@@ -1,8 +1,8 @@
-//-----------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------
 /*
-	AEP Project—p‚Ìƒvƒ‰ƒOƒCƒ“
+	AEP Projectç”¨ã®ãƒ—ãƒ©ã‚°ã‚¤ãƒ³
 	sputteringCircle
-	•`‰æ‚Ì‚Ý
+	æç”»ã®ã¿
 */
 #include "sputteringCircle.h"
 
@@ -15,7 +15,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	A_long value = prm->value;
 	A_long pValue = prm->point_value;
 	PF_Fixed scale = prm->length_scale;
-	PF_Fixed pLen = prm->point_length; //’l‚Í®”
+	PF_Fixed pLen = prm->point_length; //å€¤ã¯æ•´æ•°
 	PF_Fixed opa = prm->opa;
 	A_long colRnd = prm->color_max -1;
 	A_long colR;
@@ -42,7 +42,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	for ( i=0;i<value;i++){
 		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->radius));
 		PF_Fixed shiftX = rp0.pos().x;
-		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//ƒAƒXƒyƒNƒg‚Ì’²®
+		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//ã‚¢ã‚¹ãƒšã‚¯ãƒˆã®èª¿æ•´
 
 		if (prm->anchor_enabled == TRUE){
 			x = prm->anchor.x + ((prm->pos.x +shiftX - prm->anchor.x) * scale >>16);
@@ -53,7 +53,7 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 		}
 
 		for (j=0; j<pValue;j++){
-			//‚Î‚ç‚Â‚«‚ðì‚é
+			//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 			if (FM_RAND(5)==0){
 				rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12, FM_RAND(pLen * 2));
 			}else{
@@ -80,7 +80,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 	A_long value = prm->value;
 	A_long pValue = prm->point_value;
 	PF_Fixed scale = prm->length_scale;
-	PF_Fixed pLen = prm->point_length; //’l‚Í®”
+	PF_Fixed pLen = prm->point_length; //å€¤ã¯æ•´æ•°
 	PF_Fixed opa = prm->opa;
 	A_long colRnd = prm->color_max -1;
 	A_long colR;
@@ -111,7 +111,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 	for ( i=0;i<value;i++){
 		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->radius));
 		PF_Fixed shiftX = rp0.pos().x;
-		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//ƒAƒXƒyƒNƒg‚Ì’²®
+		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//ã‚¢ã‚¹ãƒšã‚¯ãƒˆã®èª¿æ•´
 
 		if (prm->anchor_enabled == TRUE){
 			x = prm->anchor.x + ((prm->pos.x +shiftX - prm->anchor.x) * scale >>16);
@@ -123,7 +123,7 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 
 
 		for (j=0; j<pValue;j++){
-			//‚Î‚ç‚Â‚«‚ðì‚é
+			//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 			if (FM_RAND(5)==0){
 				rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12, FM_RAND(pLen * 2));
 			}else{
@@ -150,7 +150,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 	A_long value = prm->value;
 	A_long pValue = prm->point_value;
 	PF_Fixed scale = prm->length_scale;
-	PF_Fixed pLen = prm->point_length; //’l‚Í®”
+	PF_Fixed pLen = prm->point_length; //å€¤ã¯æ•´æ•°
 	PF_Fixed opa = prm->opa;
 	A_long colRnd = prm->color_max -1;
 	A_long colR;
@@ -181,7 +181,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 	for ( i=0;i<value;i++){
 		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->radius));
 		PF_Fixed shiftX = rp0.pos().x;
-		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//ƒAƒXƒyƒNƒg‚Ì’²®
+		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//ã‚¢ã‚¹ãƒšã‚¯ãƒˆã®èª¿æ•´
 
 		if (prm->anchor_enabled == TRUE){
 			x = prm->anchor.x + ((prm->pos.x +shiftX - prm->anchor.x) * scale >>16);
@@ -193,7 +193,7 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 
 
 		for (j=0; j<pValue;j++){
-			//‚Î‚ç‚Â‚«‚ðì‚é
+			//ã°ã‚‰ã¤ãã‚’ä½œã‚‹
 			if (FM_RAND(5)==0){
 				rp.SetRotLength((FM_RAND((360L<<4) -1)) <<12, FM_RAND(pLen * 2));
 			}else{
@@ -211,3 +211,4 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 	
 	return err;
 }
+

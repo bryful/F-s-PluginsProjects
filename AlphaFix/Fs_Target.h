@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010 and VS2012
 */
@@ -12,7 +12,7 @@
 #define FS_DESCRIPTION	"Fill transparent areas."
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚ª•\¦‚³‚ê‚éƒƒjƒ…[–¼
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãŒè¡¨ç¤ºã•ã‚Œã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼å
 #define FS_CATEGORY "NF's Plugins-Channel"
 //#define FS_CATEGORY "NF's Plugins-Draw"
 //#define FS_CATEGORY "NF's Plugins-Filter"
@@ -23,10 +23,10 @@
 
 
 //-----------------------------------------------------------
-#ifndef SUPPORT_SMARTFX			//‚Qd“o˜^‚ğ–h‚®
-#define SUPPORT_SMARTFX			//‚±‚ê‚ğ—LŒø‚É‚·‚é‚ÆSmartFX+Float_Color‚É‘Î‰‚·‚é
+#ifndef SUPPORT_SMARTFX			//ï¼’é‡ç™»éŒ²ã‚’é˜²ã
+#define SUPPORT_SMARTFX			//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨SmartFX+Float_Colorã«å¯¾å¿œã™ã‚‹
 #endif
-//#define NO_USE_FSGRAPHICS	//‚±‚ê‚ğ—LŒø‚É‚·‚é‚ÆFsGraphicsŠÖŒW‚ªƒCƒ“ƒNƒ‹[ƒh‚³‚ê‚È‚¢
+//#define NO_USE_FSGRAPHICS	//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨FsGraphicsé–¢ä¿‚ãŒã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã•ã‚Œãªã„
 
 
 //-----------------------------------------------------------------------------------
@@ -67,3 +67,4 @@
 #endif
 
 #endif
+

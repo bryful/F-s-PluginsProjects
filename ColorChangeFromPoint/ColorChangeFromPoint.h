@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	ColorChangeFromPoint for VS2010
 */
@@ -24,15 +24,15 @@ enum {
 };
 
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
 	// Target Pixel Point Integer
 	A_long			pointX;
 	A_long			pointY;
 
-	//@Target Pixel Color Value
+	//ã€€Target Pixel Color Value
 	PF_Pixel  		src;
-	//@Replace Color Value
+	//ã€€Replace Color Value
 	PF_Pixel8  		dst8;
 	PF_Pixel16  	dst16;
 	PF_PixelFloat  	dst32;
@@ -41,8 +41,8 @@ typedef struct ParamInfo {
 } ParamInfo, * ParamInfoP, ** ParamInfoH;
 
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer
 	ID_POINT,
@@ -50,7 +50,7 @@ enum {
 	ID_NUM_PARAMS
 };
 
-//UI‚Ì•\Ž¦•¶Žš—ñ
+//UIã®è¡¨ç¤ºæ–‡å­—åˆ—
 #define	STR_POINT			"TargetColorPoint"
 #define	STR_COLOR			"Color"
 
@@ -115,12 +115,12 @@ public:
 
 		suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
 
-		//Fs_Target.h‚Å’è‹`
+		//Fs_Target.hã§å®šç¾©
 		out_dataP->my_version = NFS_VERSION;
 		out_dataP->out_flags = NFS_OUT_FLAGS;
 		out_dataP->out_flags2 = NFS_OUT_FLAGS2;
 		/*
-		ƒvƒ‰ƒOƒCƒ“ID‚ðŠl“¾‚µ‚ÄAƒOƒ[ƒoƒ‹‚ÉƒAƒNƒZƒX‚Å‚«‚é‚æ‚¤‚É•Û‘¶
+		ãƒ—ãƒ©ã‚°ã‚¤ãƒ³IDã‚’ç²å¾—ã—ã¦ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã‚‹ã‚ˆã†ã«ä¿å­˜
 		*/
 		ae_plugin_idH = suitesP->HandleSuite1()->host_new_handle(sizeof(ae_global_data));
 
@@ -275,3 +275,4 @@ extern "C" {
 #endif
 }
 #endif // ColorChangeFromPoint_H
+

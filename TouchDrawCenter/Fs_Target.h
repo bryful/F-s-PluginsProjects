@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -9,15 +9,15 @@
 #define FS_TARGET_H
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚ÌŽ¯•Ê‚ÉŽg‚í‚ê‚é–¼‘O
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è­˜åˆ¥ã«ä½¿ã‚ã‚Œã‚‹åå‰
 #define FS_NAME			"F's TouchDrawCenter"
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚Ìà–¾‚ÉŽg‚í‚ê‚é•¶Žš
-#define FS_DESCRIPTION	"ŽüˆÍ‚©‚ç‚ÌW’†ü‚ð•`‚«‚Ü‚·"
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®èª¬æ˜Žã«ä½¿ã‚ã‚Œã‚‹æ–‡å­—
+#define FS_DESCRIPTION	"å‘¨å›²ã‹ã‚‰ã®é›†ä¸­ç·šã‚’æãã¾ã™"
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚ª•\Ž¦‚³‚ê‚éƒƒjƒ…[–¼
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãŒè¡¨ç¤ºã•ã‚Œã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼å
 //#define FS_CATEGORY "F's Plugins-Fx"
 //#define FS_CATEGORY "F's Plugins-Channel"
 //#define FS_CATEGORY "F's Plugins-Cell"
@@ -25,12 +25,12 @@
 #define FS_CATEGORY "NF's Plugins-Draw"
 
 //-----------------------------------------------------------
-#define SUPPORT_SMARTFX			//‚±‚ê‚ð—LŒø‚É‚·‚é‚ÆSmartFX+Float_Color‚É‘Î‰ž‚·‚é
-//#define NO_USE_FSGRAPHICS	//‚±‚ê‚ð—LŒø‚É‚·‚é‚ÆFsGraphicsŠÖŒW‚ªƒCƒ“ƒNƒ‹[ƒh‚³‚ê‚È‚¢
+#define SUPPORT_SMARTFX			//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨SmartFX+Float_Colorã«å¯¾å¿œã™ã‚‹
+//#define NO_USE_FSGRAPHICS	//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨FsGraphicsé–¢ä¿‚ãŒã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã•ã‚Œãªã„
 
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚Ìƒo[ƒWƒ‡ƒ“
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 #include "../FsLibrary/FsVersion.h"
 
 //-----------------------------------------------------------------------------------
@@ -45,9 +45,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//’Êí‚Í‚±‚¿‚ç
-#define FS_OUT_FLAGS	33556036	//‚±‚Á‚¿‚ð—LŒø‚É‚·‚é‚Æ–ˆƒtƒŒ[ƒ€‚²‚Æ‚É•`‰æ‚·‚éBNON_PARAM_VARY‚ð“®ì’†‚ÉØ‚è‘Ö‚¦‚é‚Æ‚«‚à‚±‚¿‚ç‚É
-//#define FS_OUT_FLAGS	1600		//8bit‚Ì‚Ý
+//#define FS_OUT_FLAGS	33556032	//é€šå¸¸ã¯ã“ã¡ã‚‰
+#define FS_OUT_FLAGS	33556036	//ã“ã£ã¡ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«æç”»ã™ã‚‹ã€‚NON_PARAM_VARYã‚’å‹•ä½œä¸­ã«åˆ‡ã‚Šæ›¿ãˆã‚‹ã¨ãã‚‚ã“ã¡ã‚‰ã«
+//#define FS_OUT_FLAGS	1600		//8bitã®ã¿
 
 //-----------------------------------------------------------------------------------
 //out_flags2
@@ -73,19 +73,19 @@ out_data->out_flags2
 /*
 out_data->out_flags	  =	
 	PF_OutFlag_PIX_INDEPENDENT		//     1024
-	| PF_OutFlag_NON_PARAM_VARY		//        4(ƒtƒŒ[ƒ€–ˆ‚ÉƒŒƒ“ƒ_ƒŠƒ“ƒO‚ðpŒÂ‚È‚¤)		
-	| PF_OutFlag_DEEP_COLOR_AWARE	// 33554432(16bit‘Î‰žƒvƒ‰ƒOƒCƒ“‚É‚È‚é)
+	| PF_OutFlag_NON_PARAM_VARY		//        4(ãƒ•ãƒ¬ãƒ¼ãƒ æ¯Žã«ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚’på€‹ãªã†)		
+	| PF_OutFlag_DEEP_COLOR_AWARE	// 33554432(16bitå¯¾å¿œãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã«ãªã‚‹)
 	| PF_OutFlag_USE_OUTPUT_EXTENT	//       64
 	| PF_OutFlag_I_EXPAND_BUFFER;	//      512
 									//---------
-								//‡Œv= 33556032	
-								//‡Œv= 33556036 +PF_OutFlag_NON_PARAM_VARY
+								//åˆè¨ˆ= 33556032	
+								//åˆè¨ˆ= 33556036 +PF_OutFlag_NON_PARAM_VARY
 
-// ƒvƒ‰ƒOƒCƒ“‚Ìo—ÍÝ’è2(PiPL.r‚ÌAE_Effect_Global_OutFlags2‚ÆŠÖ˜A)
+// ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®å‡ºåŠ›è¨­å®š2(PiPL.rã®AE_Effect_Global_OutFlags2ã¨é–¢é€£)
 
-out_data->out_flags2  =	PF_OutFlag2_FLOAT_COLOR_AWARE					// 4096(32bit‘Î‰žƒvƒ‰ƒOƒCƒ“‚É‚È‚é)
+out_data->out_flags2  =	PF_OutFlag2_FLOAT_COLOR_AWARE					// 4096(32bitå¯¾å¿œãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã«ãªã‚‹)
 					  | PF_OutFlag2_PARAM_GROUP_START_COLLAPSED_FLAG	//    8
-					  | PF_OutFlag2_SUPPORTS_SMART_RENDER				// 1024(SmartRender‚ðŽg‚¤)
+					  | PF_OutFlag2_SUPPORTS_SMART_RENDER				// 1024(SmartRenderã‚’ä½¿ã†)
 					  | PF_OutFlag2_SUPPORTS_QUERY_DYNAMIC_FLAGS		//    1
 					  | PF_OutFlag2_DOESNT_NEED_EMPTY_PIXELS;			//   64
 																		//-----
@@ -96,3 +96,4 @@ out_data->out_flags2  =	PF_OutFlag2_FLOAT_COLOR_AWARE					// 4096(32bit‘Î‰žƒvƒ‰ƒ
 
 #endif
 */		
+

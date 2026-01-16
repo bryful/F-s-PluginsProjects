@@ -1,4 +1,4 @@
-#include "FsGraphics.h"
+﻿#include "FsGraphics.h"
 
 //******************************************************************************
 void CFsGraph::circle8(A_long x ,A_long y, A_long r,PF_Pixel col)
@@ -294,3 +294,4 @@ void CFsGraph::circleFill32(A_long x ,A_long y, A_long r,PF_PixelFloat col)
 	}
 	lineHeiht = bak;
 }
+

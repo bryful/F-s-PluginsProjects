@@ -1,10 +1,10 @@
-#include "OpticalDiffusion.h"
+ï»¿#include "OpticalDiffusion.h"
 
-//ƒuƒŒƒ“ƒh“ü‚ê‘Ö‚¦—p
+//ãƒ–ãƒ¬ãƒ³ãƒ‰å…¥ã‚Œæ›¿ãˆç”¨
 static PF_Err (*blendFunc16)(refconType refcon, A_long xL, A_long yL,PF_Pixel16 *inP,PF_Pixel16 *outP);
 
 //-------------------------------------------------------------------------------------------------
-//ƒfƒoƒ“ƒh‘Îô‚Ì‹C‹x‚ßƒmƒCƒY
+//ãƒ‡ãƒãƒ³ãƒ‰å¯¾ç­–ã®æ°—ä¼‘ã‚ãƒã‚¤ã‚º
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
 noise16 (
@@ -30,7 +30,7 @@ noise16 (
 }
 
 //-------------------------------------------------------------------------------------------------
-//’Šo
+//æŠ½å‡º
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
 extract16 (
@@ -43,11 +43,11 @@ extract16 (
 	PF_Err			err = PF_Err_NONE;
 	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
 	
-	//‚Æ‚è‚ ‚¦‚¸Á‚·B
+	//ã¨ã‚Šã‚ãˆãšæ¶ˆã™ã€‚
 	A_long a = outP->alpha;
 	outP->alpha	= 0;
 
-	//ƒAƒ‹ƒtƒ@[‚ğl—¶‚µ‚Ä‹P“x‚ğ‹‚ß‚é
+	//ã‚¢ãƒ«ãƒ•ã‚¡ãƒ¼ã‚’è€ƒæ…®ã—ã¦è¼åº¦ã‚’æ±‚ã‚ã‚‹
 	A_long v = (A_long)( (( 0.29891 * (PF_FpLong)outP->red) + ( 0.58661 * (PF_FpLong)outP->green) + ( 0.11448 * (PF_FpLong)outP->blue)) * ((PF_FpLong)a / PF_MAX_CHAN16) );
 	A_long v2 = v;
 
@@ -71,7 +71,7 @@ extract16 (
 	}
 	outP->alpha	= RoundShort(a * v2 / PF_MAX_CHAN16);
 
-	//w’è‚µ‚½F‚ğc‚·
+	//æŒ‡å®šã—ãŸè‰²ã‚’æ®‹ã™
 	if((niP->extract_color_Count>0)&&(outP->alpha<PF_MAX_CHAN16)){
 		PF_PixelFloat p32 = CONV16TO32(*inP);
 		HLSA hlsa = RGBtoHLS(p32);
@@ -118,12 +118,12 @@ persentBlend16 (
 		if (o.alpha ==0){
 			o.blue = o.green = o.red = 0;
 		}else{
-			//ƒ}ƒbƒg‡¬‚É’¼‚·
+			//ãƒãƒƒãƒˆåˆæˆã«ç›´ã™
 			i.red	= RoundShortFpLong( (A_long)i.red	 * (A_long)i.alpha / PF_MAX_CHAN16);
 			i.green	= RoundShortFpLong( (A_long)i.green * (A_long)i.alpha / PF_MAX_CHAN16);
 			i.blue	= RoundShortFpLong( (A_long)i.blue * (A_long)i.alpha / PF_MAX_CHAN16);
 
-			//ƒ}ƒbƒg‡¬‚É’¼‚·
+			//ãƒãƒƒãƒˆåˆæˆã«ç›´ã™
 			o.red	= RoundShortFpLong( (A_long)o.red	 * (A_long)o.alpha / PF_MAX_CHAN16);
 			o.green	= RoundShortFpLong( (A_long)o.green * (A_long)o.alpha / PF_MAX_CHAN16);
 			o.blue	= RoundShortFpLong( (A_long)o.blue * (A_long)o.alpha / PF_MAX_CHAN16);
@@ -252,7 +252,7 @@ screenBlend16 (
 		o.blue = o.green = o.red = 0;
 		o.alpha = 0;
 	}else{
-		//ƒ}ƒbƒg‡¬‚É’¼‚·
+		//ãƒãƒƒãƒˆåˆæˆã«ç›´ã™
 		i.red	= RoundShort( (A_long)i.red	  * (A_long)i.alpha / PF_MAX_CHAN16);
 		i.green	= RoundShort( (A_long)i.green * (A_long)i.alpha / PF_MAX_CHAN16);
 		i.blue	= RoundShort( (A_long)i.blue  * (A_long)i.alpha / PF_MAX_CHAN16);
@@ -308,7 +308,7 @@ multiplyBlend16 (
 		o.alpha = 0;
 		
 	}else{
-		//”’ƒ}ƒbƒg‚Ö
+		//ç™½ãƒãƒƒãƒˆã¸
 		i.red	= RoundShort( ((A_long)i.red  * (A_long)i.alpha)/PF_MAX_CHAN16 + PF_MAX_CHAN16-(A_long)i.alpha);
 		i.green	= RoundShort( ((A_long)i.green* (A_long)i.alpha)/PF_MAX_CHAN16 + PF_MAX_CHAN16-(A_long)i.alpha);
 		i.blue	= RoundShort( ((A_long)i.blue * (A_long)i.alpha)/PF_MAX_CHAN16 + PF_MAX_CHAN16-(A_long)i.alpha);
@@ -343,24 +343,24 @@ PF_Err DF16(CFsAE *ae , ParamInfo *infoP)
 		return err;
 	}
 
-	//‰æ‘œ’Šo
+	//ç”»åƒæŠ½å‡º
 	if (infoP->extractEnabled){
 		ERR(ae->iterate16((refconType)infoP,extract16));
 	}
 	
-	//Å‘å¥Å¬
-	//Å‘å¥Å¬
+	//æœ€å¤§ï½¥æœ€å°
+	//æœ€å¤§ï½¥æœ€å°
 	if (infoP->minimax1!=0){
 		ae->out->Minimax16(infoP->minimax1);
 	}
 	if (infoP->minimax2!=0){
 		ae->out->Minimax16(infoP->minimax2);
 	}
-	//‚Ú‚©‚µ
+	//ã¼ã‹ã—
 	if (infoP->blur>0){
 		ae->out->gblur16(infoP->blur);
 	}
-	//ƒuƒŒƒ“ƒh
+	//ãƒ–ãƒ¬ãƒ³ãƒ‰
 	if (infoP->blendMode != BLEND_MODE::none){
 		blendFunc16 = NULL;
 
@@ -397,3 +397,4 @@ PF_Err DF16(CFsAE *ae , ParamInfo *infoP)
 	return err;	
 }
 //******************************************************************
+

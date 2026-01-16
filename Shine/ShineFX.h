@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef ShineFX_H
 #define ShineFX_H
 

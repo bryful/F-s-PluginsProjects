@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -9,8 +9,8 @@
 
 
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts�Ƀp�����[�^��ʒB����
-//Param_Utils.h���Q�Ƃ̂���
+//AfterEffextsにパラメータを通達する
+//Param_Utils.hを参照のこと
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -64,7 +64,7 @@ static PF_Err ParamsSetup (
 	);
 
 	//----------------------------------------------------------------
-	//�ʒu�̎w��
+	//位置の指定
 	AEFX_CLR_STRUCT(def);	
 	PF_ADD_POINT(STR_CENTER,			/*"New Center"*/
 				50,	// X
@@ -299,7 +299,7 @@ static PF_Err
 
 
 	infoP->ae = ae;
-	//��ʂ��R�s�[
+	//画面をコピー
 
 	ERR(ae->NewTmpWorld());
 	ERR(ae->Copy(ae->input, ae->tmpP));
@@ -327,10 +327,10 @@ static PF_Err
 }
 
 //-------------------------------------------------------------------------------------------------
-//�����_�����O�̃��C��
+//レンダリングのメイン
 /*
-	SmartFX�ɑΉ����Ă��Ȃ��z�X�g(After Effects7�ȑO�̂���)�͂��̊֐����Ăяo����ĕ`�悷��
-	���̊֐��������Ă����Έꉞv6.5�Ή��ɂȂ�
+	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
+	この関数を書いておけば一応v6.5対応になる
 */
 static PF_Err 
 Render ( 
@@ -354,7 +354,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX�Ή��̏ꍇ�A�܂����̊֐����Ă΂�ăp�����[�^�̊l�����s��
+	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err
@@ -409,3 +409,4 @@ SmartRender(
 #endif
 
 #include "Fs_Entry.h"
+

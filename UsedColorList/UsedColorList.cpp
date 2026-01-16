@@ -1,4 +1,4 @@
-
+ï»¿
 
 #include "UsedColorList.h"
 
@@ -69,7 +69,7 @@ PF_Err UsedColorList::ParamsSetup(
 	out_data = out_dataP;
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
-	//ˆÊ’u‚ÌŽw’è
+	//ä½ç½®ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(STR_POS0,			/*"New Center"*/
 		50,	// X
@@ -78,7 +78,7 @@ PF_Err UsedColorList::ParamsSetup(
 		ID_POS0
 	);
 	//----------------------------------------------------------------
-	//ˆÊ’u‚ÌŽw’è
+	//ä½ç½®ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(STR_POS1,			/*"New Center"*/
 		75,	// X
@@ -87,7 +87,7 @@ PF_Err UsedColorList::ParamsSetup(
 		ID_POS1
 	);
 	//----------------------------------------------------------------
-	//F‚ÌŽw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_ExceptColor0,
 		0xFF,
@@ -96,7 +96,7 @@ PF_Err UsedColorList::ParamsSetup(
 		ID_ExceptColor0
 	);	
 	//----------------------------------------------------------------
-	//F‚ÌŽw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_ExceptColor1,
 		0x00,
@@ -105,7 +105,7 @@ PF_Err UsedColorList::ParamsSetup(
 		ID_ExceptColor1
 	);
 	//----------------------------------------------------------------
-	//F‚ÌŽw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_ExceptColor2,
 		0x00,
@@ -123,22 +123,22 @@ PF_Err UsedColorList::ParamsSetup(
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_GRID_WIDTH,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-		10, 		//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-		300,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-		10,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-		100,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-		50,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(STR_GRID_WIDTH,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+		10, 		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+		300,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+		10,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+		100,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+		50,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 		ID_GRID_WIDTH
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_GRID_HEIGHT,	//ƒpƒ‰ƒ[ƒ^‚Ì–¼‘O
-		10, 		//”’l“ü—Í‚·‚éê‡‚ÌÅ¬’l
-		300,			//”’l“ü—Í‚·‚éê‡‚ÌÅ‘å’l
-		10,				//ƒXƒ‰ƒCƒ_[‚ÌÅ¬’l 
-		100,			//ƒXƒ‰ƒCƒ_[‚ÌÅ‘å’l
-		50,				//ƒfƒtƒHƒ‹ƒg‚Ì’l
+	PF_ADD_SLIDER(STR_GRID_HEIGHT,	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®åå‰
+		10, 		//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å°å€¤
+		300,			//æ•°å€¤å…¥åŠ›ã™ã‚‹å ´åˆã®æœ€å¤§å€¤
+		10,				//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å°å€¤ 
+		100,			//ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®æœ€å¤§å€¤
+		50,				//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤
 		ID_GRID_HEIGHT
 	);	//----------------------------------------------------------------
 	out_data->num_params = ID_NUM_PARAMS;
@@ -204,3 +204,4 @@ PF_Err UsedColorList::Exec(ParamInfo* infoP)
 
 };
 // **********************************************************
+

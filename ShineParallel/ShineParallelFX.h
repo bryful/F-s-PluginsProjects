@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef ShineParallelFX_H
 #define ShineParallelFX_H
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef ColorChangeFromPointFX_H
 #define ColorChangeFromPointFX_H
 

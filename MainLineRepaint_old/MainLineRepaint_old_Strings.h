@@ -1,4 +1,4 @@
-/* MainLineRepaint_Strings.h */
+﻿/* MainLineRepaint_Strings.h */
 
 #pragma once
 
@@ -14,3 +14,4 @@ typedef enum {
 	StrID_ERR_getParams,
 	StrID_NUMTYPES
 } StrIDType;
+

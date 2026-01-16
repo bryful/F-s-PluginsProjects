@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef CDraw8_H
 #define CDraw8_H
 
@@ -39,7 +39,7 @@ public:
 		PF_EffectWorld* wld = NULL,
 		PF_InData* ind = NULL)
 	{
-		//ƒƒ“ƒo‚Ì‰Šú‰»
+		//ãƒ¡ãƒ³ãƒã®åˆæœŸåŒ–
 		in_data = NULL;
 		world = NULL;
 		data = NULL;
@@ -123,24 +123,24 @@ public:
 	// **************************************************************
 	void Xline(PF_FpLong x0, PF_FpLong x1, A_long y)
 	{
-		// x‚Ì2“_‚Ì‡‚ðŠm”F
+		// xã®2ç‚¹ã®é †ã‚’ç¢ºèª
 		if (x0 > x1) {
 			PF_FpLong temp = x0;
 			x0 = x1;
 			x1 = temp;
 		}
-		// ‹——£‚ðŠl“¾
+		// è·é›¢ã‚’ç²å¾—
 		PF_FpLong dx = x1 - x0;
-		// ‹——£‚ª‚O‚È‚ç‚¨‚í‚è
+		// è·é›¢ãŒï¼ãªã‚‰ãŠã‚ã‚Š
 		if (dx <= 0) { return; }
 		
-		// ‘‚«ž‚Ý‚ÌŽn“_‚ð‹‚ß‚é
+		// æ›¸ãè¾¼ã¿ã®å§‹ç‚¹ã‚’æ±‚ã‚ã‚‹
 		A_long xi0 = (A_long)x0;
-		// Žn“_‚Ì‹­‚³‚ð‹‚ß‚é
+		// å§‹ç‚¹ã®å¼·ã•ã‚’æ±‚ã‚ã‚‹
 		PF_FpLong xv0 = 1.0 - (x0 - (PF_FpLong)xi0);
-		// I“_‚ð‹‚ß‚é
+		// çµ‚ç‚¹ã‚’æ±‚ã‚ã‚‹
 		A_long xi1 = (A_long)x1;
-		// I“_‚Ì‹­‚³‚ð‹‚ß‚é
+		// çµ‚ç‚¹ã®å¼·ã•ã‚’æ±‚ã‚ã‚‹
 		PF_FpLong xv1 = (x1 - (PF_FpLong)xi1);
 
 		A_long dxi = xi1 - xi0;
@@ -164,24 +164,24 @@ public:
 	// **************************************************************
 	void Yline(A_long x, PF_FpLong y0, PF_FpLong y1)
 	{
-		// x‚Ì2“_‚Ì‡‚ðŠm”F
+		// xã®2ç‚¹ã®é †ã‚’ç¢ºèª
 		if (y0 > y1) {
 			PF_FpLong temp = y0;
 			y0 = y1;
 			y1 = temp;
 		}
-		// ‹——£‚ðŠl“¾
+		// è·é›¢ã‚’ç²å¾—
 		PF_FpLong dy = y1 - y0;
-		// ‹——£‚ª‚O‚È‚ç‚¨‚í‚è
+		// è·é›¢ãŒï¼ãªã‚‰ãŠã‚ã‚Š
 		if (dy <= 0) { return; }
 
-		// ‘‚«ž‚Ý‚ÌŽn“_‚ð‹‚ß‚é
+		// æ›¸ãè¾¼ã¿ã®å§‹ç‚¹ã‚’æ±‚ã‚ã‚‹
 		A_long yi0 = (A_long)y0;
-		// Žn“_‚Ì‹­‚³‚ð‹‚ß‚é
+		// å§‹ç‚¹ã®å¼·ã•ã‚’æ±‚ã‚ã‚‹
 		PF_FpLong yv0 = 1.0 - (y0 - (PF_FpLong)yi0);
-		// I“_‚ð‹‚ß‚é
+		// çµ‚ç‚¹ã‚’æ±‚ã‚ã‚‹
 		A_long yi1 = (A_long)y1;
-		// I“_‚Ì‹­‚³‚ð‹‚ß‚é
+		// çµ‚ç‚¹ã®å¼·ã•ã‚’æ±‚ã‚ã‚‹
 		PF_FpLong yv1 = (y1 - (PF_FpLong)yi1);
 
 		A_long dyi = yi1 - yi0;

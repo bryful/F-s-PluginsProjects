@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins-cs4 for VS2008
 */
@@ -41,25 +41,25 @@
 
 enum {
 	ID_INPUT = 0,	// default input layer 
-	ID_SIZE,		// ƒ‚ƒUƒCƒN‚Ì‘å‚«‚³
-	ID_POS,			//ˆÊ’u
-	ID_RAND,		//‹­‚³‚Ìƒ`ƒ‰ƒcƒL
-	ID_RAND_GRAY,		//‹­‚³‚Ìƒ`ƒ‰ƒcƒL
+	ID_SIZE,		// ãƒ¢ã‚¶ã‚¤ã‚¯ã®å¤§ãã•
+	ID_POS,			//ä½ç½®
+	ID_RAND,		//å¼·ã•ã®ãƒãƒ©ãƒ„ã‚­
+	ID_RAND_GRAY,		//å¼·ã•ã®ãƒãƒ©ãƒ„ã‚­
 	ID_FRAME_RAND_ON,
 	ID_NUM_PARAMS
 };
 
-#define STR_SIZE		"ƒTƒCƒY"
-#define STR_POS			"ˆÊ’u"
-#define STR_RAND		"‚¿‚ç‚Â‚«"
-#define STR_RAND_GRAY	"‚¿‚ç‚Â‚«‚ğƒOƒŒ[‚É"
-#define STR_FRAME_RAND_ON	"ƒtƒŒ[ƒ€–ˆ‚É‚¿‚ç‚Â‚©‚¹‚é"
+#define STR_SIZE		"ã‚µã‚¤ã‚º"
+#define STR_POS			"ä½ç½®"
+#define STR_RAND		"ã¡ã‚‰ã¤ã"
+#define STR_RAND_GRAY	"ã¡ã‚‰ã¤ãã‚’ã‚°ãƒ¬ãƒ¼ã«"
+#define STR_FRAME_RAND_ON	"ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã«ã¡ã‚‰ã¤ã‹ã›ã‚‹"
 #define STR_ON			"ON"
 
-//UI‚Ìƒpƒ‰ƒ[ƒ^
+//UIã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 typedef struct ParamInfo {
-	A_long			size;	//ƒ‚ƒUƒCƒN‚Ì‘å‚«‚³
-	PF_FixedPoint	pos;	//ƒ‚ƒUƒCƒN‚Ì
+	A_long			size;	//ãƒ¢ã‚¶ã‚¤ã‚¯ã®å¤§ãã•
+	PF_FixedPoint	pos;	//ãƒ¢ã‚¶ã‚¤ã‚¯ã®
 	PF_FpShort		rand;
 	PF_Boolean		rand_gray;
 	PF_Boolean		frameRandOn;

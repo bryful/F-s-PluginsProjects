@@ -1,7 +1,7 @@
-#include "TargetGrad.h"
+ï»¿#include "TargetGrad.h"
 
 //-----------------------------------------------------------------------------------
-// 2. ƒ}ƒXƒN¶¬ƒRƒAiƒeƒ“ƒvƒŒ[ƒgj
+// 2. ãƒã‚¹ã‚¯ç”Ÿæˆã‚³ã‚¢ï¼ˆãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆï¼‰
 //-----------------------------------------------------------------------------------
 static void AssignGrad(MaskInfo* info, PF_Pixel* out) {
     *out = info->grad8;
@@ -29,7 +29,7 @@ static PF_Err SimpleMaskIterator8(
     PF_Pixel8* in,
     PF_Pixel8* out)
 {
-    // AE‚ÌA_long¨A_FpShort•ÏŠ·
+    // AEã®A_longâ†’A_FpShortå¤‰æ›
     return SimpleMaskIteratorF<PF_Pixel8, A_u_char>(refcon, static_cast<A_FpShort>(x), static_cast<A_FpShort>(y), in, out);
 }
 
@@ -66,47 +66,47 @@ static PF_Err SimpleMaskIteratorF(
         return PF_Err_NONE;
     }
 
-    // 1. “Š‰e”ä—¦ t ‚ÌŒvZ
+    // 1. æŠ•å½±æ¯”ç‡ t ã®è¨ˆç®—
     float px = static_cast<float>(x) - static_cast<float>(info->p1.x);
     float py = static_cast<float>(y) - static_cast<float>(info->p1.y);
     float t = (px * info->dx + py * info->dy) * info->inv_len_sq;
 
-    // 2. 0.0 - 1.0 ‚ÉƒNƒ‰ƒ“ƒv
+    // 2. 0.0 - 1.0 ã«ã‚¯ãƒ©ãƒ³ãƒ—
     if (t < 0.0f) t = 0.0f;
     else if (t > 1.0f) t = 1.0f;
 
-    // 3. ‘o‹ÈüiHyperbolicjŠK’²•ÏŠ·‚Ì“K—p
-    // info->hyperbolic ‚ª 0.0 ‚Ì‚ÍƒŠƒjƒAA³‚Ì’l‚Å‹}s‚ÈƒJ[ƒu‚É‚È‚è‚Ü‚·
+    // 3. åŒæ›²ç·šï¼ˆHyperbolicï¼‰éšèª¿å¤‰æ›ã®é©ç”¨
+    // info->hyperbolic ãŒ 0.0 ã®æ™‚ã¯ãƒªãƒ‹ã‚¢ã€æ­£ã®å€¤ã§æ€¥å³»ãªã‚«ãƒ¼ãƒ–ã«ãªã‚Šã¾ã™
     float k = info->hyperbolic;
     float v = ((1.0f + k) * t) / (1.0f + k * t);
 
-    // 4. ”½“]İ’è
-    // !info->invert ‚ÌğŒ‚ÍŠù‘¶ƒR[ƒh‚Ìd—l‚ğˆÛ
+    // 4. åè»¢è¨­å®š
+    // !info->invert ã®æ¡ä»¶ã¯æ—¢å­˜ã‚³ãƒ¼ãƒ‰ã®ä»•æ§˜ã‚’ç¶­æŒ
     //if (!info->invert) 
         v = 1.0f - v;
 
-    // 5. Še[“x‚ÌÅ‘å’l‚ğæ“¾ (8bit:255, 16bit:32768, 32bit:1.0)
-    // T_COMP ‚ª–³•„†®”‚Ìê‡‚ª‚ ‚é‚½‚ßAƒI[ƒo[ƒtƒ[‚É’ˆÓ‚µ‚½Šù‘¶ƒƒWƒbƒN‚ğˆÛ
+    // 5. å„æ·±åº¦ã®æœ€å¤§å€¤ã‚’å–å¾— (8bit:255, 16bit:32768, 32bit:1.0)
+    // T_COMP ãŒç„¡ç¬¦å·æ•´æ•°ã®å ´åˆãŒã‚ã‚‹ãŸã‚ã€ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ­ãƒ¼ã«æ³¨æ„ã—ãŸæ—¢å­˜ãƒ­ã‚¸ãƒƒã‚¯ã‚’ç¶­æŒ
     float max_val = 1.0f;
     if (sizeof(T_COMP) == 1)      max_val = 255.0f;
     else if (sizeof(T_COMP) == 2) max_val = 32768.0f;
     else                          max_val = 1.0f;
 
-    // ÅI“I‚ÈƒAƒ‹ƒtƒ@’l‚ğŒvZ
+    // æœ€çµ‚çš„ãªã‚¢ãƒ«ãƒ•ã‚¡å€¤ã‚’è¨ˆç®—
     T_COMP final_pixel_val = static_cast<T_COMP>(v * max_val);
 
-    // 6. o—Í‚Ö‚Ì‘‚«‚İ
-    AssignGrad(info, out); // Fî•ñ‚ğƒRƒs[
-    out->alpha = final_pixel_val; // ƒAƒ‹ƒtƒ@‚ÉƒOƒ‰ƒf[ƒVƒ‡ƒ“’l‚ğ‘ã“ü
+    // 6. å‡ºåŠ›ã¸ã®æ›¸ãè¾¼ã¿
+    AssignGrad(info, out); // è‰²æƒ…å ±ã‚’ã‚³ãƒ”ãƒ¼
+    out->alpha = final_pixel_val; // ã‚¢ãƒ«ãƒ•ã‚¡ã«ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³å€¤ã‚’ä»£å…¥
 
     return PF_Err_NONE;
 }
 
 //-----------------------------------------------------------------------------------
-// 3. ƒƒCƒ“ŠÖ”iÀˆ—‚ÍImpl‚ÉW–ñj
+// 3. ãƒ¡ã‚¤ãƒ³é–¢æ•°ï¼ˆå®Ÿå‡¦ç†ã¯Implã«é›†ç´„ï¼‰
 //-----------------------------------------------------------------------------------
 
-// Àˆ—–{‘Ìi“à•”—pj
+// å®Ÿå‡¦ç†æœ¬ä½“ï¼ˆå†…éƒ¨ç”¨ï¼‰
 static PF_Err RenderSimpleMaskImpl(
     CFsAE* ae,
 	ParamInfo* infoP,
@@ -120,7 +120,7 @@ static PF_Err RenderSimpleMaskImpl(
     info.dy = (A_FpShort)(infoP->lastPos2D.y - infoP->startPos2D.y);
  
     //info.invert = infoP->invert;
-    info.hyperbolic = infoP->hyperbolic; // ’Ç‰ÁFUI‚©‚ç‚ÌŒW”‚ğƒZƒbƒg
+    info.hyperbolic = infoP->hyperbolic; // è¿½åŠ ï¼šUIã‹ã‚‰ã®ä¿‚æ•°ã‚’ã‚»ãƒƒãƒˆ
     info.grad8 = infoP->gradColor;
     info.grad16 = CONV8TO16( infoP->gradColor);
     info.grad32 = CONV8TO32(infoP->gradColor);
@@ -188,7 +188,7 @@ static PF_Err RenderSimpleMaskImpl(
     return err;
 }
 
-// ŒöŠJƒVƒ“ƒ{ƒ‹FPF_EffectWorld* ‚ğó‚¯æ‚éŠù’è‚ÌéŒ¾‚É‡‚í‚¹‚é
+// å…¬é–‹ã‚·ãƒ³ãƒœãƒ«ï¼šPF_EffectWorld* ã‚’å—ã‘å–ã‚‹æ—¢å®šã®å®£è¨€ã«åˆã‚ã›ã‚‹
 PF_Err RenderSimpleMask(
     CFsAE* ae,
     ParamInfo* infoP,
@@ -197,14 +197,14 @@ PF_Err RenderSimpleMask(
     return RenderSimpleMaskImpl(ae, infoP,output);
 }
 /*
-// ŒİŠ·—pƒ‰ƒbƒp[F•Ê‚Ì–|–ó’PˆÊ‚ªPF_LayerDef* ‚â char ‚ğŠú‘Ò‚µ‚Äƒrƒ‹ƒh‚³‚ê‚Ä‚¢‚éê‡‚É”õ‚¦‚é
-// iPF_LayerDef ‚Æ PF_EffectWorld ‚ª“¯“™‚Å‚ ‚ê‚Î reinterpret_cast ‚Å‹´“n‚µj
+// äº’æ›ç”¨ãƒ©ãƒƒãƒ‘ãƒ¼ï¼šåˆ¥ã®ç¿»è¨³å˜ä½ãŒPF_LayerDef* ã‚„ char ã‚’æœŸå¾…ã—ã¦ãƒ“ãƒ«ãƒ‰ã•ã‚Œã¦ã„ã‚‹å ´åˆã«å‚™ãˆã‚‹
+// ï¼ˆPF_LayerDef ã¨ PF_EffectWorld ãŒåŒç­‰ã§ã‚ã‚Œã° reinterpret_cast ã§æ©‹æ¸¡ã—ï¼‰
 PF_Err RenderSimpleMask(
     CFsAE* ae,
-    PF_LayerDef* output, // •Ê TU ‚ª‚±‚ÌŒ^‚ÅƒRƒ“ƒpƒCƒ‹‚µ‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é‚½‚ß—pˆÓ
+    PF_LayerDef* output, // åˆ¥ TU ãŒã“ã®å‹ã§ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã—ã¦ã„ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ãŸã‚ç”¨æ„
     A_FloatPoint p1,
     A_FloatPoint p2,
-    char invert) // ˆê•” TU ‚Å‚Í char ‚ÅƒRƒ“ƒpƒCƒ‹‚³‚ê‚éê‡‚ª‚ ‚é‚½‚ß—pˆÓ
+    char invert) // ä¸€éƒ¨ TU ã§ã¯ char ã§ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã•ã‚Œã‚‹å ´åˆãŒã‚ã‚‹ãŸã‚ç”¨æ„
 {
     return RenderSimpleMaskImpl(ae, reinterpret_cast<PF_EffectWorld*>(output), p1, p2, static_cast<PF_Boolean>(invert));
 }

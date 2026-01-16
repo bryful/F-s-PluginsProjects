@@ -1,4 +1,4 @@
-
+ï»¿
 #pragma once
 #ifndef NFs_TARGET_H
 #define NFs_TARGET_H
@@ -7,18 +7,18 @@
 
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚ÌŽ¯•Ê‚ÉŽg‚í‚ê‚é–¼‘O
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®è­˜åˆ¥ã«ä½¿ã‚ã‚Œã‚‹åå‰
 #define NFS_NAME			"F's Unmult_KNSW_Fake"
 #define NFS_DISPNAME		"F's Unmult_KNSW_Fake"
 #define NFS_MATCHNAME		"KNSW Unmult"
 
 
 //-----------------------------------------------------------------------------------
-//ƒvƒ‰ƒOƒCƒ“‚Ìà–¾‚ÉŽg‚í‚ê‚é•¶Žš
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã®èª¬æ˜Žã«ä½¿ã‚ã‚Œã‚‹æ–‡å­—
 #define NFS_DESCRIPTION	"Fake KNSW Unmult"
 
 	//-----------------------------------------------------------------------------------
-	//ƒvƒ‰ƒOƒCƒ“‚ª•\Ž¦‚³‚ê‚éƒƒjƒ…[–¼
+	//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ãŒè¡¨ç¤ºã•ã‚Œã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼å
 	//#define NFS_CATEGORY "NF's Plugins-Cell"
 	//#define NFS_CATEGORY "NF's Plugins-Channel"
 	//#define NFS_CATEGORY "NF's Plugins-Colorize"
@@ -32,7 +32,7 @@
 #define NFS_CATEGORY "NF's Plugins-Channel"
 
 	//-----------------------------------------------------------
-#define SUPPORT_SMARTFX			//‚±‚ê‚ð—LŒø‚É‚·‚é‚ÆSmartFX+Float_Color‚É‘Î‰ž‚·‚é
+#define SUPPORT_SMARTFX			//ã“ã‚Œã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨SmartFX+Float_Colorã«å¯¾å¿œã™ã‚‹
 
 
 //-----------------------------------------------------------------------------------
@@ -47,9 +47,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-#define NFS_OUT_FLAGS	33556032	//’Êí‚Í‚±‚¿‚ç
-//#define NFS_OUT_FLAGS	33556036	//‚±‚Á‚¿‚ð—LŒø‚É‚·‚é‚Æ–ˆƒtƒŒ[ƒ€‚²‚Æ‚É•`‰æ‚·‚éBNON_PARAM_VARY‚ð“®ì’†‚ÉØ‚è‘Ö‚¦‚é‚Æ‚«‚à‚±‚¿‚ç‚É
-//#define NFS_OUT_FLAGS	1600		//8bit‚Ì‚Ý
+#define NFS_OUT_FLAGS	33556032	//é€šå¸¸ã¯ã“ã¡ã‚‰
+//#define NFS_OUT_FLAGS	33556036	//ã“ã£ã¡ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«æç”»ã™ã‚‹ã€‚NON_PARAM_VARYã‚’å‹•ä½œä¸­ã«åˆ‡ã‚Šæ›¿ãˆã‚‹ã¨ãã‚‚ã“ã¡ã‚‰ã«
+//#define NFS_OUT_FLAGS	1600		//8bitã®ã¿
 
 //-----------------------------------------------------------------------------------
 //out_flags2
@@ -70,3 +70,4 @@ out_data->out_flags2
 
 //-----------------------------------------------------------------------------------
 #endif
+

@@ -1,4 +1,4 @@
-
+ï»¿
 
 #include "ColorChangeFromPoint.h"
 
@@ -160,7 +160,7 @@ PF_Err ColorChangeFromPoint::ParamsSetup(
 	out_data = out_dataP;
 	PF_ParamDef		def;
 	//----------------------------------------------------------------
-	//ˆÊ’u‚Ìw’è
+	//ä½ç½®ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(STR_POINT,			/*"New Center"*/
 		50,	// X
@@ -169,9 +169,9 @@ PF_Err ColorChangeFromPoint::ParamsSetup(
 		ID_POINT
 	);
 	//----------------------------------------------------------------
-	//F‚Ìw’è
+	//è‰²ã®æŒ‡å®š
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 	PF_ADD_COLOR(STR_COLOR,
 		0xFF,
 		0x00,
@@ -285,3 +285,4 @@ PF_Err ColorChangeFromPoint::Exec(ParamInfo* infoP)
 
 };
 // **********************************************************
+

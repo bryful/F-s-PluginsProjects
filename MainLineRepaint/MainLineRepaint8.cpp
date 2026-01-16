@@ -1,4 +1,4 @@
-#include "MainLineRepaint.h"
+ï»¿#include "MainLineRepaint.h"
 PF_Err Exec8(CFsAE* ae, ParamInfo* infoP)
 {
 	PF_Err 	err = PF_Err_NONE;
@@ -17,17 +17,17 @@ PF_Err Exec8(CFsAE* ae, ParamInfo* infoP)
 
 	A_long targetP = PPTRANS;
 
-	//…•½•ûŒü
+	//æ°´å¹³æ–¹å‘
 	A_long cnt = 0;
 	for (A_long j = 0; j < h; j++) {
 		A_long adrY = j * wt;
-		//Œ³‰æ‘œ‚ğƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚²‚Æ‚É‘Ş”ğ
+		//å…ƒç”»åƒã‚’ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã”ã¨ã«é€€é¿
 		for (A_long i = 0; i < w; i++) {
 			scanline[i] = data[adrY + i];
-			//åüE“§–¾‚Æ–¾‚é‚³‚Ìƒe[ƒuƒ‹
-			//@–¾‚é‚³ 0-255
-			// “§–¾ 256 PPTRANS
-			// åü 257 PPMAIN
+			//ä¸»ç·šãƒ»é€æ˜ã¨æ˜ã‚‹ã•ã®ãƒ†ãƒ¼ãƒ–ãƒ«
+			//ã€€æ˜ã‚‹ã• 0-255
+			// é€æ˜ 256 PPTRANS
+			// ä¸»ç·š 257 PPMAIN
 			scanlineV[i] = pV8(scanline[i], infoP->Main_Color, infoP->lv);
 			scanlineV2[i] = PxStatus(scanlineV[i]);
 		}
@@ -37,7 +37,7 @@ PF_Err Exec8(CFsAE* ae, ParamInfo* infoP)
 				PF_Pixel dst = scanline[i];
 				PF_Boolean dv = TRUE;
 
-				A_long lc = i;//Œ»İ‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğ‰Šú’l‚É
+				A_long lc = i;//ç¾åœ¨ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’åˆæœŸå€¤ã«
 				A_long rc = i;
 
 				for (int k = 1; k < infoP->scanLength; k++)
@@ -121,7 +121,7 @@ PF_Err Exec8(CFsAE* ae, ParamInfo* infoP)
 		}
 	}
 	if (cnt == 0) return err;
-	// ‚’¼•ûŒü
+	// å‚ç›´æ–¹å‘
 	cnt = 0;
 	for (A_long i = 0; i < w; i++) {
 		for (A_long j = 0; j < h; j++) {
@@ -140,7 +140,7 @@ PF_Err Exec8(CFsAE* ae, ParamInfo* infoP)
 				//PF_Pixel rp = infoP->Main_Color;
 				//A_long lv = PPMAIN;
 				//A_long rv = PPMAIN;
-				A_long lc = j;//Œ»İ‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğ‰Šú’l‚É
+				A_long lc = j;//ç¾åœ¨ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’åˆæœŸå€¤ã«
 				A_long rc = j;
 
 
@@ -230,3 +230,4 @@ PF_Err Exec8(CFsAE* ae, ParamInfo* infoP)
 	infoP->count = cnt;
 	return err;
 }
+

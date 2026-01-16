@@ -1,7 +1,7 @@
-#include "FsGraphics.h"
+ï»¿#include "FsGraphics.h"
 
 //********************************************************
-//w’è‚µ‚½”ÍˆÍ‚ğ•½’R‰»‚·‚éBpr‚Ì’l‚Å”’l‚ğ‰ÁŒ¸‚Å‚«‚é
+//æŒ‡å®šã—ãŸç¯„å›²ã‚’å¹³å¦åŒ–ã™ã‚‹ã€‚prã®å€¤ã§æ•°å€¤ã‚’åŠ æ¸›ã§ãã‚‹
 //********************************************************
 PF_Err CFsGraph::flat8(FsFlatParam *fp,FsPixelRand *pr)
 {
@@ -63,7 +63,7 @@ PF_Err CFsGraph::flat8(FsFlatParam *fp,FsPixelRand *pr)
 		yb += (xb / sx);
 	}
 	PF_Pixel c;
-	//”¼“§–¾‚Ì‚Æ‚±‚ë‚Ì‚İƒ‰ƒ“ƒ_ƒ€‚É
+	//åŠé€æ˜ã®ã¨ã“ã‚ã®ã¿ãƒ©ãƒ³ãƒ€ãƒ ã«
 	A_long a2 = RoundByteLong(ya/sy);
 	if ( a2<(PF_MAX_CHAN8-26)) a2 += pp.a;
 	c.alpha	= RoundByteLong(a2);
@@ -81,7 +81,7 @@ PF_Err CFsGraph::flat8(FsFlatParam *fp,FsPixelRand *pr)
 	return err;
 }
 //********************************************************
-//w’è‚µ‚½”ÍˆÍ‚ğ•½’R‰»‚·‚éBpr‚Ì’l‚Å”’l‚ğ‰ÁŒ¸‚Å‚«‚é
+//æŒ‡å®šã—ãŸç¯„å›²ã‚’å¹³å¦åŒ–ã™ã‚‹ã€‚prã®å€¤ã§æ•°å€¤ã‚’åŠ æ¸›ã§ãã‚‹
 //********************************************************
 PF_Err CFsGraph::flat16(FsFlatParam *fp,FsPixelRand *pr)
 {
@@ -143,7 +143,7 @@ PF_Err CFsGraph::flat16(FsFlatParam *fp,FsPixelRand *pr)
 		yb += (xb / sx);
 	}
 	PF_Pixel16 c;
-	//”¼“§–¾‚Ì‚Æ‚±‚ë‚Ì‚İƒ‰ƒ“ƒ_ƒ€‚É
+	//åŠé€æ˜ã®ã¨ã“ã‚ã®ã¿ãƒ©ãƒ³ãƒ€ãƒ ã«
 	A_long a2 = RoundShort(ya/sy);
 	if (a2<(PF_MAX_CHAN16-65534)) a2 += pp.a;
 	c.alpha	= RoundShort(a2);
@@ -161,7 +161,7 @@ PF_Err CFsGraph::flat16(FsFlatParam *fp,FsPixelRand *pr)
 	return err;
 }
 //********************************************************
-//w’è‚µ‚½”ÍˆÍ‚ğ•½’R‰»‚·‚éBpr‚Ì’l‚Å”’l‚ğ‰ÁŒ¸‚Å‚«‚é
+//æŒ‡å®šã—ãŸç¯„å›²ã‚’å¹³å¦åŒ–ã™ã‚‹ã€‚prã®å€¤ã§æ•°å€¤ã‚’åŠ æ¸›ã§ãã‚‹
 //********************************************************
 PF_Err CFsGraph::flat32(FsFlatParam *fp,FsPixelRandFloat *pr)
 {
@@ -223,7 +223,7 @@ PF_Err CFsGraph::flat32(FsFlatParam *fp,FsPixelRandFloat *pr)
 		yb += (xb / sx);
 	}
 	PF_PixelFloat c;
-	//”¼“§–¾‚Ì‚Æ‚±‚ë‚Ì‚İƒ‰ƒ“ƒ_ƒ€‚É
+	//åŠé€æ˜ã®ã¨ã“ã‚ã®ã¿ãƒ©ãƒ³ãƒ€ãƒ ã«
 	PF_FpLong a2 = RoundFpShortDouble(ya/sy);
 	if ( a2<(1.0-0.1)) a2 += pp.a;
 	c.alpha	= RoundFpShortDouble(a2);
@@ -245,7 +245,7 @@ PF_Err CFsGraph::flat32(FsFlatParam *fp,FsPixelRandFloat *pr)
 PF_Err CFsGraph::mosaic8(FsMosaicParam *mp)
 {
 	PF_Err err = PF_Err_NONE;
-	//Šî“_‚Æƒ‹[ƒv‰ñ”
+	//åŸºç‚¹ã¨ãƒ«ãƒ¼ãƒ—å›æ•°
 	FsFlatParam fp;
 	fp.sizeX	= mp->sizeX;
 	fp.sizeY	= mp->sizeY;
@@ -269,7 +269,7 @@ PF_Err CFsGraph::mosaic8(FsMosaicParam *mp)
 		cntY = 1;
 	}
 	
-	//ƒ‰ƒ“ƒ_ƒ€‚Ì‰Šú‰»
+	//ãƒ©ãƒ³ãƒ€ãƒ ã®åˆæœŸåŒ–
 	FsPixelRand pr;
 	pr.a = pr.b = pr.g = pr.r = 0;
 	A_long randValue;
@@ -307,7 +307,7 @@ PF_Err CFsGraph::mosaic8(FsMosaicParam *mp)
 PF_Err CFsGraph::mosaic16(FsMosaicParam *mp)
 {
 	PF_Err err = PF_Err_NONE;
-	//Šî“_‚Æƒ‹[ƒv‰ñ”
+	//åŸºç‚¹ã¨ãƒ«ãƒ¼ãƒ—å›æ•°
 	FsFlatParam fp;
 	fp.sizeX	= mp->sizeX;
 	fp.sizeY	= mp->sizeY;
@@ -331,7 +331,7 @@ PF_Err CFsGraph::mosaic16(FsMosaicParam *mp)
 		cntY = 1;
 	}
 	
-	//ƒ‰ƒ“ƒ_ƒ€‚Ì‰Šú‰»
+	//ãƒ©ãƒ³ãƒ€ãƒ ã®åˆæœŸåŒ–
 	FsPixelRand pr;
 	pr.a = pr.b = pr.g = pr.r = 0;
 	A_long randValue;
@@ -369,7 +369,7 @@ PF_Err CFsGraph::mosaic16(FsMosaicParam *mp)
 PF_Err CFsGraph::mosaic32(FsMosaicParam *mp)
 {
 	PF_Err err = PF_Err_NONE;
-	//Šî“_‚Æƒ‹[ƒv‰ñ”
+	//åŸºç‚¹ã¨ãƒ«ãƒ¼ãƒ—å›æ•°
 	FsFlatParam fp;
 	fp.sizeX	= mp->sizeX;
 	fp.sizeY	= mp->sizeY;
@@ -393,7 +393,7 @@ PF_Err CFsGraph::mosaic32(FsMosaicParam *mp)
 		cntY = 1;
 	}
 	
-	//ƒ‰ƒ“ƒ_ƒ€‚Ì‰Šú‰»
+	//ãƒ©ãƒ³ãƒ€ãƒ ã®åˆæœŸåŒ–
 	FsPixelRandFloat pr;
 	pr.a = pr.b = pr.g = pr.r = 0;
 	A_long randValue;
@@ -447,3 +447,4 @@ PF_Err CFsGraph::mosaic(FsMosaicParam *mp)
 	}
 	return err;
 }
+

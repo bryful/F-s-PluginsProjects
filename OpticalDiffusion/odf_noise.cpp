@@ -1,4 +1,4 @@
-#include "OpticalDiffusion.h"
+﻿#include "OpticalDiffusion.h"
 
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
@@ -23,3 +23,4 @@ noise8 (
 	}
 	return err;
 }
+

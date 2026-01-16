@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 PF_Boolean FLT_Enabled[PARAMSET_COUNT] = { FALSE,FALSE, FALSE, FALSE };
@@ -19,4 +19,5 @@ A_long FLT_BLUR[PARAMSET_COUNT] = { 0, 0, 0, 0 };
 PF_FpLong FLT_OPACITY[PARAMSET_COUNT] = { 50,50,50,50 };
 
 A_long FLT_BLEND_MODE[PARAMSET_COUNT] = { 1, 1, 1, 1 };
+
 

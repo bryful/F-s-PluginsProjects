@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef COLOR_DEF_H
 #define COLOR_DEF_H
 

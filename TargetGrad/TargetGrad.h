@@ -318,3 +318,4 @@ EffectMain(
 	void			*extra);
 }
 #endif // TargetGrad_H
+

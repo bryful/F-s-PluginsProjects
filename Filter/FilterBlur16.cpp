@@ -1,4 +1,4 @@
-#include "Filter.h"
+ï»¿#include "Filter.h"
 
 //==================================================================================
 static PF_Err MakeTbl(CAE *ae, A_long blur, A_long *tbl)
@@ -28,7 +28,7 @@ static PF_Err BlurHor(PF_EffectWorldPtr g, A_long blue, PF_Pixel16 *scanline, A_
 	A_long adr = 0;
 	for (A_long y = 0; y < h; y++)
 	{
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		for (A_long x = 0; x < w; x++) {
 			scanline[x] = data[adr + x];
 		}
@@ -39,7 +39,7 @@ static PF_Err BlurHor(PF_EffectWorldPtr g, A_long blue, PF_Pixel16 *scanline, A_
 			A_long g = 0;
 			A_long b = 0;
 			A_long a = 0;
-			//^‚ñ’†
+			//çœŸã‚“ä¸­
 			gauss = tbl[0];
 			if (scanline[x].alpha > 0) {
 				r += scanline[x].red * gauss;
@@ -97,7 +97,7 @@ static PF_Err BlurVur(PF_EffectWorldPtr g, A_long blue, PF_Pixel16 *scanline, A_
 	A_long adr = 0;
 	for (A_long x = 0; x < w; x++)
 	{
-		//ƒXƒLƒƒƒ“ƒ‰ƒCƒ“‚Ö“]‘—
+		//ã‚¹ã‚­ãƒ£ãƒ³ãƒ©ã‚¤ãƒ³ã¸è»¢é€
 		adr = 0;
 		for (A_long y = 0; y < h; y++) {
 			scanline[y] = data[x + adr];
@@ -111,7 +111,7 @@ static PF_Err BlurVur(PF_EffectWorldPtr g, A_long blue, PF_Pixel16 *scanline, A_
 			A_long g = 0;
 			A_long b = 0;
 			A_long a = 0;
-			//^‚ñ’†
+			//çœŸã‚“ä¸­
 			gauss = tbl[0];
 			if (scanline[y].alpha > 0) {
 				r += scanline[y].red * gauss;
@@ -181,3 +181,4 @@ PF_Err Blur16(CAE *ae,  PF_EffectWorldPtr world, A_long blur, PF_Handle bufH)
 
 	return err;
 }
+

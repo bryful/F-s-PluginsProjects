@@ -1,4 +1,4 @@
-#include "AEConfig.h"
+﻿#include "AEConfig.h"
 #include "AE_EffectVers.h"
 #include "Filter_Target.h"
 
@@ -63,4 +63,5 @@ resource 'PiPL' (16000) {
 		}
 	}
 };
+
 

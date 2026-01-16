@@ -243,3 +243,4 @@ PF_Err ExtractColor(CFsAE* ae, ParamInfo* info)
 {
     return ExtractColorL(ae, info);
 }
+

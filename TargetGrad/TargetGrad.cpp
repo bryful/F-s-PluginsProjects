@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins for VS2010/VS2012
 */
@@ -205,8 +205,8 @@ static void savePath(std::string path)
 	}
 }
 //-------------------------------------------------------------------------------------------------
-//AfterEffexts‚Éƒpƒ‰ƒ[ƒ^‚ğ’Ê’B‚·‚é
-//Param_Utils.h‚ğQÆ‚Ì‚±‚Æ
+//AfterEffextsã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é€šé”ã™ã‚‹
+//Param_Utils.hã‚’å‚ç…§ã®ã“ã¨
 static PF_Err ParamsSetup (
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -245,21 +245,21 @@ static PF_Err ParamsSetup (
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POPUP(STR_TARGET,
-		STR_TARGET_COUNT,	//ƒƒjƒ…[‚Ì”
-		table.targetColorMode,	//ƒfƒtƒHƒ‹ƒg
+		STR_TARGET_COUNT,	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æ•°
+		table.targetColorMode,	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 		STR_TARGET_ITEMS,
 		ID_TARGET
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_START_COLLAPSED;	//‚±‚ê‚ğ‚Â‚¯‚é‚Æ•\¦‚ÉŠJ‚¢‚½ó‘Ô‚É‚È‚é
+	def.flags = PF_ParamFlag_START_COLLAPSED;	//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨è¡¨ç¤ºæ™‚ã«é–‹ã„ãŸçŠ¶æ…‹ã«ãªã‚‹
 	PF_ADD_TOPIC(STR_TOPIC_COLOR, ID_TOPIC_COLOR);
 	//----------------------------------------------------------------
 
 	std::string str;
 	for (A_long i = 0; i < COLOR_TABLE_COUNT; i++) {
 		AEFX_CLR_STRUCT(def);
-		//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+		//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 		str = STR_TARGET_CB + std::to_string(i + 1);
 		PF_ADD_CHECKBOX(str.c_str(),
 			STR_TARGET_CB2,
@@ -268,7 +268,7 @@ static PF_Err ParamsSetup (
 			ID_COLOR_ENABLED(i)
 		);
 		AEFX_CLR_STRUCT(def);
-		//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+		//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 		str = STR_TARGET + std::to_string(i + 1);
 		PF_ADD_COLOR(
 			str.c_str(),
@@ -294,7 +294,7 @@ static PF_Err ParamsSetup (
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 	PF_ADD_CHECKBOX(STR_INVERT,
 		STR_INVERT2,
 		table.invert,
@@ -316,7 +316,7 @@ static PF_Err ParamsSetup (
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_START_COLLAPSED;	//‚±‚ê‚ğ‚Â‚¯‚é‚Æ•\¦‚ÉŠJ‚¢‚½ó‘Ô‚É‚È‚é
+	def.flags = PF_ParamFlag_START_COLLAPSED;	//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨è¡¨ç¤ºæ™‚ã«é–‹ã„ãŸçŠ¶æ…‹ã«ãªã‚‹
 	PF_ADD_TOPIC(STR_TOPIC_2POINT, ID_TOPIC_2POINT);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
@@ -339,7 +339,7 @@ static PF_Err ParamsSetup (
 	PF_END_TOPIC(ID_TOPIC_2POINT_END);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 	PF_ADD_CHECKBOX(STR_AUTO_POS,
 		STR_AUTO_POS2,
 		FALSE,
@@ -409,7 +409,7 @@ static PF_Err ParamsSetup (
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 	PF_ADD_CHECKBOX(STR_GUIDE_ENABLED,
 		STR_GUIDE_ENABLED,
 		table.guideEnabled,
@@ -419,7 +419,7 @@ static PF_Err ParamsSetup (
 
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//‚±‚ê‚ğ‚Â‚¯‚é‚ÆƒL[ƒtƒŒ[ƒ€‚ªŒ‚‚Ä‚È‚­‚È‚é
+	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//ã“ã‚Œã‚’ã¤ã‘ã‚‹ã¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒæ’ƒã¦ãªããªã‚‹
 	PF_ADD_COLOR(
 		STR_GUIDE_COLOR,
 		table.guideColor.red,
@@ -608,7 +608,7 @@ static PF_Err
 Exec(CFsAE* ae, ParamInfo* infoP)
 {
 	PF_Err	err = PF_Err_NONE;
-	//‰æ–Ê‚ğƒRƒs[
+	//ç”»é¢ã‚’ã‚³ãƒ”ãƒ¼
 	//ERR(ae->CopyInToOut());
 	if((infoP->targetColorMode==1)&&(infoP->targetColorCount<=0)){
 		return err;
@@ -663,7 +663,7 @@ Exec(CFsAE* ae, ParamInfo* infoP)
 			);
 		}
 
-		//ƒKƒCƒhü‚Ì•`‰æ
+		//ã‚¬ã‚¤ãƒ‰ç·šã®æç”»
 		ae->out->Line(sx, sy,lx, ly, infoP->guideColor);
 		ae->out->Line(sx+1, sy, lx+1, ly, infoP->guideColor);
 		ae->out->Line(sx, sy+1, lx, ly+1, infoP->guideColor);
@@ -701,10 +701,10 @@ Exec(CFsAE* ae, ParamInfo* infoP)
 }
 
 //-------------------------------------------------------------------------------------------------
-//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌƒƒCƒ“
+//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãƒ¡ã‚¤ãƒ³
 /*
-	SmartFX‚É‘Î‰‚µ‚Ä‚¢‚È‚¢ƒzƒXƒg(After Effects7ˆÈ‘O‚Ì‚à‚Ì)‚Í‚±‚ÌŠÖ”‚ªŒÄ‚Ño‚³‚ê‚Ä•`‰æ‚·‚é
-	‚±‚ÌŠÖ”‚ğ‘‚¢‚Ä‚¨‚¯‚Îˆê‰v6.5‘Î‰‚É‚È‚é
+	SmartFXã«å¯¾å¿œã—ã¦ã„ãªã„ãƒ›ã‚¹ãƒˆ(After Effects7ä»¥å‰ã®ã‚‚ã®)ã¯ã“ã®é–¢æ•°ãŒå‘¼ã³å‡ºã•ã‚Œã¦æç”»ã™ã‚‹
+	ã“ã®é–¢æ•°ã‚’æ›¸ã„ã¦ãŠã‘ã°ä¸€å¿œv6.5å¯¾å¿œã«ãªã‚‹
 */
 static PF_Err 
 Render ( 
@@ -728,7 +728,7 @@ Render (
 }
 //-----------------------------------------------------------------------------------
 /*
-	SmartFX‘Î‰‚Ìê‡A‚Ü‚¸‚±‚ÌŠÖ”‚ªŒÄ‚Î‚ê‚Äƒpƒ‰ƒ[ƒ^‚ÌŠl“¾‚ğs‚¤
+	SmartFXå¯¾å¿œã®å ´åˆã€ã¾ãšã“ã®é–¢æ•°ãŒå‘¼ã°ã‚Œã¦ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ç²å¾—ã‚’è¡Œã†
 */
 #if defined(SUPPORT_SMARTFX)
 static PF_Err
@@ -783,3 +783,4 @@ SmartRender(
 #endif
 
 #include "Fs_Entry.h"
+

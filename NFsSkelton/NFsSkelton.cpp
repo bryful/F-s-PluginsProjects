@@ -1,4 +1,4 @@
-
+﻿
 
 #include "NFsSkelton.h"
 
@@ -110,12 +110,12 @@ PF_Err NFsSkelton::ParamsSetup(
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
 	def.ui_flags = PF_PUI_DISABLED;
-	PF_ADD_SLIDER(	STR_NOISE_OFFSET,	//�p�����[�^�̖��O
-					-30000, 		//���l���͂���ꍇ�̍ŏ��l
-					30000,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l
-					300,			//�X���C�_�[�̍ő�l
-					10,				//�f�t�H���g�̒l
+	PF_ADD_SLIDER(	STR_NOISE_OFFSET,	//パラメータの名前
+					-30000, 		//数値入力する場合の最小値
+					30000,			//数値入力する場合の最大値
+					0,				//スライダーの最小値
+					300,			//スライダーの最大値
+					10,				//デフォルトの値
 					ID_NOISE_OFFSET
 					);	
 	//----------------------------------------------------------------
@@ -157,12 +157,12 @@ PF_Err NFsSkelton::ParamsSetup(
 					);
 	//----------------------------------------------------------------
 		AEFX_CLR_STRUCT(def);
-		def.flags = PF_ParamFlag_START_COLLAPSED;	//���������ƕ\�����ɊJ������ԂɂȂ�
+		def.flags = PF_ParamFlag_START_COLLAPSED;	//これをつけると表示時に開いた状態になる
 		PF_ADD_TOPIC(STR_TOPIC, ID_TOPIC);
 	//----------------------------------------------------------------
-	//�F�̎w��
+	//色の指定
 	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
+	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
 	PF_ADD_COLOR(	STR_COLOR,
 					0xFF,
 					0xFF,
@@ -171,24 +171,24 @@ PF_Err NFsSkelton::ParamsSetup(
 					);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//���������ƃL�[�t���[�������ĂȂ��Ȃ�
-	PF_ADD_FIXED(	STR_FIXED_SLIDER,	//�p�����[�^�̖��O
-					0, 				//���l���͂���ꍇ�̍ŏ��l
-					100,			//���l���͂���ꍇ�̍ő�l
-					0,				//�X���C�_�[�̍ŏ��l
-					100,			//�X���C�_�[�̍ő�l
-					100,			//�f�t�H���g�̒l
-					1,				//���l�\���Ɋւ���t���O
+	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
+	PF_ADD_FIXED(	STR_FIXED_SLIDER,	//パラメータの名前
+					0, 				//数値入力する場合の最小値
+					100,			//数値入力する場合の最大値
+					0,				//スライダーの最小値
+					100,			//スライダーの最大値
+					100,			//デフォルトの値
+					1,				//数値表示に関するフラグ
 					0,
 					0,
 					ID_FIXED_SLIDER
 					);
 	//----------------------------------------------------------------
-	//�p�x
+	//角度
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_ANGLE(STR_ANGLE,0,ID_ANGLE);
 	//----------------------------------------------------------------
-	//�ʒu�̎w��
+	//位置の指定
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_POINT(STR_POINT,			//"New Center"
 	50,	// X
@@ -254,3 +254,4 @@ PF_Err NFsSkelton::Exec(ParamInfo* infoP)
 
 };
 // **********************************************************
+

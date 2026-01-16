@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #pragma once
 #ifndef Filter_Entry_H
 #define Filter_Entry_H
@@ -302,4 +302,5 @@ EffectMain(
 }
 
 #endif // OpenCVSkelton_Entry_H
+
 

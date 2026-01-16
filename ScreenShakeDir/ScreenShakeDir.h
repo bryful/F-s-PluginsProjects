@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	PluginSkeleton for VS2010
 */
@@ -39,13 +39,13 @@
 #include "../FsLibrary/FsScreenShake.h"
 
 
-#define	STR_Y			"‘å‚«‚³(px)"
-#define	STR_VALUE_RND		"‘å‚«‚³‚Ì‚Î‚ç‚Â‚«(%)"
-#define	STR_DIR				"•ûŒü(Rot)"
-#define	STR_DIR_RND			"•ûŒü‚Ì‚Î‚ç‚Â‚«(Rot)"
+#define	STR_Y			"å¤§ãã•(px)"
+#define	STR_VALUE_RND		"å¤§ãã•ã®ã°ã‚‰ã¤ã(%)"
+#define	STR_DIR				"æ–¹å‘(Rot)"
+#define	STR_DIR_RND			"æ–¹å‘ã®ã°ã‚‰ã¤ã(Rot)"
 #define	STR_RANDOMSEED		"Random Seed"
-#define	STR_EDGE_STATUS1	"‰‚Ìˆ—"
-#define	STR_EDGE_STATUS2	"“§–¾|L‚Î‚·|ŒJ‚è•Ô‚·1|ŒJ‚è•Ô‚·2"
+#define	STR_EDGE_STATUS1	"ç¸ã®å‡¦ç†"
+#define	STR_EDGE_STATUS2	"é€æ˜|ä¼¸ã°ã™|ç¹°ã‚Šè¿”ã™1|ç¹°ã‚Šè¿”ã™2"
 
 #ifdef TEST_MODE
 	#define	STR_TEST_TIME_CB1	"Time Disp"
@@ -55,10 +55,10 @@
 
 enum {
 	ID_INPUT = 0,	// default input layer 
-	ID_Y,		// ‰æ–Ê“®‚Ì‘å‚«‚³
+	ID_Y,		// ç”»é¢å‹•ã®å¤§ãã•
 	ID_VALUE_RND,
-	ID_DIR,			// ‰æ–Ê“®‚Ì•ûŒü
-	ID_DIR_RND,		// ‰æ–Ê“®‚Ì•ûŒü‚Ì‚Î‚ç‚Â‚«
+	ID_DIR,			// ç”»é¢å‹•ã®æ–¹å‘
+	ID_DIR_RND,		// ç”»é¢å‹•ã®æ–¹å‘ã®ã°ã‚‰ã¤ã
 	ID_RANDOMSEED,
 	ID_EDGE_STATUS,
 	ID_NUM_PARAMS
@@ -71,7 +71,7 @@ enum {
 	edge_mirror
 };
 
-//ƒvƒ‰ƒOƒCƒ““Æ©‚Ìƒpƒ‰ƒ[ƒ^‚ğW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 typedef struct{
 	//PF_Fixed			dpi;
 	//PF_Fixed			mm;
@@ -106,3 +106,4 @@ EntryPointFunc (
 //-----------------------------------------------------------------------------------
 
 #endif // ScreenShakeDir_H
+

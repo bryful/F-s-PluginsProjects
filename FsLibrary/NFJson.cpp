@@ -1,4 +1,4 @@
-#include "NFJson.h"
+﻿#include "NFJson.h"
 
 json PixelToJson(PF_Pixel p)
 {

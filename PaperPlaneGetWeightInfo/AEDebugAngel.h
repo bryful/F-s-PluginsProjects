@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef AEDebugDisp_H
 #define AEDebugDisp_H
 
@@ -36,3 +36,4 @@
 PF_Err DispAngel(CFsGraph *scr,char *msg,A_long x, A_long y,PF_Pixel8 col);
 
 #endif
+

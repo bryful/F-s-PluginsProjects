@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #ifndef FsAEHeader_H
 #define FsAEHeader_H
 
-//Šeíƒwƒbƒ_[“o˜^
+//å„ç¨®ãƒ˜ãƒƒãƒ€ãƒ¼ç™»éŒ²
 #include "AEConfig.h"
 #include "entry.h"
 #include "AEFX_SuiteHelper.h"
@@ -25,7 +25,7 @@
 #define refconType void*
 #endif
 /*
-//OpenCV‚Ìƒwƒbƒ_[
+//OpenCVã®ãƒ˜ãƒƒãƒ€ãƒ¼
 #include <open>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>

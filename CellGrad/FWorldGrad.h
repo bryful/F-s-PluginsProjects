@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef FWorldGrad_H
 #define FWorldGrad_H
 

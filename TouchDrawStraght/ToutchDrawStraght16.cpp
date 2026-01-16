@@ -1,4 +1,4 @@
-#include "TouchDrawStraght.h"
+ï»¿#include "TouchDrawStraght.h"
 
 //-------------------------------------------------------
 void drawTouchSub16(TouchDrawStraghtInfo *p)
@@ -59,12 +59,12 @@ void drawTouchS16(CFsAE *ae,ParamInfo	*prm)
 	PF_Pixel16 *oD;
 	oD = (PF_Pixel16 *)ae->out->data();
 	
-	//ƒ^[ƒQƒbƒgƒ‰ƒ“ƒ_ƒ€
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ©ãƒ³ãƒ€ãƒ 
 	F_SRAND(prm->seed);
 	PF_Fixed t0;
 	t0 = F_RAND_MAX * prm->target_value >> 16;
 
-	//’·‚³ƒ‰ƒ“ƒ_ƒ€
+	//é•·ã•ãƒ©ãƒ³ãƒ€ãƒ 
 	PF_Fixed ir0;
 	ir0 = prm->length_i_max - (prm->length_i_max * prm->length_i_rnd >>16);
 	if (ir0<0) ir0=0;
@@ -73,7 +73,7 @@ void drawTouchS16(CFsAE *ae,ParamInfo	*prm)
 	or0 = prm->length_o_max - (prm->length_o_max * prm->length_o_rnd >>16);
 	if (or0<0) or0=0;
 
-	//•s“§–¾“xƒ‰ƒ“ƒ_ƒ€
+	//ä¸é€æ˜Žåº¦ãƒ©ãƒ³ãƒ€ãƒ 
 	PF_Fixed p0;
 	p0 = prm->opacity - (prm->opacity >>8) * (prm->opacity_rnd >>8);
 	if (p0<0) p0=0;

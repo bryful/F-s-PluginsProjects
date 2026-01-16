@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef NFsSkeltonFX_H
 #define NFsSkeltonFX_H
 

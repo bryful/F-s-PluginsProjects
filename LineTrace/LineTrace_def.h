@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef COLOR_DEF_H
 #define COLOR_DEF_H
 
@@ -135,3 +135,4 @@ A_u_char pr_colorDef[COLOR_DEF_SIZE][6]={
 	},
 };
 #endif 
+

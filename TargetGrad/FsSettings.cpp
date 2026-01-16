@@ -1,6 +1,6 @@
-#include "FsSettings.h"
-// ƒvƒ‰ƒOƒCƒ“İ’èƒtƒ@ƒCƒ‹—pƒfƒBƒŒƒNƒgƒŠ‚ğ•Ô‚·ƒ†[ƒeƒBƒŠƒeƒB
-// ¸”s‚µ‚½ê‡‚Í‹ó•¶š—ñ‚ğ•Ô‚·
+ï»¿#include "FsSettings.h"
+// ãƒ—ãƒ©ã‚°ã‚¤ãƒ³è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ç”¨ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’è¿”ã™ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£
+// å¤±æ•—ã—ãŸå ´åˆã¯ç©ºæ–‡å­—åˆ—ã‚’è¿”ã™
 static bool EnsureDirectoryExists(const std::string& dir)
 {
     if (dir.empty()) return false;
@@ -9,12 +9,12 @@ static bool EnsureDirectoryExists(const std::string& dir)
 
     std::string cur;
     size_t pos = 0;
-    // ƒhƒ‰ƒCƒuw’è (C:\...) ‚Ìê‡‚Íæ“ª‚ğ‰Šú‰»
+    // ãƒ‰ãƒ©ã‚¤ãƒ–æŒ‡å®š (C:\...) ã®å ´åˆã¯å…ˆé ­ã‚’åˆæœŸåŒ–
     if (path.size() >= 2 && path[1] == ':') {
         cur = path.substr(0, 3); // "C:\"
         pos = 3;
     }
-    // UNC ƒpƒX‚È‚Çæ“ª‚ª "\\" ‚Ìê‡‚Í‚»‚Ì‚Ü‚Üˆµ‚¤
+    // UNC ãƒ‘ã‚¹ãªã©å…ˆé ­ãŒ "\\" ã®å ´åˆã¯ãã®ã¾ã¾æ‰±ã†
     else if (path.size() >= 2 && path[0] == '\\' && path[1] == '\\') {
         cur = "\\\\";
         pos = 2;
@@ -50,9 +50,9 @@ static bool EnsureDirectoryExists(const std::string& dir)
     return true;
 }
 
-// ƒ†[ƒU[’PˆÊ‚Ìİ’è•Û‘¶æƒfƒBƒŒƒNƒgƒŠ‚ğ•Ô‚·B
-// —á: "%LOCALAPPDATA%\F_sPlugins\TargetGrad"
-// ì¬‚Å‚«‚È‚¯‚ê‚Î‹ó•¶š—ñ‚ğ•Ô‚·B
+// ãƒ¦ãƒ¼ã‚¶ãƒ¼å˜ä½ã®è¨­å®šä¿å­˜å…ˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’è¿”ã™ã€‚
+// ä¾‹: "%LOCALAPPDATA%\F_sPlugins\TargetGrad"
+// ä½œæˆã§ããªã‘ã‚Œã°ç©ºæ–‡å­—åˆ—ã‚’è¿”ã™ã€‚
 static std::string GetPluginConfigDir()
 {
     const char* local = std::getenv("LOCALAPPDATA");
@@ -63,15 +63,15 @@ static std::string GetPluginConfigDir()
     else if (roam && roam[0] != '\0') base = roam;
     else return std::string();
 
-    // Šé‹Æ–¼/ƒvƒ‰ƒOƒCƒ“–¼‚Í•K—v‚É‰‚¶‚Ä•ÏX‚µ‚Ä‚­‚¾‚³‚¢
+    // ä¼æ¥­å/ãƒ—ãƒ©ã‚°ã‚¤ãƒ³åã¯å¿…è¦ã«å¿œã˜ã¦å¤‰æ›´ã—ã¦ãã ã•ã„
     std::string dir = base + "\\FsPlugins";
 
     if (!EnsureDirectoryExists(dir)) return std::string();
     return dir;
 }
 
-// w’è‚µ‚½ƒtƒ@ƒCƒ‹–¼‚ğƒvƒ‰ƒOƒCƒ“İ’èƒfƒBƒŒƒNƒgƒŠ“à‚Ìƒtƒ‹ƒpƒX‚Å•Ô‚·i‘¶İƒfƒBƒŒƒNƒgƒŠ‚ğì¬‚·‚éj
-// ¸”s‚Í‹ó•¶š—ñ
+// æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«åã‚’ãƒ—ãƒ©ã‚°ã‚¤ãƒ³è¨­å®šãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå†…ã®ãƒ•ãƒ«ãƒ‘ã‚¹ã§è¿”ã™ï¼ˆå­˜åœ¨ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ä½œæˆã™ã‚‹ï¼‰
+// å¤±æ•—æ™‚ã¯ç©ºæ–‡å­—åˆ—
 static std::string GetPluginConfigFilePathL(const std::string& filename)
 {
     if (filename.empty()) return std::string();

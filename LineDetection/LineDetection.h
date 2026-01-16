@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------------
+ï»¿//-----------------------------------------------------------------------------------
 /*
 	F's Plugins-cs4 for VS2008
 */
@@ -41,17 +41,17 @@
 
 #define STR_CB				"ON"
 
-#define STR_DELTA_CB		"RGB·•ªŒŸo"
-#define STR_DELTA_OPACITY	"RGB·•ªŒŸo‚Ì”Z“x"
+#define STR_DELTA_CB		"RGBå·®åˆ†æ¤œå‡º"
+#define STR_DELTA_OPACITY	"RGBå·®åˆ†æ¤œå‡ºã®æ¿ƒåº¦"
 
-#define STR_ALPHA_CB		"Alpha·•ªŒŸo"
-#define STR_ALPHA_OPACITY	"Alpha·•ªŒŸo‚Ì”Z“x"
+#define STR_ALPHA_CB		"Alphaå·®åˆ†æ¤œå‡º"
+#define STR_ALPHA_OPACITY	"Alphaå·®åˆ†æ¤œå‡ºã®æ¿ƒåº¦"
 
-#define STR_LINE_COLOR		"ŒŸo‚µ‚½ü‚ÌF"
+#define STR_LINE_COLOR		"æ¤œå‡ºã—ãŸç·šã®è‰²"
 
 /*
 #define STR_TOPIC			"Extra Colors"
-#define STR_COLOR_OPACITY	"ƒJƒ‰[ŒŸo‚Ì”Z“x"
+#define STR_COLOR_OPACITY	"ã‚«ãƒ©ãƒ¼æ¤œå‡ºã®æ¿ƒåº¦"
 #define STR_COLOR0_CB		"Color0_Enabled"
 #define STR_COLOR0			"Color0"
 #define STR_COLOR0_LEVEL	"Color0_Range"
@@ -80,33 +80,33 @@
 
 
 
-//AfterEffects‚Ìî•ñ‚ğ‚Ü‚Æ‚ß‚½\‘¢‘Ì
+//AfterEffectsã®æƒ…å ±ã‚’ã¾ã¨ã‚ãŸæ§‹é€ ä½“
 typedef struct{
 	PF_InData		*in_data;
 	PF_OutData		*out_data;
 
 	PF_EffectWorld 	*input;
 	PF_EffectWorld	*output;
-	PF_PixelPtr  	inData;			//“ü—Í‰æ‘œ‚ÌƒAƒhƒŒƒX	
-	PF_PixelPtr  	outData;		//o—Í‰æ‘œ‚ÌƒAƒhƒŒƒX	
-	long			width;					//‘ÎÛ‰æ‘œ‚Ì‰¡•(pixel)
-	long			height;					//‘ÎÛ‰æ‘œ‚Ìc	•(pixel)
+	PF_PixelPtr  	inData;			//å…¥åŠ›ç”»åƒã®ã‚¢ãƒ‰ãƒ¬ã‚¹	
+	PF_PixelPtr  	outData;		//å‡ºåŠ›ç”»åƒã®ã‚¢ãƒ‰ãƒ¬ã‚¹	
+	long			width;					//å¯¾è±¡ç”»åƒã®æ¨ªå¹…(pixel)
+	long			height;					//å¯¾è±¡ç”»åƒã®ç¸¦	å¹…(pixel)
 	
-	long			inWidth;				//“ü—Í‰æ‘œ‚Ì‰¡•‚ÌÀƒTƒCƒYpixel)
-	long			outWidth;				//o—Í‰æ‘œ‚Ì‰¡•‚ÌÀƒTƒCƒYpixel)
-	long			offsetInWidth;	// inWidth - width	•â³ƒTƒCƒY	
+	long			inWidth;				//å…¥åŠ›ç”»åƒã®æ¨ªå¹…ã®å®Ÿã‚µã‚¤ã‚ºpixel)
+	long			outWidth;				//å‡ºåŠ›ç”»åƒã®æ¨ªå¹…ã®å®Ÿã‚µã‚¤ã‚ºpixel)
+	long			offsetInWidth;	// inWidth - width	è£œæ­£ã‚µã‚¤ã‚º	
 	long			offsetOutWidth;	// outWidth - width
-	long			Frame;					//•`‰æ’†‚ÌƒtƒŒ[ƒ€i‚OƒXƒ^[ƒgj
-	PF_Boolean		is16Bit;		//ƒ‚[ƒh‚ª16Bit‚È‚çTRUE
+	long			Frame;					//æç”»ä¸­ã®ãƒ•ãƒ¬ãƒ¼ãƒ ï¼ˆï¼ã‚¹ã‚¿ãƒ¼ãƒˆï¼‰
+	PF_Boolean		is16Bit;		//ãƒ¢ãƒ¼ãƒ‰ãŒ16Bitãªã‚‰TRUE
 	unsigned char	reserve1;
 	unsigned short	reserve2;
 	long			reserve3;
 	long			reserve4;
-	/* –³—‚â‚è64byte‚É‚·‚é*/
+	/* ç„¡ç†ã‚„ã‚Š64byteã«ã™ã‚‹*/
 } FsAEParams;
 
-//ƒ†[ƒU[ƒCƒ“ƒ^[ƒtƒF[ƒX‚ÌID
-//ParamsSetupŠÖ”‚ÆRenderŠÖ”‚Ìparamsƒpƒ‰ƒ[ƒ^‚ÌID‚É‚È‚é
+//ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®ID
+//ParamsSetupé–¢æ•°ã¨Renderé–¢æ•°ã®paramsãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®IDã«ãªã‚‹
 enum {
 	ID_INPUT = 0,	// default input layer 
 
@@ -125,36 +125,36 @@ enum {
 	ID_COLOR_OPACITY,
 
 	ID_COLOR0_CB,
-	ID_COLOR0,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR0_LEVEL,	//ƒ^[ƒQƒbƒg‚ÌF
+	ID_COLOR0,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR0_LEVEL,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
 
 	ID_COLOR1_CB,
-	ID_COLOR1,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR1_LEVEL,	//ƒ^[ƒQƒbƒg‚ÌF
+	ID_COLOR1,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR1_LEVEL,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
 
 	ID_COLOR2_CB,
-	ID_COLOR2,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR2_LEVEL,	//ƒ^[ƒQƒbƒg‚ÌF
+	ID_COLOR2,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR2_LEVEL,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
 
 	ID_COLOR3_CB,
-	ID_COLOR3,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR3_LEVEL,	//ƒ^[ƒQƒbƒg‚ÌF
+	ID_COLOR3,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR3_LEVEL,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
 
 	ID_COLOR4_CB,
-	ID_COLOR4,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR4_LEVEL,	//ƒ^[ƒQƒbƒg‚ÌF
+	ID_COLOR4,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR4_LEVEL,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
 
 	ID_COLOR5_CB,
-	ID_COLOR5,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR5_LEVEL,	//ƒ^[ƒQƒbƒg‚ÌF
+	ID_COLOR5,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR5_LEVEL,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
 
 	ID_COLOR6_CB,
-	ID_COLOR6,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR6_LEVEL,	//ƒ^[ƒQƒbƒg‚ÌF
+	ID_COLOR6,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR6_LEVEL,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
 
 	ID_COLOR7_CB,
-	ID_COLOR7,	//ƒ^[ƒQƒbƒg‚ÌF
-	ID_COLOR7_LEVEL,	//ƒ^[ƒQƒbƒg‚ÌF
+	ID_COLOR7,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
+	ID_COLOR7_LEVEL,	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è‰²
 
 	ID_TOPIC_END,
 	*/
@@ -162,7 +162,7 @@ enum {
 	};
 
 #define COLOR_COUNT 8
-//ƒvƒ‰ƒOƒCƒ““Æ©‚Ìƒpƒ‰ƒ[ƒ^‚ğW‚ß‚½\‘¢‘Ì
+//ãƒ—ãƒ©ã‚°ã‚¤ãƒ³ç‹¬è‡ªã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’é›†ã‚ãŸæ§‹é€ ä½“
 typedef struct{
 	PF_Boolean		delta_flg;
 	PF_Fixed		delta_opacity;
@@ -234,7 +234,7 @@ EntryPointFunc (
 	void			*extraP);
 }
 //-------------------------------------------------------
-// FsAEParams\‘¢‘Ì‚ğì¬‚·‚é
+// FsAEParamsæ§‹é€ ä½“ã‚’ä½œæˆã™ã‚‹
 PF_Err getFsAEParams (	
 	PF_InData		*in_data,
 	PF_OutData		*out_data,
@@ -263,3 +263,4 @@ void FindTargetDelta32(CFsAE *ae , ParamInfo *infoP);
 
 
 #endif // LineDetection_H
+
