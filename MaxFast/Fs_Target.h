@@ -7,12 +7,12 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define FS_NAME		"F's TargetGrad"
-#define FS_DISPNAME	"NF's TargetGrad"
+#define FS_NAME		"F's MaxFast"
+#define FS_DISPNAME	"NF's MaxFast"
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
-#define FS_DESCRIPTION	"TargetGrad"
+#define FS_DESCRIPTION	"MaxFast"
 
 	//-----------------------------------------------------------------------------------
 	//プラグインが表示されるメニュー名
@@ -25,8 +25,8 @@
 	//#define NFS_CATEGORY "NF's Plugins-Script"
 	//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
 
+#define NFS_CATEGORY "NF's Plugins-Filter"
 
-#define NFS_CATEGORY "NF's Plugins-Cell"
 
 	//-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
@@ -50,7 +50,7 @@ out_data->out_flags
 //#define FS_OUT_FLAGS	33555008	//通常はこちら
 
 
-#define FS_OUT_FLAGS 33556068
+#define FS_OUT_FLAGS 33556032
 
 
 //#define FS_OUT_FLAGS	33556036	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
@@ -71,7 +71,6 @@ out_data->out_flags
 #else
 #define FS_OUT_FLAGS2 134217801 
 #endif
-
 
 
 //-----------------------------------------------------------------------------------

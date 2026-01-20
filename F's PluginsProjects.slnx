@@ -10,7 +10,7 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
-  <Project Path="AlphaHyperbolic/Win/AlphaHyperbolic.vcxproj" />
+  <Project Path="AlphaHyperbolic/Win/AlphaHyperbolic.vcxproj" Id="1012af0e-e3a1-4cb8-89db-ace77ba7b6f9" />
   <Project Path="AlphaThreshold/Win/alphaThreshold.vcxproj" Id="7c83e956-b2b9-430b-959e-ba86d9e4e624" />
   <Project Path="AnimatedNoise/Win/AnimatedNoise.vcxproj" Id="aa3a8cbe-4ace-4728-9579-7904cca685a1">
     <Platform Project="x64" />
@@ -100,6 +100,7 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
+  <Project Path="MaxFast/Win/MaxFast.vcxproj" Id="89eeb2e9-6732-4bed-9b45-dc7345b47baf" />
   <Project Path="Max_Kasumi/Win/Max_Kasumi.vcxproj" Id="81dd7657-558f-48cc-8f7c-a1c10d68e7f8" />
   <Project Path="Mosaic/Win/Mosaic.vcxproj" Id="f69a4de5-0611-445f-ac50-32ce40dd5545" />
   <Project Path="NamiGarasu/Win/NamiGarasu.vcxproj" Id="3af9c08c-1de7-4b2c-8980-b34a0a308454" />

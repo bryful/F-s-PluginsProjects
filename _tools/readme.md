@@ -51,3 +51,31 @@ Usage:
   .\AE_FlagManager.ps1 -routflag <Value>    : 値に含まれるFlagの ";" を外して書き出し
   .\AE_FlagManager.ps1 -routflag2 <Value>   : 値に含まれるFlag2の ";" を外して書き出し
 ```
+
+
+## aeVersion.exe
+aeVersion.exeはプラグインのバージョン値を計算するアプリです。計算結果は標準出力されます<br>
+
+
+```
+[aeVersion.exe] プラグインのバージョン値の計算
+使い方: aeVersion <1:vers> <2:subvers> <3:bugvers> <4:stage> <5:build>
+  stage: DEVELOP or D, ALPHA or A, BETA or B, RELEASE or R
+例: aeVersion 1 0 0 DEVELOP 0
+```
+
+例)
+
+```
+>aeVersion.exe 1 0 0 R 0
+
+#define MAJOR_VERSION   1
+#define MINOR_VERSION   0
+#define BUG_VERSION     0
+#define STAGE_VERSION   PF_Stage_RELEASE
+#define BUILD_VERSION   0
+#define MY_VERSION 525824
+
+```
+
+
