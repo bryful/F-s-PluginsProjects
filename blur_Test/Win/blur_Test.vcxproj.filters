@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\blue_Text.cpp" />
+    <ClCompile Include="..\blur_Test.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c">
       <Filter>Header Files\AE</Filter>
     </ClCompile>
@@ -56,11 +56,11 @@
     <ClCompile Include="..\..\FsLibrary\tinyfiledialogs.c">
       <Filter>Supporting code</Filter>
     </ClCompile>
-    <ClCompile Include="..\TinyBlue.cpp" />
+    <ClCompile Include="..\BlurSub.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Fs_Entry.h" />
-    <ClInclude Include="..\blue_Text.h" />
+    <ClInclude Include="..\blur_Test.h" />
     <ClInclude Include="..\..\..\Headers\A.h">
       <Filter>Header Files\AE</Filter>
     </ClInclude>
@@ -179,7 +179,6 @@
     <ClInclude Include="..\..\FsLibrary\tinyfiledialogs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\TinyBlue.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -208,12 +207,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\blue_TextPiPL.r">
+    <CustomBuild Include="..\blur_TestPiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="blue_TextPiPL.rc">
+    <ResourceCompile Include="blur_TestPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="..\..\NFsLibrary\Resource.rc">

@@ -16,7 +16,7 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
-  <Project Path="blue_Text/Win/blue_Text.vcxproj" Id="6f284ceb-fcf1-4f17-8d37-74ced9a7b16e" />
+  <Project Path="blur_Test/Win/blur_Test.vcxproj" Id="6f284ceb-fcf1-4f17-8d37-74ced9a7b16e" />
   <Project Path="CCplus/Win/CCplus.vcxproj" Id="18bd60ef-07a0-4fc2-affc-a29482c663f4">
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />

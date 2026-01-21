@@ -17,7 +17,7 @@ BEGIN
 	"eman",
 	0, 0x0,
 	16, 0x0,
-	"\x0DF's blue_Text\0\0", 
+	"\x0DF's blur_Test\0\0", 
 
 	"MIB8",
 	"gtac", 
@@ -71,7 +71,7 @@ BEGIN
 	"ANMe",
 	0, 0x0,
 	16, 0x0,
-	"\x0DF's blue_Text\0\0", 
+	"\x0DF's blur_Test\0\0", 
 
 	"MIB8",
 	0x6165464CL, 

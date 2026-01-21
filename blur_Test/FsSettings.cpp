@@ -51,7 +51,7 @@ static bool EnsureDirectoryExists(const std::string& dir)
 }
 
 // ユーザー単位の設定保存先ディレクトリを返す。
-// 例: "%LOCALAPPDATA%\F_sPlugins\blue_Text"
+// 例: "%LOCALAPPDATA%\F_sPlugins\blur_Test"
 // 作成できなければ空文字列を返す。
 static std::string GetPluginConfigDir()
 {

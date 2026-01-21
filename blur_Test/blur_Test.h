@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------------------
 /*
-	blue_Text for VS2010
+	blur_Test for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef blue_Text_H
-#define blue_Text_H
+#ifndef blur_Test_H
+#define blur_Test_H
 
 #include "../FsLibrary/Fs.h"
 #include "Fs_Target.h"
@@ -16,7 +16,6 @@
 #include <string>
 #include <cmath>
 #include <algorithm>
-#include "TinyBlue.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
@@ -36,6 +35,7 @@ typedef struct {
 	A_long				radius;
 } ParamInfo;
 
+PF_Err TinyBlue(CFsAE* ae, A_long bl);
 
 //-----------------------------------------------------------------------------------
 extern "C" {
@@ -50,5 +50,5 @@ EffectMain(
 	PF_LayerDef		*output,
 	void			*extra);
 }
-#endif // blue_Text_H
+#endif // blur_Test_H
 
