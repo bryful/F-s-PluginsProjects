@@ -71,7 +71,7 @@ typedef struct ParamInfo {
 	A_long		glue;
 	double		weight;
 
-	A_long		width;
+	A_long		lineWidth;
 	A_long		widthTrue;
 	A_long		height;
 

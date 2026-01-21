@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------------------
 /*
-	MaxFast for VS2010
+	RimFil for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef MaxFast_H
-#define MaxFast_H
+#ifndef RimFil_H
+#define RimFil_H
 
 #include "../FsLibrary/Fs.h"
 #include "Fs_Target.h"
@@ -19,38 +19,51 @@
 #include <cmath>
 #include <algorithm>
 
-using json = nlohmann::json;
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_MAX,
+	ID_WIDTH,
+	ID_MODE,
+	ID_CUSTOMCOLOR,
+	ID_WHITE,
+
 	ID_NUM_PARAMS
 };
 
 
 //UIの表示文字列
-#define	STR_MAX				"max"
+#define	STR_WIDTH			"width"
+#define	STR_MODE			"FillMethod"
+#define	STR_MODE_ITEMS		"CustomColor|AdjacentColor"
+#define	STR_MODE_COUNT		2
+#define	STR_MODE_DFLT		1
+#define	STR_CUSTOMCOLOR		"CustomColor"
 
-
+#define	STR_WHITE		"Treat White as Alpha"
+//UIのパラメータ
 typedef struct ParamInfo {
-	A_long			max;
-	PF_Boolean		maxMinus;
-	A_long			dir;
+	A_long			lineWidth;
+	PF_Boolean		isWhite;
+	A_long 			scrW;
+	A_long 			scrWt;
+	A_long 			scrH;
+	PF_Boolean		isCustomColor;
+	PF_Pixel8		customColor;
+	PF_Pixel16		customColor16;
+	PF_PixelFloat	customColor32;
 	PF_InData*		in_data;
+	PF_EffectWorld* dst;
+
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
-
-
-//-------------------------------------------------------
-
-PF_Err MaxFast_Sub(
+PF_Err RimFill_Sub(
 	CFsAE* ae,
-	A_long			max,
-	PF_Boolean		maxMinus
+	ParamInfo* infoP
 );
+
 
 //-----------------------------------------------------------------------------------
 extern "C" {
@@ -65,5 +78,5 @@ EffectMain(
 	PF_LayerDef		*output,
 	void			*extra);
 }
-#endif // MaxFast_H
+#endif // RimFil_H
 

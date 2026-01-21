@@ -70,7 +70,7 @@ typedef struct ParamInfo {
 	PF_FpLong	hi;
 	PF_FpLong	low;
 	A_long		taget;
-	PF_Pixel	custumColor;
+	PF_Pixel	customColor;
 	PF_FpLong	r;
 	PF_FpLong	g;
 	PF_FpLong	b;

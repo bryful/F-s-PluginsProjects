@@ -15,7 +15,7 @@ typedef struct {
 /* --- 水平ボックスブラー (iterate_generic用) --- */
 template <typename PixelType, A_long MaxChan>
 static PF_Err
-BoxBlurH_Generic(
+BoxBlurH(
     void* refconPV,
     A_long thread_idxL,
     A_long y,
@@ -62,7 +62,7 @@ BoxBlurH_Generic(
 /* --- 垂直ボックスブラー (iterate_generic用) --- */
 template <typename PixelType, A_long MaxChan>
 static PF_Err
-BoxBlurV_Generic(
+BoxBlurV(
     void* refconPV,
     A_long thread_idxL,
     A_long x,
@@ -103,12 +103,12 @@ BoxBlurV_Generic(
 }
 
 /* --- ビット深度ごとの関数ラップ --- */
-static PF_Err BoxBlurH8(void* ref, A_long t, A_long i, A_long l) { return BoxBlurH_Generic<PF_Pixel8, PF_MAX_CHAN8>(ref, t, i, l); }
-static PF_Err BoxBlurV8(void* ref, A_long t, A_long i, A_long l) { return BoxBlurV_Generic<PF_Pixel8, PF_MAX_CHAN8>(ref, t, i, l); }
-static PF_Err BoxBlurH16(void* ref, A_long t, A_long i, A_long l) { return BoxBlurH_Generic<PF_Pixel16, PF_MAX_CHAN16>(ref, t, i, l); }
-static PF_Err BoxBlurV16(void* ref, A_long t, A_long i, A_long l) { return BoxBlurV_Generic<PF_Pixel16, PF_MAX_CHAN16>(ref, t, i, l); }
-static PF_Err BoxBlurH32(void* ref, A_long t, A_long i, A_long l) { return BoxBlurH_Generic<PF_PixelFloat, 1>(ref, t, i, l); } // Floatは1.0
-static PF_Err BoxBlurV32(void* ref, A_long t, A_long i, A_long l) { return BoxBlurV_Generic<PF_PixelFloat, 1>(ref, t, i, l); }
+static PF_Err BoxBlurH8(void* ref, A_long t, A_long i, A_long l) { return BoxBlurH<PF_Pixel8, PF_MAX_CHAN8>(ref, t, i, l); }
+static PF_Err BoxBlurV8(void* ref, A_long t, A_long i, A_long l) { return BoxBlurV<PF_Pixel8, PF_MAX_CHAN8>(ref, t, i, l); }
+static PF_Err BoxBlurH16(void* ref, A_long t, A_long i, A_long l) { return BoxBlurH<PF_Pixel16, PF_MAX_CHAN16>(ref, t, i, l); }
+static PF_Err BoxBlurV16(void* ref, A_long t, A_long i, A_long l) { return BoxBlurV<PF_Pixel16, PF_MAX_CHAN16>(ref, t, i, l); }
+static PF_Err BoxBlurH32(void* ref, A_long t, A_long i, A_long l) { return BoxBlurH<PF_PixelFloat, 1>(ref, t, i, l); } // Floatは1.0
+static PF_Err BoxBlurV32(void* ref, A_long t, A_long i, A_long l) { return BoxBlurV<PF_PixelFloat, 1>(ref, t, i, l); }
 
 static PF_Err TinyBlueLm(CFsAE* ae, A_long bl)
 {

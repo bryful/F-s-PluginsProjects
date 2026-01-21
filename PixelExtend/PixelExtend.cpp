@@ -458,7 +458,7 @@ PixelChk8(
 		target2 = target - 1;
 		if (target2->alpha != PF_MAX_CHAN8) return err;
 		x = xL + 1;
-		if (x >= infoP->width)return err;
+		if (x >= infoP->lineWidth)return err;
 		target2 = target + 1;
 		if (target2->alpha != PF_MAX_CHAN8) return err;
 		y++;
@@ -499,7 +499,7 @@ PixelChk16(
 		target2 = target - 1;
 		if (target2->alpha != PF_MAX_CHAN16) return err;
 		x = xL + 1;
-		if (x >= infoP->width)return err;
+		if (x >= infoP->lineWidth)return err;
 		target2 = target + 1;
 		if (target2->alpha != PF_MAX_CHAN16) return err;
 		y++;
@@ -540,7 +540,7 @@ PixelChk32(
 		target2 = target - 1;
 		if (target2->alpha != 1.0) return err;
 		x = xL + 1;
-		if (x >= infoP->width)return err;
+		if (x >= infoP->lineWidth)return err;
 		target2 = target + 1;
 		if (target2->alpha != 1.0) return err;
 		y++;
@@ -791,7 +791,7 @@ ExpandPixel8 (
 			x++;
 			y--;
 			target += -infoP->widthTrue + 1;
-			if ((x<infoP->width)&&(y >= 0 ))
+			if ((x<infoP->lineWidth)&&(y >= 0 ))
 			{
 				if (target->alpha == PF_MAX_CHAN8)
 				{
@@ -819,7 +819,7 @@ ExpandPixel8 (
 		{
 			x++;
 			target += 1;
-			if (x<infoP->width)
+			if (x<infoP->lineWidth)
 			{
 				if (target->alpha == PF_MAX_CHAN8)
 				{
@@ -847,7 +847,7 @@ ExpandPixel8 (
 			x++;
 			y++;
 			target += infoP->widthTrue + 1;
-			if ((x < infoP->width) && (y < infoP->height))
+			if ((x < infoP->lineWidth) && (y < infoP->height))
 			{
 				if (target->alpha == PF_MAX_CHAN8)
 				{
@@ -1038,7 +1038,7 @@ ExpandPixel16(
 			x++;
 			y--;
 			target += -infoP->widthTrue + 1;
-			if ((x < infoP->width) && (y >= 0))
+			if ((x < infoP->lineWidth) && (y >= 0))
 			{
 				if (target->alpha == PF_MAX_CHAN16)
 				{
@@ -1066,7 +1066,7 @@ ExpandPixel16(
 		{
 			x++;
 			target += 1;
-			if (x < infoP->width)
+			if (x < infoP->lineWidth)
 			{
 				if (target->alpha == PF_MAX_CHAN16)
 				{
@@ -1094,7 +1094,7 @@ ExpandPixel16(
 			x++;
 			y++;
 			target += infoP->widthTrue + 1;
-			if ((x < infoP->width) && (y < infoP->height))
+			if ((x < infoP->lineWidth) && (y < infoP->height))
 			{
 				if (target->alpha == PF_MAX_CHAN16)
 				{
@@ -1286,7 +1286,7 @@ ExpandPixel32(
 			x++;
 			y--;
 			target += -infoP->widthTrue + 1;
-			if ((x < infoP->width) && (y >= 0))
+			if ((x < infoP->lineWidth) && (y >= 0))
 			{
 				if (target->alpha == 1)
 				{
@@ -1314,7 +1314,7 @@ ExpandPixel32(
 		{
 			x++;
 			target += 1;
-			if (x < infoP->width)
+			if (x < infoP->lineWidth)
 			{
 				if (target->alpha == 1)
 				{
@@ -1342,7 +1342,7 @@ ExpandPixel32(
 			x++;
 			y++;
 			target += infoP->widthTrue + 1;
-			if ((x < infoP->width) && (y < infoP->height))
+			if ((x < infoP->lineWidth) && (y < infoP->height))
 			{
 				if (target->alpha == 1)
 				{
@@ -1470,7 +1470,7 @@ static PF_Err
 		}
 	}
 
-	infoP->width = ae->out->width();
+	infoP->lineWidth = ae->out->width();
 	infoP->widthTrue = ae->out->widthTrue();
 	infoP->height = ae->out->height();
 

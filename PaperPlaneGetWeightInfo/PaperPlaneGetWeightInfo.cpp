@@ -198,13 +198,13 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	infoP->width = ae->out->width();
+	infoP->lineWidth = ae->out->width();
 	infoP->height = ae->out->height();
 	infoP->widthTrue = ae->out->widthTrue();
 
 	ae->CopyInToOut();
 
-	infoP->tableH = ae->NewHandle(infoP->width *sizeof(double) * 2);
+	infoP->tableH = ae->NewHandle(infoP->lineWidth *sizeof(double) * 2);
 	if (!infoP->tableH){
 		err = PF_Err_INTERNAL_STRUCT_DAMAGED;
 		return err;

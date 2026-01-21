@@ -134,6 +134,7 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
+  <Project Path="RimFil/Win/RimFil.vcxproj" Id="d4c100f4-f488-45ee-8c01-75a4d9d15dda" />
   <Project Path="Scanline/Win/Scanline.vcxproj" Id="8a65075a-e9a7-4d19-b5a0-05e8193023da" />
   <Project Path="ScreenShakeDir/Win/ScreenShakeDir.vcxproj" Id="12ce4732-9565-4a94-ba30-eb26ca530aad" />
   <Project Path="ScreenShakeMM/Win/ScreenShakeMM.vcxproj" Id="ab4b1925-42da-49a6-b439-ebf997c564a3" />

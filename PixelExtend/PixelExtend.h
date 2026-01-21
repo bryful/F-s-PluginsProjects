@@ -155,7 +155,7 @@ typedef struct ParamInfo {
 	PF_PixelFloat	ncolTable32[EXPAND_MAX];
 
 
-	A_long		width;
+	A_long		lineWidth;
 	A_long		widthTrue;
 	A_long		height;
 	PF_Boolean	IsTargetOnly;

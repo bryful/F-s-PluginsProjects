@@ -429,11 +429,11 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	infoP->low = (b - s) / 100;
 
 	ERR(ae->GetPOPUP(ID_TARGET, &infoP->taget));
-	ERR(ae->GetCOLOR(ID_CUSTUM_COLOR, &infoP->custumColor));
+	ERR(ae->GetCOLOR(ID_CUSTUM_COLOR, &infoP->customColor));
 
-	infoP->r = (PF_FpLong)infoP->custumColor.red / PF_MAX_CHAN8;
-	infoP->g = (PF_FpLong)infoP->custumColor.green / PF_MAX_CHAN8;
-	infoP->b = (PF_FpLong)infoP->custumColor.blue / PF_MAX_CHAN8;
+	infoP->r = (PF_FpLong)infoP->customColor.red / PF_MAX_CHAN8;
+	infoP->g = (PF_FpLong)infoP->customColor.green / PF_MAX_CHAN8;
+	infoP->b = (PF_FpLong)infoP->customColor.blue / PF_MAX_CHAN8;
 
 
 	ERR(ae->GetCHECKBOX(ID_INVERT,&infoP->invert));
