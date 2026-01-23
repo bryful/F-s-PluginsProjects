@@ -57,8 +57,12 @@ _toolsフォルダ内にはプラグイン開発に便利なツールを入れ�
 ## 進捗
 バージョン管理の方法をいろいろ考えましたが、プラグインファイル名に日付を入れるという一番チープな方法を採用しました。<br>
 <br>
-Visual studio 2025に変更。SDKを2025に変更（まだ動作確認できていません）<br>
+Visual studio 2026に変更。SDKを2025に変更（まだ動作確認できていません）<br>
 Visual studioのプロジェクト設定を一括で変更できるDirectory.Build.props/Directory.Build.targetsを使って、出力ファイル名に日付を入れるようにしました。<br>
+<br>
+CellLineEraset.aexの高速化<br>
+MaxFast.aexの追加。<br>
+[FsCellLineEraser_20260123.zip](https://github.com/bryful/F-s-PluginsProjects/raw/refs/heads/master/_DL_windowsbinary/FsCellLineEraser_20260123.zip)<br>
 <br>
 TargetGrad.aex/TargetGradradical.aex<br>
 グラデーションエフェクトを追加<br>
