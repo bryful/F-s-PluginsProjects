@@ -21,6 +21,7 @@
 	#include "FsGraphics.h"
 #endif
 
+#include <vector>
 enum
 {
 	FsAE_NONE = 0,
@@ -156,6 +157,7 @@ public:
 #endif	
 	PF_Handle			PreRenderH;
 	AEGP_SuiteHandler	*suitesP;
+	PF_Iterate8Suite1*	iterS;
 	PF_Handle			ae_plugin_idH;
 	ae_global_dataP		ae_plugin_idP;
 	AEGP_StreamRefH		ae_item_streamH[FsAE_ITEM_COUNT];
@@ -411,6 +413,8 @@ public:
 		PF_ParamDef		*paramsP[],
 		PF_LayerDef		*outputP)
 	{
+		(void)paramsP;  // 未使用パラメータの警告を抑制
+		(void)outputP;  // 未使用パラメータの警告を抑制
 		PF_Err	err				= PF_Err_NONE;
 		CFsAE::suitesP	= new AEGP_SuiteHandler(in_dataP->pica_basicP);
 		if (in_dataP->global_data){

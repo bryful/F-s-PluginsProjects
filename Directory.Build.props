@@ -1,24 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- すべての構成に共通の設定 -->
+  <PropertyGroup>
+    <!-- 警告レベル 4 を設定 -->
+    <WarningLevel>4</WarningLevel>
+    
+    <!-- 警告をエラーとして扱わない -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    
+    <!-- C++言語標準 -->
+    <LanguageStandard>stdcpp17</LanguageStandard>
+
+    <!-- 標準準拠モード -->
+    <ConformanceMode>true</ConformanceMode>
+  </PropertyGroup>
+
+  <!-- Debug 構成のみの設定 -->
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <LocalDebuggerCommand>C:\Program Files\Adobe\Adobe After Effects 2024\Support Files\AfterFX.exe</LocalDebuggerCommand>
-		<!-- C++言語標準 -->
-		<LanguageStandard>stdcpp17</LanguageStandard>
-
-		<!-- オプション: 標準準拠モード -->
-		<ConformanceMode>true</ConformanceMode>
-
-   <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-		<!-- オプション: UTF-8ソースとエグゼキューション文字セット -->
-		<!-- <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>  -->
+  </PropertyGroup>
   
-</PropertyGroup>
-  
+  <!-- すべての構成に共通のコンパイル設定 -->
   <ItemDefinitionGroup>
     <ClCompile>
-      <DisableSpecificWarnings>4103;4189;4505;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <!-- 特定の警告を無効化 -->
+      <!-- 4103: alignment changed after including header
+           4189: local variable is initialized but not referenced
+           4505: unreferenced local function has been removed
+           4996: deprecated functions
+           4100: unreferenced formal parameter
+           4458: declaration hides class member
+           4456: declaration hides previous local declaration -->
+      <DisableSpecificWarnings>4103;4189;4505;4996;4100;4458;4456</DisableSpecificWarnings>
+      
+      <!-- セキュリティ警告を抑制 -->
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-
+      
+      <!-- 並列コンパイル -->
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      
+      <!-- SDL チェックを無効化 -->
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>

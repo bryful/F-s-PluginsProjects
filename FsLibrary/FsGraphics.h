@@ -4,7 +4,7 @@
 //*******************************************************************************************
 #include "Fs.h"
 #include "FsUtils.h"
-
+#include <vector>
 
 typedef struct FsMosaicParam{
 	A_long		sizeX;
@@ -263,6 +263,9 @@ public:
 	PF_Err MinimaxA16(A_long value);
 	PF_Err MinimaxA32(A_long value);
 	
+	PF_Err MaxRGB_H16(void* refconPV,A_long thread_idxL,A_long yL,A_long itrtL);
+	PF_Err MaxRGB_V16(void* refconPV, A_long thread_idxL, A_long xL, A_long itrtL);
+	PF_Err MaxALPHA_H16(void* refconPV, A_long thread_idxL, A_long yL, A_long itrtL);
 	void Minimax_rgb16(MiniMaxPrm *prm);
 	void Minimax_alpha16(MiniMaxPrm *prm);
 	PF_Err Minimax16(A_long value,ScanLineMode mode = SCANLINE::HorAndVer,TargetChannelMode target = TARGET_CHANNEL::rgbAndAlpha);

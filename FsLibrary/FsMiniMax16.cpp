@@ -4,6 +4,149 @@
 static bool levelMin(A_long s,A_long d){ return (s>=d);}
 static bool levelMax(A_long s,A_long d){ return (s<=d);}
 static bool (*levelComp)(A_long s,A_long d);
+
+
+PF_Err CFsGraph::MaxRGB_H16(
+	void* refconPV,
+	A_long thread_idxL,
+	A_long yL,
+	A_long itrtL)
+{
+	(void)thread_idxL;  // 未使用パラメータの警告を抑制
+	(void)itrtL;        // 未使用パラメータの警告を抑制
+	PF_Err err = PF_Err_NONE;
+	MiniMaxPrm* infoP = static_cast<MiniMaxPrm*>(refconPV);
+
+	PF_Pixel16* data = (PF_Pixel16*)m_data + yL* m_widthTrue;
+
+	std::vector< PF_Pixel16> scanline(m_width);
+	std::vector< A_long> lv(m_width);
+	for (A_long i = 0; i < m_width; i++) {
+		scanline[i] = data[i];
+		lv[i] = ((2 * (A_long)data[i].red) + (5 * (A_long)data[i].green) + ((A_long)data[i].blue))/8;
+	}
+
+	A_long maxIndex = -1;
+	for (A_long x = 0; x < m_width; x++)
+	{
+		A_long k0 = x - infoP->value;
+		if (k0 < 0) k0 = 0;
+		A_long k1 = x + infoP->value - 1;
+		if (k1 >= m_width) k1 = m_width - 1;
+
+		if (maxIndex >= k0)
+		{
+			if (levelComp(lv[maxIndex], lv[k1]))maxIndex = k1;
+		}
+		else {
+			maxIndex = k0;
+			for (A_long k = k0; k <= k1; k++)
+			{
+				if (levelComp(lv[maxIndex], lv[k]))maxIndex = k;
+			}
+		}
+		data[x].red = scanline[maxIndex].red;
+		data[x].green = scanline[maxIndex].green;
+		data[x].blue = scanline[maxIndex].blue;
+	}
+
+	return err;
+}
+PF_Err CFsGraph::MaxRGB_V16(
+	void* refconPV,
+	A_long thread_idxL,
+	A_long xL,
+	A_long itrtL)
+{
+	(void)thread_idxL;  // 未使用パラメータの警告を抑制
+	(void)itrtL;        // 未使用パラメータの警告を抑制
+	PF_Err err = PF_Err_NONE;
+	MiniMaxPrm* infoP = static_cast<MiniMaxPrm*>(refconPV);
+
+	PF_Pixel16* data = (PF_Pixel16*)m_data + xL;
+
+	std::vector< PF_Pixel16> scanline(m_height);
+	std::vector< A_long> lv(m_height);
+
+	A_long adr = 0;
+	for (A_long i = 0; i < m_height; i++) {
+		PF_Pixel16 p = data[adr];
+		scanline[i] = p;
+		lv[i] = ((2 * (A_long)p.red) + (5 * (A_long)p.green) + ((A_long)p.blue)) / 8;
+		adr += m_widthTrue;
+	}
+	A_long maxIndex = -1;
+	adr = 0;
+	for (A_long y = 0; y < m_height; y++)
+	{
+		A_long k0 = y - infoP->value;
+		if (k0 < 0) k0 = 0;
+		A_long k1 = y + infoP->value - 1;
+		if (k1 >= m_height) k1 = m_height - 1;
+
+		if (maxIndex >= k0)
+		{
+			if (levelComp(lv[maxIndex], lv[k1]))maxIndex = k1;
+		}
+		else {
+			maxIndex = k0;
+			for (A_long k = k0; k <= k1; k++)
+			{
+				if (levelComp(lv[maxIndex], lv[k]))maxIndex = k;
+			}
+		}
+		data[adr].red = scanline[maxIndex].red;
+		data[adr].green = scanline[maxIndex].green;
+		data[adr].blue = scanline[maxIndex].blue;
+		adr += m_widthTrue;
+	}
+	return err;
+}
+PF_Err CFsGraph::MaxALPHA_H16(
+	void* refconPV,
+	A_long thread_idxL,
+	A_long yL,
+	A_long itrtL)
+{
+	(void)thread_idxL;  // 未使用パラメータの警告を抑制
+	(void)itrtL;        // 未使用パラメータの警告を抑制
+	PF_Err err = PF_Err_NONE;
+	MiniMaxPrm* infoP = static_cast<MiniMaxPrm*>(refconPV);
+
+	PF_Pixel16* data = (PF_Pixel16*)m_data + yL*m_widthTrue;
+
+	std::vector< PF_Pixel16> scanline(m_width);
+	std::vector< A_long> lv(m_width);
+
+	for (A_long i = 0; i < m_width; i++) {
+		PF_Pixel16 p = data[i];
+		scanline[i] = p;
+		lv[i] = (A_long)(p.alpha);
+	}
+	A_long maxIndex = -1;
+	for (A_long x = 0; x < m_width; x++)
+	{
+		A_long k0 = x - infoP->value;
+		if (k0 < 0) k0 = 0;
+		A_long k1 = x + infoP->value - 1;
+		if (k1 >= m_width) k1 = m_width - 1;
+
+		if (maxIndex >= k0)
+		{
+			if (levelComp(lv[maxIndex], lv[k1]))maxIndex = k1;
+		}
+		else {
+			maxIndex = k0;
+			for (A_long k = k0; k <= k1; k++)
+			{
+				if (levelComp(lv[maxIndex], lv[k]))maxIndex = k;
+			}
+		}
+		data[x].alpha = scanline[maxIndex].alpha;
+	}
+	return err;
+}
+
 //*********************************************************************************************
 void CFsGraph::Minimax_rgb16(MiniMaxPrm *prm)
 {
