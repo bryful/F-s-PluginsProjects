@@ -406,20 +406,20 @@ public:
 	//*********************************************************************************
 	PF_Err About
 	(
-		PF_InData		*in_data,
-		PF_OutData		*out_data,
-		PF_ParamDef		*params[],
-		PF_LayerDef		*output)
+		PF_InData		*in_dataP,
+		PF_OutData		*out_dataP,
+		PF_ParamDef		*paramsP[],
+		PF_LayerDef		*outputP)
 	{
 		PF_Err	err				= PF_Err_NONE;
-		CFsAE::suitesP	= new AEGP_SuiteHandler(in_data->pica_basicP);
-		if (in_data->global_data){
-			ae_plugin_idH	= in_data->global_data;
-			ae_plugin_idP = reinterpret_cast<ae_global_dataP>(DH(in_data->global_data));
+		CFsAE::suitesP	= new AEGP_SuiteHandler(in_dataP->pica_basicP);
+		if (in_dataP->global_data){
+			ae_plugin_idH	= in_dataP->global_data;
+			ae_plugin_idP = reinterpret_cast<ae_global_dataP>(DH(in_dataP->global_data));
 		}
 		//カレントフレームを求める画頭は０
-		if ( (in_data->current_time>=0)&&(in_data->time_step>0) ) {
-			m_frame	=(in_data->current_time/in_data->time_step); 
+		if ( (in_dataP->current_time>=0)&&(in_dataP->time_step>0) ) {
+			m_frame	=(in_dataP->current_time/in_dataP->time_step); 
 		}
 		if (ae_plugin_idP!=NULL){
 			
@@ -434,7 +434,7 @@ public:
 			ERR(suitesP->UtilitySuite5()->AEGP_ExecuteScript(ae_plugin_idP->my_id, scriptCode, TRUE, NULL, NULL));
 
 		}else{
-			PF_SPRINTF(	out_data->return_msg, 
+			PF_SPRINTF(	out_dataP->return_msg, 
 				"%s, v%d.%d (%s)\r%s",
 				FS_NAME, 
 				MAJOR_VERSION, 

@@ -17,7 +17,7 @@ BEGIN
 	"eman",
 	0, 0x0,
 	20, 0x0,
-	"\x13NF's ColorChangeEng", 
+	"\x12F's ColorChangeEng\0", 
 
 	"MIB8",
 	"gtac", 

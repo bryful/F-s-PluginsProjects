@@ -189,6 +189,8 @@ PF_Err CFsGraph::Minimax8(A_long value,ScanLineMode mode,TargetChannelMode targe
 	mp.value = F_ABS(value);
 	mp.minusFlag = (value<0);
 	mp.mode = mode;
+	mp.scanline = NULL;  // 追加
+	mp.level = NULL;     // 追加
 
 	if (mp.minusFlag){
 		toWhiteMat8();
@@ -250,6 +252,8 @@ PF_Err CFsGraph::MinimaxA8(A_long value)
 	mp.value = F_ABS(value);
 	mp.minusFlag = (value<0);
 	mp.mode = SCANLINE::HorAndVer;
+	mp.scanline = NULL;  // この行を追加
+	mp.level = NULL;     // この行を追加
 
 	A_long w = MAX(m_width,m_height);
 

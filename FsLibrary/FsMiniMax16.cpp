@@ -189,6 +189,10 @@ PF_Err CFsGraph::Minimax16(A_long value,ScanLineMode mode,TargetChannelMode targ
 	mp.value = F_ABS(value);
 	mp.minusFlag = (value<0);
 	mp.mode = mode;
+	mp.scanline = NULL;  // この行を追加
+	mp.level = NULL;     // この行を追加
+	mp.scanline = NULL;  // この行を追加
+	mp.level = NULL;     // この行を追加
 
 	if (mp.minusFlag){
 		toWhiteMat16();
@@ -252,6 +256,8 @@ PF_Err CFsGraph::MinimaxA16(A_long value)
 	mp.value = F_ABS(value);
 	mp.minusFlag = (value<0);
 	mp.mode = SCANLINE::HorAndVer;
+	mp.scanline = NULL;  // この行を追加
+	mp.level = NULL;     // この行を追加
 
 
 	A_long w = MAX(m_width,m_height);

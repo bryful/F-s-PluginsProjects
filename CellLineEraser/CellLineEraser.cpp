@@ -8,6 +8,8 @@
 #include "CellLineEraser.h"
 
 
+//-----------------------------------------------------------------------------------
+
 //-------------------------------------------------------------------------------------------------
 //AfterEffextsにパラメータを通達する
 //Param_Utils.hを参照のこと
@@ -116,7 +118,7 @@ static PF_Err ParamsSetup (
 		"on",
 		FALSE,
 		0,
-		ID_Fill_Unknown_Colors
+		ID_Fill_Color
 	);
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_COLOR(STR_FillColor,
@@ -164,116 +166,41 @@ QueryDynamicFlags(
 }
 
 //-------------------------------------------------------------------------------------------------
-static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
+static PF_Err GetParams(CFsAE *ae, FillInfo*infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
-	ERR(ae->GetADD(ID_Color_COUNT, &infoP->TargetColorCount));
+	ERR(ae->GetADD(ID_Color_COUNT, &infoP->target_count));
 
 	for (int i = 0; i < 10; i++)
 	{
 		PF_Pixel p;
 		ERR(ae->GetCOLOR(ID_Color1+i, &p));
 		if (err== PF_Err_NONE) {
-			infoP->Colors[i] = p;
+			infoP->targets[i] = p;
 		}
 
 	}
 
 	ERR(ae->GetCHECKBOX(ID_KEEP_PIXELS,&infoP->KeepPixel));
-	ERR(ae->GetCHECKBOX(ID_Fill_Unknown_Colors, &infoP->FillUnknownColors));
-	ERR(ae->GetCOLOR(ID_Fill_Color, &infoP->GiveUpColor));
+	ERR(ae->GetCHECKBOX(ID_FillUnknownColors, &infoP->FillUnknownColors));
+	ERR(ae->GetCOLOR(ID_Fill_Color, &infoP->GiveUpColor8));
 	ERR(ae->GetCHECKBOX(ID_MakeWhiteTransparent, &infoP->MakeWhiteTransparent));
 
-	infoP->scanCount = 10;
-	infoP->scanLength = 4;
-	infoP->count = 0;
 
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
-	Exec (CFsAE *ae , ParamInfo *infoP)
+	Exec (CFsAE *ae , FillInfo *infoP)
 {
 	PF_InData *in_data;
 	in_data = ae->in_data;
 	PF_Err	err = PF_Err_NONE;
 
 
-	A_long w = ae->out->width();
-	if ( w < ae->out->height() ) w = ae->out->height();
-	w *=2;
-
-	//画面をコピー
-	ERR(ae->CopyInToOut());
+	ERR(CellLineEraserSub(ae, infoP));
 	
-	if (infoP->TargetColorCount <= 0)
-	{
-		return err;
-	}
-
-	//PF_Handle lH;
-	PF_EffectWorld bw1;
-	int count = -1;
-	switch(ae->pixelFormat())
-	{
-	case PF_PixelFormat_ARGB128:
-		if (infoP->MakeWhiteTransparent == TRUE)
-		{
-			White32(ae, infoP);
-		}
-
-		ERR(ae->NewWorld(w, 8, PF_PixelFormat_ARGB128, &bw1));
-			
-		infoP->scanline = bw1.data;
-		for ( int i=0; i<infoP->scanCount; i++){
-			Exec32(ae,infoP);
-			if ((count == infoP->count) || (infoP->count <= 0))break;
-			count = infoP->count;
-		}
-		if ((count > 0)&&(infoP->FillUnknownColors)) {
-			Giveup32(ae, infoP);
-		}
-		break;
-	case PF_PixelFormat_ARGB64:
-		if (infoP->MakeWhiteTransparent == TRUE)
-		{
-			White16(ae, infoP);
-		}
-		ERR(ae->NewWorld(w, 8, PF_PixelFormat_ARGB64, &bw1));
-		
-		infoP->scanline = bw1.data;
-		for (int i = 0; i < infoP->scanCount; i++) {
-			Exec16(ae,infoP);
-			if ((count == infoP->count) || (infoP->count <= 0))break;
-			count = infoP->count;
-		}
-		if ((count > 0) && (infoP->FillUnknownColors)) {
-			Giveup16(ae, infoP);
-		}
-		break;
-	case PF_PixelFormat_ARGB32:
-		if (infoP->MakeWhiteTransparent == TRUE)
-		{
-			White8(ae, infoP);
-		}
-
-		ERR(ae->NewWorld(w, 8, PF_PixelFormat_ARGB32, &bw1));
-
-		infoP->scanline = bw1.data;
-		for (int i = 0; i < infoP->scanCount; i++) {
-			Exec8(ae,infoP);
-			if ((count == infoP->count) || (infoP->count <= 0))break;
-			count = infoP->count;
-		}
-		if ((count > 0) && (infoP->FillUnknownColors)) {
-			Giveup8(ae, infoP);
-		}
-
-		break;
-	}
-	ae->DisposeWorld(&bw1);
-//	PF_DISPOSE_HANDLE(lH);
 	return err;
 }
 
@@ -297,7 +224,7 @@ Render (
 	CFsAE ae(in_data,out_data,params,output,ID_NUM_PARAMS);
 	err =ae.resultErr();
 	if (!err){
-		ParamInfo info;
+		FillInfo info;
 		ERR(GetParams(&ae,&info));
 		ERR(Exec(&ae,&info));
 	}
@@ -315,11 +242,11 @@ PreRender(
 	PF_PreRenderExtra	*extraP)
 {
 	PF_Err		err 		= PF_Err_NONE;
-	CFsAE ae(in_data,out_data,extraP,sizeof(ParamInfo),ID_NUM_PARAMS);
+	CFsAE ae(in_data,out_data,extraP,sizeof(FillInfo),ID_NUM_PARAMS);
 	err = ae.resultErr();
 	if (!err){
 
-		ParamInfo *infoP = reinterpret_cast<ParamInfo*>(ae.LockPreRenderData());
+		FillInfo *infoP = reinterpret_cast<FillInfo*>(ae.LockPreRenderData());
 		if (infoP){
 			ae.SetHostPreRenderData();
 			ERR(GetParams(&ae,infoP));
@@ -346,7 +273,7 @@ SmartRender(
 	CFsAE ae(in_data,out_data,extraP,ID_NUM_PARAMS);
 	err = ae.resultErr();
 	if (!err){
-		ParamInfo *infoP = reinterpret_cast<ParamInfo*>(ae.LockPreRenderData());
+		FillInfo *infoP = reinterpret_cast<FillInfo*>(ae.LockPreRenderData());
 		if (infoP){
 			ERR(Exec(&ae,infoP));
 			ERR2(ae.UnsetSmartRender());

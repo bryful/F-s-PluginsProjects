@@ -216,16 +216,14 @@ Max_SubH(
     A_long w2 = w + radius;
     w2 = (w2 + (16 - w2 % 16));
 
-    PF_EffectWorld wld;
-    AEFX_CLR_STRUCT(wld);
-    ERR((*in_data->utils->new_world)(in_data->effect_ref, w2, 8, PF_NewWorldFlag_DEEP_PIXELS, &wld));
-    if (err) return err;
+    // --- vectorを使用したラインメモリの実装 ---
+    std::vector<PixelType> line(w2);
+    std::vector<FloatType> lineLevel(w2);
+    std::vector<LineBufInfo> forward(w2);
+    std::vector<LineBufInfo> backward(w2);
 
-    PixelType* line = (PixelType*)wld.data;
-    FloatType* lineLevel = (FloatType*)(line + w2);
-    LineBufInfo* forward = (LineBufInfo*)(lineLevel + w2);
-    LineBufInfo* backward = forward + w2;
 
+    
     for (A_long i = 0; i < w; i++) {
 
         line[i] = outP[i];
@@ -316,7 +314,6 @@ Max_SubH(
         }
     }
 
-    ERR((*in_data->utils->dispose_world)(in_data->effect_ref, &wld));
     return PF_Err_NONE;
 }
 
@@ -374,15 +371,11 @@ Min_SubH(
     A_long w2 = w + radius;
     w2 = (w2 + (16 - w2 % 16));
 
-    PF_EffectWorld wld;
-    AEFX_CLR_STRUCT(wld);
-    ERR((*in_data->utils->new_world)(in_data->effect_ref, w2, 8, PF_NewWorldFlag_DEEP_PIXELS, &wld));
-    if (err) return err;
-
-    PixelType* line = (PixelType*)wld.data;
-    FloatType* lineLevel = (FloatType*)(line + w2);
-    LineBufInfo* forward = (LineBufInfo*)(lineLevel + w2);
-    LineBufInfo* backward = forward + w2;
+    // --- vectorを使用したラインメモリの実装 ---
+    std::vector<PixelType> line(w2);
+    std::vector<FloatType> lineLevel(w2);
+    std::vector<LineBufInfo> forward(w2);
+    std::vector<LineBufInfo> backward(w2);
 
     for (A_long i = 0; i < w; i++) {
         line[i] = outP[i];
@@ -472,8 +465,6 @@ Min_SubH(
             outP[i] = line[minIndex];
         }
     }
-
-    ERR((*in_data->utils->dispose_world)(in_data->effect_ref, &wld));
     return PF_Err_NONE;
 }
 
@@ -692,15 +683,10 @@ Min_SubV(
     A_long h2 = h + radius;
     h2 = (h2 + (16 - h2 % 16));
 
-    PF_EffectWorld wld;
-    AEFX_CLR_STRUCT(wld);
-    ERR((*in_data->utils->new_world)(in_data->effect_ref, h2, 8, PF_NewWorldFlag_DEEP_PIXELS, &wld));
-    if (err) return err;
-
-    PixelType* line = (PixelType*)wld.data;
-    FloatType* lineLevel = (FloatType*)(line + h2);
-    LineBufInfo* forward = (LineBufInfo*)(lineLevel + h2);
-    LineBufInfo* backward = forward + h2;
+    std::vector<PixelType> line(h2);
+    std::vector<FloatType> lineLevel(h2);
+    std::vector<LineBufInfo> forward(h2);
+    std::vector<LineBufInfo> backward(h2);
 
     // 3. 列データをコピー
     for (A_long y = 0; y < h; y++) {
@@ -791,8 +777,6 @@ Min_SubV(
             *((PixelType*)infoP->world->data + (y * wt + x)) = line[minIndex];
         }
     }
-
-    ERR((*in_data->utils->dispose_world)(in_data->effect_ref, &wld));
     return PF_Err_NONE;
 }
 

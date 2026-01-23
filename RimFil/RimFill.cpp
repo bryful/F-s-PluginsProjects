@@ -23,7 +23,7 @@ static PF_Err ParamsSetup (
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_SLIDER(STR_WIDTH,	//パラメータの名前
 		0, 		//数値入力する場合の最小値
-		30,		//数値入力する場合の最大値
+		200,	//数値入力する場合の最大値
 		0,		//スライダーの最小値 
 		10,		//スライダーの最大値
 		0,		//デフォルトの値

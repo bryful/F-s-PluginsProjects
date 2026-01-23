@@ -18,8 +18,6 @@
 #include <string>
 #include <cmath>
 #include <algorithm>
-#include "FsSettings.h"
-#include "RotPoint.h"
 
 using json = nlohmann::json;
 

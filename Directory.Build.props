@@ -16,7 +16,9 @@
   
   <ItemDefinitionGroup>
     <ClCompile>
-      <DisableSpecificWarnings>4103;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4103;4189;4505;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+
     </ClCompile>
   </ItemDefinitionGroup>
 </Project>

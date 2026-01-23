@@ -7,7 +7,10 @@
 #pragma once
 #ifndef FSUTILS_H
 #define FSUTILS_H
-
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4505)  // 参照されていない関数が削除されました
+#endif
 #include "Fs.h"
 
 //xorShift
@@ -887,5 +890,8 @@ public:
 	}
 	//------------------------------
 };
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
 

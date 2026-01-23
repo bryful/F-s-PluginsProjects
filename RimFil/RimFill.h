@@ -42,14 +42,11 @@ enum {
 #define	STR_MODE_DFLT		1
 #define	STR_CUSTOMCOLOR		"CustomColor"
 
-#define	STR_WHITE		"Treat White as Alpha"
+#define	STR_WHITE		"Treat White as Transparent"
 //UIのパラメータ
 typedef struct ParamInfo {
 	A_long			lineWidth;
 	PF_Boolean		isWhite;
-	A_long 			scrW;
-	A_long 			scrWt;
-	A_long 			scrH;
 	PF_Boolean		isCustomColor;
 	PF_Pixel8		customColor;
 	PF_Pixel16		customColor16;

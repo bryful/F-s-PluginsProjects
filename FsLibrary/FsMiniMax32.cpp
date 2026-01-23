@@ -189,6 +189,8 @@ PF_Err CFsGraph::Minimax32(A_long value,ScanLineMode mode,TargetChannelMode targ
 	mp.value = F_ABS(value);
 	mp.minusFlag = (value<0);
 	mp.mode = mode;
+	mp.scanline = NULL;  // 追加
+	mp.level = NULL;     // 追加
 
 	if (mp.minusFlag){
 		toWhiteMat32();
@@ -260,6 +262,9 @@ PF_Err CFsGraph::MinimaxA32(A_long value)
 
 	PF_EffectWorld sw;
 	PF_EffectWorld lw;
+	mp.scanline = NULL;  // 追加
+	mp.level = NULL;     // 追加
+
 	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
 		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 2, 4, PF_PixelFormat_ARGB128, &sw);
 		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 2, 4, PF_PixelFormat_ARGB32, &lw);

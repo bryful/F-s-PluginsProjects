@@ -42,7 +42,7 @@ CFsGraph::CFsGraph(
 		m_offsetWidth	= m_widthTrue - m_width;
 
 		PF_NewWorldFlags f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_NONE;
-
+		(void)f;
 		// NULLチェックを追加
 		m_vurWorld.data = NULL;
 		m_scanlineWorld.data = NULL;
