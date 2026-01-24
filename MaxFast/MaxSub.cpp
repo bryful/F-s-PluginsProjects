@@ -45,7 +45,6 @@ MaxMult(
     outP->red = static_cast<ChannelType>((A_FpShort)outP->red * v);
     outP->green = static_cast<ChannelType>((A_FpShort)outP->green * v);
     outP->blue = static_cast<ChannelType>((A_FpShort)outP->blue * v);
-
     return PF_Err_NONE;
 }
 

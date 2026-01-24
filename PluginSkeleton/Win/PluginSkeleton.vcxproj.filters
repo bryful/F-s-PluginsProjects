@@ -212,7 +212,4 @@
       <Filter>Header Files\AE\N</Filter>
     </ResourceCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\NFsLibrary\_about_thum.png" />
-  </ItemGroup>
 </Project>
