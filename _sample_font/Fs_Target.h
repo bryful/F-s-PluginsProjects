@@ -13,7 +13,7 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名
-#define FS_CATEGORY "NF's Plugins-Channel"
+//#define FS_CATEGORY "NF's Plugins-Channel"
 //#define FS_CATEGORY "NF's Plugins-Draw"
 //#define FS_CATEGORY "NF's Plugins-Filter"
 //#define FS_CATEGORY "NF's Plugins-FX"
@@ -21,6 +21,7 @@
 //#define FS_CATEGORY "NF's Plugins-Script"
 //#define FS_CATEGORY "NF's Plugins-Test"
 
+#define FS_CATEGORY "NF's Plugins-{sample}"
 
 //-----------------------------------------------------------
 #ifndef SUPPORT_SMARTFX			//２重登録を防ぐ

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "blur_Test.h"
+#include "_sample_blur.h"
 #include <string>
 
 
@@ -83,7 +83,7 @@ Exec(CFsAE* ae, ParamInfo* infoP)
 	PF_Err err = PF_Err_NONE;
 	ae->CopyInToOut(); // 元の画像をコピー
 	if (infoP->radius <= 0) return err;
-	ERR(TinyBlue(ae, infoP->radius));
+	ERR(TinyBlue(ae->in_data,ae->out_data,ae->output,infoP->radius));
 	return err;
 }
 

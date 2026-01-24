@@ -7,12 +7,12 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define FS_NAME		"F's blur_Test"
-#define FS_DISPNAME	"NF's blur_Test"
+#define FS_NAME		"F's _sample_blur"
+#define FS_DISPNAME	"NF's _sample_blur"
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
-#define FS_DESCRIPTION	"blur_Test"
+#define FS_DESCRIPTION	"_sample_blur"
 
 	//-----------------------------------------------------------------------------------
 	//プラグインが表示されるメニュー名
@@ -26,7 +26,7 @@
 	//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
 
 
-#define NFS_CATEGORY "NF's Plugins-Cell"
+#define NFS_CATEGORY "NF's Plugins-{sample}"
 
 	//-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\blur_Test.cpp" />
+    <ClCompile Include="..\_sample_blur.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c">
       <Filter>Header Files\AE</Filter>
     </ClCompile>
@@ -53,14 +53,11 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\tinyfiledialogs.c">
-      <Filter>Supporting code</Filter>
-    </ClCompile>
-    <ClCompile Include="..\BlurSub.cpp" />
+    <ClCompile Include="..\Tiny_Blur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Fs_Entry.h" />
-    <ClInclude Include="..\blur_Test.h" />
+    <ClInclude Include="..\_sample_blur.h" />
     <ClInclude Include="..\..\..\Headers\A.h">
       <Filter>Header Files\AE</Filter>
     </ClInclude>
@@ -176,9 +173,7 @@
       <Filter>Header Files\AE\N</Filter>
     </ClInclude>
     <ClInclude Include="..\Fs_Target.h" />
-    <ClInclude Include="..\..\FsLibrary\tinyfiledialogs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="..\Tiny_Blur.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -207,12 +202,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\blur_TestPiPL.r">
+    <CustomBuild Include="..\_sample_blurPiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="blur_TestPiPL.rc">
+    <ResourceCompile Include="_sample_blurPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="..\..\NFsLibrary\Resource.rc">

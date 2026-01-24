@@ -28,8 +28,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6F284CEB-FCF1-4F17-8D37-74CED9A7B16E}</ProjectGuid>
-    <RootNamespace>blur_Test</RootNamespace>
-    <ProjectName>blur_Test</ProjectName>
+    <RootNamespace>_sample_blur</RootNamespace>
+    <ProjectName>_sample_blur</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -145,7 +145,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/blur_Test.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -194,7 +194,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/blur_Test.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -246,7 +246,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/blur_Test.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -300,7 +300,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/blur_Test.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -354,7 +354,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/blur_Test.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -411,7 +411,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/blur_Test.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -469,7 +469,6 @@
     <ClInclude Include="..\..\FsLibrary\FsDebug.h" />
     <ClInclude Include="..\..\FsLibrary\FsSputtering.h" />
     <ClInclude Include="..\..\FsLibrary\FsVersion.h" />
-    <ClInclude Include="..\..\FsLibrary\tinyfiledialogs.h" />
     <ClInclude Include="..\..\NFsLibrary\resource.h" />
     <ClInclude Include="..\Fs_Entry.h" />
     <ClInclude Include="..\..\FsLibrary\FsAE.h" />
@@ -503,7 +502,8 @@
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
     <ClInclude Include="..\Fs_Target.h" />
-    <ClInclude Include="..\blur_Test.h" />
+    <ClInclude Include="..\Tiny_Blur.h" />
+    <ClInclude Include="..\_sample_blur.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
@@ -516,7 +516,7 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\blur_TestPiPL.r">
+    <CustomBuild Include="..\_sample_blurPiPL.r">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling the PiPL</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
@@ -557,7 +557,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\NFsLibrary\Resource.rc" />
-    <ResourceCompile Include="blur_TestPiPL.rc" />
+    <ResourceCompile Include="_sample_blurPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
@@ -577,8 +577,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
-    <ClCompile Include="..\..\FsLibrary\tinyfiledialogs.c" />
-    <ClCompile Include="..\blur_Test.cpp">
+    <ClCompile Include="..\_sample_blur.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MSWindows;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>
@@ -600,7 +599,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release-MT|x64'">true</BrowseInformation>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
     </ClCompile>
-    <ClCompile Include="..\BlurSub.cpp" />
+    <ClCompile Include="..\Tiny_Blur.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\NFsLibrary\_about_thum.png" />

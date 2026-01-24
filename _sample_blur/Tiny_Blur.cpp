@@ -1,4 +1,4 @@
-﻿#include "blur_Test.h"
+﻿#include "tiny_blur.h"
 
 // スレッド間で共有する構造体
 typedef struct {
@@ -12,6 +12,115 @@ typedef struct {
 
 #define AE_CLAMP(val, min, max)  ((val) < (min) ? (min) : ((val) > (max) ? (max) : (val)))
 
+
+template <typename T, typename CH>
+static PF_Err MultT(
+    void* refconPV,
+    A_long y,
+    CH max_chan)
+{
+    PF_Err err = PF_Err_NONE;
+    BlurInfo* bi = static_cast<BlurInfo*>(refconPV);
+
+    // 行ポインタの取得 (バイト計算後に型キャスト)
+    T* rowP = reinterpret_cast<T*>(reinterpret_cast<char*>(bi->world->data) + (y * bi->rowbytes));
+
+    for (A_long i = 0; i < bi->world->width; i++) {
+        // アルファが0ならRGBを0にする（ストレート変換的な処理）
+        if (rowP[i].alpha <= 0) {
+            rowP[i].red = 0;
+            rowP[i].green = 0;
+            rowP[i].blue = 0;
+            continue; // ※元コードのreturnをcontinueに修正（行の全ピクセルを処理するため）
+        }
+        // アルファが最大値ならそのまま
+        else if (rowP[i].alpha >= max_chan) {
+            continue;
+        }
+
+        // アルファ比率の計算
+        A_FpLong v = static_cast<A_FpLong>(rowP[i].alpha) / max_chan;
+
+        // クランプ処理
+        if (v < 0.0) v = 0.0; else if (v > 1.0) v = 1.0;
+
+        // 乗算（32bit Floatの場合はそのまま、8/16bitは整数キャスト）
+        rowP[i].red = static_cast<CH>(rowP[i].red * v);
+        rowP[i].green = static_cast<CH>(rowP[i].green * v);
+        rowP[i].blue = static_cast<CH>(rowP[i].blue * v);
+    }
+
+    return err;
+}
+// 8-bit用
+static PF_Err Mult8(void* refcon, A_long thread_idx, A_long y, A_long itrt) {
+    return MultT<PF_Pixel8, A_u_char>(refcon, y, PF_MAX_CHAN8);
+}
+
+// 16-bit用
+static PF_Err Mult16(void* refcon, A_long thread_idx, A_long y, A_long itrt) {
+    return MultT<PF_Pixel16, A_u_short>(refcon, y, PF_MAX_CHAN16);
+}
+
+// 32-bit用 (Float)
+static PF_Err MultFloat(void* refcon, A_long thread_idx, A_long y, A_long itrt) {
+    // 32bitの場合、max_chanは 1.0f
+    return MultT<PF_PixelFloat, PF_FpShort>(refcon, y, 1.0f);
+}
+template <typename T, typename CH>
+static PF_Err UnMultT(
+    void* refconPV,
+    A_long y,
+    CH max_chan)
+{
+    PF_Err err = PF_Err_NONE;
+    BlurInfo* bi = static_cast<BlurInfo*>(refconPV);
+
+    // 行ポインタの取得 (バイト計算後に型キャスト)
+    T* rowP = reinterpret_cast<T*>(reinterpret_cast<char*>(bi->world->data) + (y * bi->rowbytes));
+
+    for (A_long i = 0; i < bi->world->width; i++) {
+        // アルファが0ならRGBを0にする（ストレート変換的な処理）
+        if (rowP[i].alpha <= 0) {
+            rowP[i].red = 0;
+            rowP[i].green = 0;
+            rowP[i].blue = 0;
+            continue; // ※元コードのreturnをcontinueに修正（行の全ピクセルを処理するため）
+        }
+        // アルファが最大値ならそのまま
+        else if (rowP[i].alpha >= max_chan) {
+            continue;
+        }
+
+        // アルファ比率の計算
+        A_FpLong v = static_cast<A_FpLong>(max_chan / rowP[i].alpha);
+
+        // クランプ処理
+        if (v < 0.0) v = 0.0; else if (v > 1.0) v = 1.0;
+
+        // 乗算（32bit Floatの場合はそのまま、8/16bitは整数キャスト）
+        rowP[i].red = static_cast<CH>(rowP[i].red * v);
+        rowP[i].green = static_cast<CH>(rowP[i].green * v);
+        rowP[i].blue = static_cast<CH>(rowP[i].blue * v);
+    }
+
+    return err;
+}
+// 8-bit用
+static PF_Err UnMult8(void* refcon, A_long thread_idx, A_long y, A_long itrt) {
+    return UnMultT<PF_Pixel8, A_u_char>(refcon, y, PF_MAX_CHAN8);
+}
+
+// 16-bit用
+static PF_Err UnMult16(void* refcon, A_long thread_idx, A_long y, A_long itrt) {
+    return UnMultT<PF_Pixel16, A_u_short>(refcon, y, PF_MAX_CHAN16);
+}
+
+// 32-bit用 (Float)
+static PF_Err UnMultFloat(void* refcon, A_long thread_idx, A_long y, A_long itrt) {
+    // 32bitの場合、max_chanは 1.0f
+    return UnMultT<PF_PixelFloat, PF_FpShort>(refcon, y, 1.0f);
+}
 /* --- 水平ボックスブラー (iterate_generic用) --- */
 template <typename PixelType, A_long MaxChan>
 static PF_Err
@@ -110,52 +219,79 @@ static PF_Err BoxBlurV16(void* ref, A_long t, A_long i, A_long l) { return BoxBl
 static PF_Err BoxBlurH32(void* ref, A_long t, A_long i, A_long l) { return BoxBlurH<PF_PixelFloat, 1>(ref, t, i, l); } // Floatは1.0
 static PF_Err BoxBlurV32(void* ref, A_long t, A_long i, A_long l) { return BoxBlurV<PF_PixelFloat, 1>(ref, t, i, l); }
 
-static PF_Err TinyBlueLm(CFsAE* ae, A_long bl)
+static PF_Err TinyBlueImpl(
+    PF_InData* in_dataP,
+    PF_OutData* out_dataP,
+    PF_EffectWorld* worldP,
+   A_long value
+)
 {
     PF_Err err = PF_Err_NONE;
-    if (bl <= 0) return err;
+    if (value <= 0) return err;
 
     BlurInfo bi;
-    bi.in_data = ae->in_data;
-    bi.world = ae->output;
-    bi.radius = bl;
-    bi.width = ae->out->width();
-    bi.height = ae->out->height();
-    bi.rowbytes = ae->output->rowbytes;
+    bi.in_data = in_dataP;
+    bi.world = worldP;
+    bi.radius = value;
+    bi.width = worldP->width;
+    bi.height = worldP->height;
+    bi.rowbytes = worldP->rowbytes;
+
+    PF_WorldSuite2* ws2P;
+    PF_PixelFormat pixelFormat;
+    AEFX_AcquireSuite(in_dataP,
+        out_dataP,
+        kPFWorldSuite,
+        kPFWorldSuiteVersion2,
+        "Couldn't load suite.",
+        (void**)&(ws2P));
+
+    ws2P->PF_GetPixelFormat(worldP, &pixelFormat);
 
     AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scope(
-        ae->in_data,
+        in_dataP,
         kPFIterate8Suite,
         kPFIterate8SuiteVersion1,
-        ae->out_data
+        out_dataP
     );
 
-    switch (ae->pixelFormat()) {
+    switch (pixelFormat) {
     case PF_PixelFormat_ARGB32:
+        ERR(iter_scope->iterate_generic(bi.height, &bi, Mult8));
         for (int n = 0; n < 3; n++) {
             ERR(iter_scope->iterate_generic(bi.height, &bi, BoxBlurH8));
             ERR(iter_scope->iterate_generic(bi.width, &bi, BoxBlurV8));
         }
+        ERR(iter_scope->iterate_generic(bi.height, &bi, UnMult8));
         break;
 
     case PF_PixelFormat_ARGB64:
+        ERR(iter_scope->iterate_generic(bi.height, &bi, Mult16));
         for (int n = 0; n < 3; n++) {
             ERR(iter_scope->iterate_generic(bi.height, &bi, BoxBlurH16));
             ERR(iter_scope->iterate_generic(bi.width, &bi, BoxBlurV16));
         }
+        ERR(iter_scope->iterate_generic(bi.height, &bi, UnMult16));
         break;
 
     case PF_PixelFormat_ARGB128:
+        ERR(iter_scope->iterate_generic(bi.height, &bi, MultFloat));
         for (int n = 0; n < 3; n++) {
             ERR(iter_scope->iterate_generic(bi.height, &bi, BoxBlurH32));
             ERR(iter_scope->iterate_generic(bi.width, &bi, BoxBlurV32));
         }
+        ERR(iter_scope->iterate_generic(bi.height, &bi, UnMultFloat));
         break;
     }
     return err;
 }
 
-PF_Err TinyBlue(CFsAE* ae, A_long bl)
+PF_Err TinyBlue(
+    PF_InData* in_dataP,
+    PF_OutData* out_dataP,
+    PF_EffectWorld* worldP,
+    A_long value
+)
 {
-    return TinyBlueLm(ae, bl);
+    return TinyBlueImpl(in_dataP, out_dataP, worldP, value);
 }

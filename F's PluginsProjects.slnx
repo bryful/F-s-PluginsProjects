@@ -16,7 +16,6 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
-  <Project Path="blur_Test/Win/blur_Test.vcxproj" Id="6f284ceb-fcf1-4f17-8d37-74ced9a7b16e" />
   <Project Path="CCplus/Win/CCplus.vcxproj" Id="18bd60ef-07a0-4fc2-affc-a29482c663f4">
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
@@ -180,6 +179,7 @@
   </Project>
   <Project Path="whiteInOut/Win/whiteInOut.vcxproj" Id="007d3f7d-3d91-4b4d-bece-dc9f75f3b184" />
   <Project Path="YuvControl/Win/YuvControl.vcxproj" Id="81de57d1-c408-45f2-9af4-a14097a11565" />
+  <Project Path="_sample_blur/Win/_sample_blur.vcxproj" Id="6f284ceb-fcf1-4f17-8d37-74ced9a7b16e" />
   <Project Path="_sample_font/Win/_sample_font.vcxproj" Id="33ef0610-e382-4ccc-893b-9ee85c65ce78">
     <Platform Project="x64" />
   </Project>
