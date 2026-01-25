@@ -99,7 +99,7 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
-  <Project Path="MaxBlur/Win/MaxBlur.vcxproj" />
+  <Project Path="MaxBlur/Win/MaxBlur.vcxproj" Id="455cd0bd-c0de-4901-826a-73c9ccc8d24e" />
   <Project Path="MaxFast/Win/MaxFast.vcxproj" Id="89eeb2e9-6732-4bed-9b45-dc7345b47baf" />
   <Project Path="Max_Kasumi/Win/Max_Kasumi.vcxproj" Id="81dd7657-558f-48cc-8f7c-a1c10d68e7f8" />
   <Project Path="Mosaic/Win/Mosaic.vcxproj" Id="f69a4de5-0611-445f-ac50-32ce40dd5545" />

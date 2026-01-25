@@ -416,6 +416,7 @@ public:
 		(void)paramsP;  // 未使用パラメータの警告を抑制
 		(void)outputP;  // 未使用パラメータの警告を抑制
 		PF_Err	err				= PF_Err_NONE;
+		PF_InData* in_data = in_dataP;
 		CFsAE::suitesP	= new AEGP_SuiteHandler(in_dataP->pica_basicP);
 		if (in_dataP->global_data){
 			ae_plugin_idH	= in_dataP->global_data;
