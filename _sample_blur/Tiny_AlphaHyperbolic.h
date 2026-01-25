@@ -1,7 +1,7 @@
 #pragma once
 #pragma once
-#ifndef TINY_BLUR_H
-#define TINY_BLUR_H
+#ifndef TINY_ALPHAHYPERBOLIC_H
+#define TINY_ALPHAHYPERBOLIC_H
 
 
 #include "AEConfig.h" 
@@ -28,20 +28,20 @@
 #define refconType A_long
 #endif
 
-
-
-
-PF_Err TinyBlue(
+PF_Err HyperbolicAlpha(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
-    A_long value
+    PF_FpLong		hyperbolic
 );
-PF_Err TinyBlueM(
+PF_Err HyperbolicAlphaM(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
     AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
-    A_long value
+    PF_FpLong		hyperbolic
 );
+
+
+
 #endif // TINY_BLUR_H

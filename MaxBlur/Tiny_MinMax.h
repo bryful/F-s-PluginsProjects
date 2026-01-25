@@ -1,7 +1,7 @@
+﻿#pragma once
 #pragma once
-#pragma once
-#ifndef TINY_BLUR_H
-#define TINY_BLUR_H
+#ifndef TINY_MINMAX_H
+#define TINY_MINMAX_H
 
 
 #include "AEConfig.h" 
@@ -28,20 +28,19 @@
 #define refconType A_long
 #endif
 
+#include <vector>
 
-
-
-PF_Err TinyBlue(
+PF_Err TinyMinMax(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
     A_long value
 );
-PF_Err TinyBlueM(
+PF_Err TinyMinMaxM(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
     AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
     A_long value
 );
-#endif // TINY_BLUR_H
+#endif // TINY_MINMAX_H

@@ -27,9 +27,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6F284CEB-FCF1-4F17-8D37-74CED9A7B16E}</ProjectGuid>
-    <RootNamespace>_sample_blur</RootNamespace>
-    <ProjectName>_sample_blur</ProjectName>
+    <ProjectGuid>{455CD0BD-C0DE-4901-826A-73C9CCC8D24E}</ProjectGuid>
+    <RootNamespace>MaxBlur</RootNamespace>
+    <ProjectName>MaxBlur</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -145,7 +145,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/MaxBlur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -194,7 +194,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/MaxBlur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -247,7 +247,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/MaxBlur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -301,7 +301,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/MaxBlur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -355,7 +355,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/MaxBlur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -412,7 +412,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_sample_blur.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/MaxBlur.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -508,7 +508,7 @@
     <ClInclude Include="..\Tiny_Blur.h" />
     <ClInclude Include="..\Tiny_MinMax.h" />
     <ClInclude Include="..\Tiny_Mult.h" />
-    <ClInclude Include="..\_sample_blur.h" />
+    <ClInclude Include="..\MaxBlur.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
@@ -521,7 +521,7 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\_sample_blurPiPL.r">
+    <CustomBuild Include="..\MaxBlurPiPL.r">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling the PiPL</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
@@ -562,7 +562,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\NFsLibrary\Resource.rc" />
-    <ResourceCompile Include="_sample_blurPiPL.rc" />
+    <ResourceCompile Include="MaxBlurPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
@@ -585,7 +585,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\Tiny_AlphaHyperbolic.cpp" />
     <ClCompile Include="..\Tiny_MinMax.cpp" />
     <ClCompile Include="..\Tiny_Mult.cpp" />
-    <ClCompile Include="..\_sample_blur.cpp">
+    <ClCompile Include="..\MaxBlur.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MSWindows;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>

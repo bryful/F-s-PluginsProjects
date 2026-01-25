@@ -28,7 +28,7 @@ enum {
 	ID_SEEDMOVE,
 	ID_OFFSET,
 	ID_CENTER,
-	ID_RADIUS,
+	ID_BLUR,
 	ID_ASPECT,
 	ID_POINT_COUNT,
 	ID_POIN_ROT,
@@ -54,7 +54,7 @@ enum {
 #define	STR_OFFSET		"offset"
 
 #define	STR_CENTER		"center"
-#define	STR_RADIUS		"radius"
+#define	STR_BLUR		"radius"
 #define	STR_ASPECT		"aspect"
 
 #define	STR_POINT_COUNT	"point_count"
@@ -85,7 +85,7 @@ typedef struct ParamInfo {
 	PF_FpLong	offset;
 
 	A_LPoint	center;
-	A_long		radius;
+	A_long		blur;
 	PF_FpLong	aspect;
 	A_long		point_count;
 	PF_FpLong	point_rot;

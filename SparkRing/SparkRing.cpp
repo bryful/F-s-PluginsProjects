@@ -64,13 +64,13 @@ static PF_Err ParamsSetup (
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_RADIUS,	//パラメータの名前
+	PF_ADD_SLIDER(STR_BLUR,	//パラメータの名前
 		10, 			//数値入力する場合の最小値
 		5000,			//数値入力する場合の最大値
 		10,				//スライダーの最小値 
 		1000,			//スライダーの最大値
 		500,			//デフォルトの値
-		ID_RADIUS
+		ID_BLUR
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
@@ -393,9 +393,9 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 		infoP->center.y = (int)((double)v.y / 65536 + 0.5);
 	}
 
-	ERR(ae->GetADD(ID_RADIUS, &infoP->radius));
+	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
 	if (!err) {
-		infoP->radius = (A_long)((PF_FpLong)infoP->radius * ds + 0.5);
+		infoP->blur = (A_long)((PF_FpLong)infoP->blur * ds + 0.5);
 	}
 
 	ERR(ae->GetFLOAT(ID_ASPECT, &infoP->aspect));
@@ -467,7 +467,7 @@ static PF_Err
 			PointInfo p = ld.Points.EnFromRot(
 				infoP->center,
 				infoP->point_rot + dr * pc,
-				infoP->radius,
+				infoP->blur,
 				infoP->aspect,
 				infoP->rot
 			);

@@ -54,7 +54,7 @@ enum {
 	ID_OPACITY_RAND,		//透明度の最大値
 
 	ID_POS,				//位置
-	ID_RADIUS,			//半径
+	ID_BLUR,			//半径
 	ID_ASPECT,			//アスペクト
 	ID_LENGTH_SCALE,		//スケール
 
@@ -123,7 +123,7 @@ typedef struct
 	A_long		value;
 	PF_Fixed	opa;
 	PF_FixedPoint	pos;
-	A_long		radius;
+	A_long		blur;
 	PF_Fixed	aspect;
 	PF_Fixed	length_scale;
 	PF_Boolean	anchor_enabled;

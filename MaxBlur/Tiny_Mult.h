@@ -1,7 +1,7 @@
+﻿#pragma once
 #pragma once
-#pragma once
-#ifndef TINY_BLUR_H
-#define TINY_BLUR_H
+#ifndef TINY_MULT_H
+#define TINY_MULT_H
 
 
 #include "AEConfig.h" 
@@ -27,21 +27,17 @@
 #include "PF_Suite_Helper.h"
 #define refconType A_long
 #endif
-
-
-
-
-PF_Err TinyBlue(
+PF_Err TinyMult(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
-    A_long value
+    PF_Boolean isUnMult
 );
-PF_Err TinyBlueM(
+PF_Err TinyMultM(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
     AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
-    A_long value
+    PF_Boolean isUnMult
 );
 #endif // TINY_BLUR_H

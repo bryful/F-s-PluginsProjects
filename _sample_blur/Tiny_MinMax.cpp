@@ -1,4 +1,4 @@
-#include "MaxFast.h"
+#include "Tiny_MinMax.h"
 
 typedef struct LineBuf {
     A_FpShort	level;
@@ -12,173 +12,16 @@ typedef struct MinMaxInfo {
     PF_Boolean		maxMinus;
 	A_long          width;
 	A_long		    widthTrue;
+	A_long          rowbytes;
     A_long          height;
 	PF_EffectWorld  *world;
-    PF_PixelPtr     line;
-	LineBuf*        forward;
-    LineBuf*        backward;
+    //PF_PixelPtr     line;
+	//LineBuf*        forward;
+    //LineBuf*        backward;
 
 }MaxFastInfo;
 
-template <typename PixelType, typename ChannelType, ChannelType MaxChan>
-static PF_Err
-MaxMult(
-    refconType refcon,
-    A_long xL,
-    A_long yL,
-    PixelType* inP,
-    PixelType* outP)
-{
-    PF_Err err = PF_Err_NONE;
 
-    if (outP->alpha == 0) {
-        outP->red = 0;
-        outP->green = 0;
-        outP->blue = 0;
-        return err;
-    }
-    else if (outP->alpha >= MaxChan) {
-        return err;
-    }
-
-    A_FpShort v = (A_FpShort)outP->alpha / MaxChan;
-    outP->red = static_cast<ChannelType>((A_FpShort)outP->red * v);
-    outP->green = static_cast<ChannelType>((A_FpShort)outP->green * v);
-    outP->blue = static_cast<ChannelType>((A_FpShort)outP->blue * v);
-    return PF_Err_NONE;
-}
-
-// 8bit用
-static PF_Err
-MaxMult8(
-    refconType refcon,
-    A_long xL,
-    A_long yL,
-    PF_Pixel8* inP,
-    PF_Pixel8* outP)
-{
-    return MaxMult<PF_Pixel8, A_u_char, PF_MAX_CHAN8>(refcon, xL, yL, inP, outP);
-}
-
-// 16bit用
-static PF_Err
-MaxMult16(
-    refconType refcon,
-    A_long xL,
-    A_long yL,
-    PF_Pixel16* inP,
-    PF_Pixel16* outP)
-{
-    return MaxMult<PF_Pixel16, A_u_short, PF_MAX_CHAN16>(refcon, xL, yL, inP, outP);
-}
-
-// 32bit用（浮動小数点）
-static PF_Err
-MaxMult32(
-    refconType refcon,
-    A_long xL,
-    A_long yL,
-    PF_PixelFloat* inP,
-    PF_PixelFloat* outP)
-{
-    PF_Err err = PF_Err_NONE;
-
-    if (outP->alpha <= 0.0f) {
-        outP->red = 0.0f;
-        outP->green = 0.0f;
-        outP->blue = 0.0f;
-        return err;
-    }
-    else if (outP->alpha == 1.0f) {
-        return err;
-    }
-
-    outP->red *= outP->alpha;
-    outP->green *= outP->alpha;
-    outP->blue *= outP->alpha;
-
-    return PF_Err_NONE;
-}
-//************************************************************************************
-template <typename PixelType, typename ChannelType, ChannelType MaxChan>
-static PF_Err
-MaxUnMult(
-    refconType refcon,
-    A_long xL,
-    A_long yL,
-    PixelType* inP,
-    PixelType* outP)
-{
-    PF_Err err = PF_Err_NONE;
-
-    if (outP->alpha == 0) {
-        outP->red = 0;
-        outP->green = 0;
-        outP->blue = 0;
-        return err;
-    }
-    else if (outP->alpha >= MaxChan) {
-        return err;
-    }
-
-    A_FpShort v = MaxChan /(A_FpShort)outP->alpha;
-    outP->red = static_cast<ChannelType>((A_FpShort)outP->red * v);
-    outP->green = static_cast<ChannelType>((A_FpShort)outP->green * v);
-    outP->blue = static_cast<ChannelType>((A_FpShort)outP->blue * v);
-
-    return PF_Err_NONE;
-}
-// 8bit用
-static PF_Err
-MaxUnMult8(
-    refconType refcon,
-    A_long xL,
-    A_long yL,
-    PF_Pixel8* inP,
-    PF_Pixel8* outP)
-{
-    return MaxUnMult<PF_Pixel8, A_u_char, PF_MAX_CHAN8>(refcon, xL, yL, inP, outP);
-}
-
-// 16bit用
-static PF_Err
-MaxUnMult16(
-    refconType refcon,
-    A_long xL,
-    A_long yL,
-    PF_Pixel16* inP,
-    PF_Pixel16* outP)
-{
-    return MaxUnMult<PF_Pixel16, A_u_short, PF_MAX_CHAN16>(refcon, xL, yL, inP, outP);
-}
-
-// 32bit用（浮動小数点）
-static PF_Err
-MaxUnMult32(
-    refconType refcon,
-    A_long xL,
-    A_long yL,
-    PF_PixelFloat* inP,
-    PF_PixelFloat* outP)
-{
-    PF_Err err = PF_Err_NONE;
-
-    if (outP->alpha <= 0.0f) {
-        outP->red = 0.0f;
-        outP->green = 0.0f;
-        outP->blue = 0.0f;
-        return err;
-    }
-    else if (outP->alpha == 1.0f) {
-        return err;
-    }
-	PF_FpShort vv = 1.0f / outP->alpha;
-    outP->red *= vv;
-    outP->green *= vv;
-    outP->blue *= vv;
-
-    return PF_Err_NONE;
-}
 // ************************************************************************
 template <typename PixelType, typename ChannelType, typename FloatType>
 static PF_Err
@@ -796,123 +639,147 @@ static PF_Err Min_SubV32(void* refconPV, A_long thread_idxL, A_long x, A_long it
 {
     return Min_SubV<PF_PixelFloat, PF_FpShort, PF_FpShort>(refconPV, thread_idxL, x, itrtL, 1.0f);
 }
-static PF_Err MaxFast_SubImpl(
-	CFsAE* ae,
-	A_long			max,
-	PF_Boolean		maxMinus
+static PF_Err TinyMinMaxImpl(
+    PF_InData* in_dataP,
+    PF_OutData* out_dataP,
+    PF_EffectWorld* worldP,
+    A_long value
 )
 {
     //ae->DisposeWorld
     PF_Err err = PF_Err_NONE;
-	if (max == 0) return err;
-	MinMaxInfo info;
-	info.in_data = ae->in_data;
-	info.max = max;
-	info.maxMinus = maxMinus;
-    info.world = ae->output;
-    info.width = ae->out->width();
-	info.widthTrue = ae->out->widthTrue();
-    info.height = ae->out->height();
+	if (value == 0) return err;
+
+    PF_WorldSuite2* ws2P;
+    PF_PixelFormat pixelFormat;
+    AEFX_AcquireSuite(in_dataP,
+        out_dataP,
+        kPFWorldSuite,
+        kPFWorldSuiteVersion2,
+        "Couldn't load suite.",
+        (void**)&(ws2P));
+    ws2P->PF_GetPixelFormat(worldP, &pixelFormat);
+
+    MinMaxInfo info;
+	info.in_data = in_dataP;
+    if (value < 0) {
+        info.max = -value;
+        info.maxMinus = TRUE;
+    }
+    else {
+        info.max = value;
+        info.maxMinus = FALSE;
+    }
+    info.world = worldP;
+    info.width = worldP->width;
+    info.rowbytes = worldP->rowbytes;
+    switch (pixelFormat)
+    {
+    case PF_PixelFormat_ARGB32:
+        info.widthTrue = worldP->rowbytes / sizeof(PF_Pixel);
+		break;
+    case PF_PixelFormat_ARGB64:
+        info.widthTrue = worldP->rowbytes / sizeof(PF_Pixel16);
+        break;
+    case PF_PixelFormat_ARGB128:
+        info.widthTrue = worldP->rowbytes / sizeof(PF_PixelFloat);
+        break;
+    }
+    info.height = worldP->height;
 
     if (!err) {
         PF_Iterate8Suite1* iterS = nullptr;
         AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scope(
-            ae->in_data,
+            in_dataP,
             kPFIterate8Suite,
             kPFIterate8SuiteVersion1,
-            ae->out_data
+            out_dataP
         );
-        switch(ae->pixelFormat())
+        switch(pixelFormat)
         {
         case PF_PixelFormat_ARGB32:
-            ERR(ae->iterate8(&info, MaxMult8));
-            if (maxMinus == FALSE) {
+            if (info.maxMinus == FALSE) {
                 ERR(iter_scope->iterate_generic(
-                    ae->output->height,     // iterationsL: 実行回数（＝行数）
+                    info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH8              // fn_func: コールバック関数
                 ));
 
                 ERR(iter_scope->iterate_generic(
-                    ae->output->width,           // iterationsL: 実行回数（＝行数）
+                    info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV8    // fn_func: コールバック関数
                 ));
             }
             else {
                 ERR(iter_scope->iterate_generic(
-                    ae->output->height,     // iterationsL: 実行回数（＝行数）
+                    info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH8              // fn_func: コールバック関数
                 ));
 
                 ERR(iter_scope->iterate_generic(
-                    ae->output->width,           // iterationsL: 実行回数（＝行数）
+                    info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV8    // fn_func: コールバック関数
                 ));
             }
-            ERR(ae->iterate8(&info, MaxUnMult8));
             break;
         case PF_PixelFormat_ARGB64:
-            ERR(ae->iterate16(&info, MaxMult16));
-            if (maxMinus == FALSE) {
+            if (info.maxMinus == FALSE) {
                 ERR(iter_scope->iterate_generic(
-                    ae->output->height,     // iterationsL: 実行回数（＝行数）
+                    info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH16              // fn_func: コールバック関数
                 ));
 
                 ERR(iter_scope->iterate_generic(
-                    ae->output->width,           // iterationsL: 実行回数（＝行数）
+                    info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV16    // fn_func: コールバック関数
                 ));
             }
             else {
                 ERR(iter_scope->iterate_generic(
-                    ae->output->height,     // iterationsL: 実行回数（＝行数）
+                    info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH16              // fn_func: コールバック関数
                 ));
 
                 ERR(iter_scope->iterate_generic(
-                    ae->output->width,           // iterationsL: 実行回数（＝行数）
+                    info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV16    // fn_func: コールバック関数
                 ));
             }
-            ERR(ae->iterate16(&info, MaxUnMult16));
             break;
         case PF_PixelFormat_ARGB128:
-            ERR(ae->iterate32(&info, MaxMult32));
-			if (maxMinus ==FALSE) {
+            if (info.maxMinus == FALSE) {
                 ERR(iter_scope->iterate_generic(
-                    ae->output->height,     // iterationsL: 実行回数（＝行数）
+                    info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH32              // fn_func: コールバック関数
                 ));
 
                 ERR(iter_scope->iterate_generic(
-                    ae->output->width,           // iterationsL: 実行回数（＝行数）
+                    info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV32    // fn_func: コールバック関数
                 ));
             }
             else {
                 ERR(iter_scope->iterate_generic(
-                    ae->output->height,     // iterationsL: 実行回数（＝行数）
+                    info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH32              // fn_func: コールバック関数
                 ));
 
                 ERR(iter_scope->iterate_generic(
-                    ae->output->width,           // iterationsL: 実行回数（＝行数）
+                    info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV32    // fn_func: コールバック関数
                 ));
             }
-            ERR(ae->iterate32(&info, MaxUnMult32));
             break;
         default:
             err = PF_Err_BAD_CALLBACK_PARAM;
@@ -922,12 +789,154 @@ static PF_Err MaxFast_SubImpl(
     return err;
 }
 
-
-PF_Err MaxFast_Sub(
-	CFsAE* ae,
-	A_long			max,
-	PF_Boolean		maxMinus
+PF_Err TinyMinMax(
+    PF_InData* in_dataP,
+    PF_OutData* out_dataP,
+    PF_EffectWorld* worldP,
+    A_long value
 )
 {
-	return MaxFast_SubImpl(ae, max, maxMinus);
+	return TinyMinMaxImpl(in_dataP, out_dataP, worldP,value);
+}
+static PF_Err TinyMinMaxMImpl(
+    PF_InData* in_dataP,
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
+    A_long value
+)
+{
+    PF_Err err = PF_Err_NONE;
+    if (value == 0) return err;
+
+    MinMaxInfo info;
+    info.in_data = in_dataP;
+    if (value < 0) {
+        info.max = -1*value;
+        info.maxMinus = TRUE;
+    }
+    else {
+        info.max = value;
+        info.maxMinus = FALSE;
+    }
+    info.world = worldP;
+    info.width = worldP->width;
+    info.rowbytes = worldP->rowbytes;
+    switch (pixelFormat)
+    {
+    case PF_PixelFormat_ARGB32:
+        info.widthTrue = worldP->rowbytes / sizeof(PF_Pixel);
+        break;
+    case PF_PixelFormat_ARGB64:
+        info.widthTrue = worldP->rowbytes / sizeof(PF_Pixel16);
+        break;
+    case PF_PixelFormat_ARGB128:
+        info.widthTrue = worldP->rowbytes / sizeof(PF_PixelFloat);
+        break;
+    }
+    info.height = worldP->height;
+
+    if (!err) {
+        switch (pixelFormat)
+        {
+        case PF_PixelFormat_ARGB32:
+            if (info.maxMinus == FALSE) {
+                ERR(iter_scopeP->iterate_generic(
+                    info.height,     // iterationsL: 実行回数（＝行数）
+                    &info,                  // refconPV: ユーザー定義データ
+                    Max_SubH8              // fn_func: コールバック関数
+                ));
+
+                ERR(iter_scopeP->iterate_generic(
+                    info.width,           // iterationsL: 実行回数（＝行数）
+                    &info,                    // refconPV: ユーザー定義データ
+                    Max_SubV8    // fn_func: コールバック関数
+                ));
+            }
+            else {
+                ERR(iter_scopeP->iterate_generic(
+                    info.height,     // iterationsL: 実行回数（＝行数）
+                    &info,                  // refconPV: ユーザー定義データ
+                    Min_SubH8              // fn_func: コールバック関数
+                ));
+
+                ERR(iter_scopeP->iterate_generic(
+                    info.width,           // iterationsL: 実行回数（＝行数）
+                    &info,                    // refconPV: ユーザー定義データ
+                    Min_SubV8    // fn_func: コールバック関数
+                ));
+            }
+            break;
+        case PF_PixelFormat_ARGB64:
+            if (info.maxMinus == FALSE) {
+                ERR(iter_scopeP->iterate_generic(
+                    info.height,     // iterationsL: 実行回数（＝行数）
+                    &info,                  // refconPV: ユーザー定義データ
+                    Max_SubH16              // fn_func: コールバック関数
+                ));
+
+                ERR(iter_scopeP->iterate_generic(
+                    info.width,           // iterationsL: 実行回数（＝行数）
+                    &info,                    // refconPV: ユーザー定義データ
+                    Max_SubV16    // fn_func: コールバック関数
+                ));
+            }
+            else {
+                ERR(iter_scopeP->iterate_generic(
+                    info.height,     // iterationsL: 実行回数（＝行数）
+                    &info,                  // refconPV: ユーザー定義データ
+                    Min_SubH16              // fn_func: コールバック関数
+                ));
+
+                ERR(iter_scopeP->iterate_generic(
+                    info.width,           // iterationsL: 実行回数（＝行数）
+                    &info,                    // refconPV: ユーザー定義データ
+                    Min_SubV16    // fn_func: コールバック関数
+                ));
+            }
+            break;
+        case PF_PixelFormat_ARGB128:
+            if (info.maxMinus == FALSE) {
+                ERR(iter_scopeP->iterate_generic(
+                    info.height,     // iterationsL: 実行回数（＝行数）
+                    &info,                  // refconPV: ユーザー定義データ
+                    Max_SubH32              // fn_func: コールバック関数
+                ));
+
+                ERR(iter_scopeP->iterate_generic(
+                    info.width,           // iterationsL: 実行回数（＝行数）
+                    &info,                    // refconPV: ユーザー定義データ
+                    Max_SubV32    // fn_func: コールバック関数
+                ));
+            }
+            else {
+                ERR(iter_scopeP->iterate_generic(
+                    info.height,     // iterationsL: 実行回数（＝行数）
+                    &info,                  // refconPV: ユーザー定義データ
+                    Min_SubH32              // fn_func: コールバック関数
+                ));
+
+                ERR(iter_scopeP->iterate_generic(
+                    info.width,           // iterationsL: 実行回数（＝行数）
+                    &info,                    // refconPV: ユーザー定義データ
+                    Min_SubV32    // fn_func: コールバック関数
+                ));
+            }
+            break;
+        default:
+            err = PF_Err_BAD_CALLBACK_PARAM;
+            break;
+        }
+    }
+    return err;
+}
+PF_Err TinyMinMaxM(
+    PF_InData* in_dataP,
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
+    A_long value
+)
+{
+    return TinyMinMaxMImpl(in_dataP, worldP, pixelFormat, iter_scopeP,value);
 }

@@ -297,7 +297,7 @@ static PF_Err ParamsSetup (
 	);
 	//----------------------------------------------------------------
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_RADIUS,	//Name
+	PF_ADD_FLOAT_SLIDER(STR_BLUR,	//Name
 		0,						//VALID_MIN
 		4000,						//VALID_MAX
 		0,						//SLIDER_MIN
@@ -307,7 +307,7 @@ static PF_Err ParamsSetup (
 		1,						//PREC
 		0,						//DISP
 		0,						//WANT_PHASE
-		ID_RADIUS
+		ID_BLUR
 	);
 	//----------------------------------------------------------------
 
@@ -503,7 +503,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 		infoP->cenertPos.y = (PF_FpLong)pp.y/ 65536.0;
 	}
 	//
-	ERR(ae->GetFLOAT(ID_RADIUS, &infoP->radius));
+	ERR(ae->GetFLOAT(ID_BLUR, &infoP->blur));
 
 	ERR(ae->GetFLOAT(ID_FEATHER, &infoP->feather));
 	infoP->feather /= 100;
@@ -528,7 +528,7 @@ Exec(CFsAE* ae, ParamInfo* infoP)
 	//画面をコピー
 	//ERR(ae->CopyInToOut());
 
-	if (infoP->radius <= 0) {
+	if (infoP->blur <= 0) {
 		return err;
 	}
 	if ((infoP->targetColorMode == 1) && (infoP->targetColorCount <= 0)) {

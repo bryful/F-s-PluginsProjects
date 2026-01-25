@@ -35,12 +35,12 @@ PF_Err MainRender8 (CFsAE *ae, ParamInfo *prm)
 	if (prm->point_len_sync == TRUE){
 		pLen = pLen * scale >>16;
 	}
-	A_long xy0= -(prm->radius +prm->point_length);
-	A_long xx1= ae->out->width() + (prm->radius +prm->point_length);
-	A_long yy1= ae->out->height() + (prm->radius +prm->point_length);
+	A_long xy0= -(prm->blur +prm->point_length);
+	A_long xx1= ae->out->width() + (prm->blur +prm->point_length);
+	A_long yy1= ae->out->height() + (prm->blur +prm->point_length);
 
 	for ( i=0;i<value;i++){
-		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->radius));
+		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->blur));
 		PF_Fixed shiftX = rp0.pos().x;
 		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//アスペクトの調整
 
@@ -104,12 +104,12 @@ PF_Err MainRender16 (CFsAE *ae, ParamInfo *prm)
 	if (prm->point_len_sync == TRUE){
 		pLen = pLen * scale >>16;
 	}
-	A_long xy0= -(prm->radius +prm->point_length);
-	A_long xx1= ae->out->width() + (prm->radius +prm->point_length);
-	A_long yy1= ae->out->height() + (prm->radius +prm->point_length);
+	A_long xy0= -(prm->blur +prm->point_length);
+	A_long xx1= ae->out->width() + (prm->blur +prm->point_length);
+	A_long yy1= ae->out->height() + (prm->blur +prm->point_length);
 
 	for ( i=0;i<value;i++){
-		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->radius));
+		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->blur));
 		PF_Fixed shiftX = rp0.pos().x;
 		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//アスペクトの調整
 
@@ -174,12 +174,12 @@ PF_Err MainRender32 (CFsAE *ae, ParamInfo *prm)
 	if (prm->point_len_sync == TRUE){
 		pLen = pLen * scale >>16;
 	}
-	A_long xy0= -(prm->radius +prm->point_length);
-	A_long xx1= ae->out->width() + (prm->radius +prm->point_length);
-	A_long yy1= ae->out->height() + (prm->radius +prm->point_length);
+	A_long xy0= -(prm->blur +prm->point_length);
+	A_long xx1= ae->out->width() + (prm->blur +prm->point_length);
+	A_long yy1= ae->out->height() + (prm->blur +prm->point_length);
 
 	for ( i=0;i<value;i++){
-		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->radius));
+		rp0.SetRotLength((FM_RAND((360L<<4) -1)) <<12,FM_RAND(prm->blur));
 		PF_Fixed shiftX = rp0.pos().x;
 		PF_Fixed shiftY = rp0.pos().y * prm->aspect >> 16;//アスペクトの調整
 

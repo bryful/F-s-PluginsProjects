@@ -55,7 +55,7 @@ enum {
 
 	ID_CENTER_POS,
 
-	ID_RADIUS,
+	ID_BLUR,
 	ID_FEATHER,
 	ID_HYPERBOLIC,
 
@@ -89,7 +89,7 @@ enum {
 
 #define	STR_CENTER			"center"
 
-#define	STR_RADIUS			"radius"
+#define	STR_BLUR			"radius"
 #define	STR_HYPERBOLIC		"hyperbolic"
 
 #define	STR_ASPECT			"aspect"
@@ -114,7 +114,7 @@ typedef struct ParamInfo {
 
 	A_FloatPoint	cenertPos;
 
-	PF_FpLong		radius;
+	PF_FpLong		blur;
 	PF_FpLong		hyperbolic;
 	PF_FpLong		angle;
 

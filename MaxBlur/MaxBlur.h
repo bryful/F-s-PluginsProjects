@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------------------
 /*
-	_sample_blur for VS2010
+	MaxBlur for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef _sample_blur_H
-#define _sample_blur_H
+#ifndef MaxBlur_H
+#define MaxBlur_H
 
 #include "../FsLibrary/Fs.h"
 #include "Fs_Target.h"
@@ -60,5 +60,5 @@ EffectMain(
 	PF_LayerDef		*output,
 	void			*extra);
 }
-#endif // _sample_blur_H
+#endif // MaxBlur_H
 

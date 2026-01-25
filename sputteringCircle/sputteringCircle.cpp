@@ -66,7 +66,7 @@ ParamsSetup (
 					1,				//スライダーの最小値 
 					800,			//スライダーの最大値
 					100,				//デフォルトの値
-					ID_RADIUS
+					ID_BLUR
 					);
 	//-----------------
 	AEFX_CLR_STRUCT(def);
@@ -233,9 +233,9 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 		infoP->pos.x = infoP->pos.x >>16;
 		infoP->pos.y = infoP->pos.y >>16;
 	}
-	ERR(ae->GetADD(ID_RADIUS,&infoP->radius));
+	ERR(ae->GetADD(ID_BLUR,&infoP->blur));
 	if (!err)
-		infoP->radius = ae->downScale(infoP->radius);
+		infoP->blur = ae->downScale(infoP->blur);
 	ERR(ae->GetFIXED(ID_ASPECT,&infoP->aspect));
 	ERR(ae->GetFIXED_PER2ONE(ID_LENGTH_SCALE,&infoP->length_scale));
 	ERR(ae->GetCHECKBOX(ID_ANCHOR_ENABLED,&infoP->anchor_enabled));

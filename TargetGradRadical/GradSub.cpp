@@ -156,7 +156,7 @@ static PF_Err RenderTargetGradRadialImpl(
     info.center_p = infoP->cenertPos;
     float ds_x = (float)ae->in_data->downsample_x.num / (float)ae->in_data->downsample_x.den;
 
-    info.radius = max(1.0f, ((float)infoP->radius* ds_x));
+    info.radius = max(1.0f, ((float)infoP->blur* ds_x));
     info.inv_aspect = 1.0f / max(0.01f, (float)infoP->aspect);
     info.invert = infoP->invert;
     info.feather = max(0.0f, min(1.0f, (float)infoP->feather));
