@@ -8,6 +8,7 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 <br>
 
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
+2026/01/25 更新しました。来月にもう１回更新を行う予定です。<br>
 <br>
 
 ## <b>**残念なお知らせ**</b><br>
