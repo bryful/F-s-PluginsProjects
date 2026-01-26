@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "MaxBlur.h"
+#include "InnerFlare.h"
 #include <string>
 
 
@@ -20,6 +20,15 @@ static PF_Err ParamsSetup (
 {
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
+	//----------------------------------------------------------------
+	//色の指定
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_COLOR(STR_COLOR,
+		0xff,
+		0xFF,
+		PF_MAX_CHAN8,
+		ID_COLOR
+	);
 	AEFX_CLR_STRUCT(def);
 	PF_ADD_SLIDER(STR_MINMAX,	//パラメータの名前
 		-1000, 		//数値入力する場合の最小値
@@ -51,7 +60,15 @@ static PF_Err ParamsSetup (
 		0,					//WANT_PHASE
 		ID_HYPERBOLIC
 	);
-
+	//----------------------------------------------------------------
+	//チェックボックス
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_CHECKBOX(STR_REVERCE,
+		"on",
+		FALSE,
+		0,
+		ID_REVERCE
+	);
 
 	//----------------------------------------------------------------
 	out_data->num_params = 	ID_NUM_PARAMS; 
@@ -92,9 +109,11 @@ QueryDynamicFlags(
 static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
+	ERR(ae->GetCOLOR(ID_COLOR, &infoP->color));
 	ERR(ae->GetADD(ID_MINMAX, &infoP->minmax));
 	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
 	ERR(ae->GetFLOAT(ID_HYPERBOLIC, &infoP->hyperbolic));
+	ERR(ae->GetCHECKBOX(ID_REVERCE, &infoP->reverce));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -102,8 +121,10 @@ static PF_Err
 Exec(CFsAE* ae, ParamInfo* infoP)
 {
 	PF_Err err = PF_Err_NONE;
-	ae->CopyInToOut(); // 元の画像をコピー
-	if ((infoP->blur <= 0)&&(infoP->minmax==0)) return err;
+	if ((infoP->blur <= 0) && (infoP->minmax == 0)) {
+		//ae->CopyInToOut(); // 元の画像をコピー
+		return err;
+	}
 
 	PF_WorldSuite2* ws2P;
 	PF_PixelFormat pixelFormat;
@@ -123,17 +144,20 @@ Exec(CFsAE* ae, ParamInfo* infoP)
 		ae->out_data
 	);
 	//ERR(TinyBlue(ae->in_data,ae->out_data,ae->output,infoP->radius));
-	TinyMultM(ae->in_data, ae->output, pixelFormat, iter_scope, FALSE);
+	ERR(AlphaCopyM(ae->in_data, ae->input, ae->output, pixelFormat, ae->suitesP,infoP->reverce));
+
 	if (infoP->minmax != 0) {
 		TinyMinMaxM(ae->in_data, ae->output, pixelFormat, iter_scope, infoP->minmax);
 	}
 	if (infoP->blur > 0) {
+		TinyMultM(ae->in_data, ae->output, pixelFormat, iter_scope, FALSE);
 		TinyBlueM(ae->in_data, ae->output, pixelFormat, iter_scope, infoP->blur);
+		TinyMultM(ae->in_data, ae->output, pixelFormat, iter_scope, TRUE);
 	}
-	TinyMultM(ae->in_data, ae->output, pixelFormat, iter_scope, TRUE);
 	if (infoP->hyperbolic != 0.0) {
 		HyperbolicAlphaM(ae->in_data, ae->output, pixelFormat, iter_scope, infoP->hyperbolic);
 	}
+	ERR(AlphaCopyRM(ae->in_data, ae->input, ae->output, pixelFormat, ae->suitesP, infoP->color,infoP->reverce));
 
 	return err;
 }

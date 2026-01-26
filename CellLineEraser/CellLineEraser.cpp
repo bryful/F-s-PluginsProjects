@@ -185,6 +185,9 @@ static PF_Err GetParams(CFsAE *ae, FillInfo*infoP)
 	ERR(ae->GetCHECKBOX(ID_KEEP_PIXELS,&infoP->KeepPixel));
 	ERR(ae->GetCHECKBOX(ID_FillUnknownColors, &infoP->FillUnknownColors));
 	ERR(ae->GetCOLOR(ID_Fill_Color, &infoP->GiveUpColor8));
+	infoP->GiveUpColor16 = CONV8TO16(infoP->GiveUpColor8);
+	infoP->GiveUpColor32 = CONV8TO32(infoP->GiveUpColor8);
+
 	ERR(ae->GetCHECKBOX(ID_MakeWhiteTransparent, &infoP->MakeWhiteTransparent));
 
 

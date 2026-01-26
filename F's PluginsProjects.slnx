@@ -87,6 +87,7 @@
     <Platform Project="x64" />
     <Build Solution="*|x86" Project="false" />
   </Project>
+  <Project Path="InnerFlare/Win/InnerFlare.vcxproj" />
   <Project Path="IroTore/Win/IroTore.vcxproj" Id="e3ea288e-34e1-44c1-be43-bb2f4f1f8344" />
   <Project Path="IroToreAdjacent/Win/IroToreAdjacent.vcxproj" Id="a03946f0-46ca-4b50-967f-95b8adc6402f" />
   <Project Path="LineDetection/Win/LineDetection.vcxproj" Id="52cb21fd-eb41-484f-b74f-0780d6ea017c" />
