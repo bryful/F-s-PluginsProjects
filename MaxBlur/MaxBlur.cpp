@@ -103,6 +103,10 @@ Exec(CFsAE* ae, ParamInfo* infoP)
 {
 	PF_Err err = PF_Err_NONE;
 	ae->CopyInToOut(); // 元の画像をコピー
+	PF_InData* in_data = ae->in_data;
+	infoP->blur = (A_long)((PF_FpLong)infoP->blur * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
+	infoP->minmax = (A_long)((PF_FpLong)infoP->minmax * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
+
 	if ((infoP->blur <= 0)&&(infoP->minmax==0)) return err;
 
 	PF_WorldSuite2* ws2P;

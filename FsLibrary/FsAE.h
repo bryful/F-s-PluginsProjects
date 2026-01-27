@@ -1793,8 +1793,8 @@ public:
 	A_long downScale(A_long v)
 	{
 		if (v == 0) return v;
-		 v = v * in_data->downsample_x.num / in_data->downsample_x.den;
-		 if (v==0) v =1;
+		 v = (A_long)((PF_FpLong)v * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den +0.5);
+		 //if (v==0) v =1;
 		 return v;
 	}
 	//--------------------------------------------------------------------

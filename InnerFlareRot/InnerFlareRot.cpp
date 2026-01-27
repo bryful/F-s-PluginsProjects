@@ -5,8 +5,9 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "MaxFast.h"
+#include "InnerFlareRot.h"
 #include <string>
+
 
 //-------------------------------------------------------------------------------------------------
 //AfterEffextsにパラメータを通達する
@@ -19,27 +20,69 @@ static PF_Err ParamsSetup (
 {
 	PF_Err			err = PF_Err_NONE;
 	PF_ParamDef		def;
-
-	
+	//----------------------------------------------------------------
+	//色の指定
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_SLIDER(STR_MAX,	//Name
-		-2000,				//VALID_MIN
-		2000,				//VALID_MAX
-		-200,				//SLIDER_MIN
-		200,				//SLIDER_MAX
+	PF_ADD_COLOR(STR_COLOR,
+		0xff,
+		0xFF,
+		PF_MAX_CHAN8,
+		ID_COLOR
+	);
+	//角度
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_ANGLE(STR_ROT, 0, ID_ROT);
+	//----------------------------------------------------------------
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_LENGTH,	//Name
+		-0,							//VALID_MIN
+		1000,						//VALID_MAX
+		0,							//SLIDER_MIN
+		100,						//SLIDER_MAX
+		1,							//CURVE_TOLERANCE
+		0,							//DFLT
+		1,							//PREC
+		0,							//DISP
+		0,							//WANT_PHASE
+		ID_LENGTH
+	);
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_OFFSET,	//Name
+		0,						//VALID_MIN
+		10,							//VALID_MAX
+		1,							//SLIDER_MIN
+		5,							//SLIDER_MAX
+		1,							//CURVE_TOLERANCE
+		1,							//DFLT
+		1,							//PREC
+		2,							//DISP
+		0,							//WANT_PHASE
+		ID_OFFSET
+	);
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_SLIDER(STR_BLUR,	//パラメータの名前
+		0, 		//数値入力する場合の最小値
+		1000,		//数値入力する場合の最大値
+		0,		//スライダーの最小値 
+		100,		//スライダーの最大値
+		0,		//デフォルトの値
+		ID_BLUR
+	);
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_FLOAT_SLIDER(STR_HYPERBOLIC,	//Name
+		-10,				//VALID_MIN
+		50,					//VALID_MAX
+		-2,					//SLIDER_MIN
+		10,					//SLIDER_MAX
+		1,					//CURVE_TOLERANCE
 		0,					//DFLT
-		ID_MAX
+		1,					//PREC
+		0,					//DISP
+		0,					//WANT_PHASE
+		ID_HYPERBOLIC
 	);
-	/*
-	//ポップアップメニュー
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_POPUP(STR_DIR1,
-		3,	//メニューの数
-		1,	//デフォルト
-		STR_DIR2,
-		ID_DIR
-	);
-	*/
+	//----------------------------------------------------------------
+
 	//----------------------------------------------------------------
 	out_data->num_params = 	ID_NUM_PARAMS; 
 
@@ -79,37 +122,54 @@ QueryDynamicFlags(
 static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
-
-	//
-	ERR(ae->GetADD(ID_MAX, &infoP->max));
-	if (infoP->max < 0) {
-		infoP->max *= -1;
-		infoP->maxMinus = TRUE;
-	}
-	else {
-		infoP->maxMinus = FALSE;
-	}
-	//ERR(ae->GetPOPUP(ID_DIR, &infoP->dir));
-
+	ERR(ae->GetCOLOR(ID_COLOR, &infoP->color));
+	PF_Fixed	fixedRot = 0;
+	ERR(ae->GetANGLE(ID_ROT, &fixedRot));
+	infoP->rot = FIX2FLT(fixedRot);
+	ERR(ae->GetFLOAT(ID_LENGTH, &infoP->length));
+	ERR(ae->GetFLOAT(ID_OFFSET, &infoP->offset));
+	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
+	ERR(ae->GetFLOAT(ID_HYPERBOLIC, &infoP->hyperbolic));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
 Exec(CFsAE* ae, ParamInfo* infoP)
 {
-	PF_Err	err = PF_Err_NONE;
-	
-	ae->CopyInToOut();
+	PF_Err err = PF_Err_NONE;
+
 	PF_InData* in_data = ae->in_data;
-	infoP->max = (A_long)((PF_FpLong)infoP->max * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
+	infoP->blur = (A_long)((PF_FpLong)infoP->blur * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
+	infoP->length = ((PF_FpLong)infoP->length * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den);
 
-	if (infoP->max == 0) {
-		return err;
+	PF_WorldSuite2* ws2P;
+	PF_PixelFormat pixelFormat;
+	AEFX_AcquireSuite(ae->in_data,
+		ae->out_data,
+		kPFWorldSuite,
+		kPFWorldSuiteVersion2,
+		"Couldn't load suite.",
+		(void**)&(ws2P));
+
+	ws2P->PF_GetPixelFormat(ae->output, &pixelFormat);
+
+	AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scope(
+		ae->in_data,
+		kPFIterate8Suite,
+		kPFIterate8SuiteVersion1,
+		ae->out_data
+	);
+
+	ERR(AlphaCopyDDM(ae->in_data, ae->input, ae->output, pixelFormat, ae->suitesP,infoP->rot, infoP->length, infoP->offset));
+	if (infoP->blur > 0) {
+		TinyMultM(ae->in_data, ae->output, pixelFormat, iter_scope, FALSE);
+		TinyBlueM(ae->in_data, ae->output, pixelFormat, iter_scope, infoP->blur);
+		TinyMultM(ae->in_data, ae->output, pixelFormat, iter_scope, TRUE);
 	}
-
-	MaxFast_Sub(ae, infoP->max,infoP->maxMinus);
-	
-
+	if (infoP->hyperbolic != 0.0) {
+		HyperbolicAlphaM(ae->in_data, ae->output, pixelFormat, iter_scope, infoP->hyperbolic);
+	}
+	ERR(AlphaCopyRM(ae->in_data, ae->input, ae->output, pixelFormat, ae->suitesP, infoP->color,FALSE));
 	return err;
 }
 
