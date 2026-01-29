@@ -4,7 +4,7 @@
     <BuildDate>$([System.DateTime]::Now.ToString("yyyyMMdd"))</BuildDate>
     
     <!-- Debug x64: After Effectsのプラグインフォルダに直接出力 -->
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore\Fs_Plugins_Debug\</OutDir>
+    <!-- <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore\Fs_Plugins_Debug\</OutDir> -->
     
     <!-- Release x64: 日付付きフォルダに出力 -->
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Fs_Plugins_$(BuildDate)\</OutDir>

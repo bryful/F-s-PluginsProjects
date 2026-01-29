@@ -3,7 +3,7 @@
   <!-- すべての構成に共通の設定 -->
   <PropertyGroup>
     <!-- 警告レベル 4 を設定 -->
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
     
     <!-- 警告をエラーとして扱わない -->
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
@@ -31,7 +31,7 @@
            4100: unreferenced formal parameter
            4458: declaration hides class member
            4456: declaration hides previous local declaration -->
-      <DisableSpecificWarnings>4103;4189;4505;4996;4100;4458;4456</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4103;4189;4505;4996;4100;4458;4456</DisableSpecificWarnings>
       
       <!-- セキュリティ警告を抑制 -->
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>

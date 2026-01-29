@@ -47,7 +47,7 @@ Max_SubH(
         FloatType maaxV = (((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha /maxChan;
 
         for (A_long x = 1; x < w; x++) {
-            FloatType v = (((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114)) + (FloatType)outP[x].alpha/maxChan;
+            FloatType v = (((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha/maxChan;
             if (v > maaxV) { maax = outP[x]; maaxV = v; }
         }
         for (A_long x = 0; x < w; x++) outP[x] = maax;

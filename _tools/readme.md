@@ -79,3 +79,26 @@ aeVersion.exeはプラグインのバージョン値を計算するアプリで�
 ```
 
 
+## WarningLevel.ps1
+WarningLevel.ps1はVisual Studioのプロジェクトファイル(*.vcxproj)のWarning Levelを一括変更するPowerShellスクリプトです。<br>
+現在はLevel3に変更する機能のみ実装しています。必要に応じて書き換えてください<br>
+
+## outDir.ps1
+Debugの出力ディレクトリを一括変更するPowerShellスクリプトです。<br>
+現在 "..\..\Fs_Plugins_debug\"が設定されているので必要に応じて書き換えてください<br>
+
+## PowerShellスクリプトの実行について
+PowerShellスクリプトを実行するには、PowerShellの実行ポリシーを変更する必要があります。<br>
+以下のコマンドをPowerShellで実行してください。<br>
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+```
+この設定はPowerShellを閉じると元に戻ります。
+僕は面倒なので基本設定にしてますが、業務に使うPCでは上記の手順を踏んだほうが良いです。<br>
+<br>
+F's Pluginsのソリューションのフォルダをエクスプローラーで開き、URL欄に"powershell"と入力してEnterを押すと、そのフォルダでPowerShellが起動します。<br>
+```
+./_tools/WarningLevel.ps1
+```
+./_と打ち込んでTabキーで補完できます。
+
