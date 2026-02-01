@@ -101,6 +101,8 @@ CC2019用からgithubでバイナリーの配布も行います。
 <br>
 
 # 変更点
+2026/0２/01<br>
+とりあえず今回の更新はこれで最後にします。<br>
 2025/07/21<br>
 プラグインファイル名の規則を変更。詳細は添付ファイル内の「必ず読んでください.txt」を見てください。<br>
 <br>
@@ -163,7 +165,7 @@ SDKはCC2025を使用しています。
 
 こんな感じです。
 
-        /AfterEffectsSDK CC2019
+        /AfterEffectsSDK
         └─Examples
             ├─AEGP
             ├─Effect
@@ -191,13 +193,10 @@ SDKはCC2025を想定しています。
 F's PluginsProjectsフォルダを各バージョンのExamplesフォルダに移動すればできます。
 
 
-構成でPelease/Relese-MTとありますが、ランタイムライブラリのスイッチ(/MT/MD)が違うものです。それ以外は同じです。
-PluginのBinaryはoutAEXに書き出されます。
-
 PluginのBinaryはAfter EffectsのPlug-insへコピーしてください。
 
 例)
-"C:\Program Files\Adobe\Adobe After Effects CC 2040\Support Files\Plug-ins"
+"C:\Program Files\Adobe\Adobe After Effects CC 2024\Support Files\Plug-ins"
 
 # デバッグ
 
