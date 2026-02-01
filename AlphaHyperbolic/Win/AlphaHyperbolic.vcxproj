@@ -177,6 +177,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4201;4103;4189;4505;4996;4100;4458;4456;4244</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -290,6 +291,7 @@
       </DebugInformationFormat>
       <CompileAs>Default</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4201;4103;4189;4505;4996;4100;4458;4456;4244</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <Culture>0x0411</Culture>

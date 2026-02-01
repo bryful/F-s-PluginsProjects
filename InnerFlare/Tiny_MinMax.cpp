@@ -44,10 +44,10 @@ Max_SubH(
     // 1. 半径が画像幅以上の場合は全画面最大値を計算
     if (radius >= w) {
         PixelType maax = outP[0];
-        FloatType maaxV = (((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha /maxChan;
+        FloatType maaxV = (FloatType)((((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha /maxChan);
 
         for (A_long x = 1; x < w; x++) {
-            FloatType v = (((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114)) + (FloatType)outP[x].alpha/maxChan;
+            FloatType v = (FloatType)((((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha / maxChan);
             if (v > maaxV) { maax = outP[x]; maaxV = v; }
         }
         for (A_long x = 0; x < w; x++) outP[x] = maax;
@@ -69,7 +69,7 @@ Max_SubH(
     for (A_long i = 0; i < w; i++) {
 
         line[i] = outP[i];
-        lineLevel[i] = (((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114))*10 + (FloatType)line[i].alpha/maxChan;
+        lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114))*10 + (FloatType)line[i].alpha/maxChan);
     }
 
     // VHGアルゴリズム
@@ -199,10 +199,10 @@ Min_SubH(
     // 1. 半径が画像幅以上の場合は全画面最小値を計算
     if (radius >= w) {
         PixelType miin = outP[0];
-        FloatType miinV = (((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10 + (FloatType)miin.alpha/maxChan;
+        FloatType miinV = (FloatType)((((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10 + (FloatType)miin.alpha/maxChan);
 
         for (A_long x = 1; x < w; x++) {
-            FloatType v = (((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha/maxChan;
+            FloatType v = (FloatType)((((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha/maxChan);
             if (v < miinV) { miin = outP[x]; miinV = v; }  // < に変更
         }
         for (A_long x = 0; x < w; x++) outP[x] = miin;
@@ -221,7 +221,7 @@ Min_SubH(
 
     for (A_long i = 0; i < w; i++) {
         line[i] = outP[i];
-        lineLevel[i] = (((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114))*10 + (FloatType)line[i].alpha/maxChan;
+        lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114))*10 + (FloatType)line[i].alpha/maxChan);
     }
 
     // VHGアルゴリズム（最小値用に修正）
@@ -349,11 +349,11 @@ Max_SubV(
     // 1. 半径が画像高さ以上の場合は全列最大値を計算
     if (radius >= h) {
         PixelType maax = *((PixelType*)infoP->world->data + x);
-        FloatType maaxV = (((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha/maxChan;
+        FloatType maaxV = (FloatType)((((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha/maxChan);
 
         for (A_long y = 1; y < h; y++) {
             PixelType* p = (PixelType*)infoP->world->data + (y * wt + x);
-            FloatType v = (((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114)) + (FloatType)p->alpha / maxChan;
+            FloatType v = (FloatType)((((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114))*10 + (FloatType)p->alpha / maxChan);
             if (v > maaxV) { maax = *p; maaxV = v; }
         }
         for (A_long y = 0; y < h; y++) {
@@ -379,7 +379,7 @@ Max_SubV(
     // 3. 列データをコピー
     for (A_long y = 0; y < h; y++) {
         line[y] = *((PixelType*)infoP->world->data + (y * wt + x));
-        lineLevel[y] = (((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114)) + (FloatType)line[y].alpha/maxChan;
+        lineLevel[y] = (FloatType)((((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114)) + (FloatType)line[y].alpha/maxChan);
     }
 
     // 4. VHGアルゴリズム
@@ -508,11 +508,11 @@ Min_SubV(
     // 1. 半径が画像高さ以上の場合は全列最小値を計算
     if (radius >= h) {
         PixelType miin = *((PixelType*)infoP->world->data + x);
-        FloatType miinV = (((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10+ (FloatType)miin.alpha /maxChan;
+        FloatType miinV = (FloatType)((((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10+ (FloatType)miin.alpha /maxChan);
 
         for (A_long y = 1; y < h; y++) {
             PixelType* p = (PixelType*)infoP->world->data + (y * wt + x);
-            FloatType v = (((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114))*10 + (FloatType)p->alpha/maxChan;
+            FloatType v = (FloatType)((((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114))*10 + (FloatType)p->alpha/maxChan);
             if (v < miinV) { miin = *p; miinV = v; }  // < に変更
         }
         for (A_long y = 0; y < h; y++) {
@@ -533,7 +533,7 @@ Min_SubV(
     // 3. 列データをコピー
     for (A_long y = 0; y < h; y++) {
         line[y] = *((PixelType*)infoP->world->data + (y * wt + x));
-        lineLevel[y] = (((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114))*10 + (FloatType)line[y].alpha/maxChan;
+        lineLevel[y] = (FloatType)((((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114))*10 + (FloatType)line[y].alpha/maxChan);
     }
 
     // 4. VHGアルゴリズム（最小値用に修正）

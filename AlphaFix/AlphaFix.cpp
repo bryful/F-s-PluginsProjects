@@ -78,22 +78,14 @@ static PF_Err ParamsSetup (
 	PF_LayerDef		*output)
 {
 	PF_Err			err = PF_Err_NONE;
-	PF_ParamDef		def;
-
-	//----------------------------------------------------------------
-	//色の指定
-	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
-	PF_ADD_COLOR(	STR_BASE_COLOR, 
-					0x00,
-					0x00,
-					0x00,
-					ID_BASE_COLOR
-					);
-	
-
-	//----------------------------------------------------------------
-	out_data->num_params = 	ID_NUM_PARAMS; 
+	CParamsSetup cs(in_data, out_data);
+	err = cs.AddColor(
+		STR_BASE_COLOR,
+		{ 255,0,0,0 },
+		ID_BASE_COLOR,
+		PF_ParamFlag_NONE
+	);
+	cs.Finalize();
 
 	return err;
 }
@@ -121,95 +113,61 @@ QueryDynamicFlags(
 	return err;
 }
 
-//-----------------------------------------------------------------------------------
-static PF_Err 
-FilterImage8 (
-	refconType		refcon, 
-	A_long		xL, 
-	A_long		yL, 
-	PF_Pixel8	*inP, 
-	PF_Pixel8	*outP)
-{
-	PF_Err			err = PF_Err_NONE;
-	
-	ParamInfo8 *	niP		= reinterpret_cast<ParamInfo8*>(refcon);
-					
-	if (niP){
 
-		if ( inP->alpha<=0){
-			outP->alpha	= niP->base_color.alpha;
-			outP->red	= niP->base_color.red;
-			outP->green	= niP->base_color.green;
-			outP->blue	= niP->base_color.blue;
-		}else{
-			outP->alpha = PF_MAX_CHAN8;
-			outP->red	= (niP->base_color.red   * (PF_MAX_CHAN8 - inP->alpha) + inP->red   * inP->alpha ) /PF_MAX_CHAN8;
-			outP->green	= (niP->base_color.green * (PF_MAX_CHAN8 - inP->alpha) + inP->green * inP->alpha ) /PF_MAX_CHAN8;
-			outP->blue	= (niP->base_color.blue  * (PF_MAX_CHAN8 - inP->alpha) + inP->blue  * inP->alpha ) /PF_MAX_CHAN8;
+// 型に応じた構造体を選択するヘルパー（Traits）
+template<typename T> struct ParamTraits;
+template<> struct ParamTraits<PF_Pixel8> { using ParamType = ParamInfo8; };
+template<> struct ParamTraits<PF_Pixel16> { using ParamType = ParamInfo16; };
+template<> struct ParamTraits<PF_PixelFloat> { using ParamType = ParamInfo32; };
+
+template <typename T>
+static PF_Err
+FilterImageGeneric(
+	void* refcon,
+	A_long xL, A_long yL,
+	T* inP, T* outP)
+{
+	using InfoType = typename ParamTraits<T>::ParamType;
+	InfoType* niP = reinterpret_cast<InfoType*>(refcon);
+
+	if (!niP) return PF_Err_BAD_CALLBACK_PARAM;
+
+	if (inP->alpha <= 0) {
+		// アルファが0なら背景色をそのまま出力
+		*outP = niP->base_color;
+	}
+	else {
+		if constexpr (std::is_same_v<T, PF_PixelFloat>) {
+			// --- 32bit Float パス (Straight入力対応) ---
+			float alphaF = inP->alpha;
+			float invAlpha = 1.0f - alphaF;
+
+			// 合成結果は不透明（背景と合成するため）
+			outP->alpha = 1.0f;
+
+			// 背景色 * (1 - Alpha) + 前景色 * Alpha
+			outP->red = (niP->base_color.red * invAlpha) + (inP->red * alphaF);
+			outP->green = (niP->base_color.green * invAlpha) + (inP->green * alphaF);
+			outP->blue = (niP->base_color.blue * invAlpha) + (inP->blue * alphaF);
+		}
+		else {
+			// --- 8/16bit 整数パス ---
+			A_long max_chan = (std::is_same_v<T, PF_Pixel16>) ? PF_MAX_CHAN16 : PF_MAX_CHAN8;
+			A_long alpha = static_cast<A_long>(inP->alpha);
+			A_long invAlpha = max_chan - alpha;
+
+			outP->alpha = static_cast<decltype(T::alpha)>(max_chan);
+
+			// 丸め誤差を最小限にするため、最後に除算
+			outP->red = static_cast<decltype(T::red)>((niP->base_color.red * invAlpha + inP->red * alpha) / max_chan);
+			outP->green = static_cast<decltype(T::green)>((niP->base_color.green * invAlpha + inP->green * alpha) / max_chan);
+			outP->blue = static_cast<decltype(T::blue)>((niP->base_color.blue * invAlpha + inP->blue * alpha) / max_chan);
 		}
 	}
-	return err;
+	return PF_Err_NONE;
 }
 //-----------------------------------------------------------------------------------
-static PF_Err 
-FilterImage16 (
-	refconType		refcon, 
-	A_long		xL, 
-	A_long		yL, 
-	PF_Pixel16	*inP, 
-	PF_Pixel16	*outP)
-{
-	PF_Err			err = PF_Err_NONE;
-	
-	ParamInfo16 *	niP		= reinterpret_cast<ParamInfo16*>(refcon);
-					
-	if (niP){
 
-		if ( inP->alpha<=0){
-			outP->alpha	= niP->base_color.alpha;
-			outP->red	= niP->base_color.red;
-			outP->green	= niP->base_color.green;
-			outP->blue	= niP->base_color.blue;
-		}else{
-
-			outP->alpha = PF_MAX_CHAN16;
-			outP->red	= (niP->base_color.red   * (PF_MAX_CHAN16 - inP->alpha) + inP->red   * inP->alpha ) /PF_MAX_CHAN16;
-			outP->green	= (niP->base_color.green * (PF_MAX_CHAN16 - inP->alpha) + inP->green * inP->alpha ) /PF_MAX_CHAN16;
-			outP->blue	= (niP->base_color.blue  * (PF_MAX_CHAN16 - inP->alpha) + inP->blue  * inP->alpha ) /PF_MAX_CHAN16;
-		}
-	}
-	return err;
-}
-
-//-----------------------------------------------------------------------------------
-static PF_Err 
-FilterImage32 (
-	refconType		refcon, 
-	A_long		xL, 
-	A_long		yL, 
-	PF_PixelFloat	*inP, 
-	PF_PixelFloat	*outP)
-{
-	PF_Err			err = PF_Err_NONE;
-	
-	ParamInfo32 *	niP		= reinterpret_cast<ParamInfo32*>(refcon);
-					
-	if (niP){
-
-		if ( inP->alpha<=0){
-			outP->alpha	= niP->base_color.alpha;
-			outP->red	= niP->base_color.red;
-			outP->green	= niP->base_color.green;
-			outP->blue	= niP->base_color.blue;
-		}else{
-			outP->alpha = 1.0;
-			outP->red	= (PF_FpShort)(niP->base_color.red   * (1.0 - inP->alpha) + inP->red   * inP->alpha );
-			outP->green	= (PF_FpShort)(niP->base_color.green * (1.0 - inP->alpha) + inP->green * inP->alpha );
-			outP->blue	= (PF_FpShort)(niP->base_color.blue  * (1.0 - inP->alpha) + inP->blue  * inP->alpha );
-		}
-	}
-	return err;
-}
 //-------------------------------------------------------------------------------------------------
 static PF_Err GetParams(CFsAE *ae, ParamInfo8 *infoP)
 {
@@ -229,15 +187,15 @@ static PF_Err
 	case PF_PixelFormat_ARGB128:
 		ParamInfo32 info32;
 		info32.base_color = CONV8TO32(infoP->base_color);
-		ERR( ae->iterate32((refconType)&info32,FilterImage32));
+		ERR( ae->iterate32((refconType)&info32, FilterImageGeneric<PF_PixelFloat>));
 		break;
 	case PF_PixelFormat_ARGB64:
 		ParamInfo16 info16;
 		info16.base_color = CONV8TO16(infoP->base_color);
-		ERR( ae->iterate16((refconType)&info16,FilterImage16));
+		ERR( ae->iterate16((refconType)&info16, FilterImageGeneric<PF_Pixel16>));
 		break;
 	case PF_PixelFormat_ARGB32:
-		ERR( ae->iterate8((refconType)infoP,FilterImage8));
+		ERR( ae->iterate8((refconType)infoP, FilterImageGeneric<PF_Pixel>));
 		break;
 	}
 

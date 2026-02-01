@@ -172,6 +172,7 @@
       <Filter>Header Files\AE\N</Filter>
     </ClInclude>
     <ClInclude Include="..\Fs_Target.h" />
+    <ClInclude Include="..\..\FsLibrary\CParamsSetup.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

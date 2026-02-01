@@ -14,6 +14,7 @@
 
 
 #include "../FsLibrary/FsAE.h"
+#include "../FsLibrary/CParamsSetup.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
@@ -41,6 +42,7 @@ enum {
 	ID_POPUP,
 	ID_POINT,
 	ID_TOPIC_END,
+	ID_BUTTON,
 
 	ID_NUM_PARAMS
 };
@@ -50,7 +52,7 @@ enum {
 #define	STR_G				"G"
 #define	STR_B				"B"
 #define	STR_NOISE			"noise"
-#define	STR_NOISE_FRAME1	"frame rander"
+#define	STR_NOISE_FRAME1	"frame randerm"
 #define	STR_NOISE_FRAME2	"on"
 #define	STR_NOISE_OFFSET	"noise offset"
 
@@ -72,6 +74,8 @@ enum {
 #define	STR_POPUP_DFLT		1
 #define	STR_POINT			"Point"
 
+#define	STR_BUTTON1			"button"
+#define	STR_BUTTON2			"push"
 
 //UIのパラメータ
 typedef struct ParamInfo {

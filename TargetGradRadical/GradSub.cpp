@@ -162,7 +162,7 @@ static PF_Err RenderTargetGradRadialImpl(
     info.feather = max(0.0f, min(1.0f, (float)infoP->feather));
 	info.isAll = infoP->targetColorMode == 3 ? TRUE : FALSE;
     // 角度をラジアンに変換 (AEの角度は時計回りなので逆回転させる)
-    float rad = infoP->angle * 0.01745329f;
+    float rad = (float)infoP->angle * 0.01745329f;
     info.cos_q = cosf(-rad);
     info.sin_q = sinf(-rad);
 
@@ -170,7 +170,7 @@ static PF_Err RenderTargetGradRadialImpl(
     info.grad16 = CONV8TO16(infoP->gradColor);
     info.grad32 = CONV8TO32(infoP->gradColor);
 
-	info.hyperbolic = infoP->hyperbolic; // 双曲線の曲がり具合の係数（必要に応じて調整可能）
+	info.hyperbolic = (float)infoP->hyperbolic; // 双曲線の曲がり具合の係数（必要に応じて調整可能）
     if (!err) {
         PF_Point			origin;
         origin.h = (A_short)ae->in_data->output_origin_x;

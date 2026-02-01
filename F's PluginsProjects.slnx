@@ -101,7 +101,6 @@
   <Project Path="Max_Kasumi/Win/Max_Kasumi.vcxproj" Id="81dd7657-558f-48cc-8f7c-a1c10d68e7f8" />
   <Project Path="Mosaic/Win/Mosaic.vcxproj" Id="f69a4de5-0611-445f-ac50-32ce40dd5545" />
   <Project Path="NamiGarasu/Win/NamiGarasu.vcxproj" Id="3af9c08c-1de7-4b2c-8980-b34a0a308454" />
-  <Project Path="NFsSkelton/Win/NFsSkelton.vcxproj" Id="4f34a43d-cf5b-4672-84ef-bdc105f68a6e" />
   <Project Path="NoiseHiLo_Alpha/Win/NoiseHiLo_Alpha.vcxproj" Id="2f37f615-6971-4e25-a7e7-f84c9667fc17" />
   <Project Path="NoiseHiLo_RGB/Win/NoiseHiLo_RGB.vcxproj" Id="ebf5387a-7397-47ae-bf29-adcf3650796c" />
   <Project Path="OpticalDiffusion/Win/OpticalDiffusion.vcxproj" Id="eeafb167-bd4d-4cd8-bb63-083c667979d4" />

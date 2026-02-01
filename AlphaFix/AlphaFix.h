@@ -10,6 +10,7 @@
 #ifndef AlphaFix_H
 #define AlphaFix_H
 
+
 #include "Fs_Target.h"
 
 #include "AEConfig.h"
@@ -25,6 +26,8 @@
 #include "String_Utils.h"
 #include "Param_Utils.h"
 #include "Smart_Utils.h"
+#include <type_traits>
+
 
 #if defined(PF_AE100_PLUG_IN_VERSION)
 	#include "AEFX_SuiteHelper.h"
@@ -44,6 +47,7 @@
 #define	STR_BASE_COLOR	"背景色"
 
 #include "../FsLibrary/FsAE.h"
+#include "../FsLibrary/CParamsSetup.h"
 	
 //プラグイン独自のパラメータを集めた構造体
 typedef struct ParamInfo8{
@@ -65,6 +69,8 @@ enum {
 	ID_BASE_COLOR,	//
 	ID_NUM_PARAMS
 	};
+
+
 
 //-----------------------------------------------------------------------------------
 inline	PF_Pixel16 toPixel16(PF_Pixel s)

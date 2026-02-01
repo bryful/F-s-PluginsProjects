@@ -77,7 +77,7 @@ static PF_Err SimpleMaskIteratorF(
 
     // 3. 双曲線（Hyperbolic）階調変換の適用
     // info->hyperbolic が 0.0 の時はリニア、正の値で急峻なカーブになります
-    float k = info->hyperbolic;
+    float k = (float)info->hyperbolic;
     float v = ((1.0f + k) * t) / (1.0f + k * t);
 
     // 4. 反転設定

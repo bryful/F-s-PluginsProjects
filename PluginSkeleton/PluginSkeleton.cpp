@@ -7,7 +7,9 @@
 
 #include "PluginSkeleton.h"
 
-
+#ifndef PF_CLAMP
+#define PF_CLAMP(VAL, MIN, MAX) ((VAL) < (MIN) ? (MIN) : ((VAL) > (MAX) ? (MAX) : (VAL)))
+#endif
 //-------------------------------------------------------------------------------------------------
 //AfterEffextsにパラメータを通達する
 //Param_Utils.hを参照のこと
@@ -18,189 +20,161 @@ static PF_Err ParamsSetup (
 	PF_LayerDef		*output)
 {
 	PF_Err			err = PF_Err_NONE;
-	PF_ParamDef		def;
 
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_R,	//Name
-						-2,						//VALID_MIN
-						2,						//VALID_MAX
-						-1,						//SLIDER_MIN
-						1,						//SLIDER_MAX
-						1,						//CURVE_TOLERANCE
-						0,						//DFLT
-						1,						//PREC
-						0,						//DISP
-						0,						//WANT_PHASE
-						ID_R
-						);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_G,	//Name
-						-2,						//VALID_MIN
-						2,						//VALID_MAX
-						-1,						//SLIDER_MIN
-						1,						//SLIDER_MAX
-						1,						//CURVE_TOLERANCE
-						0,						//DFLT
-						1,						//PREC
-						0,						//DISP
-						0,						//WANT_PHASE
-						ID_G
-						);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_B,	//Name
-						-2,						//VALID_MIN
-						2,						//VALID_MAX
-						-1,						//SLIDER_MIN
-						1,						//SLIDER_MAX
-						1,						//CURVE_TOLERANCE
-						0,						//DFLT
-						1,						//PREC
-						0,						//DISP
-						0,						//WANT_PHASE
-						ID_B
-						);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_NOISE,	//Name
-						0,							//VALID_MIN
-						1,						//VALID_MAX
-						0,							//SLIDER_MIN
-						1,							//SLIDER_MAX
-						0,							//CURVE_TOLERANCE
-						0,							//DFLT
-						1,							//PREC
-						0,							//DISP
-						0,							//WANT_PHASE
-						ID_FLOAT_SLIDER
-						);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	def.flags		=	PF_ParamFlag_SUPERVISE	|
-					PF_ParamFlag_CANNOT_TIME_VARY |
-					PF_ParamFlag_CANNOT_INTERP;
-	PF_ADD_CHECKBOX(STR_NOISE_FRAME1,
-					STR_NOISE_FRAME2,
-					TRUE,
-					0,
-					ID_NOISE_FRAME
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	def.ui_flags = PF_PUI_DISABLED;
-	PF_ADD_SLIDER(	STR_NOISE_OFFSET,	//パラメータの名前
-					-30000, 		//数値入力する場合の最小値
-					30000,			//数値入力する場合の最大値
-					0,				//スライダーの最小値 
-					300,			//スライダーの最大値
-					10,				//デフォルトの値
-					ID_NOISE_OFFSET
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	def.flags		=	PF_ParamFlag_SUPERVISE	|
-					PF_ParamFlag_CANNOT_TIME_VARY |
-					PF_ParamFlag_CANNOT_INTERP;
-	PF_ADD_CHECKBOX(STR_HIDDEN_ON1,
-					STR_HIDDEN_ON2,
-					FALSE,
-					0,
-					ID_HIDDEN_ON
-					);
+	CParamsSetup cs(in_data, out_data);
+
+	cs.AddFloatSilder(	// R
+		STR_R,			//Name
+		-2,				//VALID_MIN
+		2,				//VALID_MAX
+		-1,				//SLIDER_MIN
+		1,				//SLIDER_MAX
+		0,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_R
+	);
+	cs.AddFloatSilder(	// R
+		STR_G,			//Name
+		-2,				//VALID_MIN
+		2,				//VALID_MAX
+		-1,				//SLIDER_MIN
+		1,				//SLIDER_MAX
+		0,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_G
+	);
+	cs.AddFloatSilder(	// R
+		STR_B,			//Name
+		-2,				//VALID_MIN
+		2,				//VALID_MAX
+		-1,				//SLIDER_MIN
+		1,				//SLIDER_MAX
+		0,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_B
+	);
+	cs.AddFloatSilder(	// R
+		STR_NOISE,			//Name
+		0,				//VALID_MIN
+		1,				//VALID_MAX
+		0,				//SLIDER_MIN
+		1,				//SLIDER_MAX
+		0,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_NOISE
+	);
+		
+	cs.AddCheckBox(	// noise frame
+		STR_NOISE_FRAME1,
+		STR_NOISE_FRAME2,
+		TRUE,
+		ID_NOISE_FRAME,
+		PF_ParamFlag_SUPERVISE |
+		PF_ParamFlag_CANNOT_TIME_VARY |
+		PF_ParamFlag_CANNOT_INTERP
+	);
+	cs.AddSlider(	// noise offset
+		STR_NOISE_OFFSET,	//パラメータの名前
+		-30000, 		//数値入力する場合の最小値
+		30000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		300,			//スライダーの最大値
+		10,				//デフォルトの値
+		ID_NOISE_OFFSET,
+		PF_ParamFlag_NONE,
+		PF_PUI_DISABLED
+	);
+	cs.AddCheckBox(
+		STR_HIDDEN_ON1,
+		STR_HIDDEN_ON2,
+		FALSE,
+		ID_HIDDEN_ON,
+		PF_ParamFlag_SUPERVISE |
+		PF_ParamFlag_CANNOT_TIME_VARY |
+		PF_ParamFlag_CANNOT_INTERP
+	);
+	cs.AddTopic(STR_TOPIC, ID_TOPIC, PF_ParamFlag_START_COLLAPSED);
+	cs.AddColor(	// color
+		STR_COLOR, 
+		{ 0xFF, 0xFF, 0xFF, 0xFF },
+		ID_COLOR,
+		PF_ParamFlag_CANNOT_TIME_VARY//これをつけるとキーフレームが撃てなくなる
+	);
+	//cs.SetParamFlags();
+	cs.AddSlider(	// add slider
+		STR_ADD_SLIDER,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		100,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,			//スライダーの最大値
+		10,				//デフォルトの値
+		ID_ADD_SLIDER,
+		PF_ParamFlag_CANNOT_TIME_VARY//これをつけるとキーフレームが撃てなくなる
+	);
+	cs.AddFixedSlider(		STR_FIXED_SLIDER,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		100,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,			//スライダーの最大値
+		10,				//デフォルトの値
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		ID_FIXED_SLIDER,
+		PF_ParamFlag_CANNOT_TIME_VARY//これをつけるとキーフレームが撃てなくなる
+	);
+	cs.AddFloatSilder(	// float slider
+		STR_FLOAT_SLIDER,	//パラメータの名前
+		-10000, 				//数値入力する場合の最小値
+		10000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		1000,			//スライダーの最大値
+		500,				//デフォルトの値
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_FLOAT_SLIDER
+	);
+	cs.AddCheckBox(	// checkbox
+		STR_CHECKBOX1,
+		STR_CHECKBOX2,
+		FALSE,
+		ID_CHECKBOX
+	);
+	cs.AddAngle(	// angle
+		STR_ANGLE,
+		0,
+		ID_ANGLE
+	);
+	cs.AddPopup(		STR_POPUP,
+		STR_POPUP_COUNT,
+		STR_POPUP_DFLT,
+		STR_POPUP_ITEMS,
+		ID_POPUP
+	);
+	cs.AddPoint(
+		STR_POINT,
+		50, 
+		50,
+		FALSE,
+		ID_POINT
+	);
+	cs.EndTopic(ID_TOPIC_END);
+	cs.AddButton(	// button
+		STR_BUTTON1,
+		STR_BUTTON2,
+		ID_BUTTON,
+		PF_ParamFlag_SUPERVISE
+	);
 	
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);	
-	def.flags 	= 	PF_ParamFlag_START_COLLAPSED;	//これをつけると表示時に開いた状態になる
-	PF_ADD_TOPIC(STR_TOPIC, ID_TOPIC);
-	//----------------------------------------------------------------
-	//色の指定
-	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
-	PF_ADD_COLOR(	STR_COLOR, 
-					0xFF,
-					0xFF,
-					0xFF,
-					ID_COLOR
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	def.flags = PF_ParamFlag_CANNOT_INTERP;	//キーフレームの自動保管を停止する
-	PF_ADD_SLIDER(	STR_ADD_SLIDER,	//パラメータの名前
-					0, 				//数値入力する場合の最小値
-					100,			//数値入力する場合の最大値
-					0,				//スライダーの最小値 
-					100,			//スライダーの最大値
-					10,				//デフォルトの値
-					ID_ADD_SLIDER
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	//def.flags = PF_ParamFlag_CANNOT_TIME_VARY;//これをつけるとキーフレームが撃てなくなる
-	PF_ADD_FIXED(	STR_FIXED_SLIDER,	//パラメータの名前
-					0, 				//数値入力する場合の最小値
-					100,			//数値入力する場合の最大値
-					0,				//スライダーの最小値 
-					100,			//スライダーの最大値
-					100,			//デフォルトの値
-					1,				//数値表示に関するフラグ 
-					0,
-					0,
-					ID_FIXED_SLIDER
-					);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_FLOAT_SLIDER,	//Name
-						-10000,							//VALID_MIN
-						10000,						//VALID_MAX
-						0,							//SLIDER_MIN
-						1000,						//SLIDER_MAX
-						1,							//CURVE_TOLERANCE
-						500,						//DFLT
-						1,							//PREC
-						0,							//DISP
-						0,							//WANT_PHASE
-						ID_FLOAT_SLIDER
-						);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_CHECKBOX(STR_CHECKBOX1,
-					STR_CHECKBOX2,
-					FALSE,
-					0,
-					ID_CHECKBOX
-					);
-	//----------------------------------------------------------------
-	//角度
-	AEFX_CLR_STRUCT(def);
-	PF_ADD_ANGLE(STR_ANGLE,0,ID_ANGLE); 
-
-	//----------------------------------------------------------------
-	//ポップアップメニュー
-	AEFX_CLR_STRUCT(def);	
-	PF_ADD_POPUP(		STR_POPUP, 
-						STR_POPUP_COUNT,	//メニューの数
-						STR_POPUP_DFLT,	//デフォルト
-						STR_POPUP_ITEMS,
-						ID_POPUP
-						);
-	//----------------------------------------------------------------
-	//位置の指定
-	AEFX_CLR_STRUCT(def);	
-	PF_ADD_POINT(STR_POINT,			/*"New Center"*/
-				50,	// X
-				50,	// Y
-				0,	// Flag
-				ID_POINT
-				);
-	//----------------------------------------------------------------
-	AEFX_CLR_STRUCT(def);
-	PF_END_TOPIC(ID_TOPIC_END);
-
-	//----------------------------------------------------------------
-	out_data->num_params = 	ID_NUM_PARAMS; 
-
+	cs.Finalize();
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -218,6 +192,21 @@ HandleChangedParam(
 	try{
 		CFsAE ae;
 		err =ae.HandleChangedParam(in_data,out_data,params,outputP,extraP,ID_NUM_PARAMS);
+		if (!err) {
+			if (extraP->param_index == ID_BUTTON)
+			{
+				A_char scriptCode[2048] = { '\0' };
+				PF_SPRINTF(scriptCode, FS_ABOUT_DIALOG,
+					FS_NAME,
+					MAJOR_VERSION,
+					MINOR_VERSION,
+					__DATE__,
+					FS_DESCRIPTION);
+
+				ERR(ae.suitesP->UtilitySuite5()->AEGP_ExecuteScript(ae.ae_plugin_idP->my_id, scriptCode, TRUE, NULL, NULL));
+				out_data->out_flags |= PF_OutFlag_REFRESH_UI;
+			}
+		}
 		if((!err)&&(in_data->appl_id != 'PrMr')){
 			//--------------------
 			
@@ -230,10 +219,8 @@ HandleChangedParam(
 				if (b){
 					for ( A_long i=ID_HIDDEN_ON+1; i<ID_NUM_PARAMS; i++)hide_themB[i] =TRUE;
 				}
-				for ( A_long i=1; i<ID_NUM_PARAMS; i++) 
+				for ( A_long i=1; i<ID_NUM_PARAMS-1; i++) 
 					ERR(ae.SetDynamicStreamFlag(i,AEGP_DynStreamFlag_HIDDEN,hide_themB[i]));
-				
-				
 			}
 			//--------------------
 			if (!err){
@@ -274,109 +261,74 @@ QueryDynamicFlags(
 	}
 	return err;
 }
-//-------------------------------------------------------------------------------------------------
-static PF_Err 
-FilterImage8 (
-	refconType		refcon, 
-	A_long		xL, 
-	A_long		yL, 
-	PF_Pixel8	*inP, 
-	PF_Pixel8	*outP)
-{
-	PF_Err			err = PF_Err_NONE;
-	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
+// *******************************************************************************
+// -- - 1. 型解決用のトレイト(PixelTraits) -- -
+template <typename T> struct PixelTraits;
 
-	PF_Pixel32 c;
-	c = CONV8TO32(*outP);
-	
-	c.red	+= (PF_FpShort)niP->r;
-	c.green	+= (PF_FpShort)niP->g;
-	c.blue	+= (PF_FpShort)niP->b;
+template <> struct PixelTraits<PF_Pixel8> {
+	typedef A_u_char channel_type;
+};
 
-	if ( niP->noise>0){
-		A_long v = (A_long)(PF_MAX_CHAN16 * niP->noise);
-		v = F_RAND2(-v,v);
-		PF_FpShort vv = (PF_FpShort)v / PF_MAX_CHAN16;
-		c.red	+= vv;
-		c.green	+= vv;
-		c.blue	+= vv;
-	}
+template <> struct PixelTraits<PF_Pixel16> {
+	typedef A_u_short channel_type;
+};
 
-
-	PF_Pixel c8	= CONV32TO8(c);
-	outP->alpha	= inP->alpha;
-	outP->red	= c8.red;
-	outP->green	= c8.green;
-	outP->blue	= c8.blue;
-
-	return err;
+template <> struct PixelTraits<PF_PixelFloat> {
+	typedef PF_FpShort channel_type;
+};
+// *******************************************************************************
+// ビット深度ごとの最大値を取得するヘルパー
+template <typename T>
+inline PF_FpLong GetMaxChannel() {
+	if (std::is_same<T, PF_Pixel8>::value) return 255.0;
+	if (std::is_same<T, PF_Pixel16>::value) return 32768.0;
+	return 1.0; // PF_PixelFloat用
 }
-//-------------------------------------------------------------------------------------------------
-static PF_Err 
-FilterImage16 (
-	refconType	refcon, 
-	A_long		xL, 
-	A_long		yL, 
-	PF_Pixel16	*inP, 
-	PF_Pixel16	*outP)
+
+// --- 5. 共通フィルタテンプレート ---
+template <typename T>
+static PF_Err FilterImage(
+	refconType refcon,
+	A_long xL,
+	A_long yL,
+	T* inP,
+	T* outP)
 {
-	PF_Err			err = PF_Err_NONE;
-	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
+	ParamInfo* niP = reinterpret_cast<ParamInfo*>(refcon);
+	PF_FpLong max_val = GetMaxChannel<T>();
 
-	PF_Pixel32 c;
-	c = CONV16TO32(*outP);
-	c.red	+= (PF_FpShort)niP->r;
-	c.green	+= (PF_FpShort)niP->g;
-	c.blue	+= (PF_FpShort)niP->b;
+	// 色の加算処理
+	PF_FpLong r = (PF_FpLong)inP->red + (niP->r * max_val);
+	PF_FpLong g = (PF_FpLong)inP->green + (niP->g * max_val);
+	PF_FpLong b = (PF_FpLong)inP->blue + (niP->b * max_val);
 
-	if ( niP->noise>0){
-		A_long v = (A_long)(PF_MAX_CHAN16 * niP->noise);
-		v = F_RAND2(-v,v);
-		PF_FpShort vv = (PF_FpShort)v / PF_MAX_CHAN16;
-		c.red	+= vv;
-		c.green	+= vv;
-		c.blue	+= vv;
+	// ノイズ処理
+	if (niP->noise > 0) {
+		// -1.0 ~ 1.0 のランダム値を生成してスケーリング
+		PF_FpLong random_factor = (PF_FpLong)F_RAND2(-1000, 1000) / 1000.0;
+		PF_FpLong vv = random_factor * niP->noise * max_val;
+		r += vv;
+		g += vv;
+		b += vv;
 	}
 
-
-	PF_Pixel16 c16	= CONV32TO16(c);
-	outP->red	= c16.red;
-	outP->green	= c16.green;
-	outP->blue	= c16.blue;
-
-	return err;
-}
-//-------------------------------------------------------------------------------------------------
-static PF_Err 
-FilterImage32 (
-	refconType	refcon, 
-	A_long		xL, 
-	A_long		yL, 
-	PF_PixelFloat	*inP, 
-	PF_PixelFloat	*outP)
-{
-	PF_Err			err = PF_Err_NONE;
-	ParamInfo *	niP		= reinterpret_cast<ParamInfo*>(refcon);
-
-	PF_PixelFloat c;
-	c.red	= (PF_FpShort)(outP->red	+ niP->r);
-	c.green	= (PF_FpShort)(outP->green	+ niP->g);
-	c.blue	= (PF_FpShort)(outP->blue	+ niP->b);
-
-	if ( niP->noise>0){
-		A_long v = (A_long)(PF_MAX_CHAN16 * niP->noise);
-		v = F_RAND2(-v,v);
-		PF_FpShort vv = (PF_FpShort)v / PF_MAX_CHAN16;
-		c.red	+= vv;
-		c.green	+= vv;
-		c.blue	+= vv;
+	// 出力処理 (PixelTraitsを使用して適切な型にキャスト)
+	if (std::is_same<T, PF_PixelFloat>::value) {
+		// 32bit float の場合はクランプ不要
+		outP->red = static_cast<typename PixelTraits<T>::channel_type>(r);
+		outP->green = static_cast<typename PixelTraits<T>::channel_type>(g);
+		outP->blue = static_cast<typename PixelTraits<T>::channel_type>(b);
 	}
-	
-	outP->red	= c.red;
-	outP->green	= c.green;
-	outP->blue	= c.blue;
+	else {
+		// 整数型の場合はクランプしてから適切な型にキャスト
+		outP->red = static_cast<typename PixelTraits<T>::channel_type>(PF_CLAMP(r, 0, max_val));
+		outP->green = static_cast<typename PixelTraits<T>::channel_type>(PF_CLAMP(g, 0, max_val));
+		outP->blue = static_cast<typename PixelTraits<T>::channel_type>(PF_CLAMP(b, 0, max_val));
+	}
 
-	return err;
+	outP->alpha = inP->alpha; // アルファはそのまま維持
+
+	return PF_Err_NONE;
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
@@ -423,13 +375,13 @@ static PF_Err
 	switch(ae->pixelFormat())
 	{
 	case PF_PixelFormat_ARGB128:
-		ERR(ae->iterate32((refconType)infoP,FilterImage32));
+		ERR(ae->iterate32((refconType)infoP, FilterImage<PF_PixelFloat>));
 		break;
 	case PF_PixelFormat_ARGB64:
-		ERR(ae->iterate16((refconType)infoP,FilterImage16));
+		ERR(ae->iterate16((refconType)infoP, FilterImage<PF_Pixel16>));
 		break;
 	case PF_PixelFormat_ARGB32:
-		ERR(ae->iterate8((refconType)infoP,FilterImage8));
+		ERR(ae->iterate8((refconType)infoP, FilterImage<PF_Pixel8>));
 		break;
 	}
 	return err;

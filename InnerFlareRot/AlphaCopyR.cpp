@@ -17,10 +17,10 @@ typedef struct {
 inline void ConvertPixel8To16(const PF_Pixel* in8, PF_Pixel16* out16)
 {
     // 0-255 → 0-32768 に変換
-    out16->alpha = _CONVERT8TO16(in8->alpha);
-    out16->red = _CONVERT8TO16(in8->red);
-    out16->green = _CONVERT8TO16(in8->green);
-    out16->blue = _CONVERT8TO16(in8->blue);
+    out16->alpha = (A_u_short)_CONVERT8TO16(in8->alpha);
+    out16->red = (A_u_short)_CONVERT8TO16(in8->red);
+    out16->green = (A_u_short)_CONVERT8TO16(in8->green);
+    out16->blue = (A_u_short)_CONVERT8TO16(in8->blue);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -28,10 +28,10 @@ inline void ConvertPixel8To16(const PF_Pixel* in8, PF_Pixel16* out16)
 inline void ConvertPixel8To32(const PF_Pixel* in8, PF_PixelFloat* out32)
 {
     // 0-255 → 0.0-1.0 に変換
-    out32->alpha = _CONVERT8TO32(in8->alpha);
-    out32->red = _CONVERT8TO32(in8->red);
-    out32->green = _CONVERT8TO32(in8->green);
-    out32->blue = _CONVERT8TO32(in8->blue);
+    out32->alpha = (PF_FpShort)_CONVERT8TO32(in8->alpha);
+    out32->red = (PF_FpShort)_CONVERT8TO32(in8->red);
+    out32->green = (PF_FpShort)_CONVERT8TO32(in8->green);
+    out32->blue = (PF_FpShort)_CONVERT8TO32(in8->blue);
 }
 //-------------------------------------------------------------------------------------------------
 // テンプレート版 - 8/16/32ビット共通処理

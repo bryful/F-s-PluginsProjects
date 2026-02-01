@@ -51,7 +51,7 @@ static PF_Err HyperbolicAlpha(
     }
 
     // ハイパーボリック処理
-    float k = infoP->hyperbolic;
+    float k = (float)infoP->hyperbolic;
     float v = ((1.0f + k) * t) / (1.0f + k * t);
 
     // 範囲チェック

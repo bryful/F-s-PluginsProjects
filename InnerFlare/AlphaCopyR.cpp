@@ -28,10 +28,10 @@ inline void ConvertPixel8To16(const PF_Pixel* in8, PF_Pixel16* out16)
 inline void ConvertPixel8To32(const PF_Pixel* in8, PF_PixelFloat* out32)
 {
     // 0-255 → 0.0-1.0 に変換
-    out32->alpha = _CONVERT8TO32(in8->alpha);
-    out32->red = _CONVERT8TO32(in8->red);
-    out32->green = _CONVERT8TO32(in8->green);
-    out32->blue = _CONVERT8TO32(in8->blue);
+    out32->alpha = (PF_FpShort)_CONVERT8TO32(in8->alpha);
+    out32->red = (PF_FpShort)_CONVERT8TO32(in8->red);
+    out32->green = (PF_FpShort)_CONVERT8TO32(in8->green);
+    out32->blue = (PF_FpShort)_CONVERT8TO32(in8->blue);
 }
 //-------------------------------------------------------------------------------------------------
 // テンプレート版 - 8/16/32ビット共通処理

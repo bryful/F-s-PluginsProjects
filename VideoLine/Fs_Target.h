@@ -21,11 +21,12 @@
 	//プラグインが表示されるメニュー名
 	//#define FS_CATEGORY "F's Plugins-Channel"
 	//#define FS_CATEGORY "F's Plugins-Draw"
-	#define FS_CATEGORY "NF's Plugins-Filter"
+	//#define FS_CATEGORY "NF's Plugins-Filter"
 	//#define FS_CATEGORY "F's Plugins-Cell"
 	//#define FS_CATEGORY "F's Plugins-Colorize"
 	//#define FS_CATEGORY "F's Plugins-Script"
 	//#define FS_CATEGORY "F's Plugins-Test"
+#define FS_CATEGORY "NF's Plugins-{Legacy}"
 
 
 //-----------------------------------------------------------
