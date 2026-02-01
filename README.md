@@ -1,5 +1,5 @@
 ﻿# F's Plugins New and Next
-Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。 
+Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。<br>
 (**No macOS support** / **不支持 macOS**)<br>
 　
 
@@ -8,12 +8,19 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 <br>
 
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
-2026/01/25 更新しました。来月にもう１回更新を行う予定です。<br>
+2026/02/01 更新しました。大きなバグがない限りしばらく更新しません<br>
 <br>
 
 ## <b>**残念なお知らせ**</b><br>
-2025年度からAdobeCCの料金がかなり高価に値上がりしたので、プライベートではとっても払えないので次回の更新はしないことにしました。その為F's Pluginsの更新はi今以上にかなりロースペースになります。<br>
+2025年度からAdobeCCの料金がかなり高価に値上がりしたので、プライベートではとっても払えないので次回の更新はしないことにしました。
+その為F's Pluginsの更新は今以上にかなりスローペースになります。<br>
 一応僕も仕事でたまには使うのでAfter Effects自体のバージョンに合わせて再ビルドは行うつもりです(SDKの更新に合わせます)<br>
+
+## 今後の予定
+今後F's Pluginsの開発はメンテナンスにとどめて、NF-Pluginsという新しいプラグイン集を開発する予定です。<br>
+NF-Pluginsはあえて互換性(matchName)を無くしてモダンな開発環境を目指します。<br>
+F’sは、ラッパー関数の嵐でコードが読みにくくなっているので、NF-Pluginsではシンプルで他のプラグインへの移植性を重視する予定です。<br>
+
 
 ***
 
@@ -21,9 +28,6 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 少しでもやる気が出るようにAmazonの欲しいものリストを試しに公開してみます。<br>
 * [bry-fulの欲しいものリスト(https://www.amazon.co.jp/hz/wishlist/ls/2ME5VSS8WJOX8?ref_=wl_sha)<br>
 
-<br>
-まぁ、バグ報告のほうがありがたいです。 <br>
-<br>
 
 ## _tools フォルダについて<br>
 _toolsフォルダ内にはプラグイン開発に便利なツールを入れています。<br>
