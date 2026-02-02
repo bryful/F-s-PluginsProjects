@@ -89,6 +89,7 @@ typedef struct FsPixelCopyParam{
 var dlg = new FsAbout;\r\n\
 dlg.show();\r\n"
 
+#include "dialog_jsx.h"
 #define FsAE_ITEM_COUNT	256
 
 //******************************************************************************
@@ -122,7 +123,7 @@ private:
 protected:
 	PF_PixelFormat		m_format;
 	A_long				m_frame;
-	A_long				m_mode;
+	A_long				m_cmd;
 	A_long				m_paramsCount;
 	PF_Err				m_resultErr;
 	PF_Boolean			m_isGetEffectStream;
@@ -169,7 +170,7 @@ public:
 	{
 		m_format			= PF_PixelFormat_INVALID;
 		m_frame				= 0;
-		m_mode				= FsAE_NONE;
+		m_cmd				= FsAE_NONE;
 		m_paramsCount		= 0;
 		m_isGetEffectStream	= FALSE;
 		m_resultErr			= PF_Err_NONE;
@@ -276,7 +277,7 @@ public:
 		
 		m_resultErr		= err;
 
-		m_mode			= FsAE_RENDER;
+		m_cmd			= FsAE_RENDER;
 		return err;
 	}
 	//*********************************************************************************
@@ -317,13 +318,13 @@ public:
 		if ( (in_dataP->current_time>=0)&&(in_dataP->time_step>0) ) {
 			m_frame	=(in_dataP->current_time/in_dataP->time_step); 
 		}
-		m_mode			= FsAE_SMART_PR_ERENDER;
+		m_cmd			= FsAE_SMART_PR_ERENDER;
 		CFsAE::suitesP	= new AEGP_SuiteHandler(in_dataP->pica_basicP);
 		if ( infoSize>0){
 			NewPreRenderData(infoSize);
 			if (PreRenderH==NULL){
 				m_resultErr = PF_Err_OUT_OF_MEMORY;
-				m_mode = FsAE_NONE;
+				m_cmd = FsAE_NONE;
 				return m_resultErr;
 			}
 		}
@@ -399,7 +400,7 @@ public:
 
 
 		m_resultErr = err;
-		m_mode		= FsAE_SMART_RENDER;
+		m_cmd		= FsAE_SMART_RENDER;
 		return err;
 	}
 	//*********************************************************************************
@@ -448,7 +449,7 @@ public:
 				FS_DESCRIPTION);
 		}
 		m_resultErr = err;
-		m_mode		= FsAE_ABOUT;
+		m_cmd		= FsAE_ABOUT;
 		return err;
 	}
 	//*********************************************************************************
@@ -489,7 +490,7 @@ public:
 			err = PF_Err_INTERNAL_STRUCT_DAMAGED;
 		}
 		//**********************************************************
-		m_mode		= FsAE_GLOBAL_SETUP;
+		m_cmd		= FsAE_GLOBAL_SETUP;
 
 		return err;
 
@@ -504,7 +505,7 @@ public:
 		if (in_data->global_data) {
 			suitesP->HandleSuite1()->host_dispose_handle(in_data->global_data);
 		}
-		m_mode		= FsAE_GLOBAL_SETDOWN;
+		m_cmd		= FsAE_GLOBAL_SETDOWN;
 
 		return err;
 	}
@@ -555,7 +556,7 @@ public:
 			err = suitesP->PFInterfaceSuite1()->AEGP_GetNewEffectForEffect(ae_plugin_idP->my_id, in_dataP->effect_ref, &ae_effect_refH);
 		}
 		if (!err)
-			m_mode		= FsAE_USER_CHANGED_PARAM;
+			m_cmd		= FsAE_USER_CHANGED_PARAM;
 
 		return err;
 	}
@@ -594,7 +595,7 @@ public:
 			ae_plugin_idH	= in_dataP->global_data;
 			ae_plugin_idP = reinterpret_cast<ae_global_dataP>(DH(in_dataP->global_data));
 		}
-		m_mode		= FsAE_QUERY_DYNAMIC_FLAGS;
+		m_cmd		= FsAE_QUERY_DYNAMIC_FLAGS;
 
 		return err;
 
@@ -621,21 +622,21 @@ public:
 		}
 
 		if (tmpP!= NULL) {
-			if (m_mode==FsAE_SMART_RENDER){
+			if (m_cmd==FsAE_SMART_RENDER){
 				ERR( CFsAE::ws2P->PF_DisposeWorld( in_data->effect_ref, CFsAE::tmpP ));	
 			}else{
 				ERR( (*in_data->utils->dispose_world)(in_data->effect_ref,CFsAE::tmpP));
 			}
 		}
 		if (buf1P!= NULL) {
-			if (m_mode==FsAE_SMART_RENDER){
+			if (m_cmd==FsAE_SMART_RENDER){
 				ERR( CFsAE::ws2P->PF_DisposeWorld( in_data->effect_ref, CFsAE::buf1P ));	
 			}else{
 				ERR( (*in_data->utils->dispose_world)(in_data->effect_ref,CFsAE::buf1P));
 			}
 		}
 		if (buf2P!= NULL) {
-			if (m_mode==FsAE_SMART_RENDER){
+			if (m_cmd==FsAE_SMART_RENDER){
 				ERR( CFsAE::ws2P->PF_DisposeWorld( in_data->effect_ref, CFsAE::buf2P ));	
 			}else{
 				ERR( (*in_data->utils->dispose_world)(in_data->effect_ref,CFsAE::buf2P));
@@ -643,7 +644,7 @@ public:
 		}
 
 #ifndef NO_USE_FSGRAPHICS
-		if ( (m_mode==FsAE_RENDER)||(m_mode==FsAE_SMART_RENDER)){
+		if ( (m_cmd==FsAE_RENDER)||(m_cmd==FsAE_SMART_RENDER)){
 			if ( in != NULL) delete in;
 			if (out != NULL) delete out;
 			if (tmp != NULL) delete tmp;
@@ -670,7 +671,7 @@ public:
 	//--------------------------------------------------------------------
 	PF_Handle NewPreRenderData(A_long handleSize)
 	{
-		if (m_mode == FsAE_SMART_PR_ERENDER){
+		if (m_cmd == FsAE_SMART_PR_ERENDER){
 			PreRenderH = suitesP->HandleSuite1()->host_new_handle(handleSize);
 			return PreRenderH;
 		}else{
@@ -680,11 +681,11 @@ public:
 	//--------------------------------------------------------------------
 	void * LockPreRenderData()
 	{
-		if (m_mode == FsAE_SMART_PR_ERENDER){
+		if (m_cmd == FsAE_SMART_PR_ERENDER){
 			if ( PreRenderH != NULL){
 				return suitesP->HandleSuite1()->host_lock_handle(PreRenderH);
 			}
-		}else if (m_mode == FsAE_SMART_RENDER){
+		}else if (m_cmd == FsAE_SMART_RENDER){
 			if ( SRextraP != NULL){
 				return suitesP->HandleSuite1()->host_lock_handle(reinterpret_cast<PF_Handle>(SRextraP->input->pre_render_data));
 			}
@@ -694,11 +695,11 @@ public:
 	//--------------------------------------------------------------------
 	void  UnlockPreRenderData()
 	{
-		if (m_mode == FsAE_SMART_PR_ERENDER){
+		if (m_cmd == FsAE_SMART_PR_ERENDER){
 			if ( PreRenderH != NULL){
 				suitesP->HandleSuite1()->host_unlock_handle(PreRenderH);
 			}
-		}else if (m_mode == FsAE_SMART_RENDER){
+		}else if (m_cmd == FsAE_SMART_RENDER){
 			if ( SRextraP != NULL){
 				suitesP->HandleSuite1()->host_lock_handle(reinterpret_cast<PF_Handle>(SRextraP->input->pre_render_data));
 			}
@@ -708,7 +709,7 @@ public:
 	PF_Boolean SetHostPreRenderData()
 	{
 		PF_Boolean ret = FALSE;
-		if ( m_mode == FsAE_SMART_PR_ERENDER){
+		if ( m_cmd == FsAE_SMART_PR_ERENDER){
 			if ( PreRenderH != NULL){
 				PRextraP->output->pre_render_data = PreRenderH;
 				ret = TRUE;
@@ -720,7 +721,7 @@ public:
 	PF_Err UnSetPreRenderData(PF_RenderRequest *req, PF_CheckoutResult *in_result)
 	{
 		PF_Err err = PF_Err_NONE;
-		if ( m_mode == FsAE_SMART_PR_ERENDER){
+		if ( m_cmd == FsAE_SMART_PR_ERENDER){
 			ERR(PRextraP->cb->checkout_layer(	in_data->effect_ref,
 											0,
 											0,
@@ -844,7 +845,7 @@ public:
 	{
 		PF_Err err = PF_Err_NONE;
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -876,7 +877,7 @@ public:
 		PF_Err err = PF_Err_NONE;
 		A_long ret =0;
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			//case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -913,7 +914,7 @@ public:
 		PF_Err err = PF_Err_NONE;
 		PF_Fixed ret =0;
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			//case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -990,7 +991,7 @@ public:
 		PF_Err err = PF_Err_NONE;
 		PF_Fixed ret =0;
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			//case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -1038,7 +1039,7 @@ public:
 		PF_Err err = PF_Err_NONE;
 		PF_Boolean ret =FALSE;
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			//case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -1072,7 +1073,7 @@ public:
 	PF_Err SetCHECKBOX(A_long idx, PF_Boolean b)
 	{
 		PF_Err err = PF_Err_NONE;
-		if ((idx >= 1) && (idx < m_paramsCount) && (m_mode == FsAE_USER_CHANGED_PARAM)) {
+		if ((idx >= 1) && (idx < m_paramsCount) && (m_cmd == FsAE_USER_CHANGED_PARAM)) {
 			params[idx]->u.bd.value = b;
 			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
 		}
@@ -1087,7 +1088,7 @@ public:
 		PF_Err err = PF_Err_NONE;
 		PF_Pixel ret = {0,0,0,0};
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			//case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -1124,7 +1125,7 @@ public:
 	PF_Err SetCOLOR(A_long idx, PF_Pixel col)
 	{
 		PF_Err err = PF_Err_NONE;
-		if ((idx >= 1) && (idx < m_paramsCount) && (m_mode == FsAE_USER_CHANGED_PARAM))
+		if ((idx >= 1) && (idx < m_paramsCount) && (m_cmd == FsAE_USER_CHANGED_PARAM))
 		{
 			params[idx]->u.cd.value.alpha = col.alpha;
 			params[idx]->u.cd.value.red = col.red;
@@ -1140,7 +1141,7 @@ public:
 		PF_Err err = PF_Err_NONE;
 		PF_FpLong ret = 0;
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			//case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -1180,7 +1181,7 @@ public:
 		ret.x =-1;
 		ret.y =-1;
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			//case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -1221,7 +1222,7 @@ public:
 		PF_Err err = PF_Err_NONE;
 		A_long ret = 1;
 		if (( idx >=1)&&(idx < m_paramsCount)) {
-			switch(m_mode)
+			switch(m_cmd)
 			{
 			case FsAE_SMART_PR_ERENDER:
 			//case FsAE_QUERY_DYNAMIC_FLAGS:
@@ -1255,7 +1256,7 @@ public:
 	PF_Err SetPOPUP(A_long idx, A_long b)
 	{
 		PF_Err err = PF_Err_NONE;
-		if ((idx >= 1) && (idx < m_paramsCount) && (m_mode == FsAE_USER_CHANGED_PARAM))
+		if ((idx >= 1) && (idx < m_paramsCount) && (m_cmd == FsAE_USER_CHANGED_PARAM))
 		{
 			params[idx]->u.pd.value = b;
 			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
@@ -1644,7 +1645,7 @@ public:
 	PF_Boolean			is32Bit(){ return (m_format == PF_PixelFormat_ARGB128);}
 	PF_PixelFormat		pixelFormat() { return m_format;}
 	A_long				frame(){ return m_frame; }
-	A_long				mode(){ return m_mode; }
+	A_long				mode(){ return m_cmd; }
 	PF_Err				resultErr() { return m_resultErr;}
 	//*********************************************************************************
 	PF_Err Get_AEParams(AEInfo *prm)
@@ -1671,7 +1672,7 @@ public:
 	{
 		PF_Err err = PF_Err_NONE;
 		AEFX_CLR_STRUCT(m_tmp);
-		if (m_mode==FsAE_SMART_RENDER){
+		if (m_cmd==FsAE_SMART_RENDER){
 			ERR( CFsAE::ws2P->PF_NewWorld( in_data->effect_ref, output->width, output->height,TRUE,m_format,&m_tmp ));	
 
 		}else{
@@ -1699,7 +1700,7 @@ public:
 		A_long h = output->height/2;
 		if ( (output->height % 2) == 1) h +=1;
 
-		if (m_mode==FsAE_SMART_RENDER){
+		if (m_cmd==FsAE_SMART_RENDER){
 			ERR( CFsAE::ws2P->PF_NewWorld( in_data->effect_ref, w, h,TRUE,m_format,&m_buf1 ));	
 			ERR( CFsAE::ws2P->PF_NewWorld( in_data->effect_ref, w, h,TRUE,m_format,&m_buf2 ));	
 
@@ -1723,7 +1724,7 @@ public:
 	{
 		PF_Err err = PF_Err_NONE;
 		AEFX_CLR_STRUCT(m_tmp);
-		if (m_mode == FsAE_SMART_RENDER) {
+		if (m_cmd == FsAE_SMART_RENDER) {
 			ERR(CFsAE::ws2P->PF_NewWorld(in_data->effect_ref, w, h, TRUE, pf, wld));
 
 		}
@@ -1740,7 +1741,7 @@ public:
 	{
 		PF_Err err = PF_Err_NONE;
 		if (wld != NULL) {
-			if (m_mode == FsAE_SMART_RENDER) {
+			if (m_cmd == FsAE_SMART_RENDER) {
 				ERR(CFsAE::ws2P->PF_DisposeWorld(in_data->effect_ref, wld));
 			}
 			else {

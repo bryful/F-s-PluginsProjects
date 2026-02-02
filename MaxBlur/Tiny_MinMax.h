@@ -30,7 +30,7 @@
 
 #include <vector>
 
-PF_Err TinyMinMax(
+PF_Err NFMinMax(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,

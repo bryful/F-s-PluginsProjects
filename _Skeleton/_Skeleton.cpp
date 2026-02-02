@@ -7,9 +7,6 @@
 
 #include "_Skeleton.h"
 
-#ifndef PF_CLAMP
-#define PF_CLAMP(VAL, MIN, MAX) ((VAL) < (MIN) ? (MIN) : ((VAL) > (MAX) ? (MAX) : (VAL)))
-#endif
 //-------------------------------------------------------------------------------------------------
 //AfterEffextsにパラメータを通達する
 //Param_Utils.hを参照のこと
@@ -22,7 +19,24 @@ static PF_Err ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 
 	CParamsSetup cs(in_data, out_data);
-
+	cs.AddSlider(	// noise offset
+		STR_MINMAX,	//パラメータの名前
+		-1000, 		//数値入力する場合の最小値
+		1000,			//数値入力する場合の最大値
+		-100,				//スライダーの最小値 
+		100,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_MINMAX
+	);
+	cs.AddSlider(	// noise offset
+		STR_BLUR,		//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		1000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_BLUR
+	);
 	cs.AddFloatSilder(	// R
 		STR_R,			//Name
 		-2,				//VALID_MIN
@@ -83,7 +97,7 @@ static PF_Err ParamsSetup (
 	);
 	cs.AddSlider(	// noise offset
 		STR_NOISE_OFFSET,	//パラメータの名前
-		-30000, 		//数値入力する場合の最小値
+		0, 		//数値入力する場合の最小値
 		30000,			//数値入力する場合の最大値
 		0,				//スライダーの最小値 
 		300,			//スライダーの最大値
@@ -102,12 +116,8 @@ static PF_Err ParamsSetup (
 		PF_ParamFlag_CANNOT_INTERP
 	);
 	cs.AddTopic(STR_TOPIC, ID_TOPIC, PF_ParamFlag_START_COLLAPSED);
-	cs.AddColor(	// color
-		STR_COLOR, 
-		{ 0xFF, 0xFF, 0xFF, 0xFF },
-		ID_COLOR,
-		PF_ParamFlag_CANNOT_TIME_VARY//これをつけるとキーフレームが撃てなくなる
-	);
+
+
 	//cs.SetParamFlags();
 	cs.AddSlider(	// add slider
 		STR_ADD_SLIDER,	//パラメータの名前
@@ -142,11 +152,11 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_FLOAT_SLIDER
 	);
-	cs.AddCheckBox(	// checkbox
-		STR_CHECKBOX1,
-		STR_CHECKBOX2,
-		FALSE,
-		ID_CHECKBOX
+	cs.AddColor(	// color
+		STR_COLOR,
+		{ 0xFF, 0xFF, 0xFF, 0xFF },
+		ID_COLOR,
+		PF_ParamFlag_CANNOT_TIME_VARY//これをつけるとキーフレームが撃てなくなる
 	);
 	cs.AddAngle(	// angle
 		STR_ANGLE,
@@ -166,7 +176,15 @@ static PF_Err ParamsSetup (
 		FALSE,
 		ID_POINT
 	);
+	cs.AddCheckBox(	// checkbox
+		STR_CHECKBOX1,
+		STR_CHECKBOX2,
+		FALSE,
+		ID_CHECKBOX
+	);
 	cs.EndTopic(ID_TOPIC_END);
+
+
 	cs.AddButton(	// button
 		STR_BUTTON1,
 		STR_BUTTON2,
@@ -261,79 +279,14 @@ QueryDynamicFlags(
 	}
 	return err;
 }
-// *******************************************************************************
-// -- - 1. 型解決用のトレイト(PixelTraits) -- -
-template <typename T> struct PixelTraits;
 
-template <> struct PixelTraits<PF_Pixel8> {
-	typedef A_u_char channel_type;
-};
-
-template <> struct PixelTraits<PF_Pixel16> {
-	typedef A_u_short channel_type;
-};
-
-template <> struct PixelTraits<PF_PixelFloat> {
-	typedef PF_FpShort channel_type;
-};
-// *******************************************************************************
-// ビット深度ごとの最大値を取得するヘルパー
-template <typename T>
-inline PF_FpLong GetMaxChannel() {
-	if (std::is_same<T, PF_Pixel8>::value) return 255.0;
-	if (std::is_same<T, PF_Pixel16>::value) return 32768.0;
-	return 1.0; // PF_PixelFloat用
-}
-
-// --- 5. 共通フィルタテンプレート ---
-template <typename T>
-static PF_Err FilterImage(
-	refconType refcon,
-	A_long xL,
-	A_long yL,
-	T* inP,
-	T* outP)
-{
-	ParamInfo* niP = reinterpret_cast<ParamInfo*>(refcon);
-	PF_FpLong max_val = GetMaxChannel<T>();
-
-	// 色の加算処理
-	PF_FpLong r = (PF_FpLong)inP->red + (niP->r * max_val);
-	PF_FpLong g = (PF_FpLong)inP->green + (niP->g * max_val);
-	PF_FpLong b = (PF_FpLong)inP->blue + (niP->b * max_val);
-
-	// ノイズ処理
-	if (niP->noise > 0) {
-		// -1.0 ~ 1.0 のランダム値を生成してスケーリング
-		PF_FpLong random_factor = (PF_FpLong)F_RAND2(-1000, 1000) / 1000.0;
-		PF_FpLong vv = random_factor * niP->noise * max_val;
-		r += vv;
-		g += vv;
-		b += vv;
-	}
-
-	// 出力処理 (PixelTraitsを使用して適切な型にキャスト)
-	if (std::is_same<T, PF_PixelFloat>::value) {
-		// 32bit float の場合はクランプ不要
-		outP->red = static_cast<typename PixelTraits<T>::channel_type>(r);
-		outP->green = static_cast<typename PixelTraits<T>::channel_type>(g);
-		outP->blue = static_cast<typename PixelTraits<T>::channel_type>(b);
-	}
-	else {
-		// 整数型の場合はクランプしてから適切な型にキャスト
-		outP->red = static_cast<typename PixelTraits<T>::channel_type>(PF_CLAMP(r, 0, max_val));
-		outP->green = static_cast<typename PixelTraits<T>::channel_type>(PF_CLAMP(g, 0, max_val));
-		outP->blue = static_cast<typename PixelTraits<T>::channel_type>(PF_CLAMP(b, 0, max_val));
-	}
-
-	outP->alpha = inP->alpha; // アルファはそのまま維持
-
-	return PF_Err_NONE;
-}
 //-------------------------------------------------------------------------------------------------
 static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
+
+	ERR(ae->GetADD(ID_MINMAX, &infoP->minmax));
+	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
 
 	ERR(ae->GetFLOAT(ID_R,&infoP->r));
 	ERR(ae->GetFLOAT(ID_G,&infoP->g));
@@ -345,12 +298,13 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 
 
 	ERR(ae->GetADD(ID_ADD_SLIDER,&infoP->add));
+	ERR(ae->GetFIXED(ID_FIXED_SLIDER, &infoP->fxd));
+	ERR(ae->GetFLOAT(ID_FLOAT_SLIDER, &infoP->flt));
+	ERR(ae->GetCOLOR(ID_COLOR, &infoP->col));
 	ERR(ae->GetANGLE(ID_ANGLE,&infoP->agl));
-	ERR(ae->GetCHECKBOX(ID_CHECKBOX,&infoP->cbx));
-	ERR(ae->GetFLOAT(ID_FLOAT_SLIDER,&infoP->flt));
-	ERR(ae->GetFIXED(ID_FIXED_SLIDER,&infoP->fxd));
+	ERR(ae->GetPOPUP(ID_POPUP, &infoP->pop));
 	ERR(ae->GetFIXEDPOINT(ID_POINT,&infoP->pnt));
-	ERR(ae->GetPOPUP(ID_POPUP,&infoP->pop));
+	ERR(ae->GetCHECKBOX(ID_CHECKBOX, &infoP->cbx));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -361,113 +315,218 @@ static PF_Err
 
 	//画面をコピー
 	ERR(ae->CopyInToOut());
-	
-	if ( (infoP->r==0)&&(infoP->g==0)&&(infoP->b==0)&&(infoP->noise<=0))
+
+	if ((infoP->minmax != 0) || (infoP->blur > 0))
 	{
-		return err;
+		Mult(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			FALSE
+		);
 	}
-	if ( infoP->noise_frame == TRUE){
-		infoP->noise_offset = 0;
-		F_SRAND(ae->frame());
-	}else{
-		F_SRAND(infoP->noise_offset);
+	if (infoP->minmax != 0) {
+		ERR(MinMax(
+			ae->in_data, 
+			ae->output, 
+			ae->pixelFormat(), 
+			ae->suitesP, 
+			infoP->minmax));
 	}
-	switch(ae->pixelFormat())
+	if (infoP->blur > 0) {
+		ERR(Blur(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			infoP->blur));
+	}
+	if ((infoP->minmax != 0) || (infoP->blur > 0))
 	{
-	case PF_PixelFormat_ARGB128:
-		ERR(ae->iterate32(ae->input,(refconType)infoP, FilterImage<PF_PixelFloat>,ae->output));
-		break;
-	case PF_PixelFormat_ARGB64:
-		ERR(ae->iterate16(ae->input, (refconType)infoP, FilterImage<PF_Pixel16>, ae->output));
-		break;
-	case PF_PixelFormat_ARGB32:
-		ERR(ae->iterate8(ae->input, (refconType)infoP, FilterImage<PF_Pixel8>, ae->output));
-		break;
+		Mult(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			TRUE
+		);
+	}
+	if ((infoP->r != 0) || (infoP->g != 0) || (infoP->b != 0) || (infoP->noise > 0))
+	{
+		if (infoP->noise_frame == TRUE) {
+			infoP->noise_offset;
+		}
+		else {
+			infoP->noise_offset += ae->frame();
+		}
+		FilterInfo info;
+		info.r = infoP->r;
+		info.g = infoP->g;
+		info.b = infoP->b;
+		info.noise = infoP->noise;
+		info.noise_offset = 0;
+		if (infoP->noise_frame == TRUE) {
+			info.noise_offset += ae->frame();
+		}
+		else {
+			info.noise_offset = infoP->noise_offset;
+		}
+		FilterImage(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, &info);
+	}
+	if (infoP->cbx == TRUE) {
+		char buf[256];
+		PF_InData* in_data = ae->in_data;
+		PF_SPRINTF(buf, "Point X:%f Y:%f", (double)infoP->pnt.x / 65536, (double)infoP->pnt.y / 65536);
+		DrawDebugString(
+			ae->output,
+			ae->pixelFormat(),
+			(A_long)((double)infoP->pnt.x/65536+0.f),
+			(A_long)((double)infoP->pnt.y / 65536 + 0.f),
+			buf,
+			infoP->col
+		);
 	}
 	return err;
 }
 
-//-------------------------------------------------------------------------------------------------
-//レンダリングのメイン
-/*
-	SmartFXに対応していないホスト(After Effects7以前のもの)はこの関数が呼び出されて描画する
-	この関数を書いておけば一応v6.5対応になる
-*/
-static PF_Err 
-Render ( 
-	PF_InData		*in_data,
-	PF_OutData		*out_data,
-	PF_ParamDef		*params[],
-	PF_LayerDef		*output )
-{
 
-	PF_Err	err = PF_Err_NONE;
-	PF_Handle		pixelTable = NULL;
-	
-	CFsAE ae(in_data,out_data,params,output,ID_NUM_PARAMS);
-	err =ae.resultErr();
-	if (!err){
-		ParamInfo info;
-		ERR(GetParams(&ae,&info));
-		ERR(Exec(&ae,&info));
-	}
-	return err;
-}
 //-----------------------------------------------------------------------------------
-/*
-	SmartFX対応の場合、まずこの関数が呼ばれてパラメータの獲得を行う
-*/
-#if defined(SUPPORT_SMARTFX)
-static PF_Err
-PreRender(
-	PF_InData			*in_data,
-	PF_OutData			*out_data,
-	PF_PreRenderExtra	*extraP)
+DllExport
+PF_Err PluginDataEntryFunction2(
+	PF_PluginDataPtr inPtr,
+	PF_PluginDataCB2 inPluginDataCallBackPtr,
+	SPBasicSuite* inSPBasicSuitePtr,
+	const char* inHostName,
+	const char* inHostVersion)
 {
-	PF_Err		err 		= PF_Err_NONE;
-	CFsAE ae(in_data,out_data,extraP,sizeof(ParamInfo),ID_NUM_PARAMS);
-	err = ae.resultErr();
-	if (!err){
+	PF_Err result = PF_Err_INVALID_CALLBACK;
 
-		ParamInfo *infoP = reinterpret_cast<ParamInfo*>(ae.LockPreRenderData());
-		if (infoP){
-			ae.SetHostPreRenderData();
-			ERR(GetParams(&ae,infoP));
-			ERR(ae.UnSetPreRenderData());
-			ae.UnlockPreRenderData();
-		}else{
-			err = PF_Err_OUT_OF_MEMORY;
+	result = PF_REGISTER_EFFECT_EXT2(
+		inPtr,
+		inPluginDataCallBackPtr,
+		NF_NAME, // Name
+		NF_MATCHNAME, // Match Name
+		NF_CATEGORY, // Category
+		AE_RESERVED_INFO, // Reserved Info
+		"EffectMain",	// Entry point
+		"https://github.com/bryful");	// support URL
+
+	return result;
+}
+DllExport	PF_Err
+EffectMain(
+	PF_Cmd			cmd,
+	PF_InData* in_data,
+	PF_OutData* out_data,
+	PF_ParamDef* params[],
+	PF_LayerDef* output,
+	void* extraP)
+{
+	PF_Err			err = PF_Err_NONE,
+					err2 = PF_Err_NONE;
+
+	try
+	{
+		CFsAE ae;
+		switch (cmd) {
+		case PF_Cmd_ABOUT:
+			err = ae.About(in_data, out_data, params, output);
+			break;
+		case PF_Cmd_GLOBAL_SETUP:
+			err = ae.GlobalSetup(in_data, out_data, params, output);
+			break;
+		case PF_Cmd_GLOBAL_SETDOWN:
+			err = ae.GlobalSetdown(in_data);
+			break;
+		case PF_Cmd_PARAMS_SETUP:
+			err = ParamsSetup(in_data, out_data, params, output);
+			break;
+		case PF_Cmd_SEQUENCE_SETUP:
+			break;
+		case PF_Cmd_SEQUENCE_SETDOWN:
+			break;
+		case PF_Cmd_SEQUENCE_RESETUP:
+			break;
+		case PF_Cmd_RENDER:
+			err = ae.Render(in_data, out_data, params, output, ID_NUM_PARAMS);
+			if (!err) {
+				ParamInfo info;
+				ERR(GetParams(&ae, &info));
+				ERR(Exec(&ae, &info));
+			}
+			break;
+		case PF_Cmd_SMART_PRE_RENDER:
+			err = ae.PreRender(in_data, out_data, reinterpret_cast<PF_PreRenderExtra*>(extraP),sizeof(ParamInfo), ID_NUM_PARAMS);
+			if (!err) {
+				ParamInfo* infoP = reinterpret_cast<ParamInfo*>(ae.LockPreRenderData());
+				if (infoP) {
+					ae.SetHostPreRenderData();
+					ERR(GetParams(&ae, infoP));
+					ERR(ae.UnSetPreRenderData());
+					ae.UnlockPreRenderData();
+				}
+				else {
+					err = PF_Err_OUT_OF_MEMORY;
+				}
+			}
+			break;
+		case PF_Cmd_SMART_RENDER:
+			err = ae.SmartRender(in_data, out_data, reinterpret_cast<PF_SmartRenderExtra*>(extraP), ID_NUM_PARAMS);
+			if (!err) {
+				ParamInfo* infoP = reinterpret_cast<ParamInfo*>(ae.LockPreRenderData());
+				if (infoP) {
+					ERR(Exec(&ae, infoP));
+					ERR2(ae.UnsetSmartRender());
+					ae.UnlockPreRenderData();
+				}
+				else {
+					err = PF_Err_OUT_OF_MEMORY;
+				}
+			}
+			break;
+		case PF_Cmd_COMPLETELY_GENERAL:
+		{
+			AEGP_SuiteHandler suites(in_data->pica_basicP);
+
+			suites.ANSICallbacksSuite1()->sprintf(out_data->return_msg,
+				"%s",
+				reinterpret_cast<A_char*>(extraP));
+			break;
+		}
+		case PF_Cmd_DO_DIALOG:
+		{
+			//err = PopDialog(in_data,out_data,params,output);
+			break;
+		}
+		case PF_Cmd_USER_CHANGED_PARAM:
+		{
+			err = HandleChangedParam(in_data,
+				out_data,
+				params,
+				output,
+				reinterpret_cast<PF_UserChangedParamExtra*>(extraP));
+
+			break;
+		}
+		case PF_Cmd_QUERY_DYNAMIC_FLAGS:
+			err = QueryDynamicFlags(in_data,
+				out_data,
+				params,
+				reinterpret_cast<PF_UserChangedParamExtra*>(extraP));
+			break;
 		}
 	}
-	return err;
-}
-#endif
-//-----------------------------------------------------------------------------------
-#if defined(SUPPORT_SMARTFX)
-static PF_Err
-SmartRender(
-	PF_InData				*in_data,
-	PF_OutData				*out_data,
-	PF_SmartRenderExtra		*extraP)
-{
-	PF_Err			err		= PF_Err_NONE,
-					err2 	= PF_Err_NONE;
+	catch (PF_Err& thrown_err) {
+		err = thrown_err;
+	}
+	if (err != PF_Err_NONE) {
+		AEGP_SuiteHandler suites(in_data->pica_basicP);
 
-	CFsAE ae(in_data,out_data,extraP,ID_NUM_PARAMS);
-	err = ae.resultErr();
-	if (!err){
-		ParamInfo *infoP = reinterpret_cast<ParamInfo*>(ae.LockPreRenderData());
-		if (infoP){
-			ERR(Exec(&ae,infoP));
-			ERR2(ae.UnsetSmartRender());
-			ae.UnlockPreRenderData();
-		}else{
-			err = PF_Err_OUT_OF_MEMORY;
-		}
+		suites.ANSICallbacksSuite1()->sprintf(out_data->return_msg,
+			"%d", cmd
+			);
 	}
 	return err;
 }
-#endif
-
-#include "NF_Entry.h"
 

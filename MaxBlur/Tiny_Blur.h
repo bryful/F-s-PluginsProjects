@@ -31,7 +31,7 @@
 
 
 
-PF_Err TinyBlue(
+PF_Err NFBlue(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,

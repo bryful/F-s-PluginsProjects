@@ -37,74 +37,47 @@
 //-----------------------------------------------------------------------------------
 inline A_u_char RoundByteLong(A_long x)
 {
-	A_long temp=x;
-	if (temp<0)   temp=0;
-	if (temp>PF_MAX_CHAN8) temp=PF_MAX_CHAN8;
-	return (A_u_char)temp;
+	return (A_u_char)AE_CLAMP(x, 0, PF_MAX_CHAN8);
 }
 //-----------------------------------------------------------------------------------
 inline A_u_char RoundByteFpLong(PF_FpLong x)
 {
-	PF_FpLong temp=x;
-	if (temp<0)   temp=0;
-	if (temp>PF_MAX_CHAN8) temp=PF_MAX_CHAN8;
-	return (A_u_char)temp;
+	return (A_u_char)AE_CLAMP(x, 0, PF_MAX_CHAN8);
 }
 //-----------------------------------------------------------------------------------
 inline A_u_char RoundByteFpShort(PF_FpShort x)
 {
-	PF_FpShort temp=x;
-	if (temp<0)   temp=0;
-	if (temp>PF_MAX_CHAN8) temp=PF_MAX_CHAN8;
-	return (A_u_char)temp;
+	return (A_u_char)AE_CLAMP(x, 0, PF_MAX_CHAN8);
 }
 //-----------------------------------------------------------------------------------
 inline A_u_char RoundByteDouble(double x)
 {
-	double temp = x;
-	if (temp<0)   temp = 0;
-	if (temp>PF_MAX_CHAN8) temp = PF_MAX_CHAN8;
-	return (A_u_char)temp;
+	return (A_u_char)AE_CLAMP(x, 0, PF_MAX_CHAN8);
 }
 //-----------------------------------------------------------------------------------
 inline A_u_short RoundShort(A_long x)
 {
-	A_long temp=x;
-	if (temp<0)   temp=0;
-	if (temp>PF_MAX_CHAN16) temp=PF_MAX_CHAN16;
-	return (A_u_short)temp;
+	return (A_u_short)AE_CLAMP(x, 0, PF_MAX_CHAN16);
 }
 //-----------------------------------------------------------------------------------
 inline A_u_short RoundShortFpLong(PF_FpLong x)
 {
-	PF_FpLong temp=x;
-	if (temp<0)   temp=0;
-	if (temp>PF_MAX_CHAN16) temp=PF_MAX_CHAN16;
-	return (A_u_short)temp;
+	return (A_u_short)AE_CLAMP(x, 0, PF_MAX_CHAN16);
 }
 //-----------------------------------------------------------------------------------
 inline PF_FpShort RoundFpShort(PF_FpShort x)
 {
-	PF_FpShort temp=x;
-	if (temp<0)   temp=0;
-	if (temp>32.0) temp=32.0;
-	return temp;
+	return (PF_FpShort)AE_CLAMP(x, 0, 32);
 }
 //-----------------------------------------------------------------------------------
 inline PF_FpShort RoundFpShortDouble(PF_FpLong x)
 {
-	double temp=x;
-	if (temp<0)   temp=0;
-	if (temp>32) temp=32.0;
-	return (PF_FpShort)temp;
+	return (PF_FpShort)AE_CLAMP(x, 0, 32);
 }
 //-----------------------------------------------------------------------------------
 inline PF_FpShort RoundFpShort2(PF_FpLong x)
 {
-	double temp = x;
-	if (temp < 0)   temp = 0;
-	if (temp > 1) temp = 1;
-	return (PF_FpShort)temp;
+	return (PF_FpShort)AE_CLAMP(x, 0, 1);
 }
 //-----------------------------------------------------------------------------------
 //***********************************************************************************
@@ -118,7 +91,21 @@ inline PF_FpShort RoundFpShort2(PF_FpLong x)
 	★銀天随筆集　Xorshift の初期化は
 	http://d.hatena.ne.jp/gintenlabo/20100930/1285859540
 */
+// 符号なし32bit整数を用いたハッシュ
+static unsigned int hash_int(unsigned int x, unsigned int y, unsigned int seed) {
+	unsigned int h = seed ^ (x * 2654435761U) ^ (y * 2246822519U);
+	h ^= h >> 16;
+	h *= 0x85ebca6b;
+	h ^= h >> 13;
+	h *= 0xc2b2ae35;
+	h ^= h >> 16;
+	return h;
+}
 
+// 0.0f ～ 1.0f の範囲に正規化
+static float hash_float(int x, int y, int seed) {
+	return (float)hash_int((unsigned int)x, (unsigned int)y, (unsigned int)seed) / (float)0xFFFFFFFFU;
+}
 //***********************************************************************************
 // xorShift用のグローバル変数
 static A_u_long gSeed128[8];
@@ -476,6 +463,89 @@ inline PF_FpShort Pixel32Level(PF_PixelFloat s)
 	return (PF_FpShort)v;
 }
 //*************************************************************************************************
+template <typename T>
+struct PixelTraits;
+
+template <> struct PixelTraits<A_u_char> { // 8-bit
+	enum { MAX = PF_MAX_CHAN8, HALF = PF_HALF_CHAN8, SHIFT = 8 };
+	typedef PF_Pixel PixelType;
+};
+
+template <> struct PixelTraits<A_u_short> { // 16-bit
+	enum { MAX = PF_MAX_CHAN16, HALF = PF_HALF_CHAN16, SHIFT = 15 };
+	typedef PF_Pixel16 PixelType;
+};
+
+template <> struct PixelTraits<PF_FpShort> { // 32-bit Float
+	// Floatの場合は1.0が最大
+	typedef PF_PixelFloat PixelType;
+};
+// ピクセルのアルファブレンド（共通実装）
+/*
+// 8bitの場合
+PF_Pixel res = PixelAlphaBlendGeneric<A_u_char>(s_px, d_px);
+
+// 16bitの場合
+PF_Pixel16 res16 = PixelAlphaBlendGeneric<A_u_short>(s_px16, d_px16);
+
+// 32bitの場合
+PF_PixelFloat resF = PixelAlphaBlendGeneric<PF_FpShort>(s_pxF, d_pxF);
+*/
+template <typename T>
+inline typename PixelTraits<T>::PixelType
+PixelAlphaBlendGeneric(
+	typename PixelTraits<T>::PixelType src,
+	typename PixelTraits<T>::PixelType dst)
+{
+	using PType = typename PixelTraits<T>::PixelType;
+	PType rr = { 0, 0, 0, 0 };
+
+	if constexpr (std::is_floating_point_v<T>) {
+		// --- 32-bit Float (0.0 - 1.0) の処理 ---
+		if (src.alpha <= 0.0f || dst.alpha >= 1.0f) return dst;
+		if (dst.alpha <= 0.0f) return src;
+
+		float as2 = (1.0f - dst.alpha) * src.alpha;
+		float ad2 = dst.alpha + as2;
+
+		if (ad2 <= 0.0f) return rr;
+
+		rr.alpha = min(ad2, 1.0f);
+		rr.red = (dst.red * dst.alpha + src.red * as2) / ad2;
+		rr.green = (dst.green * dst.alpha + src.green * as2) / ad2;
+		rr.blue = (dst.blue * dst.alpha + src.blue * as2) / ad2;
+
+		return rr;
+	}
+	else {
+		// --- 8/16-bit Integer の処理 ---
+		const A_long max_val = PixelTraits<T>::MAX;
+		const A_long shift = PixelTraits<T>::SHIFT;
+
+		if (src.alpha == 0 || dst.alpha == max_val) return dst;
+		if (dst.alpha == 0) return src;
+
+		// as2 = ((MAX + 1) - dst.alpha) * src.alpha / (MAX + 1)
+		// 16bitの場合は32768を超える計算になるため A_longlong (64bit) を推奨
+		long long as2 = (long long)((max_val + 1) - dst.alpha) * src.alpha >> shift;
+		long long ad2 = (long long)dst.alpha + as2;
+
+		if (ad2 > max_val) ad2 = max_val;
+		if (ad2 <= 0) return rr;
+
+		long long r = ((long long)dst.red * dst.alpha + (long long)src.red * as2) / ad2;
+		long long g = ((long long)dst.green * dst.alpha + (long long)src.green * as2) / ad2;
+		long long b = ((long long)dst.blue * dst.alpha + (long long)src.blue * as2) / ad2;
+
+		rr.alpha = (T)ad2;
+		rr.red = (T)min(r, (long long)max_val);
+		rr.green = (T)min(g, (long long)max_val);
+		rr.blue = (T)min(b, (long long)max_val);
+
+		return rr;
+	}
+}
+/*
 //AlphaBlend
 inline PF_Pixel PixelAlphaBlend8(PF_Pixel src,PF_Pixel dst)
 {
@@ -575,6 +645,7 @@ inline PF_PixelFloat PixelAlphaBlend32(PF_PixelFloat src,PF_PixelFloat dst)
 		return rr;
 	}
 }
+*/
 //*************************************************************************************************
 inline PF_Pixel ToPremultiplied8(PF_Pixel col)
 {

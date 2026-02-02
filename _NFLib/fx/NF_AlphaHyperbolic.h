@@ -1,7 +1,7 @@
 ﻿#pragma once
 #pragma once
-#ifndef TINY_MINMAX_H
-#define TINY_MINMAX_H
+#ifndef NF_ALPHAHYPERBOLIC_H
+#define NF_ALPHAHYPERBOLIC_H
 
 
 #include "AEConfig.h" 
@@ -28,19 +28,20 @@
 #define refconType A_long
 #endif
 
-#include <vector>
-
-PF_Err NFMinMax(
+PF_Err HyperbolicAlpha(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
-    A_long value
+    PF_FpLong		hyperbolic
 );
-PF_Err TinyMinMaxM(
+PF_Err HyperbolicAlpha(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
-    A_long value
+    PF_Iterate8Suite1 *iter_scopeP,
+    PF_FpLong		hyperbolic
 );
-#endif // TINY_MINMAX_H
+
+
+
+#endif // TINY_BLUR_H

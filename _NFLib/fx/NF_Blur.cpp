@@ -1,4 +1,4 @@
-﻿#include "Tiny_Blur.h"
+﻿#include "NF_Blur.h"
 #include <vector>
 
 // スレッド間で共有する構造体
@@ -12,7 +12,9 @@ typedef struct {
     void* temp_buffer;  // 一時バッファへのポインタ
 } BlurInfo;
 
-#define AE_CLAMP(val, min, max)  ((val) < (min) ? (min) : ((val) > (max) ? (max) : (val)))
+#ifndef AE_CLAMP
+#define AE_CLAMP(VAL, MIN, MAX) ((VAL) < (MIN) ? (MIN) : ((VAL) > (MAX) ? (MAX) : (VAL)))
+#endif
 
 /* --- 水平ボックスブラー (iterate_generic用) --- */
 template <typename PixelType, A_long MaxChan>
@@ -142,7 +144,7 @@ static PF_Err BoxBlurV16(void* ref, A_long t, A_long i, A_long l) { return BoxBl
 static PF_Err BoxBlurH32(void* ref, A_long t, A_long i, A_long l) { return BoxBlurH<PF_PixelFloat, 1>(ref, t, i, l); } // Floatは1.0
 static PF_Err BoxBlurV32(void* ref, A_long t, A_long i, A_long l) { return BoxBlurV<PF_PixelFloat, 1>(ref, t, i, l); }
 
-static PF_Err TinyBlueImpl(
+static PF_Err BlurImpl(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
@@ -216,11 +218,11 @@ static PF_Err TinyBlueImpl(
     return err;
 }
 
-static PF_Err TinyBlueMImpl(
+static PF_Err BlurImpl(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
+    AEGP_SuiteHandler* suitesP,
     A_long value
 )
 {
@@ -251,45 +253,45 @@ static PF_Err TinyBlueMImpl(
     switch (pixelFormat) {
     case PF_PixelFormat_ARGB32:
         for (int n = 0; n < 3; n++) {
-            ERR(iter_scopeP->iterate_generic(bi.height, &bi, BoxBlurH8));
-            ERR(iter_scopeP->iterate_generic(bi.width, &bi, BoxBlurV8));
+            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.height, &bi, BoxBlurH8));
+            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.width, &bi, BoxBlurV8));
         }
         break;
 
     case PF_PixelFormat_ARGB64:
         for (int n = 0; n < 3; n++) {
-            ERR(iter_scopeP->iterate_generic(bi.height, &bi, BoxBlurH16));
-            ERR(iter_scopeP->iterate_generic(bi.width, &bi, BoxBlurV16));
+            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.height, &bi, BoxBlurH16));
+            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.width, &bi, BoxBlurV16));
         }
         break;
 
     case PF_PixelFormat_ARGB128:
         for (int n = 0; n < 3; n++) {
-            ERR(iter_scopeP->iterate_generic(bi.height, &bi, BoxBlurH32));
-            ERR(iter_scopeP->iterate_generic(bi.width, &bi, BoxBlurV32));
+            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.height, &bi, BoxBlurH32));
+            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.width, &bi, BoxBlurV32));
         }
         break;
     }
     return err;
 }
 
-PF_Err NFBlue(
+PF_Err Blur(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
     A_long value
 )
 {
-    return TinyBlueImpl(in_dataP, out_dataP, worldP, value);
+    return BlurImpl(in_dataP, out_dataP, worldP, value);
 }
 
-PF_Err TinyBlueM(
+PF_Err Blur(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
+    AEGP_SuiteHandler* suitesP,
     A_long value
 )
 {
-    return TinyBlueMImpl(in_dataP, worldP, pixelFormat, iter_scopeP, value);
+    return BlurImpl(in_dataP, worldP, pixelFormat, suitesP, value);
 }

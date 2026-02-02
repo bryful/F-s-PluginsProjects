@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\_Skeleton.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c">
       <Filter>Header Files\AE</Filter>
     </ClCompile>
@@ -20,10 +19,31 @@
     <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
+    <ClCompile Include="..\_Skeleton.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\NF_Settings.cpp">
+      <Filter>Supporting code\_NFLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\NF_Json.cpp">
+      <Filter>Supporting code\_NFLib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\_SkeltonFilter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\NF_Entry.h" />
-    <ClInclude Include="..\_Skeleton.h" />
     <ClInclude Include="..\..\..\Headers\A.h">
       <Filter>Header Files\AE</Filter>
     </ClInclude>
@@ -118,18 +138,44 @@
     <ClInclude Include="..\..\_NFLib\NF_Version.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\json.hpp">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_AE.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_ParamsSetup.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\_NFLib\json.hpp">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_Skeleton.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\NF_Settings.h">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\NF_Json.h">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\debug_font.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\_SkeltonFilter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -154,7 +200,10 @@
       <UniqueIdentifier>{360dcb91-d163-4159-b66b-2c5dc8cb929c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Supporting code\_NFLib">
-      <UniqueIdentifier>{93608044-02e6-4e26-9f2f-029f83e9bd3a}</UniqueIdentifier>
+      <UniqueIdentifier>{e70ea06c-cf7e-4a3f-a269-6281c45add39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fx">
+      <UniqueIdentifier>{c6150e2a-38f9-42d7-b1d0-f87ea145fd7a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,8 +215,10 @@
     <ResourceCompile Include="_SkeletonPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="..\..\NFsLibrary\Resource.rc">
-      <Filter>Header Files\AE\N</Filter>
-    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\_NFLib\dialog.jsx">
+      <Filter>Header Files\_NFLib</Filter>
+    </None>
   </ItemGroup>
 </Project>

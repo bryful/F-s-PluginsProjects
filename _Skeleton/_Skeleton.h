@@ -8,19 +8,26 @@
 #ifndef _Skeleton_H
 #define _Skeleton_H
 
-#include "../_NFLib/AE_SDK.h"
+#include "..\_NFLib\AE_SDK.h"
 
-#include "NF_Target.h"
+#include "NF_Target.h" //これを最初にincludeすること
 
+#include "..\_NFLib\NF_AE.h"
+#include "..\_NFLib\NF_ParamsSetup.h"
 
-#include "../_NFLib/NF_AE.h"
-#include "../_NFLib/NF_ParamsSetup.h"
+#include "..\_NFLib\fx\NF_Mult.h"
+#include "..\_NFLib\fx\NF_Minmax.h"
+#include "..\_NFLib\fx\NF_blur.h"
+#include "..\_NFLib\fx\debug_font.h"
+#include "_SkeltonFilter.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer
 
+	ID_MINMAX,
+	ID_BLUR,
 	ID_R,
 	ID_G,
 	ID_B,
@@ -37,10 +44,10 @@ enum {
 	ID_FIXED_SLIDER,
 	ID_FLOAT_SLIDER,
 	ID_COLOR,
-	ID_CHECKBOX,
 	ID_ANGLE,
 	ID_POPUP,
 	ID_POINT,
+	ID_CHECKBOX,
 	ID_TOPIC_END,
 	ID_BUTTON,
 
@@ -48,6 +55,8 @@ enum {
 };
 
 //UIの表示文字列
+#define	STR_MINMAX			"minmax"
+#define	STR_BLUR			"blur"
 #define	STR_R				"R"
 #define	STR_G				"G"
 #define	STR_B				"B"
@@ -65,7 +74,7 @@ enum {
 #define	STR_FIXED_SLIDER	"Fixed_Slider"
 #define	STR_FLOAT_SLIDER	"Float_Slider"
 #define	STR_COLOR			"Color"
-#define	STR_CHECKBOX1		"Checkbox"
+#define	STR_CHECKBOX1		"debug_font"
 #define	STR_CHECKBOX2		"on"
 #define	STR_ANGLE			"Angle"
 #define	STR_POPUP			"Popup"
@@ -79,6 +88,8 @@ enum {
 
 //UIのパラメータ
 typedef struct ParamInfo {
+	A_long		minmax;
+	A_long		blur;
 	PF_FpLong	r;
 	PF_FpLong	g;
 	PF_FpLong	b;

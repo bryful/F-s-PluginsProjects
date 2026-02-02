@@ -1,7 +1,7 @@
-﻿#pragma once
 #pragma once
-#ifndef TINY_MINMAX_H
-#define TINY_MINMAX_H
+#pragma once
+#ifndef DEBUG_FONT_H
+#define DEBUG_FONT_H
 
 
 #include "AEConfig.h" 
@@ -28,19 +28,22 @@
 #define refconType A_long
 #endif
 
-#include <vector>
-
-PF_Err NFMinMax(
+void DrawDebugString(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
-    A_long value
+    int x,
+    int y,
+    const char* str,
+    PF_Pixel color
 );
-PF_Err TinyMinMaxM(
-    PF_InData* in_dataP,
+
+void DrawDebugString(
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
-    A_long value
+    int x,
+    int y,
+    const char* str,
+    PF_Pixel color
 );
-#endif // TINY_MINMAX_H
+#endif // DEBUG_FONT_H

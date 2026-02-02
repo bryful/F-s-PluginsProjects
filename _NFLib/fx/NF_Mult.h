@@ -1,7 +1,7 @@
 ﻿#pragma once
 #pragma once
-#ifndef TINY_MINMAX_H
-#define TINY_MINMAX_H
+#ifndef NF_MULT_H
+#define NF_MULT_H
 
 
 #include "AEConfig.h" 
@@ -20,27 +20,25 @@
 #include "Smart_Utils.h"
 #include "AE_GeneralPlug.h"
 
-#if defined(PF_AE100_PLUG_IN_VERSION)
 #include "AEFX_SuiteHelper.h"
 #define refconType void*
-#else
-#include "PF_Suite_Helper.h"
-#define refconType A_long
-#endif
 
-#include <vector>
+PF_Err UnMult8(void* refcon, A_long thread_idx, A_long y, A_long itrt);
+PF_Err UnMult16(void* refcon, A_long thread_idx, A_long y, A_long itrt);
+PF_Err UnMult32(void* refcon, A_long thread_idx, A_long y, A_long itrt);
 
-PF_Err NFMinMax(
+
+PF_Err Mult(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
-    A_long value
+    PF_Boolean isUnMult
 );
-PF_Err TinyMinMaxM(
+PF_Err Mult(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
-    A_long value
+    AEGP_SuiteHandler* suitesP,
+    PF_Boolean isUnMult
 );
-#endif // TINY_MINMAX_H
+#endif // TINY_BLUR_H

@@ -10,13 +10,13 @@
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
 
-#define NF_NAME			"NF's _Skeleton"
-#define NF_MATCHNAME	"F's _Skeleton"
+#define NF_NAME			"NF-_Skeleton"
+#define NF_MATCHNAME	"NF-_Skeleton"
 
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
-#define NF_DESCRIPTION	"Plugin Template Project"
+#define NF_DESCRIPTION	"_Skelton"
 
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名
@@ -27,13 +27,11 @@
 //#define NF_CATEGORY NF_CATEGORY_CELL
 //#define NF_CATEGORY NF_CATEGORY_COLORISE
 //#define NF_CATEGORY NF_CATEGORY_SCRIPT
-//#define NF_CATEGORY NF_CATEGORY_BATA
+//#define NF_CATEGORY NF_CATEGORY_BETA
 //#define NF_CATEGORY NF_CATEGORY_LEGACY
 
-#define NF_CATEGORY  NF_CATEGORY_LEGACY
+#define NF_CATEGORY  FS_CATEGORY_BETA
 
-	//-----------------------------------------------------------
-#define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
 
 //-----------------------------------------------------------------------------------
 //out_flags
@@ -61,11 +59,7 @@ out_data->out_flags2
 	PF_OutFlag2_SUPPORTS_QUERY_DYNAMIC_FLAGS
 	PF_OutFlag2_DOESNT_NEED_EMPTY_PIXELS;
 */
-#if defined(SUPPORT_SMARTFX)
 #define NF_OUT_FLAGS2 134222921
-#else
-#define NF_OUT_FLAGS2 134217801
-#endif
 
 
 //-----------------------------------------------------------------------------------

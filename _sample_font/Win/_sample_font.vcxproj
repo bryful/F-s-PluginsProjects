@@ -170,12 +170,9 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\FsLibrary\FsAE.h" />
-    <ClInclude Include="..\..\FsLibrary\FsGraphics.h" />
-    <ClInclude Include="..\..\FsLibrary\FsUtils.h" />
     <ClInclude Include="..\..\..\Util\AEFX_SuiteHelper.h" />
     <ClInclude Include="..\debug_font.h" />
-    <ClInclude Include="..\debug_font_812.h" />
+    <ClInclude Include="..\debug_font_1424.h" />
     <ClInclude Include="..\_sample_font.h" />
     <ClInclude Include="..\Fs_Target.h" />
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
@@ -228,7 +225,6 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="_sample_fontPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />

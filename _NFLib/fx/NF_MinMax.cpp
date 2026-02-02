@@ -1,4 +1,4 @@
-﻿#include "Tiny_MinMax.h"
+﻿#include "NF_MinMax.h"
 
 typedef struct LineBuf {
     A_FpShort	level;
@@ -47,7 +47,7 @@ Max_SubH(
         FloatType maaxV = (FloatType)((((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha /maxChan);
 
         for (A_long x = 1; x < w; x++) {
-            FloatType v = (FloatType)((((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha / maxChan);
+            FloatType v = (FloatType)((((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha/maxChan);
             if (v > maaxV) { maax = outP[x]; maaxV = v; }
         }
         for (A_long x = 0; x < w; x++) outP[x] = maax;
@@ -69,7 +69,7 @@ Max_SubH(
     for (A_long i = 0; i < w; i++) {
 
         line[i] = outP[i];
-        lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114))*10 + (FloatType)line[i].alpha/maxChan);
+        lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114)) * 10 + (FloatType)line[i].alpha / maxChan);
     }
 
     // VHGアルゴリズム
@@ -353,7 +353,7 @@ Max_SubV(
 
         for (A_long y = 1; y < h; y++) {
             PixelType* p = (PixelType*)infoP->world->data + (y * wt + x);
-            FloatType v = (FloatType)((((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114))*10 + (FloatType)p->alpha / maxChan);
+            FloatType v = (FloatType)((((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114)) + (FloatType)p->alpha / maxChan);
             if (v > maaxV) { maax = *p; maaxV = v; }
         }
         for (A_long y = 0; y < h; y++) {
@@ -379,7 +379,7 @@ Max_SubV(
     // 3. 列データをコピー
     for (A_long y = 0; y < h; y++) {
         line[y] = *((PixelType*)infoP->world->data + (y * wt + x));
-        lineLevel[y] = (FloatType)((((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114)) + (FloatType)line[y].alpha/maxChan);
+        lineLevel[y] = (FloatType)((((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114))*10 + (FloatType)line[y].alpha/maxChan);
     }
 
     // 4. VHGアルゴリズム
@@ -639,7 +639,7 @@ static PF_Err Min_SubV32(void* refconPV, A_long thread_idxL, A_long x, A_long it
 {
     return Min_SubV<PF_PixelFloat, PF_FpShort, PF_FpShort>(refconPV, thread_idxL, x, itrtL, 1.0f);
 }
-static PF_Err TinyMinMaxImpl(
+static PF_Err MinMaxImpl(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
@@ -789,20 +789,20 @@ static PF_Err TinyMinMaxImpl(
     return err;
 }
 
-PF_Err NFMinMax(
+PF_Err MinMax(
     PF_InData* in_dataP,
     PF_OutData* out_dataP,
     PF_EffectWorld* worldP,
     A_long value
 )
 {
-	return TinyMinMaxImpl(in_dataP, out_dataP, worldP,value);
+	return MinMaxImpl(in_dataP, out_dataP, worldP,value);
 }
-static PF_Err TinyMinMaxMImpl(
+static PF_Err MinMaxImpl(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
+    AEGP_SuiteHandler* suitesP,
     A_long value
 )
 {
@@ -841,26 +841,26 @@ static PF_Err TinyMinMaxMImpl(
         {
         case PF_PixelFormat_ARGB32:
             if (info.maxMinus == FALSE) {
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH8              // fn_func: コールバック関数
                 ));
 
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV8    // fn_func: コールバック関数
                 ));
             }
             else {
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH8              // fn_func: コールバック関数
                 ));
 
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV8    // fn_func: コールバック関数
@@ -869,26 +869,26 @@ static PF_Err TinyMinMaxMImpl(
             break;
         case PF_PixelFormat_ARGB64:
             if (info.maxMinus == FALSE) {
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH16              // fn_func: コールバック関数
                 ));
 
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV16    // fn_func: コールバック関数
                 ));
             }
             else {
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH16              // fn_func: コールバック関数
                 ));
 
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV16    // fn_func: コールバック関数
@@ -897,26 +897,26 @@ static PF_Err TinyMinMaxMImpl(
             break;
         case PF_PixelFormat_ARGB128:
             if (info.maxMinus == FALSE) {
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH32              // fn_func: コールバック関数
                 ));
 
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV32    // fn_func: コールバック関数
                 ));
             }
             else {
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH32              // fn_func: コールバック関数
                 ));
 
-                ERR(iter_scopeP->iterate_generic(
+                ERR(suitesP->Iterate8Suite1()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV32    // fn_func: コールバック関数
@@ -930,13 +930,13 @@ static PF_Err TinyMinMaxMImpl(
     }
     return err;
 }
-PF_Err TinyMinMaxM(
+PF_Err MinMax(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scopeP,
+    AEGP_SuiteHandler* suitesP,
     A_long value
 )
 {
-    return TinyMinMaxMImpl(in_dataP, worldP, pixelFormat, iter_scopeP,value);
+    return MinMaxImpl(in_dataP, worldP, pixelFormat, suitesP,value);
 }

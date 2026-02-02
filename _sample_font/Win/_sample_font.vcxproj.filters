@@ -18,14 +18,8 @@
     <Filter Include="Supporting code">
       <UniqueIdentifier>{34564c40-2fc0-4a4f-9407-23299dd988c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Fs">
-      <UniqueIdentifier>{e5131a16-6949-42bf-a9e1-70916c766c16}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Supporting code\AE">
       <UniqueIdentifier>{0aebf967-6ad8-4c9d-8c0c-0505db0fb772}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Supporting code\Fs">
-      <UniqueIdentifier>{9a306c72-5eb0-45ca-8222-10d571f04825}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -113,19 +107,10 @@
     <ClInclude Include="..\..\..\Util\AEFX_SuiteHelper.h">
       <Filter>Supporting code\AE</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsAE.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsUtils.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsGraphics.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
     <ClInclude Include="..\debug_font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\debug_font_812.h">
+    <ClInclude Include="..\debug_font_1424.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -147,9 +132,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp">
       <Filter>Supporting code\AE</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp">
-      <Filter>Supporting code\Fs</Filter>
     </ClCompile>
     <ClCompile Include="..\debug_font.cpp" />
   </ItemGroup>
