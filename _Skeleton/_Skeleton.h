@@ -1,20 +1,20 @@
 ﻿//-----------------------------------------------------------------------------------
 /*
-	PluginSkeleton for VS2010
+	_Skeleton for VS2026
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef PluginSkeleton_H
-#define PluginSkeleton_H
+#ifndef _Skeleton_H
+#define _Skeleton_H
 
-#include "../FsLibrary/Fs.h"
+#include "../_NFLib/AE_SDK.h"
 
-#include "Fs_Target.h"
+#include "NF_Target.h"
 
 
-#include "../FsLibrary/FsAE.h"
-#include "../FsLibrary/CParamsSetup.h"
+#include "../_NFLib/NF_AE.h"
+#include "../_NFLib/NF_ParamsSetup.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
@@ -103,6 +103,14 @@ typedef struct ParamInfo {
 //-----------------------------------------------------------------------------------
 extern "C" {
 
+DllExport
+PF_Err PluginDataEntryFunction2(
+	PF_PluginDataPtr inPtr,
+	PF_PluginDataCB2 inPluginDataCallBackPtr,
+	SPBasicSuite* inSPBasicSuitePtr,
+	const char* inHostName,
+	const char* inHostVersion);
+
 DllExport 
 PF_Err 
 EffectMain(
@@ -113,5 +121,5 @@ EffectMain(
 	PF_LayerDef		*output,
 	void			*extra);
 }
-#endif // PluginSkeleton_H
+#endif // _Skeleton_H
 

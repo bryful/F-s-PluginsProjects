@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4F34A43D-CF5B-4672-84EF-BDC105F68A6E}</ProjectGuid>
-    <RootNamespace>NFsSkelton</RootNamespace>
-    <ProjectName>NFsSkelton</ProjectName>
+    <ProjectGuid>{44650EE4-5B04-43C2-9D1C-B96240D4AE80}</ProjectGuid>
+    <RootNamespace>_Skeleton</RootNamespace>
+    <ProjectName>_Skeleton</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -103,7 +103,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/NFsSkelton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_Skeleton.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -152,7 +152,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/NFsSkelton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_Skeleton.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -176,6 +176,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -204,7 +205,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/NFsSkelton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_Skeleton.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -258,7 +259,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/NFsSkelton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/_Skeleton.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -288,6 +289,7 @@
       <DebugInformationFormat>
       </DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <Culture>0x0411</Culture>
@@ -311,8 +313,16 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\NFsLibrary\AEInfo.h" />
-    <ClInclude Include="..\..\NFsLibrary\AE_SDK.h" />
+    <ClInclude Include="..\..\NFsLibrary\resource.h" />
+    <ClInclude Include="..\..\_NFLib\AE_SDK.h" />
+    <ClInclude Include="..\..\_NFLib\json.hpp" />
+    <ClInclude Include="..\..\_NFLib\NF_AE.h" />
+    <ClInclude Include="..\..\_NFLib\NF_CATEGORY.h" />
+    <ClInclude Include="..\..\_NFLib\NF_ParamsSetup.h" />
+    <ClInclude Include="..\..\_NFLib\NF_Utils.h" />
+    <ClInclude Include="..\..\_NFLib\NF_Version.h" />
+    <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h" />
+    <ClInclude Include="..\NF_Entry.h" />
     <ClInclude Include="..\..\..\Headers\A.h" />
     <ClInclude Include="..\..\..\Headers\AE_Effect.h" />
     <ClInclude Include="..\..\..\Headers\AE_EffectCB.h" />
@@ -337,13 +347,8 @@
     <ClInclude Include="..\..\..\Util\Param_Utils.h" />
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
-    <ClInclude Include="..\..\NFsLibrary\NFsUtils.h" />
-    <ClInclude Include="..\..\NFsLibrary\NFsWorld.h" />
-    <ClInclude Include="..\NFsSkeltonFX.h" />
-    <ClInclude Include="..\NFs_Target.h" />
-    <ClInclude Include="..\NFsSkelton.h">
-      <DeploymentContent>true</DeploymentContent>
-    </ClInclude>
+    <ClInclude Include="..\NF_Target.h" />
+    <ClInclude Include="..\_Skeleton.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
@@ -354,7 +359,7 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\NFsSkeltonPiPL.r">
+    <CustomBuild Include="..\_SkeletonPiPL.r">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling the PiPL</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
@@ -382,7 +387,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="NFsSkeltonPiPL.rc" />
+       <ResourceCompile Include="_SkeletonPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
@@ -390,7 +395,8 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
-    <ClCompile Include="..\NFsSkelton.cpp">
+    <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c" />
+    <ClCompile Include="..\_Skeleton.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MSWindows;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>

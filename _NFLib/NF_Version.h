@@ -1,6 +1,6 @@
 ﻿#pragma once
-#ifndef NFS_VAERSION_H
-#define NFS_VAERSION_H
+#ifndef NF_VAERSION_H
+#define NF_VAERSION_H
 
 
 //-----------------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 #define	BUILD_VERSION		0
 
 //上の値を計算した結果
-#define NFS_VERSION	1572864
+#define NF_VERSION	1572864
 
 
 #endif // FS_VAERSION_H

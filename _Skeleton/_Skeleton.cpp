@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "PluginSkeleton.h"
+#include "_Skeleton.h"
 
 #ifndef PF_CLAMP
 #define PF_CLAMP(VAL, MIN, MAX) ((VAL) < (MIN) ? (MIN) : ((VAL) > (MAX) ? (MAX) : (VAL)))
@@ -197,11 +197,11 @@ HandleChangedParam(
 			{
 				A_char scriptCode[2048] = { '\0' };
 				PF_SPRINTF(scriptCode, FS_ABOUT_DIALOG,
-					FS_NAME,
+					NF_NAME,
 					MAJOR_VERSION,
 					MINOR_VERSION,
 					__DATE__,
-					FS_DESCRIPTION);
+					NF_DESCRIPTION);
 
 				ERR(ae.suitesP->UtilitySuite5()->AEGP_ExecuteScript(ae.ae_plugin_idP->my_id, scriptCode, TRUE, NULL, NULL));
 				out_data->out_flags |= PF_OutFlag_REFRESH_UI;
@@ -375,13 +375,13 @@ static PF_Err
 	switch(ae->pixelFormat())
 	{
 	case PF_PixelFormat_ARGB128:
-		ERR(ae->iterate32((refconType)infoP, FilterImage<PF_PixelFloat>));
+		ERR(ae->iterate32(ae->input,(refconType)infoP, FilterImage<PF_PixelFloat>,ae->output));
 		break;
 	case PF_PixelFormat_ARGB64:
-		ERR(ae->iterate16((refconType)infoP, FilterImage<PF_Pixel16>));
+		ERR(ae->iterate16(ae->input, (refconType)infoP, FilterImage<PF_Pixel16>, ae->output));
 		break;
 	case PF_PixelFormat_ARGB32:
-		ERR(ae->iterate8((refconType)infoP, FilterImage<PF_Pixel8>));
+		ERR(ae->iterate8(ae->input, (refconType)infoP, FilterImage<PF_Pixel8>, ae->output));
 		break;
 	}
 	return err;
@@ -469,5 +469,5 @@ SmartRender(
 }
 #endif
 
-#include "Fs_Entry.h"
+#include "NF_Entry.h"
 

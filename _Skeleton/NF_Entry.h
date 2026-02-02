@@ -1,39 +1,16 @@
 ﻿//-----------------------------------------------------------------------------------
 /*
-	PluginSkeleton for VS2010
+	_Skeleton for VS2010
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef FSENRTY_H
-#define FSENRTY_H
+#ifndef NFENRTY_H
+#define NFENRTY_H
 
-#include "Fs_Target.h"
+#include "NF_Target.h"
 
-#include "AEConfig.h"
-#include "entry.h"
-
-//#include "PrSDKAESupport.h"
-#include "AE_Effect.h"
-#include "AE_EffectCB.h"
-#include "AE_EffectCBSuites.h"
-#include "AE_Macros.h"
-#include "AEGP_SuiteHandler.h"
-#include "String_Utils.h"
-#include "Param_Utils.h"
-#include "Smart_Utils.h"
-
-#if defined(PF_AE100_PLUG_IN_VERSION)
-	#include "AEFX_SuiteHelper.h"
-	#define refconType void*
-#else
-	#include "PF_Suite_Helper.h"
-	#define refconType A_long
-#endif
-
-#ifdef AE_OS_WIN
-	#include <Windows.h>
-#endif
+#include "../_NFLib/AE_SDK.h"
 
 //-----------------------------------------------------------------------------------
 static PF_Err 
@@ -149,6 +126,28 @@ RespondtoAEGP (
 	return err;
 }
 //-----------------------------------------------------------------------------------
+DllExport
+PF_Err PluginDataEntryFunction2(
+	PF_PluginDataPtr inPtr,
+	PF_PluginDataCB2 inPluginDataCallBackPtr,
+	SPBasicSuite* inSPBasicSuitePtr,
+	const char* inHostName,
+	const char* inHostVersion)
+{
+	PF_Err result = PF_Err_INVALID_CALLBACK;
+
+	result = PF_REGISTER_EFFECT_EXT2(
+		inPtr,
+		inPluginDataCallBackPtr,
+		NF_NAME, // Name
+		NF_MATCHNAME, // Match Name
+		NF_CATEGORY, // Category
+		AE_RESERVED_INFO, // Reserved Info
+		"EffectMain",	// Entry point
+		"https://github.com/bryful");	// support URL
+
+	return result;
+}
 DllExport	PF_Err 
 EffectMain(
 	PF_Cmd			cmd,
@@ -188,14 +187,12 @@ EffectMain(
 			case PF_Cmd_RENDER:
 					err = Render(in_data,out_data,params,output);
 					break;
-#if defined(SUPPORT_SMARTFX)
 			case PF_Cmd_SMART_PRE_RENDER:
 				err = PreRender(in_data,out_data,reinterpret_cast<PF_PreRenderExtra*>(extraP));
 				break;
 			case PF_Cmd_SMART_RENDER:
 				err = SmartRender(	in_data,out_data,reinterpret_cast<PF_SmartRenderExtra*>(extraP));
 				break;
-#endif
 			case PF_Cmd_COMPLETELY_GENERAL:
 				err = RespondtoAEGP(in_data,out_data,params,output,extraP);
 				break;

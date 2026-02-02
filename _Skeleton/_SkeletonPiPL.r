@@ -1,12 +1,13 @@
-﻿/* 定義はNFs_Target.hで行なっている。このファイルは編集する必要なし */
-#include "NFs_Target.h"
-
+﻿/* 定義はNF_Target.hで行なっている。このファイルは編集する必要なし */
 #include "AEConfig.h"
 #include "AE_EffectVers.h"
-
 #ifndef AE_OS_WIN
 	#include "AE_General.r"
 #endif
+
+#include "NF_Target.h"
+
+
 
 resource 'PiPL' (16000) {
 	{	/* array properties: 12 elements */
@@ -17,17 +18,19 @@ resource 'PiPL' (16000) {
 		/* [2] */
 		Name {
 			/*AEのメニューに使われる */
-			NFS_DISPNAME
+			NF_NAME
 		},
 		/* [3] */
 		Category {
 			/*AEのメニューに使われる */
-			NFS_CATEGORY
+			NF_CATEGORY
 		},
 		
 #ifdef AE_OS_WIN
 	#ifdef AE_PROC_INTELx64
 		CodeWin64X86 {"EffectMain"},
+	#else
+		CodeWin32X86 {"EffectMain"},
 	#endif	
 #else
 	#ifdef AE_OS_MAC
@@ -46,8 +49,7 @@ resource 'PiPL' (16000) {
 		},
 		/* [8] */
 		AE_Effect_Version {
-			/* v1.00 */
-			NFS_VERSION 
+			NF_VERSION 
 		},
 		/* [9] */
 		AE_Effect_Info_Flags {
@@ -55,16 +57,16 @@ resource 'PiPL' (16000) {
 		},
 		/* [10] */
 		AE_Effect_Global_OutFlags {
-			NFS_OUT_FLAGS
+			NF_OUT_FLAGS
 		},
 		AE_Effect_Global_OutFlags_2 {
-			NFS_OUT_FLAGS2
+			NF_OUT_FLAGS2
 		},
 
 		/* [11] */
 		AE_Effect_Match_Name {
 			/*プラグインの識別に使われる */
-			NFS_NAME
+			NF_MATCHNAME
 		},
 		/* [12] */
 		AE_Reserved_Info {

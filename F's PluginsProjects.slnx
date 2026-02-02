@@ -118,7 +118,7 @@
   <Project Path="PixelExtend/Win/PixelExtend.vcxproj" Id="8d0eafda-73d9-49e9-9d64-f1c32fe164cc" />
   <Project Path="PixelReplace/Win/PixelReplace.vcxproj" Id="d5748dd1-b86e-4c9a-b7d9-eb2260b7dd3b" />
   <Project Path="PixelSelector/Win/PixelSelector.vcxproj" Id="d3252997-b98a-4685-a06a-e30c4b472f48" />
-  <Project Path="PluginSkeleton/Win/PluginSkeleton.vcxproj" Id="44650ee4-5b04-43c2-9d1c-b96240d4ae80" />
+  <Project Path="_Skeleton/Win/_Skeleton.vcxproj" Id="44650ee4-5b04-43c2-9d1c-b96240d4ae80" />
   <Project Path="Posterization8bit/Win/Posterization8bit.vcxproj" Id="f5f94db1-51ac-4d0e-a23a-14bd7bcfc91d" />
   <Project Path="Premultiply/Win/Premultiply.vcxproj" Id="82bcecd2-399f-4286-87ba-0e6a222a98f9" />
   <Project Path="RandomLineNoise/Win/RandomLineNoise.vcxproj" Id="a0e5fd48-02d4-47d7-9dc3-a4b11ee8dc62" />

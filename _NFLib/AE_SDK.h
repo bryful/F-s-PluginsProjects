@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef AE_SDK_H
 #define AE_SDK_H
 
@@ -14,10 +14,14 @@
 #include "String_Utils.h"
 #include "Param_Utils.h"
 #include "Smart_Utils.h"
+#include "AE_ChannelSuites.h"
+
+
+#include "AEFX_SuiteHelper.h"
+#define refconType void*
 
 #ifdef AE_OS_WIN
 #include <Windows.h>
 #endif
 
 #endif
-

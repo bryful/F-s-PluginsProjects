@@ -1,6 +1,6 @@
 #pragma once
-#ifndef CPARAMSSETUP_H
-#define CPARAMSSETUP_H
+#ifndef NF_PARAMSSETUP_H
+#define NF_PARAMSSETUP_H
 
 #include "AEConfig.h" 
 #include "entry.h"

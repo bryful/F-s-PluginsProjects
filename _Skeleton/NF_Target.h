@@ -1,37 +1,39 @@
 ﻿
 
 #pragma once
-#ifndef Fs_TARGET_H
-#define Fs_TARGET_H
+#ifndef NF_TARGET_H
+#define NF_TARGET_H
 
+#include "..\_NFLib\NF_CATEGORY.h"
+#include "..\_NFLib\NF_Version.h"
 
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
-#define FS_NAME		"F's PluginSkeleton"
-#define FS_DISPNAME	"NF's PluginSkeleton"
+
+#define NF_NAME			"NF's _Skeleton"
+#define NF_MATCHNAME	"F's _Skeleton"
+
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
-#define FS_DESCRIPTION	"プラグインのスケルトン"
+#define NF_DESCRIPTION	"Plugin Template Project"
 
-	//-----------------------------------------------------------------------------------
-	//プラグインが表示されるメニュー名
-	//#define NFS_CATEGORY "NF's Plugins-Channel"
-	//#define NFS_CATEGORY "NF's Plugins-Draw"
-	//#define NFS_CATEGORY "NF's Plugins-Filter"
-	//#define NFS_CATEGORY "NF's Plugins-Noise"
-	//#define NFS_CATEGORY "NF's Plugins-Cell"
-	//#define NFS_CATEGORY "NF's Plugins-Colorize"
-	//#define NFS_CATEGORY "NF's Plugins-Script"
-	//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
+//-----------------------------------------------------------------------------------
+//プラグインが表示されるメニュー名
+//#define NF_CATEGORY NF_CATEGORY_CHANNEL
+//#define NF_CATEGORY NF_CATEGORY_DRAW
+//#define NF_CATEGORY NF_CATEGORY_FILTER
+//#define NF_CATEGORY NF_CATEGORY_NOISE
+//#define NF_CATEGORY NF_CATEGORY_CELL
+//#define NF_CATEGORY NF_CATEGORY_COLORISE
+//#define NF_CATEGORY NF_CATEGORY_SCRIPT
+//#define NF_CATEGORY NF_CATEGORY_BATA
+//#define NF_CATEGORY NF_CATEGORY_LEGACY
 
-#define FS_CATEGORY "NF's Plugins-{Legacy}"
+#define NF_CATEGORY  NF_CATEGORY_LEGACY
 
 	//-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する
-//#define NO_USE_FSGRAPHICS	//これを有効にするとFsGraphics関係がインクルードされない
-
-#include "../FsLibrary/FsVersion.h"
 
 //-----------------------------------------------------------------------------------
 //out_flags
@@ -45,9 +47,9 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define FS_OUT_FLAGS	33556032	//通常はこちら
-#define FS_OUT_FLAGS	33556068	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
-//#define FS_OUT_FLAGS	1600		//8bitのみ
+//#define NF_OUT_FLAGS	33556032	//通常はこちら
+#define NF_OUT_FLAGS	33556068	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+//#define NF_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------
 //out_flags2
@@ -60,9 +62,9 @@ out_data->out_flags2
 	PF_OutFlag2_DOESNT_NEED_EMPTY_PIXELS;
 */
 #if defined(SUPPORT_SMARTFX)
-#define FS_OUT_FLAGS2 134222921
+#define NF_OUT_FLAGS2 134222921
 #else
-#define FS_OUT_FLAGS2 134217801
+#define NF_OUT_FLAGS2 134217801
 #endif
 
 

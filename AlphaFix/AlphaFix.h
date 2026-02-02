@@ -47,7 +47,7 @@
 #define	STR_BASE_COLOR	"背景色"
 
 #include "../FsLibrary/FsAE.h"
-#include "../FsLibrary/CParamsSetup.h"
+#include "..\_NFLib\NF_ParamsSetup.h"
 	
 //プラグイン独自のパラメータを集めた構造体
 typedef struct ParamInfo8{
