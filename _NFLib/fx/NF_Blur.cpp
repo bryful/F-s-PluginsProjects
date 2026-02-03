@@ -165,10 +165,10 @@ static PF_Err BlurImpl(
 
     ws2P->PF_GetPixelFormat(worldP, &pixelFormat);
 
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scope(
+    AEFX_SuiteScoper<PF_Iterate8Suite2> iter_scope(
         in_dataP,
         kPFIterate8Suite,
-        kPFIterate8SuiteVersion1,
+        kPFIterate8SuiteVersion2,
         out_dataP
     );
 
@@ -253,22 +253,22 @@ static PF_Err BlurImpl(
     switch (pixelFormat) {
     case PF_PixelFormat_ARGB32:
         for (int n = 0; n < 3; n++) {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.height, &bi, BoxBlurH8));
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.width, &bi, BoxBlurV8));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(bi.height, &bi, BoxBlurH8));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(bi.width, &bi, BoxBlurV8));
         }
         break;
 
     case PF_PixelFormat_ARGB64:
         for (int n = 0; n < 3; n++) {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.height, &bi, BoxBlurH16));
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.width, &bi, BoxBlurV16));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(bi.height, &bi, BoxBlurH16));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(bi.width, &bi, BoxBlurV16));
         }
         break;
 
     case PF_PixelFormat_ARGB128:
         for (int n = 0; n < 3; n++) {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.height, &bi, BoxBlurH32));
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(bi.width, &bi, BoxBlurV32));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(bi.height, &bi, BoxBlurH32));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(bi.width, &bi, BoxBlurV32));
         }
         break;
     }

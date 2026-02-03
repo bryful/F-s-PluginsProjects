@@ -32,6 +32,16 @@
 #define	FLT2FIX(F)	((PF_Fixed)((F) * 65536 + (((F) < 0) ? -0.5 : 0.5)))
 #define F_ABS(x) ((x) >= 0 ? (x) : -(x))
 
+#ifndef F_SWAP
+#define F_SWAP(a, b) { auto _tmp = (a); (a) = (b); (b) = _tmp; }
+#endif
+#ifndef F_MAX
+#define F_MAX(a,b)            (((a) > (b)) ? (a) : (b))
+#endif
+
+#ifndef F_MIN
+#define F_MIN(a,b)            (((a) < (b)) ? (a) : (b))
+#endif
 //•Ï”‚ÌŒ^•ÏŠ·
 
 //-----------------------------------------------------------------------------------

@@ -1133,7 +1133,19 @@ public:
 		*pos = ret;
 		return err;
 	}
-
+	 //--------------------------------------------------------------------
+	 PF_Err GetPOINT(A_long idx, PF_Point* pos)
+	 {
+		 PF_Err err = PF_Err_NONE;
+		 PF_FixedPoint fp;
+		 ERR(GetFIXEDPOINT(idx, &fp));
+		 if (!err)
+		 {
+			 pos->x = (A_long)((double)fp.x /65536+0.5);
+			 pos->y = (A_long)((double)fp.y /65536+0.5);
+		 }
+		 return err;
+	 }
 	//--------------------------------------------------------------------
 	PF_Err GetPOPUP(A_long idx,A_long *pop)
 	{

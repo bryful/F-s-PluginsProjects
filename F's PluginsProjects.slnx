@@ -190,9 +190,6 @@
     </Project>
   </Folder>
   <Folder Name="/_SDK/">
-    <Project Path="_sample_font/Win/_sample_font.vcxproj" Id="33ef0610-e382-4ccc-893b-9ee85c65ce78">
-      <Platform Project="x64" />
-    </Project>
     <Project Path="_Skeleton/Win/_Skeleton.vcxproj" Id="44650ee4-5b04-43c2-9d1c-b96240d4ae80" />
   </Folder>
 </Solution>

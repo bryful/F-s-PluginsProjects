@@ -89,7 +89,6 @@ typedef struct FsPixelCopyParam{
 var dlg = new FsAbout;\r\n\
 dlg.show();\r\n"
 
-#include "dialog_jsx.h"
 #define FsAE_ITEM_COUNT	256
 
 //******************************************************************************

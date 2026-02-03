@@ -42,6 +42,15 @@
       <Filter>fx</Filter>
     </ClCompile>
     <ClCompile Include="..\_SkeltonFilter.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Paint.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Draw.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Noise.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -176,6 +185,15 @@
       <Filter>fx</Filter>
     </ClInclude>
     <ClInclude Include="..\_SkeltonFilter.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Paint.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Draw.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Noise.h">
+      <Filter>fx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

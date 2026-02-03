@@ -176,10 +176,10 @@ static PF_Err MultImpl(
 
     ws2P->PF_GetPixelFormat(worldP, &pixelFormat);
 
-    AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scope(
+    AEFX_SuiteScoper<PF_Iterate8Suite2> iter_scope(
         in_dataP,
         kPFIterate8Suite,
-        kPFIterate8SuiteVersion1,
+        kPFIterate8SuiteVersion2,
         out_dataP
     );
 
@@ -243,28 +243,28 @@ static PF_Err MultImpl(
     switch (pixelFormat) {
     case PF_PixelFormat_ARGB32:
         if (isUnMult) {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(worldP->height, &bi, UnMultSub8));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(worldP->height, &bi, UnMultSub8));
         }
         else {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(worldP->height, &bi, Mult8));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(worldP->height, &bi, Mult8));
         }
         break;
 
     case PF_PixelFormat_ARGB64:
         if (isUnMult) {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(worldP->height, &bi, UnMultSub16));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(worldP->height, &bi, UnMultSub16));
         }
         else {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(worldP->height, &bi, Mult16));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(worldP->height, &bi, Mult16));
         }
         break;
 
     case PF_PixelFormat_ARGB128:
         if (isUnMult) {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(worldP->height, &bi, UnMultSubFloat));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(worldP->height, &bi, UnMultSubFloat));
         }
         else {
-            ERR(suitesP->Iterate8Suite1()->iterate_generic(worldP->height, &bi, MultFloat));
+            ERR(suitesP->Iterate8Suite2()->iterate_generic(worldP->height, &bi, MultFloat));
         }
         break;
     }

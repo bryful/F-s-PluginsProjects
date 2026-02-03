@@ -21,6 +21,8 @@ typedef struct MinMaxInfo {
 
 }MaxFastInfo;
 
+#define PIXEL_LEVEL(PP) ( (FloatType)((((FloatType)PP.red * 0.299) + ((FloatType)PP.green * 0.587) + ((FloatType)PP.blue * 0.114)) * 10 + (FloatType)PP.alpha / maxChan))
+
 
 // ************************************************************************
 template <typename PixelType, typename ChannelType, typename FloatType>
@@ -44,10 +46,9 @@ Max_SubH(
     // 1. 半径が画像幅以上の場合は全画面最大値を計算
     if (radius >= w) {
         PixelType maax = outP[0];
-        FloatType maaxV = (FloatType)((((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha /maxChan);
-
+		FloatType maaxV = PIXEL_LEVEL(maax);
         for (A_long x = 1; x < w; x++) {
-            FloatType v = (FloatType)((((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha/maxChan);
+			FloatType v = PIXEL_LEVEL(outP[x]);
             if (v > maaxV) { maax = outP[x]; maaxV = v; }
         }
         for (A_long x = 0; x < w; x++) outP[x] = maax;
@@ -69,7 +70,8 @@ Max_SubH(
     for (A_long i = 0; i < w; i++) {
 
         line[i] = outP[i];
-        lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114)) * 10 + (FloatType)line[i].alpha / maxChan);
+        //lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114)) * 10 + (FloatType)line[i].alpha / maxChan);
+		lineLevel[i] = PIXEL_LEVEL(line[i]);
     }
 
     // VHGアルゴリズム
@@ -199,10 +201,11 @@ Min_SubH(
     // 1. 半径が画像幅以上の場合は全画面最小値を計算
     if (radius >= w) {
         PixelType miin = outP[0];
-        FloatType miinV = (FloatType)((((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10 + (FloatType)miin.alpha/maxChan);
-
+        //FloatType miinV = (FloatType)((((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10 + (FloatType)miin.alpha/maxChan);
+		FloatType miinV = PIXEL_LEVEL(miin);
         for (A_long x = 1; x < w; x++) {
-            FloatType v = (FloatType)((((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha/maxChan);
+            //FloatType v = (FloatType)((((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha/maxChan);
+			FloatType v = PIXEL_LEVEL(outP[x]);
             if (v < miinV) { miin = outP[x]; miinV = v; }  // < に変更
         }
         for (A_long x = 0; x < w; x++) outP[x] = miin;
@@ -221,7 +224,8 @@ Min_SubH(
 
     for (A_long i = 0; i < w; i++) {
         line[i] = outP[i];
-        lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114))*10 + (FloatType)line[i].alpha/maxChan);
+        //lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114))*10 + (FloatType)line[i].alpha/maxChan);
+		lineLevel[i] = PIXEL_LEVEL(line[i]);
     }
 
     // VHGアルゴリズム（最小値用に修正）
@@ -688,11 +692,11 @@ static PF_Err MinMaxImpl(
     info.height = worldP->height;
 
     if (!err) {
-        PF_Iterate8Suite1* iterS = nullptr;
-        AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scope(
+        PF_Iterate8Suite2* iterS = nullptr;
+        AEFX_SuiteScoper<PF_Iterate8Suite2> iter_scope(
             in_dataP,
             kPFIterate8Suite,
-            kPFIterate8SuiteVersion1,
+            kPFIterate8SuiteVersion2,
             out_dataP
         );
         switch(pixelFormat)
@@ -810,6 +814,9 @@ static PF_Err MinMaxImpl(
     if (value == 0) return err;
 
     MinMaxInfo info;
+    if (value < -14) {
+		value *= 1;
+    }
     info.in_data = in_dataP;
     if (value < 0) {
         info.max = -1*value;
@@ -841,26 +848,26 @@ static PF_Err MinMaxImpl(
         {
         case PF_PixelFormat_ARGB32:
             if (info.maxMinus == FALSE) {
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH8              // fn_func: コールバック関数
                 ));
 
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV8    // fn_func: コールバック関数
                 ));
             }
             else {
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH8              // fn_func: コールバック関数
                 ));
 
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV8    // fn_func: コールバック関数
@@ -869,26 +876,26 @@ static PF_Err MinMaxImpl(
             break;
         case PF_PixelFormat_ARGB64:
             if (info.maxMinus == FALSE) {
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH16              // fn_func: コールバック関数
                 ));
 
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV16    // fn_func: コールバック関数
                 ));
             }
             else {
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH16              // fn_func: コールバック関数
                 ));
 
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV16    // fn_func: コールバック関数
@@ -897,26 +904,26 @@ static PF_Err MinMaxImpl(
             break;
         case PF_PixelFormat_ARGB128:
             if (info.maxMinus == FALSE) {
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Max_SubH32              // fn_func: コールバック関数
                 ));
 
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Max_SubV32    // fn_func: コールバック関数
                 ));
             }
             else {
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.height,     // iterationsL: 実行回数（＝行数）
                     &info,                  // refconPV: ユーザー定義データ
                     Min_SubH32              // fn_func: コールバック関数
                 ));
 
-                ERR(suitesP->Iterate8Suite1()->iterate_generic(
+                ERR(suitesP->Iterate8Suite2()->iterate_generic(
                     info.width,           // iterationsL: 実行回数（＝行数）
                     &info,                    // refconPV: ユーザー定義データ
                     Min_SubV32    // fn_func: コールバック関数

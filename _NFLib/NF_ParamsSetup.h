@@ -392,6 +392,30 @@ public:
 		if (!err) param_count++;
 		return err;
 	}
+	/*
+	* #define PF_ADD_NULL(NAME, ID) \
+	do {\
+		PF_Err	priv_err = PF_Err_NONE; \
+		def.param_type = PF_Param_NO_DATA; \
+		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		def.uu.id = (ID); \
+		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
+	} while (0)
+*/
+	PF_Err AddNull(
+		const char* name,
+		A_long id
+	)
+	{
+		PF_Err			err = PF_Err_NONE;
+		ClearDef();
+		def.param_type = PF_Param_NO_DATA;
+		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		def.uu.id = id;
+		err = in_data->inter.add_param(in_data->effect_ref, -1, &def);
+		if (!err) param_count++;
+		return err;
+	}
 };
 
 #endif // CPARAMSSETUP_H

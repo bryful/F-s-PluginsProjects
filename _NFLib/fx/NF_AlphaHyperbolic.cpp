@@ -221,7 +221,7 @@ static PF_Err HyperbolicAlphaImpl(
 
     switch (pixelFormat) {
     case PF_PixelFormat_ARGB32:
-        return suitesP->Iterate8Suite1()->iterate(
+        return suitesP->Iterate8Suite2()->iterate(
             in_dataP,
             0,														// progress base
             worldP->height,	// progress final
@@ -232,7 +232,7 @@ static PF_Err HyperbolicAlphaImpl(
             worldP);	// dest
         break;
     case PF_PixelFormat_ARGB64:
-        return suitesP->Iterate16Suite1()->iterate(
+        return suitesP->Iterate16Suite2()->iterate(
             in_dataP,
             0,
             worldP->height,
@@ -243,7 +243,7 @@ static PF_Err HyperbolicAlphaImpl(
             worldP);
         break;
     case PF_PixelFormat_ARGB128:
-        return suitesP->IterateFloatSuite1()->iterate(
+        return suitesP->IterateFloatSuite2()->iterate(
             in_dataP,
             0,
             worldP->height,
