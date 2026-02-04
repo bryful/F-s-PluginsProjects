@@ -12,6 +12,7 @@ static void AssignGrad(RadialMaskInfo* info, PF_Pixel16* out) {
 static void AssignGrad(RadialMaskInfo* info, PF_PixelFloat* out) {
     *out = info->grad32;
 }
+/*
 template <typename T, typename T_COMP>
 static PF_Err SimpleMaskIteratorF(
     void* refcon,
@@ -21,7 +22,8 @@ static PF_Err SimpleMaskIteratorF(
     T* out)
 {
 
-    MaskInfo* info = static_cast<MaskInfo*>(refcon);
+    //MaskInfo* info = static_cast<MaskInfo*>(refcon);
+    RadialMaskInfo* info = static_cast<RadialMaskInfo*>(refcon);
     if ((out->alpha == 0) && (info->isAll == FALSE)) {
         return PF_Err_NONE;
     }
@@ -60,7 +62,7 @@ static PF_Err SimpleMaskIteratorF(
 
     return PF_Err_NONE;
 }
-
+*/
 template <typename T, typename T_COMP>
 static PF_Err TargetGradRadialIterator(
     void* refcon,

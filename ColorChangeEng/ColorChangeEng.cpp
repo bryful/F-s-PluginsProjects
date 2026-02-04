@@ -6,7 +6,20 @@
 
 #include "ColorChangeEng.h"
 
-
+/* ColorSwitch
+* Disable All
+* Active Param Count
+* None
+* Replace
+* Key
+* Extract
+* TurnON
+* Old
+* New
+* AllTurnOFF
+* SaveParams
+* LoadParams
+* */
 
 PF_Err (*subFunc8)(refconType	refcon, A_long xL, A_long yL,PF_Pixel8	*inP, PF_Pixel8	*outP);
 PF_Err (*subFunc16)(refconType	refcon, A_long xL, A_long yL,PF_Pixel16	*inP, PF_Pixel16	*outP);

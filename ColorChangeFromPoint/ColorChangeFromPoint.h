@@ -92,10 +92,10 @@ public:
 		PF_SPRINTF(MNV, "%d", MINOR_VERSION);
 
 		ERR(AboutBox(
-			NFS_DISPNAME,
+			(A_char*)NFS_DISPNAME,
 			MJV,
 			MNV,
-			NFS_DESCRIPTION));
+			(A_char*)NFS_DESCRIPTION));
 
 		return err;
 

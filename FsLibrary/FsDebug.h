@@ -18,7 +18,7 @@
 static void writeLog(char *s)
 {
 	FILE *fp;
-	char *nm = "log.txt";
+	char *nm = (char*)"log.txt";
 
 #ifdef AE_OS_WIN
 	if ( fopen_s(&fp, nm,"a") ==0){

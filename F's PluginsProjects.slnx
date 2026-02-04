@@ -25,7 +25,7 @@
     <Project Path="PixelExtend/Win/PixelExtend.vcxproj" Id="8d0eafda-73d9-49e9-9d64-f1c32fe164cc" />
     <Project Path="PixelReplace/Win/PixelReplace.vcxproj" Id="d5748dd1-b86e-4c9a-b7d9-eb2260b7dd3b" />
     <Project Path="PixelSelector/Win/PixelSelector.vcxproj" Id="d3252997-b98a-4685-a06a-e30c4b472f48" />
-    <Project Path="RimFil/Win/RimFil.vcxproj" Id="d4c100f4-f488-45ee-8c01-75a4d9d15dda" />
+    <Project Path="RimFill/Win/RimFill.vcxproj" Id="d4c100f4-f488-45ee-8c01-75a4d9d15dda" />
     <Project Path="SelectColor/Win/SelectColor.vcxproj" Id="6585d4db-91db-4b4e-8e86-2aa4a7b7d362" />
     <Project Path="SelectedBlur/Win/SelectedBlur.vcxproj" Id="f1bccf81-1fde-4504-998d-25dc228c8da8">
       <Platform Project="x64" />
@@ -192,4 +192,5 @@
   <Folder Name="/_SDK/">
     <Project Path="_Skeleton/Win/_Skeleton.vcxproj" Id="44650ee4-5b04-43c2-9d1c-b96240d4ae80" />
   </Folder>
+  <Project Path="ColorSwitch/Win/ColorSwitch.vcxproj" Id="32af35f5-51a4-4eed-b479-76d1c68e8336" />
 </Solution>

@@ -28,6 +28,8 @@ typedef struct {
 	PF_Boolean		initializedB;
 	AEGP_PluginID	my_id;
 } ae_global_data, *ae_global_dataP, **ae_global_dataH;
+
+
 //-----------------------------------------------------------------------------------
 
 
@@ -48,7 +50,7 @@ typedef struct {
 	A_long			offsetWidth;
 }WORLDInfo;
 //******************************************************************************
-class CFsAE{
+class NF_AE {
 private:
 	
 protected:
@@ -83,6 +85,7 @@ public:
 	AEGP_StreamRefH		ae_item_streamH[FsAE_ITEM_COUNT];
 	AEGP_EffectRefH		ae_effect_refH;
 
+
 	//*********************************************************************************
 	//*********************************************************************************
 	void Init()
@@ -95,29 +98,29 @@ public:
 		m_isGetEffectStream	= FALSE;
 		m_resultErr			= PF_Err_NONE;
 
-		AEFX_CLR_STRUCT(inputInfo);
-		AEFX_CLR_STRUCT(outputInfo);
+		AEFX_CLR_STRUCT(NF_AE::inputInfo);
+		AEFX_CLR_STRUCT(NF_AE::outputInfo);
 
 
-		CFsAE::in_data		= NULL;
-		CFsAE::out_data		= NULL;
-		CFsAE::input		= NULL;
-		CFsAE::output		= NULL;
+		NF_AE::in_data		= NULL;
+		NF_AE::out_data		= NULL;
+		NF_AE::input		= NULL;
+		NF_AE::output		= NULL;
 
-		CFsAE::PreRenderH	= NULL;
-		CFsAE::PRextraP		= NULL;
-		CFsAE::SRextraP		= NULL;
-		CFsAE::ws2P			= NULL;
-		CFsAE::suitesP		= NULL;
-		CFsAE::ae_plugin_idH	= NULL;
-		CFsAE::ae_plugin_idP	= NULL;
+		NF_AE::PreRenderH	= NULL;
+		NF_AE::PRextraP		= NULL;
+		NF_AE::SRextraP		= NULL;
+		NF_AE::ws2P			= NULL;
+		NF_AE::suitesP		= NULL;
+		NF_AE::ae_plugin_idH	= NULL;
+		NF_AE::ae_plugin_idP	= NULL;
 
-		CFsAE::ae_effect_refH	= NULL;
-		for (A_long i=0; i<FsAE_ITEM_COUNT; i++) CFsAE::ae_item_streamH[i]=NULL;
+		NF_AE::ae_effect_refH	= NULL;
+		for (A_long i=0; i<FsAE_ITEM_COUNT; i++) NF_AE::ae_item_streamH[i]=NULL;
 
 	}
 	//*********************************************************************************
-	CFsAE()
+	NF_AE()
 	{
 		Init();
 	}
@@ -153,21 +156,21 @@ public:
 			err = PF_Err_BAD_CALLBACK_PARAM;
 			return err;
 		};
-		CFsAE::in_data = in_dataP;
-		CFsAE::suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
+		NF_AE::in_data = in_dataP;
+		NF_AE::suitesP = new AEGP_SuiteHandler(in_dataP->pica_basicP);
 		
-		if (CFsAE::in_data->global_data) {
-			CFsAE::ae_plugin_idH = CFsAE::in_data->global_data;
-			CFsAE::ae_plugin_idP = reinterpret_cast<ae_global_dataP>(DH(CFsAE::in_data->global_data));
+		if (NF_AE::in_data->global_data) {
+			NF_AE::ae_plugin_idH = NF_AE::in_data->global_data;
+			NF_AE::ae_plugin_idP = reinterpret_cast<ae_global_dataP>(DH(NF_AE::in_data->global_data));
 		}
 		if (out_dataP != NULL) {
-			CFsAE::out_data = out_dataP;
+			NF_AE::out_data = out_dataP;
 			ERR(AEFX_AcquireSuite(in_dataP,
 				out_dataP,
 				kPFWorldSuite,
 				kPFWorldSuiteVersion2,
 				"Couldn't load suite.",
-				(void**)&(CFsAE::ws2P)));
+				(void**)&(NF_AE::ws2P)));
 
 		}
 
@@ -176,15 +179,15 @@ public:
 	PF_Err GetPixelFormat()
 	{
 		PF_Err err = PF_Err_NONE;
-		if (CFsAE::input == NULL) {
+		if (NF_AE::input == NULL) {
 			err = PF_Err_BAD_CALLBACK_PARAM;
 			return err;
 		}
-		if (CFsAE::ws2P != NULL) {
-			err = CFsAE::ws2P->PF_GetPixelFormat(CFsAE::input, &m_format);
+		if (NF_AE::ws2P != NULL) {
+			err = NF_AE::ws2P->PF_GetPixelFormat(NF_AE::input, &m_format);
 		}
 		else {
-			if(PF_WORLD_IS_DEEP(CFsAE::input) == TRUE) {
+			if(PF_WORLD_IS_DEEP(NF_AE::input) == TRUE) {
 				m_format = PF_PixelFormat_ARGB64;
 			}
 			else {
@@ -197,20 +200,20 @@ public:
 	{
 		PF_Err err = PF_Err_NONE;
 
-		if (CFsAE::input != NULL) {
-			inputInfo.width = CFsAE::input->width;
-			inputInfo.height = CFsAE::input->height;
+		if (NF_AE::input != NULL) {
+			inputInfo.width = NF_AE::input->width;
+			inputInfo.height = NF_AE::input->height;
 			switch (m_format)
 			{
 			case PF_PixelFormat_ARGB128:
-				inputInfo.widthTrue = CFsAE::input->rowbytes / sizeof(PF_PixelFloat);
+				inputInfo.widthTrue = NF_AE::input->rowbytes / sizeof(PF_PixelFloat);
 
 				break;
 			case PF_PixelFormat_ARGB64:
-				inputInfo.widthTrue = CFsAE::input->rowbytes / sizeof(PF_Pixel16);
+				inputInfo.widthTrue = NF_AE::input->rowbytes / sizeof(PF_Pixel16);
 				break;
 			case PF_PixelFormat_ARGB32:
-				inputInfo.widthTrue = CFsAE::input->rowbytes / sizeof(PF_Pixel);
+				inputInfo.widthTrue = NF_AE::input->rowbytes / sizeof(PF_Pixel);
 				break;
 			default:
 				err = PF_Err_BAD_CALLBACK_PARAM;
@@ -218,20 +221,20 @@ public:
 			}
 			inputInfo.offsetWidth = inputInfo.widthTrue - inputInfo.width;
 		}
-		if (CFsAE::output != NULL) {
-			outputInfo.width = CFsAE::output->width;
-			outputInfo.height = CFsAE::output->height;
+		if (NF_AE::output != NULL) {
+			outputInfo.width = NF_AE::output->width;
+			outputInfo.height = NF_AE::output->height;
 			switch (m_format)
 			{
 			case PF_PixelFormat_ARGB128:
-				outputInfo.widthTrue = CFsAE::output->rowbytes / sizeof(PF_PixelFloat);
+				outputInfo.widthTrue = NF_AE::output->rowbytes / sizeof(PF_PixelFloat);
 
 				break;
 			case PF_PixelFormat_ARGB64:
-				outputInfo.widthTrue = CFsAE::output->rowbytes / sizeof(PF_Pixel16);
+				outputInfo.widthTrue = NF_AE::output->rowbytes / sizeof(PF_Pixel16);
 				break;
 			case PF_PixelFormat_ARGB32:
-				outputInfo.widthTrue = CFsAE::output->rowbytes / sizeof(PF_Pixel);
+				outputInfo.widthTrue = NF_AE::output->rowbytes / sizeof(PF_Pixel);
 				break;
 			default:
 				err = PF_Err_BAD_CALLBACK_PARAM;
@@ -245,7 +248,7 @@ public:
 	//Render
 	//*********************************************************************************
 	//--------------------------------
-	CFsAE(
+	NF_AE(
 		PF_InData		*in_dataP,
 		PF_OutData		*out_dataP,
 		PF_ParamDef		*paramsP[],
@@ -271,13 +274,14 @@ public:
 			m_resultErr = FsAE_ERR;
 			return m_resultErr;
 		}
-		CFsAE::in_data = in_dataP;
-		CFsAE::out_data = out_dataP;
-		CFsAE::output = outputP;
+
+		NF_AE::in_data = in_dataP;
+		NF_AE::out_data = out_dataP;
+		NF_AE::output = outputP;
 		m_paramsCount = paramsCount;
 		if (paramsP != NULL) {
-			CFsAE::input = &paramsP[0]->u.ld;
-			for (A_long i = 0; i < paramsCount; i++) CFsAE::params[i] = paramsP[i];
+			NF_AE::input = &paramsP[0]->u.ld;
+			for (A_long i = 0; i < paramsCount; i++) NF_AE::params[i] = paramsP[i];
 		}
 
 		ERR(GetFrame(in_dataP));
@@ -293,7 +297,7 @@ public:
 	//PreRender
 	//*********************************************************************************
 	//--------------------------------
-	CFsAE(
+	NF_AE(
 		PF_InData			*in_dataP,
 		PF_OutData			*out_dataP,
 		PF_PreRenderExtra	*extraP,
@@ -319,9 +323,9 @@ public:
 			m_resultErr = FsAE_ERR;
 			return m_resultErr;
 		}
-		CFsAE::in_data		= in_dataP;
-		CFsAE::out_data		= out_dataP;
-		CFsAE::PRextraP		= extraP;
+		NF_AE::in_data		= in_dataP;
+		NF_AE::out_data		= out_dataP;
+		NF_AE::PRextraP		= extraP;
 		m_paramsCount		= paramsCount;
 		
 		err = GetFrame(in_dataP);
@@ -335,7 +339,6 @@ public:
 				return m_resultErr;
 			}
 		}
-
 		m_resultErr		= err;
 		return err;
 	}
@@ -343,7 +346,7 @@ public:
 	//SmartRender
 	//*********************************************************************************
 	//--------------------------------
-	CFsAE(
+	NF_AE(
 		PF_InData				*in_dataP,
 		PF_OutData				*out_dataP,
 		PF_SmartRenderExtra		*extraP,
@@ -367,12 +370,12 @@ public:
 			m_resultErr = FsAE_ERR;
 			return m_resultErr;
 		}
-		CFsAE::in_data = in_dataP;
-		CFsAE::out_data = out_dataP;
-		CFsAE::SRextraP = extraP;
+		NF_AE::in_data = in_dataP;
+		NF_AE::out_data = out_dataP;
+		NF_AE::SRextraP = extraP;
 		m_paramsCount = paramsCount;
-		ERR((extraP->cb->checkout_layer_pixels(in_dataP->effect_ref, 0, &(CFsAE::input))));
-		ERR(extraP->cb->checkout_output(in_dataP->effect_ref, &(CFsAE::output)));
+		ERR((extraP->cb->checkout_layer_pixels(in_dataP->effect_ref, 0, &(NF_AE::input))));
+		ERR(extraP->cb->checkout_output(in_dataP->effect_ref, &(NF_AE::output)));
 
 		ERR(GetFrame(in_dataP));
 		ERR(GetSuites(in_dataP,out_dataP));
@@ -509,12 +512,12 @@ public:
 			m_resultErr = FsAE_ERR;
 			return m_resultErr;
 		}
-		CFsAE::in_data		= in_dataP;
-		CFsAE::out_data		= out_dataP;
+		NF_AE::in_data		= in_dataP;
+		NF_AE::out_data		= out_dataP;
 		m_paramsCount = paramsCount;
 		if (paramsP != NULL) {
-			CFsAE::input = &paramsP[0]->u.ld;
-			for (A_long i = 0; i < paramsCount; i++) CFsAE::params[i] = paramsP[i];
+			NF_AE::input = &paramsP[0]->u.ld;
+			for (A_long i = 0; i < paramsCount; i++) NF_AE::params[i] = paramsP[i];
 		}
 
 		ERR(GetFrame(in_dataP));
@@ -546,11 +549,11 @@ public:
 			m_resultErr = FsAE_ERR;
 			return m_resultErr;
 		}
-		CFsAE::in_data = in_dataP;
-		CFsAE::out_data = out_dataP;
+		NF_AE::in_data = in_dataP;
+		NF_AE::out_data = out_dataP;
 		if (paramsP != NULL) {
-			CFsAE::input = &paramsP[0]->u.ld;
-			for (A_long i = 0; i < paramsCount; i++) CFsAE::params[i] = paramsP[i];
+			NF_AE::input = &paramsP[0]->u.ld;
+			for (A_long i = 0; i < paramsCount; i++) NF_AE::params[i] = paramsP[i];
 		}
 
 		ERR(GetFrame(in_dataP));
@@ -563,7 +566,7 @@ public:
 	//*********************************************************************************
 	//デストラクタ
 	//*********************************************************************************
-	~CFsAE(){
+	~NF_AE(){
 		PF_Err 	err 	= PF_Err_NONE,
 				err2 	= PF_Err_NONE;
 		if (ae_effect_refH!=NULL){
@@ -587,7 +590,7 @@ public:
 			suitesP = NULL;
 		}
 
-		if (CFsAE::ws2P != NULL){
+		if (NF_AE::ws2P != NULL){
 			ERR2(AEFX_ReleaseSuite(	in_data,
 									out_data,
 									kPFWorldSuite, 
@@ -836,7 +839,29 @@ public:
 		*a = ret;
 		return err;
 	}
-	//--------------------------------------------------------------------
+	//*********************************************************************************
+	PF_Err SetADD(A_long idx, A_long a)
+	{
+		PF_Err err = PF_Err_NONE;
+		A_long ret = 0;
+		if ((idx >= 1) && (idx < m_paramsCount)) {
+			switch (m_cmd)
+			{
+			case PF_Cmd_RENDER:
+			case PF_Cmd_USER_CHANGED_PARAM:
+				params[idx]->u.sd.value = a;
+				params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
+				break;
+			default:
+				err = PF_Err_BAD_CALLBACK_PARAM;
+				break;
+			}
+		}
+		else {
+			err = PF_Err_INVALID_INDEX;
+		}
+		return err;
+	}//--------------------------------------------------------------------
 	PF_Err GetFIXED(A_long idx,PF_Fixed *f)
 	{
 		PF_Err err = PF_Err_NONE;
@@ -988,6 +1013,7 @@ public:
 		*b = ret;
 		return err;
 	}
+	//--------------------------------------------------------------------
 	PF_Err SetCHECKBOX(A_long idx, PF_Boolean b)
 	{
 		PF_Err err = PF_Err_NONE;
@@ -1120,8 +1146,8 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
-				ret.x = CFsAE::params[idx]->u.td.x_value;
-				ret.y = CFsAE::params[idx]->u.td.y_value;
+				ret.x = NF_AE::params[idx]->u.td.x_value;
+				ret.y = NF_AE::params[idx]->u.td.y_value;
 				break;
 			default:
 				err = PF_Err_BAD_CALLBACK_PARAM;
@@ -1372,7 +1398,7 @@ public:
 	{
 		PF_Err err = PF_Err_NONE;
 		if (m_cmd == PF_Cmd_SMART_RENDER) {
-			ERR(CFsAE::ws2P->PF_NewWorld(in_data->effect_ref, w, h, TRUE, pf, wld));
+			ERR(NF_AE::ws2P->PF_NewWorld(in_data->effect_ref, w, h, TRUE, pf, wld));
 
 		}
 		else {
@@ -1388,7 +1414,7 @@ public:
 		PF_Err err = PF_Err_NONE;
 		if (wld != NULL) {
 			if (m_cmd == PF_Cmd_SMART_RENDER) {
-				ERR(CFsAE::ws2P->PF_DisposeWorld(in_data->effect_ref, wld));
+				ERR(NF_AE::ws2P->PF_DisposeWorld(in_data->effect_ref, wld));
 			}
 			else {
 				ERR((*in_data->utils->dispose_world)(in_data->effect_ref, wld));

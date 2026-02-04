@@ -18,7 +18,7 @@ static PF_Err ParamsSetup (
 {
 	PF_Err			err = PF_Err_NONE;
 
-	CParamsSetup cs(in_data, out_data);
+	NF_ParamsSetup cs(in_data, out_data);
 	// ----------------------------------------------------------------
 	cs.AddCheckBox(	// noise frame
 		STR_PAINT_CB,
@@ -212,7 +212,7 @@ HandleChangedParam(
 						err2				= PF_Err_NONE;
 
 	try{
-		CFsAE ae;
+		NF_AE ae;
 		err =ae.HandleChangedParam(in_data,out_data,params,outputP,extraP,ID_NUM_PARAMS);
 		if (!err) {
 			if (extraP->param_index == ID_BUTTON)
@@ -229,6 +229,22 @@ HandleChangedParam(
 				out_data->out_flags |= PF_OutFlag_REFRESH_UI;
 			}
 		}
+		/*
+			ERR(ae.GetNewEffectStreamAll());
+			if (!err){
+				A_Boolean hide_themB[ID_NUM_PARAMS];
+				for ( A_long i=1; i<ID_NUM_PARAMS; i++) hide_themB[i] =FALSE;
+				PF_Boolean b;
+				ERR(ae.GetCHECKBOX(ID_HIDDEN_ON,&b));
+				if (b){
+					for ( A_long i=ID_HIDDEN_ON+1; i<ID_NUM_PARAMS; i++)hide_themB[i] =TRUE;
+				}
+				for ( A_long i=1; i<ID_NUM_PARAMS; i++) 
+					ERR(ae.SetDynamicStreamFlag(i,AEGP_DynStreamFlag_HIDDEN,hide_themB[i]));
+				
+				
+			}
+		*/
 		if((!err)&&(in_data->appl_id != 'PrMr')){
 			//--------------------
 			
@@ -266,7 +282,7 @@ QueryDynamicFlags(
 	PF_Err 	err2 	= PF_Err_NONE;
 	//PF_OutFlag_NON_PARAM_VARYの値をout_flagsへ設定して
 	//毎フレームごとの描画をするか切り替える。
-	CFsAE ae;
+	NF_AE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
 	if (!err){
 		PF_ParamDef def;
@@ -279,7 +295,7 @@ QueryDynamicFlags(
 }
 
 //-------------------------------------------------------------------------------------------------
-static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
+static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
@@ -310,7 +326,7 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
-	Exec (CFsAE *ae , ParamInfo *infoP)
+	Exec (NF_AE*ae , ParamInfo *infoP)
 {
 	PF_Err	err = PF_Err_NONE;
 
@@ -543,7 +559,7 @@ EffectMain(
 
 	try
 	{
-		CFsAE ae;
+		NF_AE ae;
 		switch (cmd) {
 		case PF_Cmd_ABOUT:
 			err = ae.About(in_data, out_data, params, output);

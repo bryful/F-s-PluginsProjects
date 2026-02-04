@@ -49,7 +49,7 @@ SKIP_REVEAL_WHEN_UNHIDDEN,
 表示時の自動展開スキップ,非表示だったパラメーターが表示（Unhide）された際、親階層を自動で展開したりスクロールしたりしてユーザーに見せる挙動を無効にします。
 
 */
-class CParamsSetup {
+class NF_ParamsSetup {
 private:
 	PF_InData* in_data;
 	PF_OutData* out_data;
@@ -87,7 +87,7 @@ public:
 		out_data->num_params = num;
 	}	
 	// ***************************************************************
-	CParamsSetup(
+	NF_ParamsSetup(
 		PF_InData* in, PF_OutData* out)
 		: in_data(in), out_data(out), param_count(0)
 	{

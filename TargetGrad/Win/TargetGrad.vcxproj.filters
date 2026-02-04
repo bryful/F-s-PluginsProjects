@@ -174,9 +174,6 @@
     <ClInclude Include="..\..\FsLibrary\FsSputtering.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\NFsLibrary\resource.h">
-      <Filter>Header Files\AE\N</Filter>
-    </ClInclude>
     <ClInclude Include="..\Fs_Target.h" />
     <ClInclude Include="..\..\FsLibrary\tinyfiledialogs.h">
       <Filter>Header Files</Filter>
@@ -219,11 +216,5 @@
     <ResourceCompile Include="TargetGradPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-    <ResourceCompile Include="..\..\NFsLibrary\Resource.rc">
-      <Filter>Header Files\AE\N</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\NFsLibrary\_about_thum.png" />
   </ItemGroup>
 </Project>

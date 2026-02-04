@@ -78,7 +78,7 @@ static PF_Err ParamsSetup (
 	PF_LayerDef		*output)
 {
 	PF_Err			err = PF_Err_NONE;
-	CParamsSetup cs(in_data, out_data);
+	NF_ParamsSetup cs(in_data, out_data);
 	err = cs.AddColor(
 		STR_BASE_COLOR,
 		{ 255,0,0,0 },
