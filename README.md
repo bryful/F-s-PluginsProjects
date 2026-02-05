@@ -47,6 +47,14 @@ _toolsフォルダ内にはプラグイン開発に便利なツールを入れ�
 詳細は_toolsフォルダ内のREADME.mdを見てください。<br>
 
 
+## Legacyフォルダについて
+
+F's PluginsのプロジェクトはLegacy/Projectに中にまとめてあります。<br>
+もうSDKをアップさせる気がないのでインクルードファイルの修正が面倒だったのでSDKも含めています。<br>
+ResourcesフォルダにあるはずのPiPLtool.exeがGitではじかれる場合があるのでその場合はLegacy/Resources/PiPLtool.zipを展開してexeを取り出してください。
+<br>
+考えてみるとSDK込みでGitに入れたのでビルドの成功率はかなり高くなってるはずです。<br>
+
 ## 関連プロジェクト ##
 F-s-PluginsProjects_TLed<br>
 (Oops, sorry!　^^;) 詳細はリンク先で<br>
