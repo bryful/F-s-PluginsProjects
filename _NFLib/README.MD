@@ -20,7 +20,9 @@ AdobeのSDKはチンプンカンプンなのでわかりやすくするためのラッパーがほとんどになり
 描画関係のライブラリが入ってます。依存をなくしているので他のプロジェクトに持って行っても使えます。
 
 
-以下は使用してるライブラリ
+## 使わせてもらっているライブラリ
+
+便利です。感謝！
 
 * json.hpp<br>Json関係<br>[https://github.com/nlohmann/json](https://github.com/nlohmann/json)
 * tinyfiledialogs.c/tinyfiledialogs.h<br>ダイアログ関係<br>[https://github.com/groutoutlook/tinyfiledialogs](https://github.com/groutoutlook/tinyfiledialogs)
