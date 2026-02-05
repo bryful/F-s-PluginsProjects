@@ -1,4 +1,4 @@
-﻿# F's Plugins New and Next
+﻿# F's Plugins - Next / NF-Plugins
 Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。<br>
 (**No macOS support** / **不支持 macOS**)<br>
 
