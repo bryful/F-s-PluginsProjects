@@ -138,6 +138,10 @@ std::string SaveFileDialog(
         filterPatterns.data(),              // フィルタパターン
         des.c_str()                         // フィルタの説明
     );
+     if (!selectedFile)
+    {
+        return std::string(); // キャンセル
+    }
     std::string ret;
     if (selectedFile)
     {
@@ -244,4 +248,54 @@ std::string GetDocumentsFolderPath()
     }
 
     return std::string();
+}
+std::string SaveFileDialogWithCheck(
+    std::string title,
+    std::string defp,
+    std::vector<std::string> fltp,
+    std::string des
+)
+{
+    std::vector<const char*> filterPatterns;
+    for (const auto& pattern : fltp)
+    {
+        filterPatterns.push_back(pattern.c_str());
+    }
+    
+    const char* selectedFile = tinyfd_saveFileDialog(
+        title.c_str(),
+        defp.c_str(),
+        static_cast<int>(filterPatterns.size()),
+        filterPatterns.data(),
+        des.c_str()
+    );
+    
+    if (!selectedFile)
+    {
+        return std::string(); // キャンセル
+    }
+    
+    std::string filepath = selectedFile;
+    
+    // ファイル存在チェック（追加の確認が必要な場合）
+    std::ifstream f(filepath.c_str());
+    if (f.good())
+    {
+        f.close();
+        // 既に存在する場合の追加処理
+        int result = tinyfd_messageBox(
+            "上書き確認",
+            "ファイルは既に存在します。上書きしますか？",
+            "yesno",
+            "warning",
+            1  // デフォルトボタン: yes
+        );
+        
+        if (result == 0) // No が選択された
+        {
+            return std::string(); // 保存キャンセル
+        }
+    }
+    
+    return filepath;
 }

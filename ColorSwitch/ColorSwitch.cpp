@@ -144,7 +144,7 @@ static PF_Err GetParams(NF_AE* ae, ParamInfo* infoP)
 	}
 	ERR(ae->GetPOPUP(ID_MODE, &infoP->mode));
 
-	for (int i = 0; i < infoP->active_param_count; i++)
+	for (int i = 0; i < COLOR_TABLE_MAX; i++)
 	{
 		PF_Boolean turn_on = FALSE;
 		ERR(ae->GetCHECKBOX(ID_TURNON(i), &infoP->turnon_colors[i]));
@@ -160,7 +160,7 @@ static PF_Err SetParams(NF_AE* ae, ParamInfo info)
 	ERR(ae->SetCHECKBOX(ID_ENABLEALL, info.enable_All));
 	ERR(ae->SetADD(ID_ACTIVE_PARAM_COUNT, info.active_param_count));
 	ERR(ae->SetPOPUP(ID_MODE, info.mode));
-	for (int i = 0; i < info.active_param_count; i++)
+	for (int i = 0; i < COLOR_TABLE_MAX; i++)
 	{
 		ERR(ae->SetCHECKBOX(ID_TURNON(i), info.turnon_colors[i]));
 		ERR(ae->SetCOLOR(ID_OLD_COLOR(i), info.old_colors[i]));
@@ -197,7 +197,7 @@ HandleChangedParam(
 					ppath = GetDocumentsFolderPath()+"\\colortable.csj";
 				}
 				ppath = ChangeFileExtension(ppath, "csj");
-				std::string p = SaveFileDialog(
+				std::string p = SaveFileDialogWithCheck(
 					std::string("csj Json save"), 
 					ppath,
 					std::vector<std::string>{".csj","*.*"},

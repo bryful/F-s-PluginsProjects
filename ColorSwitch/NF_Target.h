@@ -40,7 +40,7 @@
 //#define NF_CATEGORY FS_CATEGORY_BETA
 //#define NF_CATEGORY FS_CATEGORY_LEGACY
 
-#define NF_CATEGORY  NF_CATEGORY_BETA
+#define NF_CATEGORY  NF_CATEGORY_NONE
 
 
 //-----------------------------------------------------------------------------------

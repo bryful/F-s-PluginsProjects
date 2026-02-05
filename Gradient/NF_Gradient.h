@@ -1,0 +1,44 @@
+#pragma once
+#pragma once
+#ifndef NF_LINE_H
+#define NF_LINE_H
+
+
+#include "AEConfig.h" 
+#include "entry.h"
+
+#ifdef AE_OS_WIN
+#include "string.h"
+#endif
+#include "AE_Effect.h"
+#include "AE_EffectCB.h"
+#include "AE_EffectCBSuites.h"
+#include "AE_Macros.h"
+#include "AEGP_SuiteHandler.h"
+#include "String_Utils.h"
+#include "Param_Utils.h"
+#include "Smart_Utils.h"
+#include "AE_GeneralPlug.h"
+
+#include "AEFX_SuiteHelper.h"
+#define refconType void*
+
+#include "..\_NFLib\NF_Utils.h"
+#include <vector>
+
+PF_Err Gradient(
+	PF_InData* in_data,
+	PF_EffectWorld* world,
+	PF_PixelFormat pixelFormat,
+	AEGP_SuiteHandler* suitesP,
+	A_long mode,
+	A_FloatPoint start_pos,
+	PF_Pixel start_color,
+	PF_FpLong	start_opa,
+	A_FloatPoint end_pos,
+	PF_Pixel end_color,
+	PF_FpLong	end_opa,
+	PF_FpLong	rgb_hyperbolic,
+	PF_FpLong	alpha_hyperbolic);
+
+#endif // NF_DRAW_H

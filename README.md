@@ -1,11 +1,21 @@
 ﻿# F's Plugins New and Next
 Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリです。<br>
 (**No macOS support** / **不支持 macOS**)<br>
-　
 
 昔から趣味でコツコツと作っていたものです。<br>
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。<br>
 <br>
+** 2026/02/05以降新しいF's Pluginsの追加はありません。<br>**
+** NF-Pluginsとして追加していきます。<br>**
+** {Legacy}カテゴリに入っているF's Pluginsは近日中にバイナリの配布は無くなる予定です。<br>**
+
+とりあえず以下のものを追加しています。
+* NF-ColorSwitch.aex<br>色置換プラグイン　ColorChange/SelectColor等と同等なもの
+* NF-Mult.aex　CreateAlpha/AlpahFix/Premultiplyと同等なもの。Unmult<br>
+* NF-Gradient.aex<br>汎用グラデーション。透明度の措定、双曲線補完
+
+NF-ColorSwitchはパラメータをファイルとして保存可能です。ColorSwitchEditアプリで編集できます。<br>
+ColorSwitchEditはパラメータファイルをPNGとして書き出し読み込むができますので、Photoshop等で編集可能です。<br>
 
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
 2026/02/01 更新しました。大きなバグがない限りしばらく更新しません<br>

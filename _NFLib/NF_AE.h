@@ -448,7 +448,7 @@ public:
 		GetSuites(in_dataP, out_dataP);	
 
 		//NF_Target.hで定義
-		out_data->my_version	=	FS_VERSION;
+		out_data->my_version	=	NF_VERSION;
 		out_data->out_flags		=	NF_OUT_FLAGS;
 		out_data->out_flags2	=	NF_OUT_FLAGS2;
 
@@ -1117,6 +1117,16 @@ public:
 		*f = ret;
 		return err;
 	}
+	PF_Err SetFLOAT(A_long idx, PF_FpLong f)
+	{
+		PF_Err err = PF_Err_NONE;
+		if ((idx >= 1) && (idx < m_paramsCount) && (m_cmd == PF_Cmd_USER_CHANGED_PARAM))
+		{
+			params[idx]->u.fs_d.value = f;
+			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
+		}
+		return err;
+	}
 	//--------------------------------------------------------------------
 	 PF_Err GetFIXEDPOINT(A_long idx,PF_FixedPoint *pos)
 	{
@@ -1169,6 +1179,19 @@ public:
 		 {
 			 pos->x = (A_long)((double)fp.x /65536+0.5);
 			 pos->y = (A_long)((double)fp.y /65536+0.5);
+		 }
+		 return err;
+	 }
+	 //--------------------------------------------------------------------
+	 PF_Err GetFLOATPOINT(A_long idx, A_FloatPoint* pos)
+	 {
+		 PF_Err err = PF_Err_NONE;
+		 PF_FixedPoint fp;
+		 ERR(GetFIXEDPOINT(idx, &fp));
+		 if (!err)
+		 {
+			 pos->x = (float)F_FIX2FLT(fp.x);
+			 pos->y = (float)F_FIX2FLT(fp.y);
 		 }
 		 return err;
 	 }

@@ -9,7 +9,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     
     <!-- C++言語標準 -->
-    <LanguageStandard>stdcpp17</LanguageStandard>
+    <LanguageStandard>stdcpp20</LanguageStandard>
 
     <!-- 標準準拠モード -->
     <ConformanceMode>true</ConformanceMode>

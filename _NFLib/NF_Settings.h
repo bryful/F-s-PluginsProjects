@@ -30,6 +30,12 @@ std::string SaveFileDialog(
     std::vector<std::string> fltp,
     std::string des
 );
+std::string SaveFileDialogWithCheck(
+    std::string title,
+    std::string defp,
+    std::vector<std::string> fltp,
+    std::string des
+);
 std::string ChangeFileExtension(const std::string& filename, const std::string& newExtension);
 std::string GetDocumentsFolderPath();
 
