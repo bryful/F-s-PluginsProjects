@@ -1,4 +1,18 @@
 # fx
+PF_EffectWorldへ画像処理を加えるライブラリ（関数）です。<br>
+汎用を念頭に置いているのでNF_AE関係の依存はないです。ヘッダーをインクルードするだけで他のプラグインでも使えます。<br>
+<br>
+
+```
+PF_Err UnMult(
+    PF_InData* in_dataP,
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    AEGP_SuiteHandler* suitesP,
+	//以下は関数固有の引数
+    PF_Boolean isUnMult
+```
+こんな感じに引数は統一しています。基本的に8/16/32Bitに対応しています。
 
 ## debug_font.h / debug_font.cpp / debug_font_1424.h / debug_font_1424.png
 デバッグ用に文字出力させる物。<br>
