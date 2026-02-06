@@ -397,9 +397,9 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="ShitsuKanBlurPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\ShitsuKanBlur\ShitsuKanBlurSub16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\ShitsuKanBlur\ShitsuKanBlurSub32.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\ShitsuKanBlur\ShitsuKanBlurSub8.cpp" />
+    <ClCompile Include="..\ShitsuKanBlurSub16.cpp" />
+    <ClCompile Include="..\ShitsuKanBlurSub32.cpp" />
+    <ClCompile Include="..\ShitsuKanBlurSub8.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBox.cpp" />

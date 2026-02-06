@@ -35,18 +35,18 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareSub08.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp">
+    <ClCompile Include="..\FlareSub08.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMat.cpp">
       <Filter>FsLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsBlur.cpp">
+    <ClCompile Include="..\..\FsLibrary\FsBlur.cpp">
       <Filter>FsLib</Filter>
     </ClCompile>
     <ClCompile Include="..\FlareMax08.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareBlur08.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareBlur16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareMax16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareSub16.cpp" />
+    <ClCompile Include="..\FlareBlur08.cpp" />
+    <ClCompile Include="..\FlareBlur16.cpp" />
+    <ClCompile Include="..\FlareMax16.cpp" />
+    <ClCompile Include="..\FlareSub16.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Fs_Entry.h" />

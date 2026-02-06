@@ -395,13 +395,13 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="FlarePiPL.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareBlur08.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareBlur16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareMax16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareSub08.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Flare\FlareSub16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsBlur.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp" />
+    <ClCompile Include="..\FlareBlur08.cpp" />
+    <ClCompile Include="..\FlareBlur16.cpp" />
+    <ClCompile Include="..\FlareMax16.cpp" />
+    <ClCompile Include="..\FlareSub08.cpp" />
+    <ClCompile Include="..\FlareSub16.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsBlur.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMat.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBox.cpp" />

@@ -175,12 +175,12 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Star_Colorful\Star_ColorfulSub8.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp">
+    <ClCompile Include="..\Star_ColorfulSub8.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMat.cpp">
       <Filter>Supporting code\Fs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Star_Colorful\Star_ColorfulSub16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Star_Colorful\Star_ColorfulSub32.cpp" />
+    <ClCompile Include="..\Star_ColorfulSub16.cpp" />
+    <ClCompile Include="..\Star_ColorfulSub32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\Star_ColorfulPiPL.r">

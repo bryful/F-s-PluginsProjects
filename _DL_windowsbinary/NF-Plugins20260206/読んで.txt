@@ -1,0 +1,22 @@
+#NF-Plugins_20260206
+
+
+とりあえずNF-Pluginsをアーカイブにしてみました。
+詳細は[ここ](https://github.com/bryful/F-s-PluginsProjects)に行ってプラグインの名前のフォルダを開いてください。
+メモが書いてあります。
+
+
+今のところこれだけです。
+* NF-CellLineEraser.aex
+* NF-ColorSwitch.aex
+* NF-Gradient.aex
+* NF-Grain.aex
+* NF-Hyperbolic.aex
+* NF-InnerFlare.aex
+* NF-InnerFlareRot.aex
+* NF-Mult.aex
+* NF-SelectiveColorBlur.aex
+
+F's Pluginsの最新版も入っています。
+
+bry-ful

@@ -53,7 +53,11 @@ static PF_Err HyperbolicAlpha(
 
     // ハイパーボリック処理
     float k = (float)infoP->hyperbolic;
-    float v = ((1.0f + k) * t) / (1.0f + k * t);
+	float kk = k * t;
+    if (kk == -1.0f) {
+        kk = -0.9999f; // ゼロ除算防止
+	}
+    float v = ((1.0f + k) * t) / (1.0f +kk);
 
     // 範囲チェック
     if (v < 0.0f) v = 0.0f;
@@ -272,4 +276,69 @@ PF_Err HyperbolicAlpha(
 )
 {
     return HyperbolicAlphaImpl(in_dataP, worldP, pixelFormat, iter_scopeP,hyperbolic);
+}
+//-----------------------------------------------------------------------------------
+// 実処理本体
+//-----------------------------------------------------------------------------------
+PF_Err HyperbolicAlpha(
+    PF_InData* in_dataP,
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    AEGP_SuiteHandler* suitesP,
+    PF_FpLong		hyperbolic
+)
+{
+    PF_Err err = PF_Err_NONE;
+
+    AHInfo info;
+    if (hyperbolic >= 0) {
+        info.hyperbolic = hyperbolic;
+        info.invert = TRUE;
+    }
+    else {
+        info.hyperbolic = hyperbolic * -1;
+        info.invert = FALSE;
+    }
+
+
+
+    switch (pixelFormat) {
+    case PF_PixelFormat_ARGB32:
+        return suitesP->Iterate8Suite2()->iterate(
+            in_dataP,
+            0,														// progress base
+            worldP->height,	// progress final
+            worldP,		// src 
+            NULL,		// area - null for all pixels
+            &info,		// refcon - your custom data pointer
+            HyperbolicAlpha8,		// pixel function pointer
+            worldP);	// dest
+        break;
+    case PF_PixelFormat_ARGB64:
+        return suitesP->Iterate16Suite2()->iterate(
+            in_dataP,
+            0,
+            worldP->height,
+            worldP,
+            NULL,
+            &info,
+            HyperbolicAlpha16,
+            worldP);
+        break;
+    case PF_PixelFormat_ARGB128:
+        return suitesP->IterateFloatSuite2()->iterate(
+            in_dataP,
+            0,
+            worldP->height,
+            worldP,
+            NULL,
+            &info,
+            HyperbolicAlphaFloat,
+            worldP);
+        break;
+    default:
+        err = PF_Err_BAD_CALLBACK_PARAM;
+        break;
+    }
+    return err;
 }

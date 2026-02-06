@@ -4,7 +4,6 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/Cell/">
-    <Project Path="Legacy/Project/CellLineEraser/Win/CellLineEraser.vcxproj" Id="9ffe7c24-3e91-4cbe-a470-9f0af818406e" />
     <Project Path="Legacy/Project/ColorKey/Win/ColorKey.vcxproj" Id="e18653f0-ffef-48a1-90ae-cc6562614526" />
     <Project Path="Legacy/Project/colorThreshold/Win/colorThreshold.vcxproj" Id="237fd67b-9d84-415b-ade7-61d01a74ed16" />
     <Project Path="Legacy/Project/EdgeLine-Hi/Win/EdgeLine-Hi.vcxproj" Id="affb60c8-86e8-4430-b6be-1a7718eca91f" />
@@ -21,10 +20,6 @@
     </Project>
     <Project Path="Legacy/Project/PixelExtend/Win/PixelExtend.vcxproj" Id="8d0eafda-73d9-49e9-9d64-f1c32fe164cc" />
     <Project Path="Legacy/Project/RimFill/Win/RimFill.vcxproj" Id="d4c100f4-f488-45ee-8c01-75a4d9d15dda" />
-    <Project Path="Legacy/Project/SelectedBlur/Win/SelectedBlur.vcxproj" Id="f1bccf81-1fde-4504-998d-25dc228c8da8">
-      <Platform Project="x64" />
-      <Build Solution="*|x86" Project="false" />
-    </Project>
     <Project Path="Legacy/Project/TargetGrad/Win/TargetGrad.vcxproj" Id="0b77adee-126f-4e85-9093-f8e70d3a04ef" />
     <Project Path="Legacy/Project/TargetGradRadical/Win/TargetGradRadical.vcxproj" Id="377cea99-8f34-494c-8e48-80c27dbe72e4" />
     <Project Path="Legacy/Project/Thin/Win/Thin.vcxproj" Id="d0fdbb96-04c3-4085-869e-76da167d012a" />
@@ -77,8 +72,8 @@
   </Folder>
   <Folder Name="/Filter/">
     <Project Path="Legacy/Project/ColorMatKey/Win/ColorMatKey.vcxproj" Id="2bd2347f-dea3-4d20-8011-55ecf78d8ece" />
-    <Project Path="Legacy/Project/InnerFlare/Win/InnerFlare.vcxproj" Id="3bf8c428-46d9-4fca-b03a-20e1c5817c45" />
-    <Project Path="Legacy/Project/InnerFlareRot/Win/InnerFlareRot.vcxproj" Id="bab0b3f2-9d2f-41b0-86be-1210b76d96f7" />
+    <Project Path="Legacy/Project/InnerFlareRot_old/Win/InnerFlareRot.vcxproj" Id="bab0b3f2-9d2f-41b0-86be-1210b76d96f7" />
+    <Project Path="Legacy/Project/InnerFlare_old/Win/InnerFlare.vcxproj" Id="3bf8c428-46d9-4fca-b03a-20e1c5817c45" />
     <Project Path="Legacy/Project/LineDetection/Win/LineDetection.vcxproj" Id="52cb21fd-eb41-484f-b74f-0780d6ea017c" />
     <Project Path="Legacy/Project/MaxBlur/Win/MaxBlur.vcxproj" Id="455cd0bd-c0de-4901-826a-73c9ccc8d24e" />
     <Project Path="Legacy/Project/Mosaic/Win/Mosaic.vcxproj" Id="f69a4de5-0611-445f-ac50-32ce40dd5545" />
@@ -112,6 +107,7 @@
       <Build Solution="*|x86" Project="false" />
     </Project>
     <Project Path="Legacy/Project/CellGrad/Win/CellGrad.vcxproj" Id="4c47846c-c0f8-4dd8-b1bf-b9130c4ae43d" />
+    <Project Path="Legacy/Project/CellLineEraser_old/Win/CellLineEraser.vcxproj" Id="9ffe7c24-3e91-4cbe-a470-9f0af818406e" />
     <Project Path="Legacy/Project/ChromaticAberration/Win/ChromaticAberration.vcxproj" Id="f318250a-e25c-4c8b-8c0f-240111026374" />
     <Project Path="Legacy/Project/ColorChange/Win/ColorChange.vcxproj" Id="a057bed7-a75c-4769-ba94-bf3a709420af">
       <Platform Project="x64" />
@@ -173,6 +169,10 @@
     <Project Path="Legacy/Project/Premultiply/Win/Premultiply.vcxproj" Id="82bcecd2-399f-4286-87ba-0e6a222a98f9" />
     <Project Path="Legacy/Project/Scanline/Win/Scanline.vcxproj" Id="8a65075a-e9a7-4d19-b5a0-05e8193023da" />
     <Project Path="Legacy/Project/SelectColor/Win/SelectColor.vcxproj" Id="6585d4db-91db-4b4e-8e86-2aa4a7b7d362" />
+    <Project Path="Legacy/Project/SelectedBlur/Win/SelectedBlur.vcxproj" Id="f1bccf81-1fde-4504-998d-25dc228c8da8">
+      <Platform Project="x64" />
+      <Build Solution="*|x86" Project="false" />
+    </Project>
     <Project Path="Legacy/Project/Shine/Win/Shine.vcxproj" Id="82a14d7d-963b-4639-9ca5-fb7d76688aab" />
     <Project Path="Legacy/Project/ShitsuKanBlur/Win/ShitsuKanBlur.vcxproj" Id="cac5dedc-2e7e-48df-984e-9e65f0375230" />
     <Project Path="Legacy/Project/Tone/Win/Tone.vcxproj" Id="9857c05e-3174-42f6-ae20-a66113514946" />
@@ -191,8 +191,13 @@
   <Folder Name="/_SDK/">
     <Project Path="_Skeleton/Win/_Skeleton.vcxproj" Id="44650ee4-5b04-43c2-9d1c-b96240d4ae80" />
   </Folder>
+  <Project Path="CellLineEraser/Win/CellLineEraser.vcxproj" Id="6ed76fcf-e733-4f2a-a92f-62fe0ebd1d36" />
   <Project Path="ColorSwitch/Win/ColorSwitch.vcxproj" Id="32af35f5-51a4-4eed-b479-76d1c68e8336" />
   <Project Path="Gradient/Win/Gradient.vcxproj" Id="44f00cc9-d7dc-4630-8375-8659c3e21839" />
   <Project Path="Grain/Win/Grain.vcxproj" Id="011c43aa-cf8e-4e98-a675-e732ecb4151f" />
+  <Project Path="Hyperbolic/Win/Hyperbolic.vcxproj" Id="8b548727-374b-479a-a482-99fd9e49dfdf" />
+  <Project Path="InnerFlare/Win/InnerFlare.vcxproj" />
+  <Project Path="InnerFlareRot/Win/InnerFlareRot.vcxproj" />
   <Project Path="Mult/Win/Mult.vcxproj" Id="0e51b777-fc10-4b8c-997c-01ba8b41384f" />
+  <Project Path="SelectiveColorBlur/Win/SelectiveColorBlur.vcxproj" Id="0aca4c2e-35ac-42f3-8e23-7e7a978e4120" />
 </Solution>

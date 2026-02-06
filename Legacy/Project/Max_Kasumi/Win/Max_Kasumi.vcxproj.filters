@@ -175,12 +175,12 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Max_Kasumi\Max_KasumiSub8.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp">
+    <ClCompile Include="..\Max_KasumiSub8.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMat.cpp">
       <Filter>Supporting code\Fs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Max_Kasumi\Max_KasumiSub16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Max_Kasumi\Max_KasumiSub32.cpp" />
+    <ClCompile Include="..\Max_KasumiSub16.cpp" />
+    <ClCompile Include="..\Max_KasumiSub32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\Max_KasumiPiPL.r">

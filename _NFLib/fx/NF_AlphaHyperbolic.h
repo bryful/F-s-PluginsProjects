@@ -41,6 +41,13 @@ PF_Err HyperbolicAlpha(
     PF_Iterate8Suite1 *iter_scopeP,
     PF_FpLong		hyperbolic
 );
+PF_Err HyperbolicAlpha(
+    PF_InData* in_dataP,
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    AEGP_SuiteHandler* suitesP,
+    PF_FpLong		hyperbolic
+);
 
 
 

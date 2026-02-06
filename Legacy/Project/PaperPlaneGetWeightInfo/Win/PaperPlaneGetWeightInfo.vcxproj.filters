@@ -181,7 +181,7 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\PaperPlaneGetWeightInfo\AEDebugAngel.cpp" />
+    <ClCompile Include="..\AEDebugAngel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\PaperPlaneGetWeightInfoPiPL.r">

@@ -393,10 +393,10 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="Star_ColorfulPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Star_Colorful\Star_ColorfulSub16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Star_Colorful\Star_ColorfulSub32.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Star_Colorful\Star_ColorfulSub8.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMat.cpp" />
+    <ClCompile Include="..\Star_ColorfulSub16.cpp" />
+    <ClCompile Include="..\Star_ColorfulSub32.cpp" />
+    <ClCompile Include="..\Star_ColorfulSub8.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBox.cpp" />

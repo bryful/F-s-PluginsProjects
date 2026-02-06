@@ -175,9 +175,9 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\ShitsuKanBlur\ShitsuKanBlurSub8.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\ShitsuKanBlur\ShitsuKanBlurSub16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\ShitsuKanBlur\ShitsuKanBlurSub32.cpp" />
+    <ClCompile Include="..\ShitsuKanBlurSub8.cpp" />
+    <ClCompile Include="..\ShitsuKanBlurSub16.cpp" />
+    <ClCompile Include="..\ShitsuKanBlurSub32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\ShitsuKanBlurPiPL.r">

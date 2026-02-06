@@ -393,10 +393,10 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="Max_KasumiPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsMat.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Max_Kasumi\Max_KasumiSub16.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Max_Kasumi\Max_KasumiSub32.cpp" />
-    <ClCompile Include="..\..\..\F%27s PluginsProjects\Max_Kasumi\Max_KasumiSub8.cpp" />
+    <ClCompile Include="..\..\FsLibrary\FsMat.cpp" />
+    <ClCompile Include="..\Max_KasumiSub16.cpp" />
+    <ClCompile Include="..\Max_KasumiSub32.cpp" />
+    <ClCompile Include="..\Max_KasumiSub8.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphics.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBlend.cpp" />
     <ClCompile Include="..\..\FsLibrary\FsGraphicsBox.cpp" />
