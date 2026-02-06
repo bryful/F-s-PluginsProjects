@@ -104,6 +104,9 @@
     <Project Path="Legacy/Project/RandomShift/Win/RandomShift.vcxproj" Id="a43e360b-7ef0-45bc-bd56-9f6e6853472e" />
   </Folder>
   <Folder Name="/_Legacy/">
+    <Project Path="Legacy/Project/AlphaFix/Win/AlphaFix.vcxproj" Id="82675920-efdc-4880-84e3-4d234c1a86bc">
+      <Platform Project="x64" />
+    </Project>
     <Project Path="Legacy/Project/CCplus/Win/CCplus.vcxproj" Id="18bd60ef-07a0-4fc2-affc-a29482c663f4">
       <Platform Project="x64" />
       <Build Solution="*|x86" Project="false" />
@@ -157,9 +160,6 @@
     </Project>
     <Project Path="Legacy/Project/IroTore/Win/IroTore.vcxproj" Id="e3ea288e-34e1-44c1-be43-bb2f4f1f8344" />
     <Project Path="Legacy/Project/IroToreAdjacent/Win/IroToreAdjacent.vcxproj" Id="a03946f0-46ca-4b50-967f-95b8adc6402f" />
-    <Project Path="Legacy/Project/AlphaFix/Win/AlphaFix.vcxproj" Id="82675920-efdc-4880-84e3-4d234c1a86bc">
-      <Platform Project="x64" />
-    </Project>
     <Project Path="Legacy/Project/LineTrace/Win/LineTrace.vcxproj" Id="97918b48-8322-43bf-92d6-ecca9621ee76" />
     <Project Path="Legacy/Project/Max_Kasumi/Win/Max_Kasumi.vcxproj" Id="81dd7657-558f-48cc-8f7c-a1c10d68e7f8" />
     <Project Path="Legacy/Project/NamiGarasu/Win/NamiGarasu.vcxproj" Id="3af9c08c-1de7-4b2c-8980-b34a0a308454" />
@@ -193,5 +193,6 @@
   </Folder>
   <Project Path="ColorSwitch/Win/ColorSwitch.vcxproj" Id="32af35f5-51a4-4eed-b479-76d1c68e8336" />
   <Project Path="Gradient/Win/Gradient.vcxproj" Id="44f00cc9-d7dc-4630-8375-8659c3e21839" />
+  <Project Path="Grain/Win/Grain.vcxproj" Id="011c43aa-cf8e-4e98-a675-e732ecb4151f" />
   <Project Path="Mult/Win/Mult.vcxproj" Id="0e51b777-fc10-4b8c-997c-01ba8b41384f" />
 </Solution>

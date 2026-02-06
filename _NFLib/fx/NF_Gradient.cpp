@@ -1,5 +1,9 @@
 #include "NF_Gradient.h"
 
+#ifndef AE_CLAMP
+#define AE_CLAMP(VAL, MIN, MAX) ((VAL) < (MIN) ? (MIN) : ((VAL) > (MAX) ? (MAX) : (VAL)))
+#endif
+
 typedef struct {
 	float x0, y0;
 	float ux, uy;

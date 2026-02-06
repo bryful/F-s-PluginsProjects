@@ -48,5 +48,16 @@ PF_Err Noise(
     A_long seed,
     A_Boolean is_color
 );
-
+PF_Err GrainFX(
+    PF_InData* in_data,
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    AEGP_SuiteHandler* suitesP,
+    PF_FpShort noise_size,
+    PF_FpShort amount,
+    PF_FpShort sub_noise_size,
+    PF_FpShort sub_amount,
+    A_long seed,
+    A_Boolean is_color
+);
 #endif // NF_NOISE_H

@@ -19,14 +19,19 @@
     <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Gradient.cpp" />
+    <ClCompile Include="..\Grain.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Settings.cpp">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_Gradient.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Noise.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Spat_Data.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -135,14 +140,19 @@
     <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\Gradient.h" />
+    <ClInclude Include="..\Grain.h" />
     <ClInclude Include="..\..\_NFLib\NF_Settings.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_Json.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_Gradient.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Noise.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Spat_Data.h">
+      <Filter>fx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -174,12 +184,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\GradientPiPL.r">
+    <CustomBuild Include="..\GrainPiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="GradientPiPL.rc">
+    <ResourceCompile Include="GrainPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

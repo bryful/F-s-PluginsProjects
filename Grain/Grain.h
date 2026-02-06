@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------------------
 /*
-	Gradient for VS2026
+	Grain for VS2026
 */
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef Gradient_H
-#define Gradient_H
+#ifndef Grain_H
+#define Grain_H
 
 #include "..\_NFLib\AE_SDK.h"
 
@@ -14,72 +14,77 @@
 
 #include "..\_NFLib\NF_AE.h"
 #include "..\_NFLib\NF_ParamsSetup.h"
+
 /*
 #include "..\_NFLib\fx\NF_Mult.h"
 #include "..\_NFLib\fx\NF_Minmax.h"
 #include "..\_NFLib\fx\NF_blur.h"
 #include "..\_NFLib\fx\debug_font.h"
 #include "..\_NFLib\fx\NF_Paint.h"
-#include "..\_NFLib\fx\NF_Noise.h"
 #include "..\_NFLib\fx\NF_Draw.h"
 */
-#include "..\_NFLib\fx\NF_Gradient.h"
+#include "..\_NFLib\fx\NF_Noise.h"
+#include "..\_NFLib\fx\NF_Spat_Data.h"
+
+#include "_SkeltonFilter.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_MODE_POP,
-	ID_START_POS,
-	ID_START_COLOR,
-	ID_START_OPA,
+	ID_MASTER,
+	ID_AMOUNT,
+	ID_SIZE,
+	
+	ID_SUB_AMOUNT,
+	ID_SUB_SIZE,
 
-	ID_END_POS,
-	ID_END_COLOR,
-	ID_END_OPA,
+	ID_ACCENT_COUNT,
+	ID_ACCENT_LOLIMIT,
+	ID_ACCENT_INTENSITY,
 
-	ID_ID_ALPHA_HYPERBOLIC,
-	ID_ID_RGB_HYPERBOLIC,
-
-	ID_SWAP_COLOR_BTN,
+	ID_MONOCHROME,
+	ID_AUTO_SEED,
+	ID_SEED,
 	ID_NUM_PARAMS
 };
 
 //UIの表示文字列
-#define	STR_MODE_POP		"draw"
-#define	STR_MODE_ITEMS		"Linear|Radial"
-#define	STR_MODE_COUNT		2
-#define	STR_MODE_DFLT		1
+#define	STR_MASTER			"masterPercent"
+#define	STR_AMOUNT			"amount"
+#define	STR_SIZE			"size"
+#define	STR_SUB_AMOUNT		"subAmountPercent"
+#define	STR_SUB_SIZE		"subSizePercent"
+
+#define	STR_MONOCHROME		"monochrome"
+#define	STR_MONOCHROME2		"on"
+
+#define	STR_ACCENT_COUNT	"accntCout"
+#define	STR_ACCENT_LOLIMIT	"accntLoLimitPercent"
+#define	STR_ACCENT_INTENSITY	"accntintensity"
 
 
-#define	STR_START_COLOR		"startColor"
-#define	STR_START_POS		"startPoint"
-#define	STR_START_OPACITY	"startOpacity"
-#define	STR_END_POS			"endPoint"
-#define	STR_END_COLOR		"endColor"
-#define	STR_END_OPACITY		"endOpacity"
-#define	STR_SWAP_COLOR_BTN	"swapColor"
-#define	STR_SWAP_COLOR_BTN2	"swap"
+#define	STR_AUTO_SEED		"autoSeed"
+#define	STR_AUTO_SEED2		"on"
+#define	STR_SEED			"seed"
 
-#define	STR_alpha_hyperbolic	"alphaHyperbolic"
-#define	STR_rgb_hyperbolic		"rgbHyperbolic"
 
 //UIのパラメータ
 typedef struct ParamInfo {
-	A_long		mode;
-	A_FloatPoint	start_pos;
-	PF_Pixel	start_color;
-	PF_FpLong	start_opa;
+	PF_FpLong	master_percent;
+	PF_FpLong	amount;
+	PF_FpLong	size;
+	PF_FpLong	sub_amount_percent;
+	PF_FpLong	sub_size_percent;
 
-	A_FloatPoint	end_pos;
-	PF_Pixel	end_color;
-	PF_FpLong	end_opa;
+	A_long		accentCount;
+	PF_FpLong	accentCountLoLimit;
+	PF_FpLong	accentIntensity;
 
-	PF_FpLong	alpha_hyperbolic;
-	PF_FpLong	rgb_hyperbolic;
-
-
+	PF_Boolean	is_monochrome;
+	PF_Boolean	is_autoSeed;
+	A_long		seed;
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
@@ -107,5 +112,5 @@ EffectMain(
 	PF_LayerDef		*output,
 	void			*extra);
 }
-#endif // Gradient_H
+#endif // Grain_H
 

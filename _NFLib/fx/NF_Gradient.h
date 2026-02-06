@@ -23,7 +23,7 @@
 #include "AEFX_SuiteHelper.h"
 #define refconType void*
 
-#include "..\_NFLib\NF_Utils.h"
+//#include "..\NF_Utils.h"
 #include <vector>
 
 PF_Err Gradient(

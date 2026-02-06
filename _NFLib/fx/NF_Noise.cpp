@@ -236,3 +236,68 @@ PF_Err Noise(
 
     return err;
 }
+PF_Err GrainFX(
+    PF_InData* in_data,
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    AEGP_SuiteHandler* suitesP,
+    PF_FpShort noise_size,
+    PF_FpShort amount,
+    PF_FpShort sub_noise_size,
+    PF_FpShort sub_amount,
+    A_long seed,
+    A_Boolean is_color
+)
+{
+    PF_Err err = PF_Err_NONE;
+    auto iterateSuite = suitesP->Iterate8Suite2();
+
+    // 1. ベースノイズ（ザラザラ）
+    NoiseData nData;
+    nData.output = worldP;
+    nData.noise_size = (float)noise_size;
+    nData.amount = (float)amount;
+    nData.seed = seed;
+    nData.is_color = (is_color != 0);
+    nData.downsample_x = (float)in_data->downsample_x.num / in_data->downsample_x.den;
+    nData.downsample_y = (float)in_data->downsample_y.num / in_data->downsample_y.den;
+
+    if (pixelFormat == PF_PixelFormat_ARGB128) {
+        nData.noise_size = (float)(noise_size * sub_noise_size);
+        nData.amount = (float)(amount * sub_amount);
+        nData.seed = seed+100;
+        if (nData.noise_size > 0.0f && nData.amount > 0.0f) {
+            err = iterateSuite->iterate_generic(worldP->height, &nData, MyNoiseScanlineInPlaceT<PF_PixelFloat>);
+        }
+        nData.noise_size = (float)noise_size;
+        nData.amount = (float)amount;
+        nData.seed = seed;
+        err = iterateSuite->iterate_generic(worldP->height, &nData, MyNoiseScanlineInPlaceT<PF_PixelFloat>);
+    }
+    else if (pixelFormat == PF_PixelFormat_ARGB64) {
+        nData.noise_size = (float)(noise_size * sub_noise_size);
+        nData.amount = (float)(amount * sub_amount);
+        nData.seed = seed + 100;
+        if (nData.noise_size > 0.0f && nData.amount > 0.0f) {
+            err = iterateSuite->iterate_generic(worldP->height, &nData, MyNoiseScanlineInPlaceT<PF_Pixel16>);
+        }
+        nData.seed = seed;
+        nData.noise_size = (float)noise_size;
+        nData.amount = (float)amount;
+        err = iterateSuite->iterate_generic(worldP->height, &nData, MyNoiseScanlineInPlaceT<PF_Pixel16>);
+    }
+    else {
+        nData.noise_size = (float)(noise_size * sub_noise_size);
+        nData.amount = (float)(amount * sub_amount);
+        nData.seed = seed + 100;
+        if (nData.noise_size > 0.0f && nData.amount > 0.0f) {
+            err = iterateSuite->iterate_generic(worldP->height, &nData, MyNoiseScanlineInPlaceT<PF_Pixel8>);
+        }
+        nData.seed = seed;
+        nData.noise_size = (float)noise_size;
+        nData.amount = (float)amount;
+        err = iterateSuite->iterate_generic(worldP->height, &nData, MyNoiseScanlineInPlaceT<PF_Pixel8>);
+    }
+
+    return err;
+}

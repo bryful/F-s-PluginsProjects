@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{44F00CC9-D7DC-4630-8375-8659C3E21839}</ProjectGuid>
-    <RootNamespace>Gradient</RootNamespace>
-    <ProjectName>Gradient</ProjectName>
+    <ProjectGuid>{011C43AA-CF8E-4E98-A675-E732ECB4151F}</ProjectGuid>
+    <RootNamespace>Grain</RootNamespace>
+    <ProjectName>Grain</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,7 +104,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/Gradient.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Grain.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -155,7 +155,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/Gradient.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Grain.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -209,7 +209,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/Gradient.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Grain.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -265,7 +265,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/Gradient.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/Grain.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -322,7 +322,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\NFsLibrary\resource.h" />
     <ClInclude Include="..\..\_NFLib\AE_SDK.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_Gradient.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Noise.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Spat_Data.h" />
     <ClInclude Include="..\..\_NFLib\json.hpp" />
     <ClInclude Include="..\..\_NFLib\NF_AE.h" />
     <ClInclude Include="..\..\_NFLib\NF_CATEGORY.h" />
@@ -357,7 +358,7 @@
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
     <ClInclude Include="..\NF_Target.h" />
-    <ClInclude Include="..\Gradient.h" />
+    <ClInclude Include="..\Grain.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
@@ -368,7 +369,7 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\GradientPiPL.r">
+    <CustomBuild Include="..\GrainPiPL.r">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling the PiPL</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /I "$(ProjectDir)..\..\..\Headers" /EP "..\%(Filename).r" &gt; "$(IntDir)%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
@@ -396,7 +397,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="GradientPiPL.rc" />
+    <ResourceCompile Include="GrainPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
@@ -404,11 +405,12 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_Gradient.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Noise.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Spat_Data.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Settings.cpp" />
     <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c" />
-    <ClCompile Include="..\Gradient.cpp">
+    <ClCompile Include="..\Grain.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MSWindows;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>
