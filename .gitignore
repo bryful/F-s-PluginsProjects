@@ -4,18 +4,10 @@
 *.jpg
 *.tga
 *.aep
-*.aex
 *.mp4
 *.f4v
 *.gif
-sample/
-outAEX64/
-outAEX64_MD/
-Mac/
-MacCS4_xcode5/
 _bak/
-Fs_Plugins_*/
-F's_Plugins_*/
 
 # User-specific files
 *.suo
