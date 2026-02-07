@@ -168,9 +168,6 @@
     <ClInclude Include="..\..\FsLibrary\FsSputtering.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\NFsLibrary\resource.h">
-      <Filter>Header Files\AE\N</Filter>
-    </ClInclude>
     <ClInclude Include="..\Fs_Target.h" />
   </ItemGroup>
   <ItemGroup>
