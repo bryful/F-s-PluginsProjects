@@ -5,18 +5,23 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 昔から趣味でコツコツと作っていたものです。<br>
 趣味といっても僕自身日本のアニメ制作者なので業務に使えます。<br>
 <br>
+***
 **2026/02/05以降新しいF's Pluginsの追加はありません。**<br>
 プロジェクトフォルダをLegacyフォルダに移動しました。<br>
+
 **今後NF-Pluginsとして新しいエフェクトを追加していきます。**<br>
 アップグレード・バグフィックス時にはNFへの以降も同時に行います<br>
-**Legacyフォルダに入っているF's Pluginsは近日中にバイナリの配布は無くなる予定です。**<br>
 <br>
+**Legacyフォルダに入っているF's Pluginsは近日中にバイナリの配布は無くなる予定です。**<br>
+***
 
 SDKをAfterEffectsSDK_25.6_61_winに変えました。いつの間にかSDK2025がバージョンアップしてたみたいです。<br>
 <br>
 
+## ダウンロード
 ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
-2026/02/01 更新しました。大きなバグがない限りしばらく更新しません<br>
+2026/02/07 更新しました。<br>
+個別にほしい時は[NF-Plugins_release](https://github.com/bryful/F-s-PluginsProjects/tree/master/NF-Plugins_release)から直接ダウンロードできます。[ここ](https://github.com/bryful/F-s-PluginsProjects/tree/master/NF-Plugins_release)にあるやつは最新版ですがバグが残ってる可能性があるので注意してください。
 <br>
 
 ## <b>**残念なお知らせ**</b><br>
@@ -25,7 +30,7 @@ SDKをAfterEffectsSDK_25.6_61_winに変えました。いつの間にかSDK2025�
 一応僕も仕事でたまには使うのでAfter Effects自体のバージョンに合わせて再ビルドは行うつもりです(SDKの更新に合わせます)<br>
 
 ## 今後の予定
-今後F's Pluginsの開発はメンテナンスにとどめて、NF-Pluginsという新しいプラグイン集を開発する予定です。<br>
+今後F's Pluginsの開発はメンテナンスにとどめて、NF-Pluginsという新しいプラグイン集を開発します。<br>
 NF-Pluginsはあえて互換性(matchName)を無くしてモダンな開発環境を目指します。<br>
 F’sは、ラッパー関数の嵐でコードが読みにくくなっているので、NF-Pluginsではシンプルで他のプラグインへの移植性を重視する予定です。<br>
 
@@ -41,7 +46,9 @@ F’sは、ラッパー関数の嵐でコードが読みにくくなっている
 _toolsフォルダ内にはプラグイン開発に便利なツールを入れています。<br>
 今までC#で作ってましたが、PowerShellスクリプトに置き換えました。<br>
 詳細は_toolsフォルダ内のREADME.mdを見てください。<br>
-
+<br>
+ここにソースがあります。
+[AE_Helper](https://github.com/bryful/AE_Helper)
 
 ## Legacyフォルダについて
 
