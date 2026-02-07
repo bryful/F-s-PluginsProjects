@@ -75,6 +75,11 @@ chinese translated version<br>
 [https://www.lookae.com/fsplugins/](https://www.lookae.com/fsplugins/)<br>
 
 ## ビルド時の注意 ##
+
+**SDKのExamplesフォルダにこのリポジトリのフォルダを入れてください**<br>
+ヘッダーのインクルードが一番楽です。<br>
+<br>
+
 今回から**Directory.Build.props**/**Directory.Build.Targets**を使ってプロジェクト設定の一括変更を行っています。<br>
 VS2026でSDK2025を使うとものすごいWarnigが出るのでDirectory.Build.propsで抑制しています。プロパティのUIで変更しても上書きされるので注意です。<br>
 <br>
@@ -82,6 +87,9 @@ VS2026でSDK2025を使うとものすごいWarnigが出るのでDirectory.Build.
 <br>
 こんな便利な機能あるの知らなかった。<br>
 <br>
+SDKは**AfterEffectsSDK_25.6_61_win**を使用しています。<br>
+<br>
+Legacyフォルダにあるプロジェクトはもう変える予定がないのでSDKも同梱してあります。なのでビルドは簡単にできると思います。
 
 ## 進捗
 バージョン管理の方法をいろいろ考えましたが、プラグインファイル名に日付を入れるという一番チープな方法を採用しました。<br>
