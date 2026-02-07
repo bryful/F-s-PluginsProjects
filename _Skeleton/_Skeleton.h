@@ -23,7 +23,7 @@
 #include "..\_NFLib\fx\NF_Noise.h"
 #include "..\_NFLib\fx\NF_Draw.h"
 
-#include "_SkeltonFilter.h"
+#include "_SkeletonFilter.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
