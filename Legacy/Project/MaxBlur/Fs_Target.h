@@ -23,10 +23,10 @@
 	//#define NFS_CATEGORY "NF's Plugins-Cell"
 	//#define NFS_CATEGORY "NF's Plugins-Colorize"
 	//#define NFS_CATEGORY "NF's Plugins-Script"
-	//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
+	#define NFS_CATEGORY "NF's Plugins-{Deprecated}"
 
 
-#define NFS_CATEGORY "NF's Plugins-Filter"
+//#define NFS_CATEGORY "NF's Plugins-Filter"
 
 	//-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する

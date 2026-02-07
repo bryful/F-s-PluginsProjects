@@ -21,7 +21,7 @@
 //#define FS_CATEGORY "NF's Plugins-Script"
 //#define FS_CATEGORY "NF's Plugins-Test"
 
-#define FS_CATEGORY		"NF's Plugins-{Legacy}"
+#define FS_CATEGORY		"NF's Plugins-{Deprecated}"
 
 
 //-----------------------------------------------------------

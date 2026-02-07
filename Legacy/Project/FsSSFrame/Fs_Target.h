@@ -18,7 +18,7 @@
 
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名
-#define FS_CATEGORY "NF's Plugins-{Legacy}"
+#define FS_CATEGORY "NF's Plugins-{Deprecated}"
 
 //-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する

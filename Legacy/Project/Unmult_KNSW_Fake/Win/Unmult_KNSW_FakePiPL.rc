@@ -22,8 +22,8 @@ BEGIN
 	"MIB8",
 	"gtac", 
 	0, 0x0,
-	24, 0x0,
-	"\x15NF's Plugins-{Legacy}\0\0", 
+	8, 0x0,
+	"\x06(Fake)\0", 
 
 	"MIB8",
 	"4668", 

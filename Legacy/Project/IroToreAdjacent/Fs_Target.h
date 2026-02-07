@@ -25,7 +25,7 @@
 //#define FS_CATEGORY "NF's Plugins-Cell"
 //#define FS_CATEGORY "F's Plugins-Script"
 //#define FS_CATEGORY "F's Plugins-Draw"
-#define FS_CATEGORY "NF's Plugins-{Legacy}"
+#define FS_CATEGORY "NF's Plugins-{Deprecated}"
 
 //-----------------------------------------------------------
 #define SUPPORT_SMARTFX			//これを有効にするとSmartFX+Float_Colorに対応する

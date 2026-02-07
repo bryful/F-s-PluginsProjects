@@ -120,7 +120,7 @@
       <Filter>Header Files\AE</Filter>
     </ClInclude>
     <ClInclude Include="..\Fs_Target.h">
-      <Filter>Header Files\Windows</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

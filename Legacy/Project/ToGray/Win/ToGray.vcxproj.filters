@@ -122,7 +122,7 @@
     <ClInclude Include="..\..\FsLibrary\FsGraphics.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsHLS.h">
+    <ClInclude Include="..\..\FsLibrary\FsHLS.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
   </ItemGroup>

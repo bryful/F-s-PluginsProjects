@@ -41,7 +41,7 @@
     <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp">
       <Filter>fx</Filter>
     </ClCompile>
-    <ClCompile Include="..\_SkeltonFilter.cpp" />
+    <ClCompile Include="..\_SkeletonFilter.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Paint.cpp">
       <Filter>fx</Filter>
     </ClCompile>
@@ -184,7 +184,7 @@
     <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h">
       <Filter>fx</Filter>
     </ClInclude>
-    <ClInclude Include="..\_SkeltonFilter.h" />
+    <ClInclude Include="..\_SkeletonFilter.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Paint.h">
       <Filter>fx</Filter>
     </ClInclude>

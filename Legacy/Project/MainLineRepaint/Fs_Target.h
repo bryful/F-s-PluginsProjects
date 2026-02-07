@@ -22,7 +22,7 @@
 //プラグインが表示されるメニュー名
 //#define FS_CATEGORY "F's Plugins-Fx"
 //#define FS_CATEGORY "F's Plugins-Channel"
-#define FS_CATEGORY "NF's Plugins-Cell"
+#define FS_CATEGORY "NF's Plugins-{Deprecated}"
 //#define FS_CATEGORY "F's Plugins-Script"
 //#define FS_CATEGORY "F's Plugins-Draw"
 

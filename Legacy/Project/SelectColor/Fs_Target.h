@@ -20,7 +20,7 @@
 //#define FS_CATEGORY "NF's Plugins-Cell"
 //#define FS_CATEGORY "F's Plugins-Script"
 //#define FS_CATEGORY "F's Plugins-Draw"
-#define FS_CATEGORY		"NF's Plugins-{Legacy}"
+#define FS_CATEGORY		"NF's Plugins-{Deprecated}"
 
 
 //-----------------------------------------------------------

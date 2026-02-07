@@ -28,7 +28,7 @@
 	//#define NFS_CATEGORY "NF's Plugins-{DEBUG}"
 	//#define NFS_CATEGORY "NF's Plugins-{Legacy}"
 
-#define NFS_CATEGORY "NF's Plugins-{Legacy}"
+#define NFS_CATEGORY "NF's Plugins-{Deprecated}"
 	//#define NFS_CATEGORY "NF's Plugins-Filter"
 
 	//-----------------------------------------------------------

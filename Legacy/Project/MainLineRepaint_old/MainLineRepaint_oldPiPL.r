@@ -19,7 +19,7 @@ resource 'PiPL' (16000) {
 		/* [3] */
 		Category {
 			/*AEのメニューに使われる */
-			"NF's Plugins-Cell"
+			"NF's Plugins-{Deprecated}"
 			/*"F's Plugins"*/
 		},
 		

@@ -156,7 +156,7 @@ inline PF_PixelFloat NF_Pixel8ToFloat(PF_Pixel c)
 	return r;
 }
 //-------------------------------------------------------------------------------------------------
-inline PF_PixelFloat NF_Pixel6To32(PF_Pixel16 c)
+inline PF_PixelFloat NF_Pixel16To32(PF_Pixel16 c)
 {
 	PF_PixelFloat r;
 	r.alpha		= (PF_FpShort)(NF_CONVERT16TO32(c.alpha));

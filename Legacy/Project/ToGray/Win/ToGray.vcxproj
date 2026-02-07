@@ -318,7 +318,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\F%27s PluginsProjects\FsLibrary\FsHLS.h" />
+    <ClInclude Include="..\..\FsLibrary\FsHLS.h" />
     <ClInclude Include="..\..\FsLibrary\FsAE.h" />
     <ClInclude Include="..\..\FsLibrary\FsGraphics.h" />
     <ClInclude Include="..\..\FsLibrary\FsUtils.h" />
