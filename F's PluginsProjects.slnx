@@ -196,8 +196,8 @@
   <Project Path="Gradient/Win/Gradient.vcxproj" Id="44f00cc9-d7dc-4630-8375-8659c3e21839" />
   <Project Path="Grain/Win/Grain.vcxproj" Id="011c43aa-cf8e-4e98-a675-e732ecb4151f" />
   <Project Path="Hyperbolic/Win/Hyperbolic.vcxproj" Id="8b548727-374b-479a-a482-99fd9e49dfdf" />
-  <Project Path="InnerFlare/Win/InnerFlare.vcxproj" />
-  <Project Path="InnerFlareRot/Win/InnerFlareRot.vcxproj" />
+  <Project Path="InnerFlare/Win/InnerFlare.vcxproj" Id="50606b8f-83ad-4cab-be63-30aa36553857" />
+  <Project Path="InnerFlareRot/Win/InnerFlareRot.vcxproj" Id="78a87bd6-726a-4c8a-99cb-ce89b09d9be2" />
   <Project Path="Mult/Win/Mult.vcxproj" Id="0e51b777-fc10-4b8c-997c-01ba8b41384f" />
   <Project Path="SelectiveColorBlur/Win/SelectiveColorBlur.vcxproj" Id="0aca4c2e-35ac-42f3-8e23-7e7a978e4120" />
 </Solution>

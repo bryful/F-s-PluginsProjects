@@ -405,6 +405,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="..\Resource.rc" />
     <ResourceCompile Include="_SkeletonPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
