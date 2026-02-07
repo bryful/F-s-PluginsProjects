@@ -11,7 +11,7 @@
 // NOTE: this file is included by effect\shared\AEFX_PiPL.r and these versions are
 //			used when building PiPLs
 #define PF_PLUG_IN_VERSION			13	// auto-set by prep_codeline_for_release.py, adjust comment if manually edit is okay
-#define PF_PLUG_IN_SUBVERS			28	// manually set for new 'Support URL' field in PiPL and new entry point
+#define PF_PLUG_IN_SUBVERS			29	// manually set for new 'Support URL' field in PiPL and new entry point
 
 
 #endif

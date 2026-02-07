@@ -11,6 +11,8 @@
 
 #include "AE_Effect.h"
 
+#include <cmath>
+
 #ifdef DEBUG
 	#define AEFX_INLINE				static
 #else
@@ -24,25 +26,7 @@
 #endif	
 
 
-AEFX_INLINE long
-AEFX_RoundDouble(PF_FpLong	x)
-{
-	long	ret;
-	
-	if (x > 0) {
-		ret = (long)(x + 0.5);
-	} else {
-		if ((long)(x + 0.5) == (x + 0.5)) {
-			ret = (long)x;
-		} else {
-			ret = (long)(x - 0.5);
-		}
-	}
-	
-	return ret;
-}
-
-#define AEFX_ROUNDDBL(X)	AEFX_RoundDouble(X);
+#define AEFX_ROUNDDBL(X)	std::lround(X)
 
 
 #define	AEFX_TypeFto8(TYPE)		(char)AEFX_ROUNDDBL((TYPE) * 127.0)

@@ -21,15 +21,16 @@ resource 'PiPL' (16000) {
 		},
 		
 #ifdef AE_OS_WIN
-	#ifdef AE_PROC_INTELx64
+    #if defined(AE_PROC_INTELx64)
 		CodeWin64X86 {"EffectMain"},
-	#endif	
-#else
-	#ifdef AE_OS_MAC
+    #elif defined(AE_PROC_ARM64)
+		CodeWinARM64 {"EffectMain"},
+    #endif
+#elif defined(AE_OS_MAC)
 		CodeMacIntel64 {"EffectMain"},
 		CodeMacARM64 {"EffectMain"},
-	#endif
-#endif		/* [6] */
+#endif
+		/* [6] */
 		AE_PiPL_Version {
 			2,
 			0
@@ -68,4 +69,3 @@ resource 'PiPL' (16000) {
 		}
 	}
 };
-

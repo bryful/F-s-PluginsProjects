@@ -62,14 +62,15 @@ About (
 	ERR(suites.AppSuite4()->PF_GetPersonalInfo(&personal_info));
 	
 	if (!err){
-		suites.ANSICallbacksSuite1()->sprintf(	out_data->return_msg,
-						"%s v%d.%d,\r%s\r%s\r%s",
-						STR(StrID_Name), 
-						MAJOR_VERSION, 
-						MINOR_VERSION, 
-						personal_info.name,
-						personal_info.serial_str,
-						STR(StrID_Description));
+        suites.ANSICallbacksSuite1()->sprintf(
+            out_data->return_msg,
+            "%s v%d.%d,\r%s\r%s\r%s",
+            STR(StrID_Name),
+            MAJOR_VERSION,
+            MINOR_VERSION,
+            personal_info.name,
+            personal_info.serial_str,
+            STR(StrID_Description));
 	}
 	return err;
 }
@@ -95,19 +96,8 @@ GlobalSetup (
 		out_data->global_data	= globH;
 		globP->number			= 93;
 
-		// Premiere Pro/Elements does not support this suite
-		if (in_data->appl_id != 'PrMr')
-		{
-			suites.ANSICallbacksSuite1()->strcpy(globP->name, STR(StrID_Frank));
-		}
-		else
-		{
-			#ifdef AE_OS_WIN
-			strcpy_s(globP->name, 10, STR(StrID_Frank));
-			#else
-			strcpy(globP->name, STR(StrID_Frank));
-			#endif
-		}
+		// Use ANSICallbacksSuite1 for broader compatibility
+		suites.ANSICallbacksSuite1()->strcpy(globP->name, STR(StrID_Frank));
 	}
 
 	out_data->out_flags		|=	PF_OutFlag_CUSTOM_UI 			|
@@ -145,7 +135,7 @@ ParamsSetup(
 
 	// Premiere Pro/Elements does not support a standard parameter type
 	// with custom UI (bug #1235407).  Use an arbitrary or null parameter instead.
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		PF_ADD_COLOR(	STR(StrID_Color_Param_Name),  
 						0, 
@@ -250,7 +240,7 @@ Render(
 	PF_Iterate8Suite2 	*it8P	= suites.Iterate8Suite2();
 
 	// Premiere Pro/Elements does not support this suite
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		PF_Iterate16Suite2 	*it16P	= suites.Iterate16Suite2();
 

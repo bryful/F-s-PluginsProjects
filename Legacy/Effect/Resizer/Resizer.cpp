@@ -58,13 +58,13 @@ About (
 	AEGP_SuiteHandler suites(in_data->pica_basicP);
 
 	// Premiere Pro/Elements doesn't support ANSICallbacksSuite1
-	if (in_data->appl_id != 'PrMr') {
+	if (in_data->appl_id != kAppID_Premiere) {
 		suites.ANSICallbacksSuite1()->sprintf(	out_data->return_msg,
-												"%s v%d.%d\r%s",
-												STR(StrID_Name), 
-												MAJOR_VERSION, 
-												MINOR_VERSION, 
-												STR(StrID_Description));
+													"%s v%d.%d\r%s",
+													STR(StrID_Name), 
+													MAJOR_VERSION, 
+													MINOR_VERSION, 
+													STR(StrID_Description));
 	}
 
 			return err;
@@ -136,7 +136,7 @@ ParamsSetup (
 						DOWNSAMPLE_DISK_ID);
 
 	// Don't expose 3D capabilities in PPro, since they are unsupported
-	if (in_data->appl_id != 'PrMr'){
+	if (in_data->appl_id != kAppID_Premiere){
 		PF_ADD_CHECKBOX(	STR(StrID_3D_Param_Name), 
 							STR(StrID_3D_Param_Description), 
 							FALSE,
@@ -234,7 +234,7 @@ Render (
 	
 	color	= params[RESIZE_COLOR]->u.cd.value;
 	
-	if (in_data->appl_id != 'PrMr' &&
+	if (in_data->appl_id != kAppID_Premiere &&
 		params[RESIZE_USE_3D]->u.bd.value) { // if we're paying attention to the camera
 		ERR(suites.PFInterfaceSuite1()->AEGP_ConvertEffectToCompTime(in_data->effect_ref,
 																	in_data->current_time,
@@ -314,7 +314,7 @@ Render (
 												&big_color,
 												NULL,
 												outputP));
-		} else if (in_data->appl_id != 'PrMr') {
+		} else if (in_data->appl_id != kAppID_Premiere) {
 			ERR(suites.FillMatteSuite2()->fill(	in_data->effect_ref,
 												&color,
 												NULL,
@@ -356,13 +356,13 @@ Render (
 
 		// Premiere Pro/Elements doesn't support WorldTransformSuite1,
 		// but it does support many of the callbacks in utils
-		if (PF_Quality_HI == in_data->quality && in_data->appl_id != 'PrMr')	{	
+		if (PF_Quality_HI == in_data->quality && in_data->appl_id != kAppID_Premiere)	{	
 			ERR(suites.WorldTransformSuite1()->copy_hq(	in_data->effect_ref,
 														&params[RESIZE_INPUT]->u.ld,
 														outputP,
 														NULL,
 														&dst_rectR));
-		} else if (in_data->appl_id != 'PrMr')	{
+		} else if (in_data->appl_id != kAppID_Premiere)	{
 			ERR(suites.WorldTransformSuite1()->copy(in_data->effect_ref,
 													&params[RESIZE_INPUT]->u.ld,
 													outputP,
@@ -398,8 +398,28 @@ Render (
 	return err;
 }
 
-static PF_Err		
-DescribeDependencies(	
+static PF_Handle AllocStrHandle(PF_InData *in_data, int strID)
+{
+    const size_t string_length = strlen(STR(strID));
+    if (string_length < SIZE_MAX)
+    {
+        const size_t buffer_size = string_length + 1;
+        if (buffer_size <= INT32_MAX)
+        {
+            AEGP_SuiteHandler suites(in_data->pica_basicP);
+            A_long buf_sizeL = static_cast<A_long>(buffer_size);
+            PF_Handle msgH = suites.HandleSuite1()->host_new_handle(buf_sizeL);
+
+            suites.ANSICallbacksSuite1()->strcpy(static_cast<char*>(DH(msgH)), STR(strID));
+            return msgH;
+        }
+    }
+
+    return nullptr;
+}
+
+static PF_Err
+DescribeDependencies(
 	PF_InData		*in_data,	
 	PF_OutData		*out_data,	
 	PF_ParamDef		*params[],	
@@ -407,34 +427,16 @@ DescribeDependencies(
 {
 	PF_Err						err		= PF_Err_NONE;
 	PF_ExtDependenciesExtra		*extraP = (PF_ExtDependenciesExtra*)extra;
-	PF_Handle					msgH	= NULL;
-	A_Boolean	something_is_missingB	= FALSE;
-
-	AEGP_SuiteHandler suites(in_data->pica_basicP);
+	StrIDType                   strID   = StrID_NONE;
 	
 	switch (extraP->check_type) {
 
 		case PF_DepCheckType_ALL_DEPENDENCIES:
-
-			msgH = suites.HandleSuite1()->host_new_handle(strlen(STR(StrID_DependString1)) + 1);
-			suites.ANSICallbacksSuite1()->strcpy(reinterpret_cast<char*>(DH(msgH)),STR(StrID_DependString1));
+            strID = StrID_DependString1;
 			break;
-
-		case PF_DepCheckType_MISSING_DEPENDENCIES:
-			
-			if (something_is_missingB)	{
-				msgH = suites.HandleSuite1()->host_new_handle(strlen(STR(StrID_DependString2)) + 1);
-				suites.ANSICallbacksSuite1()->strcpy(reinterpret_cast<char*>(DH(msgH)),STR(StrID_DependString2));
-			}
-			break;
-
-		default:
-			msgH = suites.HandleSuite1()->host_new_handle(strlen(STR(StrID_NONE)) + 1);
-			suites.ANSICallbacksSuite1()->strcpy(reinterpret_cast<char*>(DH(msgH)),STR(StrID_NONE));
-			break;
-
 	}
-	extraP->dependencies_strH = msgH;
+
+	extraP->dependencies_strH = AllocStrHandle(in_data, strID);
 	return err;
 }
 

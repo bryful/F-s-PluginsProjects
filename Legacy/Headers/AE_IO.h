@@ -31,10 +31,15 @@
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PreConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 
@@ -279,10 +284,15 @@ typedef struct {
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PostConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 
@@ -296,10 +306,15 @@ typedef struct {
 	#ifdef _WIN32
 		#pragma warning(push)
 		#pragma warning(disable : 4103)
+	#elif defined(__clang__)
+		#pragma clang diagnostic push
+		#pragma clang diagnostic ignored "-Wpragma-pack"
 	#endif
 	#include <adobesdk/config/PreConfig.h>
 	#ifdef _WIN32
 		#pragma warning(pop)
+	#elif defined(__clang__)
+		#pragma clang diagnostic pop
 	#endif
 
 	#ifdef __cplusplus
@@ -393,20 +408,30 @@ typedef struct {
 	#ifdef _WIN32
 		#pragma warning(push)
 		#pragma warning(disable : 4103)
+	#elif defined(__clang__)
+		#pragma clang diagnostic push
+		#pragma clang diagnostic ignored "-Wpragma-pack"
 	#endif
 	#include <adobesdk/config/PostConfig.h>
 	#ifdef _WIN32
 		#pragma warning(pop)
+	#elif defined(__clang__)
+		#pragma clang diagnostic pop
 	#endif
 #endif // A_INTERNAL
 
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PreConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 #ifdef __cplusplus
@@ -483,7 +508,15 @@ enum {
 	AEIO_MFlag2_RESERVED7					  = (1L<<15),
 	AEIO_MFlag2_RESERVED8					  = (1L<<16),
 	AEIO_MFlag2_RESERVED9					  = (1L<<17),
-	AEIO_MFlag2_RESERVED10					  = (1L<<18)
+	AEIO_MFlag2_RESERVED10					  = (1L<<18),
+    AEIO_MFlag2_RESERVED11                    = (1L<<19),
+    AEIO_MFlag2_RESERVED12                    = (1L<<20),
+    AEIO_MFlag2_RESERVED21                    = (1L<<21),
+    AEIO_MFlag2_RESERVED22                    = (1L<<22),
+    AEIO_MFlag2_RESERVED23                    = (1L<<23),
+    AEIO_MFlag2_RESERVED24                    = (1L<<24),
+    AEIO_MFlag2_RESERVED25                    = (1L<<25),
+    AEIO_MFlag2_SUPPORTS_CICP                 = (1L<<26),
 };
 typedef A_u_long AEIO_ModuleFlags2;
 
@@ -830,10 +863,15 @@ typedef struct _AEIO_FunctionBlock4 { // revved to 4 in AE 10.  Frozen in AE10.
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PostConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 #endif

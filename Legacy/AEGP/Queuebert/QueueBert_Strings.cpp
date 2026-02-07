@@ -29,11 +29,6 @@ typedef struct {
 TableString		g_strs[StrID_NUMTYPES] = {
 	StrID_NONE,						"",
 	StrID_Name,						"QueueBert",
-#ifdef AE_OS_WIN
-	StrID_Path,						"C:\\whee.mov",
-#else
-	StrID_Path,						"Kinesis:Users:bbullis:Desktop:whee.mov",
-#endif
 	StrID_Pronounce,				"That's pronounced cue-BARE!",
 	StrID_Troubles,					"QueueBert: Problems encountered during add."
 };
@@ -42,4 +37,3 @@ char	*GetStringPtr(int strNum)
 {
 	return g_strs[strNum].str;
 }
-	

@@ -152,7 +152,7 @@ ColorGrid_GetNewColor(
 		AEGP_SuiteHandler suites(in_data->pica_basicP);
 		
 		// Premiere Pro/Elements don't support PF_AppColorPickerDialog
-		if (in_data->appl_id != 'PrMr') {
+		if (in_data->appl_id != kAppID_Premiere) {
 			ERR(suites.AppSuite4()->PF_AppColorPickerDialog("ColorGrid!",
 															box_colorP,
 															TRUE,
@@ -251,7 +251,7 @@ DoClick(
 	}
 
 	// Premiere Pro/Elements does not support this suite
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		ERR(suites.AdvAppSuite2()->PF_InfoDrawText("ColorGrid - DoClick Event","Adobe Inc"));
 	}
@@ -273,7 +273,7 @@ Deactivate(
 	AEGP_SuiteHandler		suites(in_data->pica_basicP);
 
 	// Premiere Pro/Elements does not support this suite
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		ERR(suites.AdvAppSuite2()->PF_InfoDrawText("ColorGrid - Deactivate Event","Adobe Inc"));
 	}
@@ -516,7 +516,7 @@ ChangeCursor(
 	}
 
 	// Premiere Pro/Elements does not support this suite
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		ERR(suites.AdvAppSuite2()->PF_InfoDrawText("ColorGrid - ChangeCursor Event","Adobe Inc"));
 	}

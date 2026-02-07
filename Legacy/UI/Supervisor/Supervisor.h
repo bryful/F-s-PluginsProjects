@@ -60,14 +60,27 @@ typedef enum {
 	MODE_SIZE = MODE_ADVANCED
 } current_mode;
 
+// Basic mode flavors (starting at 1)
 typedef enum {
-	FLAVOR_CHOCOLATE = 1,
-	FLAVOR_FILLER1,
-	FLAVOR_STRAWBERRY,
-	FLAVOR_FILLER2,
-	FLAVOR_SHERBET,
+	FLAVOR_CHOCOLATE = 1,      // popup index 0 -> enum value 1
+	FLAVOR_FILLER1 = 2,        // separator
+	FLAVOR_STRAWBERRY = 3,     // popup index 2 -> enum value 3
+	FLAVOR_FILLER2 = 4,        // separator
+	FLAVOR_SHERBET = 5,        // popup index 4 -> enum value 5
 	FLAVOR_SIZE = FLAVOR_SHERBET
-} current_flavor;
+} basic_flavor;
+
+// Advanced mode flavors (starting at 1)
+typedef enum {
+	FLAVOR_EXPLODING_SNAPS = 1,    // popup index 0 -> enum value 1
+	FLAVOR_ADV_FILLER1 = 2,        // separator
+	FLAVOR_TREACLE_TART = 3,       // popup index 2 -> enum value 3
+	FLAVOR_ADV_FILLER2 = 4,        // separator
+	FLAVOR_DIRACAWL_SLICES = 5,    // popup index 4 -> enum value 5
+	FLAVOR_ADV_FILLER3 = 6,        // separator
+	FLAVOR_BUTTER_BEER = 7,        // popup index 6 -> enum value 7
+	FLAVOR_ADV_SIZE = FLAVOR_BUTTER_BEER
+} advanced_flavor;
 
 typedef struct {
 	PF_Boolean		initializedB;
@@ -77,6 +90,8 @@ typedef struct {
 typedef struct {
 	PF_State		state;
 	PF_Boolean		advanced_modeB;
+	PF_Handle		basic_flavor_string;		// AE handle to Basic flavor choices
+	PF_Handle		advanced_flavor_string;		// AE handle to Advanced flavor choices
 } my_sequence_data, *my_sequence_dataP, **my_sequence_dataH;
 
 typedef struct {

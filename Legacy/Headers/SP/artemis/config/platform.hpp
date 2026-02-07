@@ -174,6 +174,23 @@
         #define ARTEMIS_PRIVATE_BITS_64() 1
     #endif
 
+/*
+    Ordering __EMSCRIPTEN__ before __APPLE__ is necessary for some compiler tools such as Apple's clangd, 
+    which unconditionally defines __APPLE__, so ordering this before that correctly leads to 
+    ARTEMIS_PLATFORM(WEB) / ARTEMIS_PLATFORM(WASM) returning true when macOS is the host platform.
+*/
+
+#elif defined(__EMSCRIPTEN__) || defined(SIMULATED_WASM)
+    #undef ARTEMIS_PRIVATE_PLATFORM_POSIX
+    #define ARTEMIS_PRIVATE_PLATFORM_POSIX() 1
+    #undef ARTEMIS_PRIVATE_PLATFORM_WEB
+    #define ARTEMIS_PRIVATE_PLATFORM_WEB() 1
+
+    #undef ARTEMIS_PRIVATE_ARCH_WASM
+    #define ARTEMIS_PRIVATE_ARCH_WASM() 1
+    #undef ARTEMIS_PRIVATE_BITS_32
+    #define ARTEMIS_PRIVATE_BITS_32() 1
+
 #elif defined(_WIN32)
     #include <sdkddkver.h> // for #define WINVER
     #include <winapifamily.h>
@@ -217,6 +234,7 @@
         #undef ARTEMIS_PRIVATE_BITS_64
         #define ARTEMIS_PRIVATE_BITS_64() 1
     #endif
+
 #elif defined(__APPLE__) && !defined(SIMULATED_WASM)
     #if __has_include("TargetConditionals.h")
         #include "TargetConditionals.h"
@@ -262,6 +280,7 @@
         #undef ARTEMIS_PRIVATE_BITS_64
         #define ARTEMIS_PRIVATE_BITS_64() 1
     #endif
+
 #elif defined(__LINUX__) || defined(__linux__)
     #undef ARTEMIS_PRIVATE_PLATFORM_POSIX
     #define ARTEMIS_PRIVATE_PLATFORM_POSIX() 1
@@ -274,17 +293,6 @@
         #undef ARTEMIS_PRIVATE_BITS_64
         #define ARTEMIS_PRIVATE_BITS_64() 1
     #endif
-
-#elif defined(__EMSCRIPTEN__) || defined(SIMULATED_WASM)
-    #undef ARTEMIS_PRIVATE_PLATFORM_POSIX
-    #define ARTEMIS_PRIVATE_PLATFORM_POSIX() 1
-    #undef ARTEMIS_PRIVATE_PLATFORM_WEB
-    #define ARTEMIS_PRIVATE_PLATFORM_WEB() 1
-
-    #undef ARTEMIS_PRIVATE_ARCH_WASM
-    #define ARTEMIS_PRIVATE_ARCH_WASM() 1
-    #undef ARTEMIS_PRIVATE_BITS_32
-    #define ARTEMIS_PRIVATE_BITS_32() 1
 #endif
 
 #if (ARTEMIS_PRIVATE_ARCH_ARM() + ARTEMIS_PRIVATE_ARCH_X86() + ARTEMIS_PRIVATE_ARCH_WASM()) != 1

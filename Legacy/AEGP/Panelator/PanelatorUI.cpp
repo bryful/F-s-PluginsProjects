@@ -25,18 +25,14 @@
 
 #undef min
 
-template <>
-const A_char* SuiteTraits<PFAppSuite4>::i_name = kPFAppSuite;
-template <>
-const int32_t SuiteTraits<PFAppSuite4>::i_version = kPFAppSuiteVersion4;
-
-
 PanelatorUI::PanelatorUI(SPBasicSuite* spbP, AEGP_PanelH panelH,
 								AEGP_PlatformViewRef platformWindowRef,
 					   AEGP_PanelFunctions1* outFunctionTable)
 					   : i_refH(platformWindowRef), i_panelH(panelH),
 					   red(255), green(255), blue(255), i_use_bg(false),
-					   i_appSuite(spbP), i_panelSuite(spbP), i_numClicks(0)
+					   i_appSuite(spbP, kPFAppSuite, kPFAppSuiteVersion4), 
+					   i_panelSuite(spbP, kAEGPPanelSuite, kAEGPPanelSuiteVersion1), 
+					   i_numClicks(0)
 
 {
 	outFunctionTable->DoFlyoutCommand = S_DoFlyoutCommand;

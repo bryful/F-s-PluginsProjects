@@ -20,6 +20,7 @@
 /*******************************************************************/
 
 #include "QueueBert.h"
+#include <wchar.h>
 
 static AEGP_PluginID	S_my_id				= 0;
 
@@ -27,6 +28,41 @@ static SPBasicSuite		*sP 				= NULL;
 
 static AEGP_Command		S_queuebert_cmd 	= 0;
 
+// Function to convert and copy string literals to A_UTF16Char.
+// On Win: Pass the input directly to the output
+// On Mac: All conversion happens through the CFString format
+static void
+copyConvertStringLiteralIntoUTF16(
+    const wchar_t* inputString,
+    A_UTF16Char* destination)
+{
+#ifdef AE_OS_MAC
+    const size_t inputStringLength = wcslen(inputString);
+    const size_t maximumStringLength = LONG_MAX / sizeof(wchar_t);
+    const CFIndex length = (inputStringLength < maximumStringLength) ? inputStringLength : maximumStringLength;
+
+    const CFRange range = { 0, length };
+
+    CFStringRef inputStringCFSR = CFStringCreateWithBytes(kCFAllocatorDefault,
+        reinterpret_cast<const UInt8*>(inputString),
+        length * sizeof(wchar_t),
+        kCFStringEncodingUTF32LE,
+        FALSE);
+    CFStringGetBytes(inputStringCFSR,
+        range,
+        kCFStringEncodingUTF16,
+        0,
+        FALSE,
+        reinterpret_cast<UInt8*>(destination),
+        length * (sizeof(A_UTF16Char)),
+        NULL);
+    destination[length] = 0; // Set NULL-terminator, since CFString calls don't set it
+    CFRelease(inputStringCFSR);
+#elif defined AE_OS_WIN
+    size_t length = wcslen(inputString);
+    wcscpy_s(reinterpret_cast<wchar_t*>(destination), length + 1, inputString);
+#endif
+}
 			
 static A_Err
 CommandHook(
@@ -44,6 +80,7 @@ CommandHook(
 	if (command == S_queuebert_cmd) {
 		A_long					outmod_countL		= 0L,
 								rq_item_countL 		= 0L;
+		AEGP_OutputModuleRefH	outmodH			= NULL;
 
 		AEGP_LogType			log_type 		= AEGP_LogType_NONE;
 		AEGP_EmbeddingType		embed_type	 	= AEGP_Embedding_NONE;
@@ -67,17 +104,19 @@ CommandHook(
 		A_char					commentZ[AEGP_MAX_RQITEM_COMMENT_SIZE]	 = {'\0'};
 		
 		AEGP_CompH				compH			= NULL; 
-		AEGP_RQItemRefH			rq_itemH		= NULL;
+		AEGP_RQItemRefH			rq_itemH = NULL;
+		A_UTF16Char				file_pathZ[AEGP_MAX_PATH_SIZE] = {};
 		
 		ERR(suites.RQItemSuite3()->AEGP_GetNumRQItems(&rq_item_countL));
 
 		if (rq_item_countL){
 			ERR(suites.RQItemSuite3()->AEGP_GetCompFromRQItem(0, &compH));
 			if (!err){
-				for (A_long iL = 0; !err && iL < 6; ++iL){
-				ERR(suites.RenderQueueSuite1()->AEGP_AddCompToRenderQueue(	compH, "Yesod:output.mov"));
-				ERR(suites.RQItemSuite3()->AEGP_GetNextRQItem((AEGP_RQItemRefH)iL, &rq_itemH));
-				ERR(suites.RQItemSuite3()->AEGP_SetRenderState(rq_itemH, AEGP_RenderItemStatus_UNQUEUED));
+				for (AEGP_RQItemRefH iL = 0; !err && iL < reinterpret_cast<AEGP_RQItemRefH>(6); ++iL)
+				{
+					ERR(suites.RenderQueueSuite1()->AEGP_AddCompToRenderQueue(compH, "Yesod:output.mov"));
+					ERR(suites.RQItemSuite3()->AEGP_GetNextRQItem((AEGP_RQItemRefH)iL, &rq_itemH));
+					ERR(suites.RQItemSuite3()->AEGP_SetRenderState(rq_itemH, AEGP_RenderItemStatus_UNQUEUED));
 				}
 			}
 		}
@@ -156,9 +195,9 @@ CommandHook(
 				ERR(suites.OutputModuleSuite4()->AEGP_AddDefaultOutputModule(0, &omrefH));
 				ERR(suites.RQItemSuite3()->AEGP_GetNumOutputModulesForRQItem(0, &outmod_countL));
 				ERR(suites.RQItemSuite3()->AEGP_RemoveOutputModule(0,0));
-				ERR(suites.OutputModuleSuite4()->AEGP_SetOutputFilePath(	0,
-																	(AEGP_OutputModuleRefH)(outmod_countL - 1),	/* it's zero-based, remember?	*/
-																	STR(StrID_Path)));
+				ERR(suites.OutputModuleSuite4()->AEGP_GetOutputModuleByIndex(0, outmod_countL - 1, &outmodH)); /* it's zero-based, remember?   */
+				copyConvertStringLiteralIntoUTF16(STR_PATH, file_pathZ);
+				ERR(suites.OutputModuleSuite4()->AEGP_SetOutputFilePath(0, outmodH, file_pathZ));
 				ERR(suites.RQItemSuite3()->AEGP_GetComment(	0, commentZ));
 				ERR(suites.RQItemSuite3()->AEGP_SetComment(	0, STR(StrID_Pronounce)));
 			}

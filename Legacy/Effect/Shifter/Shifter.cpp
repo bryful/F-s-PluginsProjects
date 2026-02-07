@@ -47,7 +47,7 @@ About (
 {
 	AEGP_SuiteHandler suites(in_data->pica_basicP);
 	
-	suites.ANSICallbacksSuite1()->sprintf(	out_data->return_msg, 
+	suites.ANSICallbacksSuite1()->sprintf(	out_data->return_msg,
 											"%s, v%d.%d\r%s",
 											NAME, 
 											MAJOR_VERSION, 
@@ -103,7 +103,7 @@ ParamsSetup (
 	// For old time's sake, let's build this slider the old fashioned way:
 	
 	def.param_type = PF_Param_FIX_SLIDER;
-	PF_STRCPY(def.name, "Opacity");
+	PF_STRCPY(def.PF_DEF_NAME, "Opacity");
 	def.flags = 0;
 	def.u.fd.value_str[0] = '\0';
 	def.u.fd.value_desc[0] = '\0';
@@ -227,10 +227,10 @@ Render (
 
 	AEFX_CLR_STRUCT(si);
 	
-	si.x_offFi = ((long)inputP->width << 15) -	// 1/2 width as Fixed 
+	si.x_offFi = static_cast<PF_Fixed>(inputP->width << 15) -	// 1/2 width as Fixed
 		params[SHIFT_DISPLACE]->u.td.x_value;
 
-	si.y_offFi = ((long)inputP->height << 15) -	// 1/2 height as Fixed 
+	si.y_offFi = static_cast<PF_Fixed>(inputP->height << 15) -	// 1/2 height as Fixed 
 		params[SHIFT_DISPLACE]->u.td.y_value;
 
 	si.ref = in_data->effect_ref;
@@ -321,15 +321,9 @@ RespondtoAEGP (
 	PF_LayerDef		*output,
 	void*			extraP)
 {
-	PF_Err			err = PF_Err_NONE;
-	
 	AEGP_SuiteHandler suites(in_data->pica_basicP);
-	
-	suites.ANSICallbacksSuite1()->sprintf(	out_data->return_msg, 
-											"%s",	
-											reinterpret_cast<A_char*>(extraP));
-
-	return err;
+	suites.ANSICallbacksSuite1()->strcpy(out_data->return_msg, (const char*)extraP);
+	return PF_Err_NONE;
 }
 
 static PF_Err

@@ -178,11 +178,12 @@ AEGP_ItemH			itemH,
 A_Time				currT)
 {
 	A_Err 			err = A_Err_NONE;
-	A_Time 			lay_inT, lay_durT, comp_inT, comp_durT;
+    A_Time 			lay_inT = {0, 1}, lay_durT = {0, 1}, comp_inT = {0, 1}, comp_durT = {0, 1};
 	AEGP_CompH		compH;
 	AEGP_LayerH		layerH;
 	AEGP_ItemH		layerItemH;
-	A_long			num_layersL, num_effectsL;
+    A_long			num_layersL = 0;
+    A_long          num_effectsL = 0;
 
 	A_char			layer_nameAC[AEGP_MAX_ITEM_NAME_SIZE] = { '\0' }, 
 					stream_nameAC[AEGP_MAX_ITEM_NAME_SIZE] = { '\0' },
@@ -274,7 +275,8 @@ RecursiveDump(
 	indent_stringAC[0] = '\0';
 	
 	for (A_long iL = 0; !err && iL < indent_levelsL; iL++) {
-		suites.ANSICallbacksSuite1()->sprintf(indent_stringAC, "%s\t", indent_stringAC);
+		suites.ANSICallbacksSuite1()->sprintf(
+            indent_stringAC, "%s\t", indent_stringAC);
 	}
 
 	while (	!err	&& 
@@ -300,8 +302,9 @@ RecursiveDump(
 				ERR(suites.ItemSuite6()->AEGP_GetItemName(itemH, item_nameAC));
 
 				if (!err && (item_type != AEGP_ItemType_FOLDER)) {
-					A_Time 				durationT, currT;
-					A_long				widthL, heightL;
+                    A_Time 				durationT = {0, 1}, currT = {0, 1};
+                    A_long				widthL = 0;
+                    A_long              heightL = 0;
 					AEGP_MemHandle		pathH;
 
 					ERR(suites.ItemSuite6()->AEGP_GetItemDuration(itemH, &durationT));
@@ -359,11 +362,16 @@ DumpProj(void)
 	A_char				proj_nameAC[AEGP_MAX_PROJ_NAME_SIZE];
 	A_char				path_nameAC[AEGP_MAX_PROJ_NAME_SIZE + 16];		// so we can add "_Dump.txt"
 	AEGP_SuiteHandler	suites(sP);
+    
 #ifdef AE_OS_WIN
-	suites.ANSICallbacksSuite1()->strcpy(path_nameAC, "C:\\Windows\\Temp\\");
+    #define     kPlatTempDirPath        "C:\\Windows\\Temp\\"
 #elif defined AE_OS_MAC
-	suites.ANSICallbacksSuite1()->strcpy(path_nameAC, "./");
+    #define     kPlatTempDirPath        "./"
 #endif
+
+	suites.ANSICallbacksSuite1()->strcpy(
+        path_nameAC, kPlatTempDirPath);
+
 	ERR(suites.UtilitySuite3()->AEGP_StartUndoGroup("Keepin' On"));
 
 	if (!err) {
@@ -415,9 +423,12 @@ copyConvertStringLiteralIntoUTF16(
 	A_UTF16Char* destination)
 {
 #ifdef AE_OS_MAC
-	int length = wcslen(inputString);
-	CFRange	range = {0, AEGP_MAX_PATH_SIZE};
-	range.length = length;
+	const size_t inputStringLength = wcslen(inputString);
+	const size_t maximumStringLength = LONG_MAX / sizeof(wchar_t);
+	const CFIndex length = (inputStringLength < maximumStringLength) ? inputStringLength : maximumStringLength;
+
+	const CFRange range = {0, length};
+
 	CFStringRef inputStringCFSR = CFStringCreateWithBytes(	kCFAllocatorDefault,
 															reinterpret_cast<const UInt8 *>(inputString),
 															length * sizeof(wchar_t),
@@ -445,7 +456,7 @@ MakeCuter(void)
 {
 	A_Err 				err 	= A_Err_NONE;
 	AEGP_SuiteHandler	suites(sP);
-	AEGP_ItemH			active_itemH;
+    AEGP_ItemH			active_itemH = nullptr;
 	ERR(suites.ItemSuite6()->AEGP_GetActiveItem(&active_itemH));
 	
 	AEGP_ItemFlags	item_flags;
@@ -460,7 +471,9 @@ MakeCuter(void)
 		}
 		ERR(suites.ItemSuite6()->AEGP_GetItemFlags(active_itemH, &item_flags));
 		if (!err) {
-			suites.ANSICallbacksSuite1()->sprintf(	info_string_2AC, "m: %s hp: %s up: %s mp: %s v: %s a: %s s: %s",
+			suites.ANSICallbacksSuite1()->sprintf(
+                                        info_string_2AC,
+                                        "m: %s hp: %s up: %s mp: %s v: %s a: %s s: %s",
 										(item_flags & AEGP_ItemFlag_MISSING) ? "Y" : "N",
 										(item_flags & AEGP_ItemFlag_HAS_PROXY) ? "Y" : "N",
 										(item_flags & AEGP_ItemFlag_USING_PROXY) ? "Y" : "N",
@@ -478,7 +491,7 @@ MakeCuter(void)
 	if (!err) {
 		AEGP_ProjectH		projH;
 		AEGP_FootageH		footageH, proxy_footageH;
-		AEGP_ItemH			footage_itemH, root_itemH;
+        AEGP_ItemH			footage_itemH = nullptr, root_itemH = nullptr;
 		AEGP_LayerH			added_layerH;
 		A_UTF16Char			layer_pathZ[AEGP_MAX_PATH_SIZE],
 							proxy_pathZ[AEGP_MAX_PATH_SIZE];
@@ -520,7 +533,7 @@ MakeCuter(void)
 			if (!err) {
 				AEGP_CompH		compH;
 				A_Boolean		is_add_validB = FALSE;
-				AEGP_ItemType	item_type;
+				AEGP_ItemType	item_type = AEGP_ItemType_NONE;
 
 				ERR(suites.ItemSuite6()->AEGP_GetItemType(active_itemH, &item_type));	
 				

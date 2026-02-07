@@ -26,15 +26,19 @@
 
 #include <AE_EffectCB.h>
 #include <AE_EffectPixelFormat.h>
-#include <SPBasic.h>
 
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PreConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 #ifdef __cplusplus
@@ -73,33 +77,32 @@ typedef struct PF_HandleSuite1 {
 	
 } PF_HandleSuite1;
 
-
+// not available in Premiere, use Version 2
 #define kPFANSISuite			"PF ANSI Suite"
 #define kPFANSISuiteVersion1	1	/* frozen in AE 5.0 */
 
 typedef struct PF_ANSICallbacksSuite1 {
-		A_FpLong	(*atan)(A_FpLong);
-		A_FpLong	(*atan2)(A_FpLong y, A_FpLong x);	/* returns atan(y/x) - note param order! */
-		A_FpLong	(*ceil)(A_FpLong);				/* returns next int above x */
-		A_FpLong	(*cos)(A_FpLong);
-		A_FpLong	(*exp)(A_FpLong);					/* returns e to the x power */
-		A_FpLong	(*fabs)(A_FpLong);				/* returns absolute value of x */
-		A_FpLong	(*floor)(A_FpLong);				/* returns closest int below x */
-		A_FpLong	(*fmod)(A_FpLong x, A_FpLong y);	/* returns x mod y */
-		A_FpLong	(*hypot)(A_FpLong x, A_FpLong y);	/* returns sqrt(x*x + y*y) */
-		A_FpLong	(*log)(A_FpLong);					/* returns natural log of x */
-		A_FpLong	(*log10)(A_FpLong);				/* returns log base 10 of x */
-		A_FpLong	(*pow)(A_FpLong x, A_FpLong y);		/* returns x to the y power */
-		A_FpLong	(*sin)(A_FpLong);
-		A_FpLong	(*sqrt)(A_FpLong);
-		A_FpLong	(*tan)(A_FpLong);
+	A_FpLong(*atan)(A_FpLong);
+	A_FpLong(*atan2)(A_FpLong y, A_FpLong x);	/* returns atan(y/x) - note param order! */
+	A_FpLong(*ceil)(A_FpLong);				/* returns next int above x */
+	A_FpLong(*cos)(A_FpLong);
+	A_FpLong(*exp)(A_FpLong);					/* returns e to the x power */
+	A_FpLong(*fabs)(A_FpLong);				/* returns absolute value of x */
+	A_FpLong(*floor)(A_FpLong);				/* returns closest int below x */
+	A_FpLong(*fmod)(A_FpLong x, A_FpLong y);	/* returns x mod y */
+	A_FpLong(*hypot)(A_FpLong x, A_FpLong y);	/* returns sqrt(x*x + y*y) */
+	A_FpLong(*log)(A_FpLong);					/* returns natural log of x */
+	A_FpLong(*log10)(A_FpLong);				/* returns log base 10 of x */
+	A_FpLong(*pow)(A_FpLong x, A_FpLong y);		/* returns x to the y power */
+	A_FpLong(*sin)(A_FpLong);
+	A_FpLong(*sqrt)(A_FpLong);
+	A_FpLong(*tan)(A_FpLong);
 
-		int		(*sprintf)(A_char *, const A_char *, ...);
-		A_char *	(*strcpy)(A_char *, const A_char *);
+	int		(*sprintf)(A_char*, const A_char*, ...); 
+	A_char* (*strcpy)(A_char*, const A_char*);       
 
-		A_FpLong (*asin)(A_FpLong);
-		A_FpLong (*acos)(A_FpLong);
-	
+	A_FpLong(*asin)(A_FpLong);
+	A_FpLong(*acos)(A_FpLong);
 } PF_ANSICallbacksSuite1;
 
 
@@ -917,10 +920,15 @@ typedef struct PF_FillMatteSuite2 {
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PostConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 

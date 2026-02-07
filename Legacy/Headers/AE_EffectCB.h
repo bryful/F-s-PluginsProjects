@@ -65,10 +65,15 @@
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PreConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 #ifdef __cplusplus
@@ -445,33 +450,31 @@ typedef A_u_long PF_Plane;
 
 **/
 
-typedef struct {
-	A_FpLong	(*atan)(A_FpLong);
-	A_FpLong	(*atan2)(A_FpLong y, A_FpLong x);	/* returns atan(y/x) - note param order! */
-	A_FpLong	(*ceil)(A_FpLong);				/* returns next int above x */
-	A_FpLong	(*cos)(A_FpLong);
-	A_FpLong	(*exp)(A_FpLong);					/* returns e to the x power */
-	A_FpLong	(*fabs)(A_FpLong);				/* returns absolute value of x */
-	A_FpLong	(*floor)(A_FpLong);				/* returns closest int below x */
-	A_FpLong	(*fmod)(A_FpLong x, A_FpLong y);	/* returns x mod y */
-	A_FpLong	(*hypot)(A_FpLong x, A_FpLong y);	/* returns sqrt(x*x + y*y) */
-	A_FpLong	(*log)(A_FpLong);					/* returns natural log of x */
-	A_FpLong	(*log10)(A_FpLong);				/* returns log base 10 of x */
-	A_FpLong	(*pow)(A_FpLong x, A_FpLong y);		/* returns x to the y power */
-	A_FpLong	(*sin)(A_FpLong);
-	A_FpLong	(*sqrt)(A_FpLong);
-	A_FpLong	(*tan)(A_FpLong);
+typedef struct PF_ANSICallbacksBlock {
+	A_FpLong(*atan)(A_FpLong);
+	A_FpLong(*atan2)(A_FpLong y, A_FpLong x);	/* returns atan(y/x) - note param order! */
+	A_FpLong(*ceil)(A_FpLong);				/* returns next int above x */
+	A_FpLong(*cos)(A_FpLong);
+	A_FpLong(*exp)(A_FpLong);					/* returns e to the x power */
+	A_FpLong(*fabs)(A_FpLong);				/* returns absolute value of x */
+	A_FpLong(*floor)(A_FpLong);				/* returns closest int below x */
+	A_FpLong(*fmod)(A_FpLong x, A_FpLong y);	/* returns x mod y */
+	A_FpLong(*hypot)(A_FpLong x, A_FpLong y);	/* returns sqrt(x*x + y*y) */
+	A_FpLong(*log)(A_FpLong);					/* returns natural log of x */
+	A_FpLong(*log10)(A_FpLong);				/* returns log base 10 of x */
+	A_FpLong(*pow)(A_FpLong x, A_FpLong y);		/* returns x to the y power */
+	A_FpLong(*sin)(A_FpLong);
+	A_FpLong(*sqrt)(A_FpLong);
+	A_FpLong(*tan)(A_FpLong);
 
-	int		(*sprintf)(A_char *, const A_char *, ...);
-	A_char *	(*strcpy)(A_char *, const A_char *);
+	int		(*sprintf)(A_char*, const A_char*, ...); 
+	A_char* (*strcpy)(A_char*, const A_char*);       
 
-	A_FpLong (*asin)(A_FpLong);
-	A_FpLong (*acos)(A_FpLong);
-	
-	A_long	ansi_procs[1];
-} PF_ANSICallbacks;
-
-
+	A_FpLong(*asin)(A_FpLong);
+	A_FpLong(*acos)(A_FpLong);
+ 
+    A_long  unused_longA[1];
+} PF_ANSICallbacksBlock;
 
 /** ---------- Colorspace Conversion Callbacks
  **
@@ -897,7 +900,7 @@ typedef struct _PF_UtilCallbacks {
 
 	PF_Err (*app)(PF_ProgPtr, A_long, ...);	/* application specific callback */
 
-	PF_ANSICallbacks	ansi;			/* ANSI callback block, see above */
+	PF_ANSICallbacksBlock	ansi;			/* ANSI callback block, see above */
 	PF_ColorCallbacks	colorCB;		/* colorspace conversion callbacks */
 
 	PF_Err (*get_platform_data)(
@@ -1217,14 +1220,11 @@ typedef struct _PF_UtilCallbacks {
 #define PF_TAN(X)		(*in_data->utils->ansi.tan)(X)
 
 /* This is kind of a hack to deal with the varargs params to sprintf */
-
 #define PF_SPRINTF		(*in_data->utils->ansi.sprintf)
 
-#define	PF_STRCPY(DST, SRC)	\
-		(*in_data->utils->ansi.strcpy)((DST), (SRC))
-		
+#define PF_STRCPY(DST, SRC) \
+	(*in_data->utils->ansi.strcpy)((DST), (SRC))
 
-		
 #define PF_RGB_TO_HLS(RGB, HLS) \
 	(*in_data->utils->colorCB.RGBtoHLS)(in_data->effect_ref, (RGB), (HLS))
 	
@@ -1261,10 +1261,15 @@ typedef struct _PF_UtilCallbacks {
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PostConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 

@@ -203,16 +203,16 @@ Artie_FillIntersection(
 	ERR(wsP->AEGP_GetBaseAddr8(polyP->texture, &baseP));
 	ERR(wsP->AEGP_GetRowBytes(polyP->texture, &rowbytesLu));
 
-	if ( t != Artie_MISS) {
+	if ( t != Artie_MISS && !err) {
 		intersectionP->hitB 						= TRUE;
 		intersectionP->intersect_point_coord_on_ray = t;
 
 		// build reflected ray
 		VectorType4D	dir, reflected_dir;
-		A_FpLong		dotF;
+        //A_FpLong		dotF {0.0f};
 
 		dir								= Pdiff(rayP->P1, rayP->P0);
-		dotF							= Dot4D(dir, polyP->normal);
+		//dotF							= Dot4D(dir, polyP->normal);
 		reflected_dir					= Vadd(polyP->normal, Vscale(-2.0, dir));
 		intersectionP->ray.P0			= PVadd(rayP->P0, Vscale(t, dir));
 		intersectionP->ray.P0			= PVadd(intersectionP->ray.P0, Vscale(0.0001, reflected_dir));
@@ -260,12 +260,12 @@ SceneIntersection(
 		for(A_long iL = 0; iL < sceneP->num_polysL; iL++) {
 			if (I[iL].hitB) {
 				if (I[iL].intersect_point_coord_on_ray < returned_I.intersect_point_coord_on_ray && I[iL].intersect_point_coord_on_ray > 0){
-					err = Artie_FillIntersection(	rayP, 
-													&sceneP->polygons[iL], 
+					ERR( Artie_FillIntersection(	rayP,
+													&sceneP->polygons[iL],
 													I[iL].intersect_point_coord_on_ray, 
 													u, 
 													v, 
-													&returned_I);
+													&returned_I));
 				}
 			}
 		}
@@ -441,10 +441,13 @@ Artie_BuildLight(
 														&stream_val,
 														NULL));
 
-	light.color.alpha 	= (A_u_char)(PF_MAX_CHAN8 * stream_val.color.alphaF 	+ 0.5);
-	light.color.red 	= (A_u_char)(PF_MAX_CHAN8 * stream_val.color.redF 		+ 0.5);
-	light.color.green 	= (A_u_char)(PF_MAX_CHAN8 * stream_val.color.greenF 	+ 0.5);
-	light.color.blue 	= (A_u_char)(PF_MAX_CHAN8 * stream_val.color.blueF 		+ 0.5);
+    if (!err)
+    {
+        light.color.alpha 	= (A_u_char)(PF_MAX_CHAN8 * stream_val.color.alphaF 	+ 0.5);
+        light.color.red 	= (A_u_char)(PF_MAX_CHAN8 * stream_val.color.redF 		+ 0.5);
+        light.color.green 	= (A_u_char)(PF_MAX_CHAN8 * stream_val.color.greenF 	+ 0.5);
+        light.color.blue 	= (A_u_char)(PF_MAX_CHAN8 * stream_val.color.blueF 		+ 0.5);
+    }
 
 	ERR(suites.StreamSuite2()->AEGP_GetLayerStreamValue(	layerH, 
 															AEGP_LayerStream_INTENSITY,
@@ -594,8 +597,6 @@ Artie_CompositeImage(
 	A_Err				err				= 	A_Err_NONE;
 	PF_CompositeMode	comp_mode;
 	PF_Quality			pf_quality		= 	PF_Quality_HI;
-	PF_Pixel8			*src_pixelsP	= 	NULL;
-	PF_Pixel8			*dst_pixelsP	= 	NULL;	
 	PF_EffectWorld		src_effect_world;
 	PF_EffectWorld		dst_effect_world;
 
@@ -606,11 +607,6 @@ Artie_CompositeImage(
 	A_Rect				src_rect			=	{0, 0, 0, 0};
 
 	AEGP_SuiteHandler suites(in_dataP->pica_basicP);	
-	
-	A_u_long			src_rowbytesLu 	=	0,
-						dst_rowbytesLu 	=	0;
-	PF_Pixel8			*src_baseP		=	0,
-						*dst_baseP		=	0;						
 	
 	ERR(suites.WorldSuite3()->AEGP_GetSize(*srcP, &src_widthL, &src_heightL));
 	ERR(suites.WorldSuite3()->AEGP_GetSize(*dstP, &dst_widthL, &dst_heightL));
@@ -717,15 +713,15 @@ PF_Pixel ThrowRay(
   Ray		R;
   PointType4D P0, P1;
 
-  P0.P[X] = 0;
-  P0.P[Y] = 0;
-  P0.P[Z] = 0; 
-  P0.P[W] = 1;
+  P0.P[ARTIE_X] = 0;
+  P0.P[ARTIE_Y] = 0;
+  P0.P[ARTIE_Z] = 0; 
+  P0.P[ARTIE_W] = 1;
 
-  P1.P[X] = xF;
-  P1.P[Y] = yF; 
-  P1.P[Z] = zF; 
-  P1.P[W] = 1;
+  P1.P[ARTIE_X] = xF;
+  P1.P[ARTIE_Y] = yF; 
+  P1.P[ARTIE_Z] = zF; 
+  P1.P[ARTIE_W] = 1;
 
   R = CreateRay(P0, P1);
   R.contribution 	= 1.0;
@@ -764,16 +760,19 @@ Artie_SampleImage(
 		z *= -1;
 	}
 	
-	for (A_long iL = 0; iL < heightL; iL++) {
-		y	= -heightL/2.0 + iL + 0.5;
-
-		pixelP = (PF_Pixel8*)( (char *)baseP + iL * rowbytesLu);	
-			
-		for (A_long jL = 0; jL < widthL; jL++){
-			x = -widthL / 2.0 + jL + 0.5;
-			*pixelP++ = ThrowRay(	in_dataP, sceneP, x, y, z);
-		}
-	}
+    if (!err)
+    {
+        for (A_long iL = 0; iL < heightL; iL++) {
+            y	= -heightL/2.0 + iL + 0.5;
+            
+            pixelP = (PF_Pixel8*)( (char *)baseP + iL * rowbytesLu);
+            
+            for (A_long jL = 0; jL < widthL; jL++){
+                x = -widthL / 2.0 + jL + 0.5;
+                *pixelP++ = ThrowRay(	in_dataP, sceneP, x, y, z);
+            }
+        }
+    }
 	return err;
 }
 
@@ -853,18 +852,18 @@ Artie_Paint(
 {
 	A_Err				err				= A_Err_NONE,
 						err2			= A_Err_NONE;
-	Artie_Scene			*sceneP			= NULL;
-	Artie_Camera		*cameraP		= NULL;
-	AEGP_WorldH			render_world; 
+	Artie_Scene			*sceneP			= nullptr;
+	Artie_Camera		*cameraP		= nullptr;
+	AEGP_WorldH			render_world    = nullptr;
 	
-	AEGP_WorldH			dst;
-	AEGP_CompH			compH			= NULL;
+	AEGP_WorldH			dst             = nullptr;
+	AEGP_CompH			compH			= nullptr;
 	AEGP_SuiteHandler	suites(in_dataP->pica_basicP);
 
 	A_long				widthL			=	0,
 						heightL			=	0;
 						
-	AEGP_ItemH			comp_itemH		=	NULL;						
+	AEGP_ItemH			comp_itemH		=	nullptr;
 
 	ERR(suites.MemorySuite1()->AEGP_LockMemHandle(sceneH, reinterpret_cast<void**>(&sceneP)));	
 	ERR(suites.MemorySuite1()->AEGP_LockMemHandle(cameraH, reinterpret_cast<void**>(&cameraP)));	
@@ -1168,10 +1167,10 @@ Artie_BuildPolygon(
 	polygonP->aegp_quality		= *aegp_quality;
 	polygonP->layerH			= layerH;
 	polygonP->layer_contextH	= layer_contextH;
-	polygonP->normal.V[X]		= 0;
-	polygonP->normal.V[Y]		= 0;
-	polygonP->normal.V[Z]		= -1;
-	polygonP->normal.V[W]		= 0;
+			polygonP->normal.V[ARTIE_X]		= 0;
+		polygonP->normal.V[ARTIE_Y]		= 0;
+		polygonP->normal.V[ARTIE_Z]		= -1;
+		polygonP->normal.V[ARTIE_W]		= 0;
 	polygonP->material			= *material;	
 	polygonP->world_matrix		= *xform;
 
@@ -1484,8 +1483,8 @@ Artie_CreateLayerCamera(
 	A_long				widthL			= 0, 
 						heightL			= 0;	
 	A_Ratio				pix_aspectR		= {1,1};
-	A_FpLong			comp_origin_xF	= 0.0, 
-						comp_origin_yF	= 0.0;
+	//A_FpLong			comp_origin_xF	= 0.0,
+	//					comp_origin_yF	= 0.0;
 	A_Matrix4			matrix;
 	
 	AEGP_SuiteHandler suites(in_dataP->pica_basicP);	
@@ -1505,8 +1504,8 @@ Artie_CreateLayerCamera(
 
 	//  comp origin is the middle of the comp in x and y, and z = 0.
 	if (!err) {
-		comp_origin_xF					=	widthL / 2.0;
-		comp_origin_yF					=	heightL / 2.0;
+		//comp_origin_xF				=	widthL / 2.0;
+		//comp_origin_yF				=	heightL / 2.0;
 		cameraP->view_aspect_ratioF		=	widthL / heightL;
 		cameraP->pixel_aspect_ratioF	=	pix_aspectR.num / pix_aspectR.den;
 		cameraP->dsf					=	*dsfP;
@@ -1517,8 +1516,8 @@ Artie_CreateLayerCamera(
 	ERR(suites.CameraSuite2()->AEGP_GetCameraType(camera_layerH, &cameraP->type));
 
 	if (!err) {
-		cameraP->res_xLu	= (unsigned long) widthL;				
-		cameraP->res_yLu	= (unsigned long) heightL;
+		cameraP->res_xLu	= (A_u_long) widthL;
+		cameraP->res_yLu	= (A_u_long) heightL;
 		cameraP->dsf		= *dsfP;
 		
 		if (roiRP0){
@@ -1635,8 +1634,8 @@ EntryPointFunc(
 	S_aegp_plugin_id		= aegp_plugin_id;
 	S_sp_basic_suiteP		= pica_basicP;
 
-	suites.ANSICallbacksSuite1()->strcpy(match_nameA,	Artie_ARTISAN_MATCH_NAME);
-	suites.ANSICallbacksSuite1()->strcpy(artisan_nameA,	Artie_ARTISAN_NAME);
+    suites.ANSICallbacksSuite1()->strcpy(match_nameA,	Artie_ARTISAN_MATCH_NAME);
+    suites.ANSICallbacksSuite1()->strcpy(artisan_nameA,	Artie_ARTISAN_NAME);
 
 	// 0 at the end of the name means optional function
 	// only render_func is not optional.
@@ -1687,7 +1686,7 @@ NormalizePoint(
 	PointType4D *P1)
 {
   double *p = P1->P;
-  double  w = p[W];
+  double  w = p[ARTIE_W];
 
   if (w != 1.0){
     /* We are assuming that the order in P is:  X, Y, Z, W */
@@ -1744,10 +1743,10 @@ Vscale(
 	PF_FpLong sF,
 	VectorType4D V)
 {
-  V.V[X] *= sF;  
-  V.V[Y] *= sF;  
-  V.V[Z] *= sF; 
-  V.V[W] = 0.0;
+  V.V[ARTIE_X] *= sF;  
+  V.V[ARTIE_Y] *= sF;  
+  V.V[ARTIE_Z] *= sF; 
+  V.V[ARTIE_W] = 0.0;
 
   return V;
 }
@@ -1761,10 +1760,10 @@ Vadd(
 {
   VectorType4D V;
 
-  V.V[X] = V1.V[X] + V2.V[X];
-  V.V[Y] = V1.V[Y] + V2.V[Y];
-  V.V[Z] = V1.V[Z] + V2.V[Z];
-  V.V[W] = 0.0;
+  V.V[ARTIE_X] = V1.V[ARTIE_X] + V2.V[ARTIE_X];
+  V.V[ARTIE_Y] = V1.V[ARTIE_Y] + V2.V[ARTIE_Y];
+  V.V[ARTIE_Z] = V1.V[ARTIE_Z] + V2.V[ARTIE_Z];
+  V.V[ARTIE_W] = 0.0;
 
   return V;
 }
@@ -1779,10 +1778,10 @@ PVadd(
   PointType4D p;
 
   NormalizePoint(&P);
-  p.P[X] = P.P[X] + V.V[X];
-  p.P[Y] = P.P[Y] + V.V[Y];
-  p.P[Z] = P.P[Z] + V.V[Z];
-  p.P[W] = 1.0;
+  p.P[ARTIE_X] = P.P[ARTIE_X] + V.V[ARTIE_X];
+  p.P[ARTIE_Y] = P.P[ARTIE_Y] + V.V[ARTIE_Y];
+  p.P[ARTIE_Z] = P.P[ARTIE_Z] + V.V[ARTIE_Z];
+  p.P[ARTIE_W] = 1.0;
 
   return p;
 }
@@ -1793,11 +1792,11 @@ VectorType4D
 Vneg(
 VectorType4D 	V)
 {
-	V.V[X] = -V.V[X];
-	V.V[Y] = -V.V[Y];
-	V.V[Z] = -V.V[Z];
+	V.V[ARTIE_X] = -V.V[ARTIE_X];
+	V.V[ARTIE_Y] = -V.V[ARTIE_Y];
+	V.V[ARTIE_Z] = -V.V[ARTIE_Z];
 	
-	/* since V is aFP vector, V.V[W] is always 0. */
+	/* since V is aFP vector, V.V[ARTIE_W] is always 0. */
 	return V;
 }
 

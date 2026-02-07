@@ -38,12 +38,17 @@
 #include <PT_Public.h>
 
 #ifdef _WIN32
-#pragma warning( push )
-#pragma warning( disable: 4103 )
+    #pragma warning(push)
+    #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <AE_GeneralPlugPre.h>
 #ifdef _WIN32
-#pragma warning( pop )
+    #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 #define AEGP_PLUGIN_TYPE			'AEgx'
@@ -4229,10 +4234,37 @@ typedef struct AEGP_PFInterfaceSuite1 {
 //	PIN_FileSize
 typedef	A_u_longlong	AEIO_FileSize;
 
-#define kAEGPIOInSuite			"AEGP IO In Suite"
-#define kAEGPIOInSuiteVersion6	7 /* frozen in AE 25 */
+// CICP-related data
+// same values as PrDataRange, PrColorModel, PrColorimetry in PrSDKColorSEICodes.h
+enum
+{
+    kAEIO_DataRange_Unknown = 0, // default, pass it if you are not setting range info from the file
+    kAEIO_DataRange_Full = 1,
+    kAEIO_DataRange_Narrow = 2
+};
+typedef A_long AEIO_DataRange;
 
-typedef struct AEGP_IOInSuite6 {
+enum
+{
+    kAEIO_ColorModel_Unknown = 0, // default, pass it if the media color space is neither YUV not RGB
+    kAEIO_ColorModel_RGB = 1,
+    kAEIO_ColorModel_YUV = 2
+};
+typedef A_long AEIO_ColorModel;
+
+enum
+{
+    kAEIO_Colorimetry_Unknown = 0,  // default, pass it if you don't know the colorimetry of the media space
+    kAEIO_Colorimetry_Scene = 1,
+    kAEIO_Colorimetry_Display = 2
+};
+typedef A_long AEIO_Colorimetry;
+
+
+#define kAEGPIOInSuite			"AEGP IO In Suite"
+#define kAEGPIOInSuiteVersion7	8 /* frozen in AE 25.3 */
+
+typedef struct AEGP_IOInSuite7 {
 
 	SPAPI A_Err	(*AEGP_GetInSpecOptionsHandle)(
 						AEIO_InSpecH	inH,					/* >> */
@@ -4413,13 +4445,24 @@ typedef struct AEGP_IOInSuite6 {
                     A_long          inFullRangeVideoFlag, // 0 or 1 /* >> */
                     A_long          inBitDepthL,                    /* >> */
                     A_Boolean       inIsRGB);                       /* >> */
+    
+    SPAPI A_Err (*AEGP_SetInSpecColorSpaceFromCICP2)(
+                    AEIO_InSpecH    inH,                            /* >> */
+                    // next 4 values correspond to the same parameters as in ITU-T-H.273
+                    A_long          inColorPrimariesCode,           /* >> */
+                    A_long          inTransferCharacteristicsCode,  /* >> */
+                    A_long          inMatrixCoefficientsCode,       /* >> */
+                    A_long          inFullRangeVideoFlag,           /* >> */    // see AEIO_DataRange for values
+                    A_long          inBitDepthL,                    /* >> */
+                    A_long          inColorModelL,                  /* >> */    // see AEIO_ColorModel for values
+                    A_long          inColorimetryL);                /* >> */    // see AEIO_Colorimetry for values
 
-} AEGP_IOInSuite6;
+} AEGP_IOInSuite7;
 
 #define kAEGPIOOutSuite			"AEGP IO Out Suite"
-#define kAEGPIOOutSuiteVersion5	8 /* frozen in AE 17.0 */
+#define kAEGPIOOutSuiteVersion6	9 /* frozen in AE 25.2 */
 
-typedef struct AEGP_IOOutSuite5 {
+typedef struct AEGP_IOOutSuite6 {
 	SPAPI A_Err	(*AEGP_GetOutSpecOptionsHandle)(
 						AEIO_OutSpecH	outH,					/* >> */
 						void			**optionsPPV);			/* << */
@@ -4572,8 +4615,16 @@ typedef struct AEGP_IOOutSuite5 {
 						AEIO_OutSpecH	outH,					/* >> */
 						A_Boolean		*outIsDropFramePB);		/* << */
 
+    SPAPI A_Err (*AEGP_GetOutSpecColorSpaceAsCICPIfCompatible)(
+                        AEIO_OutSpecH   outH,                              /* >> */
+                        // next 4 values correspond to the same parameters as in ITU-T-H.273
+                        A_long*         outColorPrimariesCodePL,           /* << */
+                        A_long*         outTransferCharacteristicsCodePL,  /* << */
+                        A_long*         outMatrixCoefficientsCodePL,       /* << */
+                        A_long*         outIsFullRangePL, // 1 or 0        /* << */
+                        A_Boolean*      outIsSuccesPB);                    /* << */
 
-} AEGP_IOOutSuite5;
+} AEGP_IOOutSuite6;
 
 
 
@@ -5668,12 +5719,17 @@ typedef struct PF_EffectSequenceDataSuite1 {
 
 
 #ifdef _WIN32
-#pragma warning( push )
-#pragma warning( disable: 4103 )
+    #pragma warning(push)
+    #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <AE_GeneralPlugPost.h>
 #ifdef _WIN32
-#pragma warning( pop )
+    #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 

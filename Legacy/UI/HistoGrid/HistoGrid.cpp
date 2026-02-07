@@ -80,12 +80,13 @@ About (
 
 	AEGP_SuiteHandler	suites(in_data->pica_basicP);
 
-	suites.ANSICallbacksSuite1()->sprintf(out_data->return_msg, 
-								"%s, v%d.%d\r%s",
-								NAME, 
-								MAJOR_VERSION, 
-								MINOR_VERSION, 
-								DESCRIPTION);
+	suites.ANSICallbacksSuite1()->sprintf(
+        out_data->return_msg,
+        "%s, v%d.%d\r%s",
+        NAME,
+        MAJOR_VERSION,
+        MINOR_VERSION,
+        DESCRIPTION);
 	return err;
 }
 
@@ -114,7 +115,7 @@ GlobalSetup (
                                 PF_OutFlag2_CUSTOM_UI_ASYNC_MANAGER |           // flag for AsyncManager usage in PF_Event_DRAW.   EXAMPLE
                                 PF_OutFlag2_SUPPORTS_THREADED_RENDERING;
 	
-	if (in_data->appl_id != 'PrMr') {
+	if (in_data->appl_id != kAppID_Premiere) {
 		// This is only needed for the AEGP suites, which Premiere Pro doesn't support
 		
 		AEFX_SuiteScoper<AEGP_UtilitySuite3>   u_suite(in_data,	kAEGPUtilitySuite,             kAEGPUtilitySuiteVersion3);

@@ -22,11 +22,6 @@
 #include <new>
 #include "Panelator.h"
 
-template <>
-const A_char* SuiteTraits<AEGP_PanelSuite1>::i_name = kAEGPPanelSuite;
-template <>
-const int32_t SuiteTraits<AEGP_PanelSuite1>::i_version = kAEGPPanelSuiteVersion1;
-
 class Panelator
 {
 public:
@@ -35,7 +30,7 @@ public:
 	
 	AEGP_SuiteHandler				i_sp;
 	AEGP_Command					i_command;
-	SuiteHelper<AEGP_PanelSuite1>	i_ps;
+	SimpleSuiteHelper<AEGP_PanelSuite1>	i_ps;
 	const A_u_char*					i_match_nameZ;
 	
 	/// STATIC BINDERS
@@ -84,7 +79,7 @@ public:
 			i_pica_basicP(pica_basicP),
 			i_pluginID(pluginID),
 			i_sp(pica_basicP),
-			i_ps(pica_basicP),
+			i_ps(pica_basicP, kAEGPPanelSuite, kAEGPPanelSuiteVersion1),
 			i_match_nameZ((A_u_char*)STR(StrID_Name))
 	{
 		PT_ETX(i_sp.CommandSuite1()->AEGP_GetUniqueCommand(&i_command));

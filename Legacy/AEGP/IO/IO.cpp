@@ -286,17 +286,36 @@ My_GetActiveExtent(
 	return AEIO_Err_USE_DFLT_CALLBACK; 
 };		
 
-static A_Err	
+static void FillInVerbiage(
+    AEIO_BasicData	*basic_dataP,
+    AEIO_Verbiage	*verbiageP,
+    const char *nameZ,
+    const char *typeZ,
+    const char *subZ)
+{
+	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
+	
+	suites.ANSICallbacksSuite1()->strcpy(
+        verbiageP->name, nameZ);
+        
+	suites.ANSICallbacksSuite1()->strcpy(
+        verbiageP->type, typeZ);
+        
+	suites.ANSICallbacksSuite1()->strcpy(
+        verbiageP->sub_type, subZ);
+}
+
+static A_Err
 My_GetInSpecInfo(
 	AEIO_BasicData	*basic_dataP,
 	AEIO_InSpecH	specH, 
 	AEIO_Verbiage	*verbiageP)
 { 
-	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
-	
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->name, "Made-up name");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "FAK (SDK IO)");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->sub_type, "Put your codec info here");
+	FillInVerbiage(
+        basic_dataP, verbiageP,
+        "Made-up name",
+        "FAK (SDK IO)",
+        "Put your codec info here");
 
 	return A_Err_NONE;
 };
@@ -395,7 +414,8 @@ My_GetSound(
 
 	if (!err && headerP) {
 		A_char report[AEGP_MAX_ABOUT_STRING_SIZE] = {'\0'};
-		suites.ANSICallbacksSuite1()->sprintf(report, "SDK_IO : %d samples of audio requested.", num_samplesLu); 
+		suites.ANSICallbacksSuite1()->sprintf(
+            report, "SDK_IO : %d samples of audio requested.", num_samplesLu);
 			
 		ERR(suites.UtilitySuite3()->AEGP_ReportInfo(basic_dataP->aegp_plug_id, report));
 
@@ -562,13 +582,13 @@ My_GetOutputInfo(
 	AEIO_OutSpecH		outH,
 	AEIO_Verbiage		*verbiageP)
 { 
-	A_Err err			= A_Err_NONE;
-	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
+	FillInVerbiage(
+        basic_dataP, verbiageP,
+        "filename",
+        "FAK (SDK IO)",
+        "No codecs supported in this sample");
 
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->name, "filename");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "FAK (SDK IO)");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->sub_type, "No codecs supported in this sample");
-	return err;
+    return A_Err_NONE;
 };
 
 	
@@ -641,7 +661,6 @@ My_StartAdding(
 	A_long				widthL 		= 	0,	
 						heightL 	= 	0;
 	A_FpLong			soundRateF	=	0.0;
-	A_char				name[AEGP_MAX_PATH_SIZE] = {'\0'};
 	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
 
 	AEGP_ProjectH		my_projH		= 0;
@@ -662,7 +681,7 @@ My_StartAdding(
 	ERR(ioSuiteP->AEGP_GetOutSpecSoundRate(outH, &soundRateF));
 	
 	// If video
-	if (!err && name && widthL && heightL) {
+	if (!err && widthL && heightL) {
 		header.hasVideo		=	TRUE;
 		header.widthLu		=	(A_u_long)widthL;
 		header.heightLu		=	(A_u_long)heightL;
@@ -672,9 +691,9 @@ My_StartAdding(
 		header.fpsT.scale	=	duration.scale;
 
 		if (depth > 32){
-			header.rowbytesLu	=	(unsigned long)(8 * widthL);
+			header.rowbytesLu	=	static_cast<A_u_long>(8 * widthL);
 		} else {
-			header.rowbytesLu	=	(unsigned long)(4 * widthL);
+			header.rowbytesLu	=	static_cast<A_u_long>(4 * widthL);
 		}
 	}
 

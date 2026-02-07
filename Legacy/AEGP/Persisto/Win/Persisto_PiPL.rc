@@ -2,7 +2,7 @@
 //
 #include "Persisto_PiPL_temp.rc"
 #include "resource.h"
-#include "afxres.h"
+#include "winres.h"
 /////////////////////////////////////////////////////////////////////////////
 // English (U.S.) resources
 

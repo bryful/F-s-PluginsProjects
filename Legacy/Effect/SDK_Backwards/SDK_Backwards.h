@@ -107,8 +107,4 @@ extern "C" {
 
 }
 
-static A_long 
-RoundDouble(
-	PF_FpLong 	x);
-
 #endif // SDK_BACKWARDS_H

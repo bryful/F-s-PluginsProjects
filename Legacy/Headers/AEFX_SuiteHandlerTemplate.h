@@ -34,13 +34,46 @@ template<typename SUITETYPE, bool ALLOW_NO_SUITE = false>
 class AEFX_SuiteScoper
 {
 public:
-	AEFX_SuiteScoper(const PF_InData *in_data, const char *suite_name, int32_t suite_versionL, PF_OutData	*out_dataP0 = 0, const char *err_stringZ0 = 0)
-	{
-		i_suite_name = suite_name;
+    
+    AEFX_SuiteScoper(
+        SPBasicSuite *pica_basicP,
+        const char *suite_name,
+        int32_t suite_versionL)
+    {
+        i_suite_name = suite_name;
+        i_suite_versionL = suite_versionL;
+        i_basic_suiteP = pica_basicP;
+
+        const void *suiteP = nullptr;
+        SPErr err = i_basic_suiteP->AcquireSuite(i_suite_name, i_suite_versionL, &suiteP);
+
+        if (err != kSPNoError)
+        {
+            if (ALLOW_NO_SUITE)
+            {
+                suiteP = NULL;
+            }
+            else
+            {
+                A_THROW(A_Err_MISSING_SUITE);
+            }
+        }
+
+        i_suiteP = reinterpret_cast<const SUITETYPE*>(suiteP);
+    }
+
+    AEFX_SuiteScoper(
+        const PF_InData *in_data,
+        const char *suite_name,
+        int32_t suite_versionL,
+        PF_OutData    *out_dataP0 = 0,
+        const char *err_stringZ0 = 0)
+    {
+        i_suite_name = suite_name;
 		i_suite_versionL = suite_versionL;
 		i_basic_suiteP = in_data->pica_basicP;
 
-		const void *suiteP;
+        const void *suiteP = nullptr;
 		SPErr err = i_basic_suiteP->AcquireSuite(i_suite_name, i_suite_versionL, &suiteP);
 
 		if (err != kSPNoError) {
@@ -51,7 +84,7 @@ public:
 				if (out_dataP0) {
 					const char	*error_stringPC = err_stringZ0 ? err_stringZ0 : "Not able to acquire AEFX Suite.";
 					out_dataP0->out_flags |= PF_OutFlag_DISPLAY_ERROR_MESSAGE;
-					(*in_data->utils->ansi.sprintf)(out_dataP0->return_msg, error_stringPC);
+					PF_SPRINTF(out_dataP0->return_msg, error_stringPC);
 				}
 				A_THROW(A_Err_MISSING_SUITE);
 			}

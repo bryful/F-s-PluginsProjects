@@ -32,7 +32,7 @@
 #include "AE_EffectCB.h"
 #include "AE_Macros.h"
 #include "AE_Hook.h"
-#include "Entry.h"
+#include "entry.h"
 
 #ifdef AE_OS_WIN
 	#include <stdio.h>

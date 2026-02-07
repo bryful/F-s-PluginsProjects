@@ -49,12 +49,14 @@ About (
 
 	AEGP_SuiteHandler	suites(in_data->pica_basicP);
 
-	suites.ANSICallbacksSuite1()->sprintf(out_data->return_msg, 
-								"%s, v%d.%d\r%s",
-								NAME, 
-								MAJOR_VERSION, 
-								MINOR_VERSION, 
-								DESCRIPTION);
+	suites.ANSICallbacksSuite1()->sprintf(
+        out_data->return_msg,
+        "%s, v%d.%d\r%s",
+        NAME,
+        MAJOR_VERSION,
+        MINOR_VERSION,
+        DESCRIPTION);
+
 	return err;
 }
 
@@ -468,7 +470,7 @@ HandleEvent(
 	case PF_Event_DO_CLICK:
 		ERR(DoClick(in_data, out_data, params, output, extra));
 		// Premiere Pro/Elements does not support this suite
-		if (in_data->appl_id != 'PrMr')
+		if (in_data->appl_id != kAppID_Premiere)
 		{
 			ERR(suites.AdvAppSuite2()->PF_InfoDrawText3("ColorGrid - Do Click Event","Adobe Inc", NULL));
 		}
@@ -476,7 +478,7 @@ HandleEvent(
 	
 	case PF_Event_DRAG:
 		// Premiere Pro/Elements does not support this suite
-		if (in_data->appl_id != 'PrMr')
+		if (in_data->appl_id != kAppID_Premiere)
 		{
 			ERR(suites.AdvAppSuite2()->PF_InfoDrawText3("ColorGrid - Drag Event","Adobe Inc", NULL));
 		}
@@ -485,7 +487,7 @@ HandleEvent(
 	case PF_Event_DRAW:
 		ERR(DrawEvent(in_data, out_data, params, output, extra, params[1]->u.cd.value));
 		// Premiere Pro/Elements does not support this suite
-		if (in_data->appl_id != 'PrMr')
+		if (in_data->appl_id != kAppID_Premiere)
 		{
 			//	don't draw info palette *during* a draw event, it will mess up 
 			//	the drawing and cause schmutz
@@ -496,7 +498,7 @@ HandleEvent(
 	case PF_Event_ADJUST_CURSOR:
 		ERR(ChangeCursor(in_data, out_data, params, output, extra));
 		// Premiere Pro/Elements does not support this suite
-		if (in_data->appl_id != 'PrMr')
+		if (in_data->appl_id != kAppID_Premiere)
 		{
 			ERR(suites.AdvAppSuite2()->PF_InfoDrawText3("ColorGrid - Change Cursor Event","Adobe Inc", NULL));
 		}

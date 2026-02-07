@@ -20,19 +20,18 @@
 #ifndef __SPMessageData__
 #define __SPMessageData__
 
-
 /*******************************************************************************
  **
- **	Imports
+ ** Imports
  **
  **/
 
 #include "SPTypes.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
-
 
 /*******************************************************************************
  **
@@ -41,23 +40,23 @@ extern "C" {
  **/
 
 /** The value of \c #SPMessageData::SPCheck, if the message data associated
-	with a call to a plug-in has come from \c #SPInterfaceSuite::SendMessage(),
-	or is prepared using \c #SPInterfaceSuite::SetupMessageData(). */
+    with a call to a plug-in has come from \c #SPInterfaceSuite::SendMessage(),
+    or is prepared using \c #SPInterfaceSuite::SetupMessageData(). */
 #define kSPValidSPMessageData 'SPCk'
 
-/** Basic suite-access information provided with every call. */
-typedef struct SPMessageData {
-	/** \c #kSPValidSPMessageData if this is a valid PICA message. */
-	int32 SPCheck;
-	/** This plug-in, an \c #SPPluginRef. */
-	struct SPPlugin *self;
-	/** An array of application-wide global variables. */
-	void *globals;
-	/** A pointer to the basic PICA suite, which you use to obtain all other suites. */
-	struct SPBasicSuite *basic;
+    /** Basic suite-access information provided with every call. */
+    typedef struct SPMessageData
+    {
+        /** \c #kSPValidSPMessageData if this is a valid PICA message. */
+        int32 SPCheck;
+        /** This plug-in, an \c #SPPluginRef. */
+        struct SPPlugin* self;
+        /** An array of application-wide global variables. */
+        void* globals;
+        /** A pointer to the basic PICA suite, which you use to obtain all other suites. */
+        struct SPBasicSuite* basic;
 
-} SPMessageData;
-
+    } SPMessageData;
 
 #ifdef __cplusplus
 }

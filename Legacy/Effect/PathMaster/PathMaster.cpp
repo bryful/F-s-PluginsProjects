@@ -135,20 +135,27 @@ SequenceSetup (
 			AEFX_CLR_STRUCT(*seqP);
 
 			// We need to allocate some non-flat memory for this arbitrary string.
-			seqP->stringP = new A_char[strlen(STR(StrID_Really_Long_String)) + 1];
-
-			//	WARNING: The following assignments are not safe for cross-platform use.
-			//	Production code would enforce byte order consistency, across platforms.
-
-			if (seqP->stringP){
-				suites.ANSICallbacksSuite1()->strcpy(seqP->stringP, STR(StrID_Really_Long_String));
-			}
-		
-			seqP->fixed_valF		= 123;
-			seqP->flatB				= FALSE;
-			out_data->sequence_data = seq_dataH;
-
-			suites.HandleSuite1()->host_unlock_handle(seq_dataH);
+            const size_t buf_size = strlen(STR(StrID_Really_Long_String));
+            if (buf_size <= INT_MAX - 1)
+            {
+                const A_long buf_sizeL = static_cast<A_long>(buf_size) + 1;
+                seqP->stringP = new A_char[buf_sizeL];
+                
+                //	WARNING: The following assignments are not safe for cross-platform use.
+                //	Production code would enforce byte order consistency, across platforms.
+                
+                if (seqP->stringP){
+                    suites.ANSICallbacksSuite1()->strcpy(seqP->stringP, STR(StrID_Really_Long_String));
+                }
+                
+                seqP->fixed_valF		= 123;
+                seqP->flatB				= FALSE;
+                out_data->sequence_data = seq_dataH;
+                
+                suites.HandleSuite1()->host_unlock_handle(seq_dataH);
+            } else {
+                err = PF_Err_OUT_OF_MEMORY;
+            }
 		}
 	} else {	// whoa, we couldn't allocate sequence data; bail!
 		err = PF_Err_OUT_OF_MEMORY;
@@ -294,19 +301,28 @@ SequenceResetup (
 					AEFX_CLR_STRUCT(*unflatP);
 					unflatP->fixed_valF = flatP->fixed_valF;	// Warning: NOT X-PLATFORM SAFE!
 					unflatP->flatB		= FALSE;
-					A_short	lengthS		= strlen(flatP->string);
-
-					unflatP->stringP	= new A_char[lengthS + 1];
-
-					if (unflatP->stringP){
-						suites.ANSICallbacksSuite1()->strcpy(unflatP->stringP, flatP->string);
-
-						// if it all went well, set the sequence data to our new, inflated seq data.
-						out_data->sequence_data = unflat_seq_dataH;
-					} else {
-						err = PF_Err_INTERNAL_STRUCT_DAMAGED;
-					}
-					suites.HandleSuite1()->host_unlock_handle(unflat_seq_dataH);
+                    
+                    const size_t buf_size = strlen(flatP->string);
+                    if (buf_size <= INT_MAX - 1)
+                    {
+                        const A_long buf_sizeL = static_cast<A_long>(buf_size + 1);
+                        
+                        unflatP->stringP	= new A_char[buf_sizeL];
+                        
+                        if (unflatP->stringP){
+                            suites.ANSICallbacksSuite1()->strcpy(unflatP->stringP, flatP->string);
+                            
+                            // if it all went well, set the sequence data to our new, inflated seq data.
+                            out_data->sequence_data = unflat_seq_dataH;
+                        } else {
+                            err = PF_Err_INTERNAL_STRUCT_DAMAGED;
+                        }
+                        suites.HandleSuite1()->host_unlock_handle(unflat_seq_dataH);
+                    }
+                    else
+                    {
+                        err = PF_Err_INTERNAL_STRUCT_DAMAGED;
+                    }
 				}
 			}
 		}
@@ -326,7 +342,7 @@ ParamsSetup (
 	AEFX_CLR_STRUCT(def);
 	def.param_type = PF_Param_PATH;
 	def.uu.id = PATH_DISK_ID;
-	PF_STRCPY(def.name, STR(StrID_PathName)); 
+	PF_STRCPY(def.PF_DEF_NAME, STR(StrID_PathName)); 
 	def.u.path_d.dephault	= 0;
 
 	PF_ADD_PARAM(in_data, -1, &def);
@@ -442,18 +458,18 @@ Render (
 	PF_ParamDef		*params[],
 	PF_LayerDef		*output)
 {
-	PF_Err				err			= PF_Err_NONE,
-						err2		= PF_Err_NONE;
-						
-	PF_EffectWorld		*inputP		= NULL;
-
-	A_long				mask_idL	= params[PATHMASTER_PATH]->u.path_d.path_id;
-	PF_PathOutlinePtr	maskP		= 0;
-	PF_MaskSuite1		*msP		= NULL;
-	PF_Boolean			openB 		= TRUE,
-						deepB		= PF_WORLD_IS_DEEP(output);
-	PF_Pixel			color		= params[PATHMASTER_COLOR]->u.cd.value;
-	PF_Pixel16			deep_color;
+    PF_Err				err			= PF_Err_NONE,
+    err2		= PF_Err_NONE;
+    
+    PF_EffectWorld		*inputP		= NULL;
+    
+    A_long				mask_idL	= params[PATHMASTER_PATH]->u.path_d.path_id;
+    PF_PathOutlinePtr	maskP		= 0;
+    PF_MaskSuite1		*msP		= NULL;
+    PF_Boolean			openB 		= TRUE,
+    deepB		= PF_WORLD_IS_DEEP(output);
+    PF_Pixel			color		= params[PATHMASTER_COLOR]->u.cd.value;
+    PF_Pixel16			deep_color = {PF_MAX_CHAN16, 0, 0 ,0 };
 	AEGP_SuiteHandler	suites(in_data->pica_basicP);
 
 	ERR(AEFX_AcquireSuite(in_data,
@@ -482,6 +498,7 @@ Render (
 				deep_color.red		= CONVERT8TO16(color.red);
 				deep_color.blue		= CONVERT8TO16(color.blue);
 				deep_color.green	= CONVERT8TO16(color.green);
+                deep_color.alpha    = CONVERT8TO16(color.alpha);
 				
 				ERR(suites.FillMatteSuite2()->fill16(in_data->effect_ref,
 													&deep_color, 
@@ -500,8 +517,9 @@ Render (
 			PF_FpLong y_resF = in_data->downsample_y.num / 
 												static_cast<PF_FpLong>(in_data->downsample_y.den);
 
-			PF_FpLong x_featherF = FIX_2_FLOAT(params[PATHMASTER_X_FEATHER]->u.fd.value * x_resF);
-			x_featherF = FIX_2_FLOAT(params[PATHMASTER_X_FEATHER]->u.fd.value) * x_resF;
+            //If you need to retrieve the x and Y feather, you would do it like this:
+			//PF_FpLong x_featherF = FIX_2_FLOAT(params[PATHMASTER_X_FEATHER]->u.fd.value * x_resF);
+			//x_featherF = FIX_2_FLOAT(params[PATHMASTER_X_FEATHER]->u.fd.value) * x_resF;
 
 			ERR(msP->PF_MaskWorldWithPath(	in_data->effect_ref,
 											&maskP,

@@ -48,12 +48,14 @@ About (
 {
 	AEGP_SuiteHandler suites(in_data->pica_basicP);
 	
-	suites.ANSICallbacksSuite1()->sprintf(	out_data->return_msg,
-											"%s v%d.%d\r%s",
-											STR(StrID_Name), 
-											MAJOR_VERSION, 
-											MINOR_VERSION, 
-											STR(StrID_Description));
+	suites.ANSICallbacksSuite1()->sprintf(
+        out_data->return_msg,
+        "%s v%d.%d\r%s",
+        STR(StrID_Name),
+        MAJOR_VERSION,
+        MINOR_VERSION,
+        STR(StrID_Description));
+
 	return PF_Err_NONE;
 }
 
@@ -144,7 +146,7 @@ Render(
 
 		PF_Fixed		amount_as_fixed	=	FLOAT2FIX((params[CONVO_AMOUNT]->u.fs_d.value / 100));
 		PF_FpLong		sharpen;
-		if (in_data->appl_id != 'PrMr') {
+		if (in_data->appl_id != kAppID_Premiere) {
 			sharpen			= 	(1 + suites.ANSICallbacksSuite1()->ceil(amount_as_fixed) / 16.0);
 		} else {
 			sharpen			= 	(1 + ceil((A_FpLong)amount_as_fixed) / 16.0);
@@ -155,7 +157,7 @@ Render(
 		kernelSum	= (PF_MAX_CHAN8 * 9 - convKer[4]) / 4;
 		convKer[1]	= convKer[3] = convKer[5] = convKer[7] = (A_long)kernelSum;
 
-		if (in_data->appl_id != 'PrMr') {
+		if (in_data->appl_id != kAppID_Premiere) {
 			ERR(suites.WorldTransformSuite1()->convolve(	in_data->effect_ref,
 															&params[CONVO_INPUT]->u.ld,
 															&in_data->extent_hint,
@@ -207,14 +209,14 @@ Render(
 		} 
 		
 	} else {	// No matter what, we populate the output buffer.
-		if (PF_Quality_HI == in_data->quality && in_data->appl_id != 'PrMr') {
+		if (PF_Quality_HI == in_data->quality && in_data->appl_id != kAppID_Premiere) {
 			
 			ERR(suites.WorldTransformSuite1()->copy_hq(	 in_data->effect_ref,
 														 &params[CONVO_INPUT]->u.ld, 
 														 output, 
 														 NULL, 
 														 NULL));
-		} else if (in_data->appl_id != 'PrMr') {
+		} else if (in_data->appl_id != kAppID_Premiere) {
 			ERR(suites.WorldTransformSuite1()->copy(	in_data->effect_ref,
 														&params[CONVO_INPUT]->u.ld, 
 														output, 
@@ -230,43 +232,54 @@ Render(
 	return err;
 }
 
-static PF_Err		
+static PF_Handle AllocStrHandle(PF_InData *in_data, int strID)
+{
+    const size_t string_length = strlen(STR(strID));
+    if (string_length < SIZE_MAX)
+    {
+        const size_t buffer_size = string_length + 1;
+        if (buffer_size <= INT32_MAX)
+        {
+            AEGP_SuiteHandler suites(in_data->pica_basicP);
+            A_long buf_sizeL = static_cast<A_long>(buffer_size);
+            PF_Handle msgH = suites.HandleSuite1()->host_new_handle(buf_sizeL);
+
+            suites.ANSICallbacksSuite1()->strcpy(static_cast<char*>(DH(msgH)), STR(strID));
+            return msgH;
+        }
+    }
+
+    return nullptr;
+}
+
+static PF_Err
 DescribeDependencies(	
 	PF_InData					*in_data,	
 	PF_OutData					*out_data,	
 	PF_ExtDependenciesExtra		*extraP)	
 {
 	PF_Err						err		= PF_Err_NONE;
-	PF_Handle					msgH	= NULL;
-
-	AEGP_SuiteHandler suites(in_data->pica_basicP);
-	
+	StrIDType                   strID   = StrID_NONE;
+    
 	if (extraP) {
+        
 		switch (extraP->check_type) {
 
 			case PF_DepCheckType_ALL_DEPENDENCIES:
-
-				msgH = suites.HandleSuite1()->host_new_handle((A_long)strlen(STR(StrID_DependString1)) + 1);
-				suites.ANSICallbacksSuite1()->strcpy(reinterpret_cast<char*>(DH(msgH)),STR(StrID_DependString1));
+                strID = StrID_DependString1;
 				break;
 
 			case PF_DepCheckType_MISSING_DEPENDENCIES:
-				
 				// one-ninth of the time, something's missing
 				if (rand() % 9)	{
-					msgH = suites.HandleSuite1()->host_new_handle((A_long)strlen(STR(StrID_DependString2)) + 1);
-					suites.ANSICallbacksSuite1()->strcpy(static_cast<A_char*>(DH(msgH)),STR(StrID_DependString2));
+                    strID = StrID_DependString2;
 				}
 				break;
-
-			default:
-				msgH = suites.HandleSuite1()->host_new_handle((A_long)strlen(STR(StrID_NONE)) + 1);
-				suites.ANSICallbacksSuite1()->strcpy(static_cast<A_char*>(DH(msgH)),STR(StrID_NONE));
-				break;
-
 		}
-		extraP->dependencies_strH = msgH;
+
+        extraP->dependencies_strH = AllocStrHandle(in_data, strID);
 	}
+    
 	return err;
 }
 

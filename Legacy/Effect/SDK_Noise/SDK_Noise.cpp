@@ -47,9 +47,7 @@
 	5.6			Added 'Support URL' to PiPL and entry point				cjr			3/31/2023
 
 */
-#pragma warning(disable : 4103)   // pack Œx
-#pragma warning(disable : 26481)  // pointer‰‰ŽZ
-#pragma warning(disable : 26447)  // noexcept Œx
+
 #include "SDK_Noise.h"
 
 
@@ -94,7 +92,7 @@ GlobalSetup (
 								PF_OutFlag2_SUPPORTS_THREADED_RENDERING;
 
 	// For Premiere - declare supported pixel formats
-	if (in_dataP->appl_id == 'PrMr'){
+	if (in_dataP->appl_id == kAppID_Premiere){
 
 		AEFX_SuiteScoper<PF_PixelFormatSuite1> pixelFormatSuite = 
 			AEFX_SuiteScoper<PF_PixelFormatSuite1>(	in_dataP,
@@ -355,7 +353,7 @@ IterateFloat (
 	localSrc = reinterpret_cast<char*>(src->data);
 	localDst = reinterpret_cast<char*>(dst->data);
 
-	for (int y = progress_base; y < progress_final; y++)
+	for (long y = progress_base; y < progress_final; y++)
 	{
 		for (int x = 0; x < in_data->width; x++)
 		{
@@ -392,7 +390,7 @@ Render (
 	niP.valF 	= params[NOISE_SLIDER]->u.fs_d.value;
 
 	// Do high-bit depth rendering in Premiere Pro
-	if (in_dataP->appl_id == 'PrMr') {
+	if (in_dataP->appl_id == kAppID_Premiere) {
 
 		// Get the Premiere pixel format suite
 		AEFX_SuiteScoper<PF_PixelFormatSuite1> pixelFormatSuite = 

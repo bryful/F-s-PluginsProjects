@@ -22,6 +22,7 @@
 #include "CCU.h"
 #include <adobesdk/DrawbotSuite.h>
 #include "AEFX_SuiteHelper.h"
+#include <cmath>
 
 // Calculates the points for an oval bounded by oval_frame 
 static void
@@ -44,14 +45,9 @@ CalculateOval (
 	for (A_short iS = 0; iS < OVAL_PTS; ++iS) {
 		radF		= (2.0 * PF_PI * iS) / OVAL_PTS;
 
-		// Premiere Pro/Elements doesn't support ANSICallbacksSuite1
-		if (in_data->appl_id != 'PrMr') {
-			poly_oval[iS].x = suites.ANSICallbacksSuite1()->sin(radF);
-			poly_oval[iS].y = suites.ANSICallbacksSuite1()->cos(radF);
-		} else {
-			poly_oval[iS].x = sin(radF);
-			poly_oval[iS].y = cos(radF);
-		}
+		// Use ANSICallbacksSuite1 for broader compatibility
+		poly_oval[iS].x = suites.ANSICallbacksSuite1()->sin(radF);
+		poly_oval[iS].y = suites.ANSICallbacksSuite1()->cos(radF);
 
 		// Transform the point on a unit circle to the corresponding point on the oval
 		poly_oval[iS].x = poly_oval[iS].x * oval_width + center_point.x;
@@ -86,14 +82,14 @@ DrawOval(
 	ERR(drawbot_suitesP->path_suiteP->LineTo(pathP, poly_oval[0].x, poly_oval[0].y));
 
 	// Currently, EffectCustomUIOverlayThemeSuite is unsupported in Premiere Pro/Elements
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		ERR(suites.EffectCustomUIOverlayThemeSuite1()->PF_StrokePath(drawing_ref, pathP, FALSE));
 	}
 	else
 	{
 		DRAWBOT_ColorRGBA	foreground_color;
-		DRAWBOT_SurfaceRef	surface_ref;
+		DRAWBOT_SurfaceRef	surface_ref = nullptr;
 		foreground_color.alpha = 1.0f;
 		foreground_color.blue = 0.9f;
 		foreground_color.green = 0.9f;
@@ -312,7 +308,7 @@ DrawHandles (
 		ERR(suites.DrawbotSuiteCurrent()->GetSurface(drawing_ref, &surface_ref));
 
 		// Currently, EffectCustomUIOverlayThemeSuite is unsupported in Premiere Pro/Elements
-		if (in_data->appl_id != 'PrMr')
+		if (in_data->appl_id != kAppID_Premiere)
 		{
 			ERR(suites.EffectCustomUIOverlayThemeSuite1()->PF_GetPreferredForegroundColor(&foreground_color));
 		}
@@ -383,9 +379,7 @@ DoClickHandles (
 
 	PF_FixedPoint	mouse_layerFiPt	=	{0,0};
 
-	A_short			hitS 		= 	-1;
-					
-	A_long			slopL 		= 	0;
+	//A_short			hitS 		= 	-1;
 
 	cornersPtA[0].h 	= frameRP->left;
 	cornersPtA[0].v 	= frameRP->top;
@@ -410,17 +404,10 @@ DoClickHandles (
 						&cornersPtA[iS], 
 						&mouse_layerFiPt);
 
-		// Premiere doesn't support the ANSICallbacksSuite
-		if (in_data->appl_id != 'PrMr') {
-			slopL	= 		(long)suites.ANSICallbacksSuite1()->fabs(cornersPtA[iS].h	- mouse_downPt.h);
-			slopL	+=	 	(long)suites.ANSICallbacksSuite1()->fabs(cornersPtA[iS].v	- mouse_downPt.v);
-		} else {
-			slopL	= 		(long)abs(cornersPtA[iS].h	- mouse_downPt.h);
-			slopL	+=	 	(long)abs(cornersPtA[iS].v	- mouse_downPt.v);
-		}
+		const A_long slopL = std::abs(cornersPtA[iS].h - mouse_downPt.h) + std::abs(cornersPtA[iS].v - mouse_downPt.v);
 		
 		if (slopL < CCU_SLOP) {
-			hitS	= iS;
+			//hitS	= iS; //which corner was hit if needed.
 			doneB	= TRUE;
 
 			event_extraP->u.do_click.send_drag				= TRUE;
@@ -455,11 +442,12 @@ DoDragHandles(
 	A_FpLong		new_xF			=	0,
 					parF			=	static_cast<A_FpLong>(in_data->pixel_aspect_ratio.num) / in_data->pixel_aspect_ratio.den;
 
-	PF_Boolean		drawB 			= 	TRUE;
+	//PF_Boolean		drawB 			= 	TRUE;
 
-	if (event_extraP->evt_in_flags & PF_EI_DONT_DRAW) {
-		drawB = FALSE;
-	}
+    //if you want to prevent drawing you could check in this fashion.
+	//if (event_extraP->evt_in_flags & PF_EI_DONT_DRAW) {
+	//	drawB = FALSE;
+	//}
 
 	mouse_downPt = *(reinterpret_cast<PF_Point*>(&event_extraP->u.do_click.screen_point));
 
@@ -469,15 +457,15 @@ DoDragHandles(
 					(PF_Point*)&mouse_downPt, 
 					&mouse_layerFiPt);
  
- 	old_centerFiPt.x = event_extraP->u.do_click.continue_refcon[1];
-	old_centerFiPt.y = event_extraP->u.do_click.continue_refcon[2];
+ 	old_centerFiPt.x = static_cast<PF_Fixed>(event_extraP->u.do_click.continue_refcon[1]);
+	old_centerFiPt.y = static_cast<PF_Fixed>(event_extraP->u.do_click.continue_refcon[2]);
 	
 	centerFiPt.x = params[CCU_PT]->u.td.x_value;
 	centerFiPt.y = params[CCU_PT]->u.td.y_value;
 
 	// Calculate new radius
 	new_xF = FIX_2_FLOAT(centerFiPt.x - mouse_layerFiPt.x) * parF;	
-	if (in_data->appl_id != 'PrMr') {
+	if (in_data->appl_id != kAppID_Premiere) {
 		params[CCU_X_RADIUS]->u.fd.value 		= (A_long)suites.ANSICallbacksSuite1()->fabs(FLOAT2FIX(new_xF));
 		params[CCU_Y_RADIUS]->u.fd.value 		= (A_long)suites.ANSICallbacksSuite1()->fabs(centerFiPt.y - mouse_layerFiPt.y);
 	} else {

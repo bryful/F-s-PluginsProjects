@@ -29,10 +29,15 @@
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PreConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 #ifdef __cplusplus
@@ -216,10 +221,6 @@ typedef A_long	PF_KeyIndex;
 				PF_ParamDefUnion:
 					slider_min, slider_max, precision, display_flags of any slider type
 
-		For PF_PUI_STD_CONTROL_ONLY params, you can also change the value field by setting
-		PF_ChangeFlag_CHANGED_VALUE before returning.  But you are not allowed to change
-		the value during PF_Cmd_UPDATE_PARAMS_UI.
-
 		PF_GetCurrentState() / PF_AreStatesIdentical()
 			This API lets you determine if a set of your inputs (either layers, other properties, or both) 
 			are different between when you first called PF_GetCurrentState() and a current call, so it can
@@ -302,7 +303,6 @@ typedef struct PF_ParamUtilsSuite3 {
 								A_u_long		*key_timescaleP);	/* << */
 
 } PF_ParamUtilsSuite3;
-
 
 
 
@@ -742,10 +742,15 @@ typedef struct PF_EffectCustomUIOverlayThemeSuite1 {
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PostConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 #endif

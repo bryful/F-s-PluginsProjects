@@ -50,7 +50,7 @@ CheckForPaintStreams(
 
 	AEGP_ObjectType		object_type					= AEGP_ObjectType_NONE;
 
-	A_Boolean			paint_foundB				= FALSE;
+	//A_Boolean			paint_foundB				= FALSE;
 	
 	A_long				num_strokesL			 	= 0;
 
@@ -95,9 +95,11 @@ CheckForPaintStreams(
 
 				if (*stroke_group_streamPH){
 					ERR(suites.DynamicStreamSuite2()->AEGP_GetNumStreamsInGroup(*stroke_group_streamPH, &num_strokesL));
-					if (!err && num_strokesL){
-						paint_foundB = TRUE;
-					}
+					
+                    //if you need to find out if there is a paint stroke found
+                    //if (!err && num_strokesL){
+					//	paint_foundB = TRUE;
+					//}
 				}
 			}
 		}

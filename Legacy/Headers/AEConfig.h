@@ -87,14 +87,6 @@ For the record, our file format is stored big endian.
 	#error  "unrecognized AE processor"
 #endif
 
-#if defined(AE_OS_MAC) && defined(AE_PROC_ARM64)
-// This is used to enable/disable features that are still being
-// ported/tested to run on Mac arm64based M1 processors, aka Apple Silicon.
-// It is intended for Adobe internal use, and will be going away once the mac
-// arm64 work is completed.
-#define AE_MAC_ARM64_PROTOTYPE_TODO
-#endif
-
 //Define our Byte order
 #define AE_LITTLE_ENDIAN
 

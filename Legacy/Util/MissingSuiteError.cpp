@@ -21,6 +21,7 @@
 
 #include "AEGP_SuiteHandler.h"
 
+#ifndef DVA_STATIC_BUILD
 void AEGP_SuiteHandler::MissingSuiteError() const
 {
 	//	Yes, we've read Scott Meyers, and know throwing
@@ -40,4 +41,4 @@ void AEGP_SuiteHandler::MissingSuiteError() const
 
 	throw poop;
 }
-
+#endif

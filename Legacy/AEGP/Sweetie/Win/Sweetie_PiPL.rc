@@ -3,7 +3,7 @@
 //Microsoft Developer Studio generated resource script.
 //
 #include "resource.h"
-#include "afxres.h"
+#include "winres.h"
 /////////////////////////////////////////////////////////////////////////////
 // English (U.S.) resources
 

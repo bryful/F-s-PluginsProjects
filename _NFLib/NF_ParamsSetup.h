@@ -113,7 +113,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_COLOR;
-		PF_STRNNCPY(def.name,name,sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME,name,sizeof(def.PF_DEF_NAME));
 		def.u.cd.value = (PF_UnionablePixel)default_value;
 		def.u.cd.value.alpha = 255;
 		def.u.cd.dephault = def.u.cd.value;
@@ -140,7 +140,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_SLIDER;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.sd.value_str[0] = '\0';
 		def.u.sd.value_desc[0] = '\0';
 		def.u.sd.valid_min = valid_min;
@@ -174,7 +174,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_FIX_SLIDER;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.fd.value_str[0] = '\0';
 		def.u.fd.value_desc[0] = '\0';
 		def.u.fd.valid_min = (PF_Fixed)((valid_min) * 65536.0);
@@ -210,7 +210,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_FLOAT_SLIDER;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.fs_d.valid_min = valid_min;
 		def.u.fs_d.valid_max = valid_max;
 		def.u.fs_d.slider_min = slider_min;
@@ -240,7 +240,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_CHECKBOX;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.bd.u.nameptr = (char*)button_name;
 		def.u.bd.value = (A_long)default_value;
 		def.u.bd.dephault = (PF_Boolean)(def.u.bd.value);
@@ -262,7 +262,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_GROUP_START;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.uu.id = id;
 		def.flags = flags;
 		def.ui_flags = ui_flags;
@@ -294,7 +294,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_ANGLE;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.ad.value = def.u.ad.dephault = (PF_Fixed)(default_value * 65536.0);
 		def.uu.id = id;
 		def.flags = flags;
@@ -316,7 +316,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_POPUP;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.pd.num_choices = num_choices;
 		def.u.pd.dephault = default_value;
 		def.u.pd.value = def.u.pd.dephault;
@@ -341,7 +341,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_POINT;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.td.restrict_bounds = restrict_bounds;
 		def.u.td.x_value = def.u.td.x_dephault = (x_default << 16);
 		def.u.td.y_value = def.u.td.y_dephault = (y_default << 16);
@@ -363,7 +363,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_BUTTON;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.button_d.u.namesptr = btn_name;
 		def.uu.id = id;
 		def.flags = flags;
@@ -383,7 +383,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_LAYER;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.u.ld.dephault = (A_long)default_value;
 		def.uu.id = id;
 		def.flags = flags;
@@ -410,7 +410,7 @@ public:
 		PF_Err			err = PF_Err_NONE;
 		ClearDef();
 		def.param_type = PF_Param_NO_DATA;
-		PF_STRNNCPY(def.name, name, sizeof(def.name));
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
 		def.uu.id = id;
 		err = in_data->inter.add_param(in_data->effect_ref, -1, &def);
 		if (!err) param_count++;

@@ -26,7 +26,6 @@
 #include "..\_NFLib\fx\NF_Noise.h"
 #include "..\_NFLib\fx\NF_Spat_Data.h"
 
-#include "_SkeltonFilter.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる

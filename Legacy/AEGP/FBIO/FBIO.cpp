@@ -243,17 +243,36 @@ FBIO_GetActiveExtent(
 	return AEIO_Err_USE_DFLT_CALLBACK; 
 };		
 
-static A_Err	
+static void FillInVerbiage(
+    AEIO_BasicData	*basic_dataP,
+    AEIO_Verbiage	*verbiageP,
+    const char *nameZ,
+    const char *typeZ,
+    const char *subZ)
+{
+	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
+	
+	suites.ANSICallbacksSuite1()->strcpy(
+        verbiageP->name, nameZ);
+        
+	suites.ANSICallbacksSuite1()->strcpy(
+        verbiageP->type, typeZ);
+        
+	suites.ANSICallbacksSuite1()->strcpy(
+        verbiageP->sub_type, subZ);
+}
+
+static A_Err
 FBIO_GetInSpecInfo(
 	AEIO_BasicData	*basic_dataP,
 	AEIO_InSpecH	specH, 
 	AEIO_Verbiage	*verbiageP)
-{ 
-	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
-	
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->name, "Made-up name");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "(SDK) Fake File");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->sub_type, "no particular subtype");
+{
+	FillInVerbiage(
+        basic_dataP, verbiageP,
+        "Made-up name",
+        "(SDK) Fake File",
+        "no particular subtype");
 
 	return A_Err_NONE;
 };
@@ -397,14 +416,13 @@ FBIO_GetOutputInfo(
 	AEIO_OutSpecH		outH,
 	AEIO_Verbiage		*verbiageP)
 { 
-	A_Err err			= A_Err_NONE;
-	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
+	FillInVerbiage(
+        basic_dataP, verbiageP,
+        "filename",
+        "(SDK) Fake File",
+        "no subtypes supported");
 
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->name, "filename");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "(SDK) Fake File");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->sub_type, "no subtypes supported");
-
-	return err;
+	return A_Err_NONE;
 };
 
 static A_Err	
@@ -464,7 +482,6 @@ FBIO_OutputFrame(
 	A_Fixed				fps			=	0;
 	A_long				widthL 		= 	0,
 						heightL 	= 	0;
-	A_char				name[AEGP_MAX_PATH_SIZE] = {'\0'};
 	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
 	AEGP_MemHandle		unicode_path_memH;
 	A_Boolean			fileReservedB;
@@ -478,7 +495,7 @@ FBIO_OutputFrame(
 
 	deep_worldB = PF_WORLD_IS_DEEP(wP);
 
-	if (name && widthL && heightL) {
+	if (widthL && heightL) {
 		ERR(suites.IOOutSuite4()->AEGP_GetOutSpecFPS(outH, &fps));
 		
 		if (!err){
@@ -487,16 +504,16 @@ FBIO_OutputFrame(
 
 			header.hasVideo		=	TRUE;	
 			header.hasAudio		=	FALSE;
-			header.widthLu		=	(unsigned long)widthL;
-			header.heightLu		=	(unsigned long)heightL;
+			header.widthLu		=	static_cast<A_u_long>(widthL);
+			header.heightLu		=	static_cast<A_u_long>(heightL);
 			
 			if (depth > 32){
-				header.rowbytesLu	=	(unsigned long)(8 * widthL);
+				header.rowbytesLu	=	static_cast<A_u_long>(8 * widthL);
 			} else {
-				header.rowbytesLu	=	(unsigned long)(4 * widthL);
+				header.rowbytesLu	=	static_cast<A_u_long>(4 * widthL);
 			}
 
-			header.numFramesLu	=	(unsigned long) fps; 
+			header.numFramesLu	=	static_cast<A_u_long>(fps); 
 
 			if (!err){
 				suites.IOOutSuite4()->AEGP_GetOutSpecFilePath(outH, &unicode_path_memH, &fileReservedB);
@@ -826,7 +843,8 @@ ConstructModuleInfo(
 		info->create_ext.extension[2]	=	'k';
 		info->num_aux_extensionsS		=	0;
 		
-		suites.ANSICallbacksSuite1()->strcpy(info->name, "FFK files (SDK)");
+		suites.ANSICallbacksSuite1()->strcpy(
+            info->name, "FFK files (SDK)");
 		
 
 		info->flags						=	AEIO_MFlag_INPUT					| 

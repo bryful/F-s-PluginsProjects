@@ -111,7 +111,7 @@ ParamsSetup (
 	out_data->num_params = CHECK_NUM_PARAMS;
 	
 	// Premiere Pro/Elements does not support this suite
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		AEFX_SuiteScoper<PF_EffectUISuite1> effect_ui_suiteP = AEFX_SuiteScoper<PF_EffectUISuite1>(
 																	in_data,
@@ -145,7 +145,7 @@ Render(
 	AEFX_CLR_STRUCT(checkout);
 	
 	// Premiere Pro/Elements does not support this suite
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		AEFX_SuiteScoper<PF_ChannelSuite1> csP = AEFX_SuiteScoper<PF_ChannelSuite1>(	in_data,
 																						kPFChannelSuite1,

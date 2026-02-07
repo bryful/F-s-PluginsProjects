@@ -4,16 +4,21 @@
 //	do not include DVA headers here
 #include <AE_Effect.h>
 #include <AE_EffectCB.h>
-#include <string.h>
+#include <AE_Macros.h>
 
-// requires the explicit use of 'def' for the struct name
 
-/* not quite strncpy because this always null terminates - unless SZ <= 0 */
-// clang-format off
-#define PF_STRNNCPY(DST, SRC, SZ) \
-	::strncpy((DST), (SRC), (SZ)); \
-	if ((SZ) > 0U) (DST)[(SZ)-1] = 0
-// clang-format on
+// Returns DST pointer. DST must be of size SZ. SRC must be null terminated.
+// Auto null terminates and truncates if necessary.
+static inline char* PF_STRNNCPY(char* DST, const char* SRC, size_t SZ) {
+	#ifdef AE_OS_WIN
+		// Windows: use strncpy_s
+		::strncpy_s((DST), (SZ), (SRC), _TRUNCATE);
+	#else
+		// Mac: use strlcpy
+		::strlcpy((DST), (SRC), (SZ));
+	#endif
+	return DST;
+}
 
 #define        PF_ParamDef_IS_PUI_FLAG_SET(_defP, _puiFlag)        \
   (((_defP)->ui_flags & _puiFlag) != 0)
@@ -21,13 +26,14 @@
 #define        PF_ParamDef_IS_PARAM_FLAG_SET(_defP, _paramFlag)    \
    (((_defP)->flags & _paramFlag) != 0)
 
+#define         PF_ParamID_DFLT     0
 
 // clang-format off
 #define PF_ADD_COLOR(NAME, RED, GREEN, BLUE, ID)\
 	do {\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_COLOR; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
 		def.u.cd.value.red = (RED); \
 		def.u.cd.value.green = (GREEN); \
 		def.u.cd.value.blue = (BLUE); \
@@ -44,7 +50,7 @@
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_ARBITRARY_DATA; \
 		def.flags = (PARAM_FLAGS); \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
 		def.ui_width = (WIDTH);\
 	    def.ui_height = (HEIGHT);\
 		def.ui_flags = (PUI_FLAGS); \
@@ -65,7 +71,7 @@
 	do {\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_SLIDER; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
 		def.u.sd.value_str[0] = '\0'; \
 		def.u.sd.value_desc[0] = '\0'; \
 		def.u.sd.valid_min = (VALID_MIN); \
@@ -73,50 +79,62 @@
 		def.u.sd.valid_max = (VALID_MAX); \
 		def.u.sd.slider_max = (SLIDER_MAX); \
 		def.u.sd.value = def.u.sd.dephault = (DFLT); \
-		def.uu.id = (ID); \
+		def.uu.id = (A_long)(ID); \
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
 	} while (0)
 // clang-format on
 
 // clang-format off
-#define PF_ADD_FIXED(NAME, VALID_MIN, VALID_MAX, SLIDER_MIN, SLIDER_MAX, DFLT, PREC, DISP, FLAGS, ID) \
+// this macro assumes you're passing in fixed values
+#define PF_ADD_FIXED_PRECONVERTED(NAME, VALID_MIN_FIXED, VALID_MAX_FIXED, SLIDER_MIN_FIXED, SLIDER_MAX_FIXED, DFLT_FIXED, PREC, DISP, FLAGS, ID) \
 	do {\
-		PF_Err	priv_err = PF_Err_NONE; \
-		def.param_type = PF_Param_FIX_SLIDER; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
-		def.u.fd.value_str[0]	= '\0'; \
+		PF_Err	priv_err        = PF_Err_NONE; \
+		def.param_type          = PF_Param_FIX_SLIDER; \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
+		def.u.fd.value_str[0]   = '\0'; \
 		def.u.fd.value_desc[0]	= '\0'; \
-		def.u.fd.valid_min = (PF_Fixed)((VALID_MIN) * 65536.0); \
-		def.u.fd.slider_min = (PF_Fixed)((SLIDER_MIN) * 65536.0); \
-		def.u.fd.valid_max = (PF_Fixed)((VALID_MAX) * 65536.0); \
-		def.u.fd.slider_max = (PF_Fixed)((SLIDER_MAX) * 65536.0); \
-		def.u.fd.value = def.u.fd.dephault = (PF_Fixed)((DFLT) * 65536.0); \
-		def.u.fd.precision		= (A_short)(PREC); \
-		def.u.fd.display_flags  |= (A_short)(DISP); \
-		def.flags				|= (FLAGS); \
-		def.uu.id = (ID); \
+		def.u.fd.valid_min      = VALID_MIN_FIXED; \
+		def.u.fd.slider_min     = SLIDER_MIN_FIXED; \
+		def.u.fd.valid_max      = VALID_MAX_FIXED; \
+		def.u.fd.slider_max     = SLIDER_MAX_FIXED; \
+		def.u.fd.value          = def.u.fd.dephault = DFLT_FIXED; \
+		def.u.fd.precision		= static_cast<PF_Precision>(PREC); \
+		def.u.fd.display_flags  |= (PF_ValueDisplayFlags)(DISP); \
+		def.flags				|= (PF_ParamFlags)(FLAGS); \
+		def.uu.id               = (A_long)(ID); \
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
 	} while (0)
+
+    // this macro assumes you're passing in float values
+#define PF_ADD_FIXED(NAME, VALID_MIN, VALID_MAX, SLIDER_MIN, SLIDER_MAX, DFLT, PREC, DISP, FLAGS, ID) \
+    PF_ADD_FIXED_PRECONVERTED(  \
+        NAME,   \
+        FLOAT2FIX(VALID_MIN), \
+        FLOAT2FIX(VALID_MAX), \
+        FLOAT2FIX(SLIDER_MIN), \
+        FLOAT2FIX(SLIDER_MAX), \
+        FLOAT2FIX(DFLT), \
+        PREC, DISP, FLAGS, ID)
+
 // clang-format on
 
-// why does fs_flags get or-ed in? and why is CURVE_TOLERANCE param ignored? and .flags is never set. oy.
 // clang-format off
 #define PF_ADD_FLOAT_SLIDER(NAME, VALID_MIN, VALID_MAX, SLIDER_MIN, SLIDER_MAX, CURVE_TOLERANCE, DFLT, PREC, DISP, WANT_PHASE, ID) \
 	do {\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_FLOAT_SLIDER; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
-		def.u.fs_d.valid_min		= (VALID_MIN); \
-		def.u.fs_d.slider_min		= (SLIDER_MIN); \
-		def.u.fs_d.valid_max		= (VALID_MAX); \
-		def.u.fs_d.slider_max		= (SLIDER_MAX); \
-		def.u.fs_d.value			= (DFLT); \
-		def.u.fs_d.dephault			= (PF_FpShort)(def.u.fs_d.value); \
-		def.u.fs_d.precision		= (PREC); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
+		def.u.fs_d.valid_min		= static_cast<PF_FpShort>(VALID_MIN); \
+		def.u.fs_d.slider_min		= static_cast<PF_FpShort>(SLIDER_MIN); \
+		def.u.fs_d.valid_max		= static_cast<PF_FpShort>(VALID_MAX); \
+		def.u.fs_d.slider_max		= static_cast<PF_FpShort>(SLIDER_MAX); \
+		def.u.fs_d.value			= static_cast<PF_FpShort>(DFLT); \
+		def.u.fs_d.dephault			= static_cast<PF_FpShort>(def.u.fs_d.value); \
+		def.u.fs_d.precision		= static_cast<PF_Precision>(PREC); \
 		def.u.fs_d.display_flags	= (DISP); \
-		def.u.fs_d.curve_tolerance	= AEFX_AUDIO_DEFAULT_CURVE_TOLERANCE;\
 		def.u.fs_d.fs_flags			|= (WANT_PHASE) ? PF_FSliderFlag_WANT_PHASE : 0; \
-		def.uu.id = (ID); \
+		def.u.fs_d.curve_tolerance	= static_cast<PF_FpShort>(CURVE_TOLERANCE);\
+		def.uu.id = (A_long)(ID); \
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
 	} while (0)
 // clang-format on
@@ -127,43 +145,28 @@
 	do {																										\
 		AEFX_CLR_STRUCT(def);																					\
 		def.flags = (FLAGS);																					\
-		PF_ADD_FLOAT_SLIDER(NAME, VALID_MIN, VALID_MAX, SLIDER_MIN, SLIDER_MAX, 0, DFLT, PREC, DISP, 0, ID);	\
+		PF_ADD_FLOAT_SLIDER(NAME, VALID_MIN, VALID_MAX, SLIDER_MIN, SLIDER_MAX, AEFX_DEFAULT_CURVE_TOLERANCE, DFLT, PREC, DISP, false, ID);	\
 	} while (0)
 // clang-format on
 
 // copied from Pr version of Param_Utils.h. It is used in some of Pr versions of AE effects
 // clang-format off
 #define PF_ADD_FLOAT_EXPONENTIAL_SLIDER(NAME, VALID_MIN, VALID_MAX, SLIDER_MIN, SLIDER_MAX, CURVE_TOLERANCE, DFLT, PREC, DISP, WANT_PHASE, EXPONENT, ID) \
-do {\
-PF_Err	priv_err = PF_Err_NONE; \
-def.param_type = PF_Param_FLOAT_SLIDER; \
-PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
-def.u.fs_d.valid_min		= (VALID_MIN); \
-def.u.fs_d.slider_min		= (SLIDER_MIN); \
-def.u.fs_d.valid_max		= (VALID_MAX); \
-def.u.fs_d.slider_max		= (SLIDER_MAX); \
-def.u.fs_d.value			= (DFLT); \
-def.u.fs_d.dephault			= (DFLT); \
-def.u.fs_d.precision		= (PREC); \
-def.u.fs_d.display_flags	= (DISP); \
-def.u.fs_d.fs_flags			|= (WANT_PHASE) ? PF_FSliderFlag_WANT_PHASE : 0; \
-def.u.fs_d.curve_tolerance	= AEFX_AUDIO_DEFAULT_CURVE_TOLERANCE;\
-def.u.fs_d.useExponent		= true;\
-def.u.fs_d.exponent			= EXPONENT;\
-def.uu.id = (ID); \
-if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
-} while (0)
+	do {																										\
+		AEFX_CLR_STRUCT(def);																					\
+        def.u.fs_d.useExponent		= true;\
+        def.u.fs_d.exponent			= static_cast<PF_FpShort>(EXPONENT);\
+		PF_ADD_FLOAT_SLIDER(NAME, VALID_MIN, VALID_MAX, SLIDER_MIN, SLIDER_MAX, CURVE_TOLERANCE, DFLT, PREC, DISP, WANT_PHASE, ID);	\
+	} while (0)
 // clang-format on
-
-enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Precision_THOUSANDTHS, PF_Precision_TEN_THOUSANDTHS };
 
 // clang-format off
 #define PF_ADD_CHECKBOX(NAME_A, NAME_B, DFLT, FLAGS, ID)\
 	do {\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_CHECKBOX; \
-		PF_STRNNCPY(def.name, NAME_A, sizeof(def.name)); \
-		def.u.bd.u.nameptr  = (NAME_B); \
+		PF_STRNNCPY(def.PF_DEF_NAME, NAME_A, sizeof(def.PF_DEF_NAME)); \
+		def.u.bd.u.PF_DEF_NAMEPTR  = (NAME_B); \
 		def.u.bd.value		= (DFLT); \
 		def.u.bd.dephault	= (PF_Boolean)(def.u.bd.value); \
 		def.flags			|= (FLAGS); \
@@ -187,8 +190,8 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 		AEFX_CLR_STRUCT(def); \
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type		= PF_Param_BUTTON; \
-		PF_STRNNCPY(def.name, PARAM_NAME, sizeof(def.name)); \
-		def.u.button_d.u.namesptr  = (BUTTON_NAME); \
+		PF_STRNNCPY(def.PF_DEF_NAME, PARAM_NAME, sizeof(def.PF_DEF_NAME)); \
+		def.u.button_d.u.PF_DEF_NAMESPTR  = (BUTTON_NAME); \
 		def.flags			= (PARAM_FLAGS); \
 		def.ui_flags		= (PUI_FLAGS); \
 		def.uu.id			= (ID); \
@@ -201,8 +204,8 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 	do {\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_ANGLE; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
-		def.u.ad.value = def.u.ad.dephault = (PF_Fixed)((DFLT) * 65536.0); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
+		def.u.ad.value = def.u.ad.dephault = FLOAT2FIX(DFLT); \
 		def.uu.id = (ID); \
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
 	} while (0)
@@ -214,7 +217,7 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 	do {\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_NO_DATA; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
 		def.uu.id = (ID); \
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
 	} while (0)
@@ -226,11 +229,11 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 	do {\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_POPUP; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
-		def.u.pd.num_choices = (CHOICES); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
+		def.u.pd.num_choices = static_cast<short>(CHOICES); \
 		def.u.pd.dephault = (DFLT); \
 		def.u.pd.value = def.u.pd.dephault; \
-		def.u.pd.u.namesptr = (STRING); \
+		def.u.pd.u.PF_DEF_NAMESPTR = (STRING); \
 		def.uu.id = (ID); \
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
 	} while (0)
@@ -241,7 +244,7 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 	do	{\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_LAYER; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
 		def.u.ld.dephault = (DFLT); \
 		def.uu.id = ID;\
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
@@ -255,17 +258,25 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 	PF_ADD_FIXED( (NAME), 0, 100, 0, 100, (DFLT), 1, 1, 0, (ID))
 
 // clang-format off
-#define PF_ADD_POINT(NAME, X_DFLT, Y_DFLT, RESTRICT_BOUNDS, ID) \
+#define PF_ADD_POINT_PRECONVERTED(NAME, X_DFLT_FIXED, Y_DFLT_FIXED, RESTRICT_BOUNDS, ID) \
 	do	{\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_POINT; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
 		def.u.td.restrict_bounds = RESTRICT_BOUNDS;\
-		def.u.td.x_value = def.u.td.x_dephault = (X_DFLT << 16); \
-		def.u.td.y_value = def.u.td.y_dephault = (Y_DFLT << 16); \
+		def.u.td.x_value = def.u.td.x_dephault = X_DFLT_FIXED; \
+		def.u.td.y_value = def.u.td.y_dephault = Y_DFLT_FIXED; \
 		def.uu.id = (ID); \
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
 	} while (0)
+
+#define PF_ADD_POINT(NAME, X_DFLT, Y_DFLT, RESTRICT_BOUNDS, ID) \
+    PF_ADD_POINT_PRECONVERTED(  \
+        NAME,                   \
+        FLOAT2FIX(X_DFLT),      \
+        FLOAT2FIX(Y_DFLT),      \
+        RESTRICT_BOUNDS,        \
+        ID)
 // clang-format on
 
 // clang-format off
@@ -274,7 +285,7 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 		AEFX_CLR_STRUCT(def); \
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_POINT_3D; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
 		def.u.point3d_d.x_value = def.u.point3d_d.x_dephault = X_DFLT; \
 		def.u.point3d_d.y_value = def.u.point3d_d.y_dephault = Y_DFLT; \
 		def.u.point3d_d.z_value = def.u.point3d_d.z_dephault = Y_DFLT; \
@@ -288,7 +299,7 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 	do	{\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_GROUP_START; \
-		PF_STRNNCPY(def.name, (NAME), sizeof(def.name) ); \
+		PF_STRNNCPY(def.PF_DEF_NAME, (NAME), sizeof(def.PF_DEF_NAME) ); \
 		def.uu.id = (ID); \
 		if ((priv_err = PF_ADD_PARAM(in_data, -1, &def)) != PF_Err_NONE) return priv_err; \
 	} while (0)
@@ -309,8 +320,8 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 	do {\
 		PF_Err	priv_err = PF_Err_NONE; \
 		def.param_type = PF_Param_CHECKBOX; \
-		def.name[0] = 0; \
-		def.u.bd.u.nameptr  = (NAME); \
+		def.PF_DEF_NAME[0] = 0; \
+		def.u.bd.u.PF_DEF_NAMEPTR  = (NAME); \
 		def.u.bd.value = true; \
 		def.u.bd.dephault = false; \
 		def.flags = PF_ParamFlag_USE_VALUE_FOR_OLD_PROJECTS; \
@@ -338,8 +349,6 @@ enum { PF_Precision_INTEGER, PF_Precision_TENTHS, PF_Precision_HUNDREDTHS, PF_Pr
 	} while (0)
 // clang-format on
 
-enum { PF_ParamFlag_NONE=0 };		// SBI:AE_Effect.h
-
 // clang-format off
 #define PF_ADD_FLOAT_SLIDERX_DISABLED(NAME, VALID_MIN, VALID_MAX, SLIDER_MIN, SLIDER_MAX, DFLT, PREC, DISP, FLAGS, ID)	\
 	do {																										\
@@ -350,6 +359,7 @@ enum { PF_ParamFlag_NONE=0 };		// SBI:AE_Effect.h
 	} while (0)
 // clang-format on
 
+#ifdef __cplusplus
 namespace fxparam_utility {
 
 	template <typename T>
@@ -390,6 +400,6 @@ inline PF_Err PF_AddPointControl(PF_InData *in_data,
 
 	return PF_Err_NONE;
 }
-
+#endif // __cplusplus
 
 #endif // H_PARAM_UTILS

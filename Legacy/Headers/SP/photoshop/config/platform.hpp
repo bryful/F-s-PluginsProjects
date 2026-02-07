@@ -74,6 +74,19 @@
 
 /**************************************************************************************************/
 
+// Simulated WASM support, which is a variation for PHOTOSHOP_PLATFORM(WEB) to support opt-out of
+// features that do not work in a simulated WASM environment.
+// Previously, the code was doing !defined(SIMULATED_WASM) in the feature #define's.  But that's undefined behavior.
+// warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+
+#if defined(SIMULATED_WASM)
+    #define PHOTOSHOP_PRIVATE_PLATFORM_SIMULATED_WASM() 1
+#else
+    #define PHOTOSHOP_PRIVATE_PLATFORM_SIMULATED_WASM() 0
+#endif
+
+/**************************************************************************************************/
+
 // Deprecated
 
 #define qPSIsWin (PHOTOSHOP_PLATFORM(MICROSOFT))

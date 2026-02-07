@@ -50,7 +50,7 @@ DetectHost (
 
 	switch (in_data->appl_id){
 
-		case 'FXTC':
+		case kAppID_AfterEffects:
 			if (in_data->version.major >= 12)
 			{
                 if (in_data->version.major == PF_AE171_PLUG_IN_VERSION && in_data->version.minor >= PF_AE171_PLUG_IN_SUBVERS) {
@@ -143,7 +143,7 @@ DetectHost (
 			} 
 			break;
 		
-		case 'PrMr':
+		case kAppID_Premiere:
 			{
 				// The major/minor versions provide basic differentiation.
 				// If you need finer granularity, e.g. differentiating between

@@ -165,9 +165,8 @@ Audio_Render (
 	PF_LayerAudio		audio 				= NULL;
 	PF_SndSamplePtr		data0 				= NULL;
 
-	A_long				current_timeL 		= 0, 
-						num_samples_bufferL	= 0, 
-						durationL 			= 0, 
+	//A_long			current_timeL 		= 0,
+    A_long				num_samples_bufferL	= 0,
 						out_dur_sampL 		= 0;
 	PF_FpLong			levelF				= params[AR_LEVEL]->u.fs_d.value,
 						freq_rateF			= params[AR_FREQ]->u.fs_d.value,
@@ -183,7 +182,8 @@ Audio_Render (
 						inv_samp_rateF		= 1.0 / out_data->dest_snd.fi.rateF;
 	
 	
-	current_timeL 	= in_data->current_time;
+	//if you need the current time, it can be retrieved.
+    //current_timeL 	= in_data->current_time;
 	out_dur_sampL = out_data->dur_sampL;
 
 	ERR(PF_CHECKOUT_LAYER_AUDIO (	in_data,		
@@ -304,24 +304,6 @@ Audio_Render (
         #endif
 	}
 	return err;
-} 
-
-static A_long
-RoundDouble(PF_FpLong x)
-{
-	A_long	retL;
-	
-	if (x > 0) {
-		retL = (A_long)(x + 0.5);
-	} else {
-		if ((A_long)(x + 0.5) == (x + 0.5)) {
-			retL = (A_long)x;
-		} else {
-			retL = (A_long)(x - 0.5);
-		}
-	
-	}
-	return retL;
 }
 
 

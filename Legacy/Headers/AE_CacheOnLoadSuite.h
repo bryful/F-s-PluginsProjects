@@ -32,7 +32,7 @@
 typedef struct PF_CacheOnLoadSuite1 {
 
 	SPAPI PF_Err	(*PF_SetNoCacheOnLoad)(	PF_ProgPtr			effect_ref,
-											long				effectAvailable);
+											A_long				effectAvailable);
 												
 } PF_CacheOnLoadSuite1;
 

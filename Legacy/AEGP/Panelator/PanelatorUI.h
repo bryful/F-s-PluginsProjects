@@ -29,6 +29,7 @@
 #endif
 
 #include "SuiteHelper.h"
+#include "SimpleSuiteHelper.h"
 
 enum {
 	PT_MenuCmd_RED = 30,
@@ -66,8 +67,8 @@ protected:
 
 	virtual void InvalidateAll() = 0;
 
-	SuiteHelper<PFAppSuite4>	i_appSuite;
-	SuiteHelper<AEGP_PanelSuite1>	i_panelSuite;
+	SimpleSuiteHelper<PFAppSuite4>	i_appSuite;
+	SimpleSuiteHelper<AEGP_PanelSuite1>	i_panelSuite;
 
 private:
 	static A_Err	S_GetSnapSizes(AEGP_PanelRefcon refcon, A_LPoint*	snapSizes, A_long * numSizesP);

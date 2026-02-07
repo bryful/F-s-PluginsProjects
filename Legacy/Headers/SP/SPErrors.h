@@ -17,18 +17,17 @@
 /*                                                                     */
 /***********************************************************************/
 
-
 /*******************************************************************************
  **
  ** Errors
  **
  **/
 /** @ingroup Errors
-	PICA access error. See \c #SPAccessSuite. */
-#define kSPCantAcquirePluginError		'!Acq'
+    PICA access error. See \c #SPAccessSuite. */
+#define kSPCantAcquirePluginError '!Acq'
 /** @ingroup Errors
-	PICA access error. See \c #SPAccessSuite. */
-#define kSPCantReleasePluginError		'!Rel'
+    PICA access error. See \c #SPAccessSuite. */
+#define kSPCantReleasePluginError '!Rel'
 /** @ingroup Errors
-	PICA access error. See \c #SPAccessSuite. */
-#define kSPPluginAlreadyReleasedError	'AlRl'
+    PICA access error. See \c #SPAccessSuite. */
+#define kSPPluginAlreadyReleasedError 'AlRl'

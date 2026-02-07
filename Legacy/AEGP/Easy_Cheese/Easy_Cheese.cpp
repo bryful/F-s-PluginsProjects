@@ -264,9 +264,17 @@ MessWithMarkers(
 															&value));
 
 	if (!err){
-		suites.ANSICallbacksSuite1()->strcpy((*(value.val.markerH))->nameAC, STR(StrID_MarkerText));
-		suites.ANSICallbacksSuite1()->strcpy((*(value.val.markerH))->urlAC, STR(StrID_URL));
-		suites.ANSICallbacksSuite1()->sprintf((*(value.val.markerH))->chapterAC, STR(StrID_Chapter), new_indexL + 1);
+        AEGP_MarkerVal*     valP = (*(value.val.markerH));
+        
+        suites.ANSICallbacksSuite1()->strcpy(
+            valP->nameAC, STR(StrID_MarkerText));
+
+        suites.ANSICallbacksSuite1()->strcpy(
+            valP->urlAC, STR(StrID_URL));
+
+		suites.ANSICallbacksSuite1()->sprintf(
+            valP->chapterAC,
+            STR(StrID_Chapter), new_indexL + 1);
 
 		err = suites.KeyframeSuite3()->AEGP_SetKeyframeValue(*stream_refPH, new_indexL, &value);
 	}

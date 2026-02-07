@@ -215,6 +215,16 @@ type 'PiPL'
 				cstring;
 			  win64x86End:
 				align long;
+
+			case CodeWinARM64:
+				longint = '8BIM';
+				key longint = 'wa64';
+				longint = 0;
+				longint = (winARM64End[$$ArrayIndex(properties)] - winARM64Start[$$ArrayIndex(properties)]) / 8;
+			  winARM64Start:
+				cstring;
+			  winARM64End:
+				align long;
 #endif
 
 			case SupportedModes:

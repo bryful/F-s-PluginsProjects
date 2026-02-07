@@ -163,7 +163,7 @@ private:
 		AEGP_CompositeSuite2		*composite_suite2P;
 		PF_WorldSuite1				*world_suite1P;
 		AEGP_PFInterfaceSuite1		*pf_interface_suite1P;
-		AEGP_MathSuite1			*math_suite1P;
+		AEGP_MathSuite1			    *math_suite1P;
 		PF_AdvTimeSuite4			*adv_time_suite4P;
 		PF_PathQuerySuite1			*path_query_suite1P;
 		PF_PathDataSuite1			*path_data_suite1P;

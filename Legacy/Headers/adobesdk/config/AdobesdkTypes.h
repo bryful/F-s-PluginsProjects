@@ -28,10 +28,15 @@
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PreConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+    #pragma clang diagnostic pop
 #endif
 
 typedef uint16_t ADOBESDK_UTF16Char;
@@ -55,10 +60,15 @@ typedef struct
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <adobesdk/config/PostConfig.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+    #pragma clang diagnostic pop
 #endif
 
 #endif //ADOBESDK_CONFIG_TYPES_H

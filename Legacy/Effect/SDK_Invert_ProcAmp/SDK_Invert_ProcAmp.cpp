@@ -35,6 +35,10 @@
 
 
 #if HAS_CUDA
+#ifdef _M_ARM64
+#error This SDK sample does not currently build for Windows ARM64 due to the CUDA SDK not yet supporting this platform
+#endif
+
 	#include <cuda_runtime.h>
 	// SDK_Invert_ProcAmp.h defines these and are needed whereas the cuda_runtime ones are not.
 	#undef MAJOR_VERSION

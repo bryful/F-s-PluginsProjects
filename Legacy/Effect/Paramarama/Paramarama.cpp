@@ -36,6 +36,8 @@
 
 #include "Paramarama.h"
 
+#include <cmath>
+
 
 static PF_Err 
 About (	
@@ -46,7 +48,8 @@ About (
 {
 	AEGP_SuiteHandler suites(in_data->pica_basicP);
 	
-	suites.ANSICallbacksSuite1()->sprintf(out_data->return_msg,
+	suites.ANSICallbacksSuite1()->sprintf(
+                                out_data->return_msg,
 								"%s v%d.%d\r%s",
 								STR(StrID_Name), 
 								MAJOR_VERSION, 
@@ -145,7 +148,7 @@ ParamsSetup (
 
 		AEFX_CLR_STRUCT(def);
 
-		if (in_data->appl_id == 'FXTC') {
+		if (in_data->appl_id == kAppID_AfterEffects) {
 
 			PF_ADD_POINT_3D(STR(StrID_3D_Point_Param_Name), 
 							DEFAULT_POINT_VALS, 
@@ -205,13 +208,13 @@ Render(
 
 		// Premiere Pro/Elements doesn't support WorldTransformSuite1,
 		// but it does support many of the callbacks in utils
-		if (PF_Quality_HI == in_data->quality && in_data->appl_id != 'PrMr')	{	
+		if (PF_Quality_HI == in_data->quality && in_data->appl_id != kAppID_Premiere)	{	
 			ERR(suites.WorldTransformSuite1()->copy_hq(in_data->effect_ref,
 														&params[0]->u.ld, 
 														output, 
 														NULL, 
 														NULL));
-		} else if (in_data->appl_id != 'PrMr')	{
+		} else if (in_data->appl_id != kAppID_Premiere)	{
 			ERR(suites.WorldTransformSuite1()->copy(	in_data->effect_ref,
 														&params[0]->u.ld, 
 														output, 
@@ -230,13 +233,13 @@ Render(
 			our old callback function macros.
 		*/
 		
-		convKer[4]	= (long)(sharpen * kernelSum);
+		convKer[4]	= std::floor(sharpen * kernelSum);
 		kernelSum	= (256 * 9 - convKer[4]) / 4;
-		convKer[1]	= convKer[3] = convKer[5] = convKer[7] = (long)kernelSum;
+		convKer[1]	= convKer[3] = convKer[5] = convKer[7] = std::floor(kernelSum);
 
 		// Premiere Pro/Elements doesn't support WorldTransformSuite1,
 		// but it does support many of the callbacks in utils
-		if (in_data->appl_id != 'PrMr')	{
+		if (in_data->appl_id != kAppID_Premiere)	{
 			ERR(suites.WorldTransformSuite1()->convolve(	in_data->effect_ref,
 															&params[0]->u.ld, 
 															&in_data->extent_hint,
@@ -274,14 +277,10 @@ UserChangedParam(
 	PF_Err err = PF_Err_NONE;
 
 	if (which_hitP->param_index == PARAMARAMA_BUTTON) {
-		if (in_data->appl_id != 'PrMr') {
-			PF_STRCPY(	out_data->return_msg, 
-						STR(StrID_Button_Message));
+		AEGP_SuiteHandler suites(in_data->pica_basicP);
+		suites.ANSICallbacksSuite1()->strcpy(out_data->return_msg, STR(StrID_Button_Message));
+		if (in_data->appl_id != kAppID_Premiere) {
 			out_data->out_flags |= PF_OutFlag_DISPLAY_ERROR_MESSAGE;
-		} else {
-			// In Premiere Pro, this message will appear in the Events panel
-			PF_STRCPY(	out_data->return_msg, 
-						STR(StrID_Button_Message));
 		}
 	}
 	

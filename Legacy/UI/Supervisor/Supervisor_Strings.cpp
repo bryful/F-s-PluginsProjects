@@ -26,7 +26,7 @@ typedef struct {
 	char			str[256];
 } TableString;
 
-
+#define kMenuItemSeparator      "|"
 
 TableString		g_strs[StrID_NUMTYPES] = {
 	StrID_NONE,					"",
@@ -34,23 +34,24 @@ TableString		g_strs[StrID_NUMTYPES] = {
 	StrID_Description,			"Demonstrates parameter supervision. Also, dig the whizzy seperators in the 'Flavor' pop-up!\rCopyright 2007-2023\rAdobe Inc.",
 
 	StrID_ModeName,				"Mode",
-	StrID_ModeChoices,			"Basic|"
-								"Advanced", 
+	StrID_ModeChoices,			"Basic"         kMenuItemSeparator
+								"Advanced",
 
-	StrID_FlavorName,			"Flavor",		
-	StrID_FlavorChoices,		"Chocolate|"
-								"(-|"
-								"Strawberry|"
-								"(-|"
-								"Sherbet  ",// Add trailing spaces because the initial string should be at least as long as
-											// any string we want to update it with. Otherwise, we will end up 
-											// overwriting memory that doesn't belong to us when replacing this string
-											// with the one below.
-	StrID_FlavorChoicesChanged,	"Chocolate|"
-								"(-|"
-								"Strawberry|"
-								"(-|"
-								"And more!",
+	StrID_FlavorName,			"Flavor",
+    
+	StrID_FlavorChoicesBasic,	"Chocolate"                     kMenuItemSeparator
+								"(-"                            kMenuItemSeparator
+								"Strawberry"                    kMenuItemSeparator
+								"(-"                            kMenuItemSeparator
+								"Sherbet",
+                                
+	StrID_FlavorChoicesAdvanced,"Exploding Snaps"               kMenuItemSeparator
+								"(-"                            kMenuItemSeparator
+								"Treacle Tart"                  kMenuItemSeparator
+								"(-"                            kMenuItemSeparator
+								"Diracawl Slices (with gravy)"  kMenuItemSeparator
+								"(-"                            kMenuItemSeparator
+								"Butter Beer",
 
 	StrID_ColorName,			"Color",
 
@@ -62,7 +63,7 @@ TableString		g_strs[StrID_NUMTYPES] = {
 	StrID_Err_LoadSuite,		"Couldn't acquire suite.", 
 	StrID_Err_FreeSuite,		"Couldn't free suite.",
 
-	StrID_FlavorNameDisabled,	"Flavor (disabled in Basic mode)",
+	StrID_FlavorNameDisabled,	"Flavor (disabled: Advanced)",
 
 	StrID_GeneralError,			"Error handling Changed Param."
 };

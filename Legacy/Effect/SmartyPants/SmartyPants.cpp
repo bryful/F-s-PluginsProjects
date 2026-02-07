@@ -1002,21 +1002,14 @@ ParamsSetup(
 {
 	PF_Err			err = PF_Err_NONE;
 
-	A_char			*popup = (A_char*)STR(StrID_Channels); //"RGB|Red|Green|Blue|(-|HLS|Hue|Lightness|Saturation|(-|YIQ|Luminance|In Phase Chrominance|Quadrature Chrominance|(-|Alpha";
 	PF_ParamDef		def;
-	AEFX_CLR_STRUCT(def);
-
-	def.flags = 0;
-	def.ui_flags = def.ui_width = def.ui_height = 0;
-
-	def.param_type 			= PF_Param_POPUP;
-	def.u.pd.dephault 		= def.u.pd.value = Channel_RGB;
-	def.u.pd.num_choices 	= Channel_ALPHA; // last param
-	def.u.pd.u.namesptr 	= popup;
-
-	PF_STRCPY(def.name, STR(StrID_ChannelParam_Name)); //"Channel"
-
-	ERR(PF_ADD_PARAM(in_data, -1, &def));
+ 
+    PF_ADD_POPUPX(
+        STR(StrID_ChannelParam_Name),
+        Channel_ALPHA,
+        Channel_RGB,
+        STR(StrID_Channels),
+        0, 0);
 
 	def.param_type 				= PF_Param_FLOAT_SLIDER;
 	def.u.fs_d.valid_min 		= def.u.fs_d.slider_min 	= SMARTY_BLEND_MIN;
@@ -1025,7 +1018,7 @@ ParamsSetup(
 	def.u.fs_d.precision 		= 1;	
 	def.u.fs_d.display_flags	= PF_ValueDisplayFlag_PERCENT;
 	
-	PF_STRCPY(def.name, STR(StrID_Layer_Param_Name)); //"Layer Blend Ratio";
+	PF_STRCPY(def.PF_DEF_NAME, STR(StrID_Layer_Param_Name)); //"Layer Blend Ratio";
 
 	ERR(PF_ADD_PARAM(in_data, -1, &def));
 

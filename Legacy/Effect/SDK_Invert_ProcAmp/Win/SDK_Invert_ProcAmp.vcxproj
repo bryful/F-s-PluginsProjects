@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
+    <ProjectConfiguration Include="Debug|ARM64">
       <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
+      <Platform>ARM64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
+    <ProjectConfiguration Include="Release|ARM64">
       <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
+      <Platform>ARM64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
@@ -25,17 +25,12 @@
     <ProjectName>SDK_Invert_ProcAmp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v143</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v143</PlatformToolset>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <PlatformToolset>v143</PlatformToolset>
@@ -45,18 +40,19 @@
     <UseOfMfc>false</UseOfMfc>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
   </ImportGroup>
@@ -64,37 +60,45 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(AE_PLUGIN_BUILD_DIR)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(AE_PLUGIN_BUILD_DIR)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(Platform)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(Platform)\$(Configuration)\</IntDir>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</IgnoreImportLibrary>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</IgnoreImportLibrary>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(AE_PLUGIN_BUILD_DIR)\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(AE_PLUGIN_BUILD_DIR)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\</IntDir>
-    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
-    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
-    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
-    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</IgnoreImportLibrary>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" />
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.aex</TargetExt>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.aex</TargetExt>
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" />
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.aex</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">.aex</TargetExt>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.aex</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">.aex</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <OutDir>$(AE_PLUGIN_BUILD_DIR)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <OutDir>$(AE_PLUGIN_BUILD_DIR)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
@@ -145,6 +149,60 @@
       </DataExecutionPrevention>
       <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
       <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalLibraryDirectories>$(CUDA_SDK_BASE_PATH)\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>cudart_static.lib;OpenCL.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Bscmake>
+      <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TypeLibraryName>.\Debug/SDK_Invert_ProcAmp.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\Headers;..\..\..\Headers\SP;..\..\..\Headers\Win;..\..\..\Resources;..\..\..\Util;..\..\..\GPUUtils;$(BOOST_BASE_PATH)\;$(CUDA_SDK_BASE_PATH)\include\;$(IntDir)PreprocessedOpenCL</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MSWindows;WIN32;_DEBUG;_WINDOWS;HAS_CUDA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <StructMemberAlignment>
+      </StructMemberAlignment>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile>AE_Effect.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>
+      </SubSystem>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>$(CUDA_SDK_BASE_PATH)\lib\x64</AdditionalLibraryDirectories>
       <AdditionalDependencies>cudart_static.lib;OpenCL.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -209,75 +267,22 @@
       <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/SDK_Invert_ProcAmp.tlb</TypeLibraryName>
-      <HeaderFileName>
-      </HeaderFileName>
-    </Midl>
-    <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\Headers;..\..\..\Headers\SP;..\..\..\Headers\Win;..\..\..\Resources;..\..\..\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>MSWindows;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <StructMemberAlignment>Default</StructMemberAlignment>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <PrecompiledHeaderFile>AE_Effect.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
-      <AssemblerOutput>NoListing</AssemblerOutput>
-      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
-      <BrowseInformation>true</BrowseInformation>
-      <WarningLevel>Level3</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <CompileAs>Default</CompileAs>
-    </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
-    <Link>
-      <ShowProgress>NotSet</ShowProgress>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
-      <SubSystem>
-      </SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
-      <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Link>
-    <Bscmake>
-      <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
-    </Bscmake>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Midl>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>X64</TargetEnvironment>
       <TypeLibraryName>.\Debug/SDK_Invert_ProcAmp.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\Headers;..\..\..\Headers\SP;..\..\..\Headers\Win;..\..\..\Resources;..\..\..\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>MSWindows;WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Headers;..\..\..\Headers\SP;..\..\..\Headers\Win;..\..\..\Resources;..\..\..\Util;..\..\..\GPUUtils;$(BOOST_BASE_PATH)\;$(CUDA_SDK_BASE_PATH)\include\;$(IntDir)PreprocessedOpenCL</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MSWindows;WIN32;_WINDOWS;HAS_CUDA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <StructMemberAlignment>Default</StructMemberAlignment>
+      <StructMemberAlignment>
+      </StructMemberAlignment>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <PrecompiledHeaderFile>AE_Effect.h</PrecompiledHeaderFile>
@@ -306,11 +311,12 @@
       <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
       <SubSystem>
       </SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
-      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>cudart_static.lib;OpenCL.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(CUDA_SDK_BASE_PATH)\lib\x64</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
@@ -356,28 +362,50 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">del /Q "$(ProjectDir)%(Filename).i" 2&gt; nul
 "cl.exe" /nologo -D GF_DEVICE_TARGET_OPENCL=1 -I"$(BOOST_BASE_PATH)" -I"..\..\..\GPUUtils" /TP /P "%(FullPath)"
 python "..\..\..\GPUUtils\CreateCString.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)PreprocessedOpenCL\%(Filename).cl.h" --name k%(Filename)_OpenCLString</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">del /Q "$(ProjectDir)%(Filename).i" 2&gt; nul
+"cl.exe" /nologo -D GF_DEVICE_TARGET_OPENCL=1 -I"$(BOOST_BASE_PATH)" -I"..\..\..\GPUUtils" /TP /P "%(FullPath)"
+python "..\..\..\GPUUtils\CreateCString.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)PreprocessedOpenCL\%(Filename).cl.h" --name k%(Filename)_OpenCLString</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Preprocessing OpenCL to Strings for %(Filename).cl</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Preprocessing OpenCL to Strings for %(Filename).cl</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).i;$(IntDir)\PreprocessedOpenCL\%(Filename).cl.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(ProjectDir)%(Filename).i;$(IntDir)\PreprocessedOpenCL\%(Filename).cl.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RelativeDir)\%(filename).cu;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">%(RelativeDir)\%(filename).cu;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">del /Q "$(ProjectDir)%(Filename).i" 2&gt; nul
 "cl.exe" /nologo -D GF_DEVICE_TARGET_OPENCL=1 -I"$(BOOST_BASE_PATH)" -I"..\..\..\GPUUtils" /TP /P "%(FullPath)"
 python "..\..\..\GPUUtils\CreateCString.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)PreprocessedOpenCL\%(Filename).cl.h" --name k%(Filename)_OpenCLString</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">del /Q "$(ProjectDir)%(Filename).i" 2&gt; nul
+"cl.exe" /nologo -D GF_DEVICE_TARGET_OPENCL=1 -I"$(BOOST_BASE_PATH)" -I"..\..\..\GPUUtils" /TP /P "%(FullPath)"
+python "..\..\..\GPUUtils\CreateCString.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)PreprocessedOpenCL\%(Filename).cl.h" --name k%(Filename)_OpenCLString</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Preprocessing OpenCL to Strings for %(Filename).cl</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Preprocessing OpenCL to Strings for %(Filename).cl</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).i;$(IntDir)\PreprocessedOpenCL\%(Filename).cl.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(ProjectDir)%(Filename).i;$(IntDir)\PreprocessedOpenCL\%(Filename).cl.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(RelativeDir)\%(filename).cu;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">%(RelativeDir)\%(filename).cu;%(AdditionalInputs)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\SDK_Invert_ProcAmp_Kernel.cu">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">rem Correct compilation is dependant on nvcc being installed correctly, from the CUDA SDK
 "$(CUDA_SDK_BASE_PATH)\bin\nvcc.exe" -D_DEBUG -arch=sm_50 -use_fast_math -m64 -c -ccbin "$(VC_ExecutablePath_x64_x64)" -D_MBCS -Xcompiler /MDd,/EHsc,/W3,/nologo,/Zi -I"$(CUDA_SDK_BASE_PATH)\include" -I./ -I"$(ProjectDir)..\..\..\GPUUtils" -I$(BOOST_BASE_PATH) -o "$(IntDir)%(Filename).obj" "$(ProjectDir)..\%(Filename).cu"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">rem Correct compilation is dependant on nvcc being installed correctly, from the CUDA SDK
+"$(CUDA_SDK_BASE_PATH)\bin\nvcc.exe" -D_DEBUG -arch=sm_50 -use_fast_math -m64 -c -ccbin "$(VC_ExecutablePath_x64_x64)" -D_MBCS -Xcompiler /MDd,/EHsc,/W3,/nologo,/Zi -I"$(CUDA_SDK_BASE_PATH)\include" -I./ -I"$(ProjectDir)..\..\..\GPUUtils" -I$(BOOST_BASE_PATH) -o "$(IntDir)%(Filename).obj" "$(ProjectDir)..\%(Filename).cu"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Custom build step: Building %(Filename).cu</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Custom build step: Building %(Filename).cu</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).obj</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)%(Filename).obj</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">rem Correct compilation is dependant on nvcc being installed correctly, from the CUDA SDK
 "$(CUDA_SDK_BASE_PATH)\bin\nvcc.exe" -arch=sm_50 -use_fast_math -m64 -c -ccbin "$(VC_ExecutablePath_x64_x64)" -D_MBCS -Xcompiler /MD,/EHsc,/W3,/nologo,/Zi -I"$(CUDA_SDK_BASE_PATH)\include" -I./ -I"$(ProjectDir)..\..\..\GPUUtils" -I$(BOOST_BASE_PATH) -o "$(IntDir)%(Filename).obj" "$(ProjectDir)..\%(Filename).cu"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">rem Correct compilation is dependant on nvcc being installed correctly, from the CUDA SDK
+"$(CUDA_SDK_BASE_PATH)\bin\nvcc.exe" -arch=sm_50 -use_fast_math -m64 -c -ccbin "$(VC_ExecutablePath_x64_x64)" -D_MBCS -Xcompiler /MD,/EHsc,/W3,/nologo,/Zi -I"$(CUDA_SDK_BASE_PATH)\include" -I./ -I"$(ProjectDir)..\..\..\GPUUtils" -I$(BOOST_BASE_PATH) -o "$(IntDir)%(Filename).obj" "$(ProjectDir)..\%(Filename).cu"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Custom build step: Building %(Filename).cu</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Custom build step: Building %(Filename).cu</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).obj</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(IntDir)%(Filename).obj</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">%(AdditionalInputs)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\SDK_Invert_ProcAmp_Kernel.chlsl">
       <FileType>Document</FileType>
@@ -385,35 +413,65 @@ python "..\..\..\GPUUtils\CreateCString.py" -i "$(ProjectDir)%(Filename).i" -o "
 del /Q "$(ProjectDir)%(Filename).i" 2&gt; nul
 "cl.exe" /nologo -D GF_DEVICE_TARGET_HLSL=1 -I"$(BOOST_BASE_PATH)" -I"..\..\..\GPUUtils" /TP /P "%(FullPath)"
 python "..\..\..\GPUUtils\ParseHLSL.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)." -e ProcAmp2Kernel
-"$(DXC_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)ProcAmp2Kernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso" -Frs "$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives
+"$(DXC_SDK_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)ProcAmp2Kernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso" -Frs "$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives
 python "..\..\..\GPUUtils\ParseHLSL.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)." -e InvertColorKernel
-"$(DXC_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)InvertColorKernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\InvertColorKernel.cso" -Frs "$(IntDir)DirectX_Assets\InvertColorKernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives</Command>
+"$(DXC_SDK_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)InvertColorKernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\InvertColorKernel.cso" -Frs "$(IntDir)DirectX_Assets\InvertColorKernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">rem Correct compilation is dependant on DXC being installed correctly, from the DirectX Shader Compiler
+del /Q "$(ProjectDir)%(Filename).i" 2&gt; nul
+"cl.exe" /nologo -D GF_DEVICE_TARGET_HLSL=1 -I"$(BOOST_BASE_PATH)" -I"..\..\..\GPUUtils" /TP /P "%(FullPath)"
+python "..\..\..\GPUUtils\ParseHLSL.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)." -e ProcAmp2Kernel
+"$(DXC_SDK_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)ProcAmp2Kernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso" -Frs "$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives
+python "..\..\..\GPUUtils\ParseHLSL.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)." -e InvertColorKernel
+"$(DXC_SDK_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)InvertColorKernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\InvertColorKernel.cso" -Frs "$(IntDir)DirectX_Assets\InvertColorKernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Preprocessing HLSL to CSO/RS for %(Filename).chlsl</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Preprocessing HLSL to CSO/RS for %(Filename).chlsl</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).i;$(IntDir)ProcAmp2Kernel.hlsl;$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso;$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs;$(IntDir)InvertColorKernel.hlsl;$(IntDir)DirectX_Assets\InvertColorKernel.cso;$(IntDir)DirectX_Assets\InvertColorKernel.rs</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(ProjectDir)%(Filename).i;$(IntDir)ProcAmp2Kernel.hlsl;$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso;$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs;$(IntDir)InvertColorKernel.hlsl;$(IntDir)DirectX_Assets\InvertColorKernel.cso;$(IntDir)DirectX_Assets\InvertColorKernel.rs</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RelativeDir)\%(filename).cu;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">%(RelativeDir)\%(filename).cu;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">rem Correct compilation is dependant on DXC being installed correctly, from the DirectX Shader Compiler
 del /Q "$(ProjectDir)%(Filename).i" 2&gt; nul
 "cl.exe" /nologo -D GF_DEVICE_TARGET_HLSL=1 -I"$(BOOST_BASE_PATH)" -I"..\..\..\GPUUtils" /TP /P "%(FullPath)"
 python "..\..\..\GPUUtils\ParseHLSL.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)." -e ProcAmp2Kernel
-"$(DXC_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)ProcAmp2Kernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso" -Frs "$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives
+"$(DXC_SDK_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)ProcAmp2Kernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso" -Frs "$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives
 python "..\..\..\GPUUtils\ParseHLSL.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)." -e InvertColorKernel
-"$(DXC_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)InvertColorKernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\InvertColorKernel.cso" -Frs "$(IntDir)DirectX_Assets\InvertColorKernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives</Command>
+"$(DXC_SDK_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)InvertColorKernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\InvertColorKernel.cso" -Frs "$(IntDir)DirectX_Assets\InvertColorKernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">rem Correct compilation is dependant on DXC being installed correctly, from the DirectX Shader Compiler
+del /Q "$(ProjectDir)%(Filename).i" 2&gt; nul
+"cl.exe" /nologo -D GF_DEVICE_TARGET_HLSL=1 -I"$(BOOST_BASE_PATH)" -I"..\..\..\GPUUtils" /TP /P "%(FullPath)"
+python "..\..\..\GPUUtils\ParseHLSL.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)." -e ProcAmp2Kernel
+"$(DXC_SDK_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)ProcAmp2Kernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso" -Frs "$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives
+python "..\..\..\GPUUtils\ParseHLSL.py" -i "$(ProjectDir)%(Filename).i" -o "$(IntDir)." -e InvertColorKernel
+"$(DXC_SDK_BASE_PATH)\bin\x64\dxc.exe" "$(IntDir)InvertColorKernel.hlsl" -E main -Fo "$(IntDir)DirectX_Assets\InvertColorKernel.cso" -Frs "$(IntDir)DirectX_Assets\InvertColorKernel.rs" -T cs_6_5 -enable-16bit-types -ignore-line-directives</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Preprocessing HLSL to CSO/RS for %(Filename).chlsl</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Preprocessing HLSL to CSO/RS for %(Filename).chlsl</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).i;$(IntDir)ProcAmp2Kernel.hlsl;$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso;$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs;$(IntDir)InvertColorKernel.hlsl;$(IntDir)DirectX_Assets\InvertColorKernel.cso;$(IntDir)DirectX_Assets\InvertColorKernel.rs</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(ProjectDir)%(Filename).i;$(IntDir)ProcAmp2Kernel.hlsl;$(IntDir)DirectX_Assets\ProcAmp2Kernel.cso;$(IntDir)DirectX_Assets\ProcAmp2Kernel.rs;$(IntDir)InvertColorKernel.hlsl;$(IntDir)DirectX_Assets\InvertColorKernel.cso;$(IntDir)DirectX_Assets\InvertColorKernel.rs</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(RelativeDir)\%(filename).cu;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">%(RelativeDir)\%(filename).cu;%(AdditionalInputs)</AdditionalInputs>
     </CustomBuild>
     <CustomBuild Include="..\SDK_Invert_ProcAmpPiPL.r">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
 cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)"\\"%(Filename)".rc</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
+"$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
+cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)"\\"%(Filename)".rc</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compiling the PiPL</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Compiling the PiPL</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)%(Filename).rc;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(ProjectDir)%(Filename).rc;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
 cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)"\\"%(Filename)".rc</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">cl /I "$(ProjectDir)..\..\..\Headers" /EP ".."\\"%(Filename).r" &gt; "$(IntDir)"\\"%(Filename).rr"
+"$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
+cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)"\\"%(Filename)".rc</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compiling the PiPL</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Compiling the PiPL</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).rc;%(Outputs)</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(ProjectDir)%(Filename).rc;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

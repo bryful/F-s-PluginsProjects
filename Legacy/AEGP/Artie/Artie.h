@@ -20,7 +20,7 @@
 /*******************************************************************/
 
 #ifndef _ARTIE_H_
-#define _Artie_H_
+#define _ARTIE_H_
 
 #include "AEConfig.h"
 #include "entry.h"

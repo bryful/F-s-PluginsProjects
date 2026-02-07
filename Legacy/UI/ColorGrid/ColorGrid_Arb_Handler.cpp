@@ -425,21 +425,27 @@ AEFX_AppendText(
 {
 	PF_Err			err = PF_Err_NONE;
 
-	A_u_long		new_strlenLu = strlen(srcAC) + *current_indexPLu;
-
-
-	if (new_strlenLu <= dest_sizeLu) {
-		destAC[*current_indexPLu] = 0x00;
-
+    const size_t srcAC_length = strlen(srcAC);
+    if (srcAC_length > UINT32_MAX - *current_indexPLu)
+    {
+        err = AEFX_ParseError_APPEND_ERROR;
+    }
+    else
+    {
+        const A_u_long new_strlenLu = static_cast<A_u_long>(srcAC_length + *current_indexPLu);
+        
+        if (new_strlenLu <= dest_sizeLu) {
+            destAC[*current_indexPLu] = 0x00;
+            
 #ifdef AE_OS_WIN
-		strncat_s(destAC, dest_sizeLu, srcAC, strlen(srcAC));
+            strncat_s(destAC, dest_sizeLu, srcAC, srcAC_length);
 #else
-		strncat(destAC, srcAC, strlen(srcAC));
+            strncat(destAC, srcAC, srcAC_length);
 #endif
-		*current_indexPLu = new_strlenLu;
-	} else {
-		err = AEFX_ParseError_APPEND_ERROR;
-	}
-
+            *current_indexPLu = new_strlenLu;
+        } else {
+            err = AEFX_ParseError_APPEND_ERROR;
+        }
+    }
 	return err;
 }

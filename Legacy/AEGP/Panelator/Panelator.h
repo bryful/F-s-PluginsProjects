@@ -35,6 +35,7 @@
 	#error
 #endif
 #include "SuiteHelper.h"
+#include "SimpleSuiteHelper.h"
 #include "String_Utils.h"
 #include "AE_EffectSuites.h"
 #include "PanelatorUI_Plat.h"

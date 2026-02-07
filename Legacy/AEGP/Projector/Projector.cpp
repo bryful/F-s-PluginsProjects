@@ -83,9 +83,12 @@ copyConvertStringLiteralIntoUTF16(
 	A_UTF16Char* destination)
 {
 #ifdef AE_OS_MAC
-	int length = wcslen(inputString);
-	CFRange	range = {0, 256};
-	range.length = length;
+	const size_t inputStringLength = wcslen(inputString);
+	const size_t maximumStringLength = LONG_MAX / sizeof(wchar_t);
+	const CFIndex length = (inputStringLength < maximumStringLength) ? inputStringLength : maximumStringLength;
+
+	const CFRange range = {0, length};
+
 	CFStringRef inputStringCFSR = CFStringCreateWithBytes(kCFAllocatorDefault,
 														  reinterpret_cast<const UInt8 *>(inputString),
 														  length * sizeof(wchar_t),

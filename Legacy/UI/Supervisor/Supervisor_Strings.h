@@ -10,18 +10,22 @@ typedef enum {
 
 
 	StrID_FlavorName,
-	StrID_FlavorChoices,
-
-
-
-
-	StrID_FlavorChoicesChanged,
+    
+	StrID_FlavorChoicesBasic,
 
 
 
 
 
-	StrID_ColorName, 
+	StrID_FlavorChoicesAdvanced,
+
+
+
+
+
+
+
+	StrID_ColorName,
 
 	StrID_SliderName,  
 
@@ -31,8 +35,6 @@ typedef enum {
 	StrID_Err_LoadSuite,
 	StrID_Err_FreeSuite, 
 
-	StrID_TopicName,
-	StrID_TopicNameDisabled, 
 	StrID_FlavorNameDisabled,
 
 	StrID_GeneralError,

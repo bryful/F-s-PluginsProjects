@@ -1,4 +1,0 @@
-/**
- * \mainpage
- * \htmlinclude mainpage.html
- */

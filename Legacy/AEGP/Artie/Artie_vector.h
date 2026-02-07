@@ -12,16 +12,15 @@
  ** All the typedefs for the Artie ray tracer
  **/
 
-#define X 0
-#define Y 1
-#define Z 2
-#define W 3
+#define ARTIE_X 0
+#define ARTIE_Y 1
+#define ARTIE_Z 2
+#define ARTIE_W 3
 
 #define Artie_EPSILON 1e-7
 
 
 
-#define MIN(A,B)			((A) < (B) ? (A) : (B))
 
 
 

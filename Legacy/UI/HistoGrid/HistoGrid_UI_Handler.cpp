@@ -146,7 +146,7 @@ Deactivate(
 	AEGP_SuiteHandler		suites(in_data->pica_basicP);
 
 	// Premiere Pro/Elements does not support this suite
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		ERR(suites.AdvAppSuite2()->PF_InfoDrawText("HistoGrid - Deactivate Event","Adobe Inc"));
 	}

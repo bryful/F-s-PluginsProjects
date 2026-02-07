@@ -27,7 +27,19 @@ typedef struct _AEGP_PanelRefcon			*AEGP_PanelRefcon;
 
 
 
+#ifdef _WIN32
+    #pragma warning(push)
+    #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
+#endif
 #include <AE_GeneralPlugPre.h>
+#ifdef _WIN32
+    #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
+#endif
 
 
 enum {AEGP_FlyoutMenuCmdID_NONE = 0};
@@ -128,7 +140,18 @@ typedef struct {
 } AEGP_PanelSuite1;
 
 
+#ifdef _WIN32
+    #pragma warning(push)
+    #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
+#endif
 #include <AE_GeneralPlugPost.h>
-
+#ifdef _WIN32
+    #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
+#endif
 
 #endif

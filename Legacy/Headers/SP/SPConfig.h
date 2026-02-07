@@ -19,9 +19,9 @@
 
 /**
 
-	SPConfig.h is the environment configuration file for Sweet Pea. It
-	defines MAC_ENV or WIN_ENV. These are used to control platform-specific
-	sections of code.
+    SPConfig.h is the environment configuration file for Sweet Pea. It
+    defines MAC_ENV or WIN_ENV. These are used to control platform-specific
+    sections of code.
 
  **/
 
@@ -29,48 +29,48 @@
 #define __SPCnfig__
 
 #if defined(__APPLE_CC__)
-#if !defined (MAC_ENV) && !defined(SIMULATED_WASM)
-#define MAC_ENV 1
-#endif
+    #if !defined(MAC_ENV) && !defined(SIMULATED_WASM)
+        #define MAC_ENV 1
+    #endif
 #endif
 
 /*
- *	Windows
+ *  Windows
  */
-#if defined(_WINDOWS) || defined(_MSC_VER) || defined(WINDOWS)		// PSMod, better compiler check
-#ifndef WIN_ENV
-#define WIN_ENV 1
-#endif
+#if defined(_WINDOWS) || defined(_MSC_VER) || defined(WINDOWS) // PSMod, better compiler check
+    #ifndef WIN_ENV
+        #define WIN_ENV 1
+    #endif
 #endif
 
 #ifndef qiOS
-#if defined(MAC_ENV) && defined(__arm__)
-#define qiOS 1
-#endif
+    #if defined(MAC_ENV) && defined(__arm__)
+        #define qiOS 1
+    #endif
 #endif
 
 /*
- *	Make certain that one and only one of the platform constants is defined.
+ *  Make certain that one and only one of the platform constants is defined.
  */
 
 #ifdef __ANDROID__
-	#define ANDROID_ENV 1
+    #define ANDROID_ENV 1
 #endif
 
 #ifdef __LINUX__
     #define UNIX_ENV 1
 #endif
 
-#if defined (__EMSCRIPTEN__)
-	#define WEB_ENV 1
+#if defined(__EMSCRIPTEN__)
+    #define WEB_ENV 1
 #endif
 
 #if !defined(WIN_ENV) && !defined(MAC_ENV) && !defined(ANDROID_ENV) && !defined(UNIX_ENV) && !defined(WEB_ENV)
-	#error
+    #error
 #endif
 
-#if defined(WIN_ENV) && defined(MAC_ENV) && defined(ANDROID_ENV) && defined(UNIX_ENV) && defined (WEB_ENV)
-	#error
+#if defined(WIN_ENV) && defined(MAC_ENV) && defined(ANDROID_ENV) && defined(UNIX_ENV) && defined(WEB_ENV)
+    #error
 #endif
 
 #endif

@@ -28,10 +28,15 @@
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <AE_GeneralPlugPre.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif
 
 typedef struct {	// note: unused values are still stored in settings and used when cycling through
@@ -10009,6 +10014,191 @@ typedef struct AEGP_IterateSuite1 {
 
 #define kAEGPIOInSuite			"AEGP IO In Suite"
 
+#define kAEGPIOInSuiteVersion6    7 /* frozen in AE 25 */
+
+typedef struct AEGP_IOInSuite6 {
+    
+    SPAPI A_Err    (*AEGP_GetInSpecOptionsHandle)(
+                                                  AEIO_InSpecH    inH,                    /* >> */
+                                                  void            **optionsPPV);            /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecOptionsHandle)(
+                                                  AEIO_InSpecH    inH,                    /* >> */
+                                                  void            *optionsPV,                /* >> */
+                                                  void            **old_optionsPPV);        /* << */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecFilePath)(
+                                             AEIO_InSpecH    inH,                    /* >> */
+                                             AEGP_MemHandle    *unicode_pathPH);        // << handle of A_UTF16Char (contains null terminated UTF16 string); must be disposed with AEGP_FreeMemHandle
+    
+    SPAPI A_Err    (*AEGP_GetInSpecNativeFPS)(
+                                              AEIO_InSpecH    inH,                    /* >> */
+                                              A_Fixed            *native_fpsP);            /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecNativeFPS)(
+                                              AEIO_InSpecH    inH,                    /* >> */
+                                              A_Fixed            native_fps);            /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecDepth)(
+                                          AEIO_InSpecH    inH,                    /* >> */
+                                          A_short            *depthPS);                /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecDepth)(
+                                          AEIO_InSpecH    inH,                    /* >> */
+                                          A_short            depthS);                /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecSize)(
+                                         AEIO_InSpecH    inH,                    /* >> */
+                                         AEIO_FileSize    *sizePL);                /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecSize)(
+                                         AEIO_InSpecH    inH,                    /* >> */
+                                         AEIO_FileSize    sizeL);                    /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecInterlaceLabel)(
+                                                   AEIO_InSpecH        inH,                /* >> */
+                                                   FIEL_Label             *interlaceP);        /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecInterlaceLabel)(
+                                                   AEIO_InSpecH        inH,                /* >> */
+                                                   const FIEL_Label    *interlaceP);        /* << */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecAlphaLabel)(
+                                               AEIO_InSpecH            inH,            /* >> */
+                                               AEIO_AlphaLabel            *alphaP);        /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecAlphaLabel)(
+                                               AEIO_InSpecH            inH,            /* >> */
+                                               const AEIO_AlphaLabel    *alphaP);        /* << */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecDuration)(
+                                             AEIO_InSpecH    inH,                    /* >> */
+                                             A_Time            *durationP);            /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecDuration)(
+                                             AEIO_InSpecH    inH,                    /* >> */
+                                             const A_Time    *durationP);            /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecDimensions)(
+                                               AEIO_InSpecH    inH,                    /* >> */
+                                               A_long            *widthPL0,                /* << */
+                                               A_long            *heightPL0);
+    
+    SPAPI A_Err    (*AEGP_SetInSpecDimensions)(
+                                               AEIO_InSpecH    inH,                    /* >> */
+                                               A_long            widthL,                    /* >> */
+                                               A_long            heightL);                /* >> */
+    
+    SPAPI A_Err    (*AEGP_InSpecGetRationalDimensions)(
+                                                       AEIO_InSpecH                inH,        /* >> */
+                                                       const AEIO_RationalScale    *rs0,        /* << */
+                                                       A_long                        *width0,    /* << */
+                                                       A_long                        *height0,    /* << */
+                                                       A_Rect                        *r0);        /* << */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecHSF)(
+                                        AEIO_InSpecH    inH,                    /* >> */
+                                        A_Ratio            *hsfP);                    /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecHSF)(
+                                        AEIO_InSpecH    inH,                    /* >> */
+                                        const A_Ratio    *hsfP);                    /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecSoundRate)(
+                                              AEIO_InSpecH    inH,                    /* >> */
+                                              A_FpLong        *ratePF);                /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecSoundRate)(
+                                              AEIO_InSpecH    inH,                    /* >> */
+                                              A_FpLong        rateF);                    /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecSoundEncoding)(
+                                                  AEIO_InSpecH        inH,                /* >> */
+                                                  AEIO_SndEncoding    *encodingP);        /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecSoundEncoding)(
+                                                  AEIO_InSpecH        inH,                /* >> */
+                                                  AEIO_SndEncoding    encoding);            /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecSoundSampleSize)(
+                                                    AEIO_InSpecH        inH,                /* >> */
+                                                    AEIO_SndSampleSize    *bytes_per_sampleP);/* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecSoundSampleSize)(
+                                                    AEIO_InSpecH        inH,                /* >> */
+                                                    AEIO_SndSampleSize    bytes_per_sample);    /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecSoundChannels)(
+                                                  AEIO_InSpecH        inH,                /* >> */
+                                                  AEIO_SndChannels    *num_channelsP);    /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecSoundChannels)(
+                                                  AEIO_InSpecH        inH,                /* >> */
+                                                  AEIO_SndChannels    num_channels);        /* >> */
+    
+    SPAPI A_Err    (*AEGP_AddAuxExtMap)(
+                                        const A_char        *extension,            /* >> */
+                                        A_long                file_type,            /* >> */
+                                        A_long                creator);            /* >> */
+    
+    // In case of RGB data, if there is an embedded icc profile, build AEGP_ColorProfile out of this icc profile using AEGP_GetNewColorProfileFromICCProfile and pass it to
+    // AEGP_SetInSpecEmbeddedColorProfile, with profile description set to NULL.
+    //
+    // In case of non-RGB data, if there is an embedded non-RGB icc profile or you know the color space the data is in, pass its description as a null-terminated unicode string
+    // to AEGP_SetInSpecEmbeddedColorProfile, with color profile set to NULL. Doing this disables color management UI that allows user to affect
+    // profile choice in the application UI.
+    //
+    // If you are unpacking non-RGB data directly into working space (to get working space use AEGP_GetNewWorkingSpaceColorProfile), you are done.
+    //
+    // If you are unpacking non-RGB data into specific RGB color space, you must pass the profile describing this space to AEGP_SetInSpecAssignedColorProfile.
+    // Otherwise, your RGB data will be incorrectly interpreted as being in working space.
+    //
+    // Either color profile or profile description should be NULL in AEGP_SetInSpecEmbeddedColorProfile. You cannot use both.
+    SPAPI A_Err (*AEGP_SetInSpecEmbeddedColorProfile)(
+                                                      AEIO_InSpecH            inH,                // <<
+                                                      AEGP_ConstColorProfileP    color_profileP0,    // <<
+                                                      const    A_UTF16Char        *profile_descP0);    // <<    pointer to a null-terminated unicode string
+    
+    // Assign valid RGB profile to the footage
+    SPAPI A_Err (*AEGP_SetInSpecAssignedColorProfile)(
+                                                      AEIO_InSpecH            inH,                // <<
+                                                      AEGP_ConstColorProfileP    color_profileP);    // <<
+    
+    
+    SPAPI A_Err    (*AEGP_GetInSpecNativeStartTime)(
+                                                    AEIO_InSpecH    inH,                    /* >> */
+                                                    A_Time        *startTimeP);            /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecNativeStartTime)(
+                                                    AEIO_InSpecH    inH,                    /* >> */
+                                                    const A_Time    *startTimeP);            /* >> */
+    
+    SPAPI A_Err    (*AEGP_ClearInSpecNativeStartTime)(
+                                                      AEIO_InSpecH    inH);                /* >> */
+    
+    SPAPI A_Err    (*AEGP_GetInSpecNativeDisplayDropFrame)(
+                                                           AEIO_InSpecH    inH,                        /* >> */
+                                                           A_Boolean        *displayDropFrameBP);    /* << */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecNativeDisplayDropFrame)(
+                                                           AEIO_InSpecH    inH,                        /* >> */
+                                                           A_Boolean        displayDropFrameB);        /* >> */
+    
+    SPAPI A_Err    (*AEGP_SetInSpecStillSequenceNativeFPS)(
+                                                           AEIO_InSpecH    inH,                    /* >> */
+                                                           A_Fixed        native_still_seq_fps);    /* >> */
+    
+    SPAPI A_Err (*AEGP_SetInSpecColorSpaceFromCICP)(
+                                                    AEIO_InSpecH    inH,                            /* >> */
+                                                    // next 4 values correspond to the same parameters as in ITU-T-H.273
+                                                    A_long          inColorPrimariesCode,           /* >> */
+                                                    A_long          inTransferCharacteristicsCode,  /* >> */
+                                                    A_long          inMatrixCoefficientsCode,       /* >> */
+                                                    A_long          inFullRangeVideoFlag, // 0 or 1 /* >> */
+                                                    A_long          inBitDepthL,                    /* >> */
+                                                    A_Boolean       inIsRGB);                       /* >> */
+} AEGP_IOInSuite6;
+
 #define kAEGPIOInSuiteVersion5    6 /* frozen in AE 12 */
 
 typedef struct AEGP_IOInSuite5 {
@@ -10337,6 +10527,164 @@ typedef struct AEGP_IOInSuite4 {
 	
 } AEGP_IOInSuite4;
 
+#define kAEGPIOOutSuiteVersion5    8 /* frozen in AE 17.0 */
+
+typedef struct AEGP_IOOutSuite5 {
+    SPAPI A_Err    (*AEGP_GetOutSpecOptionsHandle)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        void            **optionsPPV);            /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecOptionsHandle)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        void            *optionsPV,                /* >> */
+                        void            **old_optionsPPVO);        /* <> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecFilePath)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        AEGP_MemHandle    *unicode_pathPH,        // << handle of A_UTF16Char (contains null terminated UTF16 string); must be disposed with AEGP_FreeMemHandle
+                        A_Boolean        *file_reservedPB);        /* << If the file is reserved, do not create the file.
+                                                                      Otherwise, multi-machine rendering can fail.
+                                                                      If true, an empty file has already been created. */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecFPS)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_Fixed            *native_fpsP);            /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecNativeFPS)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_Fixed            native_fpsP);            /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecDepth)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_short            *depthPS);                /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecDepth)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_short            depthPS);                /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecInterlaceLabel)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        FIEL_Label            *interlaceP);        /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecInterlaceLabel)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        const FIEL_Label    *interlaceP);        /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecAlphaLabel)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEIO_AlphaLabel        *alphaP);            /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecAlphaLabel)(
+                        AEIO_OutSpecH            outH,            /* >> */
+                        const AEIO_AlphaLabel    *alphaP);        /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecDuration)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_Time            *durationP);            /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecDuration)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        const A_Time    *durationP);            /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecDimensions)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_long            *widthPL,                /* << */
+                        A_long            *heightPL);                /* << */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecHSF)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_Ratio            *hsfP);                    /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecHSF)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        const A_Ratio    *hsfP);                    /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecSoundRate)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_FpLong        *ratePF);                /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecSoundRate)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_FpLong        rateF);                    /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecSoundEncoding)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEIO_SndEncoding    *encodingP);        /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecSoundEncoding)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEIO_SndEncoding    encoding);            /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecSoundSampleSize)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEIO_SndSampleSize    *bytes_per_sampleP);/* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecSoundSampleSize)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEIO_SndSampleSize    bytes_per_sample);    /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecSoundChannels)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEIO_SndChannels    *num_channelsP);    /* << */
+
+    SPAPI A_Err    (*AEGP_SetOutSpecSoundChannels)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEIO_SndChannels    num_channels);        /* >> */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecIsStill)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        A_Boolean            *is_stillPB);        /* << */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecPosterTime)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        A_Time                *poster_timeP);        /* << */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecStartFrame)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        A_long                *start_frameP);        /* << */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecPullDown)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEIO_Pulldown        *pulldownP);        /* << */
+
+    SPAPI A_Err    (*AEGP_GetOutSpecIsMissing)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        A_Boolean            *missingPB);        /* << */
+
+    // see if you need to embed outspec's color profile as an icc profile
+    SPAPI A_Err (*AEGP_GetOutSpecShouldEmbedICCProfile)(
+                        AEIO_OutSpecH        outH,                // >>
+                        A_Boolean            *embedPB);            // <<
+
+    // query outspec's color profile
+    SPAPI A_Err (*AEGP_GetNewOutSpecColorProfile)(
+                        AEGP_PluginID        aegp_plugin_id,        // >>
+                        AEIO_OutSpecH        outH,                // >>
+                        AEGP_ColorProfileP    *color_profilePP);    // <<    output color space; caller must dispose with AEGP_DisposeColorProfile
+
+    // Fails if rq_itemP is not found.
+    // This API would also fail if the outH is not a confirmed outH and is a copy.
+    // e.g. if the Output Module settings dialog is Open.
+    SPAPI A_Err    (*AEGP_GetOutSpecOutputModule)(
+                        AEIO_OutSpecH        outH,                /* >> */
+                        AEGP_RQItemRefH        *rq_itemP,            /* << */
+                        AEGP_OutputModuleRefH *om_refP);        /* << */
+    
+    SPAPI A_Err    (*AEGP_GetOutSpecStartTime)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_Time            *outStartTimePT);        /* << */
+    
+    SPAPI A_Err    (*AEGP_GetOutSpecFrameTime)(                    // relative to start time
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_Time            *outFrameTimePT);        /* << */
+    
+    SPAPI A_Err    (*AEGP_GetOutSpecIsDropFrame)(
+                        AEIO_OutSpecH    outH,                    /* >> */
+                        A_Boolean        *outIsDropFramePB);        /* << */
+
+
+} AEGP_IOOutSuite5;
+
 #define kAEGPIOOutSuiteVersion4	7 /* frozen in AE 10.0 */
 
 typedef struct AEGP_IOOutSuite4 {
@@ -10522,8 +10870,13 @@ typedef struct {
 #ifdef _WIN32
     #pragma warning(push)
     #pragma warning(disable : 4103)
+#elif defined(__clang__)
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wpragma-pack"
 #endif
 #include <AE_GeneralPlugPost.h>
 #ifdef _WIN32
     #pragma warning(pop)
+#elif defined(__clang__)
+	#pragma clang diagnostic pop
 #endif

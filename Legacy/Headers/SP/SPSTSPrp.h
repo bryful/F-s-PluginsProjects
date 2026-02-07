@@ -20,33 +20,29 @@
 #ifndef __SPSTSPrp__
 #define __SPSTSPrp__
 
-
 /*******************************************************************************
  **
- **	Imports
+ ** Imports
  **
  **/
 
 #include "SPPiPL.h"
 
-
 /*******************************************************************************
  **
- **	Constants
+ ** Constants
  **
  **/
 
 /** Internal */
-#define PISuperTopSecretProperty		'StsP'
+#define PISuperTopSecretProperty 'StsP'
 /** Internal */
-#define PISuperTopSecretValue			'clEn'
-
+#define PISuperTopSecretValue 'clEn'
 
 /*******************************************************************************
  **
- **	Types
+ ** Types
  **
  **/
-
 
 #endif

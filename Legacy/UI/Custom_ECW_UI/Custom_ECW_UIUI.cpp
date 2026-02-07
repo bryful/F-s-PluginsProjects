@@ -33,9 +33,12 @@ copyConvertStringLiteralIntoUTF16(
 								  A_UTF16Char* destination)
 {
 #ifdef AE_OS_MAC
-	int length = wcslen(inputString);
-	CFRange	range = {0, 256};
-	range.length = length;
+	const size_t inputStringLength = wcslen(inputString);
+	const size_t maximumStringLength = LONG_MAX / sizeof(wchar_t);
+	const CFIndex length = (inputStringLength < maximumStringLength) ? inputStringLength : maximumStringLength;
+
+	const CFRange range = {0, length};
+
 	CFStringRef inputStringCFSR = CFStringCreateWithBytes(kCFAllocatorDefault,
 														  reinterpret_cast<const UInt8 *>(inputString),
 														  length * sizeof(wchar_t),
@@ -110,7 +113,7 @@ DrawEvent(
 	// Premiere Pro/Elements does not support a standard parameter type
 	// with custom UI (bug #1235407), so we can't use the color values.
 	// Use an static grey value instead.
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		drawbot_color.red = static_cast<float>(params[ECW_UI_COLOR]->u.cd.value.red) / PF_MAX_CHAN8;
 		drawbot_color.green = static_cast<float>(params[ECW_UI_COLOR]->u.cd.value.green) / PF_MAX_CHAN8;
@@ -248,7 +251,7 @@ DoClick(
 	PF_ExtendedSuiteTool	tool = PF_ExtendedSuiteTool_MAGNIFY;
 	
 	// Premiere Pro/Elements does not support this suite
-	if (in_data->appl_id != 'PrMr')
+	if (in_data->appl_id != kAppID_Premiere)
 	{
 		ERR(suites.HelperSuite2()->PF_SetCurrentExtendedTool(tool));
 	}

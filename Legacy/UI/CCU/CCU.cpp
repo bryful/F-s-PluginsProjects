@@ -47,12 +47,13 @@ About (
 {
 	AEGP_SuiteHandler suites(in_data->pica_basicP);
 
-	suites.ANSICallbacksSuite1()->sprintf(out_data->return_msg,
-								"%s v%d.%d\r%s",
-								STR(StrID_Name), 
-								MAJOR_VERSION, 
-								MINOR_VERSION, 
-								STR(StrID_Description));
+	suites.ANSICallbacksSuite1()->sprintf(
+        out_data->return_msg,
+        "%s v%d.%d\r%s",
+        STR(StrID_Name),
+        MAJOR_VERSION,
+        MINOR_VERSION,
+        STR(StrID_Description));
 
 	return PF_Err_NONE;
 }
@@ -200,7 +201,7 @@ Render (
 		// Premiere Pro/Elements doesn't support WorldTransformSuite1,
 		// but it does support many of the callbacks in utils
 
-		if (in_data->appl_id != 'PrMr') {
+		if (in_data->appl_id != kAppID_Premiere) {
 			if (PF_Quality_HI == in_data->quality){
 				return suites.WorldTransformSuite1()->copy_hq(	in_data->effect_ref,
 																&params[0]->u.ld, 

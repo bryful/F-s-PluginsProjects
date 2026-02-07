@@ -5,7 +5,7 @@
 
 const char OSWndObjectProperty[] = "PanelatorUI_PlatPtr";
 
-const int BtnID = 444;
+constexpr std::uint64_t BtnID {444};
 
 PanelatorUI_Plat::PanelatorUI_Plat(SPBasicSuite* spbP, AEGP_PanelH panelH, 
 									AEGP_PlatformViewRef platformWindowRef,
@@ -26,7 +26,7 @@ PanelatorUI_Plat::PanelatorUI_Plat(SPBasicSuite* spbP, AEGP_PanelH panelH,
 							"Click Me", 
 							WS_CHILD | WS_VISIBLE| BS_CENTER | BS_VCENTER | BS_TEXT, 
 							10, 200, 100, 30, 
-							platformWindowRef, (HMENU)BtnID, NULL, NULL);
+							platformWindowRef, reinterpret_cast<HMENU>(BtnID), NULL, NULL);
 }
 
 LRESULT CALLBACK	PanelatorUI_Plat::StaticOSWindowWndProc(	HWND	hWnd, 
