@@ -12,7 +12,10 @@ Adone After EffectsのEffectsPlugin集のソース一式とWindowsバイナリ�
 **今後NF-Pluginsとして新しいエフェクトを追加していきます。**<br>
 アップグレード・バグフィックス時にはNFへの以降も同時に行います<br>
 <br>
-**Legacyフォルダに入っているF's Pluginsは近日中にバイナリの配布は無くなる予定です。**<br>
+**Deprecatedカテゴリに入っているF's Pluginsは近日中にバイナリの配布は中止します。**<br>
+残してほしいものがあれば連絡ください。<br>
+<br>
+過去の資産のために互換性を重視してましたが、AfterEffects本体のほうが互換が無くなってきた・動く古いPCが少なくなってきた等、もうそろそろ限界かなと思ってます。br>
 ***
 
 SDKをAfterEffectsSDK_25.6_61_winに変えました。いつの間にかSDK2025がバージョンアップしてたみたいです。<br>
