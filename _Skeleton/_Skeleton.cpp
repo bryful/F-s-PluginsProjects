@@ -473,7 +473,7 @@ static PF_Err
 				break;
 			case 4:
 				//楕円
-				ERR(FillBox(
+				ERR(DrawBoxFill(
 					ae->output,
 					ae->pixelFormat(),
 					infoP->draw_start.x,
@@ -494,7 +494,7 @@ static PF_Err
 				break;
 			case 6:
 				//円
-				ERR(FillCircle(
+				ERR(DrawCircleFill(
 					ae->output,
 					ae->pixelFormat(),
 					infoP->draw_start,

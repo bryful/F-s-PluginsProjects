@@ -47,7 +47,7 @@ PF_Err DrawBox(
     A_long x1, A_long y1,
     PF_Pixel color
 );
-PF_Err FillBox(
+PF_Err DrawBoxFill(
     PF_EffectWorld* world,
     PF_PixelFormat pixelFormat,
     A_long x0, A_long y0,
@@ -61,7 +61,7 @@ PF_Err DrawCircle(
     A_long radius,
     PF_Pixel color
 );
-PF_Err FillCircle(
+PF_Err DrawCircleFill(
     PF_EffectWorld* world,
     PF_PixelFormat pixelFormat,
     PF_Point pos,

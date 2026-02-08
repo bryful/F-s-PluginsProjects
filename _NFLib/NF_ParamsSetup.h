@@ -193,7 +193,7 @@ public:
 		return err;
 	}
 	// ***************************************************************
-	PF_Err AddFloatSilder(
+	PF_Err AddFloatSlider(
 		const char* name,
 		PF_FpShort valid_min,
 		PF_FpShort valid_max,

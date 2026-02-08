@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{44650EE4-5B04-43C2-9D1C-B96240D4AE80}</ProjectGuid>
-    <RootNamespace>_Skeleton</RootNamespace>
-    <ProjectName>_Skeleton</ProjectName>
+    <ProjectGuid>{0F534C8F-464B-4F36-AEB3-99A39CB17A30}</ProjectGuid>
+    <RootNamespace>ColorSpaceInvert</RootNamespace>
+    <ProjectName>ColorSpaceInvert</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,7 +104,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_Skeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/ColorSpaceInvert.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -155,7 +155,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_Skeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/ColorSpaceInvert.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -209,7 +209,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_Skeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/ColorSpaceInvert.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -265,7 +265,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/_Skeleton.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/ColorSpaceInvert.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -322,16 +322,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\NFsLibrary\resource.h" />
     <ClInclude Include="..\..\_NFLib\AE_SDK.h" />
-    <ClInclude Include="..\..\_NFLib\fx\debug_font.h" />
-    <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_Draw.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_DrawWorld.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_Noise.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_Paint.h" />
     <ClInclude Include="..\..\_NFLib\json.hpp" />
     <ClInclude Include="..\..\_NFLib\NF_AE.h" />
     <ClInclude Include="..\..\_NFLib\NF_CATEGORY.h" />
@@ -366,10 +356,9 @@
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
     <ClInclude Include="..\NF_Target.h" />
-    <ClInclude Include="..\_Skeleton.h" />
+    <ClInclude Include="..\ColorSpaceInvert.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
-    <ClInclude Include="..\_SkeletonFilter.h" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
     <CustomBuildStep Include="..\..\..\Util\PF_Suite_Helper.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -378,7 +367,7 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\_SkeletonPiPL.r">
+    <CustomBuild Include="..\ColorSpaceInvertPiPL.r">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling the PiPL</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /I "$(ProjectDir)..\..\..\Headers" /EP "..\%(Filename).r" &gt; "$(IntDir)%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
@@ -409,7 +398,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="Resource.rc">
       <DeploymentContent>false</DeploymentContent>
     </ResourceCompile>
-    <ResourceCompile Include="_SkeletonPiPL.rc" />
+    <ResourceCompile Include="ColorSpaceInvertPiPL.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
@@ -417,19 +406,10 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_Draw.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_DrawWorld.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_Noise.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_Paint.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Settings.cpp" />
     <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c" />
-    <ClCompile Include="..\_Skeleton.cpp">
+    <ClCompile Include="..\ColorSpaceInvert.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MSWindows;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>
@@ -445,7 +425,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
     </ClCompile>
-    <ClCompile Include="..\_SkeletonFilter.cpp" />
+    <ClCompile Include="..\ColorSpaceInvertFilter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\_NFLib\dialog.jsx" />

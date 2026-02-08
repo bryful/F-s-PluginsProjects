@@ -235,7 +235,7 @@ static PF_Err FillBoxImpl(
     }
     return err;
 }
-PF_Err FillBox(
+PF_Err DrawBoxFill(
     PF_EffectWorld* world,
     PF_PixelFormat pixelFormat,
     A_long x0, A_long y0,
@@ -374,7 +374,7 @@ static PF_Err FillCircleT(
     }
     return PF_Err_NONE;
 }
-PF_Err FillCircle(
+PF_Err DrawCircleFill(
     PF_EffectWorld* world,
     PF_PixelFormat pixelFormat,
     PF_Point pos,

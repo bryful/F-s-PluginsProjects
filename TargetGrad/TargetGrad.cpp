@@ -79,7 +79,7 @@ static PixelTable JsonToPixelTable(json jsn)
 	//bool ok = true;
 	AEFX_CLR_STRUCT(table);
 	table.ok = true;
-
+	
 	if (jsn.find("targetColorMode") != jsn.end()) {
 		json ct = jsn["targetColorMode"];
 		table.targetColorMode = ct.get<long>();
@@ -237,7 +237,7 @@ static PF_Err ParamsSetup (
 			table.target[i].blue = defP[i][2];
 		}
 		table.gradColor = { 0xFF,0xFF,0x00,0xFF };
-		table.guideEnabled = TRUE;
+		table.guideEnabled = FALSE;
 		table.guideColor = { 0xFF,0xFF,0xFF,0xFF };
 		table.invert = FALSE;
 	}
@@ -672,10 +672,9 @@ static PF_Err
 		A_long cx = static_cast<A_long>(std::lround(rp.centerPos2().x));
 		A_long cy = static_cast<A_long>(std::lround(rp.centerPos2().y));
 
+		DrawWorld dw(ae->output, ae->pixelFormat());
 		if (infoP->autoPos) {
-			DrawBox(
-				ae->output,
-				ae->pixelFormat(),
+			dw.Box(
 				infoP->area.left,
 				infoP->area.top,
 				infoP->area.right,
@@ -685,6 +684,7 @@ static PF_Err
 		}
 
 		//ガイド線の描画
+
 		DrawLine(
 			ae->output,
 			ae->pixelFormat(),

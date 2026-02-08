@@ -17,6 +17,7 @@
 
 #include "..\_NFLib\NF_Settings.h"
 #include "..\_NFLib\fx\NF_Draw.h"
+#include "..\_NFLib\fx\NF_DrawWorld.h"
 /*
 #include "..\_NFLib\fx\NF_Mult.h"
 #include "..\_NFLib\fx\NF_Minmax.h"

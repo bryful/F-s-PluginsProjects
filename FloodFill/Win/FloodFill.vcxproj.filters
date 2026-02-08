@@ -19,7 +19,7 @@
     <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\_Skeleton.cpp" />
+    <ClCompile Include="..\FloodFill.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp">
       <Filter>fx</Filter>
     </ClCompile>
@@ -41,7 +41,6 @@
     <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp">
       <Filter>fx</Filter>
     </ClCompile>
-    <ClCompile Include="..\_SkeletonFilter.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Paint.cpp">
       <Filter>fx</Filter>
     </ClCompile>
@@ -162,7 +161,7 @@
     <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\_Skeleton.h" />
+    <ClInclude Include="..\FloodFill.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h">
       <Filter>fx</Filter>
     </ClInclude>
@@ -187,7 +186,6 @@
     <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h">
       <Filter>fx</Filter>
     </ClInclude>
-    <ClInclude Include="..\_SkeletonFilter.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Paint.h">
       <Filter>fx</Filter>
     </ClInclude>
@@ -231,12 +229,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\_SkeletonPiPL.r">
+    <CustomBuild Include="..\FloodFillPiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="_SkeletonPiPL.rc">
+    <ResourceCompile Include="FloodFillPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="Resource.rc">
