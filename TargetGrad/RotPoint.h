@@ -7,7 +7,6 @@
 
 class RotPoint {
 private:
-	const A_FpLong M_PI = 3.14159265358979323846;
 	A_FloatPoint m_startPosOrg;
 	A_FloatPoint m_lastPosOrg;
 	A_FloatPoint m_centerPosOrg;

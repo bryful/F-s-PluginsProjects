@@ -7,7 +7,10 @@
 
 ç°ÇÃÇ∆Ç±ÇÎÇ±ÇÍÇæÇØÇ≈Ç∑ÅB
 NF-CellLineEraser.aex
+NF-ColorSpaceInvert.aex
 NF-ColorSwitch.aex
+NF-Emboss.aex
+NF-FloodFill.aex
 NF-Gradient.aex
 NF-Grain.aex
 NF-Hyperbolic.aex
@@ -17,6 +20,7 @@ NF-LogicGray.aex
 NF-MaxBlur.aex
 NF-MinMax.aex
 NF-Mult.aex
+NF-premultiplyColor.aex
 NF-RGBShifter.aex
 NF-RimFill.aex
 NF-SelectiveColorBlur.aex
