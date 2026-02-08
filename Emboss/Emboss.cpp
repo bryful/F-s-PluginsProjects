@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "Grain.h"
+#include "Emboss.h"
 
 //-------------------------------------------------------------------------------------------------
 //AfterEffextsにパラメータを通達する
@@ -19,129 +19,186 @@ static PF_Err ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 
 	NF_ParamsSetup cs(in_data, out_data);
-	cs.AddFloatSlider(	
-		STR_MASTER,		//Name
-		0,				//VALID_MIN
-		10000,			//VALID_MAX
-		0,				//SLIDER_MIN
-		200,			//SLIDER_MAX
-		100,			//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_MASTER
+	cs.AddAngle(	// angle
+		STR_DIRECTION,
+		45,
+		ID_DIRECTION//,
+		//PF_ParamFlag_NONE,
+		//PF_PUI_DISABLED
 	);
 	cs.AddFloatSlider(
-		STR_AMOUNT,		//Name
-		0,				//VALID_MIN
-		600,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		0,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_AMOUNT
-	);
-	cs.AddFloatSlider(
-		STR_SIZE,		//Name
+		STR_DISTANCE,			//Name
 		0,				//VALID_MIN
 		300,				//VALID_MAX
 		0,				//SLIDER_MIN
-		10,				//SLIDER_MAX
-		4.5,			//DFLT
+		50,				//SLIDER_MAX
+		10,				//DFLT
 		1,				//PREC 小数点以下の桁数
 		0,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_SIZE
+		ID_DISTANCE
 	);
-	cs.AddFloatSlider(
-		STR_SUB_AMOUNT,		//Name
-		0,				//VALID_MIN
-		300,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		30,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_SUB_AMOUNT
+	/*
+	// ----------------------------------------------------------------
+	cs.AddCheckBox(	// noise frame
+		STR_PAINT_CB,
+		"on",
+		FALSE,
+		ID_PAINT_CB
 	);
-	cs.AddFloatSlider(
-		STR_SUB_SIZE,		//Name
-		0,				//VALID_MIN
-		300,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		25,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_SUB_SIZE
+	cs.AddPoint(
+		STR_PAINT_POS,
+		25,
+		25,
+		FALSE,
+		ID_PAINT_POS
+	);
+	cs.AddColor(	// color
+		STR_PAINT_COLOR,
+		{ 0xFF, 0xFF, 0x00, 0xFF },
+		ID_PAINT_COLOR
 	);
 	// ----------------------------------------------------------------
-	cs.AddSlider(	// noise offset
-		STR_ACCENT_COUNT,	//パラメータの名前
-		0, 				//数値入力する場合の最小値
-		30000,			//数値入力する場合の最大値
-		0,				//スライダーの最小値 
-		3000,			//スライダーの最大値
+	cs.AddSlider(	// 
+		STR_MINMAX,	//パラメータの名前
+		-1000, 		//数値入力する場合の最小値
+		1000,			//数値入力する場合の最大値
+		-100,				//スライダーの最小値 
+		100,			//スライダーの最大値
 		0,				//デフォルトの値
-		ID_ACCENT_COUNT	//パラメータの名前
-
+		ID_MINMAX
 	);
-	cs.AddFloatSlider(
-		STR_ACCENT_LOLIMIT,		//Name
+	cs.AddSlider(	// noise offset
+		STR_BLUR,		//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		1000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_BLUR
+	);
+	// ----------------------------------------------------------------
+	
+	cs.AddFloatSlider(	// R
+		STR_NOISE_AMOUNT,			//Name
 		0,				//VALID_MIN
-		100,			//VALID_MAX
+		300,			//VALID_MAX
 		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
+		100,				//SLIDER_MAX
 		0,				//DFLT
 		1,				//PREC 小数点以下の桁数
 		0,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_ACCENT_LOLIMIT
+		ID_NOISE_AMOUNT
 	);
-	cs.AddFloatSlider(
-		STR_ACCENT_INTENSITY,		//Name
+	cs.AddFloatSlider(	// R
+		STR_NOISE_ACCENT_AMOUNT,			//Name
 		0,				//VALID_MIN
-		20000,			//VALID_MAX
+		5000,			//VALID_MAX
 		0,				//SLIDER_MIN
 		100,			//SLIDER_MAX
-		75,				//DFLT
+		50,				//DFLT
 		1,				//PREC 小数点以下の桁数
 		0,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_ACCENT_INTENSITY
-	);
-	// ----------------------------------------------------------------
-	cs.AddCheckBox(	// noise frame
-		STR_MONOCHROME,
-		STR_MONOCHROME2,
-		TRUE,
-		ID_MONOCHROME
+		ID_NOISE_ACCENT_AMOUNT
 	);
 	cs.AddCheckBox(	// noise frame
-		STR_AUTO_SEED,
-		STR_AUTO_SEED2,
+		STR_NOISE_ISCOlOR,
+		"on",
 		TRUE,
-		ID_AUTO_SEED,
+		ID_NOISE_ISCOLOR
+	);
+
+	cs.AddCheckBox(	// noise frame
+		STR_NOISE_AUTO,
+		"on",
+		TRUE,
+		ID_NOISE_AUTO,
 		PF_ParamFlag_SUPERVISE |
 		PF_ParamFlag_CANNOT_TIME_VARY |
 		PF_ParamFlag_CANNOT_INTERP
 	);
 	cs.AddSlider(	// noise offset
-		STR_SEED,	//パラメータの名前
+		STR_NOISE_SEED,	//パラメータの名前
 		-30000, 		//数値入力する場合の最小値
 		30000,			//数値入力する場合の最大値
 		-1000,				//スライダーの最小値 
 		1000,			//スライダーの最大値
-		0,				//デフォルトの値
-		ID_SEED,
+		10,				//デフォルトの値
+		ID_NOISE_SEED,
 		PF_ParamFlag_NONE,
 		PF_PUI_DISABLED
 	);
-	
+	// ----------------------------------------------------------------
+	cs.AddPopup(STR_DRAW_POP,
+		STR_DRAW_COUNT,
+		STR_DRAW_DFLT,
+		STR_DRAW_ITEMS,
+		ID_DROW_POP
+	);
+	cs.AddPoint(
+		STR_START_POS,
+		60,
+		60,
+		FALSE,
+		ID_START_POS
+	);
+	cs.AddPoint(
+		STR_END_POS,
+		80,
+		80,
+		FALSE,
+		ID_END_POS
+	);
+	cs.AddColor(	// color
+		STR_DRAW_COLOR,
+		{ 0xFF, 0x00, 0xFF, 0xFF },
+		ID_DRAW_COLOR
+	);
+	// ----------------------------------------------------------------
+	cs.AddCheckBox(	// noise frame
+		STR_DEBUG_FONT_CB,
+		"on",
+		FALSE,
+		ID_DEBUG_FONT_CB
+	);
+	cs.AddPoint(
+		STR_DEBUG_FONT_POS,
+		0,
+		0,
+		FALSE,
+		ID_DEBUG_FONT_POS
+	);
+	cs.AddColor(	// color
+		STR_DEBUG_FONT_COLOR,
+		{ 0xFF, 0xFF, 0x00, 0x00 },
+		ID_DEBUG_FONT_COLOR
+	);
+	// ----------------------------------------------------------------
+	cs.AddCheckBox(	// noise frame
+		STR_HIDDEN_ON1,
+		"on",
+		TRUE,
+		ID_NOISE_AUTO,
+		PF_ParamFlag_SUPERVISE |
+		PF_ParamFlag_CANNOT_TIME_VARY |
+		PF_ParamFlag_CANNOT_INTERP
+	);
+
+	cs.AddTopic(STR_TOPIC, ID_TOPIC, 
+		PF_ParamFlag_START_COLLAPSED,
+		PF_PUI_DISABLED);
+
+	cs.EndTopic(ID_TOPIC_END);
+
+	cs.AddButton(	// button
+		STR_BUTTON1,
+		STR_BUTTON2,
+		ID_BUTTON,
+		PF_ParamFlag_SUPERVISE
+	);
+	*/
 	cs.Finalize();
 	return err;
 }
@@ -154,24 +211,69 @@ HandleChangedParam(
 	PF_LayerDef					*outputP,
 	PF_UserChangedParamExtra	*extraP)
 {
-	PF_Err				err					= PF_Err_NONE,
-						err2				= PF_Err_NONE;
-
+	PF_Err				err = PF_Err_NONE;
+	//					err2				= PF_Err_NONE;
+	/*
 	try{
-		PF_Boolean b=FALSE;
 		NF_AE ae;
 		err =ae.HandleChangedParam(in_data,out_data,params,outputP,extraP,ID_NUM_PARAMS);
+		if (!err) {
+			if (extraP->param_index == ID_BUTTON)
+			{
+				A_char scriptCode[2048] = { '\0' };
+				PF_SPRINTF(scriptCode, FS_ABOUT_DIALOG,
+					NF_NAME,
+					MAJOR_VERSION,
+					MINOR_VERSION,
+					__DATE__,
+					NF_DESCRIPTION);
+
+				ERR(ae.suitesP->UtilitySuite5()->AEGP_ExecuteScript(ae.ae_plugin_idP->my_id, scriptCode, TRUE, NULL, NULL));
+				out_data->out_flags |= PF_OutFlag_REFRESH_UI;
+			}
+		}
+		*/
+		/*
+			ERR(ae.GetNewEffectStreamAll());
+			if (!err){
+				A_Boolean hide_themB[ID_NUM_PARAMS];
+				for ( A_long i=1; i<ID_NUM_PARAMS; i++) hide_themB[i] =FALSE;
+				PF_Boolean b;
+				ERR(ae.GetCHECKBOX(ID_HIDDEN_ON,&b));
+				if (b){
+					for ( A_long i=ID_HIDDEN_ON+1; i<ID_NUM_PARAMS; i++)hide_themB[i] =TRUE;
+				}
+				for ( A_long i=1; i<ID_NUM_PARAMS; i++) 
+					ERR(ae.SetDynamicStreamFlag(i,AEGP_DynStreamFlag_HIDDEN,hide_themB[i]));
+				
+				
+			}
+		*/
+	/*
 		if((!err)&&(in_data->appl_id != 'PrMr')){
 			//--------------------
-			PF_Boolean b = FALSE;
-			ERR(ae.GetCHECKBOX(ID_AUTO_SEED, &b));
-			ERR(ae.UI_DISABLE(ID_SEED, b));
-			out_data->out_flags |=  PF_OutFlag_REFRESH_UI;
-
+			
+			if (!err){
+				PF_Boolean b=FALSE;
+				ERR(ae.GetCHECKBOX(ID_HIDDEN_ON,&b));
+				ERR(ae.UI_DISABLE(ID_TOPIC, !b));
+				ERR(ae.UI_DISABLE(ID_ANGLE, !b));
+			}
+			//--------------------
+			if (!err){
+				PF_Boolean b = FALSE;
+				ERR(ae.GetCHECKBOX(ID_NOISE_AUTO,&b));
+				ERR(ae.UI_DISABLE(ID_NOISE_SEED, b));
+			}
+			//--------------------
+			if (!err){
+				out_data->out_flags |= PF_OutFlag_FORCE_RERENDER | PF_OutFlag_REFRESH_UI;
+			}
 		}
 	}catch ( PF_Err & errP){
 		err = errP;
 	}
+	*/
 	return err;
 }
 //-----------------------------------------------------------------------------------
@@ -183,6 +285,7 @@ QueryDynamicFlags(
 	void			*extra)	
 {
 	PF_Err 	err = PF_Err_NONE;
+	/*
 	PF_Err 	err2 	= PF_Err_NONE;
 	//PF_OutFlag_NON_PARAM_VARYの値をout_flagsへ設定して
 	//毎フレームごとの描画をするか切り替える。
@@ -191,12 +294,11 @@ QueryDynamicFlags(
 	if (!err){
 		PF_ParamDef def;
 		AEFX_CLR_STRUCT(def);
-		ERR(ae.checkout_param(ID_AUTO_SEED,&def));
-		PF_Boolean auto_seed = (PF_Boolean)def.u.bd.value;
-		ERR(ae.SetOutFlag_NON_PARAM_VARY(auto_seed));
+		ERR(ae.checkout_param(ID_NOISE_AUTO,&def));
+		ERR(ae.SetOutFlag_NON_PARAM_VARY((PF_Boolean)def.u.bd.value));
 		ERR(ae.checkin_param(&def));
-
 	}
+	*/
 	return err;
 }
 
@@ -205,27 +307,34 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
 
+	PF_Fixed	fixed_angle;
+	ERR(ae->GetANGLE(ID_DIRECTION, &fixed_angle));
+	infoP->direction = F_FIX2FLT(fixed_angle);
+	ERR(ae->GetFLOAT(ID_DISTANCE, &infoP->distance));
+	/*
+	ERR(ae->GetCHECKBOX(ID_PAINT_CB, &infoP->paint_cb));
+	ERR(ae->GetPOINT(ID_PAINT_POS, &infoP->paint_pos));
+	ERR(ae->GetCOLOR(ID_PAINT_COLOR, &infoP->paint_color));
 
-	ERR(ae->GetFLOAT(ID_MASTER, &infoP->master_percent));
-	infoP->master_percent /= 100;
-	if (infoP->master_percent < 0) infoP->master_percent = 0;
-	ERR(ae->GetFLOAT(ID_AMOUNT, &infoP->amount));
-	ERR(ae->GetFLOAT(ID_SIZE, &infoP->size));
+	ERR(ae->GetADD(ID_MINMAX, &infoP->minmax));
+	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
 
-	ERR(ae->GetFLOAT(ID_SUB_AMOUNT, &infoP->sub_amount_percent));
-	infoP->sub_amount_percent /= 100;
-	ERR(ae->GetFLOAT(ID_SUB_SIZE, &infoP->sub_size_percent));
-	infoP->sub_size_percent /= 100;
+	ERR(ae->GetFLOAT(ID_NOISE_SIZE,&infoP->noise_size));
+	ERR(ae->GetFLOAT(ID_NOISE_AMOUNT,&infoP->noise_amount));
+	ERR(ae->GetFLOAT(ID_NOISE_ACCENT_AMOUNT, &infoP->noise_accent_amount));
+	ERR(ae->GetCHECKBOX(ID_NOISE_ISCOLOR, &infoP->noise_is_color));
+	ERR(ae->GetCHECKBOX(ID_NOISE_AUTO, &infoP->noise_auto));
+	ERR(ae->GetADD(ID_NOISE_SEED, &infoP->noise_seed));
 
-	ERR(ae->GetADD(ID_ACCENT_COUNT, &infoP->accentCount));
-	ERR(ae->GetFLOAT(ID_ACCENT_LOLIMIT, &infoP->accentCountLoLimit));
-	infoP->accentCountLoLimit /= 100;
-	ERR(ae->GetFLOAT(ID_ACCENT_INTENSITY, &infoP->accentIntensity));
-	infoP->accentIntensity /= 100;
+	ERR(ae->GetPOPUP(ID_DROW_POP, &infoP->draw));
+	ERR(ae->GetPOINT(ID_START_POS, &infoP->draw_start));
+	ERR(ae->GetPOINT(ID_END_POS, &infoP->draw_end));
+	ERR(ae->GetCOLOR(ID_DRAW_COLOR, &infoP->draw_color));
 
-	ERR(ae->GetCHECKBOX(ID_MONOCHROME, &infoP->is_monochrome));
-	ERR(ae->GetCHECKBOX(ID_AUTO_SEED, &infoP->is_autoSeed));
-	ERR(ae->GetADD(ID_SEED, &infoP->seed));
+	ERR(ae->GetCHECKBOX(ID_DEBUG_FONT_CB, &infoP->debug_font_cb));
+	ERR(ae->GetPOINT(ID_DEBUG_FONT_POS, &infoP->debug_font_pos));
+	ERR(ae->GetCOLOR(ID_DEBUG_FONT_COLOR, &infoP->debug_font_color));
+	*/
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -235,46 +344,8 @@ static PF_Err
 	PF_Err	err = PF_Err_NONE;
 
 	//画面をコピー
-	ERR(ae->CopyInToOut());
-
-	A_long seed;
-	if (infoP->is_autoSeed == TRUE) {
-		seed = infoP->seed + ae->frame();
-	}
-	else {
-		seed = infoP->seed;
-	}
-	if ((infoP->size > 0) && (infoP->amount > 0) && (infoP->master_percent > 0))
-	{
-		PF_FpShort amount = (PF_FpShort)(infoP->amount * infoP->master_percent);
-		PF_FpShort size = (PF_FpShort)infoP->size;
-		GrainFX(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			(PF_FpShort)size,
-			(PF_FpShort)amount,
-			(PF_FpShort)(infoP->sub_size_percent),
-			(PF_FpShort)(infoP->sub_amount_percent),
-			seed,
-			(A_Boolean)(!infoP->is_monochrome)
-		);
-	}
-	A_long accentCount = (A_long)((double)infoP->accentCount * infoP->master_percent + 0.5);
-
-	if (accentCount > 0 && infoP->accentIntensity>0) {
-		DrawSpatAccent(
-			ae->output,
-			ae->pixelFormat(),
-			accentCount,
-			(PF_FpShort)(infoP->accentCountLoLimit),
-			(A_Boolean)(!infoP->is_monochrome),
-			(PF_FpShort)(infoP->accentIntensity),
-			seed
-		);
-	}
-	
+	//ERR(ae->CopyInToOut());
+	ERR(EmbossFilter(ae, infoP));
 	return err;
 }
 

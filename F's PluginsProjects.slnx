@@ -186,6 +186,7 @@
   <Project Path="CellLineEraser/Win/CellLineEraser.vcxproj" Id="6ed76fcf-e733-4f2a-a92f-62fe0ebd1d36" />
   <Project Path="ColorSpaceInvert/Win/ColorSpaceInvert.vcxproj" />
   <Project Path="ColorSwitch/Win/ColorSwitch.vcxproj" Id="32af35f5-51a4-4eed-b479-76d1c68e8336" />
+  <Project Path="Emboss/Win/Emboss.vcxproj" />
   <Project Path="FloodFill/Win/FloodFill.vcxproj" Id="af711fff-937e-445b-871f-b27490dea758" />
   <Project Path="Gradient/Win/Gradient.vcxproj" Id="44f00cc9-d7dc-4630-8375-8659c3e21839" />
   <Project Path="Grain/Win/Grain.vcxproj" Id="011c43aa-cf8e-4e98-a675-e732ecb4151f" />

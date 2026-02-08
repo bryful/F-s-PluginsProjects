@@ -37,7 +37,7 @@ static PF_Err ParamsSetup (
 		{ 0xFF, 0xFF, 0xFF, 0xFF },
 		ID_START_COLOR
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_START_OPACITY,			//Name
 		0,				//VALID_MIN
 		100,			//VALID_MAX
@@ -61,7 +61,7 @@ static PF_Err ParamsSetup (
 		{ 0xFF, 0x00, 0x00, 0x00 },
 		ID_END_COLOR
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_END_OPACITY,			//Name
 		0,				//VALID_MIN
 		100,			//VALID_MAX
@@ -73,7 +73,7 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_END_OPA
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_alpha_hyperbolic,			//Name
 		-10,			//VALID_MIN
 		50,				//VALID_MAX
@@ -85,7 +85,7 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_ID_ALPHA_HYPERBOLIC
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_rgb_hyperbolic,			//Name
 		-10,			//VALID_MIN
 		50,				//VALID_MAX

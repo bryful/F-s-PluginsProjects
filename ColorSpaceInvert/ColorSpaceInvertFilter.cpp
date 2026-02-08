@@ -1,4 +1,4 @@
-﻿#include "ColorSpaceInvertFilter.h"
+﻿//#include "ColorSpaceInvertFilter.h"
 #include "ColorSpaceInvert.h"
 // -- - 1. 型解決用のトレイト(PixelTraits) -- -
 template <typename T> struct PixelTraits;

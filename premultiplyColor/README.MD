@@ -1,5 +1,6 @@
 # premultiplyColor
- SDKのAPIである**premultiply_color**を呼び出すだけのエフェクトです。
+ SDKのAPIである**premultiply_color**を呼び出すだけのエフェクトです。<br>
+ フッテージの変換にあるやつです。
 
 
 # 機能

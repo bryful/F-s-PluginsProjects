@@ -29,7 +29,7 @@ static PF_Err ParamsSetup (
 		PF_ParamFlag_CANNOT_TIME_VARY |
 		PF_ParamFlag_CANNOT_INTERP
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_R,			//Name
 		-100,				//VALID_MIN
 		100,				//VALID_MAX
@@ -41,7 +41,7 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_R
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_G,			//Name
 		-100,				//VALID_MIN
 		100,				//VALID_MAX
@@ -53,7 +53,7 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_G
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_B,			//Name
 		-100,				//VALID_MIN
 		100,				//VALID_MAX
@@ -65,7 +65,7 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_B
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_Y,			//Name
 		-100,				//VALID_MIN
 		100,				//VALID_MAX
@@ -79,7 +79,7 @@ static PF_Err ParamsSetup (
 		PF_PUI_NONE,
 		PF_PUI_INVISIBLE
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_U,			//Name
 		-100,				//VALID_MIN
 		100,				//VALID_MAX
@@ -94,7 +94,7 @@ static PF_Err ParamsSetup (
 		PF_PUI_INVISIBLE
 
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_V,			//Name
 		-100,				//VALID_MIN
 		100,				//VALID_MAX
@@ -117,7 +117,7 @@ static PF_Err ParamsSetup (
 		PF_PUI_INVISIBLE
 
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_BLEND,			//Name
 		0,				//VALID_MIN
 		100,				//VALID_MAX

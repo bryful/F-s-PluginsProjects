@@ -21,7 +21,7 @@ static PF_Err ParamsSetup (
 	NF_ParamsSetup cs(in_data, out_data);
 	
 	// ----------------------------------------------------------------
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_RGB,		//Name
 		-10,			//VALID_MIN
 		10,				//VALID_MAX
@@ -33,7 +33,7 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_RGB
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_ALPHA,		//Name
 		-10,			//VALID_MIN
 		10,				//VALID_MAX

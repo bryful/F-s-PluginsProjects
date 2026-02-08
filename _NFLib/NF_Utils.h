@@ -5,6 +5,9 @@
 
 #include "AE_SDK.h"
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 #ifndef AE_CLAMP
 #define AE_CLAMP(VAL, MIN, MAX) ((VAL) < (MIN) ? (MIN) : ((VAL) > (MAX) ? (MAX) : (VAL)))
 #endif

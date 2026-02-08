@@ -58,7 +58,7 @@ static PF_Err ParamsSetup (
 		ID_BLUR
 	);
 	// ----------------------------------------------------------------
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_NOISE_SIZE,			//Name
 		0,				//VALID_MIN
 		30,				//VALID_MAX
@@ -70,7 +70,7 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_NOISE_SIZE
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_NOISE_AMOUNT,			//Name
 		0,				//VALID_MIN
 		300,			//VALID_MAX
@@ -82,7 +82,7 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_NOISE_AMOUNT
 	);
-	cs.AddFloatSilder(	// R
+	cs.AddFloatSlider(	// R
 		STR_NOISE_ACCENT_AMOUNT,			//Name
 		0,				//VALID_MIN
 		5000,			//VALID_MAX
