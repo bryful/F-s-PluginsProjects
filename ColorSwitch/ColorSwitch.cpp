@@ -200,8 +200,8 @@ HandleChangedParam(
 				std::string p = SaveFileDialogWithCheck(
 					std::string("csj Json save"), 
 					ppath,
-					std::vector<std::string>{".csj","*.*"},
-					std::string("csj Json File")
+					{"*.csj"},//std::vector<std::string>
+					std::string("csj Json File (*.csj)")
 				);
 				if (p.empty() == FALSE)
 				{
@@ -229,8 +229,8 @@ HandleChangedParam(
 				std::string p = OpenFileDialog(
 					std::string("csj Json load"),
 					ppath,
-					std::vector<std::string>{".csj", "*.*"},
-					std::string("csj Json File"));
+					{"*.csj"},//std::vector<std::string>
+					std::string("csj Json File (*.csj)"));
 
 				if (p.empty() == FALSE)
 				{
