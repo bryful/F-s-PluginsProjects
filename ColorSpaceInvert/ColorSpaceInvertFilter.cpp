@@ -194,16 +194,6 @@ static PF_Err FilterImageT(
 		HLStoRGB({ hls.H, l, hls.S }, &r2, &g2, &b2);
 	}
 
-	// 出力処理 (PixelTraitsを使用して適切な型にキャスト)
-	if constexpr (std::is_same_v<T, PF_Pixel8>) {
-		col = static_cast<typename PixelTraits<T>::channel_type>(r2);
-	}
-	else if constexpr (std::is_same_v<T, PF_Pixel16>) {
-	}
-	else {
-	err = ae->iterate32(ae->input, infoP, UnifyToMarkerIterate<T>, ae->output);
-	}
-
 	if (std::is_same<T, PF_PixelFloat>::value) {
 		// 32bit float の場合はクランプ不要
 		outP->red = static_cast<typename PixelTraits<T>::channel_type>(r2);
