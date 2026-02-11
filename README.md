@@ -22,9 +22,9 @@ SDKをAfterEffectsSDK_25.6_61_winに変えました。いつの間にかSDK2025�
 <br>
 
 ## ダウンロード
-ダウンロードは今ページの右上あたりにある<b>Releases</b>でできます。<br>
+ダウンロードは今ページの右上あたりにある<b>[Releases](https://github.com/bryful/F-s-PluginsProjects/releases)</b>でできます。<br>
 2026/02/07 更新しました。<br>
-個別にほしい時は[NF-Plugins_release](https://github.com/bryful/F-s-PluginsProjects/tree/master/NF-Plugins_release)から直接ダウンロードできます。[ここ](https://github.com/bryful/F-s-PluginsProjects/tree/master/NF-Plugins_release)にあるやつは最新版ですがバグが残ってる可能性があるので注意してください。
+個別にほしい時は[NF-Plugins_release](https://github.com/bryful/F-s-PluginsProjects/tree/master/NF-Plugins_release)ディレクトリから直接ダウンロードできます。[ここ](https://github.com/bryful/F-s-PluginsProjects/tree/master/NF-Plugins_release)にあるやつは最新版ですがバグが残ってる可能性があるので注意してください。
 <br>
 
 ## <b>**残念なお知らせ**</b><br>
