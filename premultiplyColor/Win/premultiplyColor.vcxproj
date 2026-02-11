@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{93C6B6A8-048D-435B-8027-22EE0731E82B}</ProjectGuid>
     <RootNamespace>premultiplyColor</RootNamespace>
-    <ProjectName>premultiplyColor</ProjectName>
+    <ProjectName>PremultiplyColor</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
