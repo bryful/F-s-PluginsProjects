@@ -179,7 +179,7 @@ HandleChangedParam(
 {
 	PF_Err				err					= PF_Err_NONE,
 						err2				= PF_Err_NONE;
-
+	if (!extraP) return err;
 	try{
 		NF_AE ae;
 		err =ae.HandleChangedParam(in_data,out_data,params,outputP,extraP,ID_NUM_PARAMS);
@@ -279,7 +279,7 @@ HandleChangedParam(
 					ERR(ae.SetDynamicStreamFlag(ID_NEW_COLOR(i), AEGP_DynStreamFlag_HIDDEN, hide2[i]));
 				}
 				if (!err) {
-					out_data->out_flags |= PF_OutFlag_FORCE_RERENDER | PF_OutFlag_REFRESH_UI;
+					out_data->out_flags |= PF_OutFlag_REFRESH_UI;
 				}
 			}
 		}
@@ -309,11 +309,6 @@ static PF_Err
 
 	//画面をコピー
 	ERR(ae->CopyInToOut());
-	if (infoP->enable_All == FALSE) {
-		return err;
-	}
-	
-	ERR(ColSWitch(ae, infoP));
 	
 	return err;
 }

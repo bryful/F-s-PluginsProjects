@@ -84,6 +84,9 @@ static PixelTable JsonToPixelTable(json jsn)
 		json ct = jsn["targetColorMode"];
 		table.targetColorMode = ct.get<long>();
 	}
+	else {
+		table.ok = false;
+	}
 	if (jsn.find("colors") != jsn.end()) {
 		json ct = jsn["colors"];
 		if (ct.is_array())
@@ -111,6 +114,12 @@ static PixelTable JsonToPixelTable(json jsn)
 				table.targetEnabled[i] = ct2[i].get<PF_Boolean>();
 			}
 		}
+		else {
+			table.ok = false;
+		}
+	}
+	else {
+		table.ok = false;
 	}
 	if (jsn.find("gradColor") != jsn.end()) {
 		json ct3 = jsn["gradColor"];
@@ -473,8 +482,8 @@ HandleChangedParam(
 		std::string p =  SaveFileDialogWithCheck(
 			std::string("tgj Json save"),
 			ppath,
-			std::vector<std::string>{".tgj", "*.*"},
-			std::string("tgj Json File"));
+			{".tgj", "*.*"},
+			std::string("tgj Json File (*.tgj)"));
 		if (p.empty() == FALSE)
 		{
 			saveDialogPath(p);
@@ -501,8 +510,8 @@ HandleChangedParam(
 		std::string p = OpenFileDialog(
 			std::string("tgj Json load"),
 			ppath,
-			std::vector<std::string>{".tgj", "*.*"},
-			std::string("tgj Json File"));
+			{".tgj", "*.*"},
+			std::string("tgj Json File (*.tgj)"));
 
 		if (p.empty() == FALSE)
 		{
@@ -513,7 +522,9 @@ HandleChangedParam(
 				json m_json;
 				ifs >> m_json;
 				PixelTable table = JsonToPixelTable(m_json);
-				SetPixelTable(&ae, &table);
+				if (table.ok == TRUE) {
+					SetPixelTable(&ae, &table);
+				}
 			}
 			else
 			{

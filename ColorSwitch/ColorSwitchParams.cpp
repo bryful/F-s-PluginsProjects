@@ -52,6 +52,7 @@ PF_Err JsonToParamInfo(json js, ParamInfo* infoP)
 		infoP->old_colors[i] = { 255,0,0,0 };
 		infoP->new_colors[i] = { 0,255,0,0 };
 	}
+	//
 	if (js.find("enable_all") != js.end()) {
 		infoP->enable_All = js["enable_all"].get<PF_Boolean>();
 	}
@@ -60,6 +61,9 @@ PF_Err JsonToParamInfo(json js, ParamInfo* infoP)
 	}
 	if (js.find("active_param_count") != js.end()) {
 		infoP->active_param_count = js["active_param_count"].get<A_long>();
+	}
+	else {
+		err = PF_Err_INTERNAL_STRUCT_DAMAGED;;
 	}
 	if (js.find("turnon_colors") != js.end()) {
 		json jcole = js["turnon_colors"];
@@ -70,6 +74,12 @@ PF_Err JsonToParamInfo(json js, ParamInfo* infoP)
 				infoP->turnon_colors[i] = jcole[i].get<PF_Boolean>();
 			}
 		}
+		else {
+			err = PF_Err_INTERNAL_STRUCT_DAMAGED;;
+		}
+	}
+	else {
+		err = PF_Err_INTERNAL_STRUCT_DAMAGED;;
 	}
 	if (js.find("old_colors") != js.end()) {
 		json jcolo = js["old_colors"];
@@ -80,6 +90,12 @@ PF_Err JsonToParamInfo(json js, ParamInfo* infoP)
 				infoP->old_colors[i] = JsonToPixel(jcolo[i]);
 			}
 		}
+		else {
+			err = PF_Err_INTERNAL_STRUCT_DAMAGED;;
+		}
+	}
+	else {
+		err = PF_Err_INTERNAL_STRUCT_DAMAGED;;
 	}
 	if (js.find("new_colors") != js.end()) {
 		json jcoln = js["new_colors"];
@@ -90,6 +106,13 @@ PF_Err JsonToParamInfo(json js, ParamInfo* infoP)
 				infoP->new_colors[i] = JsonToPixel(jcoln[i]);
 			}
 		}
+		else {
+			err = PF_Err_INTERNAL_STRUCT_DAMAGED;;
+		}
+	}
+	else {
+		err = PF_Err_INTERNAL_STRUCT_DAMAGED;;
+
 	}
 	return err;
 }

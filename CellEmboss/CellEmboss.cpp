@@ -187,6 +187,11 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
+	infoP->distanceHI *= ae->downSaleValue();
+	infoP->distanceLO *= ae->downSaleValue();
+	infoP->blurHI = (A_long)((PF_FpLong)infoP->blurHI *ae->downSaleValue()+0.5);
+	infoP->blurLO = (A_long)((PF_FpLong)infoP->blurLO * ae->downSaleValue() + 0.5);
+
 	//画面をコピー
 	//ERR(ae->CopyInToOut());
 	ERR(SelectPixelsExec(

@@ -141,7 +141,7 @@ static PF_Err EmbossHiKernel(void* refcon, A_long t_idx, A_long y, A_long t_tota
         }
         */
 
-        out_ptr->alpha = Traits::max_C();
+        //out_ptr->alpha = Traits::max_C();
 
         out_ptr++;
     }

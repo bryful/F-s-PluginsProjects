@@ -186,6 +186,7 @@
   <Folder Name="/ソリューション項目/" />
   <Project Path="CellEmboss/Win/CellEmboss.vcxproj" Id="1cff95f1-dbf4-4ada-ba95-82809e166b93" />
   <Project Path="CellLineEraser/Win/CellLineEraser.vcxproj" Id="6ed76fcf-e733-4f2a-a92f-62fe0ebd1d36" />
+  <Project Path="ColorSampler/Win/ColorSampler.vcxproj" Id="67a97dc2-17ab-47bb-b9af-f3f4fa94c36d" />
   <Project Path="ColorSpaceInvert/Win/ColorSpaceInvert.vcxproj" Id="0f534c8f-464b-4f36-aeb3-99a39cb17a30" />
   <Project Path="ColorSwitch/Win/ColorSwitch.vcxproj" Id="32af35f5-51a4-4eed-b479-76d1c68e8336" />
   <Project Path="Emboss/Win/Emboss.vcxproj" Id="2c35792a-41f0-4ed7-83be-2bce8a14f565" />

@@ -803,6 +803,29 @@ public:
 		return err;
 	}
 	//*********************************************************************************
+	PF_Err GetUIName(A_long id, char* name)
+	{	
+		PF_Err err = PF_Err_NONE;
+		if ((id >= 1) && (id < m_paramsCount)) {
+			PF_STRNNCPY(name, params[id]->PF_DEF_NAME, sizeof(params[id]->PF_DEF_NAME));
+			return PF_Err_NONE;
+		}
+		return PF_Err_BAD_CALLBACK_PARAM;
+	}
+	//*********************************************************************************
+	PF_Err SetUIName(A_long id, char* name)
+	{
+		if ((id >= 1) && (id < m_paramsCount)) {
+			PF_STRNNCPY(params[id]->PF_DEF_NAME, name, sizeof(params[id]->PF_DEF_NAME));
+			params[id]->PF_DEF_NAME[sizeof(params[id]->PF_DEF_NAME) - 1] = '\0';
+			suitesP->ParamUtilsSuite3()->PF_UpdateParamUI(in_data->effect_ref, id, params[id]);
+			params[id]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
+			return PF_Err_NONE;
+		}
+		return PF_Err_BAD_CALLBACK_PARAM;
+	}
+	
+	//*********************************************************************************
 	PF_Err GetADD(A_long idx,A_long *a)
 	{
 		PF_Err err = PF_Err_NONE;

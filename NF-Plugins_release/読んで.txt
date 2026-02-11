@@ -1,12 +1,16 @@
-#NF-Plugins_20260208
+#NF-Plugins_20260212
+
+少し増えました。
 
 とりあえずNF-Pluginsをアーカイブにしてみました。
 詳細は[ここ](https://github.com/bryful/F-s-PluginsProjects)に行ってプラグインの名前のフォルダを開いてください。
-メモが書いてあります。
+メモが書いてあります。<br>
 
 
 今のところこれだけです。
+NF-CellEmboss.aex
 NF-CellLineEraser.aex
+NF-ColorSampler.aex
 NF-ColorSpaceInvert.aex
 NF-ColorSwitch.aex
 NF-Emboss.aex

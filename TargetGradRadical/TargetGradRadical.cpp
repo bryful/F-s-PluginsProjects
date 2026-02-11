@@ -93,6 +93,12 @@ static PixelTable JsonToPixelTable(json jsn)
 				table.targetEnabled[i] = ct2[i].get<PF_Boolean>();
 			}
 		}
+		else {
+			table.ok = false;
+		}
+	}
+	else {
+		table.ok = false;
 	}
 	if (jsn.find("gradColor") != jsn.end()) {
 		json ct3 = jsn["gradColor"];
@@ -403,8 +409,8 @@ HandleChangedParam(
 		std::string p = SaveFileDialogWithCheck(
 			std::string("tgr Json save"),
 			ppath,
-			std::vector<std::string>{".tsj", "*.*"},
-			std::string("tsj Json File"));
+			{".tsj", "*.*"},
+			std::string("tsj Json File (*.tsj)"));
 		if (p.empty() == FALSE)
 		{
 			saveDialogPath(p);
@@ -431,8 +437,8 @@ HandleChangedParam(
 		std::string p = OpenFileDialog(
 			std::string("tsj Json load"),
 			ppath,
-			std::vector<std::string>{".tsj", "*.*"},
-			std::string("tsj Json File"));
+			{".tsj", "*.*"},
+			std::string("tsj Json File (*.tsj)"));
 		if (p.empty() == FALSE)
 		{
 			std::ifstream ifs(p);
@@ -442,7 +448,9 @@ HandleChangedParam(
 				json m_json;
 				ifs >> m_json;
 				PixelTable table = JsonToPixelTable(m_json);
-				SetPixelTable(&ae, &table);
+				if (table.ok == TRUE) {
+					SetPixelTable(&ae, &table);
+				}
 			}
 			else
 			{

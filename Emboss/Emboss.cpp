@@ -342,7 +342,7 @@ static PF_Err
 	Exec (NF_AE*ae , ParamInfo *infoP)
 {
 	PF_Err	err = PF_Err_NONE;
-
+	infoP->distance *= ae->downSaleValue();
 	//画面をコピー
 	//ERR(ae->CopyInToOut());
 	ERR(EmbossFilter(ae, infoP));
