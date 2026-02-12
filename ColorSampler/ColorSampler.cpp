@@ -638,27 +638,6 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
-	NameInfo* nameInfoP = reinterpret_cast<NameInfo*>(ae->suitesP->HandleSuite1()->host_lock_handle(
-		ae->in_data->sequence_data));
-	if(nameInfoP!=NULL)
-	{
-		PF_ParamDef* def;
-		AEFX_CLR_STRUCT(def);
-		if (nameInfoP->color_count > 0)
-		{
-			char buf[64];
-			ae->GetUIName(ID_COLOR01,buf);
-			if (strcmp(buf, nameInfoP->color_names[0])!=0)
-			{
-				for (A_long i = 0; i < nameInfoP->color_count; i++) {
-					ae->SetUIName(ID_COLOR(i), nameInfoP->color_names[i]);
-				}
-			}
-			ae->out_data->out_flags |= PF_OutFlag_SEND_UPDATE_PARAMS_UI;
-		}
-	}
-	ae->suitesP->HandleSuite1()->host_unlock_handle(ae->in_data->sequence_data);
-
 	//画面をコピー
 	ERR(ae->CopyInToOut());
 
