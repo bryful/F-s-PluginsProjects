@@ -10,13 +10,13 @@
 //-----------------------------------------------------------------------------------
 //プラグインの識別に使われる名前
 
-#define NF_NAME			"NF-premultiplyColor"
-#define NF_MATCHNAME	"NF-premultiplyColor"
+#define NF_NAME			"NF-PremultiplyColor"
+#define NF_MATCHNAME	"NF-PremultiplyColor"
 
 
 //-----------------------------------------------------------------------------------
 //プラグインの説明に使われる文字
-#define NF_DESCRIPTION	"premultiplyColor"
+#define NF_DESCRIPTION	"PremultiplyColor"
 
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名
@@ -57,8 +57,8 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define NF_OUT_FLAGS	33556032	//通常はこちら
-#define NF_OUT_FLAGS	33556068	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+#define NF_OUT_FLAGS	33556032	//通常はこちら
+//#define NF_OUT_FLAGS	33556068	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
 //#define NF_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------
