@@ -382,6 +382,47 @@ GetColorsFromLayer(
 	}
 	return PF_Err_NONE;
 }
+static PF_Err UpdateParameterUI(
+	PF_InData* in_data,
+	PF_OutData* out_data,
+	PF_ParamDef* params[],
+	PF_LayerDef* outputP
+	)
+{
+	PF_Err				err = PF_Err_NONE;
+
+	NameInfo* nameInfoP = NULL;
+	AEGP_SuiteHandler* suitesP = NULL;
+	ParamInfo info;
+	A_long count = 0;
+	AEFX_CLR_STRUCT(info);
+	NF_AE ae;
+	err = ae.UpdateParameterUI(in_data, out_data, params, outputP, ID_NUM_PARAMS);
+	suitesP = ae.suitesP;
+	GetParams(&ae, &info);
+	
+	if (in_data->sequence_data && suitesP) {
+		nameInfoP = reinterpret_cast<NameInfo*>(suitesP->HandleSuite1()->host_lock_handle(in_data->sequence_data));
+	}
+	if (nameInfoP) {
+		if (nameInfoP->color_count > 0) {
+			char buf[64];
+			ae.GetUIName(ID_COLOR01, buf);
+			if (strcmp(buf, nameInfoP->color_names[0]) != 0) {
+				PF_ParamDef def;
+				AEFX_CLR_STRUCT(def);
+				for (A_long i = 0; i < nameInfoP->color_count; i++) {
+					ae.SetUIName(ID_COLOR(i), nameInfoP->color_names[i]);
+				}
+			}
+			out_data->out_flags |= PF_OutFlag_SEND_UPDATE_PARAMS_UI;
+		}
+	}
+	if (in_data->sequence_data && suitesP) {
+		suitesP->HandleSuite1()->host_unlock_handle(in_data->sequence_data);
+	}
+	return err;
+}
 //-------------------------------------------------------------------------------------------------
 static PF_Err
 HandleChangedParam(
@@ -748,6 +789,14 @@ EffectMain(
 				output,
 				reinterpret_cast<PF_UserChangedParamExtra*>(extraP));
 
+			break;
+		}
+		case PF_Cmd_UPDATE_PARAMS_UI:
+		{
+			err = UpdateParameterUI(in_data,
+				out_data,
+				params,
+				output);
 			break;
 		}
 		case PF_Cmd_QUERY_DYNAMIC_FLAGS:

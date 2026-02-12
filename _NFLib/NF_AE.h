@@ -532,6 +532,42 @@ public:
 		return err;
 	}
 	//*********************************************************************************
+	PF_Err UpdateParameterUI(
+		PF_InData* in_dataP,
+		PF_OutData* out_dataP,
+		PF_ParamDef* paramsP[],
+		PF_LayerDef* outputP,
+		A_long		paramsCount
+	)
+	{
+		PF_Err	err = PF_Err_NONE;
+		Init();
+		m_cmd = PF_Cmd_UPDATE_PARAMS_UI;
+
+		if ((in_dataP == NULL) || (out_dataP == NULL) || (paramsCount <= 0)) {
+			m_resultErr = FsAE_ERR;
+			return m_resultErr;
+		}
+		NF_AE::in_data = in_dataP;
+		NF_AE::out_data = out_dataP;
+		m_paramsCount = paramsCount;
+		if (paramsP != NULL) {
+			NF_AE::input = &paramsP[0]->u.ld;
+			for (A_long i = 0; i < paramsCount; i++) NF_AE::params[i] = paramsP[i];
+		}
+
+		//ERR(GetFrame(in_dataP));
+		ERR(GetSuites(in_dataP, out_dataP));
+	//	ERR(GetPixelFormat());
+
+
+		if (ae_plugin_idP) {
+			err = suitesP->PFInterfaceSuite1()->AEGP_GetNewEffectForEffect(ae_plugin_idP->my_id, in_dataP->effect_ref, &ae_effect_refH);
+		}
+
+		return err;
+	}
+	//*********************************************************************************
 	PF_Err
 	QueryDynamicFlags(	
 		PF_InData		*in_dataP,	
@@ -850,6 +886,7 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
 				ret = params[idx]->u.sd.value;
 				break;
 			default:
@@ -872,6 +909,8 @@ public:
 			{
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
+
 				params[idx]->u.sd.value = a;
 				params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
 				break;
@@ -910,6 +949,8 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
+
 				ret = params[idx]->u.sd.value;
 				break;
 			default:
@@ -986,6 +1027,8 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
+
 				ret = params[idx]->u.ad.value;
 				break;
 			default:
@@ -1024,6 +1067,8 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
+
 				ret = (PF_Boolean)params[idx]->u.bd.value;
 				break;
 			default:
@@ -1040,7 +1085,7 @@ public:
 	PF_Err SetCHECKBOX(A_long idx, PF_Boolean b)
 	{
 		PF_Err err = PF_Err_NONE;
-		if ((idx >= 1) && (idx < m_paramsCount) && (m_cmd == PF_Cmd_USER_CHANGED_PARAM)) {
+		if ((idx >= 1) && (idx < m_paramsCount)) {
 			params[idx]->u.bd.value = b;
 			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
 		}
@@ -1075,6 +1120,8 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
+
 				ret = params[idx]->u.cd.value;
 				break;
 			default:
@@ -1092,7 +1139,7 @@ public:
 	PF_Err SetCOLOR(A_long idx, PF_Pixel col)
 	{
 		PF_Err err = PF_Err_NONE;
-		if ((idx >= 1) && (idx < m_paramsCount) && (m_cmd == PF_Cmd_USER_CHANGED_PARAM))
+		if ((idx >= 1) && (idx < m_paramsCount))
 		{
 			params[idx]->u.cd.value.alpha = col.alpha;
 			params[idx]->u.cd.value.red = col.red;
@@ -1128,6 +1175,8 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
+
 				ret = params[idx]->u.fs_d.value;
 				break;
 			default:
@@ -1143,7 +1192,7 @@ public:
 	PF_Err SetFLOAT(A_long idx, PF_FpLong f)
 	{
 		PF_Err err = PF_Err_NONE;
-		if ((idx >= 1) && (idx < m_paramsCount) && (m_cmd == PF_Cmd_USER_CHANGED_PARAM))
+		if ((idx >= 1) && (idx < m_paramsCount))
 		{
 			params[idx]->u.fs_d.value = f;
 			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
@@ -1179,6 +1228,8 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
+
 				ret.x = NF_AE::params[idx]->u.td.x_value;
 				ret.y = NF_AE::params[idx]->u.td.y_value;
 				break;
@@ -1243,6 +1294,8 @@ public:
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
+			case PF_Cmd_UPDATE_PARAMS_UI:
+
 				ret = params[idx]->u.pd.value;
 				break;
 			default:
@@ -1258,7 +1311,7 @@ public:
 	PF_Err SetPOPUP(A_long idx, A_long b)
 	{
 		PF_Err err = PF_Err_NONE;
-		if ((idx >= 1) && (idx < m_paramsCount) && (m_cmd == PF_Cmd_USER_CHANGED_PARAM))
+		if ((idx >= 1) && (idx < m_paramsCount))
 		{
 			params[idx]->u.pd.value = b;
 			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
