@@ -22,8 +22,8 @@ BEGIN
 	"MIB8",
 	"gtac", 
 	0, 0x0,
-	20, 0x0,
-	"\x11NF's Plugins-Cell\0\0", 
+	28, 0x0,
+	"\x19NF's Plugins-{Deprecated}\0\0", 
 
 	"MIB8",
 	"4668", 

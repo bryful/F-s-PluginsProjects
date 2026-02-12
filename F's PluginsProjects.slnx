@@ -20,6 +20,7 @@
       <Platform Project="x64" />
       <Build Solution="*|x86" Project="false" />
     </Project>
+    <Project Path="Legacy/Project/ColorKey/Win/ColorKey.vcxproj" Id="e18653f0-ffef-48a1-90ae-cc6562614526" />
     <Project Path="Legacy/Project/CreateAlpha/Win/CreateAlpha.vcxproj" Id="b64069b0-6049-4e43-b5f0-7b7c6a3ee5a8">
       <Platform Project="x64" />
       <Build Solution="*|x86" Project="false" />
@@ -141,7 +142,6 @@
       <Platform Project="x64" />
       <Build Solution="*|x86" Project="false" />
     </Project>
-    <Project Path="Legacy/Project/ColorKey/Win/ColorKey.vcxproj" Id="e18653f0-ffef-48a1-90ae-cc6562614526" />
     <Project Path="Legacy/Project/colorThreshold/Win/colorThreshold.vcxproj" Id="237fd67b-9d84-415b-ade7-61d01a74ed16" />
     <Project Path="Legacy/Project/EdgeLine-Hi/Win/EdgeLine-Hi.vcxproj" Id="affb60c8-86e8-4430-b6be-1a7718eca91f" />
     <Project Path="Legacy/Project/EdgeLine/Win/EdgeLine.vcxproj" Id="3b9083eb-a40d-4614-ac8e-52fbd6ef3349" />
@@ -183,7 +183,6 @@
     <Project Path="Legacy/Project/VideoGrid/Win/VideoGrid.vcxproj" Id="24cd6769-03b6-42f0-a48d-c3df38dd3275" />
     <Project Path="Legacy/Project/whiteInOut/Win/whiteInOut.vcxproj" Id="007d3f7d-3d91-4b4d-bece-dc9f75f3b184" />
   </Folder>
-  <Folder Name="/ソリューション項目/" />
   <Project Path="CellEmboss/Win/CellEmboss.vcxproj" Id="1cff95f1-dbf4-4ada-ba95-82809e166b93" />
   <Project Path="CellLineEraser/Win/CellLineEraser.vcxproj" Id="6ed76fcf-e733-4f2a-a92f-62fe0ebd1d36" />
   <Project Path="ColorSampler/Win/ColorSampler.vcxproj" Id="67a97dc2-17ab-47bb-b9af-f3f4fa94c36d" />
@@ -194,6 +193,7 @@
   <Project Path="Gradient/Win/Gradient.vcxproj" Id="44f00cc9-d7dc-4630-8375-8659c3e21839" />
   <Project Path="Grain/Win/Grain.vcxproj" Id="011c43aa-cf8e-4e98-a675-e732ecb4151f" />
   <Project Path="Hyperbolic/Win/Hyperbolic.vcxproj" Id="8b548727-374b-479a-a482-99fd9e49dfdf" />
+  <Project Path="InkingLineBlur/Win/InkingLineBlur.vcxproj" />
   <Project Path="InnerFlare/Win/InnerFlare.vcxproj" Id="50606b8f-83ad-4cab-be63-30aa36553857" />
   <Project Path="InnerFlareRot/Win/InnerFlareRot.vcxproj" Id="78a87bd6-726a-4c8a-99cb-ce89b09d9be2" />
   <Project Path="LogicGray/Win/LogicGray.vcxproj" Id="59e1b063-68ba-4489-bfe0-be728cb9c822" />
@@ -206,4 +206,5 @@
   <Project Path="SelectiveColorBlur/Win/SelectiveColorBlur.vcxproj" Id="0aca4c2e-35ac-42f3-8e23-7e7a978e4120" />
   <Project Path="TargetGrad/Win/TargetGrad.vcxproj" Id="34bdd983-1fd2-4f36-a563-87d99e983b61" />
   <Project Path="TargetGradRadical/Win/TargetGradRadical.vcxproj" Id="5ded4cba-8aa6-4129-8ca2-c27719c8381e" />
+  <Project Path="WhiteKeying/Win/WhiteKeying.vcxproj" />
 </Solution>
