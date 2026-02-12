@@ -66,12 +66,6 @@ static PF_Err ParamsSetup (
 		ID_NAME_EDIT_BTN,
 		PF_ParamFlag_SUPERVISE
 	);
-	cs.AddButton(	// button
-		STR_REF_BTN,
-		"Sorry!",
-		ID_REF_BTN,
-		PF_ParamFlag_SUPERVISE
-	);
 	out_data->num_params = ID_NUM_PARAMS;
 
 	//cs.Finalize();
