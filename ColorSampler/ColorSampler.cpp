@@ -559,16 +559,6 @@ HandleChangedParam(
 						PF_ParamDef def;
 						AEFX_CLR_STRUCT(def);
 						for (A_long i = 0; i < nameInfoP->color_count; i++) {
-							/*def = *params[ID_COLOR(i)];
-							// 保存されている名前に書き換え
-							if (nameInfoP->color_names[i] != NULL)
-							{
-								PF_STRNNCPY(def.PF_DEF_NAME, nameInfoP->color_names[i], sizeof(def.PF_DEF_NAME));
-								def.PF_DEF_NAME[sizeof(def.PF_DEF_NAME) - 1] = '\0'; // 念のため終端文字を保証
-								// UI を更新（これにより名前が反映される）
-								ae.suitesP->ParamUtilsSuite3()->PF_UpdateParamUI(in_data->effect_ref, ID_COLOR(i), &def);
-								params[ID_COLOR(i)]->uu.change_flags |= PF_ChangeFlag_CHANGED_VALUE;
-							}*/
 							ae.SetUIName(ID_COLOR(i), nameInfoP->color_names[i]);
 						}
 					}
@@ -616,18 +606,6 @@ QueryDynamicFlags(
 	void			*extra)	
 {
 	PF_Err 	err = PF_Err_NONE;
-	// 全てのカラーパラメータに対して、UI変更を許可する
-		// これにより、AEは必要に応じて ParamsSetup を再実行して名前を更新します
-	if (params != NULL) {
-		PF_ParamDef* def;
-		for (int i = 0; i < COLOR_TABLE_SIZE; i++) {
-			def = NULL;
-			def = params[ID_COLOR(i)];
-			if (def != NULL) {
-				def->uu.change_flags |= PF_ChangeFlag_CHANGED_VALUE;
-			}
-		}
-	}
 	return err;
 }
 
