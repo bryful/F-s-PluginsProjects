@@ -17,7 +17,7 @@ BEGIN
 	"eman",
 	0, 0x0,
 	20, 0x0,
-	"\x13NF-premultiplyColor", 
+	"\x13NF-PremultiplyColor", 
 
 	"MIB8",
 	"gtac", 
@@ -59,7 +59,7 @@ BEGIN
 	"OLGe", 
 	0L,
 	4L,
-	33556068L, 
+	33556032L, 
 
 	"MIB8",
 	"2LGe", 
@@ -71,7 +71,7 @@ BEGIN
 	"ANMe",
 	0, 0x0,
 	20, 0x0,
-	"\x13NF-premultiplyColor", 
+	"\x13NF-PremultiplyColor", 
 
 	"MIB8",
 	0x6165464CL, 
