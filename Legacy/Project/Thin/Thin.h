@@ -111,7 +111,8 @@ typedef struct thinInfo8 {
 	PF_Boolean	edge;
 
 	A_long		colorMax;
-	PF_Pixel	color[COLOR_MAX];
+	//PF_Pixel	color[COLOR_MAX];
+	PF_Pixel	color8[COLOR_MAX];
 	A_long	level;
 	A_long		nowX;
 	A_long		nowY;
@@ -138,7 +139,7 @@ typedef struct thinInfo16 {
 	PF_Boolean	edge;
 
 	A_long		colorMax;
-	PF_Pixel16	color[COLOR_MAX];
+	//PF_Pixel16	color[COLOR_MAX];
 	PF_Pixel	color8[COLOR_MAX];
 	A_long		level;
 	A_long		nowX;
@@ -167,7 +168,7 @@ typedef struct thinInfo32 {
 	PF_Boolean	edge;
 
 	A_long		colorMax;
-	PF_PixelFloat	color[COLOR_MAX];
+	//PF_PixelFloat	color[COLOR_MAX];
 	PF_Pixel		color8[COLOR_MAX];
 	A_long		level;
 	A_long		nowX;
@@ -179,7 +180,9 @@ typedef struct thinBak32 {
 	PF_PixelFloat	color;
 	A_long		dir;
 } thinBak32;
-
+PF_Err thinExec8(CFsAE* ae, ParamInfo* infoP);
+PF_Err thinExec16(CFsAE* ae, ParamInfo* infoP);
+PF_Err thinExec32(CFsAE* ae, ParamInfo* infoP);
 //--------------------------------------------------------------------xFF--------------
 extern "C" {
 
@@ -195,8 +198,5 @@ EntryPointFunc (
 }
 
 
-PF_Err thinExec8(CFsAE *ae , ParamInfo *infoP);
-PF_Err thinExec16(CFsAE *ae , ParamInfo *infoP);
-PF_Err thinExec32(CFsAE *ae , ParamInfo *infoP);
 #endif // Thin_H
 

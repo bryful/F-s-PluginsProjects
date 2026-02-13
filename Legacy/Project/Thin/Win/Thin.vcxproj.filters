@@ -44,18 +44,6 @@
     <ClInclude Include="..\..\FsLibrary\FsAE.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsGraphics.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsHLS.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsRandom.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\FsLibrary\FsScreenShake.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\FsLibrary\FsUtils.h">
       <Filter>Header Files\Fs</Filter>
     </ClInclude>
@@ -134,9 +122,6 @@
     <ClInclude Include="..\Fs_Entry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\F%27s PluginsProjects_2014\FsLibrary\FsDebug.h">
-      <Filter>Header Files\Fs</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ThinPiPL.rc">
@@ -178,9 +163,7 @@
     <ClCompile Include="..\..\..\Util\Smart_Utils.cpp">
       <Filter>Supporting code\AE</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThinSub8.cpp" />
-    <ClCompile Include="..\ThinSub16.cpp" />
-    <ClCompile Include="..\ThinSub32.cpp" />
+    <ClCompile Include="..\Thinsub.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\ThinPiPL.r">

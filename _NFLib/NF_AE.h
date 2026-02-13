@@ -1498,7 +1498,8 @@ public:
 		PF_Err err = PF_Err_NONE;
 		if (m_cmd == PF_Cmd_SMART_RENDER) {
 			ERR(NF_AE::ws2P->PF_NewWorld(in_data->effect_ref, w, h, TRUE, pf, wld));
-
+			if (!err) {
+			}
 		}
 		else {
 			PF_NewWorldFlags f = PF_NewWorldFlag_CLEAR_PIXELS | PF_NewWorldFlag_NONE;
