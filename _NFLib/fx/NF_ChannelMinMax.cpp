@@ -1,11 +1,11 @@
-﻿#include "NF_MinMax.h"
+﻿#include "NF_ChannelMinMax.h"
 
 typedef struct LineBuf {
     A_FpShort	level;
     A_long		index;
 } LineBufInfo;
 
-typedef struct MinMaxInfo {
+typedef struct ChMinMaxInfo {
 
 	PF_InData* in_data;
     A_long			max;
@@ -15,6 +15,7 @@ typedef struct MinMaxInfo {
 	A_long          rowbytes;
     A_long          height;
 	PF_EffectWorld  *world;
+	A_long		    channel;
     //PF_PixelPtr     line;
 	//LineBuf*        forward;
     //LineBuf*        backward;
@@ -23,7 +24,40 @@ typedef struct MinMaxInfo {
 
 #define PIXEL_LEVEL(PP) ( (FloatType)((((FloatType)PP.red * 0.299) + ((FloatType)PP.green * 0.587) + ((FloatType)PP.blue * 0.114)) * 10 + (FloatType)PP.alpha / maxChan))
 
-
+template <typename PixelType, typename ChannelType>
+inline ChannelType GetPixelByChannel(PixelType pixel, A_long channel)
+{
+    switch (channel) {
+        case 0:
+            return (ChannelType)pixel.red;
+        case 1:
+            return (ChannelType)pixel.green;
+        case 2:
+            return (ChannelType)pixel.blue;
+        case 3:
+            return (ChannelType)pixel.alpha;
+        default:
+            return (ChannelType)0; // デフォルトは0
+    }
+}
+template <typename PixelType, typename ChannelType>
+inline void SetPixelByChannel(PixelType *pixel, ChannelType v,A_long channel)
+{
+    switch (channel) {
+    case 0:
+        pixel->red  = (ChannelType)v;
+		break;
+    case 1:
+        pixel->green = (ChannelType)v;
+        break;
+    case 2:
+        pixel->blue = (ChannelType)v;
+        break;
+    case 3:
+        pixel->alpha = (ChannelType)v;
+        break;
+    }
+}
 // ************************************************************************
 template <typename PixelType, typename ChannelType, typename FloatType>
 static PF_Err
@@ -35,7 +69,7 @@ Max_SubH(
     FloatType maxChan)
 {
     PF_Err err = PF_Err_NONE;
-    MinMaxInfo* infoP = static_cast<MinMaxInfo*>(refconPV);
+    ChMinMaxInfo* infoP = static_cast<ChMinMaxInfo*>(refconPV);
     int radius = infoP->max;
     if (radius <= 0) return err;
 
@@ -45,13 +79,19 @@ Max_SubH(
 
     // 1. 半径が画像幅以上の場合は全画面最大値を計算
     if (radius >= w) {
-        PixelType maax = outP[0];
-		FloatType maaxV = PIXEL_LEVEL(maax);
+        ChannelType maaxV = GetPixelByChannel<PixelType, ChannelType>(outP[0],infoP->channel);
         for (A_long x = 1; x < w; x++) {
-			FloatType v = PIXEL_LEVEL(outP[x]);
-            if (v > maaxV) { maax = outP[x]; maaxV = v; }
+            ChannelType v = GetPixelByChannel<PixelType, ChannelType>(outP[x], infoP->channel);
+            if (v > maaxV) { maaxV = v; }
+			if (maaxV >= maxChan) 
+            { 
+                maaxV = (ChannelType)maxChan; 
+                break;
+            } // 最大値に達したらループを抜ける
         }
-        for (A_long x = 0; x < w; x++) outP[x] = maax;
+        for (A_long x = 0; x < w; x++) {
+            SetPixelByChannel<PixelType, ChannelType>(&outP[x], maaxV,infoP->channel);
+        }
         return PF_Err_NONE;
     }
 
@@ -60,8 +100,8 @@ Max_SubH(
     w2 = (w2 + (16 - w2 % 16));
 
     // --- vectorを使用したラインメモリの実装 ---
-    std::vector<PixelType> line(w2);
-    std::vector<FloatType> lineLevel(w2);
+    //std::vector<FloatType> line(w2);
+    std::vector<ChannelType> lineLevel(w2);
     std::vector<LineBufInfo> forward(w2);
     std::vector<LineBufInfo> backward(w2);
 
@@ -69,11 +109,10 @@ Max_SubH(
     
     for (A_long i = 0; i < w; i++) {
 
-        line[i] = outP[i];
         //lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114)) * 10 + (FloatType)line[i].alpha / maxChan);
-		lineLevel[i] = PIXEL_LEVEL(line[i]);
+        //lineLevel[i] = PIXEL_LEVEL(line[i]);
+        lineLevel[i] = GetPixelByChannel<PixelType, ChannelType>(outP[i], infoP->channel);
     }
-
     // VHGアルゴリズム
     int L = radius * 2 + 1;
     for (int b = 0; b < w; b += L) {
@@ -109,11 +148,14 @@ Max_SubH(
         int left = i - radius;
         int right = i + radius;
 
+		ChannelType vv = 0;
         if (right < 0) {
-            outP[i] = line[forward[0].index];
+			vv = (ChannelType)forward[0].level;
+            //outP[i] = line[forward[0]];
         }
         else if (left >= w) {
-            outP[i] = line[backward[w - 1].index];
+            //outP[i] = line[backward[w - 1]];
+            vv = (ChannelType)backward[w-1].level;
         }
         else {
             int safe_left = (left < 0) ? 0 : left;
@@ -153,9 +195,10 @@ Max_SubH(
                     maxIndex = forward[safe_right].index;
                 }
             }
-
-            outP[i] = line[maxIndex];
+            vv = (ChannelType)lineLevel[maxIndex];
+            //outP[i] = line[maxIndex];
         }
+        SetPixelByChannel<PixelType, ChannelType>(&(outP[i]),vv, infoP->channel);
     }
 
     return PF_Err_NONE;
@@ -190,7 +233,7 @@ Min_SubH(
     FloatType maxChan)
 {
     PF_Err err = PF_Err_NONE;
-    MinMaxInfo* infoP = static_cast<MinMaxInfo*>(refconPV);
+    ChMinMaxInfo* infoP = static_cast<ChMinMaxInfo*>(refconPV);
     int radius = infoP->max;
     if (radius <= 0) return err;
 
@@ -200,15 +243,18 @@ Min_SubH(
 
     // 1. 半径が画像幅以上の場合は全画面最小値を計算
     if (radius >= w) {
-        PixelType miin = outP[0];
-        //FloatType miinV = (FloatType)((((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10 + (FloatType)miin.alpha/maxChan);
-		FloatType miinV = PIXEL_LEVEL(miin);
+        ChannelType miinV = GetPixelByChannel<PixelType, ChannelType>(outP[0], infoP->channel);
         for (A_long x = 1; x < w; x++) {
-            //FloatType v = (FloatType)((((FloatType)outP[x].red * 0.299) + ((FloatType)outP[x].green * 0.587) + ((FloatType)outP[x].blue * 0.114))*10 + (FloatType)outP[x].alpha/maxChan);
-			FloatType v = PIXEL_LEVEL(outP[x]);
-            if (v < miinV) { miin = outP[x]; miinV = v; }  // < に変更
+            ChannelType v = GetPixelByChannel<PixelType, ChannelType>(outP[x], infoP->channel);
+            if (v < miinV) { miinV = v; }  // < に変更
+            if (miinV <= 0) 
+            { 
+                miinV = 0; 
+                break;
+			} // 最小値に達したらループを抜ける
         }
-        for (A_long x = 0; x < w; x++) outP[x] = miin;
+        for (A_long x = 0; x < w; x++) 
+            SetPixelByChannel<PixelType, ChannelType>(&(outP[x]), miinV, infoP->channel);
         return PF_Err_NONE;
     }
 
@@ -217,15 +263,16 @@ Min_SubH(
     w2 = (w2 + (16 - w2 % 16));
 
     // --- vectorを使用したラインメモリの実装 ---
-    std::vector<PixelType> line(w2);
-    std::vector<FloatType> lineLevel(w2);
+    //std::vector<PixelType> line(w2);
+    std::vector<ChannelType> lineLevel(w2);
     std::vector<LineBufInfo> forward(w2);
     std::vector<LineBufInfo> backward(w2);
 
     for (A_long i = 0; i < w; i++) {
-        line[i] = outP[i];
+        //line[i] = outP[i];
         //lineLevel[i] = (FloatType)((((FloatType)line[i].red * 0.299) + ((FloatType)line[i].green * 0.587) + ((FloatType)line[i].blue * 0.114))*10 + (FloatType)line[i].alpha/maxChan);
-		lineLevel[i] = PIXEL_LEVEL(line[i]);
+		//lineLevel[i] = PIXEL_LEVEL(line[i]);
+		lineLevel[i] = GetPixelByChannel<PixelType, ChannelType>(outP[i], infoP->channel);
     }
 
     // VHGアルゴリズム（最小値用に修正）
@@ -259,15 +306,18 @@ Min_SubH(
     }
 
     // 出力書き戻し
+    ChannelType vv = 0;
     for (int i = 0; i < w; i++) {
         int left = i - radius;
         int right = i + radius;
 
         if (right < 0) {
-            outP[i] = line[forward[0].index];
+            //outP[i] = line[forward[0].index];
+			vv = (ChannelType)forward[0].level;
         }
         else if (left >= w) {
-            outP[i] = line[backward[w - 1].index];
+            //outP[i] = line[backward[w - 1].index];
+            vv = (ChannelType)backward[w-1].level;
         }
         else {
             int safe_left = (left < 0) ? 0 : left;
@@ -308,7 +358,9 @@ Min_SubH(
                 }
             }
 
-            outP[i] = line[minIndex];
+            //outP[i] = line[minIndex];
+            vv = (ChannelType)lineLevel[minIndex];
+			SetPixelByChannel<PixelType, ChannelType>(&(outP[i]), vv, infoP->channel);
         }
     }
     return PF_Err_NONE;
@@ -342,7 +394,7 @@ Max_SubV(
     FloatType maxChan)
 {
     PF_Err err = PF_Err_NONE;
-    MinMaxInfo* infoP = static_cast<MinMaxInfo*>(refconPV);
+    ChMinMaxInfo* infoP = static_cast<ChMinMaxInfo*>(refconPV);
     int radius = infoP->max;
     if (radius <= 0) return err;
 
@@ -352,16 +404,26 @@ Max_SubV(
 
     // 1. 半径が画像高さ以上の場合は全列最大値を計算
     if (radius >= h) {
-        PixelType maax = *((PixelType*)infoP->world->data + x);
-        FloatType maaxV = (FloatType)((((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha/maxChan);
+        PixelType* p = (PixelType*)infoP->world->data + (x);
+        //PixelType maax = *((PixelType*)infoP->world->data + x);
+        //FloatType maaxV = (FloatType)((((FloatType)maax.red * 0.299) + ((FloatType)maax.green * 0.587) + ((FloatType)maax.blue * 0.114))*10 + (FloatType)maax.alpha/maxChan);
+        ChannelType maaxV = GetPixelByChannel<PixelType, ChannelType>(*p, infoP->channel);
 
         for (A_long y = 1; y < h; y++) {
             PixelType* p = (PixelType*)infoP->world->data + (y * wt + x);
-            FloatType v = (FloatType)((((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114)) + (FloatType)p->alpha / maxChan);
-            if (v > maaxV) { maax = *p; maaxV = v; }
+            //FloatType v = (FloatType)((((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114)) + (FloatType)p->alpha / maxChan);
+            ChannelType v = GetPixelByChannel<PixelType, ChannelType>(*p, infoP->channel);
+            if (v > maaxV) { maaxV = v; }
+            if (maaxV >= maxChan) 
+            { 
+                maaxV = (ChannelType)maxChan;
+                break;
+			} // 最大値に達したらループを抜ける
         }
         for (A_long y = 0; y < h; y++) {
-            *((PixelType*)infoP->world->data + (y * wt + x)) = maax;
+			PixelType* p = ((PixelType*)infoP->world->data + (y * wt + x));
+			SetPixelByChannel<PixelType, ChannelType>(p, maaxV, infoP->channel);
+
         }
         return PF_Err_NONE;
     }
@@ -370,20 +432,25 @@ Max_SubV(
     A_long h2 = h + radius;
     h2 = (h2 + (16 - h2 % 16));
 
-    PF_EffectWorld wld;
-    AEFX_CLR_STRUCT(wld);
-    ERR((*in_data->utils->new_world)(in_data->effect_ref, h2, 8, PF_NewWorldFlag_DEEP_PIXELS, &wld));
-    if (err) return err;
+    std::vector<ChannelType> lineLevel(h2);
+    std::vector<LineBufInfo> forward(h2);
+    std::vector<LineBufInfo> backward(h2);
 
-    PixelType* line = (PixelType*)wld.data;
-    FloatType* lineLevel = (FloatType*)(line + h2);
-    LineBufInfo* forward = (LineBufInfo*)(lineLevel + h2);
-    LineBufInfo* backward = forward + h2;
+    //PF_EffectWorld wld;
+    //AEFX_CLR_STRUCT(wld);
+    //ERR((*in_data->utils->new_world)(in_data->effect_ref, h2, 8, PF_NewWorldFlag_DEEP_PIXELS, &wld));
+    //if (err) return err;
+
+    //PixelType* line = (PixelType*)wld.data;
+    //FloatType* lineLevel = (FloatType*)(line + h2);
+    //LineBufInfo* forward = (LineBufInfo*)(lineLevel + h2);
+    //LineBufInfo* backward = forward + h2;
 
     // 3. 列データをコピー
     for (A_long y = 0; y < h; y++) {
-        line[y] = *((PixelType*)infoP->world->data + (y * wt + x));
-        lineLevel[y] = (FloatType)((((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114))*10 + (FloatType)line[y].alpha/maxChan);
+        PixelType pp = *((PixelType*)infoP->world->data + (y * wt + x));
+        //lineLevel[y] = (FloatType)((((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114))*10 + (FloatType)line[y].alpha/maxChan);
+		lineLevel[y] = GetPixelByChannel<PixelType, ChannelType>(pp, infoP->channel);
     }
 
     // 4. VHGアルゴリズム
@@ -420,12 +487,14 @@ Max_SubV(
     for (int y = 0; y < h; y++) {
         int top = y - radius;
         int bottom = y + radius;
-
+        ChannelType vv = 0;
         if (bottom < 0) {
-            *((PixelType*)infoP->world->data + (y * wt + x)) = line[forward[0].index];
+			vv = (ChannelType)forward[0].level;
+            //*((PixelType*)infoP->world->data + (y * wt + x)) = line[forward[0].index];
         }
         else if (top >= h) {
-            *((PixelType*)infoP->world->data + (y * wt + x)) = line[backward[h - 1].index];
+			vv = (ChannelType)backward[h - 1].level;
+            //*((PixelType*)infoP->world->data + (y * wt + x)) = line[backward[h - 1].index];
         }
         else {
             int safe_top = (top < 0) ? 0 : top;
@@ -465,12 +534,15 @@ Max_SubV(
                     maxIndex = forward[safe_bottom].index;
                 }
             }
-
-            *((PixelType*)infoP->world->data + (y * wt + x)) = line[maxIndex];
+			vv = (ChannelType)lineLevel[maxIndex];
         }
+
+        PixelType* p = ((PixelType*)infoP->world->data + (y * wt + x));
+        SetPixelByChannel<PixelType, ChannelType>(p, vv, infoP->channel);
+        //*((PixelType*)infoP->world->data + (y * wt + x)) = line[maxIndex];
     }
 
-    ERR((*in_data->utils->dispose_world)(in_data->effect_ref, &wld));
+    //ERR((*in_data->utils->dispose_world)(in_data->effect_ref, &wld));
     return PF_Err_NONE;
 }
 
@@ -491,6 +563,7 @@ static PF_Err Max_SubV32(void* refconPV, A_long thread_idxL, A_long x, A_long it
 {
     return Max_SubV<PF_PixelFloat, PF_FpShort, PF_FpShort>(refconPV, thread_idxL, x, itrtL, 1.0f);
 }
+
 template <typename PixelType, typename ChannelType, typename FloatType>
 static PF_Err
 Min_SubV(
@@ -501,7 +574,7 @@ Min_SubV(
     FloatType maxChan)
 {
     PF_Err err = PF_Err_NONE;
-    MinMaxInfo* infoP = static_cast<MinMaxInfo*>(refconPV);
+    ChMinMaxInfo* infoP = static_cast<ChMinMaxInfo*>(refconPV);
     int radius = infoP->max;
     if (radius <= 0) return err;
 
@@ -512,15 +585,23 @@ Min_SubV(
     // 1. 半径が画像高さ以上の場合は全列最小値を計算
     if (radius >= h) {
         PixelType miin = *((PixelType*)infoP->world->data + x);
-        FloatType miinV = (FloatType)((((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10+ (FloatType)miin.alpha /maxChan);
+        //FloatType miinV = (FloatType)((((FloatType)miin.red * 0.299) + ((FloatType)miin.green * 0.587) + ((FloatType)miin.blue * 0.114))*10+ (FloatType)miin.alpha /maxChan);
+		ChannelType miinV = GetPixelByChannel<PixelType, ChannelType>(miin, infoP->channel);
 
         for (A_long y = 1; y < h; y++) {
-            PixelType* p = (PixelType*)infoP->world->data + (y * wt + x);
-            FloatType v = (FloatType)((((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114))*10 + (FloatType)p->alpha/maxChan);
-            if (v < miinV) { miin = *p; miinV = v; }  // < に変更
+            PixelType p = *((PixelType*)infoP->world->data + (y * wt + x));
+            //FloatType v = (FloatType)((((FloatType)p->red * 0.299) + ((FloatType)p->green * 0.587) + ((FloatType)p->blue * 0.114))*10 + (FloatType)p->alpha/maxChan);
+            ChannelType v = GetPixelByChannel<PixelType, ChannelType>(p, infoP->channel);
+            if (v < miinV) { miinV = v; }  // < に変更
+            if (miinV <= 0)
+            {
+                miinV = 0;
+                break;
+            }
         }
         for (A_long y = 0; y < h; y++) {
-            *((PixelType*)infoP->world->data + (y * wt + x)) = miin;
+            PixelType *p =((PixelType*)infoP->world->data + (y * wt + x));
+			SetPixelByChannel<PixelType, ChannelType>(p, miinV, infoP->channel);
         }
         return PF_Err_NONE;
     }
@@ -529,15 +610,16 @@ Min_SubV(
     A_long h2 = h + radius;
     h2 = (h2 + (16 - h2 % 16));
 
-    std::vector<PixelType> line(h2);
-    std::vector<FloatType> lineLevel(h2);
+    //std::vector<PixelType> line(h2);
+    std::vector<ChannelType> lineLevel(h2);
     std::vector<LineBufInfo> forward(h2);
     std::vector<LineBufInfo> backward(h2);
 
     // 3. 列データをコピー
     for (A_long y = 0; y < h; y++) {
-        line[y] = *((PixelType*)infoP->world->data + (y * wt + x));
-        lineLevel[y] = (FloatType)((((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114))*10 + (FloatType)line[y].alpha/maxChan);
+        PixelType p = *((PixelType*)infoP->world->data + (y * wt + x));
+       // lineLevel[y] = (FloatType)((((FloatType)line[y].red * 0.299) + ((FloatType)line[y].green * 0.587) + ((FloatType)line[y].blue * 0.114))*10 + (FloatType)line[y].alpha/maxChan);
+		lineLevel[y] = GetPixelByChannel<PixelType, ChannelType>(p, infoP->channel);
     }
 
     // 4. VHGアルゴリズム（最小値用に修正）
@@ -575,11 +657,14 @@ Min_SubV(
         int top = y - radius;
         int bottom = y + radius;
 
+		ChannelType vv = 0;
         if (bottom < 0) {
-            *((PixelType*)infoP->world->data + (y * wt + x)) = line[forward[0].index];
+            //*((PixelType*)infoP->world->data + (y * wt + x)) = line[forward[0].index];
+			vv = (ChannelType)forward[0].level;
         }
         else if (top >= h) {
-            *((PixelType*)infoP->world->data + (y * wt + x)) = line[backward[h - 1].index];
+            //*((PixelType*)infoP->world->data + (y * wt + x)) = line[backward[h - 1].index];
+			vv = (ChannelType)backward[h - 1].level;
         }
         else {
             int safe_top = (top < 0) ? 0 : top;
@@ -619,9 +704,11 @@ Min_SubV(
                     minIndex = forward[safe_bottom].index;
                 }
             }
-
-            *((PixelType*)infoP->world->data + (y * wt + x)) = line[minIndex];
+            vv = (ChannelType)lineLevel[minIndex];
         }
+        PixelType* p = ((PixelType*)infoP->world->data + (y * wt + x));
+        SetPixelByChannel<PixelType, ChannelType>(p, vv, infoP->channel);
+        //*((PixelType*)infoP->world->data + (y * wt + x)) = line[minIndex];
     }
     return PF_Err_NONE;
 }
@@ -643,178 +730,23 @@ static PF_Err Min_SubV32(void* refconPV, A_long thread_idxL, A_long x, A_long it
 {
     return Min_SubV<PF_PixelFloat, PF_FpShort, PF_FpShort>(refconPV, thread_idxL, x, itrtL, 1.0f);
 }
-static PF_Err MinMaxImpl(
-    PF_InData* in_dataP,
-    PF_OutData* out_dataP,
-    PF_EffectWorld* worldP,
-    A_long value
-)
-{
-    //ae->DisposeWorld
-    PF_Err err = PF_Err_NONE;
-	if (value == 0) return err;
 
-    PF_WorldSuite2* ws2P;
-    PF_PixelFormat pixelFormat;
-    AEFX_AcquireSuite(in_dataP,
-        out_dataP,
-        kPFWorldSuite,
-        kPFWorldSuiteVersion2,
-        "Couldn't load suite.",
-        (void**)&(ws2P));
-    ws2P->PF_GetPixelFormat(worldP, &pixelFormat);
 
-    MinMaxInfo info;
-	info.in_data = in_dataP;
-    if (value < 0) {
-        info.max = -value;
-        info.maxMinus = TRUE;
-    }
-    else {
-        info.max = value;
-        info.maxMinus = FALSE;
-    }
-    info.world = worldP;
-    info.width = worldP->width;
-    info.rowbytes = worldP->rowbytes;
-    switch (pixelFormat)
-    {
-    case PF_PixelFormat_ARGB32:
-        info.widthTrue = worldP->rowbytes / sizeof(PF_Pixel);
-		break;
-    case PF_PixelFormat_ARGB64:
-        info.widthTrue = worldP->rowbytes / sizeof(PF_Pixel16);
-        break;
-    case PF_PixelFormat_ARGB128:
-        info.widthTrue = worldP->rowbytes / sizeof(PF_PixelFloat);
-        break;
-    }
-    info.height = worldP->height;
-
-    if (!err) {
-        PF_Iterate8Suite2* iterS = nullptr;
-        AEFX_SuiteScoper<PF_Iterate8Suite2> iter_scope(
-            in_dataP,
-            kPFIterate8Suite,
-            kPFIterate8SuiteVersion2,
-            out_dataP
-        );
-        switch(pixelFormat)
-        {
-        case PF_PixelFormat_ARGB32:
-            if (info.maxMinus == FALSE) {
-                ERR(iter_scope->iterate_generic(
-                    info.height,     // iterationsL: 実行回数（＝行数）
-                    &info,                  // refconPV: ユーザー定義データ
-                    Max_SubH8              // fn_func: コールバック関数
-                ));
-
-                ERR(iter_scope->iterate_generic(
-                    info.width,           // iterationsL: 実行回数（＝行数）
-                    &info,                    // refconPV: ユーザー定義データ
-                    Max_SubV8    // fn_func: コールバック関数
-                ));
-            }
-            else {
-                ERR(iter_scope->iterate_generic(
-                    info.height,     // iterationsL: 実行回数（＝行数）
-                    &info,                  // refconPV: ユーザー定義データ
-                    Min_SubH8              // fn_func: コールバック関数
-                ));
-
-                ERR(iter_scope->iterate_generic(
-                    info.width,           // iterationsL: 実行回数（＝行数）
-                    &info,                    // refconPV: ユーザー定義データ
-                    Min_SubV8    // fn_func: コールバック関数
-                ));
-            }
-            break;
-        case PF_PixelFormat_ARGB64:
-            if (info.maxMinus == FALSE) {
-                ERR(iter_scope->iterate_generic(
-                    info.height,     // iterationsL: 実行回数（＝行数）
-                    &info,                  // refconPV: ユーザー定義データ
-                    Max_SubH16              // fn_func: コールバック関数
-                ));
-
-                ERR(iter_scope->iterate_generic(
-                    info.width,           // iterationsL: 実行回数（＝行数）
-                    &info,                    // refconPV: ユーザー定義データ
-                    Max_SubV16    // fn_func: コールバック関数
-                ));
-            }
-            else {
-                ERR(iter_scope->iterate_generic(
-                    info.height,     // iterationsL: 実行回数（＝行数）
-                    &info,                  // refconPV: ユーザー定義データ
-                    Min_SubH16              // fn_func: コールバック関数
-                ));
-
-                ERR(iter_scope->iterate_generic(
-                    info.width,           // iterationsL: 実行回数（＝行数）
-                    &info,                    // refconPV: ユーザー定義データ
-                    Min_SubV16    // fn_func: コールバック関数
-                ));
-            }
-            break;
-        case PF_PixelFormat_ARGB128:
-            if (info.maxMinus == FALSE) {
-                ERR(iter_scope->iterate_generic(
-                    info.height,     // iterationsL: 実行回数（＝行数）
-                    &info,                  // refconPV: ユーザー定義データ
-                    Max_SubH32              // fn_func: コールバック関数
-                ));
-
-                ERR(iter_scope->iterate_generic(
-                    info.width,           // iterationsL: 実行回数（＝行数）
-                    &info,                    // refconPV: ユーザー定義データ
-                    Max_SubV32    // fn_func: コールバック関数
-                ));
-            }
-            else {
-                ERR(iter_scope->iterate_generic(
-                    info.height,     // iterationsL: 実行回数（＝行数）
-                    &info,                  // refconPV: ユーザー定義データ
-                    Min_SubH32              // fn_func: コールバック関数
-                ));
-
-                ERR(iter_scope->iterate_generic(
-                    info.width,           // iterationsL: 実行回数（＝行数）
-                    &info,                    // refconPV: ユーザー定義データ
-                    Min_SubV32    // fn_func: コールバック関数
-                ));
-            }
-            break;
-        default:
-            err = PF_Err_BAD_CALLBACK_PARAM;
-            break;
-        }
-    }
-    return err;
-}
-
-PF_Err MinMax(
-    PF_InData* in_dataP,
-    PF_OutData* out_dataP,
-    PF_EffectWorld* worldP,
-    A_long value
-)
-{
-	return MinMaxImpl(in_dataP, out_dataP, worldP,value);
-}
-PF_Err MinMax(
+PF_Err ChannelMinMax(
     PF_InData* in_dataP,
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
     AEGP_SuiteHandler* suitesP,
-    A_long value
+    A_long value,
+    A_long channel
 )
 {
     PF_Err err = PF_Err_NONE;
     if (value == 0) return err;
 
-    MinMaxInfo info;
-    
+    ChMinMaxInfo info;
+	info.channel = channel;
+   
     info.in_data = in_dataP;
     if (value < 0) {
         info.max = -1*value;

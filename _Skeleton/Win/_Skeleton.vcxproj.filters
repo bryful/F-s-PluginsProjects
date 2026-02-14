@@ -54,6 +54,12 @@
     <ClCompile Include="..\..\_NFLib\fx\NF_DrawWorld.cpp">
       <Filter>fx</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_ChannelMinMax.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_ChannelBlur.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -198,6 +204,12 @@
       <Filter>fx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\fx\NF_DrawWorld.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelMinMax.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelBlur.h">
       <Filter>fx</Filter>
     </ClInclude>
   </ItemGroup>

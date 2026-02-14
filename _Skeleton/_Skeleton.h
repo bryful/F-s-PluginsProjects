@@ -17,7 +17,9 @@
 
 #include "..\_NFLib\fx\NF_Mult.h"
 #include "..\_NFLib\fx\NF_Minmax.h"
-#include "..\_NFLib\fx\NF_blur.h"
+#include "..\_NFLib\fx\NF_ChannelMinmax.h"
+#include "..\_NFLib\fx\NF_Blur.h"
+#include "..\_NFLib\fx\NF_ChannelBlur.h"
 #include "..\_NFLib\fx\debug_font.h"
 #include "..\_NFLib\fx\NF_Paint.h"
 #include "..\_NFLib\fx\NF_Noise.h"
@@ -36,6 +38,9 @@ enum {
 	
 	ID_MINMAX,
 	ID_BLUR,
+
+	ID_CHAN_MINMAX_MODE,
+	ID_CHAN_MINMAX_VALUE,
 
 	ID_NOISE_SIZE,
 	ID_NOISE_AMOUNT,
@@ -70,6 +75,13 @@ enum {
 
 #define	STR_MINMAX			"minmax"
 #define	STR_BLUR			"blur"
+
+#define	STR_CHAN_MINMAX_MODE	"channelMinMax"
+#define	STR_CHAN_MINMAX_ITEMS		"r|g|b|a"
+#define	STR_CHAN_MINMAX_COUNT		4
+#define	STR_CHAN_MINMAX_DFLT		1
+#define	STR_CHAN_MINMAX		"channelBlur"
+
 
 #define	STR_NOISE_SIZE		"noiseSize"
 #define	STR_NOISE_AMOUNT	"noiseAmount"
@@ -108,6 +120,8 @@ typedef struct ParamInfo {
 
 	A_long		minmax;
 	A_long		blur;
+	A_long		chan_minmax_mode;
+	A_long		chan_minmax_value;
 	
 	PF_FpLong	noise_size;
 	PF_FpLong	noise_amount;

@@ -1,5 +1,5 @@
 ﻿#include "NF_Noise.h"
-
+#include <sstream>
 
 
 struct Span {
@@ -120,7 +120,7 @@ static PF_Err FloodFillScanline(
     }
     return PF_Err_NONE;
 }
-static PF_Err PaintImpl(
+PF_Err Paint(
     PF_EffectWorld* worldP,
     PF_PixelFormat pixelFormat,
     A_long xL,
@@ -130,11 +130,8 @@ static PF_Err PaintImpl(
 {
     PF_Err err = PF_Err_NONE;
 
+   
 
-
-
-    // 現在の出力先バッファが 32bit float かどうかを確認
-    // AE SDK の PF_WORLD_IS_FLOAT マクロを使用
     switch (pixelFormat)
     {
     case PF_PixelFormat_ARGB128:
@@ -155,14 +152,3 @@ static PF_Err PaintImpl(
     return err;
 }
 
-
-PF_Err Paint(
-    PF_EffectWorld* worldP,
-    PF_PixelFormat pixelFormat,
-    A_long xL,
-    A_long yL,
-    PF_Pixel fill_color
-)
-{
-    return PaintImpl(worldP, pixelFormat, xL, yL, fill_color);
-}

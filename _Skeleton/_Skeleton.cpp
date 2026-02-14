@@ -57,6 +57,21 @@ static PF_Err ParamsSetup (
 		0,				//デフォルトの値
 		ID_BLUR
 	);
+	cs.AddPopup(STR_CHAN_MINMAX_MODE,
+		STR_CHAN_MINMAX_COUNT,
+		STR_CHAN_MINMAX_DFLT,
+		STR_CHAN_MINMAX_ITEMS,
+		ID_CHAN_MINMAX_MODE
+	);
+	cs.AddSlider(	// noise offset
+		STR_CHAN_MINMAX,		//パラメータの名前
+		-1000, 				//数値入力する場合の最小値
+		1000,			//数値入力する場合の最大値
+		-100,				//スライダーの最小値 
+		100,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_CHAN_MINMAX_VALUE
+	);
 	// ----------------------------------------------------------------
 	cs.AddFloatSlider(	// R
 		STR_NOISE_SIZE,			//Name
@@ -305,6 +320,9 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 
 	ERR(ae->GetADD(ID_MINMAX, &infoP->minmax));
 	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
+	ERR(ae->GetPOPUP(ID_CHAN_MINMAX_MODE, &infoP->chan_minmax_mode));
+	infoP->chan_minmax_mode -= 1;
+	ERR(ae->GetADD(ID_CHAN_MINMAX_VALUE, &infoP->chan_minmax_value));
 
 	ERR(ae->GetFLOAT(ID_NOISE_SIZE,&infoP->noise_size));
 	ERR(ae->GetFLOAT(ID_NOISE_AMOUNT,&infoP->noise_amount));
@@ -382,7 +400,17 @@ static PF_Err
 			TRUE
 		);
 	}
-
+	if(infoP->chan_minmax_value !=0)
+	{
+		ERR(ChannelMinMax(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			infoP->chan_minmax_value,
+			infoP->chan_minmax_mode
+			));
+	}
 	// Noiseサンプル
 	if ((infoP->noise_size > 0) && (infoP->noise_amount > 0))
 	{
