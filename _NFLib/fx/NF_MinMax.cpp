@@ -370,7 +370,7 @@ Max_SubV(
     A_long h2 = h + radius;
     h2 = (h2 + (16 - h2 % 16));
 
-    PF_EffectWorld wld;
+    /*PF_EffectWorld wld;
     AEFX_CLR_STRUCT(wld);
     ERR((*in_data->utils->new_world)(in_data->effect_ref, h2, 8, PF_NewWorldFlag_DEEP_PIXELS, &wld));
     if (err) return err;
@@ -378,7 +378,12 @@ Max_SubV(
     PixelType* line = (PixelType*)wld.data;
     FloatType* lineLevel = (FloatType*)(line + h2);
     LineBufInfo* forward = (LineBufInfo*)(lineLevel + h2);
-    LineBufInfo* backward = forward + h2;
+    LineBufInfo* backward = forward + h2;*/
+
+    std::vector<PixelType> line(h2);
+    std::vector<FloatType> lineLevel(h2);
+    std::vector<LineBufInfo> forward(h2);
+    std::vector<LineBufInfo> backward(h2);
 
     // 3. 列データをコピー
     for (A_long y = 0; y < h; y++) {
@@ -470,7 +475,7 @@ Max_SubV(
         }
     }
 
-    ERR((*in_data->utils->dispose_world)(in_data->effect_ref, &wld));
+    //ERR((*in_data->utils->dispose_world)(in_data->effect_ref, &wld));
     return PF_Err_NONE;
 }
 
