@@ -63,6 +63,7 @@
     <Project Path="Legacy/Project/NoiseHiLo_Alpha/Win/NoiseHiLo_Alpha.vcxproj" Id="2f37f615-6971-4e25-a7e7-f84c9667fc17" />
     <Project Path="Legacy/Project/NoiseHiLo_RGB/Win/NoiseHiLo_RGB.vcxproj" Id="ebf5387a-7397-47ae-bf29-adcf3650796c" />
     <Project Path="Legacy/Project/OpticalDiffusion/Win/OpticalDiffusion.vcxproj" Id="eeafb167-bd4d-4cd8-bb63-083c667979d4" />
+    <Project Path="Legacy/Project/OutLine/Win/OutLine.vcxproj" Id="a48f2124-fda5-4d0d-92f6-cf1ee3166a92" />
     <Project Path="Legacy/Project/Paint/Win/Paint.vcxproj" Id="e08ef309-965e-48b8-b74c-9d494a685fc7">
       <Platform Project="x64" />
       <Build Solution="*|x86" Project="false" />
@@ -153,7 +154,6 @@
     <Project Path="Legacy/Project/graytoneToColorize/Win/graytoneToColorize.vcxproj" Id="f8d4470f-e99d-49c1-b9e0-70ad1bed338e" />
     <Project Path="Legacy/Project/LineDetection/Win/LineDetection.vcxproj" Id="52cb21fd-eb41-484f-b74f-0780d6ea017c" />
     <Project Path="Legacy/Project/Mosaic/Win/Mosaic.vcxproj" Id="f69a4de5-0611-445f-ac50-32ce40dd5545" />
-    <Project Path="Legacy/Project/OutLine/Win/OutLine.vcxproj" Id="a48f2124-fda5-4d0d-92f6-cf1ee3166a92" />
     <Project Path="Legacy/Project/PixelExtend/Win/PixelExtend.vcxproj" Id="8d0eafda-73d9-49e9-9d64-f1c32fe164cc" />
     <Project Path="Legacy/Project/Posterization8bit/Win/Posterization8bit.vcxproj" Id="f5f94db1-51ac-4d0e-a23a-14bd7bcfc91d" />
     <Project Path="Legacy/Project/RandomLineNoise/Win/RandomLineNoise.vcxproj" Id="a0e5fd48-02d4-47d7-9dc3-a4b11ee8dc62" />
@@ -200,6 +200,7 @@
   <Project Path="MaxBlur/Win/MaxBlur.vcxproj" Id="62ae563a-0fa3-4bcf-8329-f0c623cc2217" />
   <Project Path="MinMax/Win/MinMax.vcxproj" Id="3484f962-8b9c-4fdb-855d-2590cb933909" />
   <Project Path="Mult/Win/Mult.vcxproj" Id="0e51b777-fc10-4b8c-997c-01ba8b41384f" />
+  <Project Path="Outline/Win/Outline.vcxproj" />
   <Project Path="PremultiplyColor/Win/PremultiplyColor.vcxproj" Id="93c6b6a8-048d-435b-8027-22ee0731e82b" />
   <Project Path="RGBShifter/Win/RGBShifter.vcxproj" Id="ff59a926-f65c-4a05-b60a-8b05db62be04" />
   <Project Path="RimFill/Win/RimFill.vcxproj" Id="5dab4234-e9fe-4b40-9c40-c28e1df98f68" />

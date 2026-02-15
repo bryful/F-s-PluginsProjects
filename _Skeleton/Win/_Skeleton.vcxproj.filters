@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\_NFLib\fx\NF_ChannelBlur.cpp">
       <Filter>fx</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_DrawAALine.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -210,6 +213,9 @@
       <Filter>fx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\fx\NF_ChannelBlur.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_DrawAALine.h">
       <Filter>fx</Filter>
     </ClInclude>
   </ItemGroup>

@@ -24,6 +24,7 @@
 #include "..\_NFLib\fx\NF_Paint.h"
 #include "..\_NFLib\fx\NF_Noise.h"
 #include "..\_NFLib\fx\NF_Draw.h"
+#include "..\_NFLib\fx\NF_DrawAALine.h"
 
 #include "_SkeletonFilter.h"
 
@@ -53,6 +54,9 @@ enum {
 	ID_START_POS,
 	ID_END_POS,
 	ID_DRAW_COLOR,
+
+	ID_DRAW_START_OPA,
+	ID_DRAW_END_OPA,
 
 	ID_DEBUG_FONT_CB,
 	ID_DEBUG_FONT_POS,
@@ -91,12 +95,14 @@ enum {
 #define	STR_NOISE_SEED		"noiseSeed"
 
 #define	STR_DRAW_POP		"draw"
-#define	STR_DRAW_ITEMS		"none|line|box|boxfill|Circle|CircleFill"
-#define	STR_DRAW_COUNT		6
+#define	STR_DRAW_ITEMS		"none|line|box|boxfill|Circle|CircleFill|DrawLineAA"
+#define	STR_DRAW_COUNT		7
 #define	STR_DRAW_DFLT		1
 #define	STR_START_POS		"startPos"
 #define	STR_END_POS			"endPos"
 #define	STR_DRAW_COLOR		"drawColor"
+#define	STR_START_OPA		"startOpacity"
+#define	STR_END_OPA			"endOpacity"
 
 #define	STR_DEBUG_FONT_CB	"debugFont"
 #define	STR_DEBUG_FONT_POS	"debugPos"
@@ -134,6 +140,8 @@ typedef struct ParamInfo {
 	PF_Point	draw_start;
 	PF_Point	draw_end;
 	PF_Pixel	draw_color;
+	PF_FpLong	draw_start_opa;
+	PF_FpLong	draw_end_opa;
 
 	PF_Boolean	debug_font_cb;
 	PF_Point	debug_font_pos;

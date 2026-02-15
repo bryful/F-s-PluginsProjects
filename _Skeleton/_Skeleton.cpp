@@ -163,6 +163,31 @@ static PF_Err ParamsSetup (
 		ID_DRAW_COLOR
 	);
 	// ----------------------------------------------------------------
+	cs.AddFloatSlider(	// R
+		STR_START_OPA,	//Name
+		0,				//VALID_MIN
+		100,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,			//SLIDER_MAX
+		100,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_DRAW_START_OPA
+		);
+	cs.AddFloatSlider(	// R
+		STR_END_OPA,	//Name
+		0,				//VALID_MIN
+		100,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,			//SLIDER_MAX
+		100,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_DRAW_END_OPA
+	);
+	// ----------------------------------------------------------------
 	cs.AddCheckBox(	// noise frame
 		STR_DEBUG_FONT_CB,
 		"on",
@@ -335,6 +360,11 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetPOINT(ID_START_POS, &infoP->draw_start));
 	ERR(ae->GetPOINT(ID_END_POS, &infoP->draw_end));
 	ERR(ae->GetCOLOR(ID_DRAW_COLOR, &infoP->draw_color));
+	ERR(ae->GetFLOAT(ID_DRAW_START_OPA, &infoP->draw_start_opa));
+	infoP->draw_start_opa /= 100;
+	ERR(ae->GetFLOAT(ID_DRAW_END_OPA, &infoP->draw_end_opa));
+	infoP->draw_end_opa /= 100;
+
 
 	ERR(ae->GetCHECKBOX(ID_DEBUG_FONT_CB, &infoP->debug_font_cb));
 	ERR(ae->GetPOINT(ID_DEBUG_FONT_POS, &infoP->debug_font_pos));
@@ -529,7 +559,24 @@ static PF_Err
 					radius,
 					infoP->draw_color));
 				break;
-
+			case 7:
+				//アンチエイリアス
+				ERR(DrawAA_Line(
+					ae->in_data, 
+					ae->output,
+					ae->pixelFormat(),
+					ae->suitesP,
+					(float)infoP->draw_start.x,
+					(float)infoP->draw_start.y,
+					(float)infoP->draw_end.x,
+					(float)infoP->draw_end.y,
+					infoP->draw_color,
+					(float)infoP->draw_start_opa,
+					(float)infoP->draw_end_opa,
+					5,
+					2
+					));
+				break;
 		};
 	}
 
