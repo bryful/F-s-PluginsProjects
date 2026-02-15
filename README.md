@@ -23,7 +23,8 @@ SDKをAfterEffectsSDK_25.6_61_winに変えました。いつの間にかSDK2025�
 
 ## ダウンロード
 ダウンロードは今ページの右上あたりにある<b>[Releases](https://github.com/bryful/F-s-PluginsProjects/releases)</b>でできます。<br>
-2026/02/07 更新しました。<br>
+<br>
+NF-pluginsのアーカイブの中にはF's Pluginsのバイナリも入っています。<br>
 個別にほしい時は[NF-Plugins_release](https://github.com/bryful/F-s-PluginsProjects/tree/master/NF-Plugins_release)ディレクトリから直接ダウンロードできます。[ここ](https://github.com/bryful/F-s-PluginsProjects/tree/master/NF-Plugins_release)にあるやつは最新版ですがバグが残ってる可能性があるので注意してください。
 <br>
 
@@ -60,6 +61,7 @@ F's PluginsのプロジェクトはLegacy/Projectに中にまとめてありま�
 ResourcesフォルダにあるはずのPiPLtool.exeがGitではじかれる場合があるのでその場合はLegacy/Resources/PiPLtool.zipを展開してexeを取り出してください。
 <br>
 考えてみるとSDK込みでGitに入れたのでビルドの成功率はかなり高くなってるはずです。<br>
+
 
 ## 関連プロジェクト ##
 F-s-PluginsProjects_TLed<br>
