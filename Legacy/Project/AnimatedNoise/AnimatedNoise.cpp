@@ -342,7 +342,33 @@ static void NoiseMain8(PrmTbl *prm)
 
 }
 //-------------------------------------------------------------------------------------------------
-static void NoiseMain16(PrmTbl *prm)
+typedef struct PrmTbl {
+	PF_PixelPtr	data;		//画像
+	A_long 		width;		//画像の横幅
+	A_long 		height;		//画像の高さ
+	A_long 		w;			//ターゲット
+	A_long 		h;
+	A_long 		target;
+
+	PF_Boolean	animFlag;	//
+	A_long 		anim;
+
+	A_long		frame;
+	A_long		seed;
+
+	A_long 		value;
+	PF_Fixed	length;
+	PF_Boolean	colorFlag;
+
+	PF_Fixed	block_value;
+	PF_Fixed	block_length;
+	A_long 		block_width;
+	A_long 		block_height;
+	PF_Boolean	block_colorFlag;
+
+} PrmTbl;
+
+static void NoiseMain16(NF_AE *ae,A_long count ,PF_Fplong n_strong,)
 {
 	PF_Pixel16 *data16;
 	data16 =(PF_Pixel16 *)prm->data;

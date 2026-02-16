@@ -1,15 +1,15 @@
-#include "_SkeletonFilter.h"
+ï»¿#include "_SkeletonFilter.h"
 
 // *******************************************************************************
-// ƒrƒbƒg[“x‚²‚Æ‚ÌÅ‘å’l‚ğæ“¾‚·‚éƒwƒ‹ƒp[
+// ãƒ“ãƒƒãƒˆæ·±åº¦ã”ã¨ã®æœ€å¤§å€¤ã‚’å–å¾—ã™ã‚‹ãƒ˜ãƒ«ãƒ‘ãƒ¼
 template <typename T>
 inline PF_FpLong GetMaxChannel() {
 	if (std::is_same<T, PF_Pixel8>::value) return 255.0;
 	if (std::is_same<T, PF_Pixel16>::value) return 32768.0;
-	return 1.0; // PF_PixelFloat—p
+	return 1.0; // PF_PixelFloatç”¨
 }
 
-// --- 5. ‹¤’ÊƒtƒBƒ‹ƒ^ƒeƒ“ƒvƒŒ[ƒg ---
+// --- 5. å…±é€šãƒ•ã‚£ãƒ«ã‚¿ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ ---
 template <typename T>
 static PF_Err FilterImageT(
 	refconType refcon,
@@ -21,51 +21,51 @@ static PF_Err FilterImageT(
 	FilterInfo* infoP = reinterpret_cast<FilterInfo*>(refcon);
 	PF_FpLong max_val = GetMaxChannel<T>();
 
-	// F‚Ì‰ÁZˆ—
+	// è‰²ã®åŠ ç®—å‡¦ç†
 	PF_FpLong r = (PF_FpLong)outP->red + (infoP->r * max_val);
 	PF_FpLong g = (PF_FpLong)outP->green + (infoP->g * max_val);
 	PF_FpLong b = (PF_FpLong)outP->blue + (infoP->b * max_val);
 
-	// ƒmƒCƒYˆ—
+	// ãƒã‚¤ã‚ºå‡¦ç†
 	if (infoP->noise > 0) {
-		PF_FpLong rf =(PF_FpLong)hash_float( xL , yL,infoP->noise_offset); // À•W‚ÉŠî‚Ã‚­ƒnƒbƒVƒ…‚Åƒ‰ƒ“ƒ_ƒ€’l‚ğ•Ï‰»‚³‚¹‚é
-		PF_FpLong random_factor = (rf * 2.0f) - 1.0f; // -1.0 ~ 1.0 ‚É•ÏŠ·
+		PF_FpLong rf =(PF_FpLong)hash_float( xL , yL,infoP->noise_offset); // åº§æ¨™ã«åŸºã¥ããƒãƒƒã‚·ãƒ¥ã§ãƒ©ãƒ³ãƒ€ãƒ å€¤ã‚’å¤‰åŒ–ã•ã›ã‚‹
+		PF_FpLong random_factor = (rf * 2.0f) - 1.0f; // -1.0 ~ 1.0 ã«å¤‰æ›
 		PF_FpLong vv = random_factor * infoP->noise * max_val;
 		r += vv;
 		g += vv;
 		b += vv;
 	}
 
-	// o—Íˆ— (PixelTraits‚ğg—p‚µ‚Ä“KØ‚ÈŒ^‚ÉƒLƒƒƒXƒg)
+	// å‡ºåŠ›å‡¦ç† (PixelTraitsã‚’ä½¿ç”¨ã—ã¦é©åˆ‡ãªå‹ã«ã‚­ãƒ£ã‚¹ãƒˆ)
 	if (std::is_same<T, PF_PixelFloat>::value) {
-		// 32bit float ‚Ìê‡‚ÍƒNƒ‰ƒ“ƒv•s—v
+		// 32bit float ã®å ´åˆã¯ã‚¯ãƒ©ãƒ³ãƒ—ä¸è¦
 		outP->red = static_cast<typename PixelTraits<T>::channel_type>(r);
 		outP->green = static_cast<typename PixelTraits<T>::channel_type>(g);
 		outP->blue = static_cast<typename PixelTraits<T>::channel_type>(b);
 	}
 	else {
-		// ®”Œ^‚Ìê‡‚ÍƒNƒ‰ƒ“ƒv‚µ‚Ä‚©‚ç“KØ‚ÈŒ^‚ÉƒLƒƒƒXƒg
+		// æ•´æ•°å‹ã®å ´åˆã¯ã‚¯ãƒ©ãƒ³ãƒ—ã—ã¦ã‹ã‚‰é©åˆ‡ãªå‹ã«ã‚­ãƒ£ã‚¹ãƒˆ
 		outP->red = static_cast<typename PixelTraits<T>::channel_type>(AE_CLAMP(r, 0, max_val));
 		outP->green = static_cast<typename PixelTraits<T>::channel_type>(AE_CLAMP(g, 0, max_val));
 		outP->blue = static_cast<typename PixelTraits<T>::channel_type>(AE_CLAMP(b, 0, max_val));
 	}
 
-	//outP->alpha = inP->alpha; // ƒAƒ‹ƒtƒ@‚Í‚»‚Ì‚Ü‚ÜˆÛ
+	//outP->alpha = inP->alpha; // ã‚¢ãƒ«ãƒ•ã‚¡ã¯ãã®ã¾ã¾ç¶­æŒ
 
 	return PF_Err_NONE;
 }
 
-// 8-bit—p
+// 8-bitç”¨
 static PF_Err FilterImage8(refconType refcon, A_long xL, A_long yL, PF_Pixel* inP, PF_Pixel* outP) {
 	return FilterImageT<PF_Pixel8>(refcon, xL, yL, reinterpret_cast<PF_Pixel8*>(inP), reinterpret_cast<PF_Pixel8*>(outP));
 }
 
-// 16-bit—p
+// 16-bitç”¨
 static PF_Err FilterImage16(refconType refcon, A_long xL, A_long yL, PF_Pixel16* inP, PF_Pixel16* outP) 
 {
 	return FilterImageT<PF_Pixel16>(refcon, xL, yL, reinterpret_cast<PF_Pixel16*>(inP), reinterpret_cast<PF_Pixel16*>(outP));
 }
-// 32-bit—p (Float)
+// 32-bitç”¨ (Float)
 static PF_Err FilterImageFloat(refconType refcon, A_long xL, A_long yL, PF_PixelFloat* inP, PF_PixelFloat* outP)
 {
 	return FilterImageT<PF_PixelFloat>(refcon, xL, yL, reinterpret_cast<PF_PixelFloat*>(inP), reinterpret_cast<PF_PixelFloat*>(outP));
@@ -81,7 +81,7 @@ static PF_Err FilterImageImpl(
 {
 	PF_Err err = PF_Err_NONE;
 		
-	// ƒsƒNƒZƒ‹ƒtƒH[ƒ}ƒbƒg‚É‰‚¶‚Äƒeƒ“ƒvƒŒ[ƒgŠÖ”‚ğŒÄ‚Ño‚·
+	// ãƒ”ã‚¯ã‚»ãƒ«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã«å¿œã˜ã¦ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°ã‚’å‘¼ã³å‡ºã™
 	switch (pixelFormat) {
 	case PF_PixelFormat_ARGB128:
 		err = suitesP->IterateFloatSuite1()->iterate(

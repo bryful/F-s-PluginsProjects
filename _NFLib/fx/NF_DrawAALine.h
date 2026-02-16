@@ -36,7 +36,14 @@ void DrawAALine16(PF_EffectWorld* output, float x0, float y0, float x1, float y1
 void DrawAALine32(PF_EffectWorld* output, float x0, float y0, float x1, float y1, PF_PixelFloat col, float startAlpha, float endAlpha, float startWeight, float endWeight);
 
 // マルチスレッド版 (Iterate Suite)
-PF_Err DrawAA_Line8(PF_InData* in_data, PF_EffectWorld* out, AEGP_SuiteHandler* suites, float x0, float y0, float x1, float y1, PF_Pixel col, float startAlpha, float endAlpha, float startWeight, float endWeight);
+PF_Err DrawAA_Line8(
+	PF_InData* in_data, 
+	PF_EffectWorld* out, 
+	AEGP_SuiteHandler* suites, 
+	float x0, float y0, float x1, float y1, 
+	PF_Pixel col, 
+	float startAlpha, float endAlpha,
+	float startWeight, float endWeight);
 PF_Err DrawAA_Line16(PF_InData* in_data, PF_EffectWorld* out, AEGP_SuiteHandler* suites, float x0, float y0, float x1, float y1, PF_Pixel16 col, float startAlpha, float endAlpha, float startWeight, float endWeight);
 PF_Err DrawAA_Line32(PF_InData* in_data, PF_EffectWorld* out, AEGP_SuiteHandler* suites, float x0, float y0, float x1, float y1, PF_PixelFloat col, float startAlpha, float endAlpha, float startWeight, float endWeight);
 

@@ -27,6 +27,7 @@
 #include "..\_NFLib\fx\NF_DrawAALine.h"
 
 #include "_SkeletonFilter.h"
+#include <string>
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる

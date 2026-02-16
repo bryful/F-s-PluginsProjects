@@ -43,7 +43,7 @@ void DrawAALineT(
 
             float aa = (distSq < edge1 * edge1) ? 1.0f : (std::max)(0.0f, (std::min)(1.0f, (edge0 - (float)std::sqrt(distSq)) / (edge0 - edge1)));
 
-            float curAlpha = startAlpha + (endAlpha - startAlpha) * t;
+            float curAlpha = AE_CLAMP(startAlpha + (endAlpha - startAlpha) * t,0,1.0f);
             float src_a = (col.alpha / (float)MAX_VAL) * curAlpha * aa;
 
             if (src_a <= 0.0f) continue;
@@ -84,7 +84,7 @@ static PF_Err LineWorkerT(void* refcon, A_long x, A_long y, T* in, T* out) {
     float edge1 = (std::max)(0.0f, curW * 0.5f - 0.5f);
     float aa = (distSq < edge1 * edge1) ? 1.0f : (std::max)(0.0f, (std::min)(1.0f, (edge0 - (float)std::sqrt(distSq)) / (edge0 - edge1)));
 
-    float curAlpha = data->startAlpha + (data->endAlpha - data->startAlpha) * t;
+    float curAlpha = AE_CLAMP(data->startAlpha + (data->endAlpha - data->startAlpha) * t,0,1);
     float src_a = (data->col.alpha / data->max_val) * curAlpha * aa;
 
     out->red = (T_COMP)((std::min)(data->max_val, out->red * (1.0f - src_a) + data->col.red * src_a));
@@ -107,7 +107,11 @@ PF_Err DrawAA_Line8(PF_InData* in_data, PF_EffectWorld* output, AEGP_SuiteHandle
     LineRefData<PF_Pixel> d = { x0, y0, x1, y1, col, sA, eA, sW, eW, x1 - x0, y1 - y0 };
     d.l2 = d.dx * d.dx + d.dy * d.dy; d.inv_l2 = (d.l2 == 0) ? 0 : 1.0f / d.l2; d.max_val = 255.0f;
     float maxW = (std::max)(sW, eW) + 2.0f;
-    PF_Rect r = { (short)(std::max)(0.0f, (std::min)(x0,x1) - maxW), (short)(std::max)(0.0f, (std::min)(y0,y1) - maxW), (short)(std::min)((float)output->width, (std::max)(x0,x1) + maxW), (short)(std::min)((float)output->height, (std::max)(y0,y1) + maxW) };
+    PF_Rect r = { 
+        (short)(std::max)(0.0f, (std::min)(x0,x1) - maxW),
+        (short)(std::max)(0.0f, (std::min)(y0,y1) - maxW), 
+        (short)(std::min)((float)output->width, (std::max)(x0,x1) + maxW),
+        (short)(std::min)((float)output->height, (std::max)(y0,y1) + maxW) };
     return suites->Iterate8Suite2()->iterate(in_data, 0, r.bottom - r.top, NULL, &r, &d, LineWorker8, output);
 }
 
