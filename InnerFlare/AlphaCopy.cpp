@@ -3,6 +3,7 @@
 typedef struct {
     PF_InData* in_data;
 	PF_Boolean reverse;
+	PF_Boolean isWhite;
 } AlpheCopyInfo;
 
 #define AE_CLAMP(val, min, max)  ((val) < (min) ? (min) : ((val) > (max) ? (max) : (val)))
@@ -24,6 +25,13 @@ AlphaCopyT(
     AlpheCopyInfo* infoP = reinterpret_cast<AlpheCopyInfo*>(refcon);
 
     AlphaType a = inP->alpha;
+
+    if(infoP->isWhite == TRUE) {
+        if (inP->red == maxValue && inP->green == maxValue && inP->blue == maxValue) {
+            a = 0;
+        }
+	}
+
 
     if (infoP->reverse == FALSE) {
         a = maxValue - a;
@@ -75,48 +83,38 @@ AlphaCopy32(
     return AlphaCopyT<PF_PixelFloat, PF_FpShort>(refcon, xL, yL, inP, outP, 1.0f);
 }
 
-static PF_Err AlphaCopyMImpl(
-    PF_InData* in_dataP,
-    PF_EffectWorld* inP,
-    PF_EffectWorld* outP,
-    PF_PixelFormat pixelFormat,
-    AEGP_SuiteHandler* suitesP,
-    PF_Boolean reverse
-)
-{
-    PF_Err err = PF_Err_NONE;
-    AlpheCopyInfo info;
-    info.in_data = in_dataP;
-    info.reverse = reverse;
-    
-    switch (pixelFormat) {
-    case PF_PixelFormat_ARGB32:
-        ERR(suitesP->Iterate8Suite1()->iterate(
-            in_dataP, 0, outP->height, inP, NULL, &info, AlphaCopy8, outP));
-        break;
-
-    case PF_PixelFormat_ARGB64:
-        ERR(suitesP->Iterate16Suite1()->iterate(
-            in_dataP, 0, outP->height, inP, NULL, &info, AlphaCopy16, outP));
-        break;
-
-    case PF_PixelFormat_ARGB128:
-        ERR(suitesP->IterateFloatSuite1()->iterate(
-            in_dataP, 0, outP->height, inP, NULL, &info, AlphaCopy32, outP));
-        break;
-    }
-    return err;
-}
-
-
 PF_Err AlphaCopyM(
     PF_InData* in_dataP,
     PF_EffectWorld* inP,
     PF_EffectWorld* outP,
     PF_PixelFormat pixelFormat,
     AEGP_SuiteHandler* suitesP,
-    PF_Boolean reverse
+    PF_Boolean reverse,
+    PF_Boolean isWhite
+
 )
 {
-    return AlphaCopyMImpl(in_dataP, inP, outP, pixelFormat, suitesP, reverse);
+    PF_Err err = PF_Err_NONE;
+    AlpheCopyInfo info;
+    info.in_data = in_dataP;
+    info.reverse = reverse;
+	info.isWhite = isWhite;
+    
+    switch (pixelFormat) {
+    case PF_PixelFormat_ARGB32:
+        ERR(suitesP->Iterate8Suite2()->iterate(
+            in_dataP, 0, outP->height, inP, NULL, &info, AlphaCopy8, outP));
+        break;
+
+    case PF_PixelFormat_ARGB64:
+        ERR(suitesP->Iterate16Suite2()->iterate(
+            in_dataP, 0, outP->height, inP, NULL, &info, AlphaCopy16, outP));
+        break;
+
+    case PF_PixelFormat_ARGB128:
+        ERR(suitesP->IterateFloatSuite2()->iterate(
+            in_dataP, 0, outP->height, inP, NULL, &info, AlphaCopy32, outP));
+        break;
+    }
+    return err;
 }

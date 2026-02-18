@@ -38,8 +38,13 @@
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\NF_SelectPixels.cpp" />
     <ClCompile Include="..\NF_TargetPixels.cpp" />
+    <ClCompile Include="..\NF_SelectPixels.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -170,8 +175,13 @@
     <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h">
       <Filter>fx</Filter>
     </ClInclude>
-    <ClInclude Include="..\NF_SelectPixels.h" />
     <ClInclude Include="..\NF_TargetPixels.h" />
+    <ClInclude Include="..\NF_SelectPixels.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h">
+      <Filter>fx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

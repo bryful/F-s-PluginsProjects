@@ -47,19 +47,6 @@ static PF_Err ParamsSetup (
 		ID_LENGTH
 	);
 	AEFX_CLR_STRUCT(def);
-	PF_ADD_FLOAT_SLIDER(STR_OFFSET,	//Name
-		0,						//VALID_MIN
-		10,							//VALID_MAX
-		1,							//SLIDER_MIN
-		5,							//SLIDER_MAX
-		1,							//CURVE_TOLERANCE
-		1,							//DFLT
-		1,							//PREC
-		2,							//DISP
-		0,							//WANT_PHASE
-		ID_OFFSET
-	);
-	AEFX_CLR_STRUCT(def);
 	PF_ADD_CHECKBOX(
 		STR_REVERSE,
 		STR_REVERSE2,
@@ -97,6 +84,23 @@ static PF_Err ParamsSetup (
 		0,					//DISP
 		0,					//WANT_PHASE
 		ID_HYPERBOLIC
+	);
+	//チェックボックス
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_CHECKBOX(
+		STR_WHITE,
+		"on",
+		FALSE,
+		0,
+		ID_WHITE
+	);
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_CHECKBOX(
+		STR_BLEND,
+		"on",
+		FALSE,
+		0,
+		ID_BLEND
 	);
 	out_data->num_params = ID_NUM_PARAMS;
 	return err;
@@ -139,9 +143,10 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetFLOAT(ID_LENGTH, &infoP->length));
 	ERR(ae->GetCHECKBOX(ID_REVERSE, &infoP->reverse));
 	ERR(ae->GetADD(ID_MINMAX, &infoP->minmax));
-	ERR(ae->GetFLOAT(ID_OFFSET, &infoP->offset));
 	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
 	ERR(ae->GetFLOAT(ID_HYPERBOLIC, &infoP->hyperbolic));
+	ERR(ae->GetCHECKBOX(ID_WHITE, &infoP->isWhite));
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -151,28 +156,27 @@ static PF_Err
 	PF_Err err = PF_Err_NONE;
 
 	PF_InData* in_data = ae->in_data;
-	infoP->blur = (A_long)((PF_FpLong)infoP->blur * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
+	infoP->blur =   (A_long)((PF_FpLong)infoP->blur * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
 	infoP->length = ((PF_FpLong)infoP->length * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den);
-	
-	ERR(AlphaCopyDD(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP, infoP->rot, infoP->length, infoP->offset,infoP->reverse));
-	if (infoP->blur > 0 || infoP->minmax != 0) {
-		Mult(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, FALSE);
-	}
+	infoP->minmax = (A_long)((PF_FpLong)infoP->minmax * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den +0.5);
+
+	ERR(AlphaCopyDD(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP, 
+		infoP->rot, infoP->length,infoP->reverse,infoP->isWhite));
 	if (infoP->minmax != 0) {
-		MinMax(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->minmax);
+		ChannelMinMax(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->minmax,3);
 	}
 	if (infoP->blur > 0) {
-		Blur(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->blur);
-	}
-	Mult(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, true);
-	if (infoP->blur > 0 || infoP->minmax != 0) {
-		Mult(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, TRUE);
+		ChannelBlur(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->blur,3);
 	}
 	if (infoP->hyperbolic != 0.0) {
 		HyperbolicAlpha(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->hyperbolic);
 	}
+
 	ERR(AlphaCopyRM(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP, infoP->color, FALSE));
 	
+	if(infoP->isBlend){
+		ERR(BlendBehind(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP));
+	}
 	return err;
 }
 

@@ -21,7 +21,7 @@ static PF_Err ParamsSetup (
 	NF_ParamsSetup cs(in_data, out_data);
 
 	cs.AddPopup(STR_COUNT,
-		9,
+		10,
 		2,
 		STR_COUNT_ITEMS,
 		ID_COUNT
@@ -120,7 +120,12 @@ static PF_Err ParamsSetup (
 		ID_COLOR_LO
 	);
 	cs.EndTopic(ID_LO_TOPIC_END);
-	
+	cs.AddCheckBox(
+		STR_BLEND,
+		"on",
+		FALSE,
+		ID_BLEND
+	);
 	cs.Finalize();
 	return err;
 }
@@ -159,7 +164,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	PF_Fixed	fixed_angle=0;
 
 	ERR(ae->GetPOPUP(ID_COUNT, &infoP->count));
-	infoP->count -= 1;
+	infoP->count -= 2;
 	for (int i = 0; i < 8; i++) {
 		ERR(ae->GetCOLOR(ID_COLOR(i), &infoP->colors[i]));
 	}
@@ -179,6 +184,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetCOLOR(ID_COLOR_LO, &infoP->colorLo));
 	infoP->colorLo16 = NF_Pixel8To16(infoP->colorLo);
 	infoP->colorLo32 = NF_Pixel8To32(infoP->colorLo);
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -204,6 +210,9 @@ static PF_Err
 		infoP->colors,
 		SelectPixelMode::SP_MODE_MASK
 		));
+
+	//return err;
+
 	ERR(EmbossHiFilter(ae, infoP));
 	
 
@@ -232,7 +241,15 @@ static PF_Err
 		ae,
 		infoP
 	));
-	
+	if (infoP->isBlend) {
+		ERR(BlendBehind(
+			ae->in_data,
+			ae->input,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP
+		));
+	}
 
 
 	return err;

@@ -148,7 +148,7 @@ Exec(CFsAE* ae, ParamInfo* infoP)
 		ae->out_data
 	);
 	//ERR(TinyBlue(ae->in_data,ae->out_data,ae->output,infoP->radius));
-	ERR(AlphaCopyM(ae->in_data, ae->input, ae->output, pixelFormat, ae->suitesP,infoP->reverce));
+	ERR(AlphaCopyM(ae->in_data, ae->input, ae->output, pixelFormat, ae->suitesP,infoP->reverce,FALSE));
 
 	if (infoP->minmax != 0) {
 		TinyMinMaxM(ae->in_data, ae->output, pixelFormat, iter_scope, infoP->minmax);

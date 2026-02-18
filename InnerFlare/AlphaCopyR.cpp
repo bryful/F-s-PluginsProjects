@@ -3,6 +3,7 @@
 typedef struct {
     PF_InData* in_data;
 	PF_Boolean reverse;
+	PF_Boolean isWhite;
 	PF_Pixel color;
 	PF_Pixel16 color16;
     PF_PixelFloat color32;
@@ -50,6 +51,12 @@ AlphaCopyRT(
 
     PixelType col;
     AlphaType a = inP->alpha;
+    if (infoP->isWhite == TRUE) {
+        if (inP->red == maxValue && inP->green == maxValue && inP->blue == maxValue) {
+            a = 0;
+        }
+    }
+
     a = infoP->reverse ? (maxValue - a) : a;
     if constexpr (std::is_same_v<PixelType, PF_Pixel>) {
         col = infoP->color;
@@ -107,14 +114,15 @@ AlphaCopyR32(
     return AlphaCopyRT<PF_PixelFloat, PF_FpShort>(refcon, xL, yL, inP, outP, 1.0f);
 }
 
-static PF_Err AlphaCopyRMImpl(
+PF_Err AlphaCopyRM(
     PF_InData* in_dataP,
     PF_EffectWorld* inP,
     PF_EffectWorld* outP,
     PF_PixelFormat pixelFormat,
     AEGP_SuiteHandler* suitesP,
     PF_Pixel color,
-	PF_Boolean reverse
+	PF_Boolean reverse,
+	PF_Boolean isWhite
 )
 {
     PF_Err err = PF_Err_NONE;
@@ -122,6 +130,7 @@ static PF_Err AlphaCopyRMImpl(
     info.in_data = in_dataP;
     info.color = color;
 	info.reverse = reverse;
+	info.isWhite = isWhite;
     switch (pixelFormat) {
     case PF_PixelFormat_ARGB32:
         ERR(suitesP->Iterate8Suite1()->iterate(
@@ -141,18 +150,4 @@ static PF_Err AlphaCopyRMImpl(
         break;
     }
     return err;
-}
-
-
-PF_Err AlphaCopyRM(
-    PF_InData* in_dataP,
-    PF_EffectWorld* inP,
-    PF_EffectWorld* outP,
-    PF_PixelFormat pixelFormat,
-    AEGP_SuiteHandler* suitesP,
-	PF_Pixel color,
-    PF_Boolean reverse
-)
-{
-    return AlphaCopyRMImpl(in_dataP, inP, outP, pixelFormat, suitesP, color, reverse);
 }

@@ -30,6 +30,10 @@ static PF_Err ParamsSetup (
 	};
 
 	NF_ParamsSetup cs(in_data, out_data);
+	cs.AddTopic(
+		STR_PARAMS_TOPIC,
+		ID_PARAMS_TOPIC
+	);
 	// ----------------------------------------------------------------
 	cs.AddCheckBox(	// noise frame
 		STR_AUTO_SEED,
@@ -162,6 +166,8 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_NOISE
 	);
+	cs.EndTopic(ID_PARAMS_TOPIC_END);
+	// **************************************************
 	cs.AddTopic(
 		STR_COLOR_TOPIC,
 		ID_COLOR_TOPIC
@@ -187,6 +193,13 @@ static PF_Err ParamsSetup (
 		);
 	}
 	cs.EndTopic(ID_COLOR_END);
+	// **************************************************
+	cs.AddCheckBox(
+		STR_BLEND,
+		"on",
+		FALSE,
+		ID_BLEND
+	);
 	cs.Finalize();
 	return err;
 }
@@ -292,8 +305,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	for(int i = 0; i < 8; i++) {
 		ERR(ae->GetCOLOR(ID_COLOR1 + i, &infoP->colors[i]));
 	}
-
-
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 
 	return err;
 }
@@ -377,6 +389,18 @@ static PF_Err
 	ERR(HyperbolicAlpha(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->hyperbolic));
 	A_long noise_count = (A_long)(infoP->noise * ae->outputInfo.width* ae->outputInfo.height/8);
 	ERR(ApplyANoise(ae, noise_count,infoP->seed));
+
+	if (infoP->isBlend)
+	{
+		ERR(BlendBehind(
+			ae->in_data,
+			ae->input,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP
+		));
+	}
+
 	return err;
 }
 

@@ -5,8 +5,8 @@
 //-----------------------------------------------------------------------------------
 
 #pragma once
-#ifndef InnerFlare_H
-#define InnerFlare_H
+#ifndef InnerFlare_N_H
+#define InnerFlare_N_H
 
 #include "..\_NFLib\AE_SDK.h"
 
@@ -23,6 +23,7 @@
 //#include "..\_NFLib\fx\NF_Noise.h"
 //#include "..\_NFLib\fx\NF_Draw.h"
 #include "..\_NFLib\fx\NF_AlphaHyperbolic.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -42,7 +43,8 @@ enum {
 	ID_BLUR,
 	ID_HYPERBOLIC,
 	ID_REVERCE,
-
+	ID_WHITE,
+	ID_BLEND,
 	ID_NUM_PARAMS
 };
 
@@ -52,6 +54,8 @@ enum {
 #define	STR_HYPERBOLIC		"hyperbolic"
 #define	STR_REVERCE			"reverce"
 #define	STR_COLOR			"color"
+#define	STR_WHITE			"Treat White as Transparent"
+#define	STR_BLEND			"Blend with original"
 
 
 //UIのパラメータ
@@ -61,6 +65,8 @@ typedef struct ParamInfo {
 	PF_FpLong			hyperbolic;
 	PF_Boolean			reverce;
 	PF_Pixel			color;
+	PF_Boolean			isWhite;
+	PF_Boolean			isBlend;
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 

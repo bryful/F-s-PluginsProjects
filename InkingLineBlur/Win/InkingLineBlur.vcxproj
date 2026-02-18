@@ -324,6 +324,7 @@
     <ClInclude Include="..\..\_NFLib\AE_SDK.h" />
     <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h" />
@@ -414,6 +415,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp" />

@@ -17,9 +17,9 @@
 
 #include "..\_NFLib\fx\NF_Mult.h"
 #include "..\_NFLib\fx\NF_AlphaHyperbolic.h"
-//#include "..\_NFLib\fx\NF_Minmax.h"
+#include "..\_NFLib\fx\NF_Minmax.h"
 //#include "..\_NFLib\fx\NF_blur.h"
-//#include "..\_NFLib\fx\debug_font.h"
+#include "..\_NFLib\fx\debug_font.h"
 //#include "..\_NFLib\fx\NF_Paint.h"
 //#include "..\_NFLib\fx\NF_Noise.h"
 //#include "..\_NFLib\fx\NF_Draw.h"

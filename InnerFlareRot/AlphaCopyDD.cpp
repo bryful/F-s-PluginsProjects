@@ -5,7 +5,6 @@ typedef struct {
     PF_InData* in_data;
     PF_FpLong rot;
     PF_FpLong length;
-    PF_FpLong offset;
     PF_FpLong cosV;
     PF_FpLong sinV;
     A_long  width;
@@ -13,6 +12,7 @@ typedef struct {
     A_long rowbytes;
     PF_PixelPtr data;
 	PF_Boolean reverse;
+	PF_Boolean isWhite;
 } AlpheCopyInfo;
 
 #define AE_CLAMP(val, min, max)  ((val) < (min) ? (min) : ((val) > (max) ? (max) : (val)))
@@ -36,25 +36,47 @@ AlphaCopyDDT(
     A_long pX = AE_CLAMP((A_long)(xL + infoP->cosV + 0.5), 0, infoP->width - 1);
     A_long pY = AE_CLAMP((A_long)(yL + infoP->sinV + 0.5), 0, infoP->height - 1);
     
-    A_long pX2 = AE_CLAMP((A_long)(xL + infoP->cosV + infoP->cosV * infoP->offset + 0.5), 0, infoP->width - 1);
-    A_long pY2 = AE_CLAMP((A_long)(yL + infoP->sinV + infoP->sinV * infoP->offset + 0.5), 0, infoP->height - 1);
+    A_long pX2 = AE_CLAMP((A_long)(xL + infoP->cosV *2  + 0.5), 0, infoP->width - 1);
+    A_long pY2 = AE_CLAMP((A_long)(yL + infoP->sinV *2 + 0.5), 0, infoP->height - 1);
 
-    A_long pX3 = AE_CLAMP((A_long)(xL + infoP->cosV + infoP->cosV * infoP->offset * 2 + 0.5), 0, infoP->width - 1);
-    A_long pY3 = AE_CLAMP((A_long)(yL + infoP->sinV + infoP->sinV * infoP->offset * 2 + 0.5), 0, infoP->height - 1);
+    A_long pX3 = AE_CLAMP((A_long)(xL + infoP->cosV * 3 + 0.5), 0, infoP->width - 1);
+    A_long pY3 = AE_CLAMP((A_long)(yL + infoP->sinV * 3 + 0.5), 0, infoP->height - 1);
 
     // 入力ピクセルのアルファ値を正規化（0.0-1.0)
     //PF_FpLong av = (PF_FpLong)inP->alpha / (PF_FpLong)maxValue;
     //PF_FpLong avr = 1.0 - av;
 
     // 各サンプリング位置のピクセルを取得
+    PixelType* pP0 = (PixelType*)((A_u_char*)infoP->data + infoP->rowbytes * yL + sizeof(PixelType) * xL);
     PixelType* pP = (PixelType*)((A_u_char*)infoP->data + infoP->rowbytes * pY + sizeof(PixelType) * pX);
     PixelType* pP2 = (PixelType*)((A_u_char*)infoP->data + infoP->rowbytes * pY2 + sizeof(PixelType) * pX2);
     PixelType* pP3 = (PixelType*)((A_u_char*)infoP->data + infoP->rowbytes * pY3 + sizeof(PixelType) * pX3);
+    
+    AlphaType alphaP0 = pP0->alpha;
+    AlphaType alphaP = pP->alpha;
+    AlphaType alphaP2 = pP2->alpha;
+    AlphaType alphaP3 = pP2->alpha;
+
+    if (infoP->isWhite == TRUE) {
+        if (pP0->red == maxValue && pP0->green == maxValue && pP0->blue == maxValue) {
+            alphaP0 = 0;
+        }
+        if (pP->red == maxValue && pP->green == maxValue && pP->blue == maxValue) {
+            alphaP = 0;
+        }
+        if (pP2->red == maxValue && pP2->green == maxValue && pP2->blue == maxValue) {
+            alphaP2 = 0;
+        }
+        if (pP3->red == maxValue && pP3->green == maxValue && pP3->blue == maxValue) {
+            alphaP3 = 0;
+        }
+    }
+
 
     // 各サンプリング位置のアルファを反転して正規化
-    PF_FpLong apP = 1.0 - (PF_FpLong)pP->alpha / (PF_FpLong)maxValue;
-    PF_FpLong apP2 = 1.0 - (PF_FpLong)pP2->alpha / (PF_FpLong)maxValue;
-    PF_FpLong apP3 = 1.0 - (PF_FpLong)pP3->alpha / (PF_FpLong)maxValue;
+    PF_FpLong apP = 1.0 - (PF_FpLong)alphaP / (PF_FpLong)maxValue;
+    PF_FpLong apP2 = 1.0 - (PF_FpLong)alphaP2 / (PF_FpLong)maxValue;
+    PF_FpLong apP3 = 1.0 - (PF_FpLong)alphaP3 / (PF_FpLong)maxValue;
 
     // 3点のアルファを乗算して戻す
     PF_FpLong resultAlpha = apP * apP2 * apP3;
@@ -70,8 +92,9 @@ AlphaCopyDDT(
         // 8/16ビット（整数）の場合
         alpha = (AlphaType)AE_CLAMP(resultAlpha * maxValue + 0.5, 0.0, (PF_FpLong)maxValue);
     }
-
-    outP->alpha = outP->red = outP->green = outP->blue = alpha;
+	outP->red = outP->green = alphaP0;
+    outP->blue = alpha;
+    outP->alpha  = alpha;
     
     return err;
 }
@@ -124,8 +147,9 @@ PF_Err AlphaCopyDD(
     AEGP_SuiteHandler* suitesP,
     PF_FpLong rot,
     PF_FpLong length,
-    PF_FpLong offset,
-	PF_Boolean reverse
+	PF_Boolean reverse,
+    PF_Boolean isWhite
+
 )
 {
     PF_Err err = PF_Err_NONE;
@@ -133,12 +157,12 @@ PF_Err AlphaCopyDD(
     info.in_data = in_dataP;
     info.rot = rot;
     info.length = length;
-	info.offset = offset;
     info.width = inP->width;
     info.height = inP->height;
     info.rowbytes = inP->rowbytes;
     info.data = inP->data;
 	info.reverse = reverse;
+	info.isWhite = isWhite;
     
     const double PI = acos(-1.0);
     double rad = (rot - 90.0) * PI / 180.0;

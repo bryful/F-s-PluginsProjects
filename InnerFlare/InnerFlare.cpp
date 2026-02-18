@@ -68,7 +68,23 @@ static PF_Err ParamsSetup (
 		0,
 		ID_REVERCE
 	);
-
+	//チェックボックス
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_CHECKBOX(
+		STR_WHITE,
+		"on",
+		FALSE,
+		0,
+		ID_WHITE
+	);
+	AEFX_CLR_STRUCT(def);
+	PF_ADD_CHECKBOX(
+		STR_BLEND,
+		"on",
+		FALSE,
+		0,
+		ID_BLEND
+	);
 	//----------------------------------------------------------------
 	out_data->num_params = ID_NUM_PARAMS;
 	return err;
@@ -109,6 +125,8 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
 	ERR(ae->GetFLOAT(ID_HYPERBOLIC, &infoP->hyperbolic));
 	ERR(ae->GetCHECKBOX(ID_REVERCE, &infoP->reverce));
+	ERR(ae->GetCHECKBOX(ID_WHITE, &infoP->isWhite));
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 
 	return err;
 }
@@ -122,30 +140,17 @@ static PF_Err
 	infoP->minmax = (A_long)((PF_FpLong)infoP->minmax * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
 
 	if ((infoP->blur <= 0) && (infoP->minmax == 0)) {
-		//ae->CopyInToOut(); // 元の画像をコピー
+		if(infoP->isBlend) {
+			ae->CopyInToOut();
+		}
+		else {
+			PF_FILL(NULL,NULL,ae->output);
+		}
 		return err;
 	}
-	/*
-	PF_WorldSuite2* ws2P;
-	PF_PixelFormat pixelFormat;
-	AEFX_AcquireSuite(ae->in_data,
-		ae->out_data,
-		kPFWorldSuite,
-		kPFWorldSuiteVersion2,
-		"Couldn't load suite.",
-		(void**)&(ws2P));
-
-	ws2P->PF_GetPixelFormat(ae->output, &pixelFormat);
-
-	AEFX_SuiteScoper<PF_Iterate8Suite1> iter_scope(
-		ae->in_data,
-		kPFIterate8Suite,
-		kPFIterate8SuiteVersion1,
-		ae->out_data
-	);
-	*/
-	//ERR(TinyBlue(ae->in_data,ae->out_data,ae->output,infoP->radius));
-	ERR(AlphaCopyM(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP, infoP->reverce));
+	ERR(AlphaCopyM(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP,
+		infoP->reverce,infoP->isWhite));
+	//return err;
 
 	if (infoP->minmax != 0) {
 		MinMax(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->minmax);
@@ -158,8 +163,13 @@ static PF_Err
 	if (infoP->hyperbolic != 0.0) {
 		HyperbolicAlpha(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->hyperbolic);
 	}
-	ERR(AlphaCopyRM(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP, infoP->color, infoP->reverce));
+	ERR(AlphaCopyRM(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP, 
+		infoP->color, infoP->reverce,infoP->isWhite));
 
+	if(infoP->isBlend) {
+		ERR(BlendBehind(
+			ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP));
+	}
 	
 	return err;
 }

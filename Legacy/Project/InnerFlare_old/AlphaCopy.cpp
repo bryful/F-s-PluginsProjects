@@ -3,6 +3,8 @@
 typedef struct {
     PF_InData* in_data;
 	PF_Boolean reverse;
+    PF_Boolean isWhite;
+
 } AlpheCopyInfo;
 
 #define AE_CLAMP(val, min, max)  ((val) < (min) ? (min) : ((val) > (max) ? (max) : (val)))
@@ -23,6 +25,13 @@ AlphaCopyT(
     PF_Err			err = PF_Err_NONE;
     AlpheCopyInfo* infoP = reinterpret_cast<AlpheCopyInfo*>(refcon);
 
+    if (infoP->isWhite == TRUE) {
+        if (inP->red == maxValue && inP->green == maxValue && inP->blue == maxValue) {
+            outP->alpha = 0;
+            outP->red = outP->green = outP->blue = 0;
+            return err;
+        }
+    }
     AlphaType a = inP->alpha;
 
     if (infoP->reverse == FALSE) {
@@ -75,19 +84,21 @@ AlphaCopy32(
     return AlphaCopyT<PF_PixelFloat, PF_FpShort>(refcon, xL, yL, inP, outP, 1.0f);
 }
 
-static PF_Err AlphaCopyMImpl(
+PF_Err AlphaCopyM(
     PF_InData* in_dataP,
     PF_EffectWorld* inP,
     PF_EffectWorld* outP,
     PF_PixelFormat pixelFormat,
     AEGP_SuiteHandler* suitesP,
-    PF_Boolean reverse
+    PF_Boolean reverse,
+	PF_Boolean isWhite
 )
 {
     PF_Err err = PF_Err_NONE;
     AlpheCopyInfo info;
     info.in_data = in_dataP;
     info.reverse = reverse;
+	info.isWhite = isWhite;
     
     switch (pixelFormat) {
     case PF_PixelFormat_ARGB32:
@@ -109,14 +120,3 @@ static PF_Err AlphaCopyMImpl(
 }
 
 
-PF_Err AlphaCopyM(
-    PF_InData* in_dataP,
-    PF_EffectWorld* inP,
-    PF_EffectWorld* outP,
-    PF_PixelFormat pixelFormat,
-    AEGP_SuiteHandler* suitesP,
-    PF_Boolean reverse
-)
-{
-    return AlphaCopyMImpl(in_dataP, inP, outP, pixelFormat, suitesP, reverse);
-}

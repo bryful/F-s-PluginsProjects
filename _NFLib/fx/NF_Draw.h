@@ -1,4 +1,4 @@
-﻿#pragma once
+﻿
 #pragma once
 #ifndef NF_LINE_H
 #define NF_LINE_H

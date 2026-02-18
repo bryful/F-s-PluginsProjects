@@ -52,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="..\ExtractColors.cpp" />
     <ClCompile Include="..\GradSub.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -195,6 +198,9 @@
       <Filter>fx</Filter>
     </ClInclude>
     <ClInclude Include="..\RotPoint.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h">
+      <Filter>fx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

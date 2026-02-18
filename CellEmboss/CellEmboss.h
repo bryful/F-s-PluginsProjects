@@ -25,6 +25,7 @@
 */
 #include "NF_SelectPixels.h"
 #include "..\_NFLib\fx\NF_ChannelBlur.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 #include <string>
 
 //ユーザーインターフェースのID
@@ -42,6 +43,7 @@ enum {
 	ID_COLOR5,
 	ID_COLOR6,
 	ID_COLOR7,
+	//ID_WHITE,
 	ID_COLOR_TOPIC_END,
 
 	ID_DIRECTION,
@@ -59,17 +61,18 @@ enum {
 	ID_BLUR_LO,
 	ID_COLOR_LO,
 	ID_LO_TOPIC_END,
-
+	ID_BLEND,
 	ID_NUM_PARAMS
 };
 #define ID_COLOR(IDX)		(ID_COLOR0 + (IDX))
 //UIの表示文字列
 #define	STR_COUNT			"colorCount"
-#define	STR_COUNT_ITEMS		"AlphaOn|1|2|3|4|5|6|7|8"
+#define	STR_COUNT_ITEMS		"A-On|A-OnWithoutWhite|1|2|3|4|5|6|7|8"
 #define STR_COLOR_TOPIC		"TargetColors"
 #define	STR_DIRECTION		"direction"
 #define	STR_MODE			"mode"
 #define	STR_MODE_ITEMS		"Hi|Lo|Hi-Reverce|Hi+Lo"
+//#define	STR_WHITE			"Treat White as Transparent"
 
 #define	STR_HI_TOPIC		"Hi"
 #define	STR_DISTANCE_HI		"distance_Hi"
@@ -80,6 +83,7 @@ enum {
 #define	STR_DISTANCE_LO		"distance_Lo"
 #define	STR_BLUR_LO			"blue_Lo"
 #define	STR_COLOR_LO		"color_Lo"
+#define	STR_BLEND			"Blend with original"
 
 
 //UIのパラメータ
@@ -87,6 +91,8 @@ typedef struct ParamInfo {
 	A_long		count;
 	A_long		mode;
 	PF_Pixel	colors[8];
+	//PF_Boolean	isWhite;
+	PF_Boolean	isBlend;
 	PF_FpLong	direction;
 	PF_FpLong	distanceHI;
 	PF_FpLong	distanceLO;

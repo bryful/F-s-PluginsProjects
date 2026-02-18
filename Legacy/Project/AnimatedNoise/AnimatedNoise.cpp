@@ -342,6 +342,7 @@ static void NoiseMain8(PrmTbl *prm)
 
 }
 //-------------------------------------------------------------------------------------------------
+/*
 typedef struct PrmTbl {
 	PF_PixelPtr	data;		//画像
 	A_long 		width;		//画像の横幅
@@ -367,8 +368,9 @@ typedef struct PrmTbl {
 	PF_Boolean	block_colorFlag;
 
 } PrmTbl;
+*/
 
-static void NoiseMain16(NF_AE *ae,A_long count ,PF_Fplong n_strong,)
+static void NoiseMain16(PrmTbl* prm)
 {
 	PF_Pixel16 *data16;
 	data16 =(PF_Pixel16 *)prm->data;

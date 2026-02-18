@@ -381,6 +381,13 @@ static PF_Err ParamsSetup (
 		ID_SAVE_BTN);
 
 	//----------------------------------------------------------------
+	//----------------------------------------------------------------
+	PF_ADD_CHECKBOX(STR_BLEND,
+		"on",
+		FALSE,
+		0,
+		ID_BLEND
+	);
 	out_data->num_params = ID_NUM_PARAMS;
 
 	return err;
@@ -539,7 +546,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	PF_Fixed rot;
 	ERR(ae->GetANGLE(ID_ANGLE, &rot));
 	infoP->angle = F_FIX2FLT(rot);
-
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -550,17 +557,24 @@ static PF_Err
 
 	//画面をコピー
 	//ERR(ae->CopyInToOut());
-	if (infoP->blur <= 0) {
-		return err;
-	}
-	if ((infoP->targetColorMode == 1) && (infoP->targetColorCount <= 0)) {
-		return err;
+	if ((infoP->blur <= 0) || ((infoP->targetColorMode == 1) && (infoP->targetColorCount <= 0))) {
+		if(infoP->isBlend){
+			return ae->CopyInToOut();
+		}
+		else {
+			PF_InData *in_data = ae->in_data;
+			return PF_FILL(NULL, NULL, ae->output);
+		}
 	}
 	if (infoP->targetColorMode != 3)
 	{
 		ERR(ExtractColor(ae, infoP));
 	}
 	ERR(RenderTargetGradRadial(ae, infoP, ae->output));
+
+	if(infoP->isBlend){
+		ERR(BlendBehind(ae->in_data,ae->input,ae->output,ae->pixelFormat(),ae->suitesP));
+	}
 
 	return err;
 }

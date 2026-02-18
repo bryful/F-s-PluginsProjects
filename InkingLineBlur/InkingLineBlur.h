@@ -19,6 +19,7 @@
 #include "..\_NFLib\fx\NF_Minmax.h"
 #include "..\_NFLib\fx\NF_blur.h"
 #include "..\_NFLib\fx\NF_AlphaHyperbolic.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 //#include "..\_NFLib\fx\debug_font.h"
 //#include "..\_NFLib\fx\NF_Paint.h"
 //#include "..\_NFLib\fx\NF_Noise.h"
@@ -63,6 +64,7 @@ enum {
 	ID_TARGET_COLOR7,
 	ID_TARGET_COLOR8,
 	ID_TARGET_TOPIC_END,
+	ID_BLEND,
 	ID_NUM_PARAMS
 };
 #define ID_INKING_COLOR(IDX) (ID_INKING_COLOR1+IDX)
@@ -92,6 +94,7 @@ enum {
 #define	STR_TARGET_MODE			"TargetMode"
 #define	STR_TARGET_ITEMS		"1|2|3|4|5|6|7|8|All"
 #define	STR_TARGET_COLOR		"Target"
+#define	STR_BLEND				"Blend with original"
 
 //UIのパラメータ
 typedef struct ParamInfo {
@@ -108,6 +111,7 @@ typedef struct ParamInfo {
 	PF_Boolean	isAll;	
 	A_long		target_mode;
 	PF_Pixel	target_color[COLOR_TARGET_COUNT];
+	PF_Boolean	isBlend;
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 

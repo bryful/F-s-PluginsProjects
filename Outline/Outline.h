@@ -24,6 +24,7 @@
 #include "..\_NFLib\fx\NF_Paint.h"
 #include "..\_NFLib\fx\NF_Noise.h"
 #include "..\_NFLib\fx\NF_Draw.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 
 #include "OutlineFilter.h"
 
@@ -35,7 +36,8 @@ enum {
 	ID_OUTER_WIDTH,
 	ID_INNER_WIDTH,
 	ID_COLOR,
-
+	ID_WHITE,
+	ID_BLEND,
 	ID_NUM_PARAMS
 };
 
@@ -43,6 +45,8 @@ enum {
 #define	STR_OUTER_WIDTH		"Outer Width"
 #define	STR_INNER_WIDTH		"Inner Width"
 #define	STR_COLOR			"Color"
+#define	STR_WHITE			"Treat White as Transparent"
+#define	STR_BLEND			"Blend with original"
 
 //UIのパラメータ
 typedef struct ParamInfo {
@@ -52,7 +56,8 @@ typedef struct ParamInfo {
 
 	A_long		innerWidth;
 	A_long		outerWidth;
-
+	PF_Boolean			isWhite;
+	PF_Boolean			isBlend;
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------

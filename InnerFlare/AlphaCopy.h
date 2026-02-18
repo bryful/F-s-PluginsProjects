@@ -1,6 +1,6 @@
 ﻿#pragma once
-#ifndef ALPHACOPY_H
-#define ALPHACOPY_H
+#ifndef ALPHACOPY_M_H
+#define ALPHACOPY_M_H
 
 
 #include "AEConfig.h" 
@@ -33,7 +33,7 @@ PF_Err AlphaCopyM(
     PF_EffectWorld* outP,
     PF_PixelFormat pixelFormat,
     AEGP_SuiteHandler* suitesP,
-	PF_Boolean reverse
+    PF_Boolean reverse,
+    PF_Boolean isWhite
 );
-
 #endif // ALPHACOPY_H

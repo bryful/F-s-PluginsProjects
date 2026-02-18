@@ -76,7 +76,13 @@ SelectPixels_Template(
 		if (inP->alpha == Traits::max_C()) {
 			idx = 0;
 		}
+		if (infoP->count == 0) {
+			if (inP->red >= Traits::max_C() && inP->green >= Traits::max_C() && inP->blue >= Traits::max_C()) {
+				idx = -1;
+			}
+		}
 	}
+
 	if (idx < 0) {
 		*outP = { 0,0,0,0 };
 	}
@@ -112,22 +118,14 @@ PF_Err SelectPixelsExec(
 	info8.mode = mode;
 	if (mode < SelectPixelMode::SP_MODE_ORIGINAL) mode = SelectPixelMode::SP_MODE_ORIGINAL;
 	else if (mode > SelectPixelMode::SP_MODE_MASK) mode = SelectPixelMode::SP_MODE_MASK;
-
 	int cnt = count;
 	if (cnt > SP_COLOR_TABLE_MAX) cnt = SP_COLOR_TABLE_MAX;
+	info8.count = cnt;
 	if (cnt > 0) {
 		for (int i = 0; i < cnt; i++)
 		{
 			info8.target_colors[i] = colors[i];
 		}
-		info8.count = cnt;
-	}
-	else {
-		for (int i = 0; i < cnt; i++)
-		{
-			info8.target_colors[i] = {0,0,0,0};
-		}
-		info8.count = 0;
 	}
 
 	switch (pixelFormat) {

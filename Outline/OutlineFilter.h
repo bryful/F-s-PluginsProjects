@@ -35,7 +35,8 @@ PF_Err FilterImage(
 	PF_EffectWorld* inputP,
 	PF_EffectWorld* outputP,
 	PF_PixelFormat pixelFormat,
-	AEGP_SuiteHandler* suitesP
+	AEGP_SuiteHandler* suitesP,
+	PF_Boolean isWhite
 );
 PF_Err FilterLastImage(
 	PF_InData* in_dataP,

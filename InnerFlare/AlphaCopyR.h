@@ -1,6 +1,6 @@
 ﻿#pragma once
-#ifndef ALPHACOPYR_H
-#define ALPHACOPYR_H
+#ifndef ALPHACOPY_R_H
+#define ALPHACOPY_R_H
 
 
 #include "AEConfig.h" 
@@ -34,6 +34,7 @@ PF_Err AlphaCopyRM(
     PF_PixelFormat pixelFormat,
     AEGP_SuiteHandler* suitesP,
     PF_Pixel color,
-    PF_Boolean reverse
+    PF_Boolean reverse,
+    PF_Boolean isWhite
 );
 #endif // ALPHACOPY_H

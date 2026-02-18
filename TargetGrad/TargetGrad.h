@@ -18,6 +18,7 @@
 #include "..\_NFLib\NF_Settings.h"
 #include "..\_NFLib\fx\NF_Draw.h"
 #include "..\_NFLib\fx\NF_DrawWorld.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 /*
 #include "..\_NFLib\fx\NF_Mult.h"
 #include "..\_NFLib\fx\NF_Minmax.h"
@@ -84,6 +85,7 @@ enum {
 
 	ID_LOAD_BTN,
 	ID_SAVE_BTN,
+	ID_BLEND,
 
 	ID_NUM_PARAMS
 };
@@ -131,7 +133,7 @@ enum {
 #define	STR_GUIDE_ENABLED	"guideDraw"
 #define	STR_GUIDE_ENABLED2	"on"
 #define	STR_GUIDE_COLOR		"guideColor"
-
+#define	STR_BLEND			"Blend with original"
 //UIのパラメータ
 #define COLOR_TABLE_COUNT	8
 
@@ -165,6 +167,7 @@ typedef struct ParamInfo {
 	PF_Boolean		guideEnabled;
 	PF_Pixel		guideColor;
 	PF_Rect			area;
+	PF_Boolean			isBlend;
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 

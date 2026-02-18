@@ -120,6 +120,12 @@ static PF_Err ParamsSetup (
 		);
 	}
 	cs.EndTopic(ID_TARGET_TOPIC_END);
+	cs.AddCheckBox(
+		STR_BLEND,
+		"on",
+		FALSE,
+		ID_BLEND
+	);
 	//cs.Finalize();
 	out_data->num_params = ID_NUM_PARAMS;
 
@@ -215,7 +221,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	for (int i = 0; i < COLOR_TARGET_COUNT; i++) {
 		ERR(ae->GetCOLOR(ID_TARGET_COLOR(i), &infoP->target_color[i]));
 	}
-
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -228,8 +234,13 @@ static PF_Err
 	A_long min_max =  (A_long)((double)infoP->minmax * ae->downSaleValue()+0.5);
 	A_long blur = (A_long)((double)infoP->blur * ae->downSaleValue() + 0.5);
 	if((min_max ==0) && (blur ==0)) {
-		PF_Pixel cl = { 0,0,0,0 };
-		PF_FILL(&cl, NULL,ae->output);
+		if (infoP->isBlend) {
+			ae->CopyInToOut();
+		}
+		else {
+			PF_Pixel cl = { 0,0,0,0 };
+			PF_FILL(&cl, NULL, ae->output);
+		}
 		return err;
 	}
 	//画面をコピー
@@ -271,6 +282,10 @@ static PF_Err
 		infoP->inking_colors,
 		infoP->isAll
 	));
+
+	if(infoP->isBlend) {
+		ERR(BlendBehind(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP));
+	}
 	return err;
 }
 

@@ -25,6 +25,7 @@
 #include "..\_NFLib\fx\NF_Draw.h"
 */
 #include "..\_NFLib\NF_Settings.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -73,6 +74,7 @@ enum {
 
 	ID_LOAD_BTN,
 	ID_SAVE_BTN,
+	ID_BLEND,
 	ID_NUM_PARAMS
 };
 #define ID_COLOR(IDX) (ID_TCOLOR1 + (IDX) * 2)
@@ -109,6 +111,7 @@ enum {
 #define	STR_LAOD_CAP		"colorTable"
 #define	STR_LOAD_BTN		"load"
 #define	STR_SAVE_BTN		"save"
+#define	STR_BLEND			"Blend with original"
 
 #define COLOR_TABLE_COUNT	8
 
@@ -129,6 +132,7 @@ typedef struct ParamInfo {
 	PF_FpLong		feather;
 
 	PF_Boolean		invert;
+	PF_Boolean		isBlend;
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------

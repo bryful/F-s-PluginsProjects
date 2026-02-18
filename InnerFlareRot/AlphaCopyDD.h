@@ -35,8 +35,9 @@ PF_Err AlphaCopyDD(
     AEGP_SuiteHandler* suitesP,
     PF_FpLong rot,
     PF_FpLong length,
-    PF_FpLong offset,
-    PF_Boolean reverse
+    PF_Boolean reverse,
+    PF_Boolean isWhite  
+
 );
 
 

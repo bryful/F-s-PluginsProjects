@@ -33,7 +33,8 @@ PF_Err AlphaCopyM(
     PF_EffectWorld* outP,
     PF_PixelFormat pixelFormat,
     AEGP_SuiteHandler* suitesP,
-	PF_Boolean reverse
+	PF_Boolean reverse,
+	PF_Boolean isWhite
 );
 
 #endif // ALPHACOPY_H

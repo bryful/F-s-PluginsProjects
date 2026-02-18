@@ -39,10 +39,21 @@ static PF_Err ParamsSetup (
 	
 	cs.AddColor(	// color
 		STR_COLOR,
-		{ 0xFF, 0xFF, 0xFF, 0xFF },
+		{ 0xFF, 0xFF, 0x00, 0xFF },
 		ID_COLOR
 	);
-	
+	cs.AddCheckBox(
+		STR_WHITE,
+		"on",
+		FALSE,
+		ID_WHITE
+	);
+	cs.AddCheckBox(
+		STR_BLEND,
+		"on",
+		FALSE,
+		ID_BLEND
+	);
 	cs.Finalize();
 	return err;
 }
@@ -82,7 +93,8 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetCOLOR(ID_COLOR, &infoP->color));
 	infoP->color16 = NF_Pixel8To16(infoP->color);
 	infoP->color32 = NF_Pixel8To32(infoP->color);
-
+	ERR(ae->GetCHECKBOX(ID_WHITE, &infoP->isWhite));
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -96,14 +108,21 @@ static PF_Err
 	infoP->innerWidth = (A_long)((PF_FpLong)infoP->innerWidth / ae->downSaleValue() + 0.5);
 
 	if ((infoP->outerWidth == 0) && (infoP->innerWidth == 0) ) {
-		return ae->CopyInToOut();
+		if(infoP->isBlend) {
+			return ae->CopyInToOut();
+		}
+		else {
+			PF_InData* in_data = ae->in_data;
+			return PF_FILL(NULL, NULL, ae->output);
+		}
 	}
 	ERR(FilterImage(
 		ae->in_data,
 		ae->input,
 		ae->output,
 		ae->pixelFormat(),
-		ae->suitesP
+		ae->suitesP,
+		infoP->isWhite
 	));
 	if (infoP->outerWidth > 0)
 	{
@@ -136,6 +155,15 @@ static PF_Err
 		ae->suitesP,
 		infoP->color
 	));
+	if(infoP->isBlend) {
+		ERR(BlendBehind(
+			ae->in_data,
+			ae->input,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP
+		));
+	}
 	return err;
 }
 

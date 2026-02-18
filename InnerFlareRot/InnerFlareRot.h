@@ -16,13 +16,14 @@
 #include "..\_NFLib\NF_ParamsSetup.h"
 
 #include "..\_NFLib\fx\NF_Mult.h"
-#include "..\_NFLib\fx\NF_Minmax.h"
-#include "..\_NFLib\fx\NF_blur.h"
+#include "..\_NFLib\fx\NF_ChannelMinmax.h"
+#include "..\_NFLib\fx\NF_Channelblur.h"
 //#include "..\_NFLib\fx\debug_font.h"
 //#include "..\_NFLib\fx\NF_Paint.h"
 //#include "..\_NFLib\fx\NF_Noise.h"
 //#include "..\_NFLib\fx\NF_Draw.h"
 #include "..\_NFLib\fx\NF_AlphaHyperbolic.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 
 #include "AlphaCopyDD.h"
 #include "AlphaCopyR.h"
@@ -35,12 +36,12 @@ enum {
 	ID_COLOR,
 	ID_ROT,
 	ID_LENGTH,
-	ID_OFFSET,
 	ID_REVERSE,
 	ID_MINMAX,
 	ID_BLUR,
 	ID_HYPERBOLIC,
-
+	ID_WHITE,
+	ID_BLEND,
 	ID_NUM_PARAMS
 };
 
@@ -54,6 +55,8 @@ enum {
 #define	STR_LENGTH			"length"
 #define	STR_OFFSET			"offset"
 #define	STR_COLOR			"color"
+#define	STR_WHITE			"Treat White as Transparent"
+#define	STR_BLEND			"Blend with original"
 
 
 
@@ -64,10 +67,10 @@ typedef struct ParamInfo {
 	PF_FpLong			length;
 	A_long				minmax;
 	PF_Boolean			reverse;
-	PF_FpLong			offset;
 	PF_FpLong			hyperbolic;
 	PF_Pixel			color;
-
+	PF_Boolean			isWhite;
+	PF_Boolean			isBlend;
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------

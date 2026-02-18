@@ -454,6 +454,13 @@ static PF_Err ParamsSetup (
 		ID_SAVE_BTN);
 
 	//----------------------------------------------------------------
+	PF_ADD_CHECKBOX(STR_BLEND,
+		"on",
+		FALSE,
+		0,
+		ID_BLEND
+	);
+
 	out_data->num_params = ID_NUM_PARAMS;
 
 	return err;
@@ -629,6 +636,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 
 	ERR(ae->GetCHECKBOX(ID_GUIDE_ENABLED, &infoP->guideEnabled));
 	ERR(ae->GetCOLOR(ID_GUIDE_COLOR, &infoP->guideColor));
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 
 	return err;
 }
@@ -641,7 +649,14 @@ static PF_Err
 	//画面をコピー
 	//ERR(ae->CopyInToOut());
 	if ((infoP->targetColorMode == 1) && (infoP->targetColorCount <= 0)) {
-		return err;
+		if (infoP->isBlend)
+		{
+			return ae->CopyInToOut();
+		}
+		else {
+			PF_InData* in_data = ae->in_data;
+			return PF_FILL(NULL, NULL, ae->output);
+		}
 	}
 	if (infoP->targetColorMode != 3)
 	{
@@ -778,6 +793,15 @@ static PF_Err
 			ae->pixelFormat(),
 			lx, ly + 1, x2, y2 + 1, infoP->guideColor);
 
+	}
+	if(infoP->isBlend){
+		ERR(BlendBehind(
+			ae->in_data,
+			ae->input,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP
+		));
 	}
 
 	return err;

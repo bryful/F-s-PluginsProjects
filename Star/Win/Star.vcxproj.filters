@@ -34,6 +34,12 @@
     </ClCompile>
     <ClCompile Include="..\Extract.cpp" />
     <ClCompile Include="..\DrawStar.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -154,6 +160,15 @@
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_Json.h">
       <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\debug_font.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h">
+      <Filter>fx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

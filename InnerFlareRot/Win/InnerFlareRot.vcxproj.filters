@@ -40,6 +40,15 @@
     </ClCompile>
     <ClCompile Include="..\AlphaCopyDD.cpp" />
     <ClCompile Include="..\AlphaCopyR.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_ChannelBlur.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_ChannelMinMax.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -176,6 +185,15 @@
     </ClInclude>
     <ClInclude Include="..\AlphaCopyR.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelBlur.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelMinMax.h">
+      <Filter>fx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

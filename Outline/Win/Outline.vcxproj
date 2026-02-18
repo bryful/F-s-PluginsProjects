@@ -325,6 +325,7 @@
     <ClInclude Include="..\..\_NFLib\fx\debug_font.h" />
     <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_ChannelBlur.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_ChannelMinMax.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h" />
@@ -421,6 +422,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_ChannelBlur.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_ChannelMinMax.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp" />

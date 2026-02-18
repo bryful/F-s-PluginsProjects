@@ -24,9 +24,25 @@ static PF_Err ExtractLumaT(
 	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
 	PF_FpLong max_chan = GetMaxChannel<T>(); // _SkeletonFilter.cppにあるヘルパーを利用
 
+	PF_FpLong aa = (PF_FpLong)inP->alpha/max_chan;
+	PF_FpLong r = (PF_FpLong)inP->red * aa;
+	PF_FpLong g = (PF_FpLong)inP->green * aa;
+	PF_FpLong b = (PF_FpLong)inP->blue * aa;
+	*outP = *inP; // 元のピクセルをコピー
+	PF_FpLong max_val = AE_CLAMP(MAX(MAX(r,g),b),0,max_chan);
+	outP->alpha = (typename PixelTraits<T>::channel_type)max_val;
+	outP->red = (typename PixelTraits<T>::channel_type)r;
+	outP->green = (typename PixelTraits<T>::channel_type)g;
+	outP->blue = (typename PixelTraits<T>::channel_type)b;
+
+	/*
+
 	// 現在のピクセルの輝度取得 (0.0 - 1.0)
 	PF_FpLong luma = GetLuminance<T>(inP) / max_chan;
 	PF_FpLong alpha = (PF_FpLong)inP->alpha / max_chan;
+
+
+	outP->alpha = (typename PixelTraits<T>::channel_type)(max_val);
 
 	// 閾値による重み計算 (Linear Step)
 	PF_FpLong weight = 0;
@@ -56,7 +72,7 @@ static PF_Err ExtractLumaT(
 	else {
 		outP->red = outP->green = outP->blue = outP->alpha = 0;
 	}
-
+	*/
 	return PF_Err_NONE;
 }
 

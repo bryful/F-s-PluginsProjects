@@ -16,17 +16,17 @@
 #include "..\_NFLib\NF_ParamsSetup.h"
 
 #include "..\_NFLib\fx\NF_Mult.h"
-#include "..\_NFLib\fx\NF_Minmax.h"
-#include "..\_NFLib\fx\NF_ChannelMinmax.h"
-#include "..\_NFLib\fx\NF_Blur.h"
-#include "..\_NFLib\fx\NF_ChannelBlur.h"
-#include "..\_NFLib\fx\debug_font.h"
-#include "..\_NFLib\fx\NF_Paint.h"
-#include "..\_NFLib\fx\NF_Noise.h"
-#include "..\_NFLib\fx\NF_Draw.h"
+//#include "..\_NFLib\fx\NF_Minmax.h"
+//#include "..\_NFLib\fx\NF_ChannelMinmax.h"
+//#include "..\_NFLib\fx\NF_Blur.h"
+//#include "..\_NFLib\fx\NF_ChannelBlur.h"
+//#include "..\_NFLib\fx\debug_font.h"
+//#include "..\_NFLib\fx\NF_Paint.h"
+//#include "..\_NFLib\fx\NF_Noise.h"
+//#include "..\_NFLib\fx\NF_Draw.h"
 #include "..\_NFLib\fx\NF_DrawAALine.h"
 #include "..\_NFLib\fx\NF_AlphaHyperbolic.h"
-
+#include "..\_NFLib\fx\NF_Blend.h"
 
 #include "RadialLinesFilter.h"
 #include	<string>
@@ -35,6 +35,7 @@
 enum {
 	ID_INPUT = 0,	// default input layer
 
+	ID_PARAMS_TOPIC,
 	ID_AUTO_SEED,
 	ID_SEED,
 
@@ -53,6 +54,7 @@ enum {
 
 	ID_HYPERBOLIC,
 	ID_NOISE,
+	ID_PARAMS_TOPIC_END,
 
 	ID_COLOR_TOPIC,
 	ID_COLOR_COUNT,
@@ -65,7 +67,7 @@ enum {
 	ID_COLOR7,
 	ID_COLOR8,
 	ID_COLOR_END,
-
+	ID_BLEND,
 	ID_NUM_PARAMS
 };
 
@@ -88,6 +90,9 @@ enum {
 
 #define	STR_NOISE			"Noise"
 #define	STR_HYPERBOLIC		"Hyperboilc"
+#define STR_PARAMS_TOPIC	"Parameters"
+#define STR_BLEND			"Blend with original"
+
 //UIのパラメータ
 typedef struct ParamInfo {
 	PF_Boolean	auto_seed;
@@ -105,7 +110,7 @@ typedef struct ParamInfo {
 	PF_FpLong		opacity_rand;
 	PF_FpLong		noise;
 	PF_FpLong		hyperbolic;
-
+	PF_Boolean		isBlend;
 
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;

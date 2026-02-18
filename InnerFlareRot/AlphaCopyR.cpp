@@ -49,8 +49,11 @@ AlphaCopyRT(
     AlpheCopyInfo* infoP = reinterpret_cast<AlpheCopyInfo*>(refcon);
 
     PixelType col;
-    AlphaType a = inP->alpha;
+    AlphaType a = outP->alpha;
     a = infoP->reverse ? (maxValue - a) : a;
+
+	a = AE_CLAMP(a * outP->red/ maxValue, 0, maxValue);
+
     if constexpr (std::is_same_v<PixelType, PF_Pixel>) {
         col = infoP->color;
     }
@@ -63,7 +66,7 @@ AlphaCopyRT(
     outP->red = col.red;
     outP->green = col.green;
     outP->blue = col.blue;
-    outP->alpha = (AlphaType)((double)outP->alpha * (double)a / maxValue);  // PixelType → AlphaType に修正
+    outP->alpha = (AlphaType)(a);  // PixelType → AlphaType に修正
 
     return err;
 }

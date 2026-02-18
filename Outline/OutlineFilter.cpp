@@ -1,4 +1,7 @@
 ﻿#include "OutlineFilter.h"
+typedef struct {
+	PF_Boolean			isWhite;
+} FiltInfo;
 
 // *******************************************************************************
 // ビット深度ごとの最大値を取得するヘルパー
@@ -10,7 +13,7 @@ inline PF_FpLong GetMaxChannel() {
 }
 
 // --- 5. 共通フィルタテンプレート ---
-template <typename T>
+template <typename T, typename ChannelType>
 static PF_Err FilterImageT(
 	refconType refcon,
 	A_long xL,
@@ -18,37 +21,37 @@ static PF_Err FilterImageT(
 	T* inP,
 	T* outP)
 {
-	if constexpr (std::is_same<T, PF_Pixel8>::value) {
-		outP->alpha = 255;
+	FiltInfo* infoP = reinterpret_cast<FiltInfo*>(refcon);
+	ChannelType maxChannel = (ChannelType)GetMaxChannel<T>();
+	
+	ChannelType alpha = inP->alpha;
+	if (infoP->isWhite) {
+		if (inP->red == maxChannel && inP->green == maxChannel && inP->blue == maxChannel) {
+			alpha = 0;
+		}
 	}
-	else if constexpr (std::is_same<T, PF_Pixel16>::value)
-	{
-		outP->alpha = 32768;
-	}
-	else {
-		outP->alpha = 1.0f;
-	}
-	//outP->alpha = inP->alpha; // アルファはそのまま維持
-	outP->red = inP->alpha;
-	outP->green = inP->alpha;
-	outP->blue = inP->alpha;
+
+	outP->alpha = alpha;
+	outP->red = alpha;
+	outP->green = alpha;
+	outP->blue = alpha;
 	return PF_Err_NONE;
 }
 
 // 8-bit用
 static PF_Err FilterImage8(refconType refcon, A_long xL, A_long yL, PF_Pixel* inP, PF_Pixel* outP) {
-	return FilterImageT<PF_Pixel8>(refcon, xL, yL, reinterpret_cast<PF_Pixel8*>(inP), reinterpret_cast<PF_Pixel8*>(outP));
+	return FilterImageT<PF_Pixel8,A_u_char>(refcon, xL, yL, reinterpret_cast<PF_Pixel8*>(inP), reinterpret_cast<PF_Pixel8*>(outP));
 }
 
 // 16-bit用
 static PF_Err FilterImage16(refconType refcon, A_long xL, A_long yL, PF_Pixel16* inP, PF_Pixel16* outP) 
 {
-	return FilterImageT<PF_Pixel16>(refcon, xL, yL, reinterpret_cast<PF_Pixel16*>(inP), reinterpret_cast<PF_Pixel16*>(outP));
+	return FilterImageT<PF_Pixel16,A_u_short>(refcon, xL, yL, reinterpret_cast<PF_Pixel16*>(inP), reinterpret_cast<PF_Pixel16*>(outP));
 }
 // 32-bit用 (Float)
 static PF_Err FilterImageFloat(refconType refcon, A_long xL, A_long yL, PF_PixelFloat* inP, PF_PixelFloat* outP)
 {
-	return FilterImageT<PF_PixelFloat>(refcon, xL, yL, reinterpret_cast<PF_PixelFloat*>(inP), reinterpret_cast<PF_PixelFloat*>(outP));
+	return FilterImageT<PF_PixelFloat,PF_FpShort>(refcon, xL, yL, reinterpret_cast<PF_PixelFloat*>(inP), reinterpret_cast<PF_PixelFloat*>(outP));
 }
 
 PF_Err FilterImage(
@@ -56,11 +59,13 @@ PF_Err FilterImage(
 	PF_EffectWorld* inputP,
 	PF_EffectWorld* outputP,
 	PF_PixelFormat pixelFormat,
-	AEGP_SuiteHandler* suitesP
+	AEGP_SuiteHandler* suitesP,
+	PF_Boolean isWhite
 )
 {
 	PF_Err err = PF_Err_NONE;
-		
+	FiltInfo info;
+	info.isWhite = isWhite;
 	// ピクセルフォーマットに応じてテンプレート関数を呼び出す
 	switch (pixelFormat) {
 	case PF_PixelFormat_ARGB128:
@@ -70,7 +75,7 @@ PF_Err FilterImage(
 			outputP->width,
 			inputP,
 			NULL,
-			NULL,
+			&info,
 			FilterImageFloat,
 			outputP);
 		break;
@@ -81,7 +86,7 @@ PF_Err FilterImage(
 			outputP->width,
 			inputP,
 			NULL,
-			NULL,
+			&info,
 			FilterImage16,
 			outputP);
 		break;
@@ -92,7 +97,7 @@ PF_Err FilterImage(
 			outputP->width,
 			inputP,
 			NULL,
-			NULL,
+			&info,
 			FilterImage8,
 			outputP);
 		break;
