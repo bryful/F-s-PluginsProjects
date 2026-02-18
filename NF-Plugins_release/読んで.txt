@@ -10,6 +10,7 @@ NF-Starはアルゴリズム的に問題があってまだ実用できません。
 
 
 今のところこれだけですが、かなり増えてきました。
+NF-AlphaFill.aex
 NF-CellEmboss.aex
 NF-CellLineEraser.aex
 NF-ColorSampler.aex

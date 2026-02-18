@@ -183,6 +183,7 @@
     <Project Path="Legacy/Project/VideoGrid/Win/VideoGrid.vcxproj" Id="24cd6769-03b6-42f0-a48d-c3df38dd3275" />
     <Project Path="Legacy/Project/whiteInOut/Win/whiteInOut.vcxproj" Id="007d3f7d-3d91-4b4d-bece-dc9f75f3b184" />
   </Folder>
+  <Project Path="AlphaFill/Win/AlphaFill.vcxproj" Id="db91b399-9a48-4d21-88fe-f47bc06f543c" />
   <Project Path="CellEmboss/Win/CellEmboss.vcxproj" Id="1cff95f1-dbf4-4ada-ba95-82809e166b93" />
   <Project Path="CellLineEraser/Win/CellLineEraser.vcxproj" Id="6ed76fcf-e733-4f2a-a92f-62fe0ebd1d36" />
   <Project Path="ColorSampler/Win/ColorSampler.vcxproj" Id="67a97dc2-17ab-47bb-b9af-f3f4fa94c36d" />
@@ -201,7 +202,7 @@
   <Project Path="MaxBlur/Win/MaxBlur.vcxproj" Id="62ae563a-0fa3-4bcf-8329-f0c623cc2217" />
   <Project Path="MinMax/Win/MinMax.vcxproj" Id="3484f962-8b9c-4fdb-855d-2590cb933909" />
   <Project Path="Mult/Win/Mult.vcxproj" Id="0e51b777-fc10-4b8c-997c-01ba8b41384f" />
-  <Project Path="Noise/Win/Noise.vcxproj" />
+  <Project Path="Noise/Win/Noise.vcxproj" Id="e3f6821a-0fc6-411d-a83e-bd2447d1b6f2" />
   <Project Path="Outline/Win/Outline.vcxproj" Id="26176282-dca1-4a82-9f26-9a525b3af2ec" />
   <Project Path="PremultiplyColor/Win/PremultiplyColor.vcxproj" Id="93c6b6a8-048d-435b-8027-22ee0731e82b" />
   <Project Path="RadialLines/Win/RadialLines.vcxproj" Id="33b15821-1c67-488e-b48f-aa4c2cc62b82" />
