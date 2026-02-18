@@ -201,6 +201,7 @@
   <Project Path="MaxBlur/Win/MaxBlur.vcxproj" Id="62ae563a-0fa3-4bcf-8329-f0c623cc2217" />
   <Project Path="MinMax/Win/MinMax.vcxproj" Id="3484f962-8b9c-4fdb-855d-2590cb933909" />
   <Project Path="Mult/Win/Mult.vcxproj" Id="0e51b777-fc10-4b8c-997c-01ba8b41384f" />
+  <Project Path="Noise/Win/Noise.vcxproj" />
   <Project Path="Outline/Win/Outline.vcxproj" Id="26176282-dca1-4a82-9f26-9a525b3af2ec" />
   <Project Path="PremultiplyColor/Win/PremultiplyColor.vcxproj" Id="93c6b6a8-048d-435b-8027-22ee0731e82b" />
   <Project Path="RadialLines/Win/RadialLines.vcxproj" Id="33b15821-1c67-488e-b48f-aa4c2cc62b82" />
