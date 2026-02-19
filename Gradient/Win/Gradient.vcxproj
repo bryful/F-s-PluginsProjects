@@ -322,6 +322,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\NFsLibrary\resource.h" />
     <ClInclude Include="..\..\_NFLib\AE_SDK.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Gradient.h" />
     <ClInclude Include="..\..\_NFLib\json.hpp" />
     <ClInclude Include="..\..\_NFLib\NF_AE.h" />
@@ -405,6 +406,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Gradient.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Settings.cpp" />

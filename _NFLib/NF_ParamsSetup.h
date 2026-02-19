@@ -58,6 +58,7 @@ private:
 	PF_ParamDef		def;
 	//A_long		indexCount = 0;
 	A_long param_count; // 追加したパラメータ数をカウント
+	A_long num_params; // 設計時のパラメータ数
 	PF_ParamUIFlags ui_flags = PF_PUI_NONE;
 	PF_ParamFlags param_flags = PF_ParamFlag_NONE;
 protected:
@@ -88,10 +89,11 @@ public:
 	}	
 	// ***************************************************************
 	NF_ParamsSetup(
-		PF_InData* in, PF_OutData* out)
+		PF_InData* in, PF_OutData* out,A_long num_params=0)
 		: in_data(in), out_data(out), param_count(0)
 	{
 		ClearDef();
+		this->num_params = num_params;
 	}
 	// ***************************************************************
 

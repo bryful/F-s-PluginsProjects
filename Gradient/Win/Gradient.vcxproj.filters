@@ -26,7 +26,12 @@
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_Gradient.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Gradient.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -110,7 +115,6 @@
     <ClInclude Include="..\..\NFsLibrary\resource.h">
       <Filter>Header Files\AE\N</Filter>
     </ClInclude>
-    <ClInclude Include="..\NF_Target.h" />
     <ClInclude Include="..\..\_NFLib\AE_SDK.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
@@ -142,7 +146,15 @@
     <ClInclude Include="..\..\_NFLib\NF_Json.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_Gradient.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Gradient.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NF_Target.h">
+      <Filter>fx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

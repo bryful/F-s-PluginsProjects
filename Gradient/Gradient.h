@@ -24,6 +24,7 @@
 #include "..\_NFLib\fx\NF_Draw.h"
 */
 #include "..\_NFLib\fx\NF_Gradient.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
@@ -43,6 +44,7 @@ enum {
 	ID_ID_RGB_HYPERBOLIC,
 
 	ID_SWAP_COLOR_BTN,
+	ID_BLEND,
 	ID_NUM_PARAMS
 };
 
@@ -64,6 +66,7 @@ enum {
 
 #define	STR_alpha_hyperbolic	"alphaHyperbolic"
 #define	STR_rgb_hyperbolic		"rgbHyperbolic"
+#define	STR_BLEND			"Blend with original"
 
 //UIのパラメータ
 typedef struct ParamInfo {
@@ -79,7 +82,7 @@ typedef struct ParamInfo {
 	PF_FpLong	alpha_hyperbolic;
 	PF_FpLong	rgb_hyperbolic;
 
-
+	PF_Boolean	isBlend;
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 

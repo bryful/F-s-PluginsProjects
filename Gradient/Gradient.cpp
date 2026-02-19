@@ -105,7 +105,12 @@ static PF_Err ParamsSetup (
 		ID_SWAP_COLOR_BTN,
 		PF_ParamFlag_SUPERVISE
 	);
-	
+	cs.AddCheckBox(
+		STR_BLEND,
+		"on",
+		FALSE,
+		ID_BLEND
+	);
 	cs.Finalize();
 	return err;
 }
@@ -178,6 +183,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 
 	ERR(ae->GetFLOAT(ID_ID_ALPHA_HYPERBOLIC, &infoP->alpha_hyperbolic));
 	ERR(ae->GetFLOAT(ID_ID_RGB_HYPERBOLIC, &infoP->rgb_hyperbolic));
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 
 	return err;
 }
@@ -203,7 +209,14 @@ static PF_Err
 		infoP->alpha_hyperbolic
 		);
 
-
+	if (infoP->isBlend)
+	{
+		ERR(BlendBehind(
+			ae->in_data,
+			ae->input, 
+			ae->output, 
+			ae->pixelFormat(), ae->suitesP));
+	}
 	return err;
 }
 

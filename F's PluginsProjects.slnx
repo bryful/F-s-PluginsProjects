@@ -197,7 +197,7 @@
   <Project Path="InkingLineBlur/Win/InkingLineBlur.vcxproj" Id="fa2dd928-9943-4f2e-950f-e693b1d728ce" />
   <Project Path="InnerFlare/Win/InnerFlare.vcxproj" Id="50606b8f-83ad-4cab-be63-30aa36553857" />
   <Project Path="InnerFlareRot/Win/InnerFlareRot.vcxproj" Id="78a87bd6-726a-4c8a-99cb-ce89b09d9be2" />
-  <Project Path="LineExtractionTest/Win/LineExtractionTest.vcxproj" Id="b8a2716c-06ca-4966-9292-f2fc69b151d6" />
+  <Project Path="LineExtraction/Win/LineExtraction.vcxproj" Id="b8a2716c-06ca-4966-9292-f2fc69b151d6" />
   <Project Path="LogicGray/Win/LogicGray.vcxproj" Id="59e1b063-68ba-4489-bfe0-be728cb9c822" />
   <Project Path="MaxBlur/Win/MaxBlur.vcxproj" Id="62ae563a-0fa3-4bcf-8329-f0c623cc2217" />
   <Project Path="MinMax/Win/MinMax.vcxproj" Id="3484f962-8b9c-4fdb-855d-2590cb933909" />
