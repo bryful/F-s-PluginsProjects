@@ -133,3 +133,60 @@ PF_Err DrawSpatAccent(
     }
     return PF_Err_NONE;
 }
+/**
+ * Spatデータを使用してWorldにブレンド合成する（8bit専用）
+ *
+ * @param world 合成先のワールド
+ * @param widthTrue ワールドの実際の幅（rowbytes / sizeof(PF_Pixel)）
+ * @param x 合成開始X座標
+ * @param y 合成開始Y座標
+ * @param spat 32x32サイズのSpatデータ（各要素0-255がアルファ値として機能）
+ * @param col 合成する色
+ */
+static void BlendSpatToWorld8(
+    PF_EffectWorld* world,
+    A_long widthTrue,
+    A_long x,
+    A_long y,
+    const std::vector<std::vector<A_u_char>>& spat,
+    const PF_Pixel& col
+)
+{
+    if (spat.empty() || spat[0].empty()) return;
+
+    A_long spatHeight = static_cast<A_long>(spat.size());
+    A_long spatWidth = static_cast<A_long>(spat[0].size());
+
+    PF_Pixel* data = (PF_Pixel*)world->data;
+
+    for (A_long j = 0; j < spatHeight; ++j) {
+        A_long yPos = y + j;
+        // 範囲チェック
+        if (yPos < 0 || yPos >= world->height) continue;
+
+        for (A_long i = 0; i < spatWidth; ++i) {
+            A_long xPos = x + i;
+            // 範囲チェック
+            if (xPos < 0 || xPos >= world->width) continue;
+
+            // Spatデータからアルファ値を取得（0-255）
+            A_u_char spatAlpha = spat[j][i];
+            if (spatAlpha == 0) continue; // 完全透明ならスキップ
+
+            // ワールド上のピクセルを取得
+            PF_Pixel& dstPixel = data[yPos * widthTrue + xPos];
+
+            // アルファブレンド係数（0.0-1.0）
+            float alpha = spatAlpha / 255.0f;
+            float invAlpha = 1.0f - alpha;
+
+            // ブレンド合成: result = src * alpha + dst * (1 - alpha)
+            dstPixel.red = (A_u_char)AE_CLAMP(col.red * alpha + dstPixel.red * invAlpha + 0.5f, 0, 255);
+            dstPixel.green = (A_u_char)AE_CLAMP(col.green * alpha + dstPixel.green * invAlpha + 0.5f, 0, 255);
+            dstPixel.blue = (A_u_char)AE_CLAMP(col.blue * alpha + dstPixel.blue * invAlpha + 0.5f, 0, 255);
+
+            // アルファチャンネルもブレンド
+            dstPixel.alpha = (A_u_char)AE_CLAMP(col.alpha * alpha + dstPixel.alpha * invAlpha + 0.5f, 0, 255);
+        }
+    }
+}
