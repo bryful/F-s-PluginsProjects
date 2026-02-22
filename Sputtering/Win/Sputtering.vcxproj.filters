@@ -29,6 +29,11 @@
     <ClCompile Include="..\..\_NFLib\fx\NF_SpatUtils.cpp">
       <Filter>fx</Filter>
     </ClCompile>
+    <ClCompile Include="..\TargetWorld.cpp" />
+    <ClCompile Include="..\SputMain.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp">
+      <Filter>fx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -144,6 +149,10 @@
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\fx\NF_SpatUtils.h">
+      <Filter>fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TargetWorld.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h">
       <Filter>fx</Filter>
     </ClInclude>
   </ItemGroup>

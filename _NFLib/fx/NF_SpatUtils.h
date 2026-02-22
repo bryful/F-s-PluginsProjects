@@ -70,7 +70,9 @@ inline std::vector<A_u_char> ScaleSpatBilinear(
 	if (spat.empty() || scale <= 0.0f) {
 		return std::vector<A_u_char>();
 	}
-
+	if(scale==1.0f){
+		return spat; // スケール1.0はそのまま返す
+	}
 	// 元のサイズを計算
 	A_long oldSize = (A_long)sqrt((double)spat.size());
 	if (oldSize * oldSize > spat.size()) {

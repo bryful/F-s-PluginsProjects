@@ -100,13 +100,35 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_SIZE_RAND
 	);
+	cs.AddPopup(STR_SPUT_LOOP,
+		STR_SPUT_LOOP_COUNT,
+		STR_SPUT_LOOP_DFLT,
+		STR_SPUT_LOOP_ITEMS,
+		ID_SPUT_LOOP,
+		PF_ParamFlag_SUPERVISE |
+		PF_ParamFlag_CANNOT_TIME_VARY |
+		PF_ParamFlag_CANNOT_INTERP
+	);
+	cs.AddSlider(	// noise offset
+		STR_SPUT_LOOP_KOMA,	//パラメータの名前
+		1, 		//数値入力する場合の最小値
+		24,			//数値入力する場合の最大値
+		1,				//スライダーの最小値 
+		6,			//スライダーの最大値
+		1,				//デフォルトの値
+		ID_SPUT_LOOP_KOMA
+	);
+	cs.EndTopic(ID_PARAMS_TOPIC_END);
+	// ----------------------------------------------------------------
+	cs.AddTopic(STR_PARAMS2_TOPIC, ID_PARAMS2_TOPIC);
+
 	cs.AddFloatSlider(	// R
 		STR_AREA_RATE,			//Name
 		0,				//VALID_MIN
 		100,			//VALID_MAX
 		0,				//SLIDER_MIN
-		10,				//SLIDER_MAX
-		2,				//DFLT
+		10,			//SLIDER_MAX
+		5,				//DFLT
 		0,				//PREC 小数点以下の桁数
 		0,				//DISP
 		FALSE,			//WANT_PHASE
@@ -117,8 +139,8 @@ static PF_Err ParamsSetup (
 		0,				//VALID_MIN
 		100,			//VALID_MAX
 		0,				//SLIDER_MIN
-		10,				//SLIDER_MAX
-		5,				//DFLT
+		20,				//SLIDER_MAX
+		10,				//DFLT
 		0,				//PREC 小数点以下の桁数
 		0,				//DISP
 		FALSE,			//WANT_PHASE
@@ -127,9 +149,9 @@ static PF_Err ParamsSetup (
 	cs.AddSlider(	// noise offset
 		STR_SPAWN_COUNT,	//パラメータの名前
 		1, 				//数値入力する場合の最小値
-		1000,			//数値入力する場合の最大値
+		200,			//数値入力する場合の最大値
 		1,				//スライダーの最小値 
-		100,			//スライダーの最大値
+		50,				//スライダーの最大値
 		10,				//デフォルトの値
 		ID_SPAWN_COUNT
 	);
@@ -139,7 +161,7 @@ static PF_Err ParamsSetup (
 		1000,			//VALID_MAX
 		5,				//SLIDER_MIN
 		100,			//SLIDER_MAX
-		10,				//DFLT
+		50,				//DFLT
 		0,				//PREC 小数点以下の桁数
 		0,				//DISP
 		FALSE,			//WANT_PHASE
@@ -147,9 +169,9 @@ static PF_Err ParamsSetup (
 	);
 	cs.AddFloatSlider(	// R
 		STR_OPACITY,	//Name
-		10,				//VALID_MIN
+		0,				//VALID_MIN
 		200,			//VALID_MAX
-		10,				//SLIDER_MIN
+		0,				//SLIDER_MIN
 		100,			//SLIDER_MAX
 		100,			//DFLT
 		0,				//PREC 小数点以下の桁数
@@ -160,7 +182,7 @@ static PF_Err ParamsSetup (
 	cs.AddFloatSlider(	// R
 		STR_OPACITY_RAND,	//Name
 		0,				//VALID_MIN
-		100,			//VALID_MAX
+		200,			//VALID_MAX
 		0,				//SLIDER_MIN
 		100,			//SLIDER_MAX
 		0,				//DFLT
@@ -184,7 +206,7 @@ static PF_Err ParamsSetup (
 		10,				//デフォルトの値
 		ID_SEED
 	);
-	cs.EndTopic(ID_PARAMS_TOPIC_END);
+	cs.EndTopic(ID_PARAMS2_TOPIC_END);
 	// ----------------------------------------------------------------
 	cs.AddTopic(STR_COLORS_TOPIC, ID_COLOR_TOPIC);
 	cs.AddPopup(STR_COLORS_NUM,
@@ -249,6 +271,12 @@ HandleChangedParam(
 				ERR(ae.GetCHECKBOX(ID_BORDER_DIRECTION, &b));
 				hide_themB[ID_DIRECTION_ANGLE] = !b;
 				hide_themB[ID_AREA_RATE] = b;
+
+				A_long sput_loop_mode = 0;
+				ERR(ae.GetPOPUP(ID_SPUT_LOOP, &sput_loop_mode));
+				//hide_themB[ID_SPUT_LOOP_KOMA] = !(sput_loop_mode==2);
+				hide_themB[ID_AUTO_SEED] = (sput_loop_mode == 2);
+
 				for (A_long i = 0; i < COLOR_COUNT; i++) hide_themB[ID_COLOR1 + i] = TRUE;
 				mode = 0;
 				ERR(ae.GetPOPUP(ID_COLOR_NUM, &mode));
@@ -285,8 +313,15 @@ QueryDynamicFlags(
 		PF_ParamDef def;
 		AEFX_CLR_STRUCT(def);
 		ERR(ae.checkout_param(ID_AUTO_SEED, &def));
-		ERR(ae.SetOutFlag_NON_PARAM_VARY((PF_Boolean)def.u.bd.value));
+		PF_Boolean autoSeed = (PF_Boolean)def.u.bd.value;
 		ERR(ae.checkin_param(&def));
+		PF_ParamDef def2;
+		AEFX_CLR_STRUCT(def2);
+		ERR(ae.checkout_param(ID_SPUT_LOOP, &def2));
+		PF_Boolean isLoop = ( (A_long)def2.u.pd.value == 2);
+		ERR(ae.checkin_param(&def2));
+
+		ERR(ae.SetOutFlag_NON_PARAM_VARY(autoSeed|| isLoop));
 	}
 	return err;
 }
@@ -304,20 +339,23 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	}
 	ERR(ae->GetCHECKBOX(ID_BORDER_DIRECTION, &infoP->is_border_direction));
 	PF_Fixed fxd=0;
-	ERR(ae->GetANGLE(ID_BORDER_DIRECTION, &fxd));
+	ERR(ae->GetANGLE(ID_DIRECTION_ANGLE, &fxd));
 	infoP->direction_angle = (float)fxd / 65536.0f;
 	double  d = 0;
 	ERR(ae->GetFLOAT(ID_SIZE, &d));
 	infoP->size = (float)(d/100);
 	ERR(ae->GetFLOAT(ID_SIZE_RAND, &d));
 	infoP->sizeRandom = (float)(d / 100);
+	ERR(ae->GetPOPUP(ID_SPUT_LOOP, &infoP->sput_loop_mode));
+	ERR(ae->GetADD(ID_SPUT_LOOP_KOMA, &infoP->sput_loop_koma));
+
 	ERR(ae->GetFLOAT(ID_AREA_RATE, &d));
 	infoP->area_rate = (float)(d / 100);
 	ERR(ae->GetFLOAT(ID_BORDER_RATE, &d));
 	infoP->border_rate = (float)(d / 100);
 	ERR(ae->GetADD(ID_SPAWN_COUNT, &infoP->spawn_count));
 	ERR(ae->GetFLOAT(ID_SPAWN_OFFSET, &d));
-	infoP->spawn_offset = (float)(d / 100);
+	infoP->spawn_offset = (float)d;
 	ERR(ae->GetFLOAT(ID_OPACITY, &d));
 	infoP->opacity = (float)(d / 100);
 	ERR(ae->GetFLOAT(ID_OPACITY_RAND, &d));
@@ -331,7 +369,6 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	}
 	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 
-
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -340,10 +377,39 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 	PF_InData* in_data = ae->in_data;
-	//画面をコピー
-	ERR(ae->CopyInToOut());
-	/*
-	std::vector<std::vector<A_u_char>> spat = GetDefSpatData(infoP->size);
+
+	PF_FILL(NULL, NULL, ae->output);
+	//不透明部分の検出、targetに書き込む
+	std::vector<A_u_char> target;
+	target.resize(ae->outputInfo.width* ae->outputInfo.height);
+
+	ERR(TargetWorldExec(
+		ae->in_data,
+		ae->input,
+		ae->pixelFormat(),
+		ae->suitesP,
+		infoP->targetColorCount,
+		infoP->targetColors,
+		&target
+		));
+	//targetをもとに、borderを検出してtarget2に書き込む
+	std::vector<A_u_char> target2;
+	target2.resize(ae->outputInfo.width * ae->outputInfo.height);
+	ERR(BorderExec(
+		ae->in_data,
+		ae->suitesP,
+		&target,
+		&target2,
+		ae->outputInfo.width,
+		ae->outputInfo.height,
+		infoP->is_border_direction,
+		infoP->direction_angle
+	));
+	
+	
+	
+	//ERR(ae->CopyInToOut());
+	std::vector<std::vector<A_u_char>> sput = GetDefSpatData(infoP->size);
 
 	PF_ParamDef checkout_param;
 	err = PF_CHECKOUT_PARAM(in_data,
@@ -368,7 +434,7 @@ static PF_Err
 					PF_Rect src_rect = { 0,0,other_layer_world->width, other_layer_world->height };
 					PF_Rect dst_rect = { 0,0,nw,nh };
 					PF_COPY(other_layer_world, &temp_world, &src_rect, &dst_rect);
-					spat = GetSpatDataFromWorld(&temp_world, ae->pixelFormat(), nsz, nsz);
+					sput = GetSpatDataFromWorld(&temp_world, ae->pixelFormat(), nsz, nsz);
 					ae->DisposeWorld(&temp_world);
 				}
 		}
@@ -376,42 +442,33 @@ static PF_Err
 		err = PF_CHECKIN_PARAM(in_data, &checkout_param);
 
 	}
-	*/
+	// Target2をoutputに書き込む
 	/*
-	if (infoP->count > 0)
-	{
-		if (spat.size() > 0) {
-
-			for (int i = 0; i < infoP->count; i++) {
-				A_long index = (A_long)(hash_float(i, 500, ae->frame()) * (float)spat.size());
-				float angle = (float)(hash_float(i, 10, ae->frame()) * 360.0f * M_PI / 180.0f);
-				//float radius = (float)(hash_float(i, 20, ae->frame()) * infoP->radius);
-				float radius = (float)(sqrt(hash_float(i, 20, ae->frame())) * infoP->radius);
-
-				A_long xx = (A_long)(radius * cos(angle));
-				A_long yy = (A_long)(radius * sin(angle));
-
-				A_u_char r = (A_u_char)(hash_float(i, 100, ae->frame()) * 255);
-				A_u_char g = (A_u_char)(hash_float(i, 300, ae->frame()) * 255);
-				A_u_char b = (A_u_char)(hash_float(i, 400, ae->frame()) * 255);
-
-				float rscale = (float)(hash_float(i, 500, ae->frame()) * 1.2f + 0.3f);
-				BlendSpatToWorld(
-					ae->output,
-					ae->pixelFormat(),
-					infoP->pos.x + xx,
-					infoP->pos.y + yy,
-					ScaleSpatBilinear(spat[index],rscale),
-					PF_Pixel{ 255,r,g,b },
-					1.0f);
-
-			}
-		}
-
-	}
+	ERR(FromTargetWorldExec(
+		ae->in_data,
+		ae->output,
+		ae->pixelFormat(),
+		ae->suitesP,
+		&target2
+	));
 	*/
-
-
+	if ((infoP->area_rate > 0 || infoP->border_rate > 0)&&(infoP->opacity>0)) {
+		ERR(SputMain(
+			ae,
+			infoP,
+			&target2,
+			&sput
+		));
+	}
+	if(infoP->isBlend) {
+		ERR(BlendBehind(
+			ae->in_data,
+			ae->input,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP
+		));
+	}
 	return err;
 }
 

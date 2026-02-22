@@ -32,6 +32,8 @@
 
 #include "SputteringFilter.h"
 */
+#include "TargetWorld.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 #include <string>
 #include <vector>
 
@@ -58,8 +60,14 @@ enum {
 
 	ID_PARAMS_TOPIC,
 	ID_SPUT_LAYER,
+	
 	ID_SIZE,
 	ID_SIZE_RAND,
+	ID_SPUT_LOOP,
+	ID_SPUT_LOOP_KOMA,
+	ID_PARAMS_TOPIC_END,
+
+	ID_PARAMS2_TOPIC,
 	ID_AREA_RATE,
 	ID_BORDER_RATE,
 	ID_SPAWN_COUNT,
@@ -69,7 +77,7 @@ enum {
 	ID_OPACITY_RAND,
 	ID_AUTO_SEED,
 	ID_SEED,
-	ID_PARAMS_TOPIC_END,
+	ID_PARAMS2_TOPIC_END,
 
 	ID_COLOR_TOPIC,
 	ID_COLOR_NUM,
@@ -98,8 +106,15 @@ enum {
 #define	STR_BORDER_DIRECTION	"Border_Direction"
 #define	STR_DIRECTION_ANGLE		"Direction_Angle"
 
-#define	STR_PARAMS_TOPIC	"Parameters"
+#define	STR_PARAMS_TOPIC	"Texture"
+#define	STR_PARAMS2_TOPIC	"Parameters"
 #define	STR_SPUT_LAYER		"Sputtering_Texcure_Layer"
+#define	STR_SPUT_LOOP		"TimeSampling"
+#define	STR_SPUT_LOOP_ITEMS	"Random|Loop"
+#define	STR_SPUT_LOOP_COUNT	2
+#define	STR_SPUT_LOOP_DFLT	1
+#define	STR_SPUT_LOOP_KOMA	"koma"
+
 #define	STR_SIZE			"Size"
 #define	STR_SIZE_RAND		"Size_Random"
 #define	STR_AREA_RATE		"Area_Rate"
@@ -127,7 +142,7 @@ typedef struct ParamInfo {
 	float		direction_angle;
 	A_long		targetColorCount;
 	PF_Pixel	targetColors[TARGET_COLOR_COUNT];
-	PF_LayerDef	sputLayer;
+	//PF_LayerDef	sputLayer;
 	float		size;
 	float		sizeRandom;
 	float		area_rate;
@@ -142,9 +157,20 @@ typedef struct ParamInfo {
 	PF_Pixel	colors[COLOR_COUNT];
 	PF_Boolean	isBlend;
 
+	A_long		sput_loop_mode;
+	A_long		sput_loop_koma;
+	A_long		sput_loop_seed;
+
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------
+PF_Err SputMain
+(
+	NF_AE* ae,
+	ParamInfo* infoP,
+	std::vector<A_u_char>* target,
+	std::vector<std::vector<A_u_char>>* sput
+);
 
 
 //-----------------------------------------------------------------------------------
