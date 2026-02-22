@@ -1,6 +1,8 @@
-#NF-Plugins_20260219
+#NF-Plugins_20260222
 
 また少し増えました。
+NF-Sputtering.aexが苦労しましたができました。
+
 
 詳細は[github](https://github.com/bryful/F-s-PluginsProjects)に行ってプラグインの名前のフォルダを開いてください。
 メモが書いてあります。<br>
@@ -9,7 +11,7 @@
 NF-Starはアルゴリズム的に問題があってまだ実用できません。
 
 
-今のところこれだけですが、かなり増えてきました。
+かなり増えてきました。
 NF-AlphaFill.aex
 NF-CellEmboss.aex
 NF-CellLineEraser.aex
@@ -36,11 +38,13 @@ NF-RadialLines.aex
 NF-RGBShifter.aex
 NF-RimFill.aex
 NF-SelectiveColorBlur.aex
+NF-Sputtering.aex
 NF-Star.aex
 NF-TargetGrad.aex
 NF-TargetGradRadical.aex
 NF-Thin.aex
 NF-WhiteKeying.aex
+
 
 
 F's Pluginsの最新版も入っていますが「Deprecated」カテゴリのものはしばらくしたら配布を中止します。

@@ -4,6 +4,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <string>
+#include <vector>
 
 #include "AEConfig.h" 
 #include "entry.h"
