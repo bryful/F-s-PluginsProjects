@@ -76,14 +76,16 @@ PF_Err SputMain
 						opa *= (1 - infoP->opacityRand) + hash_float(x+c, y + 400, seed) * infoP->opacityRand;
 					}
 					AE_CLAMP(opa, 0, 1.0f);
-					BlendSpatToWorld(
-						ae->output,
-						ae->pixelFormat(),
-						x + xx,
-						y + yy,
-						ScaleSpatBilinear(sput->at(num), rscale),
-						infoP->colors[colorIndex],
-						opa);
+					if (opa > 0 && rscale > 0) {
+						BlendSpatToWorld(
+							ae->output,
+							ae->pixelFormat(),
+							x + xx,
+							y + yy,
+							ScaleSpatBilinear(sput->at(num), rscale),
+							infoP->colors[colorIndex],
+							opa);
+					}
 				}
 			}
 		}

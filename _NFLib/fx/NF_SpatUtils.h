@@ -35,7 +35,9 @@ std::vector<std::vector<A_u_char>> GetSpatDataFromWorld(
 	PF_EffectWorld* world,
 	PF_PixelFormat pixelFormat,
 	A_long spatWidth,
-	A_long spatHeight
+	A_long spatHeight,
+	A_long countX,
+	A_long countY
 );
 void BlendSpatToWorld8(
 	PF_EffectWorld* world,

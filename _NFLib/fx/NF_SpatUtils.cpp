@@ -103,13 +103,15 @@ static std::vector<std::vector<A_u_char>> GetSpatDataFromWorldT
     PF_EffectWorld* world,
     PF_PixelFormat pixelFormat,
     A_long spatWidth,
-    A_long spatHeight
-)
+    A_long spatHeight,
+    A_long pX,
+    A_long pY
+    )
 {
-    //横のパターン数
-    A_long pX = world->width / spatWidth;
-    //縦のパターン数
-    A_long pY = world->height / spatHeight;
+    if (spatWidth <= 0 || spatHeight <= 0 || pX <= 0 || pY <= 0) {
+		std::vector<std::vector<A_u_char>> ret;
+        return ret;
+    }
     std::vector<std::vector<A_u_char>> spatData(pY*pX, std::vector<A_u_char>(spatWidth * spatHeight));
     PixelType* data = (PixelType*)world->data;
     A_long widthTrue = world->rowbytes / sizeof(PixelType);
@@ -141,17 +143,19 @@ std::vector<std::vector<A_u_char>> GetSpatDataFromWorld(
     PF_EffectWorld* world,
     PF_PixelFormat pixelFormat,
     A_long spatWidth,
-    A_long spatHeight
+    A_long spatHeight,
+    A_long countX,
+	A_long countY
 )
 {
     if (pixelFormat == PF_PixelFormat_ARGB128) {
-        return GetSpatDataFromWorldT<PF_PixelFloat>(world, pixelFormat, spatWidth, spatHeight);
+        return GetSpatDataFromWorldT<PF_PixelFloat>(world, pixelFormat, spatWidth, spatHeight,countX,countY);
     }
     else if (pixelFormat == PF_PixelFormat_ARGB64) {
-        return GetSpatDataFromWorldT<PF_Pixel16>(world, pixelFormat, spatWidth, spatHeight);
+        return GetSpatDataFromWorldT<PF_Pixel16>(world, pixelFormat, spatWidth, spatHeight, countX, countY);
     }
     else {
-        return GetSpatDataFromWorldT<PF_Pixel>(world, pixelFormat, spatWidth, spatHeight);
+        return GetSpatDataFromWorldT<PF_Pixel>(world, pixelFormat, spatWidth, spatHeight, countX, countY);
     }
 }
 

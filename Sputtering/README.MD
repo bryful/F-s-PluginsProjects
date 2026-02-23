@@ -4,7 +4,7 @@
 
 # 機能
 
-* Targetr<br> 描画する所
+* Target<br> 描画する所
   - Target_mode
     - Alpha 不透明部分で
     - Color1-8　指定した色で

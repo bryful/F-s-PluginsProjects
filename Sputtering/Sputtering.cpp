@@ -78,9 +78,9 @@ static PF_Err ParamsSetup (
 	);
 	cs.AddFloatSlider(	// R
 		STR_SIZE,			//Name
-		20,				//VALID_MIN
-		200,			//VALID_MAX
-		20,				//SLIDER_MIN
+		0,				//VALID_MIN
+		300,			//VALID_MAX
+		0,				//SLIDER_MIN
 		100,			//SLIDER_MAX
 		100,			//DFLT
 		0,				//PREC 小数点以下の桁数
@@ -427,14 +427,14 @@ static PF_Err
 				int nsz = (int)((float)sz * infoP->size + 0.5);
 				int nw = cw * nsz;
 				int nh = ch * nsz;
-				if (nw > sz && nh > sz) {
+				if (nw >= cw && nh >= cw) {
 					PF_EffectWorld temp_world;
-					ae->NewWorld(nw, nh, ae->pixelFormat(), &temp_world);
+					ae->NewWorld(AE_CLAMP(nw,16,30000), AE_CLAMP(nh, 16, 30000), ae->pixelFormat(), &temp_world);
 					PF_InData* in_data = ae->in_data;
-					PF_Rect src_rect = { 0,0,other_layer_world->width, other_layer_world->height };
+					PF_Rect src_rect = { 0,0,cw * sz, ch * sz };
 					PF_Rect dst_rect = { 0,0,nw,nh };
 					PF_COPY(other_layer_world, &temp_world, &src_rect, &dst_rect);
-					sput = GetSpatDataFromWorld(&temp_world, ae->pixelFormat(), nsz, nsz);
+					sput = GetSpatDataFromWorld(&temp_world, ae->pixelFormat(), nsz, nsz,cw,ch);
 					ae->DisposeWorld(&temp_world);
 				}
 		}
