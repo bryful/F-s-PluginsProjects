@@ -1,121 +1,242 @@
 ﻿#include "Star.h"
-
-
+typedef struct {
+	PF_EffectWorld* world;
+	A_long width;
+	A_long widthTrue;
+	A_long height;
+	A_long rowbytes;
+	std::vector<std::vector<float>>* mask;
+	A_long mode;
+} MaskInfo;
+typedef struct {
+	A_long width;
+	A_long height;
+	std::vector<std::vector<float>>* src;
+	std::vector<std::vector<float>>* dst;
+} MaskFInfo;
 // 輝度計算ヘルパー (RGBの最大値を基準にする仕様)
 template <typename T>
-inline PF_FpLong GetLuminance(T* p) {
-	PF_FpLong r = (PF_FpLong)p->red;
-	PF_FpLong g = (PF_FpLong)p->green;
-	PF_FpLong b = (PF_FpLong)p->blue;
-	// RGBの最大値を輝度とする（仕様に基づき）
-	PF_FpLong max_val = (r > g) ? r : g;
-	return (max_val > b) ? max_val : b;
+inline PF_FpLong GetLuminance(T* p, A_long mode,PF_FpLong max_chan) {
+	PF_FpLong ret = 0;
+	if (mode == 1) { // RGBの最大値を基準にする
+		PF_FpLong a = (PF_FpLong)p->alpha / max_chan;
+		PF_FpLong r = a * (PF_FpLong)p->red / max_chan;
+		PF_FpLong g = a * (PF_FpLong)p->green / max_chan;
+		PF_FpLong b = a * (PF_FpLong)p->blue / max_chan;
+		ret = MAX(MAX(r, g), b);
+	}
+	else { // 輝度計算式を使用する
+		PF_FpLong a = (PF_FpLong)p->alpha / max_chan;
+		PF_FpLong r = (PF_FpLong)p->red / max_chan;
+		PF_FpLong g = (PF_FpLong)p->green / max_chan;
+		PF_FpLong b = (PF_FpLong)p->blue / max_chan;
+		ret =  (0.2126 * r + 0.7152 * g + 0.0722 * b)*a;
+	}
+	ret = AE_CLAMP( (ret-0.1f) / 0.8f,0,1.0f); // 0.9で割って全体的に明るくする
+	return ret;
 }
 
 // ピクセルごとの抽出処理
 template <typename T>
-static PF_Err ExtractLumaT(
-	refconType refcon,
-	A_long xL,
-	A_long yL,
-	T* inP,
-	T* outP)
+static PF_Err ExtractMaskT(
+		void* refconPV,
+		A_long thread_idxL,
+		A_long y,
+		A_long itrtL)
 {
-	ParamInfo* infoP = reinterpret_cast<ParamInfo*>(refcon);
+	MaskInfo* infoP = reinterpret_cast<MaskInfo*>(refconPV);
 	PF_FpLong max_chan = GetMaxChannel<T>(); // _SkeletonFilter.cppにあるヘルパーを利用
 
-	PF_FpLong aa = (PF_FpLong)inP->alpha/max_chan;
-	PF_FpLong r = (PF_FpLong)inP->red * aa;
-	PF_FpLong g = (PF_FpLong)inP->green * aa;
-	PF_FpLong b = (PF_FpLong)inP->blue * aa;
-	*outP = *inP; // 元のピクセルをコピー
-	PF_FpLong max_val = AE_CLAMP(MAX(MAX(r,g),b),0,max_chan);
-	outP->alpha = (typename PixelTraits<T>::channel_type)max_val;
-	outP->red = (typename PixelTraits<T>::channel_type)r;
-	outP->green = (typename PixelTraits<T>::channel_type)g;
-	outP->blue = (typename PixelTraits<T>::channel_type)b;
-
-	/*
-
-	// 現在のピクセルの輝度取得 (0.0 - 1.0)
-	PF_FpLong luma = GetLuminance<T>(inP) / max_chan;
-	PF_FpLong alpha = (PF_FpLong)inP->alpha / max_chan;
+	T* inRow = reinterpret_cast<T*>((char*)infoP->world->data + (y * infoP->rowbytes));
 
 
-	outP->alpha = (typename PixelTraits<T>::channel_type)(max_val);
-
-	// 閾値による重み計算 (Linear Step)
-	PF_FpLong weight = 0;
-	if (luma >= infoP->thresh_high) {
-		weight = 1.0;
+	for(A_long x = 0; x < infoP->width; x++) {
+		T* inP = &inRow[x];
+		PF_FpLong luma = GetLuminance<T>(inP, infoP->mode,max_chan);
+		//(*infoP->mask->data() + y*infoP->width +x ) = (float)luma; // 輝度をマスクに保存
+		//*(infoP->mask->data() + y * infoP->width + x) = (float)luma; // 輝度をマスクに保存
+		infoP->mask->at(y).at(x) = (float)luma; // 輝度をマスクに保存
 	}
-	else if (luma > infoP->thresh_low) {
-		weight = (luma - infoP->thresh_low) / (infoP->thresh_high - infoP->thresh_low);
-	}
-
-	// アルファを考慮
-	weight *= alpha;
-
-	if (weight > 0) {
-		if (infoP->color_mode == 2) { // Custom Color
-			outP->red = (typename PixelTraits<T>::channel_type)(infoP->cross_color.red * max_chan * weight);
-			outP->green = (typename PixelTraits<T>::channel_type)(infoP->cross_color.green * max_chan * weight);
-			outP->blue = (typename PixelTraits<T>::channel_type)(infoP->cross_color.blue * max_chan * weight);
-		}
-		else { // Original Color
-			outP->red = (typename PixelTraits<T>::channel_type)(inP->red * weight);
-			outP->green = (typename PixelTraits<T>::channel_type)(inP->green * weight);
-			outP->blue = (typename PixelTraits<T>::channel_type)(inP->blue * weight);
-		}
-		outP->alpha = (typename PixelTraits<T>::channel_type)(max_chan * weight);
-	}
-	else {
-		outP->red = outP->green = outP->blue = outP->alpha = 0;
-	}
-	*/
+	
 	return PF_Err_NONE;
 }
 
-PF_Err ExtractLumaMask(
+PF_Err ExtractMask(
 	PF_InData* in_dataP,
 	PF_EffectWorld* inputP,
-	PF_EffectWorld* maskP, // 書き出し先（事前にNewWorldしたもの）
 	PF_PixelFormat pixelFormat,
 	AEGP_SuiteHandler* suitesP,
-	ParamInfo* infoP
+	std::vector<std::vector<float>>* mask,
+	A_long mode
 )
 {
 	PF_Err err = PF_Err_NONE;
-
+	
+	MaskInfo info;
+	AEFX_CLR_STRUCT(info);
+	info.width = inputP->width;
+	info.height = inputP->height;
+	info.rowbytes = inputP->rowbytes;
+	info.world = inputP;
+	info.mask = mask;
 	switch (pixelFormat) {
 	case PF_PixelFormat_ARGB128:
-		err = suitesP->IterateFloatSuite1()->iterate(in_dataP, 0, inputP->height, inputP, NULL, infoP, ExtractLumaT<PF_PixelFloat>, maskP);
+		info.widthTrue = inputP->rowbytes / sizeof(PF_PixelFloat);
+		ERR(suitesP->Iterate8Suite2()->iterate_generic( inputP->height,  &info, ExtractMaskT<PF_PixelFloat>));
 		break;
 	case PF_PixelFormat_ARGB64:
-		err = suitesP->Iterate16Suite1()->iterate(in_dataP, 0, inputP->height, inputP, NULL, infoP, ExtractLumaT<PF_Pixel16>, maskP);
+		info.widthTrue = inputP->rowbytes / sizeof(PF_Pixel16);
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(inputP->height, &info, ExtractMaskT<PF_Pixel16>));
 		break;
 	case PF_PixelFormat_ARGB32:
-		err = suitesP->Iterate8Suite1()->iterate(in_dataP, 0, inputP->height, inputP, NULL, infoP, ExtractLumaT<PF_Pixel8>, maskP);
+		info.widthTrue = inputP->rowbytes / sizeof(PF_Pixel);
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(inputP->height, &info, ExtractMaskT<PF_Pixel>));
 		break;
 	}
 	return err;
 }
+
 template <typename T>
-void BuildLitPixelListT(PF_EffectWorld* mask, std::vector<LitPixel>& list) {
-	PF_FpLong max_chan = GetMaxChannel<T>();
-	for (A_long y = 0; y < mask->height; y++) {
-		T* row = reinterpret_cast<T*>((char*)mask->data + (y * mask->rowbytes));
-		for (A_long x = 0; x < mask->width; x++) {
-			if (row[x].alpha > 0) {
-				LitPixel lp;
-				lp.x = x;
-				lp.y = y;
-				lp.color.red = (PF_FpShort)row[x].red / max_chan;
-				lp.color.green = (PF_FpShort)row[x].green / max_chan;
-				lp.color.blue = (PF_FpShort)row[x].blue / max_chan;
-				lp.color.alpha = (PF_FpShort)row[x].alpha / max_chan;
-				list.push_back(lp);
+static PF_Err DrawMaskT(
+	void* refconPV,
+	A_long thread_idxL,
+	A_long y,
+	A_long itrtL)
+{
+	MaskInfo* infoP = reinterpret_cast<MaskInfo*>(refconPV);
+	PF_FpLong max_chan = GetMaxChannel<T>(); // _SkeletonFilter.cppにあるヘルパーを利用
+
+
+	T* outRow = reinterpret_cast<T*>((char*)infoP->world->data + (y * infoP->rowbytes));
+	for (A_long x = 0; x < infoP->width; x++) {
+		//float luma = *(infoP->mask->data() + y * infoP->width + x); // マスクから輝度を取得
+		float luma = (float)infoP->mask->at(y).at(x); // マスクから輝度を取得
+		T* outP = &outRow[x];
+		if (std::is_same<T, PF_PixelFloat>::value) {
+			// 32bit float の場合はクランプ不要
+			outP->red = static_cast<typename PixelTraits<T>::channel_type>(luma);
+			outP->green = static_cast<typename PixelTraits<T>::channel_type>(luma);
+			outP->blue = static_cast<typename PixelTraits<T>::channel_type>(luma);
+		}
+		else {
+			// 整数型の場合はクランプしてから適切な型にキャスト
+			outP->red = static_cast<typename PixelTraits<T>::channel_type>(AE_CLAMP(luma* max_chan, 0, max_chan));
+			outP->green = static_cast<typename PixelTraits<T>::channel_type>(AE_CLAMP(luma * max_chan, 0, max_chan));
+			outP->blue = static_cast<typename PixelTraits<T>::channel_type>(AE_CLAMP(luma * max_chan, 0, max_chan));
+		}
+		outP->alpha = static_cast<typename PixelTraits<T>::channel_type>(max_chan);
+
+	}
+
+
+	
+
+
+
+	return PF_Err_NONE;
+}
+PF_Err DrawMask(
+	PF_InData* in_dataP,
+	PF_EffectWorld* output,
+	PF_PixelFormat pixelFormat,
+	AEGP_SuiteHandler* suitesP,
+	std::vector<std::vector<float>>* mask
+)
+{
+	PF_Err err = PF_Err_NONE;
+	MaskInfo info;
+	AEFX_CLR_STRUCT(info);
+	info.width = output->width;
+	info.height = output->height;
+	info.rowbytes = output->rowbytes;
+	info.world = output;
+	info.mask = mask;
+	switch (pixelFormat) {
+	case PF_PixelFormat_ARGB128:
+		info.widthTrue = output->rowbytes / sizeof(PF_PixelFloat);
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_PixelFloat>));
+		break;
+	case PF_PixelFormat_ARGB64:
+		info.widthTrue = output->rowbytes / sizeof(PF_Pixel16);
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_Pixel16>));
+		break;
+	case PF_PixelFormat_ARGB32:
+		info.widthTrue = output->rowbytes / sizeof(PF_Pixel);
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_Pixel>));
+		break;
+	}
+	return err;
+}
+static PF_Err ClacMaskT(
+	void* refconPV,
+	A_long thread_idxL,
+	A_long y,
+	A_long itrtL)
+{
+	MaskFInfo* infoP = reinterpret_cast<MaskFInfo*>(refconPV);
+	infoP->dst->at(y).at(0) = infoP->src->at(y).at(0);
+	infoP->dst->at(y).at(infoP->width-1) = infoP->src->at(y).at(infoP->width - 1);
+	if (y == 0) {
+		for(A_long x=1; x< infoP->width-1; x++) {
+			float p = infoP->src->at(y).at(x);
+			float p1 = infoP->src->at(y).at(x-1);
+			float p2 = infoP->src->at(y).at(x + 1);
+			float p3 = infoP->src->at(y+1).at(x);
+			if (p==p1 && p==p2 && p==p3) {
+				infoP->dst->at(y).at(x) = 0;
+			}
+			else {
+				infoP->dst->at(y).at(x) = p;
 			}
 		}
 	}
+	else if (y == infoP->height - 1) {
+		for (A_long x = 1; x < infoP->width - 1; x++) {
+			float p = infoP->src->at(y).at(x);
+			if (p == 0) continue;
+			float p1 = infoP->src->at(y).at(x - 1);
+			float p2 = infoP->src->at(y).at(x + 1);
+			float p3 = infoP->src->at(y - 1).at(x);
+			if (p == p1 && p == p2 && p == p3) {
+				infoP->dst->at(y).at(x) = 0;
+			}
+			else {
+				infoP->dst->at(y).at(x) = p;
+			}
+		}
+	}
+	else {
+		for (A_long x = 1; x < infoP->width - 1; x++) {
+			float p = infoP->src->at(y).at(x);
+			if (p == 0) continue;
+			float p1 = infoP->src->at(y).at(x - 1);
+			float p2 = infoP->src->at(y).at(x + 1);
+			float p3 = infoP->src->at(y - 1).at(x);
+			float p4 = infoP->src->at(y + 1).at(x);
+			if (p == p1 && p == p2 && p == p3 && p==p4) {
+				infoP->dst->at(y).at(x) = 0;
+			}
+			else {
+				infoP->dst->at(y).at(x) = p;
+			}
+		}
+	}
+	return PF_Err_NONE;
+}
+std::vector<std::vector<float>> CalcMask(
+	AEGP_SuiteHandler* suitesP, 
+	std::vector<std::vector<float>>* src
+)
+{
+
+	PF_Err err = PF_Err_NONE;
+	MaskFInfo info;
+	AEFX_CLR_STRUCT(info);
+	info.src = src;
+	info.height = (A_long)src->size();
+	info.width = (A_long)src->at(0).size();
+	std::vector<std::vector<float>> resultMask(info.height, std::vector<float>(info.width));
+	info.dst = &resultMask;
+	ERR(suitesP->Iterate8Suite2()->iterate_generic(info.height, &info, ClacMaskT));
+	return resultMask;
 }

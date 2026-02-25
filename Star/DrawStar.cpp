@@ -183,7 +183,10 @@ static PF_Err DrawLineT(
 	return err;
 }
 
-PF_Err DrawStar(NF_AE* ae, PF_EffectWorld* mask_world, ParamInfo* infoP) 
+PF_Err DrawStar(
+	NF_AE* ae, 
+	PF_EffectWorld* mask_world, 
+	ParamInfo* infoP) 
 {
 	if (!ae || !mask_world || !infoP) return PF_Err_BAD_CALLBACK_PARAM;
 	if (!ae->output || !ae->output->data) return PF_Err_BAD_CALLBACK_PARAM;
@@ -210,4 +213,28 @@ PF_Err DrawStar(NF_AE* ae, PF_EffectWorld* mask_world, ParamInfo* infoP)
 	}
 	
 	return err;
+}
+
+std::vector<StarSource> ExtractStarSources(
+	std::vector<std::vector<float>>& mask,
+	A_long *count
+)
+{
+	*count = 0;
+	std::vector<StarSource> sources;
+	int height = (int)mask.size();
+	int width = (height > 0) ? (int)mask[0].size() : 0;
+	if (width <= 0 || height <= 0) return sources;
+	sources.reserve(width * height / 10);
+
+	for (int y = 0; y < height; ++y) {
+		for (int x = 0; x < width; ++x) {
+			float brightness = mask[y][x];
+			if (brightness > 0.05f) { // 閾値を調整
+				sources.push_back({x, y, brightness});
+				(*count)++;
+			}
+		}
+	}
+	return sources;
 }

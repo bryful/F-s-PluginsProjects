@@ -208,136 +208,44 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 
 	return err;
 }
-//-------------------------------------------------------------------------------------------------
-static PF_Err 
-	MaskCheck(
-		PF_EffectWorld* worldP,
-		PF_PixelFormat pixelFormat,
-		A_long *count
-	)
-{
-	PF_Err err = PF_Err_NONE;
-	switch (pixelFormat)
-	{
-		case PF_PixelFormat_ARGB128:
-		{
-			PF_Pixel32* data = reinterpret_cast<PF_Pixel32*>(worldP->data);
-			A_long pixel_count = (worldP->rowbytes / sizeof(PF_Pixel32)) * worldP->height;
-			*count = 0;
-			for (A_long i = 0; i < pixel_count; i++) {
-				if (data[i].alpha != 0) {
-					(*count)++;
-				}
-			}
-			break;
-		}
-		case PF_PixelFormat_ARGB64:
-		{
-			PF_Pixel16* data = reinterpret_cast<PF_Pixel16*>(worldP->data);
-			A_long pixel_count = (worldP->rowbytes / sizeof(PF_Pixel16)) * worldP->height;
-			*count = 0;
-			for (A_long i = 0; i < pixel_count; i++) {
-				if (data[i].alpha != 0) {
-					(*count)++;
-				}
-			}
-			break;
-		}
-		case PF_PixelFormat_ARGB32:
-		{
-			PF_Pixel* data = reinterpret_cast<PF_Pixel*>(worldP->data);
-			A_long pixel_count = (worldP->rowbytes / sizeof(PF_Pixel)) * worldP->height;
-			*count = 0;
-			for (A_long i = 0; i < pixel_count; i++) {
-				if (data[i].alpha != 0) {
-					(*count)++;
-				}
-			}
-			break;
-		}
-	}
-	return err;
-}
+
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
 	Exec (NF_AE*ae , ParamInfo *infoP)
 {
 	PF_Err	err = PF_Err_NONE;
 
-	infoP->overall_length /= ae->downSaleValue();
+	std::vector<std::vector<float>> mask(ae->output->height, std::vector<float>(ae->output->width));
 
-	// 2. マスク画像（一時バッファ）の確保
-	PF_EffectWorld mask_world;
-	ERR(ae->NewWorld(
-		ae->output->width,
-		ae->output->height, ae->pixelFormat(),
-		&mask_world));
-	if (err) return err;
-
-	// 3. 入力から高輝度部分を抽出して mask_world に描画
-	ERR(ExtractLumaMask(
+	ERR(ExtractMask(
 		ae->in_data,
 		ae->input,
-		//&mask_world,
-		ae->output,
 		ae->pixelFormat(),
 		ae->suitesP,
-		infoP
+		&mask,
+		0
 	));
-	ERR(MinMax(
+	std::vector<std::vector<float>> mask2 = CalcMask(ae->suitesP,&mask);
+
+	A_long count = 0;
+	std::vector <StarSource> sources = ExtractStarSources(mask2,&count);
+
+	ERR(DrawMask(
 		ae->in_data,
 		ae->output,
 		ae->pixelFormat(),
 		ae->suitesP,
-		-1
+		&mask2
 	));
-	return err;
-	/*
-	A_long mask_pixel_count = 0;
-	ERR(MaskCheck(&mask_world, ae->pixelFormat(), &mask_pixel_count));
-
-	if (mask_pixel_count <= 0|| mask_pixel_count > 1024*40) {
-
-		ae->CopyInToOut();
-		// マスクが空なら処理しない
-		ae->DisposeWorld(&mask_world);
-		std::string msg = std::to_string(mask_pixel_count);
-		PF_Pixel color = { 255,255,0,0 };
-		DrawDebugString(ae->output,ae->pixelFormat(),0,0,msg.c_str(),color);
-		return PF_Err_NONE;
-	}
-	*/
-	PF_InData* in_data = ae->in_data;
-	PF_FILL(NULL, NULL, ae->output);
-	//ae->Copy(&mask_world, ae->output);
-	// 4. 出力バッファをクリア（または入力をコピーしてベースにする）
-	// 今回は「元の画像 ＋ クロス」なので、まず出力をコピー
-
-
-	ERR(DrawStar(
-		ae,
-		&mask_world,
-		infoP
-	));
-	ERR(Mult(
-		ae->in_data,
+	std::string debug_str = "Count: " + std::to_string(count);
+	PF_Pixel debug_color = { 255,255,0,0 };
+	DrawDebugString(
 		ae->output,
 		ae->pixelFormat(),
-		ae->suitesP,
-		TRUE
-	));
-
-	// 6. メモリ解放
-	ae->DisposeWorld(&mask_world);
-	if(infoP->hyperbolic!=0.0){
-		ERR(HyperbolicAlpha(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			infoP->hyperbolic
-		));
-	}
+		0,0,
+		debug_str.c_str(),
+		debug_color
+	);
 	return err;
 }
 

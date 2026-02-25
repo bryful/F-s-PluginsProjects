@@ -309,7 +309,9 @@ static PF_Err
 
 	//画面をコピー
 	ERR(ae->CopyInToOut());
-	
+	if (infoP->enable_All) {
+		ERR(ColSWitch(ae, infoP));
+	}
 	return err;
 }
 

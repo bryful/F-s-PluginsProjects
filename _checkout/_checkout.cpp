@@ -142,21 +142,21 @@ static PF_Err
 		*/
 		if (other_layer_world->data) {
 			int sz = 48;
-				int cw = other_layer_world->width /sz;
-				int ch = other_layer_world->height / sz;
-				int nsz = (int)((float)sz * infoP->scale + 0.5);
-				int nw = cw * nsz;
-				int nh = ch * nsz;
-				if (nw > sz && nh > sz) {
-					PF_EffectWorld temp_world;
-					ae->NewWorld(nw, nh, ae->pixelFormat(), &temp_world);
-					PF_InData* in_data = ae->in_data;
-					PF_Rect src_rect = { 0,0,other_layer_world->width, other_layer_world->height };
-					PF_Rect dst_rect = { 0,0,nw,nh };
-					PF_COPY(other_layer_world, &temp_world, &src_rect, &dst_rect);
-					spat = GetSpatDataFromWorld(&temp_world, ae->pixelFormat(), nsz, nsz);
-					ae->DisposeWorld(&temp_world);
-				}
+			int cw = other_layer_world->width / sz;
+			int ch = other_layer_world->height / sz;
+			int nsz = sz;
+			int nw = cw * nsz;
+			int nh = ch * nsz;
+			if (nw >= cw && nh >= cw) {
+				PF_EffectWorld temp_world;
+				ae->NewWorld(AE_CLAMP(nw, 16, 30000), AE_CLAMP(nh, 16, 30000), ae->pixelFormat(), &temp_world);
+				PF_InData* in_data = ae->in_data;
+				PF_Rect src_rect = { 0,0,cw * sz, ch * sz };
+				PF_Rect dst_rect = { 0,0,nw,nh };
+				PF_COPY(other_layer_world, &temp_world, &src_rect, &dst_rect);
+				spat = GetSpatDataFromWorld(&temp_world, ae->pixelFormat(), nsz, nsz, cw, ch);
+				ae->DisposeWorld(&temp_world);
+			}
 		}
 		// 4. 「他のレイヤ」をチェックイン（必須！）
 		err = PF_CHECKIN_PARAM(in_data, &checkout_param);

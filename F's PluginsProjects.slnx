@@ -7,6 +7,10 @@
     <Project Path="Legacy/Project/AlphaFix/Win/AlphaFix.vcxproj" Id="82675920-efdc-4880-84e3-4d234c1a86bc">
       <Platform Project="x64" />
     </Project>
+    <Project Path="Legacy/Project/AnimatedNoise/Win/AnimatedNoise.vcxproj" Id="aa3a8cbe-4ace-4728-9579-7904cca685a1">
+      <Platform Project="x64" />
+      <Build Solution="*|x86" Project="false" />
+    </Project>
     <Project Path="Legacy/Project/CellLineEraser_old/Win/CellLineEraser.vcxproj" Id="9ffe7c24-3e91-4cbe-a470-9f0af818406e" />
     <Project Path="Legacy/Project/ColorChange/Win/ColorChange.vcxproj" Id="a057bed7-a75c-4769-ba94-bf3a709420af">
       <Platform Project="x64" />
@@ -21,6 +25,7 @@
       <Build Solution="*|x86" Project="false" />
     </Project>
     <Project Path="Legacy/Project/ColorKey/Win/ColorKey.vcxproj" Id="e18653f0-ffef-48a1-90ae-cc6562614526" />
+    <Project Path="Legacy/Project/ColorMatKey/Win/ColorMatKey.vcxproj" Id="2bd2347f-dea3-4d20-8011-55ecf78d8ece" />
     <Project Path="Legacy/Project/CreateAlpha/Win/CreateAlpha.vcxproj" Id="b64069b0-6049-4e43-b5f0-7b7c6a3ee5a8">
       <Platform Project="x64" />
       <Build Solution="*|x86" Project="false" />
@@ -50,6 +55,7 @@
     <Project Path="Legacy/Project/InnerFlare_old/Win/InnerFlare.vcxproj" Id="3bf8c428-46d9-4fca-b03a-20e1c5817c45" />
     <Project Path="Legacy/Project/IroTore/Win/IroTore.vcxproj" Id="e3ea288e-34e1-44c1-be43-bb2f4f1f8344" />
     <Project Path="Legacy/Project/IroToreAdjacent/Win/IroToreAdjacent.vcxproj" Id="a03946f0-46ca-4b50-967f-95b8adc6402f" />
+    <Project Path="Legacy/Project/LineDetection/Win/LineDetection.vcxproj" Id="52cb21fd-eb41-484f-b74f-0780d6ea017c" />
     <Project Path="Legacy/Project/LineTrace/Win/LineTrace.vcxproj" Id="97918b48-8322-43bf-92d6-ecca9621ee76" />
     <Project Path="Legacy/Project/MainLineRepaint/Win/MainLineRepaint.vcxproj" Id="bc5440fd-f500-4932-a9e2-5edfac807762" />
     <Project Path="Legacy/Project/MainLineRepaint_old/Win/MainLineRepaint_old.vcxproj" Id="aa6b61ab-fe84-4800-b04e-7470c9773b86" />
@@ -85,6 +91,10 @@
     </Project>
     <Project Path="Legacy/Project/Shine/Win/Shine.vcxproj" Id="82a14d7d-963b-4639-9ca5-fb7d76688aab" />
     <Project Path="Legacy/Project/ShitsuKanBlur/Win/ShitsuKanBlur.vcxproj" Id="cac5dedc-2e7e-48df-984e-9e65f0375230" />
+    <Project Path="Legacy/Project/sputteringAlpha/Win/sputteringAlpha.vcxproj" Id="68a7d7a6-8d9a-471f-a03c-d136b84d87a9" />
+    <Project Path="Legacy/Project/sputteringCircle/Win/sputteringCircle.vcxproj" Id="e892ef45-987e-4500-873a-dcedf2ad78a8" />
+    <Project Path="Legacy/Project/sputteringRect/Win/sputteringRect.vcxproj" Id="0e98d15b-af28-4f91-a6b0-8a544907d376" />
+    <Project Path="Legacy/Project/sputteringSplash/Win/sputteringSplash.vcxproj" Id="5e900a0b-e91e-401b-8b1c-a1af7067cfbe" />
     <Project Path="Legacy/Project/Star/Win/Star.vcxproj" Id="7dd5aae7-dbcf-4d69-9d82-0c868ecd00e8" />
     <Project Path="Legacy/Project/Star_Colorful/Win/Star_Colorful.vcxproj" Id="d29c628e-c486-467b-b09e-29206f95a625" />
     <Project Path="Legacy/Project/TargetGrad/Win/TargetGrad.vcxproj" Id="0b77adee-126f-4e85-9093-f8e70d3a04ef" />
@@ -95,6 +105,7 @@
     <Project Path="Legacy/Project/Toner/Win/Toner.vcxproj" Id="df53575a-3898-40be-ba28-d8be0403127c" />
     <Project Path="Legacy/Project/Unmult_KNSW_Fake/Win/Unmult_KNSW_Fake.vcxproj" Id="9c969558-7f3e-47c3-a57b-d1f3864e1d13" />
     <Project Path="Legacy/Project/Unmult_RG_Fake/Win/Unmult_RG_Fake.vcxproj" Id="41b4e35b-56f8-4c55-8f5f-63671f67f044" />
+    <Project Path="Legacy/Project/whiteInOut/Win/whiteInOut.vcxproj" Id="007d3f7d-3d91-4b4d-bece-dc9f75f3b184" />
     <Project Path="Legacy/Project/YuvControl/Win/YuvControl.vcxproj" Id="81de57d1-c408-45f2-9af4-a14097a11565" />
   </Folder>
   <Folder Name="/Legacy_Frozen/">
@@ -104,7 +115,6 @@
     </Project>
     <Project Path="Legacy/Project/CellGrad/Win/CellGrad.vcxproj" Id="4c47846c-c0f8-4dd8-b1bf-b9130c4ae43d" />
     <Project Path="Legacy/Project/ChromaticAberration/Win/ChromaticAberration.vcxproj" Id="f318250a-e25c-4c8b-8c0f-240111026374" />
-    <Project Path="Legacy/Project/ColorMatKey/Win/ColorMatKey.vcxproj" Id="2bd2347f-dea3-4d20-8011-55ecf78d8ece" />
     <Project Path="Legacy/Project/EdgeBlur/Win/EdgeBlur.vcxproj" Id="ab06f139-c65e-4da0-8226-59da70145bc7">
       <Platform Project="x64" />
       <Build Solution="*|x86" Project="false" />
@@ -137,10 +147,6 @@
   <Folder Name="/_ToBeUpdate/">
     <Project Path="Legacy/Project/AlphaHyperbolic/Win/AlphaHyperbolic.vcxproj" Id="1012af0e-e3a1-4cb8-89db-ace77ba7b6f9" />
     <Project Path="Legacy/Project/AlphaThreshold/Win/alphaThreshold.vcxproj" Id="7c83e956-b2b9-430b-959e-ba86d9e4e624" />
-    <Project Path="Legacy/Project/AnimatedNoise/Win/AnimatedNoise.vcxproj" Id="aa3a8cbe-4ace-4728-9579-7904cca685a1">
-      <Platform Project="x64" />
-      <Build Solution="*|x86" Project="false" />
-    </Project>
     <Project Path="Legacy/Project/ChannelNoise/Win/ChannelNoise.vcxproj" Id="721df89f-3009-4a4c-8f72-963a237ca8b1" />
     <Project Path="Legacy/Project/ChannelShift/Win/ChannelShift.vcxproj" Id="24a77ff4-0d0c-45ac-a4d1-845be0006e48">
       <Platform Project="x64" />
@@ -152,7 +158,6 @@
     <Project Path="Legacy/Project/grayToColorize/Win/grayToColorize.vcxproj" Id="8f86c9bf-d1fc-4619-8480-44010d50ba38" />
     <Project Path="Legacy/Project/grayToCountourLine/Win/grayToCountourLine.vcxproj" Id="e7b4298c-f239-469f-84bf-d6058641e800" />
     <Project Path="Legacy/Project/graytoneToColorize/Win/graytoneToColorize.vcxproj" Id="f8d4470f-e99d-49c1-b9e0-70ad1bed338e" />
-    <Project Path="Legacy/Project/LineDetection/Win/LineDetection.vcxproj" Id="52cb21fd-eb41-484f-b74f-0780d6ea017c" />
     <Project Path="Legacy/Project/Mosaic/Win/Mosaic.vcxproj" Id="f69a4de5-0611-445f-ac50-32ce40dd5545" />
     <Project Path="Legacy/Project/PixelExtend/Win/PixelExtend.vcxproj" Id="8d0eafda-73d9-49e9-9d64-f1c32fe164cc" />
     <Project Path="Legacy/Project/Posterization8bit/Win/Posterization8bit.vcxproj" Id="f5f94db1-51ac-4d0e-a23a-14bd7bcfc91d" />
@@ -172,16 +177,11 @@
     <Project Path="Legacy/Project/SparkMult/Win/SparkMult.vcxproj" Id="b5e461e1-5d3f-48e3-a6f5-c41be29432d2" />
     <Project Path="Legacy/Project/SparkRing/Win/SparkRing.vcxproj" Id="7354ddab-f965-460a-8a5c-1dd64ca1caad" />
     <Project Path="Legacy/Project/SparkStorm/Win/SparkStorm.vcxproj" Id="dc2d333b-eca2-42b6-8812-f7a2764a5dc4" />
-    <Project Path="Legacy/Project/sputteringAlpha/Win/sputteringAlpha.vcxproj" Id="68a7d7a6-8d9a-471f-a03c-d136b84d87a9" />
-    <Project Path="Legacy/Project/sputteringCircle/Win/sputteringCircle.vcxproj" Id="e892ef45-987e-4500-873a-dcedf2ad78a8" />
-    <Project Path="Legacy/Project/sputteringRect/Win/sputteringRect.vcxproj" Id="0e98d15b-af28-4f91-a6b0-8a544907d376" />
-    <Project Path="Legacy/Project/sputteringSplash/Win/sputteringSplash.vcxproj" Id="5e900a0b-e91e-401b-8b1c-a1af7067cfbe" />
     <Project Path="Legacy/Project/TouchDraw/Win/TouchDraw.vcxproj" Id="ea8d46ec-2db0-44b9-b6a5-f75536ba2bde" />
     <Project Path="Legacy/Project/TouchDrawCenter/Win/TouchDrawCenter.vcxproj" Id="b44e5587-2abb-4857-a0e6-a52499d10c26" />
     <Project Path="Legacy/Project/TouchDrawStraght/Win/TouchDrawStraght.vcxproj" Id="5eb482b1-b231-41db-9532-df324d2674f8" />
     <Project Path="Legacy/Project/UsedColorList/Win/UsedColorList.vcxproj" Id="22812bc6-d3e8-46fe-a2b5-2fb9e3c67b94" />
     <Project Path="Legacy/Project/VideoGrid/Win/VideoGrid.vcxproj" Id="24cd6769-03b6-42f0-a48d-c3df38dd3275" />
-    <Project Path="Legacy/Project/whiteInOut/Win/whiteInOut.vcxproj" Id="007d3f7d-3d91-4b4d-bece-dc9f75f3b184" />
   </Folder>
   <Project Path="AlphaFill/Win/AlphaFill.vcxproj" Id="db91b399-9a48-4d21-88fe-f47bc06f543c" />
   <Project Path="CellEmboss/Win/CellEmboss.vcxproj" Id="1cff95f1-dbf4-4ada-ba95-82809e166b93" />
@@ -204,17 +204,20 @@
   <Project Path="Mult/Win/Mult.vcxproj" Id="0e51b777-fc10-4b8c-997c-01ba8b41384f" />
   <Project Path="Noise/Win/Noise.vcxproj" Id="e3f6821a-0fc6-411d-a83e-bd2447d1b6f2" />
   <Project Path="Outline/Win/Outline.vcxproj" Id="26176282-dca1-4a82-9f26-9a525b3af2ec" />
+  <Project Path="Posterization/Win/Posterization.vcxproj" Id="159a5665-dc21-47c1-8afa-d20417411bb2" />
   <Project Path="PremultiplyColor/Win/PremultiplyColor.vcxproj" Id="93c6b6a8-048d-435b-8027-22ee0731e82b" />
   <Project Path="RadialLines/Win/RadialLines.vcxproj" Id="33b15821-1c67-488e-b48f-aa4c2cc62b82" />
   <Project Path="RGBShifter/Win/RGBShifter.vcxproj" Id="ff59a926-f65c-4a05-b60a-8b05db62be04" />
   <Project Path="RimFill/Win/RimFill.vcxproj" Id="5dab4234-e9fe-4b40-9c40-c28e1df98f68" />
   <Project Path="SelectiveColorBlur/Win/SelectiveColorBlur.vcxproj" Id="0aca4c2e-35ac-42f3-8e23-7e7a978e4120" />
+  <Project Path="SpeedLines/Win/SpeedLines.vcxproj" Id="6c0f3d06-da66-40e5-b2eb-85f036d76370" />
   <Project Path="Sputtering/Win/Sputtering.vcxproj" Id="f80cb076-d0d7-470d-a496-70022e2ad86c" />
-  <Project Path="SputteringPosition/Win/SputteringPosition.vcxproj" />
+  <Project Path="SputteringPosition/Win/SputteringPosition.vcxproj" Id="bfeb819c-15ea-44d4-b275-64ae1af63ee5" />
   <Project Path="Star/Win/Star.vcxproj" Id="32c410dd-ae80-48ef-8dd8-fb06559b8235" />
   <Project Path="TargetGrad/Win/TargetGrad.vcxproj" Id="34bdd983-1fd2-4f36-a563-87d99e983b61" />
   <Project Path="TargetGradRadical/Win/TargetGradRadical.vcxproj" Id="5ded4cba-8aa6-4129-8ca2-c27719c8381e" />
   <Project Path="Thin/Win/Thin.vcxproj" Id="8d59af8d-3ec5-4241-b972-014b92ae5ffa" />
+  <Project Path="TouchLine/Win/TouchLine.vcxproj" Id="d6bc68af-bfe5-4a98-a8f8-0d482ae2433b" />
   <Project Path="WhiteKeying/Win/WhiteKeying.vcxproj" Id="8497d959-9acb-48b1-9517-9b1b834179e5" />
   <Project Path="_checkout/Win/_checkout.vcxproj" Id="1ab7c6e4-9ca2-427b-a13c-74dd0af1b30a" />
 </Solution>

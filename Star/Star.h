@@ -142,17 +142,38 @@ typedef struct {
 	A_long y;
 	PF_PixelFloat color; // 色と輝度情報を保持
 } LitPixel;
+
+
+struct StarSource {
+	int x, y;
+	float brightness;
+};
 //-------------------------------------------------------
-PF_Err ExtractLumaMask(
+PF_Err ExtractMask(
 	PF_InData* in_dataP,
 	PF_EffectWorld* inputP,
-	PF_EffectWorld* maskP, // 書き出し先（事前にNewWorldしたもの）
 	PF_PixelFormat pixelFormat,
 	AEGP_SuiteHandler* suitesP,
-	ParamInfo* infoP
+	std::vector<std::vector<float>>* mask,
+	A_long mode
+);
+PF_Err DrawMask(
+	PF_InData* in_dataP,
+	PF_EffectWorld* output,
+	PF_PixelFormat pixelFormat,
+	AEGP_SuiteHandler* suitesP,
+	std::vector<std::vector<float>>* mask
+);
+
+std::vector<std::vector<float>> CalcMask(
+	AEGP_SuiteHandler* suitesP,
+	std::vector<std::vector<float>>* src
 );
 PF_Err DrawStar(NF_AE* ae, PF_EffectWorld* mask_world, ParamInfo* infoP);
-
+std::vector<StarSource> ExtractStarSources(
+	std::vector<std::vector<float>>& mask,
+	A_long* count
+);
 //-----------------------------------------------------------------------------------
 extern "C" {
 

@@ -431,8 +431,8 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
     </ClCompile>
     <ClCompile Include="..\LineExtractionFilter.cpp" />
-    <ClCompile Include="..\MF_Level.cpp" />
-    <ClCompile Include="..\NF_Bilateral.cpp" />
+    <ClCompile Include="..\Level.cpp" />
+    <ClCompile Include="..\Bilateral.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\_NFLib\dialog.jsx" />

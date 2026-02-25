@@ -1150,6 +1150,7 @@ public:
 		return err;
 	}
 	//--------------------------------------------------------------------
+	
 	PF_Err GetFLOAT(A_long idx,PF_FpLong *f)
 	{
 		PF_Err err = PF_Err_NONE;
@@ -1188,6 +1189,18 @@ public:
 		}
 		*f = ret;
 		return err;
+	}
+	PF_Err GetFLOAT_float(A_long idx, float* f)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_FpLong ret = 0;
+		err = GetFLOAT(idx, &ret);
+		if (!err) {
+			*f = (float)ret;
+		}
+		else {
+			err = FsAE_ERR;
+		}
 	}
 	PF_Err SetFLOAT(A_long idx, PF_FpLong f)
 	{
