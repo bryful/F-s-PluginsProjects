@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "SpeedLines.h"
+#include "TouchLines.h"
 
 //-------------------------------------------------------------------------------------------------
 //AfterEffextsにパラメータを通達する
@@ -19,219 +19,233 @@ static PF_Err ParamsSetup (
 	PF_Err			err = PF_Err_NONE;
 
 	NF_ParamsSetup cs(in_data, out_data);
-	// ----------------------------------------------------------------
-	cs.AddFloatSlider(
+	// *****************************************************************
+	cs.AddTopic(STR_TARGET_TOPIC, ID_TARGET_TOPIC);
+	cs.AddFloatSlider(	// R
 		STR_VALUE,	//Name
 		0,				//VALID_MIN
-		200,			//VALID_MAX
+		100,				//VALID_MAX
 		0,				//SLIDER_MIN
-		10,				//SLIDER_MAX
-		5,				//DFLT
+		100,				//SLIDER_MAX
+		1,				//DFLT
 		1,				//PREC 小数点以下の桁数
-		0,				//DISP
+		1,				//DISP
 		FALSE,			//WANT_PHASE
 		ID_VALUE
 	);
-	 // *************************************************
-	cs.AddTopic(STR_POS_TOPIC, ID_POS_TOPIC);
-	cs.AddAngle(	// angle
-		STR_ANGLE,
-		0,
-		ID_ANGLE
+	cs.AddPopup(STR_THRESHOLD,
+		STR_THRESHOLD_COUNT,
+		STR_THRESHOLD_DFLT,
+		STR_THRESHOLD_ITEMS,
+		ID_THRESHOLD,
+		PF_ParamFlag_SUPERVISE |
+		PF_ParamFlag_CANNOT_TIME_VARY |
+		PF_ParamFlag_CANNOT_INTERP
 	);
-
-	cs.AddFloatSlider(
-		STR_LENGTH1_VALUE,	//Name
+	cs.AddFloatSlider(	// R
+		STR_LUM_LEVEL,	//Name
 		0,				//VALID_MIN
-		200,			//VALID_MAX
-		50,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		100,			//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_LENGTH1_VALUE
-	);
-	cs.AddFloatSlider(
-		STR_LENGTH1_FAR,	//Name
-		100,			//VALID_MIN
-		200,			//VALID_MAX
-		100,			//SLIDER_MIN
-		200,			//SLIDER_MAX
-		100,			//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_LENGTH1_FAR
-	);
-	cs.AddFloatSlider(
-		STR_LENGTH1_NEAR,	//Name
-		0,				//VALID_MIN
-		100,			//VALID_MAX
+		100,				//VALID_MAX
 		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		35,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_LENGTH1_NEAR
-	);
-	cs.AddFloatSlider(
-		STR_LENGTH2_VALUE,	//Name
-		0,				//VALID_MIN
-		200,			//VALID_MAX
-		50,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		100,			//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_LENGTH2_VALUE
-	);
-	cs.AddFloatSlider(
-		STR_LENGTH2_FAR,	//Name
-		100,			//VALID_MIN
-		200,			//VALID_MAX
-		100,			//SLIDER_MIN
-		200,			//SLIDER_MAX
-		100,			//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_LENGTH2_FAR
-	);
-	cs.AddFloatSlider(
-		STR_LENGTH2_NEAR,	//Name
-		0,				//VALID_MIN
-		100,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		35,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_LENGTH2_NEAR
-	);
-	cs.AddPoint(
-		STR_CENTER,
-		50,
-		50,
-		FALSE,
-		ID_CENTER
-	);
-	cs.AddCheckBox(	// noise frame
-		STR_AUTO_SEED,
-		"on",
-		FALSE,
-		ID_AUTO_SEED
-	);
-	cs.AddSlider(	// 
-		STR_SEED,	//パラメータの名前
-		-30000, 	//数値入力する場合の最小値
-		30000,		//数値入力する場合の最大値
-		0,			//スライダーの最小値 
-		1000,		//スライダーの最大値
-		0,				//デフォルトの値
-		ID_SEED
-	);
-	cs.EndTopic(ID_POS_TOPIC_END);
-	// *************************************************
-	cs.AddTopic(STR_LINE_TOPIC, ID_LINE_TOPIC);
-	cs.AddFloatSlider(
-		STR_LINE_LENGTH,	//Name
-		0,				//VALID_MIN
-		200,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
+		100,				//SLIDER_MAX
 		80,				//DFLT
 		1,				//PREC 小数点以下の桁数
-		0,				//DISP
+		1,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_LINE_LENGTH
+		ID_LUM_LEVEL
 	);
-	cs.AddFloatSlider(
-		STR_LINE_LENGTH_RAND,	//Name
+	cs.AddFloatSlider(	// R
+		STR_ALPHA_LEVEL,	//Name
 		0,				//VALID_MIN
 		100,				//VALID_MAX
 		0,				//SLIDER_MIN
 		100,				//SLIDER_MAX
 		50,				//DFLT
 		1,				//PREC 小数点以下の桁数
-		0,				//DISP
+		1,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_LINE_LENGTH_RAND
+		ID_ALPHA_LEVEL,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
 	);
-	cs.AddFloatSlider(
-		STR_LINE_SIZE,	//Name
-		0,				//VALID_MIN
-		100,			//VALID_MAX
-		0,				//SLIDER_MIN
-		30,				//SLIDER_MAX
-		15,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_LINE_SIZE
+	cs.AddColor(	// color
+		STR_TARGET_COLOR,
+		{ 0xFF, 0x00, 0x00, 0x00 },
+		ID_TARGET_COLOR,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
 	);
-	cs.AddFloatSlider(
-		STR_LINE_SIZE_RAND,	//Name
+	cs.AddFloatSlider(	// R
+		STR_TARGET_COLOR_LEVEL,	//Name
 		0,				//VALID_MIN
-		100,			//VALID_MAX
+		100,				//VALID_MAX
 		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
+		100,				//SLIDER_MAX
 		30,				//DFLT
 		1,				//PREC 小数点以下の桁数
-		0,				//DISP
+		1,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_LINE_SIZE_RAND
+		ID_TARGET_COLOR_LEVEL,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddCheckBox(
+		STR_DRAW_TARGET,
+		"on",
+		FALSE,
+		ID_DRAW_TARGET
+	);
+	cs.EndTopic(ID_TARGET_TOPIC_END);
+	// *****************************************************************
+	cs.AddTopic(STR_MODE_TOPIC, ID_MODE_TOPIC);
+	cs.AddPopup(STR_MODE,
+		STR_MODE_COUNT,
+		STR_MODE_DFLT,
+		STR_MODE_ITEMS,
+		ID_MODE,
+		PF_ParamFlag_SUPERVISE |
+		PF_ParamFlag_CANNOT_TIME_VARY |
+		PF_ParamFlag_CANNOT_INTERP
+	);
+	cs.AddAngle(	// angle
+		STR_ANGLE,
+		0,
+		ID_ANGLE,
+		PF_ParamFlag_NONE,
+		PF_PUI_NONE
+	);
+	cs.AddPoint(
+		STR_CENTER,
+		50,
+		50,
+		FALSE,
+		ID_CENTER,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
 	);
 	cs.AddFloatSlider(
-		STR_LINE_OPACITY,	//Name
+		STR_INNER_LENGTH,	//Name
 		0,				//VALID_MIN
-		100,			//VALID_MAX
+		300,			//VALID_MAX
 		0,				//SLIDER_MIN
 		100,			//SLIDER_MAX
-		100,				//DFLT
+		50,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		1,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_INNER_LENGTH
+	);
+	cs.AddFloatSlider(
+		STR_OUTER_LENGTH,	//Name
+		0,				//VALID_MIN
+		200,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,				//SLIDER_MAX
+		25,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		1,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_OUTER_LENGTH
+	);
+	cs.AddFloatSlider(
+		STR_LENGTH_RAND,	//Name
+		0,				//VALID_MIN
+		100,				//VALID_MAX
+		0,				//SLIDER_MIN
+		100,				//SLIDER_MAX
+		50,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		1,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_LENGTH_RAND
+	);
+	cs.AddFloatSlider(
+		STR_SIZE,	//Name
+		0,				//VALID_MIN
+		50,				//VALID_MAX
+		0,				//SLIDER_MIN
+		25,				//SLIDER_MAX
+		10,				//DFLT
 		1,				//PREC 小数点以下の桁数
 		0,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_LINE_OPACITY
+		ID_SIZE
 	);
 	cs.AddFloatSlider(
-		STR_LINE_OPACITY_RAND,	//Name
+		STR_SIZE_RAND,	//Name
+		0,				//VALID_MIN
+		100,				//VALID_MAX
+		0,				//SLIDER_MIN
+		100,				//SLIDER_MAX
+		50,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		1,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_SIZE_RAND
+	);
+	cs.AddFloatSlider(
+		STR_OPACITY,	//Name
+		0,				//VALID_MIN
+		300,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,			//SLIDER_MAX
+		100,			//DFLT
+		1,				//PREC 小数点以下の桁数
+		1,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_OPACITY
+	);
+	cs.AddFloatSlider(
+		STR_OPACITY_RAND,	//Name
 		0,				//VALID_MIN
 		100,			//VALID_MAX
 		0,				//SLIDER_MIN
 		100,			//SLIDER_MAX
 		0,				//DFLT
 		1,				//PREC 小数点以下の桁数
-		0,				//DISP
+		1,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_LINE_OPACITY_RAND
+		ID_OPACITY_RAND
 	);
-	cs.AddSlider(	// 
-		STR_LINE_BLUR,	//パラメータの名前
-		0, 		//数値入力する場合の最小値
-		20,			//数値入力する場合の最大値
-		0,				//スライダーの最小値 
-		10,			//スライダーの最大値
-		0,				//デフォルトの値
-		ID_LINE_BLUR
+	cs.AddSlider(
+		STR_BLUR,	//Name
+		0,			//VALID_MIN
+		50,			//VALID_MAX
+		0,			//SLIDER_MIN
+		5,			//SLIDER_MAX
+		0,				//DFLT
+		ID_BLUR
 	);
 	cs.AddFloatSlider(
-		STR_LINE_NOISE,	//Name
+		STR_NOISE,	//Name
 		0,				//VALID_MIN
 		100,			//VALID_MAX
 		0,				//SLIDER_MIN
 		100,			//SLIDER_MAX
 		0,				//DFLT
 		1,				//PREC 小数点以下の桁数
-		0,				//DISP
+		1,				//DISP
 		FALSE,			//WANT_PHASE
-		ID_LINE_NOISE
+		ID_NOISE
 	);
-	cs.EndTopic(ID_LINE_TOPIC_END);
-	// *************************************************
+	cs.AddCheckBox(
+		STR_AUTO_SEED,	//Name
+		"on",
+		FALSE,
+		ID_AUTO_SEED
+	);
+	cs.AddSlider(
+		STR_SEED,	//Name
+		-30000,			//VALID_MIN
+		30000,			//VALID_MAX
+		-10000,			//SLIDER_MIN
+		10000,			//SLIDER_MAX
+		0,				//DFLT
+		ID_SEED
+	);
+
+	cs.EndTopic(ID_MODE_TOPIC_END);
+	// *****************************************************************
 	cs.AddTopic(STR_COLOR_TOPIC, ID_COLOR_TOPIC);
 	cs.AddPopup(STR_COLOR_COUNT,
 		8,
@@ -242,30 +256,39 @@ static PF_Err ParamsSetup (
 		PF_ParamFlag_CANNOT_TIME_VARY |
 		PF_ParamFlag_CANNOT_INTERP
 	);
-	for(int i = 0; i < 8; i++) {
-		std::string name = STR_COLOR +std::to_string(i+1);
+	PF_Pixel default_colors[8] = {
+		{ 0xFF, 0x00, 0x00, 0x00 },
+		{ 0xFF, 0xFF, 0xFF, 0xFF },
+		{ 0xFF, 0xFF, 0xFF, 0x00 },
+		{ 0xFF, 0x00, 0xFF, 0xFF },
+		{ 0xFF, 0xFF, 0x00, 0x00 },
+		{ 0xFF, 0x00, 0xFF, 0x00 },
+		{ 0xFF, 0x00, 0x00, 0xFF },
+		{ 0xFF, 0x7F, 0x7F, 0x7F }
+	};
+	for(A_long i=0; i<8;i++) {
+		std::string name = STR_COLOR + std::to_string(i + 1);
 		PF_ParamUIFlags ui_flags = PF_PUI_INVISIBLE;
-		if(i==0) {
+		if (i==0) {
 			ui_flags = PF_PUI_NONE;
 		}
-		cs.AddColor(
+		cs.AddColor(	// color
 			name.c_str(),
-			{ 255,(A_u_char)(36*i),(A_u_char)(36 * i),(A_u_char)(36 * i) },
-			ID_COLOR1+i,
+			default_colors[i],
+			ID_COLOR_1+i,
 			PF_ParamFlag_NONE,
 			ui_flags
 		);
 	}
-	cs.EndTopic(ID_COLOR_TOPIC_END);
-	// *************************************************
-	cs.AddCheckBox(	// noise frame
+	cs.EndTopic(ID_COLOR_TOPIC_ND);
+	// *****************************************************************
+	cs.AddCheckBox(
 		STR_BLEND,
 		"on",
 		FALSE,
 		ID_BLEND
 	);
 	cs.Finalize();
-
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -283,24 +306,32 @@ HandleChangedParam(
 	try {
 		NF_AE ae;
 		err = ae.HandleChangedParam(in_data, out_data, params, outputP, extraP, ID_NUM_PARAMS);
-		if (!err) 
-		{
+		if (!err) {
 			ERR(ae.GetNewEffectStreamAll());
-			if (!err) 
-			{
+			if (!err) {
 				A_Boolean hide_themB[ID_NUM_PARAMS];
 				for (A_long i = 1; i < ID_NUM_PARAMS; i++) hide_themB[i] = FALSE;
-				A_long cc = 0;
-				ERR(ae.GetPOPUP(ID_COLOR_COUNT, &cc));
-				for (A_long i = ID_COLOR1; i <= ID_COLOR8; i++)hide_themB[i] = TRUE;
-				for (A_long i = 0; i < cc; i++) hide_themB[ID_COLOR1 + i] = FALSE;
-
+				A_long tmode = 0;
+				ERR(ae.GetPOPUP(ID_THRESHOLD, &tmode));
+				hide_themB[ID_LUM_LEVEL] = !(tmode == 1);
+				hide_themB[ID_ALPHA_LEVEL] = !(tmode == 2);
+				hide_themB[ID_TARGET_COLOR] = !(tmode == 3);
+				hide_themB[ID_TARGET_COLOR_LEVEL] = !(tmode == 3);
+				A_long mode = 0;
+				ERR(ae.GetPOPUP(ID_MODE, &mode));
+				hide_themB[ID_ANGLE] = !(mode == 1);
+				hide_themB[ID_CENTER] = !(mode == 2);
+				A_long ccount = 0;
+				ERR(ae.GetPOPUP(ID_COLOR_COUNT, &ccount));
+				for (A_long i = 0; i < 8; i++) hide_themB[ID_COLOR_1+i] = TRUE;
+				for (A_long i = 0; i < ccount; i++) hide_themB[ID_COLOR_1 + i] = FALSE;
 
 				for (A_long i = 1; i < ID_NUM_PARAMS; i++)
 					ERR(ae.SetDynamicStreamFlag(i, AEGP_DynStreamFlag_HIDDEN, hide_themB[i]));
-
 				out_data->out_flags |= PF_OutFlag_REFRESH_UI;
+
 			}
+
 		}
 	}
 	catch (PF_Err& errP) {
@@ -336,61 +367,182 @@ QueryDynamicFlags(
 static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
+
 	ERR(ae->GetFLOAT(ID_VALUE, &infoP->value));
 	infoP->value /= 100;
-	PF_Fixed angle_fixed = 0;
-	ERR(ae->GetANGLE(ID_ANGLE, &angle_fixed));
-	infoP->angle = (float)F_FIX2FLT(angle_fixed);
-	ERR(ae->GetFLOAT(ID_LENGTH1_VALUE, &infoP->length1_value));
-	infoP->length1_value /= 100;
-	ERR(ae->GetFLOAT(ID_LENGTH1_FAR, &infoP->length1_far));
-	infoP->length1_far /= 100;
-	ERR(ae->GetFLOAT(ID_LENGTH1_NEAR, &infoP->length1_near));
-	infoP->length1_near /= 100;
-	ERR(ae->GetFLOAT(ID_LENGTH2_VALUE, &infoP->length2_value));
-	infoP->length2_value /= 100;
-	ERR(ae->GetFLOAT(ID_LENGTH2_FAR, &infoP->length2_far));
-	infoP->length2_far /= 100;
-	ERR(ae->GetFLOAT(ID_LENGTH2_NEAR, &infoP->length2_near));
-	infoP->length2_near /= 100;
+	ERR(ae->GetPOPUP(ID_THRESHOLD, &infoP->threshold_mode));
+	ERR(ae->GetFLOAT(ID_LUM_LEVEL, &infoP->lum_level));
+	infoP->lum_level /= 100;
+	ERR(ae->GetFLOAT(ID_ALPHA_LEVEL, &infoP->alpha_level));
+	infoP->alpha_level /= 100;
+	ERR(ae->GetCOLOR(ID_TARGET_COLOR, &infoP->target_color));
+	ERR(ae->GetFLOAT(ID_TARGET_COLOR_LEVEL, &infoP->target_color_level));
+	infoP->target_color_level /= 100;
+	ERR(ae->GetCHECKBOX(ID_DRAW_TARGET, &infoP->draw_target));
+
+	ERR(ae->GetPOPUP(ID_MODE, &infoP->mode));
+	PF_Fixed angle=0;
+	ERR(ae->GetANGLE(ID_ANGLE, &angle));
+	infoP->angle = F_FIX2FLT(angle);
 	ERR(ae->GetPOINT(ID_CENTER, &infoP->center));
-	ERR(ae->GetCHECKBOX(ID_AUTO_SEED, &infoP->is_autoSeed));
-	ERR(ae->GetADD(ID_SEED, &infoP->seed));
 
-	ERR(ae->GetADD(ID_LINE_BLUR, &infoP->blue));
 
-	ERR(ae->GetFLOAT(ID_LINE_LENGTH, &infoP->length));
-	infoP->length /= 100;
-	ERR(ae->GetFLOAT(ID_LINE_LENGTH_RAND, &infoP->length_rand));
+	ERR(ae->GetFLOAT(ID_INNER_LENGTH, &infoP->inner_length));
+	infoP->inner_length /= 100;
+	ERR(ae->GetFLOAT(ID_OUTER_LENGTH, &infoP->outer_length));
+	infoP->outer_length /= 100;
+	ERR(ae->GetFLOAT(ID_LENGTH_RAND, &infoP->length_rand));
 	infoP->length_rand /= 100;
-	ERR(ae->GetFLOAT(ID_LINE_SIZE, &infoP->size));
-	ERR(ae->GetFLOAT(ID_LINE_SIZE_RAND, &infoP->sizeRand));
-	infoP->sizeRand /= 100;
-	ERR(ae->GetFLOAT(ID_LINE_OPACITY, &infoP->opacity));
+	ERR(ae->GetFLOAT(ID_SIZE, &infoP->size));
+	ERR(ae->GetFLOAT(ID_SIZE_RAND, &infoP->size_rand));
+	infoP->size_rand /= 100;
+	ERR(ae->GetFLOAT(ID_OPACITY, &infoP->opacity));
 	infoP->opacity /= 100;
-	ERR(ae->GetFLOAT(ID_LINE_OPACITY_RAND, &infoP->opacityRand));
-	infoP->opacityRand /= 100;
-
-	ERR(ae->GetFLOAT(ID_LINE_NOISE, &infoP->noise));
+	ERR(ae->GetFLOAT(ID_OPACITY_RAND, &infoP->opacity_rand));
+	infoP->opacity_rand /= 100;
+	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
+	ERR(ae->GetFLOAT(ID_NOISE, &infoP->noise));
 	infoP->noise /= 100;
 
-	ERR(ae->GetPOPUP(ID_COLOR_COUNT, &infoP->colorCount));
-	for(A_long i=0; i<8; i++) {
-		ERR(ae->GetCOLOR(ID_COLOR1+i, &infoP->colors[i]));
-	}
-	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 
+	ERR(ae->GetCHECKBOX(ID_AUTO_SEED, &infoP->autoSeed));
+	ERR(ae->GetADD(ID_SEED, &infoP->seed));
+	infoP->seedAct = infoP->seed;
+	
+	ERR(ae->GetPOPUP(ID_COLOR_COUNT, &infoP->colorCount));
+
+	for(A_long i=0; i<8; i++) {
+		ERR(ae->GetCOLOR(ID_COLOR_1 + i, &infoP->colors[i]));
+	}
+
+	ERR(ae->GetCHECKBOX(ID_BLEND, &infoP->isBlend));
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
-	Exec (NF_AE*ae , ParamInfo *infoP)
+	Exec (NF_AE *ae , ParamInfo *infoP)
 {
 	PF_Err	err = PF_Err_NONE;
-	
-	ERR(SpeedLineExec(ae, infoP));
-	if (infoP->isBlend)
+	PF_InData* in_data = ae->in_data;
+	ERR(PF_FILL(NULL, NULL, ae->output));
+	if (infoP->value <= 0 || infoP->opacity <= 0 || infoP->size <= 0
+		|| (infoP->inner_length<=0 && infoP->outer_length<=0)) {
+		if(infoP->isBlend) {
+			ERR(BlendBehind(
+				ae->in_data,
+				ae->input,
+				ae->output,
+				ae->pixelFormat(),
+				ae->suitesP
+			));
+		}
+		return err;
+	}
+	if(infoP->autoSeed) {
+		
+		infoP->seedAct = infoP->seed + ae->frame();
+	}
+	else {
+		infoP->seedAct = infoP->seed;
+	}
+	std::vector<std::vector<float>> mask1(ae->outputInfo.height, std::vector<float>(ae->outputInfo.width, 0));
+	if(infoP->threshold_mode == 1) {
+		 ERR(ThresholdLum(
+			ae->in_data,
+			ae->input,
+			ae->pixelFormat(),
+			ae->suitesP,
+			 &mask1,
+			 (float)infoP->lum_level
+		));
+	}
+	else if(infoP->threshold_mode == 2) {
+		ERR(ThresholdAlpha(
+			ae->in_data,
+			ae->input,
+			ae->pixelFormat(),
+			ae->suitesP,
+			&mask1,
+			 (float)infoP->alpha_level
+		));
+	}
+	else if (infoP->threshold_mode == 3) {
+		ERR(ThresholdColor(
+			ae->in_data,
+			ae->input,
+			ae->pixelFormat(),
+			ae->suitesP,
+			&mask1,
+			infoP->target_color,
+			(float)infoP->target_color_level
+		));
+	}
+	std::vector<std::vector<float>> mask = CalcMask(
+		ae->suitesP,
+		&mask1
+	);
+	std::vector<PF_Point> points = TargetMask(
+		&mask,
+		infoP->value/20,
+		infoP->seedAct
+	);
+
+	if (infoP->draw_target) {
+		ERR(DrawMask(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			&mask
+		));
+		if(infoP->isBlend) {
+			ERR(BlendBehind(
+				ae->in_data,
+				ae->input,
+				ae->output,
+				ae->pixelFormat(),
+				ae->suitesP
+			));
+		}
+		return err;
+	}
+	if (infoP->mode == 1)
 	{
+		ERR(TouchStraight(
+			ae,
+			infoP,
+			points
+		));
+
+	}
+	else {
+		ERR(TouchCenter(
+			ae,
+			infoP,
+			points
+		));
+	}
+	if (infoP->blur > 0) {
+		ERR(Blur(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			infoP->blur
+		));
+	}
+	ERR(Mult(
+		ae->in_data,
+		ae->output,
+		ae->pixelFormat(),
+		ae->suitesP,
+		TRUE
+	));
+	if (infoP->noise > 0) {
+		A_long count = (A_long)((double)ae->outputInfo.width * (double)ae->outputInfo.height * infoP->noise / 8);
+		ERR(ApplyANoise(ae, count, infoP->seedAct));
+	}
+	if(infoP->isBlend) {
 		ERR(BlendBehind(
 			ae->in_data,
 			ae->input,
@@ -399,6 +551,7 @@ static PF_Err
 			ae->suitesP
 		));
 	}
+
 	return err;
 }
 

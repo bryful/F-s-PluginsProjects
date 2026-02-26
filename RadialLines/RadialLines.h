@@ -18,7 +18,7 @@
 #include "..\_NFLib\fx\NF_Mult.h"
 //#include "..\_NFLib\fx\NF_Minmax.h"
 //#include "..\_NFLib\fx\NF_ChannelMinmax.h"
-//#include "..\_NFLib\fx\NF_Blur.h"
+#include "..\_NFLib\fx\NF_Blur.h"
 //#include "..\_NFLib\fx\NF_ChannelBlur.h"
 //#include "..\_NFLib\fx\debug_font.h"
 //#include "..\_NFLib\fx\NF_Paint.h"
@@ -53,6 +53,7 @@ enum {
 	ID_OPACITY_RAND,
 
 	ID_HYPERBOLIC,
+	ID_BLUR,
 	ID_NOISE,
 	ID_PARAMS_TOPIC_END,
 
@@ -72,25 +73,26 @@ enum {
 };
 
 //UIの表示文字列
-#define	STR_AUTO_SEED		"AutoSeed"
-#define	STR_SEED			"Seed"
-#define	STR_VALUE			"Value"
+#define	STR_AUTO_SEED		"autoSeed"
+#define	STR_SEED			"seed"
+#define	STR_VALUE			"value"
 
-#define	STR_POS				"CenterPos"
-#define	STR_LENGTH			"Length"
-#define	STR_LENGTH_RAND		"LengthRand"
-#define	STR_WEIGHT			"Weight"
-#define	STR_WEIGHT_RAND		"WeightRand"
+#define	STR_POS				"centerPos"
+#define	STR_LENGTH			"length"
+#define	STR_LENGTH_RAND		"lengthRand"
+#define	STR_WEIGHT			"weight"
+#define	STR_WEIGHT_RAND		"weightRand"
 
-#define	STR_OPACITY			"Opacity"
-#define	STR_OPACITY_RAND	"OpacityRand"
-#define	STR_COLOR_TOPIC		"Colors"
-#define	STR_COLOR_COUNT		"ColorCount"
-#define	STR_COLOR			"Color"
+#define	STR_OPACITY			"opacity"
+#define	STR_OPACITY_RAND	"opacityRand"
+#define	STR_COLOR_TOPIC		"colors"
+#define	STR_COLOR_COUNT		"colorCount"
+#define	STR_COLOR			"color"
 
-#define	STR_NOISE			"Noise"
-#define	STR_HYPERBOLIC		"Hyperboilc"
-#define STR_PARAMS_TOPIC	"Parameters"
+#define	STR_NOISE			"noise"
+#define	STR_BLUR			"blur"
+#define	STR_HYPERBOLIC		"hyperboilc"
+#define STR_PARAMS_TOPIC	"parameters"
 #define STR_BLEND			"Blend with original"
 
 //UIのパラメータ
@@ -109,6 +111,7 @@ typedef struct ParamInfo {
 	PF_FpLong		opacity_par;
 	PF_FpLong		opacity_rand;
 	PF_FpLong		noise;
+	A_long			blur;
 	PF_FpLong		hyperbolic;
 	PF_Boolean		isBlend;
 

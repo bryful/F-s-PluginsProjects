@@ -154,6 +154,15 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_HYPERBOLIC
 	);
+	cs.AddSlider(	// 
+		STR_BLUR,	//パラメータの名前
+		-0, 		//数値入力する場合の最小値
+		100,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		10,			//スライダーの最大値
+		0,				//デフォルトの値
+		ID_BLUR
+	);
 	cs.AddFloatSlider(	// R
 		STR_NOISE,	//Name
 		0,				//VALID_MIN
@@ -297,6 +306,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	infoP->opacity_rand /= 100;
 
 	ERR(ae->GetFLOAT(ID_HYPERBOLIC, &infoP->hyperbolic));
+	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
 	ERR(ae->GetFLOAT(ID_NOISE, &infoP->noise));
 	infoP->noise /= 100;
 
@@ -385,6 +395,16 @@ static PF_Err
 	PF_FILL(&clear_color, NULL, ae->output);
 	//ae->CopyInToOut();
 	ERR(Exec8_16_32(ae, infoP));
+	
+	if (infoP->blur > 0) {
+		ERR(Blur(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			infoP->blur
+		));
+	}
 	ERR(Mult(ae->in_data, ae->output, ae->pixelFormat(),ae->suitesP,TRUE));
 	ERR(HyperbolicAlpha(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->hyperbolic));
 	A_long noise_count = (A_long)(infoP->noise * ae->outputInfo.width* ae->outputInfo.height/8);

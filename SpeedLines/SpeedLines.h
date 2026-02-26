@@ -106,7 +106,7 @@ enum {
 #define	STR_COLOR_COUNT		"colorCount"
 #define	STR_COLOR_ITEMS		"1|2|3|4|5|6|7|8"
 #define	STR_COLOR			"color_"
-#define	STR_BLEND			"blend with orijinal"
+#define	STR_BLEND			"blend with original"
 
 
 //UIのパラメータ

@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{33B15821-1C67-488E-B48F-AA4C2CC62B82}</ProjectGuid>
-    <RootNamespace>RadialLines</RootNamespace>
-    <ProjectName>RadialLines</ProjectName>
+    <ProjectGuid>{D6BC68AF-BFE5-4A98-A8F8-0D482AE2433B}</ProjectGuid>
+    <RootNamespace>TouchLine</RootNamespace>
+    <ProjectName>TouchLines</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -104,7 +104,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/RadialLines.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/TouchLine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -155,7 +155,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/RadialLines.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/TouchLine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -209,7 +209,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/RadialLines.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/TouchLine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -265,7 +265,7 @@
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>X64</TargetEnvironment>
-      <TypeLibraryName>.\Debug/RadialLines.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/TouchLine.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -322,13 +322,16 @@
   <ItemGroup>
     <ClInclude Include="..\..\NFsLibrary\resource.h" />
     <ClInclude Include="..\..\_NFLib\AE_SDK.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h" />
+    <ClInclude Include="..\..\_NFLib\fx\debug_font.h" />
+    <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelBlur.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelMinMax.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_DrawAALine.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_DrawWorld.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Noise.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Paint.h" />
     <ClInclude Include="..\..\_NFLib\json.hpp" />
     <ClInclude Include="..\..\_NFLib\NF_AE.h" />
     <ClInclude Include="..\..\_NFLib\NF_CATEGORY.h" />
@@ -363,9 +366,11 @@
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
     <ClInclude Include="..\NF_Target.h" />
-    <ClInclude Include="..\RadialLines.h" />
+    <ClInclude Include="..\ThresholdLine.h" />
+    <ClInclude Include="..\TouchLines.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
+    <ClInclude Include="..\TouchLineFilter.h" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
     <CustomBuildStep Include="..\..\..\Util\PF_Suite_Helper.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -374,7 +379,7 @@
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\RadialLinesPiPL.r">
+    <CustomBuild Include="..\TouchLinePiPL.r">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compiling the PiPL</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /I "$(ProjectDir)..\..\..\Headers" /EP "..\%(Filename).r" &gt; "$(IntDir)%(Filename).rr"
 "$(ProjectDir)..\..\..\Resources\PiPLTool" "$(IntDir)%(Filename).rr" "$(IntDir)%(Filename).rrc"
@@ -405,7 +410,7 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ResourceCompile Include="Resource.rc">
       <DeploymentContent>false</DeploymentContent>
     </ResourceCompile>
-    <ResourceCompile Include="RadialLinesPiPL.rc" />
+    <ResourceCompile Include="TouchLinePiPL.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Util\AEGP_Utils.cpp" />
@@ -413,18 +418,22 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\AEFX_SuiteHelper.c" />
     <ClCompile Include="..\..\..\Util\AEGP_SuiteHandler.cpp" />
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_ChannelBlur.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_ChannelMinMax.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_DrawAALine.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_DrawWorld.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Noise.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Paint.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Settings.cpp" />
     <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c" />
     <ClCompile Include="..\A_Noise.cpp" />
-    <ClCompile Include="..\RadialLines.cpp">
+    <ClCompile Include="..\ThresholdLine.cpp" />
+    <ClCompile Include="..\TouchCtLine.cpp" />
+    <ClCompile Include="..\TouchLines.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MSWindows;WIN32;_DEBUG;_WINDOWS</PreprocessorDefinitions>
@@ -440,7 +449,8 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
     </ClCompile>
-    <ClCompile Include="..\RadialLinesFilter.cpp" />
+    <ClCompile Include="..\TouchLineFilter.cpp" />
+    <ClCompile Include="..\TouchStLine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\_NFLib\dialog.jsx" />

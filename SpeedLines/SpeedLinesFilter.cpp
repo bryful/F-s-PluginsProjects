@@ -24,7 +24,7 @@ inline PosPrm Rand_PosPrm(ParamInfo *infoP, float bside,float blength, PF_FpLong
 		near2 = (float)near1 + ((float)far1- (float)near1)* (float)nearPer;
 	}
 	prm.side = (float)((bside/2) * far1);
-	prm.side = (float)(prm.side * near2 + prm.side * (1 - near2) * hash_float(idx * 10, ff, seed));
+	prm.side = (float)(prm.side * (1-near2) + prm.side * near2 * hash_float(idx * 10, ff, seed));
 	
 	float rnd = hash_float(idx * 15, ff + 15, seed);
 	if (rnd < 0.1f) {
@@ -33,11 +33,12 @@ inline PosPrm Rand_PosPrm(ParamInfo *infoP, float bside,float blength, PF_FpLong
 	
 	prm.offset = (float)(blength - 2 * blength * hash_float(idx * 20, ff+20, seed));
 	prm.line = (float)(blength * infoP->length);
-	prm.line = (float)(prm.line * infoP->length_rand + prm.line * (1 - infoP->length_rand) * hash_float(idx * 30, ff+30, seed));
+	prm.line = (float)(prm.line * (1-infoP->length_rand) + prm.line * infoP->length_rand * hash_float(idx * 30, ff+30, seed));
 	prm.opa = (float)infoP->opacity;
-	prm.opa = (float)(prm.opa * infoP->opacityRand + prm.opa * (1 - infoP->opacityRand) * hash_float(idx * 40, ff+40, seed));
+	prm.opa = (float)(prm.opa * (1-infoP->opacityRand) + prm.opa * infoP->opacityRand * hash_float(idx * 40, ff+40, seed));
+	prm.opa = AE_CLAMP(prm.opa, 0, 1.0f);
 	prm.size = (float)(infoP->size);
-	prm.size = (float)(prm.size * infoP->sizeRand + prm.size * (1 - infoP->sizeRand) * hash_float(idx* 50, ff+50, seed));
+	prm.size = (float)(prm.size * (1-infoP->sizeRand) + prm.size * infoP->sizeRand * hash_float(idx* 50, ff+50, seed));
 	prm.colIndex = (A_long)(hash_float(idx * 60, ff+60, seed) * infoP->colorCount);
 
 
