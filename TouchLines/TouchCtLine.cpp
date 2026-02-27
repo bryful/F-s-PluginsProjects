@@ -39,25 +39,29 @@ PF_Err TouchCenter(
 		if (infoP->colorCount > 0) {
 			colIndex =(A_long)((double)infoP->colorCount * hash_float(i * 40, 40, infoP->seedAct)) % infoP->colorCount;
 		}
-		ERR(DrawAA_Line(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			(float)oP.x, (float)oP.y, (float)p.x, (float)p.y,
-			infoP->colors[colIndex],
-			0, opa,
-			size / 2, size));
-		ERR(DrawAA_Line(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			(float)p.x, (float)p.y, (float)iP.x, (float)iP.y,
-			infoP->colors[colIndex],
-			opa, 0,
-			size , size / 2));
-
+		if (oPer > 0) {
+			ERR(DrawAA_Line(
+				ae->in_data,
+				ae->output,
+				ae->pixelFormat(),
+				ae->suitesP,
+				(float)oP.x, (float)oP.y, (float)p.x, (float)p.y,
+				infoP->colors[colIndex],
+				0, opa,
+				size / 2, size));
+		}
+		if (iPer > 0) {
+			ERR(DrawAA_Line(
+				ae->in_data,
+				ae->output,
+				ae->pixelFormat(),
+				ae->suitesP,
+				(float)p.x, (float)p.y, (float)iP.x, (float)iP.y,
+				infoP->colors[colIndex],
+				opa, 0,
+				size, size / 2));
+		}
 	}
+
 	return err;
 }

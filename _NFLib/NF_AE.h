@@ -57,6 +57,7 @@ protected:
 	PF_PixelFormat		m_format;
 	A_long				m_frame;
 	A_long				m_frameCount;
+	PF_FpLong			m_fps;
 	PF_Cmd				m_cmd;
 	A_long				m_paramsCount;
 	PF_Err				m_resultErr;
@@ -135,13 +136,17 @@ public:
 		m_frame = 0;
 		m_frameCount = 0;
 		in_data = in_dataP;
+		m_fps = 24.0f;
 		//カレントフレームを求める画頭は０
 		if ((m_cmd == PF_Cmd_RENDER) || (m_cmd == PF_Cmd_SMART_RENDER))
 		{
 			if ((in_dataP->current_time >= 0) && (in_dataP->time_step > 0)) {
 				m_frame = (in_dataP->current_time / in_dataP->time_step);
 			}
-			if (in_dataP->local_time_step > 0)
+			if ((in_dataP->local_time_step > 0) && (in_dataP->time_step > 0)) {
+				m_fps = (double)in_data->time_scale / (double)in_data->local_time_step;
+			}
+			if (in_dataP->local_time_step > 0 && (in_dataP->time_step > 0))
 			{
 				m_frameCount = in_dataP->total_time / in_dataP->local_time_step;
 			}
@@ -1498,6 +1503,7 @@ public:
 	PF_Boolean			is32Bit(){ return (m_format == PF_PixelFormat_ARGB128);}
 	PF_PixelFormat		pixelFormat() { return m_format;}
 	A_long				frame(){ return m_frame; }
+	PF_FpLong			fps() { return m_fps; }
 	A_long				mode(){ return m_cmd; }
 	PF_Err				resultErr() { return m_resultErr;}
 	//*********************************************************************************

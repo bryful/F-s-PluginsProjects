@@ -28,7 +28,7 @@ PF_Err TouchStraight(
 		olen = (float)(olen * (1 - infoP->length_rand) + olen * infoP->length_rand * lenrand);
 		float ilen = (float)infoP->inner_length * lenBase;
 		ilen = (float)(ilen * (1 - infoP->length_rand) + ilen * infoP->length_rand * lenrand);
-		if (olen <= 10 || ilen <= 10) continue;
+		//if (olen <= 1 || ilen <= 1) continue;
 		float ox0 = (float)(cX - rdx * olen);
 		float oy0 = (float)(cY - rdy * olen);
 		float ix0 = (float)(cX + rdx * ilen);
@@ -42,24 +42,28 @@ PF_Err TouchStraight(
 		if (infoP->colorCount > 0) {
 			colIndex =(A_long)((double)infoP->colorCount * hash_float(i * 40, 40, infoP->seedAct)) % infoP->colorCount;
 		}
-		ERR(DrawAA_Line(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			ox0, oy0, cX, cY,
-			infoP->colors[colIndex],
-			0, opa,
-			size / 2, size));
-		ERR(DrawAA_Line(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			cX, cY, ix0, iy0,
-			infoP->colors[colIndex],
-			opa, 0,
-			size , size / 2));
+		if (olen > 0) {
+			ERR(DrawAA_Line(
+				ae->in_data,
+				ae->output,
+				ae->pixelFormat(),
+				ae->suitesP,
+				ox0, oy0, cX, cY,
+				infoP->colors[colIndex],
+				0, opa,
+				size / 2, size));
+		}
+		if (ilen > 0) {
+			ERR(DrawAA_Line(
+				ae->in_data,
+				ae->output,
+				ae->pixelFormat(),
+				ae->suitesP,
+				cX, cY, ix0, iy0,
+				infoP->colors[colIndex],
+				opa, 0,
+				size, size / 2));
+		}
 
 	}
 	return err;
