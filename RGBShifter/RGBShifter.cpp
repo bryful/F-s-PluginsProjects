@@ -65,6 +65,13 @@ static PF_Err ParamsSetup (
 		FALSE,			//WANT_PHASE
 		ID_B
 	);
+	cs.AddCheckBox(	// noise frame
+		STR_UV_AUTO,
+		"on",
+		TRUE,
+		ID_UV_AUTO,
+		PF_ParamFlag_SUPERVISE
+	);
 	cs.AddFloatSlider(	// R
 		STR_Y,			//Name
 		-100,				//VALID_MIN
@@ -94,6 +101,8 @@ static PF_Err ParamsSetup (
 		PF_PUI_INVISIBLE
 
 	);
+	// *****************
+
 	cs.AddFloatSlider(	// R
 		STR_V,			//Name
 		-100,				//VALID_MIN
@@ -157,18 +166,29 @@ HandleChangedParam(
 				switch (mode)
 				{
 					case 1: // RGBシフト
+					{
 						hide_themB[ID_R] = FALSE;
 						hide_themB[ID_G] = FALSE;
 						hide_themB[ID_B] = FALSE;
 						break;
+					}
 					case 2: // YUVシフト
+					{
+						hide_themB[ID_UV_AUTO] = FALSE;
+						PF_Boolean uv_auto = FALSE;
+						ERR(ae.GetCHECKBOX(ID_UV_AUTO, &uv_auto));
 						hide_themB[ID_Y] = FALSE;
-						hide_themB[ID_U] = FALSE;
-						hide_themB[ID_V] = FALSE;
+						if (!uv_auto) {
+							hide_themB[ID_U] = FALSE;
+							hide_themB[ID_V] = FALSE;
+						}
 						break;
+					}
 					case 3: // Target RGB
+					{
 						hide_themB[ID_TARGETCOLOR] = FALSE;
 						break;
+					}
 				default:
 					break;
 				}
@@ -209,6 +229,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	infoP->g_shift /= 100.0f;
 	ERR(ae->GetFLOAT(ID_B, &infoP->b_shift));
 	infoP->b_shift /= 100.0f;
+	ERR(ae->GetCHECKBOX(ID_UV_AUTO, &infoP->uv_auto));
 	ERR(ae->GetFLOAT(ID_Y, &infoP->y_shift));
 	infoP->y_shift /= 100.0f;
 	ERR(ae->GetFLOAT(ID_U, &infoP->u_shift));

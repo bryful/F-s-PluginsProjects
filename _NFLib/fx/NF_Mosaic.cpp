@@ -8,6 +8,9 @@ PF_Err MosaicFlatT(
     A_long mc_width,
     A_long mc_height,
     A_long widthTrue,
+    PF_FpLong ar,
+    PF_FpLong ag,
+    PF_FpLong ab,
     PF_FpLong Max_Chan
 )
 {
@@ -38,13 +41,17 @@ PF_Err MosaicFlatT(
     sumG /= count;
     sumB /= count;
     sumA /= count;
+    sumR = AE_CLAMP(sumR+ar,0, Max_Chan);
+    sumG = AE_CLAMP(sumG+ag, 0, Max_Chan);
+    sumB = AE_CLAMP(sumB+ab, 0, Max_Chan);
+    sumA = AE_CLAMP(sumA, 0, Max_Chan);
     for (A_long y = 0; y < dy; y++) {
         for (A_long x = 0; x < dx; x++) {
             T* p = &dataP[(y0 + y) * widthTrue + (x0 + x)];
-            p->red = static_cast<decltype(T::red)>(AE_CLAMP(sumR, 0, Max_Chan));
-            p->green = static_cast<decltype(T::green)>(AE_CLAMP(sumG, 0, Max_Chan));
-            p->blue = static_cast<decltype(T::blue)>(AE_CLAMP(sumB, 0, Max_Chan));
-            p->alpha = static_cast<decltype(T::alpha)>(AE_CLAMP(sumA, 0, Max_Chan));
+            p->red = static_cast<decltype(T::red)>(sumR);
+            p->green = static_cast<decltype(T::green)>(sumG);
+            p->blue = static_cast<decltype(T::blue)>(sumB);
+            p->alpha = static_cast<decltype(T::alpha)>(sumA);
         }
     }
 
@@ -58,20 +65,23 @@ PF_Err MosaicFlat(
     A_long xL,
     A_long yL,
     A_long mc_width,
-    A_long mc_height
+    A_long mc_height,
+	PF_FpLong ar,
+	PF_FpLong ag,
+	PF_FpLong ab
 )
 {
 	PF_Err err = PF_Err_NONE;
     switch (pixelFormat)
     {
         case PF_PixelFormat_ARGB32:
-            ERR(MosaicFlatT<PF_Pixel8>( worldP, xL, yL, mc_width, mc_height, widthTrue, PF_MAX_CHAN8));
+            ERR(MosaicFlatT<PF_Pixel8>( worldP, xL, yL, mc_width, mc_height, widthTrue,ar,ag,ab, PF_MAX_CHAN8));
 			break;
         case PF_PixelFormat_ARGB64:
-            ERR(MosaicFlatT<PF_Pixel16>(worldP, xL, yL, mc_width, mc_height, widthTrue, PF_MAX_CHAN16));
+            ERR(MosaicFlatT<PF_Pixel16>(worldP, xL, yL, mc_width, mc_height, widthTrue, ar, ag, ab, PF_MAX_CHAN16));
             break;
         case PF_PixelFormat_ARGB128:
-            ERR(MosaicFlatT<PF_PixelFloat>(worldP, xL, yL, mc_width, mc_height, widthTrue, 1.0f));
+            ERR(MosaicFlatT<PF_PixelFloat>(worldP, xL, yL, mc_width, mc_height,  widthTrue, ar, ag, ab, 1.0f));
             break;
     }
 	return err;

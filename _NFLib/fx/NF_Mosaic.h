@@ -33,6 +33,9 @@ PF_Err MosaicFlat(
     A_long xL,
     A_long yL,
     A_long mc_width,
-    A_long mc_height
+    A_long mc_height,
+    PF_FpLong ar,
+    PF_FpLong ag,
+    PF_FpLong ab
 );
 #endif // NF_BLUR_H

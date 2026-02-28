@@ -41,6 +41,12 @@ enum {
 	ID_MOSAIC_W,
 	ID_MOSAIC_H,
 	ID_MOSAIC_CENTER,
+	ID_NOISE_TOPIC,
+	ID_NOISE,
+	ID_IS_COLOR,
+	ID_AUTO_SEED,
+	ID_SEED,
+	ID_NOISE_TOPIC_END,
 
 	ID_NUM_PARAMS
 };
@@ -50,6 +56,11 @@ enum {
 #define	STR_MOSAIC_W		"M_Width"
 #define	STR_MOSAIC_H		"M_Height"
 #define	STR_MOSAIC_CENTER	"center"
+#define	STR_NOISE_TOPIC		"noise params"
+#define	STR_NOISE			"noise"
+#define	STR_IS_COLOR		"colorise"
+#define	STR_AUTO_SEED		"autoSeed"
+#define	STR_SEED			"seed"
 
 //UIのパラメータ
 typedef struct ParamInfo {
@@ -57,6 +68,10 @@ typedef struct ParamInfo {
 	A_long mosaicW;
 	A_long mosaicH;
 	PF_Point mosaicCenter;
+	PF_FpLong noise;
+	PF_Boolean isColor;
+	PF_Boolean autoSeed;
+	A_long seed;
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 

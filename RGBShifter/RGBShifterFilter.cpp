@@ -11,8 +11,8 @@ inline YUV RgbToYuv(PF_FpLong r, PF_FpLong g, PF_FpLong b)
 {
 	YUV yuv;
 	yuv.Y = AE_CLAMP((0.299 * r + 0.587 * g + 0.114 * b),0,1.0);
-	yuv.U = AE_CLAMP((-0.168736 * r - 0.331264 * g + 0.500 * b) + 0.5,0,1.0);
-	yuv.V = AE_CLAMP((0.500 * r - 0.418688 * g - 0.081312 * b) + 0.5,0,1.0);
+	yuv.U = AE_CLAMP((-0.169 * r - 0.331 * g + 0.500 * b) + 0.5,0,1.0);
+	yuv.V = AE_CLAMP((0.500 * r - 0.419 * g - 0.081 * b) + 0.5,0,1.0);
 	return yuv;
 }
 
@@ -22,7 +22,7 @@ inline void YuvToRgb(YUV yuv,PF_FpLong *r, PF_FpLong* g, PF_FpLong* b )
 	u2 = yuv.U - 0.5;
 	v2 = yuv.V - 0.5;
 	*r = (PF_FpLong)AE_CLAMP(yuv.Y + 1.402 * v2,0,1);
-	*g = (PF_FpLong)AE_CLAMP(yuv.Y - 0.344136 * u2 - 0.714136 * v2, 0, 1);
+	*g = (PF_FpLong)AE_CLAMP(yuv.Y - 0.344 * u2 - 0.714 * v2, 0, 1);
 	*b = (PF_FpLong)AE_CLAMP(yuv.Y + 1.772 * u2, 0, 1);
 }
 
@@ -65,15 +65,46 @@ static PF_Err RGBShiftCommon(
 		yuv = RgbToYuv(r, g, b);
 		yuv2 = yuv;
 		
-		if (infoP->y_shift > 0.0f) yuv2.Y = yuv.Y + (1.0f - yuv.Y) * infoP->y_shift;
-		else if (infoP->y_shift < 0.0f) yuv2.Y = yuv.Y + yuv.Y * infoP->y_shift;
+		PF_FpLong aY = infoP->y_shift;
+		PF_FpLong aU = infoP->u_shift;
+		PF_FpLong aV = infoP->v_shift;
+		if (infoP->uv_auto) {
+			aU = -ABS(aY);
+			aV = -ABS(aY);
+		}
+		if (aY > 0.0f) {
+			yuv2.Y = yuv.Y + (1.0f - yuv.Y) * aY;
+		}
+		else if (aY < 0.0f) {
+			yuv2.Y = yuv.Y + yuv.Y * aY;
+		}
 		
-		if (infoP->u_shift > 0.0f) yuv2.U = yuv.U + (1.0f - yuv.U) * infoP->u_shift;
-		else if (infoP->u_shift < 0.0f) yuv2.U = yuv.U + yuv.U * infoP->u_shift;
-		
-		if (infoP->v_shift > 0.0f) yuv2.V = yuv.V + (1.0f - yuv.V) * infoP->v_shift;
-		else if (infoP->v_shift < 0.0f) yuv2.V = yuv.V + yuv.V * infoP->v_shift;
-		
+		PF_FpLong u2 = yuv.U - 0.5f;
+		if (aU > 0.0f) {
+			if (u2 >= 0) {
+				yuv2.U = u2 + (0.5f - u2) * aU;
+			}
+			else {
+				yuv2.U = u2 + (-0.5f - u2) * aU;
+			}
+		}
+		else if (aU < 0.0f) {
+			yuv2.U = u2 +u2 * aU;
+		}
+		PF_FpLong v2 = yuv.V - 0.5f;
+		if (aV > 0.0f) {
+			if (v2 >= 0) {
+				yuv2.V = v2 + (0.5f - v2) * aV;
+			}
+			else {
+				yuv2.V = v2 + (-0.5f - v2) * aV;
+			}
+		}
+		else if (aV < 0.0f) {
+			yuv2.V = v2 + v2 * aV;
+		}
+		yuv2.U += 0.5f;
+		yuv2.V += 0.5f;
 		YuvToRgb(yuv2, &r2, &g2, &b2);
 	}
 	else if (infoP->mode == 3) { // Target RGB

@@ -24,7 +24,8 @@ static PF_Err ParamsSetup (
 		STR_PAINT_CB,
 		"on",
 		FALSE,
-		ID_PAINT_CB
+		ID_PAINT_CB,
+		PF_ParamFlag_SUPERVISE
 	);
 	cs.AddPoint(
 		STR_PAINT_POS,

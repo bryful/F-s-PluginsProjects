@@ -375,10 +375,10 @@ static PF_Err
 	switch(ae->pixelFormat())
 	{
 	case PF_PixelFormat_ARGB128:
-		//ERR(ae->iterate32((refconType)infoP,FilterImage32));
+		ERR(ae->iterate32((refconType)infoP,FilterImage32));
 		break;
 	case PF_PixelFormat_ARGB64:
-		//ERR(ae->iterate16((refconType)infoP,FilterImage16));
+		ERR(ae->iterate16((refconType)infoP,FilterImage16));
 		break;
 	case PF_PixelFormat_ARGB32:
 		ERR(ae->iterate8((refconType)infoP,FilterImage8));

@@ -16,8 +16,8 @@ BEGIN
 	"MIB8",
 	"eman",
 	0, 0x0,
-	12, 0x0,
-	"\x09NF-Mosaic\0\0", 
+	16, 0x0,
+	"\x0CNF-Threshold\0\0\0", 
 
 	"MIB8",
 	"gtac", 
@@ -59,7 +59,7 @@ BEGIN
 	"OLGe", 
 	0L,
 	4L,
-	33556068L, 
+	33556032L, 
 
 	"MIB8",
 	"2LGe", 
@@ -70,8 +70,8 @@ BEGIN
 	"MIB8",
 	"ANMe",
 	0, 0x0,
-	12, 0x0,
-	"\x09NF-Mosaic\0\0", 
+	16, 0x0,
+	"\x0CNF-Threshold\0\0\0", 
 
 	"MIB8",
 	0x6165464CL, 
