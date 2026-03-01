@@ -152,7 +152,9 @@ static PF_Err
 
 	//画面をコピー
 	ERR(ae->CopyInToOut());
-
+	infoP->b_blur = ae->downScale(infoP->b_blur);
+	infoP->g_blur = ae->downScale(infoP->g_blur);
+	infoP->r_blur = ae->downScale(infoP->r_blur);
 	if (infoP->r_scale != 100 || infoP->g_scale != 100 || infoP->b_scale != 100) {
 		ERR(Chromatic(
 			ae->in_data,

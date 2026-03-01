@@ -20,11 +20,24 @@ static PF_Err ParamsSetup (
 
 	NF_ParamsSetup setup(in_data, out_data);
 
+	setup.AddTopic(STR_MODE_TOPIC, ID_MODE_TOPIC);
 	// 全体設定
 	setup.AddAngle(	// angle
 		STR_ANGLE,
 		0,
 		ID_ANGLE
+	);
+	setup.AddFloatSlider(
+		STR_LENGTH,	// R
+		0,				//VALID_MIN
+		1000,			//VALID_MAX
+		0,				//SLIDER_MIN
+		200,			//SLIDER_MAX
+		100,			//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP
+		FALSE,			//WANT_PHASE
+		ID_LENGTH
 	);
 	setup.AddFloatSlider(
 		STR_INTENSITY,	// R
@@ -39,30 +52,17 @@ static PF_Err ParamsSetup (
 		ID_INTENSITY
 	);
 	setup.AddFloatSlider(
-		STR_LENGTH,	// R
-		0,				//VALID_MIN
-		1000,				//VALID_MAX
-		0,				//SLIDER_MIN
-		100,				//SLIDER_MAX
-		100,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_LENGTH
-	);
-	setup.AddFloatSlider(
 		STR_HYPERBOLIC,	// R
-		-10,			//VALID_MIN
+		0,			//VALID_MIN
 		50,				//VALID_MAX
-		-2,				//SLIDER_MIN
-		10,				//SLIDER_MAX
-		0,				//DFLT
+		0,				//SLIDER_MIN
+		20,				//SLIDER_MAX
+		10,				//DFLT
 		1,				//PREC 小数点以下の桁数
 		0,				//DISP
 		FALSE,			//WANT_PHASE
 		ID_HYPERBOLIC
 	);
-	setup.AddTopic(STR_MODE_TOPIC, ID_MODE_TOPIC);
 	setup.AddPopup(STR_COLOR_MODE,
 		2,
 		1,
@@ -71,49 +71,26 @@ static PF_Err ParamsSetup (
 	);
 	setup.AddColor(	// color
 		STR_COLOR,
-		{ 0xFF, 0xFF, 0x00, 0xFF },
+		{ 0xFF, 0x80, 0x80, 0xFF },
 		ID_COLOR
-	);
-	// 抽出設定
-	setup.AddFloatSlider(
-		STR_THRESH_LOW,	// R
-		0,				//VALID_MIN
-		100,				//VALID_MAX
-		50,				//SLIDER_MIN
-		100,				//SLIDER_MAX
-		50,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_THRESH_LOW
-	);
-	setup.AddFloatSlider(
-		STR_THRESH_HIGH,	// R
-		0,				//VALID_MIN
-		100,			//VALID_MAX
-		50,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		100,			//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_THRESH_HIGH
 	);
 	setup.EndTopic(ID_MODE_TOPIC_END);
 	// 各ラインの設定 (トピックを使って整理)
 	const char* line_names[] = { STR_LINE1_TOPIC, STR_LINE2_TOPIC, STR_LINE3_TOPIC, STR_LINE4_TOPIC};
-	double default_angles[] = { 0.0, 45.0, 90.0, 135.0 };
+	float default_angles[] = { 0.0, 45.0, 90.0, 135.0 };
+	float default_length[] = { 100.0, 60.0, 100.0, 60.0 };
+	float default_int[] = { 100.0, 100.0, 100.0, 100.0 };
 
 	A_long ofs = 5;
 	for (int i = 0; i < 4; i++) {
 		setup.AddTopic(line_names[i], ID_LINE1_TOPIC + i* ofs);
 		setup.AddFloatSlider(
-			std::string(std::string(STR_LINE_LEN) + std::to_string(i+1) + " (%)").c_str(),	// R
+			std::string(std::string(STR_LINE_LEN) + std::to_string(i + 1) + " (%)").c_str(),	// R
 			0,				//VALID_MIN
 			100,			//VALID_MAX
 			0,				//SLIDER_MIN
 			100,			//SLIDER_MAX
-			100,			//DFLT
+			default_length[i],//DFLT
 			1,				//PREC 小数点以下の桁数
 			0,				//DISP
 			FALSE,			//WANT_PHASE
@@ -125,7 +102,7 @@ static PF_Err ParamsSetup (
 			100,			//VALID_MAX
 			0,				//SLIDER_MIN
 			100,			//SLIDER_MAX
-			100,			//DFLT
+			default_int[i],			//DFLT
 			1,				//PREC 小数点以下の桁数
 			0,				//DISP
 			FALSE,			//WANT_PHASE
@@ -174,8 +151,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 
 	PF_Fixed	fixed_val;
 	ERR(ae->GetANGLE(ID_ANGLE, &fixed_val));
-	PF_FpLong angle_val = F_FIX2FLT(fixed_val) * (3.14159265358979323846 / 180.0);
-	infoP->overall_angle = angle_val;
+	infoP->overall_angle = F_FIX2FLT(fixed_val);
 	ERR(ae->GetFLOAT(ID_INTENSITY, &infoP->overall_intensity));
 	infoP->overall_intensity /= 100;
 	ERR(ae->GetFLOAT(ID_LENGTH, &infoP->overall_length));
@@ -185,12 +161,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	PF_Pixel p = { 0,0,0,0 };
 	ERR(ae->GetCOLOR(ID_COLOR, &p));
 	infoP->cross_color = NF_Pixel8To32(p);
-	ERR(ae->GetFLOAT(ID_THRESH_LOW, &infoP->thresh_low));
-	infoP->thresh_low /= 100;
-	ERR(ae->GetFLOAT(ID_THRESH_HIGH, &infoP->thresh_high));
-	infoP->thresh_high /= 100;
-
-
+	
 	for(int i=0;i<4;i++)
 	{
 		A_long ofs = 5;
@@ -200,8 +171,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 		ERR(ae->GetFLOAT(ID_LINE1_INT + i * ofs, &infoP->lines[i].int_per));
 		infoP->lines[i].int_per /= 100;
 		ERR(ae->GetANGLE(ID_LINE1_ANGLE + i * ofs, &angle_fixed));
-		PF_FpLong angle_deg = F_FIX2FLT(angle_fixed)* (3.14159265358979323846 / 180.0);
-		infoP->lines[i].angle_offset = angle_deg;
+		infoP->lines[i].angle_offset = F_FIX2FLT(angle_fixed);
 	}
 
 
@@ -215,6 +185,14 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
+	PF_InData* in_data = ae->in_data;
+	ERR(PF_FILL(NULL, NULL, ae->output));
+
+	infoP->overall_length = ae->downScale( infoP->overall_length);
+
+	if (infoP->overall_length <= 0 || infoP->overall_intensity <= 0) {
+		return err;
+	}
 	std::vector<std::vector<float>> mask(ae->output->height, std::vector<float>(ae->output->width));
 
 	ERR(ExtractMask(
@@ -223,29 +201,28 @@ static PF_Err
 		ae->pixelFormat(),
 		ae->suitesP,
 		&mask,
-		0
+		infoP->color_mode
 	));
 	std::vector<std::vector<float>> mask2 = CalcMask(ae->suitesP,&mask);
 
 	A_long count = 0;
 	std::vector <StarSource> sources = ExtractStarSources(mask2,&count);
 
-	ERR(DrawMask(
+
+	ERR(StarMain(ae, sources,infoP ));
+
+	ERR(StarBlend(
+		ae,
+		infoP,
+		&mask
+	));
+	ERR(Mult(
 		ae->in_data,
 		ae->output,
 		ae->pixelFormat(),
 		ae->suitesP,
-		&mask2
+		TRUE
 	));
-	std::string debug_str = "Count: " + std::to_string(count);
-	PF_Pixel debug_color = { 255,255,0,0 };
-	DrawDebugString(
-		ae->output,
-		ae->pixelFormat(),
-		0,0,
-		debug_str.c_str(),
-		debug_color
-	);
 	return err;
 }
 

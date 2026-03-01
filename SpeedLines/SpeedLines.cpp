@@ -388,6 +388,8 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 	
+	infoP->blue = ae->downScale(infoP->blue);
+	infoP->size = ae->downScale(infoP->size);
 	ERR(SpeedLineExec(ae, infoP));
 	if (infoP->isBlend)
 	{
@@ -413,6 +415,7 @@ PF_Err PluginDataEntryFunction2(
 	const char* inHostVersion)
 {
 	PF_Err result = PF_Err_INVALID_CALLBACK;
+
 
 	result = PF_REGISTER_EFFECT_EXT2(
 		inPtr,

@@ -170,6 +170,7 @@ static PF_Err
 	//画面をコピー
 	ERR(ae->CopyInToOut());
 
+	infoP->thin_value = ae->downScale(infoP->thin_value);
 	if ((infoP->target_color_count <= 0) || (infoP->thin_value <= 0))
 	{
 		return err;

@@ -266,6 +266,7 @@ QueryDynamicFlags(
 	PF_Err 	err2 	= PF_Err_NONE;
 	//PF_OutFlag_NON_PARAM_VARYの値をout_flagsへ設定して
 	//毎フレームごとの描画をするか切り替える。
+
 	NF_AE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
 	if (!err){
@@ -323,6 +324,8 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 static PF_Err CalcParams(NF_AE* ae, ParamInfo* infoP)
 {
 	PF_Err		err = PF_Err_NONE;
+	infoP->blur = ae->downScale(infoP->blur);
+	infoP->weight = ae->downScale(infoP->weight);
 	//タッチ線の上下左右の発生回数を計算
 	infoP->values[0] =
 	infoP->values[1] =

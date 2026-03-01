@@ -114,6 +114,7 @@ static PF_Err
 
 	//画面をコピー
 	ERR(ae->CopyInToOut());
+	infoP->lineWidth = ae->downScale(infoP->lineWidth);
 	if (infoP->lineWidth > 0) {
 		ERR(RimFill_Sub(ae, infoP));
 	}

@@ -20,9 +20,6 @@
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
     <ClCompile Include="..\Star.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp">
       <Filter>fx</Filter>
     </ClCompile>
@@ -33,13 +30,8 @@
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
     <ClCompile Include="..\Extract.cpp" />
-    <ClCompile Include="..\DrawStar.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
+    <ClCompile Include="..\StarMain.cpp" />
+    <ClCompile Include="..\StarBlend.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -149,9 +141,6 @@
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\Star.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h">
-      <Filter>fx</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h">
       <Filter>fx</Filter>
     </ClInclude>
@@ -160,15 +149,6 @@
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_Json.h">
       <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\debug_font.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h">
-      <Filter>fx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

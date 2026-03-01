@@ -16,33 +16,31 @@
 #include "..\_NFLib\NF_ParamsSetup.h"
 
 #include "..\_NFLib\fx\NF_Mult.h"
-#include "..\_NFLib\fx\NF_AlphaHyperbolic.h"
-#include "..\_NFLib\fx\NF_Minmax.h"
+//#include "..\_NFLib\fx\NF_AlphaHyperbolic.h"
+//#include "..\_NFLib\fx\NF_Minmax.h"
 //#include "..\_NFLib\fx\NF_blur.h"
-#include "..\_NFLib\fx\debug_font.h"
+//#include "..\_NFLib\fx\debug_font.h"
 //#include "..\_NFLib\fx\NF_Paint.h"
 //#include "..\_NFLib\fx\NF_Noise.h"
 //#include "..\_NFLib\fx\NF_Draw.h"
 
-//#include "StarFilter.h"
 #include <math.h>
 #include <string>
+#include <vector>
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,
 
+	ID_MODE_TOPIC,
 	ID_ANGLE,
-	ID_INTENSITY,
 	ID_LENGTH,
+	ID_INTENSITY,
 	ID_HYPERBOLIC,
 
-	ID_MODE_TOPIC,
 	ID_COLOR_MODE,
 	ID_COLOR,
-	ID_THRESH_LOW,
-	ID_THRESH_HIGH,
 	ID_MODE_TOPIC_END,
 
 	// 各ラインの設定 (4方向分)
@@ -114,34 +112,10 @@ typedef struct ParamInfo {
 		PF_FpLong	angle_offset;  // ラジアン
 	} lines[4];
 
-	PF_FpLong	thresh_low;        // 0.0-1.0
-	PF_FpLong	thresh_high;       // 0.0-1.0
+	//PF_FpLong	thresh_low;        // 0.0-1.0
+	//PF_FpLong	thresh_high;       // 0.0-1.0
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;
-template <typename T> struct PixelTraits;
-
-template <> struct PixelTraits<PF_Pixel8> {
-	typedef A_u_char channel_type;
-};
-
-template <> struct PixelTraits<PF_Pixel16> {
-	typedef A_u_short channel_type;
-};
-
-template <> struct PixelTraits<PF_PixelFloat> {
-	typedef PF_FpShort channel_type;
-};
-template <typename T>
-inline PF_FpLong GetMaxChannel() {
-	if (std::is_same<T, PF_Pixel8>::value) return 255.0;
-	if (std::is_same<T, PF_Pixel16>::value) return 32768.0;
-	return 1.0; // PF_PixelFloat用
-}
-typedef struct {
-	A_long x;
-	A_long y;
-	PF_PixelFloat color; // 色と輝度情報を保持
-} LitPixel;
 
 
 struct StarSource {
@@ -169,10 +143,19 @@ std::vector<std::vector<float>> CalcMask(
 	AEGP_SuiteHandler* suitesP,
 	std::vector<std::vector<float>>* src
 );
-PF_Err DrawStar(NF_AE* ae, PF_EffectWorld* mask_world, ParamInfo* infoP);
 std::vector<StarSource> ExtractStarSources(
 	std::vector<std::vector<float>>& mask,
 	A_long* count
+);
+PF_Err StarMain(
+	NF_AE* ae,
+	std::vector<StarSource> mask,
+	ParamInfo* infoP
+);
+PF_Err StarBlend(
+	NF_AE* ae,
+	ParamInfo* infoP,
+	std::vector<std::vector<float>>* mask
 );
 //-----------------------------------------------------------------------------------
 extern "C" {

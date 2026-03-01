@@ -424,6 +424,8 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 	PF_InData* in_data = ae->in_data;
+	infoP->size = ae->downScale(infoP->size);
+	infoP->blur = ae->downScale(infoP->blur);
 	ERR(PF_FILL(NULL, NULL, ae->output));
 	if (infoP->value <= 0 || infoP->opacity <= 0 || infoP->size <= 0
 		|| (infoP->inner_length<=0 && infoP->outer_length<=0)) {

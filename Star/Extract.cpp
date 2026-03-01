@@ -1,4 +1,27 @@
 ﻿#include "Star.h"
+
+
+template <typename T> struct PixelTraits;
+
+template <> struct PixelTraits<PF_Pixel8> {
+	typedef A_u_char channel_type;
+};
+
+template <> struct PixelTraits<PF_Pixel16> {
+	typedef A_u_short channel_type;
+};
+
+template <> struct PixelTraits<PF_PixelFloat> {
+	typedef PF_FpShort channel_type;
+};
+
+template <typename T>
+inline PF_FpLong GetMaxChannel() {
+	if (std::is_same<T, PF_Pixel8>::value) return 255.0;
+	if (std::is_same<T, PF_Pixel16>::value) return 32768.0;
+	return 1.0; // PF_PixelFloat用
+}
+
 typedef struct {
 	PF_EffectWorld* world;
 	A_long width;
@@ -239,4 +262,27 @@ std::vector<std::vector<float>> CalcMask(
 	info.dst = &resultMask;
 	ERR(suitesP->Iterate8Suite2()->iterate_generic(info.height, &info, ClacMaskT));
 	return resultMask;
+}
+std::vector<StarSource> ExtractStarSources(
+	std::vector<std::vector<float>>& mask,
+	A_long* count
+)
+{
+	*count = 0;
+	std::vector<StarSource> sources;
+	int height = (int)mask.size();
+	int width = (height > 0) ? (int)mask[0].size() : 0;
+	if (width <= 0 || height <= 0) return sources;
+	sources.reserve(width * height / 10);
+
+	for (int y = 0; y < height; ++y) {
+		for (int x = 0; x < width; ++x) {
+			float brightness = mask[y][x];
+			if (brightness > 0.05f) { // 閾値を調整
+				sources.push_back({ x, y, brightness });
+				(*count)++;
+			}
+		}
+	}
+	return sources;
 }

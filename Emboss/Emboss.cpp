@@ -345,6 +345,7 @@ static PF_Err
 	infoP->distance *= ae->downSaleValue();
 	//画面をコピー
 	//ERR(ae->CopyInToOut());
+	infoP->distance = ae->downScale(infoP->distance);
 	ERR(EmbossFilter(ae, infoP));
 	return err;
 }

@@ -1579,6 +1579,13 @@ public:
 		return v;
 	}
 	//--------------------------------------------------------------------
+	A_long downScale(A_long v)
+	{
+		v = (A_long)((PF_FpLong)v * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den+0.5f);
+		return v;
+	}
+
+	//--------------------------------------------------------------------
 	PF_FpLong downSaleValue()
 	{
 		return (PF_FpLong)in_data->downsample_x.den / (PF_FpLong)in_data->downsample_x.num;

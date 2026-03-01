@@ -76,6 +76,7 @@ static PF_Err
 
 	//画面をコピー
 	ERR(ae->CopyInToOut());
+	infoP->minmax = ae->downScale(infoP->minmax);
 	if (infoP->minmax != 0) {
 		ERR(Mult(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, FALSE));
 		ERR(MinMax(ae->in_data, ae->output, ae->pixelFormat(), ae->suitesP, infoP->minmax));

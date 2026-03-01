@@ -198,8 +198,8 @@ Exec(NF_AE* ae, ParamInfo* infoP)
 	PF_Err	err = PF_Err_NONE;
 
 	//画面をコピー
-	infoP->outerWidth = (A_long)((PF_FpLong)infoP->outerWidth / ae->downSaleValue() + 0.5);
-	infoP->innerWidth = (A_long)((PF_FpLong)infoP->innerWidth / ae->downSaleValue() + 0.5);
+	infoP->outerWidth = ae->downScale(infoP->outerWidth);
+	infoP->innerWidth = ae->downScale(infoP->innerWidth);
 	if (infoP->isBilateral) {
 		ERR(PF_BilateralExec(ae, infoP));
 	}

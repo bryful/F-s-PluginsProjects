@@ -177,6 +177,8 @@ static PF_Err
 
 	//画面をコピー
 	ERR(ae->CopyInToOut());
+	infoP->mosaicW = ae->downScale(infoP->mosaicW);
+	infoP->mosaicH = ae->downScale(infoP->mosaicH);
 	if (infoP->mosaicW <= 1 && infoP->mosaicH <= 1) return err;
 	if(infoP->autoSeed)
 	{

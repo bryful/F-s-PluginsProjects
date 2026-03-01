@@ -98,6 +98,8 @@ static PF_Err
 	//画面をコピー
 	ERR(ae->CopyInToOut());
 
+	infoP->minmax = ae->downScale(infoP->minmax);
+	infoP->blur = ae->downScale(infoP->blur);
 	// MinMax/Blurサンプル
 	if ((infoP->minmax != 0) || (infoP->blur > 0))
 	{

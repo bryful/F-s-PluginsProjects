@@ -136,9 +136,9 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 	PF_InData* in_data = ae->in_data;
-	infoP->blur = (A_long)((PF_FpLong)infoP->blur * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
-	infoP->minmax = (A_long)((PF_FpLong)infoP->minmax * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
-
+	infoP->blur = ae->downScale(infoP->blur);
+	infoP->minmax = ae->downScale(infoP->minmax);
+		
 	if ((infoP->blur <= 0) && (infoP->minmax == 0)) {
 		if(infoP->isBlend) {
 			ae->CopyInToOut();

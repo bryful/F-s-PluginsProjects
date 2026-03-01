@@ -231,8 +231,8 @@ static PF_Err
 	PF_Err	err = PF_Err_NONE;
 	PF_InData* in_data = ae->in_data;
 
-	A_long min_max =  (A_long)((double)infoP->minmax * ae->downSaleValue()+0.5);
-	A_long blur = (A_long)((double)infoP->blur * ae->downSaleValue() + 0.5);
+	A_long min_max = ae->downScale(infoP->minmax);
+	A_long blur = ae->downScale(infoP->blur);
 	if((min_max ==0) && (blur ==0)) {
 		if (infoP->isBlend) {
 			ae->CopyInToOut();

@@ -236,7 +236,7 @@ static PF_Err
 
 	//画面をコピー
 	ERR(ae->CopyInToOut());
-
+	infoP->size = ae->downScale(infoP->size);
 	A_long seed;
 	if (infoP->is_autoSeed == TRUE) {
 		seed = infoP->seed + ae->frame();

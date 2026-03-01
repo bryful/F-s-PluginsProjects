@@ -156,9 +156,9 @@ static PF_Err
 	PF_Err err = PF_Err_NONE;
 
 	PF_InData* in_data = ae->in_data;
-	infoP->blur =   (A_long)((PF_FpLong)infoP->blur * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den + 0.5);
-	infoP->length = ((PF_FpLong)infoP->length * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den);
-	infoP->minmax = (A_long)((PF_FpLong)infoP->minmax * (PF_FpLong)in_data->downsample_x.num / (PF_FpLong)in_data->downsample_x.den +0.5);
+	infoP->blur = ae->downScale(infoP->blur);
+	infoP->length = ae->downScale(infoP->length);
+	infoP->minmax = ae->downScale(infoP->minmax);
 
 	ERR(AlphaCopyDD(ae->in_data, ae->input, ae->output, ae->pixelFormat(), ae->suitesP, 
 		infoP->rot, infoP->length,infoP->reverse,infoP->isWhite));

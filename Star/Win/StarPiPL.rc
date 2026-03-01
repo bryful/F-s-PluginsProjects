@@ -23,7 +23,7 @@ BEGIN
 	"gtac", 
 	0, 0x0,
 	12, 0x0,
-	"\x09NF-{Beta}\0\0", 
+	"\x0ANF Plugins\0", 
 
 	"MIB8",
 	"4668", 
@@ -59,7 +59,7 @@ BEGIN
 	"OLGe", 
 	0L,
 	4L,
-	33556068L, 
+	33556032L, 
 
 	"MIB8",
 	"2LGe", 

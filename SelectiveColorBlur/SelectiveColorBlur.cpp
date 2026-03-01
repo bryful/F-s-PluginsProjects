@@ -122,6 +122,7 @@ static PF_Err
 {
 	PF_Err	err = PF_Err_NONE;
 
+	infoP->blur_value = ae->downScale(infoP->blur_value);
 	if(infoP->blur_value<=0 ||infoP->target_count<=0){
 		ERR(ae->CopyInToOut());
 		return err;

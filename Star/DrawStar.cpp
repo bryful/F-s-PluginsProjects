@@ -4,6 +4,27 @@
 #include <mutex>
 #include <memory>
 
+template <typename T> struct PixelTraits;
+
+template <> struct PixelTraits<PF_Pixel8> {
+	typedef A_u_char channel_type;
+};
+
+template <> struct PixelTraits<PF_Pixel16> {
+	typedef A_u_short channel_type;
+};
+
+template <> struct PixelTraits<PF_PixelFloat> {
+	typedef PF_FpShort channel_type;
+};
+
+template <typename T>
+inline PF_FpLong GetMaxChannel() {
+	if (std::is_same<T, PF_Pixel8>::value) return 255.0;
+	if (std::is_same<T, PF_Pixel16>::value) return 32768.0;
+	return 1.0; // PF_PixelFloat用
+}
+
 template <typename T>
 inline T* GetPixelPtr(PF_EffectWorld* world, A_long x, A_long y) {
 	if (!world || !world->data) return NULL;
@@ -11,6 +32,7 @@ inline T* GetPixelPtr(PF_EffectWorld* world, A_long x, A_long y) {
 	return reinterpret_cast<T*>((char*)world->data + (y * world->rowbytes) + (x * sizeof(T)));
 }
 
+/*
 // スレッド対応版
 template <typename T>
 static PF_Err DrawLineT_Threaded(
@@ -214,7 +236,7 @@ PF_Err DrawStar(
 	
 	return err;
 }
-
+*/
 std::vector<StarSource> ExtractStarSources(
 	std::vector<std::vector<float>>& mask,
 	A_long *count

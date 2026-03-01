@@ -41,7 +41,7 @@
 //#define NF_CATEGORY FS_CATEGORY_BETA
 //#define NF_CATEGORY FS_CATEGORY_LEGACY
 
-#define NF_CATEGORY  NF_CATEGORY_BETA
+#define NF_CATEGORY  NF_CATEGORY_NONE
 
 
 
@@ -57,8 +57,8 @@ out_data->out_flags
 	PF_OutFlag_I_DO_DIALOG				32
 */
 
-//#define NF_OUT_FLAGS	33556032	//通常はこちら
-#define NF_OUT_FLAGS	33556068	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
+#define NF_OUT_FLAGS	33556032	//通常はこちら
+//#define NF_OUT_FLAGS	33556068	//こっちを有効にすると毎フレームごとに描画する。NON_PARAM_VARYを動作中に切り替えるときもこちらに
 //#define NF_OUT_FLAGS	1600		//8bitのみ
 
 //-----------------------------------------------------------------------------------

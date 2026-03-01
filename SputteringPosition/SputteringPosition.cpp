@@ -441,6 +441,7 @@ static PF_Err
 	//不透明部分の検出、targetに書き込む
 
 	//ERR(ae->CopyInToOut());
+	infoP->size = (float)ae->downScale(infoP->size);
 	std::vector<std::vector<A_u_char>> sput = GetDefSpatData(infoP->size);
 
 	PF_ParamDef checkout_param;
