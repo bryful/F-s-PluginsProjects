@@ -15,7 +15,7 @@
 #include "Param_Utils.h"
 #include "Smart_Utils.h"
 #include "AE_ChannelSuites.h"
-
+#include "PF_Masks.h"
 
 #include "AEFX_SuiteHelper.h"
 #define refconType void*

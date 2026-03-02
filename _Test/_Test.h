@@ -27,7 +27,7 @@
 #include "..\_NFLib\fx\NF_DrawAALine.h"
 */
 #include <string>
-#include "..\_NFLib\vector\NF_VectorRect.h"
+#include "..\_NFLib\vector\NF_VectorLine.h"
 #include "..\_NFLib\vector\NF_VectorMask.h"
 
 //ユーザーインターフェースのID
@@ -45,6 +45,7 @@ enum {
 	ID_WA1,
 	ID_WA2,
 	ID_WA3,
+	ID_PATH,
 	ID_NUM_PARAMS
 };
 
@@ -56,9 +57,10 @@ enum {
 #define	STR_POSA1			"posA1"
 #define	STR_POSA2			"posA2"
 #define	STR_POSA3			"posA3"
-#define	STR_WA1			"wA1"
-#define	STR_WA2			"wA2"
-#define	STR_WA3			"wA3"
+#define	STR_WA1				"wA1"
+#define	STR_WA2				"wA2"
+#define	STR_WA3				"wA3"
+#define	STR_PATH			"path"
 //UIのパラメータ
 typedef struct ParamInfo {
 	PF_Point	pos[4];

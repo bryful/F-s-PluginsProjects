@@ -20,7 +20,6 @@ static PF_Err ParamsSetup (
 
 	NF_ParamsSetup cs(in_data, out_data);
 	// ----------------------------------------------------------------
-	
 	cs.AddPoint(
 		STR_POS1,
 		25,
@@ -106,6 +105,11 @@ static PF_Err ParamsSetup (
 		FALSE,
 		ID_WA3
 	);
+	cs.AddPath(
+		STR_PATH,
+		0,
+		ID_PATH
+	);
 	cs.Finalize();
 	return err;
 }
@@ -152,6 +156,13 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
+static inline PF_Point offP(PF_Point p, A_long x, A_long y)
+{
+	p.x += x;
+	p.y += y;
+	return p;
+}
+//-------------------------------------------------------------------------------------------------
 static PF_Err 
 	Exec (NF_AE*ae , ParamInfo *infoP)
 {
@@ -160,15 +171,33 @@ static PF_Err
 	PF_FILL(NULL, NULL, ae->output);
 	
 	std::vector<std::vector<float>> buf(ae->outputInfo.height,std::vector<float>(ae->outputInfo.width,0));
-
+	A_long ox = -ae->output->origin_x;
+	A_long oy = -ae->output->origin_y;
 
 	draw_a_rect(buf,
-		infoP->pos[0], infoP->pos[1], infoP->pos[2], infoP->pos[3],
+		offP(infoP->pos[0],ox,oy), offP(infoP->pos[1], ox, oy), offP(infoP->pos[2], ox, oy), offP(infoP->pos[3], ox, oy),
 		1.0f);
+	draw_a_line(buf, offP(infoP->posA[0], ox, oy), infoP->wA[0], offP(infoP->posA[1], ox, oy), infoP->wA[1],1.0f);
+	draw_a_line(buf, offP(infoP->posA[1], ox, oy), infoP->wA[1], offP(infoP->posA[2], ox, oy), infoP->wA[2], 1.0f);
+
+	// ************************************************************
+	
+	std::vector<PF_PathVertex> pnts;
+	ERR(ae->GetPathFromUI(ID_PATH, &pnts));
+	if (pnts.size() > 0) {
+		std::vector<a_linePrm> linePrms;
+		for (const auto& vertex : pnts) {
+			PF_FpLong x = vertex.x - ae->output->origin_x;
+			PF_FpLong y = vertex.y - ae->output->origin_y;
+			a_linePrm prm = { static_cast<float>(x), static_cast<float>(y), 20.0f };
+			linePrms.push_back(prm);
+		}
+		draw_polyline(buf, linePrms, 1.0f);
+	}
+	
+	// *************************************************
 
 
-	draw_a_line(buf,infoP->posA[0], infoP->wA[0], infoP->posA[1], infoP->wA[1],1.0f);
-	draw_a_line(buf, infoP->posA[1], infoP->wA[1], infoP->posA[2], infoP->wA[2], 1.0f);
 	ERR(DrawMask(
 		ae->in_data,
 		ae->output,

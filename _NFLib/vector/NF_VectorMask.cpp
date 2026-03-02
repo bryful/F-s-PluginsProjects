@@ -1,21 +1,46 @@
-#include "NF_VectorMask.h"
-typedef struct {
+ï»¿#include "NF_VectorMask.h"
+
+template <typename T>
+struct THInfo {
 	PF_EffectWorld* world;
 	A_long width;
 	A_long widthTrue;
 	A_long height;
 	A_long rowbytes;
-	PF_Pixel target_color;
+	T target_color;
 	float level;
 	std::vector<std::vector<float>>* mask;
-} THInfo;
+};
 
 template <typename T>
 inline PF_FpLong GetMaxChannel() {
 	if (std::is_same<T, PF_Pixel8>::value) return 255.0;
 	if (std::is_same<T, PF_Pixel16>::value) return 32768.0;
-	return 1.0; // PF_PixelFloat—p
+	return 1.0; // PF_PixelFloatç”¨
 }
+// -- - 1. å‹è§£æ±ºç”¨ã®ãƒˆãƒ¬ã‚¤ãƒˆ(PixelTraits) -- -
+template <typename T> struct PixelTraits;
+
+template <> struct PixelTraits<PF_Pixel8> {
+	typedef A_u_char CT;
+	static inline CT half() { return 128; }
+	static inline CT max_chan() { return 255; }
+	static inline CT clamp(float v) { return (CT)AE_CLAMP(v + 0.5f, 0, 255); }
+};
+
+template <> struct PixelTraits<PF_Pixel16> {
+	typedef A_u_short CT;
+	static inline CT half() { return 16384; } // AE 16bitã¯32768ãŒä¸Šé™
+	static inline CT max_chan() { return 32768; }
+	static inline CT clamp(float v) { return (CT)AE_CLAMP(v + 0.5f, 0, 32768); }
+};
+
+template <> struct PixelTraits<PF_PixelFloat> {
+	typedef PF_FpShort CT;
+	static inline CT half() { return 0.5f; }
+	static inline CT max_chan() { return 1.0f; }
+	static inline CT clamp(float v) { return (CT)v; } // Floatã¯åŸºæœ¬ã‚¯ãƒ©ãƒ³ãƒ—ä¸è¦
+};
 
 // ***********************************************************************************
 // ***********************************************************************************
@@ -26,23 +51,23 @@ static PF_Err DrawMaskT(
 	A_long y,
 	A_long itrtL)
 {
-	THInfo* infoP = reinterpret_cast<THInfo*>(refconPV);
-	PF_FpLong max_chan = GetMaxChannel<T>(); // _SkeletonFilter.cpp‚É‚ ‚éƒwƒ‹ƒp[‚ğ—˜—p
+	THInfo<T>* infoP = reinterpret_cast<THInfo<T>*>(refconPV);
+	PF_FpLong max_chan = GetMaxChannel<T>(); // _SkeletonFilter.cppã«ã‚ã‚‹ãƒ˜ãƒ«ãƒ‘ãƒ¼ã‚’åˆ©ç”¨
 
 
 	T* outRow = reinterpret_cast<T*>((char*)infoP->world->data + (y * infoP->rowbytes));
 	for (A_long x = 0; x < infoP->width; x++) {
-		//float luma = *(infoP->mask->data() + y * infoP->width + x); // ƒ}ƒXƒN‚©‚ç‹P“x‚ğæ“¾
-		float luma = (float)infoP->mask->at(y).at(x); // ƒ}ƒXƒN‚©‚ç‹P“x‚ğæ“¾
+		//float luma = *(infoP->mask->data() + y * infoP->width + x); // ãƒã‚¹ã‚¯ã‹ã‚‰è¼åº¦ã‚’å–å¾—
+		float luma = (float)infoP->mask->at(y).at(x); // ãƒã‚¹ã‚¯ã‹ã‚‰è¼åº¦ã‚’å–å¾—
 		T* outP = &outRow[x];
 		if (std::is_same<T, PF_PixelFloat>::value) {
-			// 32bit float ‚Ìê‡‚ÍƒNƒ‰ƒ“ƒv•s—v
+			// 32bit float ã®å ´åˆã¯ã‚¯ãƒ©ãƒ³ãƒ—ä¸è¦
 			outP->red = static_cast<channelType>(luma);
 			outP->green = static_cast<channelType>(luma);
 			outP->blue = static_cast<channelType>(luma);
 		}
 		else {
-			// ®”Œ^‚Ìê‡‚ÍƒNƒ‰ƒ“ƒv‚µ‚Ä‚©‚ç“KØ‚ÈŒ^‚ÉƒLƒƒƒXƒg
+			// æ•´æ•°å‹ã®å ´åˆã¯ã‚¯ãƒ©ãƒ³ãƒ—ã—ã¦ã‹ã‚‰é©åˆ‡ãªå‹ã«ã‚­ãƒ£ã‚¹ãƒˆ
 			outP->red = static_cast<channelType>(AE_CLAMP(luma * max_chan, 0, max_chan));
 			outP->green = static_cast<channelType>(AE_CLAMP(luma * max_chan, 0, max_chan));
 			outP->blue = static_cast<channelType>(AE_CLAMP(luma * max_chan, 0, max_chan));
@@ -67,369 +92,161 @@ PF_Err DrawMask(
 )
 {
 	PF_Err err = PF_Err_NONE;
-	THInfo info;
-	AEFX_CLR_STRUCT(info);
-	info.width = output->width;
-	info.height = output->height;
-	info.rowbytes = output->rowbytes;
-	info.world = output;
-	info.mask = mask;
 	switch (pixelFormat) {
 	case PF_PixelFormat_ARGB128:
+	{
+		THInfo <PF_PixelFloat>info;
+		AEFX_CLR_STRUCT(info);
+		info.width = output->width;
+		info.height = output->height;
+		info.rowbytes = output->rowbytes;
+		info.world = output;
+		info.mask = mask;
 		info.widthTrue = output->rowbytes / sizeof(PF_PixelFloat);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_PixelFloat,PF_FpShort>));
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_PixelFloat, PF_FpShort>));
 		break;
+	}
 	case PF_PixelFormat_ARGB64:
+	{
+		THInfo <PF_PixelFloat>info;
+		AEFX_CLR_STRUCT(info);
+		info.width = output->width;
+		info.height = output->height;
+		info.rowbytes = output->rowbytes;
+		info.world = output;
+		info.mask = mask;
 		info.widthTrue = output->rowbytes / sizeof(PF_Pixel16);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_Pixel16,A_u_short>));
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_Pixel16, A_u_short>));
 		break;
+	}
 	case PF_PixelFormat_ARGB32:
+	{
+		THInfo <PF_PixelFloat>info;
+		AEFX_CLR_STRUCT(info);
+		info.width = output->width;
+		info.height = output->height;
+		info.rowbytes = output->rowbytes;
+		info.world = output;
+		info.mask = mask;
 		info.widthTrue = output->rowbytes / sizeof(PF_Pixel);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_Pixel,A_u_char>));
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawMaskT<PF_Pixel, A_u_char>));
 		break;
+	}
 	}
 	return err;
 }
 // ***********************************************************************************
 // ***********************************************************************************
-// ‹P“xŒvZƒwƒ‹ƒp[ (RGB‚ÌÅ‘å’l‚ğŠî€‚É‚·‚éd—l)
-template <typename T>
-inline float GetLuminance(T* p, PF_FpLong max_chan) {
-	PF_FpLong ret = 0;
-	PF_FpLong a = (PF_FpLong)p->alpha / max_chan;
-	PF_FpLong r = (PF_FpLong)p->red / max_chan;
-	PF_FpLong g = (PF_FpLong)p->green / max_chan;
-	PF_FpLong b = (PF_FpLong)p->blue / max_chan;
-	ret = (0.2126 * r + 0.7152 * g + 0.0722 * b) * a;
-	return (float)AE_CLAMP(ret, 0, 1.0f);
-}
-template <typename T>
-static PF_Err ThresholdLumT(
+template <typename T, typename channelType>
+static PF_Err DrawColorMaskT(
 	void* refconPV,
 	A_long thread_idxL,
 	A_long y,
 	A_long itrtL)
 {
-	THInfo* infoP = reinterpret_cast<THInfo*>(refconPV);
-	PF_FpLong max_chan = GetMaxChannel<T>(); // _SkeletonFilter.cpp‚É‚ ‚éƒwƒ‹ƒp[‚ğ—˜—p
+	THInfo<T>* infoP = reinterpret_cast<THInfo<T>*>(refconPV);
+	PF_FpLong max_chan = GetMaxChannel<T>();
 
-	if(y==0|| y== infoP->height-1) {
-		for(A_long x=0; x< infoP->width; x++) {
-			infoP->mask->at(y).at(x) = 0.0f; // ã‰º‚Ìs‚Í‘S‚Ä0‚É‚·‚é
-		}
-		return PF_Err_NONE;
-	}
-
-	// Šes‚Ìæ“ªƒ|ƒCƒ“ƒ^‚ğƒoƒCƒg’PˆÊ‚ÅŒvZ‚µ‚Ä‚©‚çŒ^ƒLƒƒƒXƒg
-	T* inRow = reinterpret_cast<T*>((char*)infoP->world->data + (y * infoP->rowbytes));
-	T* prevRow = reinterpret_cast<T*>((char*)infoP->world->data + ((y - 1) * infoP->rowbytes));
-	T* nextRow = reinterpret_cast<T*>((char*)infoP->world->data + ((y + 1) * infoP->rowbytes));
-	infoP->mask->at(y).at(0) = 0;
-	infoP->mask->at(y).at(infoP->width - 1) = 0;
-	for (A_long x = 1; x < infoP->width-1; x++) {
-		float cv = GetLuminance<T>(&inRow[x], max_chan);
-		// ã‰º¶‰E‚Ì·•ªiâ‘Î’lj
-		float v0 = ABS(GetLuminance<T>(&inRow[x - 1], max_chan) - cv); // ¶
-		float v1 = ABS(GetLuminance<T>(&inRow[x + 1], max_chan) - cv); // ‰E
-		float v2 = ABS(GetLuminance<T>(&prevRow[x], max_chan) - cv);   // ã
-		float v3 = ABS(GetLuminance<T>(&nextRow[x], max_chan) - cv);   // ‰º
-		float max_v = MAX(MAX(v0, v1), MAX(v2, v3));
-
-		// ”»’èŒ‹‰Ê‚ğ 0.0f ‚© 1.0f ‚Å‘ã“ü
-		infoP->mask->at(y).at(x) = (max_v > (1-infoP->level)) ? 1.0f : 0.0f;
-	}
-	//std::string msg = "ThresholdLumT Level: " + std::to_string(infoP->level) + "\n";
-	//OutputDebugStringA(msg.c_str());
-
-	return PF_Err_NONE;
-}
-
-PF_Err ThresholdLum(
-	PF_InData* in_dataP,
-	PF_EffectWorld* output,
-	PF_PixelFormat pixelFormat,
-	AEGP_SuiteHandler* suitesP,
-	std::vector<std::vector<float>>* mask,
-	float level
-)
-{
-	PF_Err err = PF_Err_NONE;
-	THInfo info;
-	AEFX_CLR_STRUCT(info);
-	info.width = output->width;
-	info.height = output->height;
-	info.rowbytes = output->rowbytes;
-	info.world = output;
-	info.mask = mask;
-	info.level = level;
-	switch (pixelFormat) {
-	case PF_PixelFormat_ARGB128:
-		info.widthTrue = output->rowbytes / sizeof(PF_PixelFloat);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdLumT<PF_PixelFloat>));
-		break;
-	case PF_PixelFormat_ARGB64:
-		info.widthTrue = output->rowbytes / sizeof(PF_Pixel16);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdLumT<PF_Pixel16>));
-		break;
-	case PF_PixelFormat_ARGB32:
-		info.widthTrue = output->rowbytes / sizeof(PF_Pixel);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdLumT<PF_Pixel>));
-		break;
-	}
-	return err;
-}
-// ***********************************************************************************
-// ***********************************************************************************
-template <typename T>
-inline float GetAlpha(T* p, PF_FpLong max_chan) {
-	return (float)((PF_FpLong)p->alpha / max_chan);
-}
-template <typename T>
-static PF_Err ThresholdAlphaT(
-	void* refconPV,
-	A_long thread_idxL,
-	A_long y,
-	A_long itrtL)
-{
-	THInfo* infoP = reinterpret_cast<THInfo*>(refconPV);
-	PF_FpLong max_chan = GetMaxChannel<T>(); // _SkeletonFilter.cpp‚É‚ ‚éƒwƒ‹ƒp[‚ğ—˜—p
-
-	if (y == 0 || y == infoP->height - 1) {
-		for (A_long x = 0; x < infoP->width; x++) {
-			infoP->mask->at(y).at(x) = 0.0f; // ã‰º‚Ìs‚Í‘S‚Ä0‚É‚·‚é
-		}
-		return PF_Err_NONE;
-	}
-
-	// Šes‚Ìæ“ªƒ|ƒCƒ“ƒ^‚ğƒoƒCƒg’PˆÊ‚ÅŒvZ‚µ‚Ä‚©‚çŒ^ƒLƒƒƒXƒg
-	T* inRow = reinterpret_cast<T*>((char*)infoP->world->data + (y * infoP->rowbytes));
-	T* prevRow = reinterpret_cast<T*>((char*)infoP->world->data + ((y - 1) * infoP->rowbytes));
-	T* nextRow = reinterpret_cast<T*>((char*)infoP->world->data + ((y + 1) * infoP->rowbytes));
-
-	infoP->mask->at(y).at(0) = 0;
-	infoP->mask->at(y).at(infoP->width - 1) = 0;
-	for (A_long x = 1; x < infoP->width - 1; x++) {
-		float cv = GetAlpha<T>(&inRow[x], max_chan);
-		float v0 = ABS(GetAlpha<T>(&inRow[x - 1], max_chan) - cv);
-		float v1 = ABS(GetAlpha<T>(&inRow[x + 1], max_chan) - cv);
-		float v2 = ABS(GetAlpha<T>(&prevRow[x], max_chan) - cv);
-		float v3 = ABS(GetAlpha<T>(&nextRow[x], max_chan) - cv);
-		float max_v = MAX(MAX(v0, v1), MAX(v2, v3));
-		infoP->mask->at(y).at(x) = (max_v > (1-infoP->level)) ? 1.0f : 0.0f; // ”äŠrŒ‹‰Ê‚ğ‘ã“ü
-		//infoP->mask->at(y).at(x) = max_v;
-	}
-	return PF_Err_NONE;
-}
-
-PF_Err ThresholdAlpha(
-	PF_InData* in_dataP,
-	PF_EffectWorld* output,
-	PF_PixelFormat pixelFormat,
-	AEGP_SuiteHandler* suitesP,
-	std::vector<std::vector<float>>* mask,
-	float level
-)
-{
-	PF_Err err = PF_Err_NONE;
-	THInfo info;
-	AEFX_CLR_STRUCT(info);
-	info.width = output->width;
-	info.height = output->height;
-	info.rowbytes = output->rowbytes;
-	info.world = output;
-	info.mask = mask;
-	info.level = level;
-	switch (pixelFormat) {
-	case PF_PixelFormat_ARGB128:
-		info.widthTrue = output->rowbytes / sizeof(PF_PixelFloat);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdAlphaT<PF_PixelFloat>));
-		break;
-	case PF_PixelFormat_ARGB64:
-		info.widthTrue = output->rowbytes / sizeof(PF_Pixel16);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdAlphaT<PF_Pixel16>));
-		break;
-	case PF_PixelFormat_ARGB32:
-		info.widthTrue = output->rowbytes / sizeof(PF_Pixel);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdAlphaT<PF_Pixel>));
-		break;
-	}
-	return err;
-}
-// ***********************************************************************************
-// ***********************************************************************************
-
-// --- ƒrƒbƒg[“x‚²‚Æ‚ÌŒ^•ÏŠ·‚ğ‹zû‚·‚éƒwƒ‹ƒp[ ---
-inline PF_Pixel NF_To8(PF_Pixel c) { return c; }
-inline PF_Pixel NF_To8(PF_Pixel16 c) { return NF_Pixel16To8(c); }
-inline PF_Pixel NF_To8(PF_PixelFloat c) { return NF_Pixel32To8(c); }
-
-template <typename T>
-static PF_Err ThresholdColorT(
-	void* refconPV,
-	A_long thread_idxL,
-	A_long y,
-	A_long itrtL)
-{
-	THInfo* infoP = reinterpret_cast<THInfo*>(refconPV);
-	PF_FpLong max_chan = GetMaxChannel<T>(); // _SkeletonFilter.cpp‚É‚ ‚éƒwƒ‹ƒp[‚ğ—˜—p
-
-	T* inRow = reinterpret_cast<T*>((char*)infoP->world->data + (y * infoP->rowbytes));
+	T* outRow = reinterpret_cast<T*>((char*)infoP->world->data + (y * infoP->rowbytes));
 	for (A_long x = 0; x < infoP->width; x++) {
-		PF_Pixel pixel8 = NF_To8(inRow[x]); // ƒrƒbƒg[“x‚É‰‚¶‚½Œ^•ÏŠ·‚ğs‚¤
-		double r_diff = (ABS((double)pixel8.red - (double)infoP->target_color.red))/255;
-		double g_diff = (ABS((double)pixel8.green - (double)infoP->target_color.green)) / 255;
-		double b_diff = (ABS((double)pixel8.blue - (double)infoP->target_color.blue)) / 255;
-		double d = sqrt(pow(r_diff, 2) + pow(g_diff, 2) + pow(b_diff, 2)); // RGB‚Ì·•ª‚ğ‹——£‚Æ‚µ‚ÄŒvZ
-		infoP->mask->at(y).at(x) = ((1 - d) > (1 - infoP->level)) ? 1.0f : 0.0f; // ”äŠrŒ‹‰Ê‚ğ‘ã“ü
+		float luma = (float)infoP->mask->at(y).at(x);
+		T* outP = &outRow[x];
 
+		if (luma >= 1.0f)
+		{
+			*outP = infoP->target_color;
+		}
+		else if (luma <= 0.0f) {
+			// ä½•ã‚‚ã—ãªã„
+		}else if (outP->alpha == 0) {
+			// å‡ºåŠ›ãŒå®Œå…¨ã«é€æ˜ãªã‚‰ã€ãƒã‚¹ã‚¯ã®å€¤ã‚’ãã®ã¾ã¾é©ç”¨
+			outP->red   = static_cast<channelType>(AE_CLAMP(infoP->target_color.red, 0, max_chan));
+			outP->green = static_cast<channelType>(AE_CLAMP(infoP->target_color.green, 0, max_chan));
+			outP->blue  = static_cast<channelType>(AE_CLAMP(infoP->target_color.blue, 0, max_chan));
+			outP->alpha = static_cast<channelType>(AE_CLAMP(luma * max_chan, 0, max_chan));
+		}	
+		else {
+			// æ­£è¦åŒ–å€¤ [0,1] ã®ã¾ã¾ãƒ–ãƒ¬ãƒ³ãƒ‰
+			float a  = luma;
+			float r  = (float)infoP->target_color.red   / (float)max_chan;
+			float g  = (float)infoP->target_color.green / (float)max_chan;
+			float b  = (float)infoP->target_color.blue  / (float)max_chan;
+
+			float ao = (float)outP->alpha / (float)max_chan;
+			float ro = (float)outP->red   / (float)max_chan;
+			float go = (float)outP->green / (float)max_chan;
+			float bo = (float)outP->blue / (float)max_chan;
+
+			// Porter-Duff "over" â€” a ã¯ [0,1] ã®ã¾ã¾è¨ˆç®—
+			float a_new = a + ao - a * ao;
+			float r_new = r * a + ro * (1.0f - a);
+			float g_new = g * a + go * (1.0f - a);
+			float b_new = b * a + bo * (1.0f - a);
+
+			float aj = 1/a_new;
+			// æœ€å¾Œã«ã¾ã¨ã‚ã¦ã‚¹ã‚±ãƒ¼ãƒ« & ã‚¯ãƒ©ãƒ³ãƒ—
+			outP->red = static_cast<channelType>(AE_CLAMP(r_new * max_chan, 0, max_chan));
+			outP->green = static_cast<channelType>(AE_CLAMP(g_new * max_chan, 0, max_chan));
+			outP->blue  = static_cast<channelType>(AE_CLAMP(b_new * max_chan, 0, max_chan));
+			outP->alpha = static_cast<channelType>(AE_CLAMP(a_new * max_chan, 0, max_chan));
+		}
 	}
 
 	return PF_Err_NONE;
 }
-PF_Err ThresholdColor(
+PF_Err DrawColorMask(
 	PF_InData* in_dataP,
 	PF_EffectWorld* output,
 	PF_PixelFormat pixelFormat,
 	AEGP_SuiteHandler* suitesP,
-	std::vector<std::vector<float>>* mask, 
-	PF_Pixel targetColor,
-	float level
+	std::vector<std::vector<float>>* mask,
+	PF_Pixel target_color
 )
 {
 	PF_Err err = PF_Err_NONE;
-	THInfo info;
-	AEFX_CLR_STRUCT(info);
-	info.width = output->width;
-	info.height = output->height;
-	info.rowbytes = output->rowbytes;
-	info.world = output;
-	info.target_color = targetColor;
-	info.mask = mask;
-	info.level = level;
 	switch (pixelFormat) {
 	case PF_PixelFormat_ARGB128:
+	{
+		THInfo <PF_PixelFloat>info;
+		AEFX_CLR_STRUCT(info);
+		info.width = output->width;
+		info.height = output->height;
+		info.rowbytes = output->rowbytes;
+		info.world = output;
+		info.mask = mask;
+		info.target_color = NF_Pixel8To32(target_color);
 		info.widthTrue = output->rowbytes / sizeof(PF_PixelFloat);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdColorT<PF_PixelFloat>));
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawColorMaskT<PF_PixelFloat, PF_FpShort>));
 		break;
+	}
 	case PF_PixelFormat_ARGB64:
+	{
+		THInfo <PF_Pixel16>info;
+		AEFX_CLR_STRUCT(info);
+		info.width = output->width;
+		info.height = output->height;
+		info.rowbytes = output->rowbytes;
+		info.world = output;
+		info.mask = mask;
+		info.target_color = NF_Pixel8To16(target_color);
 		info.widthTrue = output->rowbytes / sizeof(PF_Pixel16);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdColorT<PF_Pixel16>));
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawColorMaskT<PF_Pixel16, A_u_short>));
 		break;
+	}
 	case PF_PixelFormat_ARGB32:
+	{
+		THInfo <PF_Pixel8>info;
+		AEFX_CLR_STRUCT(info);
+		info.width = output->width;
+		info.height = output->height;
+		info.rowbytes = output->rowbytes;
+		info.world = output;
+		info.mask = mask;
+		info.target_color = target_color;
 		info.widthTrue = output->rowbytes / sizeof(PF_Pixel);
-		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, ThresholdColorT<PF_Pixel>));
+		ERR(suitesP->Iterate8Suite2()->iterate_generic(output->height, &info, DrawColorMaskT<PF_Pixel, A_u_char>));
 		break;
+	}
 	}
 	return err;
-}
-// ************************************************************************************
-// ************************************************************************************
-typedef struct {
-	A_long width;
-	A_long height;
-	std::vector<std::vector<float>>* src;
-	std::vector<std::vector<float>>* dst;
-} CalcMaskInfo;
-static PF_Err ClacMaskT(
-	void* refconPV,
-	A_long thread_idxL,
-	A_long y,
-	A_long itrtL)
-{
-	CalcMaskInfo* infoP = reinterpret_cast<CalcMaskInfo*>(refconPV);
-	infoP->dst->at(y).at(0) = infoP->src->at(y).at(0);
-	infoP->dst->at(y).at(infoP->width - 1) = infoP->src->at(y).at(infoP->width - 1);
-	if (y == 0) {
-		for (A_long x = 1; x < infoP->width - 1; x++) {
-			float p = infoP->src->at(y).at(x);
-			float p1 = infoP->src->at(y).at(x - 1);
-			float p2 = infoP->src->at(y).at(x + 1);
-			float p3 = infoP->src->at(y + 1).at(x);
-			if (p == p1 && p == p2 && p == p3) {
-				infoP->dst->at(y).at(x) = 0;
-			}
-			else {
-				infoP->dst->at(y).at(x) = p;
-			}
-		}
-	}
-	else if (y == infoP->height - 1) {
-		for (A_long x = 1; x < infoP->width - 1; x++) {
-			float p = infoP->src->at(y).at(x);
-			if (p == 0) continue;
-			float p1 = infoP->src->at(y).at(x - 1);
-			float p2 = infoP->src->at(y).at(x + 1);
-			float p3 = infoP->src->at(y - 1).at(x);
-			if (p == p1 && p == p2 && p == p3) {
-				infoP->dst->at(y).at(x) = 0;
-			}
-			else {
-				infoP->dst->at(y).at(x) = p;
-			}
-		}
-	}
-	else {
-		for (A_long x = 1; x < infoP->width - 1; x++) {
-			float p = infoP->src->at(y).at(x);
-			if (p == 0) continue;
-			float p1 = infoP->src->at(y).at(x - 1);
-			float p2 = infoP->src->at(y).at(x + 1);
-			float p3 = infoP->src->at(y - 1).at(x);
-			float p4 = infoP->src->at(y + 1).at(x);
-			if (p == p1 && p == p2 && p == p3 && p == p4) {
-				infoP->dst->at(y).at(x) = 0;
-			}
-			else {
-				infoP->dst->at(y).at(x) = p;
-			}
-		}
-	}
-	return PF_Err_NONE;
-}
-std::vector<std::vector<float>> CalcMask(
-	AEGP_SuiteHandler* suitesP,
-	std::vector<std::vector<float>>* src
-)
-{
-
-	PF_Err err = PF_Err_NONE;
-	CalcMaskInfo info;
-	AEFX_CLR_STRUCT(info);
-	info.src = src;
-	info.height = (A_long)src->size();
-	info.width = (A_long)src->at(0).size();
-	std::vector<std::vector<float>> resultMask(info.height, std::vector<float>(info.width));
-	info.dst = &resultMask;
-	ERR(suitesP->Iterate8Suite2()->iterate_generic(info.height, &info, ClacMaskT));
-	return resultMask;
-}
-// ************************************************************************************
-// ************************************************************************************
-
-std::vector<PF_Point> TargetMask(
-	std::vector<std::vector<float>>* src,
-	double value,
-	A_long seed
-)
-{
-
-	PF_Err err = PF_Err_NONE;
-	std::vector<PF_Point> resultMask;
-	if (src->size() == 0 || src->at(0).size() == 0) return resultMask;
-	resultMask.reserve(src->size() * src->at(0).size());
-
-	for(A_long y=0; y< (A_long)src->size(); y++) {
-		for(A_long x=0; x< (A_long)src->at(0).size(); x++) {
-			if(src->at(y).at(x) > 0) {
-				if (hash_float(x, y, seed) < value) {
-					PF_Point p;
-					p.h = x;
-					p.v = y;
-					resultMask.push_back(p);
-				}
-			}
-		}
-	}
-
-	return resultMask;
 }

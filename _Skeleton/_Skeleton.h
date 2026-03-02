@@ -14,66 +14,120 @@
 
 #include "..\_NFLib\NF_AE.h"
 #include "..\_NFLib\NF_ParamsSetup.h"
+#include "..\_NFLib\json.hpp"
+#include "..\_NFLib\NF_Json.h"
+#include "..\_NFLib\NF_Utils.h"
 
-#include "..\_NFLib\fx\NF_Mult.h"
-#include "..\_NFLib\fx\NF_Minmax.h"
-#include "..\_NFLib\fx\NF_ChannelMinmax.h"
+#include "..\_NFLib\fx\debug_font.h"
+#include "..\_NFLib\fx\NF_AlphaHyperbolic.h"
+#include "..\_NFLib\fx\NF_Bilateral.h"
+#include "..\_NFLib\fx\NF_Blend.h"
 #include "..\_NFLib\fx\NF_Blur.h"
 #include "..\_NFLib\fx\NF_ChannelBlur.h"
-#include "..\_NFLib\fx\debug_font.h"
-#include "..\_NFLib\fx\NF_Paint.h"
-#include "..\_NFLib\fx\NF_Noise.h"
+#include "..\_NFLib\fx\NF_ChannelMinmax.h"
 #include "..\_NFLib\fx\NF_Draw.h"
 #include "..\_NFLib\fx\NF_DrawAALine.h"
+#include "..\_NFLib\fx\NF_DrawWorld.h"
+#include "..\_NFLib\fx\NF_Gradient.h"
+#include "..\_NFLib\fx\NF_Hyperbolic.h"
+#include "..\_NFLib\fx\NF_LogicGray.h"
+#include "..\_NFLib\fx\NF_Minmax.h"
+#include "..\_NFLib\fx\NF_Mosaic.h"
+#include "..\_NFLib\fx\NF_Mult.h"
+#include "..\_NFLib\fx\NF_Noise.h"
+#include "..\_NFLib\fx\NF_Paint.h"
+#include "..\_NFLib\fx\NF_SpatUtils.h"
+#include "..\_NFLib\fx\NF_UnMult.h"
 
-#include "_SkeletonFilter.h"
+#include "..\_NFLib\vector\NF_VectorLine.h"
+#include "..\_NFLib\vector\NF_VectorMask.h"
+
+
+#include "noiseFilter.h"
 #include <string>
+
+enum {
+	MODE_NOISE = 1,
+	MODE_RECT,
+	MODE_LINE,
+	MODE_PAINT,
+	MODE_MINMAX,
+	MODE_BLUR,
+	MODE_CHAN_MINMAX,
+	MODE_DRAW,
+	MODE_DEBUG_FONT,
+	MODE_NUM
+};
 
 //ユーザーインターフェースのID
 //ParamsSetup関数とRender関数のparamsパラメータのIDになる
 enum {
 	ID_INPUT = 0,	// default input layer
 
-	ID_PAINT_CB,
-	ID_PAINT_POS,
-	ID_PAINT_COLOR,
+	ID_MODE,		//モード用のポップアップ
 	
-	ID_MINMAX,
-	ID_BLUR,
-
-	ID_CHAN_MINMAX_MODE,
-	ID_CHAN_MINMAX_VALUE,
-
-	ID_NOISE_SIZE,
-	ID_NOISE_AMOUNT,
-	ID_NOISE_ACCENT_AMOUNT,
+	// -----
+	ID_AUTO_SEED,		//ノイズのシードを自動で変化させるかどうかのチェックボックス
+	ID_SEED,			//ノイズのシード値の数値入力
+	// -----
+	ID_NOISE_TOPIC,
+	ID_NOISE_VALUE,
 	ID_NOISE_ISCOLOR,
-	ID_NOISE_AUTO,
-	ID_NOISE_SEED,
+	ID_NOISE_TOPIC_END,
+	// -----
+	ID_RECT_TOPIC,
+	ID_RECT_POS1,
+	ID_RECT_POS2,
+	ID_RECT_POS3,
+	ID_RECT_POS4,
+	ID_RECT_COLOR,
+	ID_RECT_TOPIC_END,
+	// -----
+	ID_LINE_TOPIC,
+	ID_LINE_POS1,
+	ID_LINE_W1,
+	ID_LINE_POS2,
+	ID_LINE_W2,
+	ID_LINE_POS3,
+	ID_LINE_W3,
+	ID_LINE_POS4,
+	ID_LINE_W4,
+	ID_LINE_COLOR,
+	ID_LINE_TOPIC_END,
 
-	ID_DROW_POP,
-	ID_START_POS,
-	ID_END_POS,
-	ID_DRAW_COLOR,
 
-	ID_DRAW_START_OPA,
-	ID_DRAW_END_OPA,
-
-	ID_DEBUG_FONT_CB,
-	ID_DEBUG_FONT_POS,
-	ID_DEBUG_FONT_COLOR,
-
-	ID_HIDDEN_ON,
-	ID_TOPIC,
-	ID_ANGLE,
-	ID_TOPIC_END,
-
-	ID_BUTTON,
-
+	
 	ID_NUM_PARAMS
 };
 
 //UIの表示文字列
+
+//-------
+#define	STR_MODE			"mode"
+#define	STR_MODE_ITEMS		"noise|rect|line"
+#define	STR_MODE_COUNT		3
+#define	STR_MODE_DFLT		MODE_NOISE
+
+#define	STR_AUTO_SEED		"autoSeed"
+#define	STR_SEED			"seed"
+
+
+//-------
+#define	STR_NOISE_TOPIC		"noise"
+#define	STR_NOISE_VALUE		"noiseValue"
+#define	STR_NOISE_ISCOlOR	"noiseColor"
+//-------
+#define	STR_RECT_TOPIC		"rect"
+#define	STR_RECT			"point_"
+#define	STR_RECT_COLOR		"rect_clor"
+//-------
+#define	STR_LINE_TOPIC		"line"
+#define	STR_LINE			"point_"
+#define	STR_LINE_W			"weight_"
+#define	STR_LINE_COLOR		"rect_clor"
+
+
+
 #define	STR_PAINT_CB		"paint"
 #define	STR_PAINT_POS		"paintPos"
 #define	STR_PAINT_COLOR		"paintColor"
@@ -88,12 +142,6 @@ enum {
 #define	STR_CHAN_MINMAX		"channelBlur"
 
 
-#define	STR_NOISE_SIZE		"noiseSize"
-#define	STR_NOISE_AMOUNT	"noiseAmount"
-#define	STR_NOISE_ACCENT_AMOUNT	"accentAmount"
-#define	STR_NOISE_ISCOlOR	"noiseColor"
-#define	STR_NOISE_AUTO		"noiseAuto"
-#define	STR_NOISE_SEED		"noiseSeed"
 
 #define	STR_DRAW_POP		"draw"
 #define	STR_DRAW_ITEMS		"none|line|box|boxfill|Circle|CircleFill|DrawLineAA"
@@ -121,6 +169,20 @@ enum {
 
 //UIのパラメータ
 typedef struct ParamInfo {
+	A_long		mode;
+	PF_Boolean	auto_seed;
+	A_long		seed;
+
+	PF_FpLong	noise;
+	PF_Boolean	noise_is_color;
+
+
+	PF_Point	rect_pos[4];
+	PF_Pixel	rect_color;
+
+	a_linePrm	line_pos[4];
+	PF_Pixel	line_color;
+	/*
 	PF_Boolean	paint_cb;
 	PF_Pixel	paint_color;
 	PF_Point	paint_pos;
@@ -130,10 +192,6 @@ typedef struct ParamInfo {
 	A_long		chan_minmax_mode;
 	A_long		chan_minmax_value;
 	
-	PF_FpLong	noise_size;
-	PF_FpLong	noise_amount;
-	PF_FpLong	noise_accent_amount;
-	PF_Boolean	noise_is_color;
 	PF_Boolean	noise_auto;
 	A_long		noise_seed;
 
@@ -147,7 +205,7 @@ typedef struct ParamInfo {
 	PF_Boolean	debug_font_cb;
 	PF_Point	debug_font_pos;
 	PF_Pixel	debug_font_color;
-
+	*/
 } ParamInfo, *ParamInfoP, **ParamInfoH;
 
 //-------------------------------------------------------

@@ -875,7 +875,7 @@ public:
 			switch(m_cmd)
 			{
 			case PF_Cmd_SMART_PRE_RENDER:
-			//case FsAE_QUERY_DYNAMIC_FLAGS:
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 				PF_ParamDef param;
 				AEFX_CLR_STRUCT(param);
 				ERR(PF_CHECKOUT_PARAM( 
@@ -888,10 +888,11 @@ public:
 				}else{
 					err = PF_Err_BAD_CALLBACK_PARAM;
 				}
+				ERR(PF_CHECKIN_PARAM(in_data, &param));
 				break;
-			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
 			case PF_Cmd_UPDATE_PARAMS_UI:
+			case PF_Cmd_RENDER:
 				ret = params[idx]->u.sd.value;
 				break;
 			default:
@@ -915,6 +916,7 @@ public:
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
 			case PF_Cmd_UPDATE_PARAMS_UI:
+			//case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 
 				params[idx]->u.sd.value = a;
 				params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
@@ -937,7 +939,7 @@ public:
 			switch(m_cmd)
 			{
 			case PF_Cmd_SMART_PRE_RENDER:
-			//case FsAE_QUERY_DYNAMIC_FLAGS:
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 				PF_ParamDef param;
 				AEFX_CLR_STRUCT(param);
 				ERR(PF_CHECKOUT_PARAM( 
@@ -950,11 +952,11 @@ public:
 				}else{
 					err = PF_Err_BAD_CALLBACK_PARAM;
 				}
-
+				ERR(PF_CHECKIN_PARAM(in_data, &param));
 				break;
-			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
 			case PF_Cmd_UPDATE_PARAMS_UI:
+			case PF_Cmd_RENDER:
 
 				ret = params[idx]->u.sd.value;
 				break;
@@ -1016,7 +1018,7 @@ public:
 			switch(m_cmd)
 			{
 			case PF_Cmd_SMART_PRE_RENDER:
-			//case FsAE_QUERY_DYNAMIC_FLAGS:
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 				PF_ParamDef param;
 				AEFX_CLR_STRUCT(param);
 				ERR(PF_CHECKOUT_PARAM( 
@@ -1029,6 +1031,7 @@ public:
 				}else{
 					err = PF_Err_BAD_CALLBACK_PARAM;
 				}
+				ERR(PF_CHECKIN_PARAM(in_data, &param));
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
@@ -1056,7 +1059,7 @@ public:
 			switch(m_cmd)
 			{
 			case PF_Cmd_SMART_PRE_RENDER:
-			//case FsAE_QUERY_DYNAMIC_FLAGS:
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 				PF_ParamDef param;
 				AEFX_CLR_STRUCT(param);
 				ERR(PF_CHECKOUT_PARAM( 
@@ -1069,10 +1072,11 @@ public:
 				}else{
 					err = PF_Err_BAD_CALLBACK_PARAM;
 				}
+				ERR(PF_CHECKIN_PARAM(in_data, &param));
 				break;
-			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
 			case PF_Cmd_UPDATE_PARAMS_UI:
+			case PF_Cmd_RENDER:
 
 				ret = (PF_Boolean)params[idx]->u.bd.value;
 				break;
@@ -1108,7 +1112,8 @@ public:
 			switch(m_cmd)
 			{
 			case PF_Cmd_SMART_PRE_RENDER:
-			//case FsAE_QUERY_DYNAMIC_FLAGS:
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
+				//case FsAE_QUERY_DYNAMIC_FLAGS:
 				PF_ParamDef param;
 				AEFX_CLR_STRUCT(param);
 				ERR(PF_CHECKOUT_PARAM( 
@@ -1121,7 +1126,7 @@ public:
 				}else{
 					err = PF_Err_BAD_CALLBACK_PARAM;
 				}
-
+				ERR(PF_CHECKIN_PARAM(in_data, &param));
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
@@ -1164,7 +1169,7 @@ public:
 			switch(m_cmd)
 			{
 			case PF_Cmd_SMART_PRE_RENDER:
-			//case FsAE_QUERY_DYNAMIC_FLAGS:
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 				PF_ParamDef param;
 				AEFX_CLR_STRUCT(param);
 				ERR(PF_CHECKOUT_PARAM( 
@@ -1177,7 +1182,7 @@ public:
 				}else{
 					err = PF_Err_BAD_CALLBACK_PARAM;
 				}
-
+				ERR(PF_CHECKIN_PARAM(in_data, &param));
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
@@ -1228,7 +1233,7 @@ public:
 			switch(m_cmd)
 			{
 			case PF_Cmd_SMART_PRE_RENDER:
-			//case FsAE_QUERY_DYNAMIC_FLAGS:
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 				PF_ParamDef param;
 				AEFX_CLR_STRUCT(param);
 				ERR(PF_CHECKOUT_PARAM( 
@@ -1242,7 +1247,7 @@ public:
 				}else{
 					err = PF_Err_BAD_CALLBACK_PARAM;
 				}
-
+				ERR(PF_CHECKIN_PARAM(in_data, &param));
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
@@ -1296,7 +1301,7 @@ public:
 			switch(m_cmd)
 			{
 			case PF_Cmd_SMART_PRE_RENDER:
-			//case FsAE_QUERY_DYNAMIC_FLAGS:
+			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 				PF_ParamDef param;
 				AEFX_CLR_STRUCT(param);
 				ERR(PF_CHECKOUT_PARAM( 
@@ -1309,6 +1314,7 @@ public:
 				}else{
 					err = PF_Err_BAD_CALLBACK_PARAM;
 				}
+				ERR(PF_CHECKIN_PARAM(in_data, &param));
 				break;
 			case PF_Cmd_RENDER:
 			case PF_Cmd_USER_CHANGED_PARAM:
@@ -1334,6 +1340,89 @@ public:
 			params[idx]->u.pd.value = b;
 			params[idx]->uu.change_flags = PF_ChangeFlag_CHANGED_VALUE;
 		}
+		return err;
+	}
+	//*********************************************************************************
+	PF_Err GetPathFromUI(A_long idx, std::vector< PF_PathVertex> *paths)
+	{
+		PF_Err err = PF_Err_NONE;
+		PF_PathQuerySuite1* pqS = NULL;
+		PF_PathDataSuite1* pdS = NULL;
+		if ((idx < 1) || (idx >= m_paramsCount)|| paths == nullptr) {
+			return PF_Err_INVALID_INDEX;
+		}
+		ERR(in_data->pica_basicP->AcquireSuite(
+			kPFPathQuerySuite, 
+			kPFPathQuerySuiteVersion1, 
+			(const void**)&pqS));
+		ERR(in_data->pica_basicP->AcquireSuite(
+			kPFPathDataSuite, 
+			kPFPathDataSuiteVersion1, 
+			(const void**)&pdS));
+		if (!err && pqS && pdS) {
+			// パラメータからパスIDを取得
+			PF_ParamDef pathParam;
+			AEFX_CLR_STRUCT(pathParam);
+			err = PF_CHECKOUT_PARAM(
+				in_data, idx,
+				in_data->current_time, in_data->time_step, in_data->time_scale,
+				&pathParam);
+			if (err) return err;
+			PF_PathID path_id = pathParam.u.path_d.path_id;
+			PF_CHECKIN_PARAM(in_data, &pathParam);
+
+			if (path_id) {
+				PF_PathOutlinePtr path_outlineP = NULL;
+
+				// 2. パスのチェックアウト
+				err = pqS->PF_CheckoutPath(
+					in_data->effect_ref,
+					path_id,
+					in_data->current_time,
+					in_data->time_step,
+					in_data->time_scale,
+					&path_outlineP);
+
+				if (!err && path_outlineP) {
+					A_long num_segmentsL = 0;
+
+					// 3. セグメント（頂点）数を取得
+					// 正解: PF_PathNumSegments
+					err = pdS->PF_PathNumSegments(in_data->effect_ref, path_outlineP, &num_segmentsL);
+					PF_Boolean is_opened = FALSE;
+					err = pdS->PF_PathIsOpen(in_data->effect_ref, path_outlineP, &is_opened);
+					if (is_opened) {
+						num_segmentsL += 1;
+					}
+
+					for (A_long i = 0; i < num_segmentsL; i++) {
+						// 正解: PF_PathVertex
+						PF_PathVertex vertex;
+
+						// 4. 各頂点のデータを取得
+						// 正解: PF_PathVertexInfo
+						err = pdS->PF_PathVertexInfo(in_data->effect_ref, path_outlineP, i, &vertex);
+
+						if (!err) {
+							// --- 頂点（アンカーポイント）座標 ---
+							// vertex.x と vertex.y (PF_FpLong型 = double)
+							// ハンドルが必要な場合
+							// vertex.in_x, vertex.in_y / vertex.out_x, vertex.out_y
+							paths->push_back(vertex);
+						}
+					}
+
+					// 5. パスのチェックイン
+					err = pqS->PF_CheckinPath(in_data->effect_ref, path_id, FALSE, path_outlineP);
+				}
+			}
+			// スイートの解放
+			in_data->pica_basicP->ReleaseSuite(kPFPathQuerySuite, kPFPathQuerySuiteVersion1);
+			in_data->pica_basicP->ReleaseSuite(kPFPathDataSuite, kPFPathDataSuiteVersion1);
+		}
+
+
+
 		return err;
 	}
 	//*********************************************************************************

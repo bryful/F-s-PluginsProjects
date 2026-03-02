@@ -20,48 +20,81 @@
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
     <ClCompile Include="..\_Skeleton.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\_NFLib\NF_Settings.cpp">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
+    <ClCompile Include="..\noiseFilter.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp">
-      <Filter>fx</Filter>
+      <Filter>Header Files\fx</Filter>
     </ClCompile>
-    <ClCompile Include="..\_SkeletonFilter.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_Paint.cpp">
-      <Filter>fx</Filter>
+    <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp">
+      <Filter>Header Files\fx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_Draw.cpp">
-      <Filter>fx</Filter>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Bilateral.cpp">
+      <Filter>Header Files\fx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_Noise.cpp">
-      <Filter>fx</Filter>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp">
+      <Filter>Header Files\fx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_DrawWorld.cpp">
-      <Filter>fx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\_NFLib\fx\NF_ChannelMinMax.cpp">
-      <Filter>fx</Filter>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp">
+      <Filter>Header Files\fx</Filter>
     </ClCompile>
     <ClCompile Include="..\..\_NFLib\fx\NF_ChannelBlur.cpp">
-      <Filter>fx</Filter>
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_ChannelMinMax.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Draw.cpp">
+      <Filter>Header Files\fx</Filter>
     </ClCompile>
     <ClCompile Include="..\..\_NFLib\fx\NF_DrawAALine.cpp">
-      <Filter>fx</Filter>
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_DrawWorld.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Gradient.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Hyperbolic.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_LogicGray.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Mosaic.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Noise.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Paint.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_Spat_Data.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_SpatUtils.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_UnMult.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\vector\NF_VectorLine.cpp">
+      <Filter>Header Files\vectorFx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\vector\NF_VectorMask.cpp">
+      <Filter>Header Files\vectorFx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,10 +180,96 @@
       <Filter>Header Files\AE\N</Filter>
     </ClInclude>
     <ClInclude Include="..\NF_Target.h" />
+    <ClInclude Include="..\_Skeleton.h" />
+    <ClInclude Include="..\noiseFilter.h" />
+    <ClInclude Include="..\..\_NFLib\fx\debug_font.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Bilateral.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelBlur.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelMinMax.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Draw.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_DrawAALine.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_DrawWorld.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Gradient.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Hyperbolic.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_LogicGray.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Mosaic.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Noise.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Paint.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_Spat_Data.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_SpatUtils.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_UnMult.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\_NFLib\AE_SDK.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\_NFLib\dialog_jsx.h">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\json.hpp">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\NF_AE.h">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_CATEGORY.h">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\NF_Json.h">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\NF_ParamsSetup.h">
+      <Filter>Header Files\_NFLib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\_NFLib\NF_Settings.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_Utils.h">
@@ -159,64 +278,14 @@
     <ClInclude Include="..\..\_NFLib\NF_Version.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\_NFLib\NF_AE.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\NF_ParamsSetup.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\json.hpp">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\_Skeleton.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h">
-      <Filter>fx</Filter>
+    <ClInclude Include="..\..\_NFLib\vector\NF_VectorLine.h">
+      <Filter>Header Files\vectorFx</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\NF_Settings.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\NF_Json.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\debug_font.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\_SkeletonFilter.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_Paint.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_Draw.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_Noise.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_DrawWorld.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelMinMax.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_ChannelBlur.h">
-      <Filter>fx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\fx\NF_DrawAALine.h">
-      <Filter>fx</Filter>
+    <ClInclude Include="..\..\_NFLib\vector\NF_VectorMask.h">
+      <Filter>Header Files\vectorFx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,8 +313,11 @@
     <Filter Include="Supporting code\_NFLib">
       <UniqueIdentifier>{e70ea06c-cf7e-4a3f-a269-6281c45add39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="fx">
+    <Filter Include="Header Files\fx">
       <UniqueIdentifier>{c6150e2a-38f9-42d7-b1d0-f87ea145fd7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vectorFx">
+      <UniqueIdentifier>{27293911-ca8f-4532-9e38-63feec064efb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +334,9 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\_NFLib\fx\NF_DrawAALineScolor.zip">
+      <Filter>Header Files\fx</Filter>
+    </None>
     <None Include="..\..\_NFLib\dialog.jsx">
       <Filter>Header Files\_NFLib</Filter>
     </None>

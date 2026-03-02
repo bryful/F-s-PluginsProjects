@@ -29,11 +29,12 @@
 #include <algorithm>
 #include <cmath>
 
-typedef struct a_linePrm {
-    float		X;
-	float		Y;
-	float		W;
+struct a_linePrm {
+    float		x;
+	float		y;
+	float		b;
 };
+
 void draw_a_rect(std::vector<std::vector<float>>& data,
     float x0, float y0, float x1, float y1,
     float x2, float y2, float x3, float y3,
@@ -56,5 +57,11 @@ void draw_a_line(std::vector<std::vector<float>>& data,
 void draw_a_line(std::vector<std::vector<float>>& data,
     std::vector<a_linePrm> prms,
     float value);
+void draw_polyline(
+    std::vector<std::vector<float>>& data,
+    const std::vector<a_linePrm>& points, float v
+);
+std::vector<a_linePrm> offsetLinePrm(const std::vector<a_linePrm>& points, A_long ox, A_long oy);
+std::vector<a_linePrm> offsetLinePrm(A_long size, a_linePrm* points, A_long ox, A_long oy);
 
 #endif // DEBUG_FONT_H

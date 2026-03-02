@@ -10,44 +10,134 @@
 //-------------------------------------------------------------------------------------------------
 //AfterEffextsにパラメータを通達する
 //Param_Utils.hを参照のこと
-static PF_Err ParamsSetup (
-	PF_InData		*in_data,
-	PF_OutData		*out_data,
-	PF_ParamDef		*params[],
-	PF_LayerDef		*output)
+static PF_Err ParamsSetup(
+	PF_InData* in_data,
+	PF_OutData* out_data,
+	PF_ParamDef* params[],
+	PF_LayerDef* output)
 {
 	PF_Err			err = PF_Err_NONE;
 
 	NF_ParamsSetup cs(in_data, out_data);
 	// ----------------------------------------------------------------
-	cs.AddCheckBox(	// noise frame
-		STR_PAINT_CB,
-		"on",
-		FALSE,
-		ID_PAINT_CB,
+	cs.AddPopup(STR_MODE,
+		STR_MODE_COUNT,
+		STR_MODE_DFLT,
+		STR_MODE_ITEMS,
+		ID_MODE,
 		PF_ParamFlag_SUPERVISE
 	);
-	cs.AddPoint(
-		STR_PAINT_POS,
-		25,
-		25,
+	cs.AddCheckBox(	// noise frame
+		STR_AUTO_SEED,
+		"on",
 		FALSE,
-		ID_PAINT_POS
+		ID_AUTO_SEED,
+		PF_ParamFlag_SUPERVISE
 	);
-	cs.AddColor(	// color
-		STR_PAINT_COLOR,
-		{ 0xFF, 0xFF, 0x00, 0xFF },
-		ID_PAINT_COLOR
-	);
-	// ----------------------------------------------------------------
 	cs.AddSlider(	// 
-		STR_MINMAX,	//パラメータの名前
-		-1000, 		//数値入力する場合の最小値
-		1000,			//数値入力する場合の最大値
-		-100,				//スライダーの最小値 
-		100,			//スライダーの最大値
+		STR_SEED,	//パラメータの名前
+		-30000, 		//数値入力する場合の最小値
+		30000,			//数値入力する場合の最大値
+		-1000,			//スライダーの最小値 
+		1000,			//スライダーの最大値
 		0,				//デフォルトの値
-		ID_MINMAX
+		ID_SEED
+	);
+	// ******************************************************
+	cs.AddTopic(STR_NOISE_TOPIC, ID_NOISE_TOPIC//,
+		//PF_ParamFlag_START_COLLAPSED,
+		//PF_PUI_DISABLED
+	);
+	cs.AddFloatSlider(	// R
+		STR_NOISE_VALUE,			//Name
+		0,				//VALID_MIN
+		300,				//VALID_MAX
+		0,				//SLIDER_MIN
+		100,				//SLIDER_MAX
+		0,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		1,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_NOISE_VALUE
+	);
+	cs.AddCheckBox(	// noise frame
+		STR_NOISE_ISCOlOR,
+		"",
+		FALSE,
+		ID_NOISE_ISCOLOR//,
+		//PF_ParamFlag_SUPERVISE
+	);
+
+	cs.EndTopic(ID_NOISE_TOPIC_END);
+	
+	// ******************************************************
+	cs.AddTopic(STR_RECT_TOPIC, ID_RECT_TOPIC,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	A_long def_p[4][4] = { {25,25}, {75, 25}, {75,75},{25,75} };
+	for (int i = 0; i < 4; i++) {
+		cs.AddPoint(
+			(STR_RECT + std::to_string(i + 1)).c_str(),
+			def_p[i][0],
+			def_p[i][1],
+			FALSE,
+			ID_RECT_POS1 + i,
+			PF_ParamFlag_NONE,
+			PF_PUI_INVISIBLE
+		);
+	}
+	cs.AddColor(	// color
+		STR_RECT_COLOR,
+		{ 0xFF, 0xFF, 0xFF, 0xFF },
+		ID_RECT_COLOR
+	);
+	cs.EndTopic(ID_NOISE_TOPIC_END);
+	// ******************************************************
+	// ******************************************************
+	cs.AddTopic(STR_LINE_TOPIC, ID_LINE_TOPIC,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	A_long def_p2[4][4] = { {25,25}, {50, 25}, {50,75},{75,75} };
+	for (int i = 0; i < 4; i++) {
+		cs.AddPoint(
+			(STR_LINE + std::to_string(i + 1)).c_str(),
+			def_p2[i][0],
+			def_p2[i][1],
+			FALSE,
+			ID_LINE_POS1 + i*2,
+			PF_ParamFlag_NONE,
+			PF_PUI_INVISIBLE
+		);
+		cs.AddFloatSlider(	// R
+			(STR_LINE_W + std::to_string(i + 1)).c_str(),			//Name
+			0,				//VALID_MIN
+			150,			//VALID_MAX
+			0,				//SLIDER_MIN
+			30,				//SLIDER_MAX
+			5,				//DFLT
+			1,				//PREC 小数点以下の桁数
+			0,				//DISP
+			FALSE,			//WANT_PHASE
+			ID_LINE_W1 + i*2,
+			PF_ParamFlag_NONE,
+			PF_PUI_INVISIBLE
+		);
+	}
+	cs.AddColor(	// color
+		STR_LINE_COLOR,
+		{ 0xFF, 0xFF, 0x00, 0xFF },
+		ID_RECT_COLOR
+	);
+	cs.EndTopic(ID_NOISE_TOPIC_END);
+	/*
+	cs.AddAngle(	// angle
+		STR_ANGLE,
+		0,
+		ID_ANGLE,
+		PF_ParamFlag_NONE,
+		PF_PUI_DISABLED
 	);
 	cs.AddSlider(	// noise offset
 		STR_BLUR,		//パラメータの名前
@@ -58,6 +148,17 @@ static PF_Err ParamsSetup (
 		0,				//デフォルトの値
 		ID_BLUR
 	);
+	cs.AddPoint(
+		STR_PAINT_POS,
+		25,
+		25,
+		FALSE,
+		ID_PAINT_POS
+	);
+	
+	// ----------------------------------------------------------------
+
+
 	cs.AddPopup(STR_CHAN_MINMAX_MODE,
 		STR_CHAN_MINMAX_COUNT,
 		STR_CHAN_MINMAX_DFLT,
@@ -74,18 +175,7 @@ static PF_Err ParamsSetup (
 		ID_CHAN_MINMAX_VALUE
 	);
 	// ----------------------------------------------------------------
-	cs.AddFloatSlider(	// R
-		STR_NOISE_SIZE,			//Name
-		0,				//VALID_MIN
-		30,				//VALID_MAX
-		0,				//SLIDER_MIN
-		10,				//SLIDER_MAX
-		4.5,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_NOISE_SIZE
-	);
+	
 	cs.AddFloatSlider(	// R
 		STR_NOISE_AMOUNT,			//Name
 		0,				//VALID_MIN
@@ -236,7 +326,7 @@ static PF_Err ParamsSetup (
 		ID_BUTTON,
 		PF_ParamFlag_SUPERVISE
 	);
-	
+	*/
 	cs.Finalize();
 	return err;
 }
@@ -256,7 +346,8 @@ HandleChangedParam(
 		NF_AE ae;
 		err =ae.HandleChangedParam(in_data,out_data,params,outputP,extraP,ID_NUM_PARAMS);
 		if (!err) {
-			if (extraP->param_index == ID_BUTTON)
+			// ボタンが押されたときの処理
+			/*if (extraP->param_index == ID_BUTTON)
 			{
 				A_char scriptCode[2048] = { '\0' };
 				PF_SPRINTF(scriptCode, FS_ABOUT_DIALOG,
@@ -268,42 +359,53 @@ HandleChangedParam(
 
 				ERR(ae.suitesP->UtilitySuite5()->AEGP_ExecuteScript(ae.ae_plugin_idP->my_id, scriptCode, TRUE, NULL, NULL));
 				out_data->out_flags |= PF_OutFlag_REFRESH_UI;
-			}
-		}
-		/*
+			}*/
 			ERR(ae.GetNewEffectStreamAll());
-			if (!err){
+			if (!err) {
 				A_Boolean hide_themB[ID_NUM_PARAMS];
-				for ( A_long i=1; i<ID_NUM_PARAMS; i++) hide_themB[i] =FALSE;
-				PF_Boolean b;
-				ERR(ae.GetCHECKBOX(ID_HIDDEN_ON,&b));
-				if (b){
-					for ( A_long i=ID_HIDDEN_ON+1; i<ID_NUM_PARAMS; i++)hide_themB[i] =TRUE;
+				//とりあえず全てのパラメータを非表示にする
+				for (A_long i = 1; i < ID_NUM_PARAMS; i++) hide_themB[i] = TRUE;
+				// 常時表示はここでFALSEにする
+				hide_themB[ID_MODE] = FALSE;
+				hide_themB[ID_AUTO_SEED] = FALSE;
+				hide_themB[ID_SEED] = FALSE;
+				A_long mode;
+				ERR(ae.GetPOPUP(ID_MODE, &mode));
+				switch (mode) {
+					case MODE_NOISE:
+						hide_themB[ID_NOISE_TOPIC] = FALSE;
+						hide_themB[ID_NOISE_VALUE] = FALSE;
+						hide_themB[ID_NOISE_ISCOLOR] = FALSE;
+						break;
+					case MODE_RECT:
+						hide_themB[ID_RECT_TOPIC] = FALSE;
+						for (int i = 0; i < 4; i++) hide_themB[ID_RECT_POS1 + i] = FALSE;
+						hide_themB[ID_RECT_COLOR] = FALSE;
+						break;
+					case MODE_LINE:
+						hide_themB[ID_LINE_TOPIC] = FALSE;
+						for (int i = 0; i < 4; i++) {
+							hide_themB[ID_LINE_POS1 + i*2] = FALSE;
+							hide_themB[ID_LINE_W1 + i*2] = FALSE;
+						}
+						hide_themB[ID_LINE_COLOR] = FALSE;
+						break;
+
 				}
-				for ( A_long i=1; i<ID_NUM_PARAMS; i++) 
-					ERR(ae.SetDynamicStreamFlag(i,AEGP_DynStreamFlag_HIDDEN,hide_themB[i]));
-				
-				
-			}
-		*/
-		if((!err)&&(in_data->appl_id != 'PrMr')){
-			//--------------------
-			
-			if (!err){
-				PF_Boolean b=FALSE;
-				ERR(ae.GetCHECKBOX(ID_HIDDEN_ON,&b));
-				ERR(ae.UI_DISABLE(ID_TOPIC, !b));
-				ERR(ae.UI_DISABLE(ID_ANGLE, !b));
-			}
-			//--------------------
-			if (!err){
-				PF_Boolean b = FALSE;
-				ERR(ae.GetCHECKBOX(ID_NOISE_AUTO,&b));
-				ERR(ae.UI_DISABLE(ID_NOISE_SEED, b));
-			}
-			//--------------------
-			if (!err){
-				out_data->out_flags |= PF_OutFlag_FORCE_RERENDER | PF_OutFlag_REFRESH_UI;
+				// パラメータの表示/非表示を切り替える
+				for (A_long i = 1; i < ID_NUM_PARAMS; i++)
+					ERR(ae.SetDynamicStreamFlag(i, AEGP_DynStreamFlag_HIDDEN, hide_themB[i]));
+				if (!err && in_data->appl_id != 'PrMr') {
+					/*
+					PF_Boolean b = FALSE;
+					ERR(ae.GetCHECKBOX(ID_AUTO_SEED, &b));
+					ERR(ae.UI_DISABLE(ID_SEED, !b));
+					*/
+				}
+				if (!err) {
+					out_data->out_flags |= PF_OutFlag_REFRESH_UI;
+				}
+
 			}
 		}
 	}catch ( PF_Err & errP){
@@ -326,11 +428,14 @@ QueryDynamicFlags(
 	NF_AE ae;
 	err = ae.QueryDynamicFlags(in_data,out_data,params,extra,ID_NUM_PARAMS);
 	if (!err){
-		PF_ParamDef def;
-		AEFX_CLR_STRUCT(def);
-		ERR(ae.checkout_param(ID_NOISE_AUTO,&def));
-		ERR(ae.SetOutFlag_NON_PARAM_VARY((PF_Boolean)def.u.bd.value));
-		ERR(ae.checkin_param(&def));
+		//PF_ParamDef def;
+		//AEFX_CLR_STRUCT(def);
+		//ERR(ae.checkout_param(ID_AUTO_SEED,&def));
+		PF_Boolean auto_seedB = FALSE;
+		ae.GetCHECKBOX(ID_AUTO_SEED, &auto_seedB);
+		ERR(ae.SetOutFlag_NON_PARAM_VARY(auto_seedB));
+		//ERR(ae.SetOutFlag_NON_PARAM_VARY((PF_Boolean)def.u.bd.value));
+		//ERR(ae.checkin_param(&def));
 	}
 	return err;
 }
@@ -339,10 +444,28 @@ QueryDynamicFlags(
 static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 {
 	PF_Err		err 		= PF_Err_NONE;
-
-	ERR(ae->GetCHECKBOX(ID_PAINT_CB, &infoP->paint_cb));
+	ERR(ae->GetPOPUP(ID_MODE, &infoP->mode));
+	ERR(ae->GetCHECKBOX(ID_AUTO_SEED, &infoP->auto_seed));
+	ERR(ae->GetADD(ID_SEED, &infoP->seed));
+	ERR(ae->GetFLOAT(ID_NOISE_VALUE, &infoP->noise));
+	infoP->noise /= 100;
+	ERR(ae->GetCHECKBOX(ID_NOISE_ISCOLOR, &infoP->noise_is_color));
+	//*************
+	for(int i=0;i<4;i++)
+		ERR(ae->GetPOINT(ID_RECT_POS1 + i, &infoP->rect_pos[i]));
+	ERR(ae->GetCOLOR(ID_RECT_COLOR, &infoP->rect_color));
+	//*************
+	for (int i = 0; i < 4; i++) 
+	{
+		PF_Point pos;
+		ERR(ae->GetPOINT(ID_LINE_POS1 + i*2, &pos));
+		PF_FpLong w;
+		ERR(ae->GetFLOAT(ID_LINE_W1 + i * 2, &w));
+		infoP->line_pos[i] = {(float)pos.x,(float)pos.y,(float)w};
+	}
+	ERR(ae->GetCOLOR(ID_LINE_COLOR, &infoP->line_color));
+	/*
 	ERR(ae->GetPOINT(ID_PAINT_POS, &infoP->paint_pos));
-	ERR(ae->GetCOLOR(ID_PAINT_COLOR, &infoP->paint_color));
 
 	ERR(ae->GetADD(ID_MINMAX, &infoP->minmax));
 	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
@@ -370,8 +493,15 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetCHECKBOX(ID_DEBUG_FONT_CB, &infoP->debug_font_cb));
 	ERR(ae->GetPOINT(ID_DEBUG_FONT_POS, &infoP->debug_font_pos));
 	ERR(ae->GetCOLOR(ID_DEBUG_FONT_COLOR, &infoP->debug_font_color));
-
+	*/
 	return err;
+}
+//-------------------------------------------------------------------------------------------------
+static inline PF_Point ofP(PF_Point p, A_long x, A_long y)
+{
+	p.x += x;
+	p.y += y;
+	return p;
 }
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
@@ -382,6 +512,74 @@ static PF_Err
 	//画面をコピー
 	ERR(ae->CopyInToOut());
 
+	if (infoP->auto_seed == TRUE) {
+		infoP->seed = infoP->seed + ae->frame()*10;
+	}
+	std::vector<std::vector<float>> buf;
+	if (infoP->mode == MODE_RECT) {
+		buf.resize(ae->outputInfo.height,std::vector<float>(ae->outputInfo.width,0));
+	}
+	// ox,oyはオフセット。AEの描画関数は、レイヤーの原点を(0,0)とする座標系で描画するため、原点がずれている場合はオフセットを加える必要がある。
+	A_long ox = -ae->output->origin_x;
+	A_long oy = -ae->output->origin_y;
+
+	switch (infoP->mode)
+	{
+	case MODE_NOISE:
+	{
+		ERR(NoiseExec(
+			ae->in_data,
+			ae->input,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			infoP->noise,
+			infoP->noise_is_color,
+			infoP->seed
+		));
+		break;
+	}
+	case MODE_RECT:
+	{
+		std::vector<std::vector<float>> buf(
+			ae->outputInfo.height, std::vector<float>(ae->outputInfo.width, 0));
+		draw_a_rect(
+			buf,
+			ofP(infoP->rect_pos[0], ox, oy), ofP(infoP->rect_pos[1], ox, oy), ofP(infoP->rect_pos[2], ox, oy), ofP(infoP->rect_pos[3], ox, oy),
+			1.0f
+		);
+		ERR(DrawColorMask(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			&buf,
+			infoP->rect_color
+		));
+
+		break;
+	}
+	case MODE_LINE:
+	{
+		std::vector<std::vector<float>> buf(
+			ae->outputInfo.height, std::vector<float>(ae->outputInfo.width, 0));
+		draw_polyline(
+			buf,
+			offsetLinePrm(4,infoP->line_pos, ox, oy),
+			1.0f
+		);
+		ERR(DrawColorMask(
+			ae->in_data,
+			ae->output,
+			ae->pixelFormat(),
+			ae->suitesP,
+			&buf,
+			infoP->line_color
+		));
+		break;
+	}
+	}
+	/*
 	//Paintサンプル
 	if (infoP->paint_cb == TRUE) {
 		Paint(
@@ -594,6 +792,7 @@ static PF_Err
 			infoP->debug_font_color
 		);
 	}
+	*/
 	return err;
 }
 

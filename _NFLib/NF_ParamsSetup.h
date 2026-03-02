@@ -418,6 +418,26 @@ public:
 		if (!err) param_count++;
 		return err;
 	}
+	PF_Err AddPath(
+		const char* name,
+		A_long default_value,
+		A_long id,
+		PF_ParamFlags flags = PF_ParamFlag_NONE,
+		PF_ParamUIFlags ui_flags = PF_PUI_NONE
+	)
+	{
+		PF_Err			err = PF_Err_NONE;
+		ClearDef();
+		def.param_type = PF_Param_PATH;
+		def.uu.id = id;
+		PF_STRNNCPY(def.PF_DEF_NAME, name, sizeof(def.PF_DEF_NAME));
+		def.u.path_d.dephault = 0;
+		def.flags = flags;
+		def.ui_flags = ui_flags;
+		err = in_data->inter.add_param(in_data->effect_ref, -1, &def);
+		if (!err) param_count++;
+		return err;
+	}
 };
 
 #endif // CPARAMSSETUP_H

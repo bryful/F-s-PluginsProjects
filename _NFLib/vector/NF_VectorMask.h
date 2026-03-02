@@ -35,5 +35,13 @@ PF_Err DrawMask(
 	AEGP_SuiteHandler* suitesP,
 	std::vector<std::vector<float>>* mask
 );
+PF_Err DrawColorMask(
+	PF_InData* in_dataP,
+	PF_EffectWorld* output,
+	PF_PixelFormat pixelFormat,
+	AEGP_SuiteHandler* suitesP,
+	std::vector<std::vector<float>>* mask,
+	PF_Pixel target_color
+);
 
 #endif // DEBUG_FONT_H

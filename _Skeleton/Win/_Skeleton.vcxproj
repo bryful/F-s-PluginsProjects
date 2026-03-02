@@ -322,28 +322,29 @@
   <ItemGroup>
     <ClInclude Include="..\..\NFsLibrary\resource.h" />
     <ClInclude Include="..\..\_NFLib\AE_SDK.h" />
+    <ClInclude Include="..\..\_NFLib\dialog_jsx.h" />
     <ClInclude Include="..\..\_NFLib\fx\debug_font.h" />
     <ClInclude Include="..\..\_NFLib\fx\debug_font_1424.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Bilateral.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_ChannelBlur.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_ChannelMinMax.h" />
-    <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Draw.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_DrawAALine.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_DrawWorld.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Gradient.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Hyperbolic.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_LogicGray.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_MinMax.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Mosaic.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Noise.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Paint.h" />
-    <ClInclude Include="..\..\_NFLib\json.hpp" />
-    <ClInclude Include="..\..\_NFLib\NF_AE.h" />
-    <ClInclude Include="..\..\_NFLib\NF_CATEGORY.h" />
-    <ClInclude Include="..\..\_NFLib\NF_Json.h" />
-    <ClInclude Include="..\..\_NFLib\NF_ParamsSetup.h" />
-    <ClInclude Include="..\..\_NFLib\NF_Settings.h" />
-    <ClInclude Include="..\..\_NFLib\NF_Utils.h" />
-    <ClInclude Include="..\..\_NFLib\NF_Version.h" />
-    <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_SpatUtils.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_Spat_Data.h" />
+    <ClInclude Include="..\..\_NFLib\fx\NF_UnMult.h" />
     <ClInclude Include="..\..\..\Headers\A.h" />
     <ClInclude Include="..\..\..\Headers\AE_Effect.h" />
     <ClInclude Include="..\..\..\Headers\AE_EffectCB.h" />
@@ -368,11 +369,22 @@
     <ClInclude Include="..\..\..\Util\Param_Utils.h" />
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
+    <ClInclude Include="..\..\_NFLib\json.hpp" />
+    <ClInclude Include="..\..\_NFLib\NF_AE.h" />
+    <ClInclude Include="..\..\_NFLib\NF_CATEGORY.h" />
+    <ClInclude Include="..\..\_NFLib\NF_Json.h" />
+    <ClInclude Include="..\..\_NFLib\NF_ParamsSetup.h" />
+    <ClInclude Include="..\..\_NFLib\NF_Settings.h" />
+    <ClInclude Include="..\..\_NFLib\NF_Utils.h" />
+    <ClInclude Include="..\..\_NFLib\NF_Version.h" />
+    <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h" />
+    <ClInclude Include="..\..\_NFLib\vector\NF_VectorLine.h" />
+    <ClInclude Include="..\..\_NFLib\vector\NF_VectorMask.h" />
     <ClInclude Include="..\NF_Target.h" />
     <ClInclude Include="..\_Skeleton.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
-    <ClInclude Include="..\_SkeletonFilter.h" />
+    <ClInclude Include="..\noiseFilter.h" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
     <CustomBuildStep Include="..\..\..\Util\PF_Suite_Helper.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -422,19 +434,30 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
     <ClCompile Include="..\..\..\Util\MissingSuiteError.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_AlphaHyperbolic.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Bilateral.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blend.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_ChannelBlur.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_ChannelMinMax.cpp" />
-    <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Draw.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_DrawAALine.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_DrawWorld.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Gradient.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Hyperbolic.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_LogicGray.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_MinMax.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Mosaic.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Noise.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\NF_Paint.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_SpatUtils.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_Spat_Data.cpp" />
+    <ClCompile Include="..\..\_NFLib\fx\NF_UnMult.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Settings.cpp" />
     <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c" />
+    <ClCompile Include="..\..\_NFLib\vector\NF_VectorLine.cpp" />
+    <ClCompile Include="..\..\_NFLib\vector\NF_VectorMask.cpp" />
     <ClCompile Include="..\_Skeleton.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -451,10 +474,11 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
     </ClCompile>
-    <ClCompile Include="..\_SkeletonFilter.cpp" />
+    <ClCompile Include="..\noiseFilter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\_NFLib\dialog.jsx" />
+    <None Include="..\..\_NFLib\fx\NF_DrawAALineScolor.zip" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
