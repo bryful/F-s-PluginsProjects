@@ -27,6 +27,7 @@
 typedef struct {
 	PF_Boolean		initializedB;
 	AEGP_PluginID	my_id;
+	PF_Boolean		is_final;
 } ae_global_data, *ae_global_dataP, **ae_global_dataH;
 
 
@@ -390,6 +391,38 @@ public:
 		m_resultErr = err;
 		return err;
 	}
+	//--------------------------------
+	PF_Err FrameSetup(
+		PF_InData* in_dataP,
+		PF_OutData* out_dataP,
+		PF_ParamDef* paramsP[],
+		PF_LayerDef* outputP,
+		A_long					paramsCount
+	)
+	{
+
+		Init();
+		PF_Err	err = PF_Err_NONE;
+		m_cmd = PF_Cmd_FRAME_SETUP;
+		if ((in_dataP == NULL) || (out_dataP == NULL) || (paramsP == NULL)) {
+			m_resultErr = FsAE_ERR;
+			return m_resultErr;
+		}
+		NF_AE::in_data = in_dataP;
+		NF_AE::out_data = out_dataP;
+		NF_AE::output = outputP;
+		m_paramsCount = paramsCount;
+		if (paramsP != NULL) {
+			NF_AE::input = &paramsP[0]->u.ld;
+			for (A_long i = 0; i < paramsCount; i++) NF_AE::params[i] = paramsP[i];
+		}
+
+		ERR(GetSuites(in_dataP, out_dataP));
+		ERR(GetPixelFormat());
+		
+		m_resultErr = err;
+		return err;
+	}
 	//*********************************************************************************
 	//*********************************************************************************
 	//その他の処理
@@ -466,6 +499,17 @@ public:
 			ae_plugin_idP = reinterpret_cast<ae_global_dataP>(suitesP->HandleSuite1()->host_lock_handle(ae_plugin_idH));
 			if (ae_plugin_idP) {
 				ae_plugin_idP->initializedB 	= TRUE;
+				ae_plugin_idP->is_final = FALSE;
+				AEGP_RenderQueueState state = AEGP_RenderQueueState_STOPPED;
+
+				// AEGP Suiteを使用してレンダーキューの状態を取得
+				// ※実際には事前にSuiteをロードしておく必要があります
+				PF_Err err = suitesP->RenderQueueSuite1()->AEGP_GetRenderQueueState(&state);
+
+				if (!err && state == AEGP_RenderQueueState_RENDERING) {
+					ae_plugin_idP->is_final = TRUE; // 本番レンダリング中
+				}
+
 
 				if (in_data->appl_id != 'PrMr') {
 					ERR(suitesP->UtilitySuite3()->AEGP_RegisterWithAEGP(NULL, NF_NAME, &ae_plugin_idP->my_id));
@@ -1595,8 +1639,8 @@ public:
 	PF_FpLong			fps() { return m_fps; }
 	A_long				mode(){ return m_cmd; }
 	PF_Err				resultErr() { return m_resultErr;}
+	//PF_Boolean			isFinalRender() { return !(in_data->in_flags & PF_InFlag_INTERACTIVE_SESSION); }
 	//*********************************************************************************
-	
 	
 	//*********************************************************************************
 	

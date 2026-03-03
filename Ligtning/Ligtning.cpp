@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------------
 
 
-#include "_Skeleton.h"
+#include "Ligtning.h"
 
 //-------------------------------------------------------------------------------------------------
 //AfterEffextsにパラメータを通達する
@@ -44,93 +44,81 @@ static PF_Err ParamsSetup(
 		ID_SEED
 	);
 	// ******************************************************
-	cs.AddTopic(STR_NOISE_TOPIC, ID_NOISE_TOPIC//,
+	cs.AddPoint(
+		STR_START_POS,
+		25,
+		25,
+		FALSE,
+		ID_START_POS
+		);
+	cs.AddPoint(
+		STR_END_POS,
+		75,
+		75,
+		FALSE,
+		ID_END_POS
+	);
+	// ******************************************************
+	cs.AddTopic(STR_PARAMS_TOPIC, ID_PARAMS_TOPIC//,
 		//PF_ParamFlag_START_COLLAPSED,
 		//PF_PUI_DISABLED
 	);
 	cs.AddFloatSlider(	// R
-		STR_NOISE_VALUE,			//Name
+		STR_WEIGHT,			//Name
 		0,				//VALID_MIN
-		300,				//VALID_MAX
+		300,			//VALID_MAX
 		0,				//SLIDER_MIN
-		100,				//SLIDER_MAX
-		0,				//DFLT
+		50,				//SLIDER_MAX
+		10,				//DFLT
 		1,				//PREC 小数点以下の桁数
-		1,				//DISP 1で％表示
+		0,				//DISP 1で％表示
 		FALSE,			//WANT_PHASE
-		ID_NOISE_VALUE
+		ID_WEIGHT
 	);
-	cs.AddCheckBox(	// noise frame
-		STR_NOISE_ISCOlOR,
-		"",
-		FALSE,
-		ID_NOISE_ISCOLOR//,
-		//PF_ParamFlag_SUPERVISE
+	cs.AddSlider(	// noise offset
+		STR_COMPLEXTTY,		//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		50,				//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		10,				//スライダーの最大値
+		2,				//デフォルトの値
+		ID_COMPLEXTTY
 	);
+	cs.AddFloatSlider(	// R
+		STR_JAGGEDNESS,			//Name
+		0,				//VALID_MIN
+		2000,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,			//SLIDER_MAX
+		50,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_JAGGEDNESS
+	);
+	cs.AddAngle(
+		STR_COMPL_ANGLE,			//Name
+		0,
+		ID_COMPL_ANGLE
+	);
+	cs.AddSlider(	// noise offset
+		STR_FORK,		//パラメータの名前
+		1, 				//数値入力する場合の最小値
+		10,				//数値入力する場合の最大値
+		1,				//スライダーの最小値 
+		3,				//スライダーの最大値
+		1,				//デフォルトの値
+		ID_FORK
+	);
+	cs.AddColor(	// color
+		STR_COLOR,
+		{ 0xFF, 0xFF, 0xFF, 0x80 },
+		ID_COLOR
+	);
+	cs.EndTopic(ID_PARAMS_TOPIC_END);
+	// ******************************************************
 
-	cs.EndTopic(ID_NOISE_TOPIC_END);
 	
-	// ******************************************************
-	cs.AddTopic(STR_RECT_TOPIC, ID_RECT_TOPIC,
-		PF_ParamFlag_NONE,
-		PF_PUI_INVISIBLE
-	);
-	A_long def_p[4][4] = { {25,25}, {75, 25}, {75,75},{25,75} };
-	for (int i = 0; i < 4; i++) {
-		cs.AddPoint(
-			(STR_RECT + std::to_string(i + 1)).c_str(),
-			def_p[i][0],
-			def_p[i][1],
-			FALSE,
-			ID_RECT_POS1 + i,
-			PF_ParamFlag_NONE,
-			PF_PUI_INVISIBLE
-		);
-	}
-	cs.AddColor(	// color
-		STR_RECT_COLOR,
-		{ 0xFF, 0xFF, 0xFF, 0xFF },
-		ID_RECT_COLOR
-	);
-	cs.EndTopic(ID_NOISE_TOPIC_END);
-	// ******************************************************
-	// ******************************************************
-	cs.AddTopic(STR_LINE_TOPIC, ID_LINE_TOPIC,
-		PF_ParamFlag_NONE,
-		PF_PUI_INVISIBLE
-	);
-	A_long def_p2[4][4] = { {25,25}, {50, 25}, {50,75},{75,75} };
-	for (int i = 0; i < 4; i++) {
-		cs.AddPoint(
-			(STR_LINE + std::to_string(i + 1)).c_str(),
-			def_p2[i][0],
-			def_p2[i][1],
-			FALSE,
-			ID_LINE_POS1 + i*2,
-			PF_ParamFlag_NONE,
-			PF_PUI_INVISIBLE
-		);
-		cs.AddFloatSlider(	// R
-			(STR_LINE_W + std::to_string(i + 1)).c_str(),			//Name
-			0,				//VALID_MIN
-			150,			//VALID_MAX
-			0,				//SLIDER_MIN
-			30,				//SLIDER_MAX
-			5,				//DFLT
-			1,				//PREC 小数点以下の桁数
-			0,				//DISP
-			FALSE,			//WANT_PHASE
-			ID_LINE_W1 + i*2,
-			PF_ParamFlag_NONE,
-			PF_PUI_INVISIBLE
-		);
-	}
-	cs.AddColor(	// color
-		STR_LINE_COLOR,
-		{ 0xFF, 0xFF, 0x00, 0xFF },
-		ID_RECT_COLOR
-	);
-	cs.EndTopic(ID_NOISE_TOPIC_END);
 	/*
 	cs.AddAngle(	// angle
 		STR_ANGLE,
@@ -139,15 +127,7 @@ static PF_Err ParamsSetup(
 		PF_ParamFlag_NONE,
 		PF_PUI_DISABLED
 	);
-	cs.AddSlider(	// noise offset
-		STR_BLUR,		//パラメータの名前
-		0, 				//数値入力する場合の最小値
-		1000,			//数値入力する場合の最大値
-		0,				//スライダーの最小値 
-		100,			//スライダーの最大値
-		0,				//デフォルトの値
-		ID_BLUR
-	);
+	
 	cs.AddPoint(
 		STR_PAINT_POS,
 		25,
@@ -369,28 +349,15 @@ HandleChangedParam(
 				hide_themB[ID_MODE] = FALSE;
 				hide_themB[ID_AUTO_SEED] = FALSE;
 				hide_themB[ID_SEED] = FALSE;
+				for (A_long i = ID_PARAMS_TOPIC; i <= ID_PARAMS_TOPIC_END; i++) hide_themB[i] = FALSE;
+
 				A_long mode;
 				ERR(ae.GetPOPUP(ID_MODE, &mode));
 				switch (mode) {
-					case MODE_NOISE:
-						hide_themB[ID_NOISE_TOPIC] = FALSE;
-						hide_themB[ID_NOISE_VALUE] = FALSE;
-						hide_themB[ID_NOISE_ISCOLOR] = FALSE;
+					case MODE_2POINT:
+						hide_themB[ID_START_POS] = FALSE;
+						hide_themB[ID_END_POS] = FALSE;
 						break;
-					case MODE_RECT:
-						hide_themB[ID_RECT_TOPIC] = FALSE;
-						for (int i = 0; i < 4; i++) hide_themB[ID_RECT_POS1 + i] = FALSE;
-						hide_themB[ID_RECT_COLOR] = FALSE;
-						break;
-					case MODE_LINE:
-						hide_themB[ID_LINE_TOPIC] = FALSE;
-						for (int i = 0; i < 4; i++) {
-							hide_themB[ID_LINE_POS1 + i*2] = FALSE;
-							hide_themB[ID_LINE_W1 + i*2] = FALSE;
-						}
-						hide_themB[ID_LINE_COLOR] = FALSE;
-						break;
-
 				}
 				// パラメータの表示/非表示を切り替える
 				for (A_long i = 1; i < ID_NUM_PARAMS; i++)
@@ -447,53 +414,21 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetPOPUP(ID_MODE, &infoP->mode));
 	ERR(ae->GetCHECKBOX(ID_AUTO_SEED, &infoP->auto_seed));
 	ERR(ae->GetADD(ID_SEED, &infoP->seed));
-	ERR(ae->GetFLOAT(ID_NOISE_VALUE, &infoP->noise));
-	infoP->noise /= 100;
-	ERR(ae->GetCHECKBOX(ID_NOISE_ISCOLOR, &infoP->noise_is_color));
-	//*************
-	for(int i=0;i<4;i++)
-		ERR(ae->GetPOINT(ID_RECT_POS1 + i, &infoP->rect_pos[i]));
-	ERR(ae->GetCOLOR(ID_RECT_COLOR, &infoP->rect_color));
-	//*************
-	for (int i = 0; i < 4; i++) 
-	{
-		PF_Point pos;
-		ERR(ae->GetPOINT(ID_LINE_POS1 + i*2, &pos));
-		PF_FpLong w;
-		ERR(ae->GetFLOAT(ID_LINE_W1 + i * 2, &w));
-		infoP->line_pos[i] = {(float)pos.x,(float)pos.y,(float)w};
-	}
-	ERR(ae->GetCOLOR(ID_LINE_COLOR, &infoP->line_color));
-	/*
-	ERR(ae->GetPOINT(ID_PAINT_POS, &infoP->paint_pos));
+	infoP->seedAct = infoP->seed;
 
-	ERR(ae->GetADD(ID_MINMAX, &infoP->minmax));
-	ERR(ae->GetADD(ID_BLUR, &infoP->blur));
-	ERR(ae->GetPOPUP(ID_CHAN_MINMAX_MODE, &infoP->chan_minmax_mode));
-	infoP->chan_minmax_mode -= 1;
-	ERR(ae->GetADD(ID_CHAN_MINMAX_VALUE, &infoP->chan_minmax_value));
+	ERR(ae->GetPOINT(ID_START_POS, &infoP->posTwin[0]));
+	ERR(ae->GetPOINT(ID_END_POS, &infoP->posTwin[1]));
 
-	ERR(ae->GetFLOAT(ID_NOISE_SIZE,&infoP->noise_size));
-	ERR(ae->GetFLOAT(ID_NOISE_AMOUNT,&infoP->noise_amount));
-	ERR(ae->GetFLOAT(ID_NOISE_ACCENT_AMOUNT, &infoP->noise_accent_amount));
-	ERR(ae->GetCHECKBOX(ID_NOISE_ISCOLOR, &infoP->noise_is_color));
-	ERR(ae->GetCHECKBOX(ID_NOISE_AUTO, &infoP->noise_auto));
-	ERR(ae->GetADD(ID_NOISE_SEED, &infoP->noise_seed));
+	ERR(ae->GetFLOAT(ID_WEIGHT, &infoP->weight));
+	ERR(ae->GetADD(ID_COMPLEXTTY, &infoP->complexity));
+	ERR(ae->GetFLOAT(ID_JAGGEDNESS, &infoP->jaggedness));
+	PF_Fixed angle;
+	ERR(ae->GetANGLE(ID_COMPL_ANGLE, &angle));
+	infoP->comple_angle = angle / 65536.0;
+	ERR(ae->GetADD(ID_FORK, &infoP->fork));
+	ERR(ae->GetCOLOR(ID_COLOR, &infoP->color));
 
-	ERR(ae->GetPOPUP(ID_DROW_POP, &infoP->draw));
-	ERR(ae->GetPOINT(ID_START_POS, &infoP->draw_start));
-	ERR(ae->GetPOINT(ID_END_POS, &infoP->draw_end));
-	ERR(ae->GetCOLOR(ID_DRAW_COLOR, &infoP->draw_color));
-	ERR(ae->GetFLOAT(ID_DRAW_START_OPA, &infoP->draw_start_opa));
-	infoP->draw_start_opa /= 100;
-	ERR(ae->GetFLOAT(ID_DRAW_END_OPA, &infoP->draw_end_opa));
-	infoP->draw_end_opa /= 100;
-
-
-	ERR(ae->GetCHECKBOX(ID_DEBUG_FONT_CB, &infoP->debug_font_cb));
-	ERR(ae->GetPOINT(ID_DEBUG_FONT_POS, &infoP->debug_font_pos));
-	ERR(ae->GetCOLOR(ID_DEBUG_FONT_COLOR, &infoP->debug_font_color));
-	*/
+	
 	return err;
 }
 //-------------------------------------------------------------------------------------------------
@@ -508,294 +443,16 @@ static PF_Err
 	Exec (NF_AE*ae , ParamInfo *infoP)
 {
 	PF_Err	err = PF_Err_NONE;
+	PF_InData* in_data = ae->in_data;
+	ERR(PF_FILL(NULL, NULL, ae->output));
 
-	//画面をコピー
-	ERR(ae->CopyInToOut());
+	if (infoP->weight <= 0) return err;
 
-	if (infoP->auto_seed == TRUE) {
-		infoP->seed = infoP->seed + ae->frame()*10;
-	}
-	std::vector<std::vector<float>> buf;
-	if (infoP->mode == MODE_RECT) {
-		buf.resize(ae->outputInfo.height,std::vector<float>(ae->outputInfo.width,0));
-	}
-	// ox,oyはオフセット。AEの描画関数は、レイヤーの原点を(0,0)とする座標系で描画するため、原点がずれている場合はオフセットを加える必要がある。
-	A_long ox = -ae->output->origin_x;
-	A_long oy = -ae->output->origin_y;
-
-	switch (infoP->mode)
-	{
-	case MODE_NOISE:
-	{
-		ERR(NoiseExec(
-			ae->in_data,
-			ae->input,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			infoP->noise,
-			infoP->noise_is_color,
-			infoP->seed
-		));
-		break;
-	}
-	case MODE_RECT:
-	{
-		std::vector<std::vector<float>> buf(
-			ae->outputInfo.height, std::vector<float>(ae->outputInfo.width, 0));
-		draw_a_rect(
-			buf,
-			ofP(infoP->rect_pos[0], ox, oy), ofP(infoP->rect_pos[1], ox, oy), ofP(infoP->rect_pos[2], ox, oy), ofP(infoP->rect_pos[3], ox, oy),
-			1.0f
-		);
-		ERR(DrawColorMask(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			&buf,
-			infoP->rect_color
-		));
-
-		break;
-	}
-	case MODE_LINE:
-	{
-		std::vector<std::vector<float>> buf(
-			ae->outputInfo.height, std::vector<float>(ae->outputInfo.width, 0));
-		draw_polyline(
-			buf,
-			offsetLinePrm(4,infoP->line_pos, ox, oy),
-			1.0f
-		);
-		ERR(DrawColorMask(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			&buf,
-			infoP->line_color
-		));
-		break;
-	}
-	}
+	ERR(LigtningDraw(ae, infoP));
 
 #ifdef _DEBUG
 #endif
-	/*
-	//Paintサンプル
-	if (infoP->paint_cb == TRUE) {
-		Paint(
-			ae->output,
-			ae->pixelFormat(),
-			infoP->paint_pos.x,
-			infoP->paint_pos.y,
-			infoP->paint_color
-		);
-
-	}
-
-	// MinMax/Blurサンプル
-	if ((infoP->minmax != 0) || (infoP->blur > 0))
-	{
-		Mult(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			FALSE
-		);
-	}
-	if (infoP->minmax != 0) {
-		ERR(MinMax(
-			ae->in_data, 
-			ae->output, 
-			ae->pixelFormat(), 
-			ae->suitesP, 
-			infoP->minmax));
-	}
-	if (infoP->blur > 0) {
-		ERR(Blur(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			infoP->blur));
-	}
-	if ((infoP->minmax != 0) || (infoP->blur > 0))
-	{
-		Mult(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			TRUE
-		);
-	}
-	if(infoP->chan_minmax_value !=0)
-	{
-		ERR(ChannelMinMax(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			infoP->chan_minmax_value,
-			infoP->chan_minmax_mode
-			));
-	}
-	// Noiseサンプル
-	if ((infoP->noise_size > 0) && (infoP->noise_amount > 0))
-	{
-		A_long seed;
-		if (infoP->noise_auto == TRUE) {
-			seed = infoP->noise_seed + ae->frame();
-		}
-		else {
-			seed = infoP->noise_seed;
-		}
-		NoiseAndBlock(
-			ae->in_data,
-			ae->output,
-			ae->pixelFormat(),
-			ae->suitesP,
-			(PF_FpShort)infoP->noise_size,
-			(PF_FpShort)infoP->noise_amount,
-			(PF_FpShort)infoP->noise_accent_amount,
-			seed,
-			(A_Boolean)infoP->noise_is_color
-		);
-	}
-	if(infoP->draw>1)
-	{
-		A_long radius = 0;
-		if ((infoP->draw == 5) || (infoP->draw == 6))
-		{
-			PF_FpLong dx = static_cast<PF_FpLong>(infoP->draw_end.x - infoP->draw_start.x);
-			PF_FpLong dy = static_cast<PF_FpLong>(infoP->draw_end.y - infoP->draw_start.y);
-			radius = (A_long)(sqrt(dx * dx + dy * dy) +0.5);
-		}
-
-		switch (infoP->draw)
-		{
-		case 2:
-			//直線
-			ERR(DrawLine(
-				ae->output,
-				ae->pixelFormat(),
-				infoP->draw_start.x,
-				infoP->draw_start.y,
-				infoP->draw_end.x,
-				infoP->draw_end.y,
-				infoP->draw_color));
-			ERR(DrawLine(
-				ae->output,
-				ae->pixelFormat(),
-				infoP->draw_start.x+1,
-				infoP->draw_start.y,
-				infoP->draw_end.x+1,
-				infoP->draw_end.y,
-				infoP->draw_color));
-			ERR(DrawLine(
-				ae->output,
-				ae->pixelFormat(),
-				infoP->draw_start.x,
-				infoP->draw_start.y+1,
-				infoP->draw_end.x,
-				infoP->draw_end.y+1,
-				infoP->draw_color));
-			break;
-			case 3:
-				//矩形
-				ERR(DrawBox(
-					ae->output,
-					ae->pixelFormat(),
-					infoP->draw_start.x,
-					infoP->draw_start.y,
-					infoP->draw_end.x,
-					infoP->draw_end.y,
-					infoP->draw_color));
-				ERR(DrawBox(
-					ae->output,
-					ae->pixelFormat(),
-					infoP->draw_start.x+1,
-					infoP->draw_start.y+1,
-					infoP->draw_end.x-1,
-					infoP->draw_end.y-1,
-					infoP->draw_color));
-				ERR(DrawBox(
-					ae->output,
-					ae->pixelFormat(),
-					infoP->draw_start.x + 2,
-					infoP->draw_start.y + 2,
-					infoP->draw_end.x - 2,
-					infoP->draw_end.y - 2,
-					infoP->draw_color));
-				break;
-			case 4:
-				//楕円
-				ERR(DrawBoxFill(
-					ae->output,
-					ae->pixelFormat(),
-					infoP->draw_start.x,
-					infoP->draw_start.y,
-					infoP->draw_end.x,
-					infoP->draw_end.y,
-					infoP->draw_color));
-				break;
-			case 5:
-				//円
-				ERR(DrawCircle(
-					ae->output,
-					ae->pixelFormat(),
-					infoP->draw_start,
-					radius,
-					infoP->draw_color));
-				//円
-				break;
-			case 6:
-				//円
-				ERR(DrawCircleFill(
-					ae->output,
-					ae->pixelFormat(),
-					infoP->draw_start,
-					radius,
-					infoP->draw_color));
-				break;
-			case 7:
-				//アンチエイリアス
-				ERR(DrawAA_Line(
-					ae->in_data, 
-					ae->output,
-					ae->pixelFormat(),
-					ae->suitesP,
-					(float)infoP->draw_start.x,
-					(float)infoP->draw_start.y,
-					(float)infoP->draw_end.x,
-					(float)infoP->draw_end.y,
-					infoP->draw_color,
-					(float)infoP->draw_start_opa,
-					(float)infoP->draw_end_opa,
-					5,
-					2
-					));
-				break;
-		};
-	}
-
-	if (infoP->debug_font_cb == TRUE) {
-		char buf[256];
-		PF_InData* in_data = ae->in_data;
-		PF_SPRINTF(buf, "Debug Point X:%d Y:%d", infoP->debug_font_pos.x, infoP->debug_font_pos.y);
-		DrawDebugString(
-			ae->output,
-			ae->pixelFormat(),
-			infoP->debug_font_pos.x,
-			infoP->debug_font_pos.y,
-			buf,
-			infoP->debug_font_color
-		);
-	}
-	*/
+	
 	return err;
 }
 
