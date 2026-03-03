@@ -70,6 +70,9 @@ enum {
 	ID_END_POS,
 	// -----
 	ID_PARAMS_TOPIC,
+	ID_WIPE,			// wipe
+	ID_START_WEIGHT,	// 線の太さの開始値
+	ID_END_WEIGHT,		// 線の太さの終了値
 	ID_WEIGHT,		// 線の太さ
 	ID_COMPLEXTTY,	// 分割数
 	ID_JAGGEDNESS,	// 分割ピクセルの距離
@@ -97,6 +100,9 @@ enum {
 
 //-------
 #define	STR_PARAMS_TOPIC	"params"
+#define	STR_WIPE			"wipe"
+#define	STR_START_WEIGHT	"startWeight"
+#define	STR_END_WEIGHT		"endWeight"
 #define	STR_WEIGHT			"weight"
 #define	STR_COMPLEXTTY		"complexity"
 #define	STR_JAGGEDNESS		"jaggedness"
@@ -112,6 +118,9 @@ typedef struct ParamInfo {
 	A_long		seed;
 	A_long		seedAct;
 
+	PF_FpLong	wipe;
+	PF_FpLong	startWeight;
+	PF_FpLong	endWeight;
 	PF_FpLong	weight;
 	A_long		complexity;
 	PF_FpLong	jaggedness;

@@ -1387,7 +1387,7 @@ public:
 		return err;
 	}
 	//*********************************************************************************
-	PF_Err GetPathFromUI(A_long idx, std::vector< PF_PathVertex> *paths)
+	PF_Err GetPathFromUI(A_long idx, std::vector< PF_PathVertex> *paths,PF_Boolean *isOpen =NULL)
 	{
 		PF_Err err = PF_Err_NONE;
 		PF_PathQuerySuite1* pqS = NULL;
@@ -1437,6 +1437,9 @@ public:
 					err = pdS->PF_PathIsOpen(in_data->effect_ref, path_outlineP, &is_opened);
 					if (is_opened) {
 						num_segmentsL += 1;
+					}
+					if (isOpen) {
+						*isOpen = is_opened;
 					}
 
 					for (A_long i = 0; i < num_segmentsL; i++) {

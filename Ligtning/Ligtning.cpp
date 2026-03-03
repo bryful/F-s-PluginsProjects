@@ -63,8 +63,44 @@ static PF_Err ParamsSetup(
 		//PF_ParamFlag_START_COLLAPSED,
 		//PF_PUI_DISABLED
 	);
-	cs.AddFloatSlider(	// R
-		STR_WEIGHT,			//Name
+	cs.AddFloatSlider(
+		STR_WIPE,		//Name
+		0,				//VALID_MIN
+		200,			//VALID_MAX
+		0,				//SLIDER_MIN
+		200,			//SLIDER_MAX
+		100,			//DFLT
+		1,				//PREC 小数点以下の桁数
+		1,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_WIPE
+	);
+	cs.AddFloatSlider(
+		STR_START_WEIGHT,//Name
+		0,				//VALID_MIN
+		200,			//VALID_MAX
+		0,				//SLIDER_MIN
+		20,				//SLIDER_MAX
+		3,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_START_WEIGHT
+	);
+	cs.AddFloatSlider(
+		STR_END_WEIGHT,	//Name
+		0,				//VALID_MIN
+		200,			//VALID_MAX
+		0,				//SLIDER_MIN
+		20,				//SLIDER_MAX
+		3,				//DFLT
+		1,				//PREC 小数点以下の桁数
+		0,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_END_WEIGHT
+	);
+	cs.AddFloatSlider(
+		STR_WEIGHT,		//Name
 		0,				//VALID_MIN
 		300,			//VALID_MAX
 		0,				//SLIDER_MIN
@@ -81,16 +117,16 @@ static PF_Err ParamsSetup(
 		50,				//数値入力する場合の最大値
 		0,				//スライダーの最小値 
 		10,				//スライダーの最大値
-		2,				//デフォルトの値
+		3,				//デフォルトの値
 		ID_COMPLEXTTY
 	);
 	cs.AddFloatSlider(	// R
 		STR_JAGGEDNESS,			//Name
 		0,				//VALID_MIN
-		2000,			//VALID_MAX
+		200,			//VALID_MAX
 		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		50,				//DFLT
+		20,				//SLIDER_MAX
+		7,				//DFLT
 		1,				//PREC 小数点以下の桁数
 		0,				//DISP 1で％表示
 		FALSE,			//WANT_PHASE
@@ -419,10 +455,15 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetPOINT(ID_START_POS, &infoP->posTwin[0]));
 	ERR(ae->GetPOINT(ID_END_POS, &infoP->posTwin[1]));
 
+	ERR(ae->GetFLOAT(ID_WIPE, &infoP->wipe));
+	infoP->wipe /= 100.0;
+	ERR(ae->GetFLOAT(ID_START_WEIGHT, &infoP->startWeight));
+	ERR(ae->GetFLOAT(ID_END_WEIGHT, &infoP->endWeight));
 	ERR(ae->GetFLOAT(ID_WEIGHT, &infoP->weight));
 	ERR(ae->GetADD(ID_COMPLEXTTY, &infoP->complexity));
 	ERR(ae->GetFLOAT(ID_JAGGEDNESS, &infoP->jaggedness));
-	PF_Fixed angle;
+	infoP->jaggedness /= 100.0;
+	PF_Fixed angle= 0;
 	ERR(ae->GetANGLE(ID_COMPL_ANGLE, &angle));
 	infoP->comple_angle = angle / 65536.0;
 	ERR(ae->GetADD(ID_FORK, &infoP->fork));
