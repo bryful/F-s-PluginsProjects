@@ -26,7 +26,6 @@
     <ClCompile Include="..\..\_NFLib\NF_Json.cpp">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\noiseFilter.cpp" />
     <ClCompile Include="..\..\_NFLib\fx\debug_font.cpp">
       <Filter>Header Files\fx</Filter>
     </ClCompile>
@@ -182,7 +181,6 @@
     </ClInclude>
     <ClInclude Include="..\NF_Target.h" />
     <ClInclude Include="..\Ligtning.h" />
-    <ClInclude Include="..\noiseFilter.h" />
     <ClInclude Include="..\..\_NFLib\fx\debug_font.h">
       <Filter>Header Files\fx</Filter>
     </ClInclude>

@@ -58,10 +58,18 @@ static PF_Err ParamsSetup(
 		FALSE,
 		ID_END_POS
 	);
+	// ----------------------------------------------------------------
+	cs.AddPath(
+		STR_PATH,
+		0,
+		ID_PATH,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
 	// ******************************************************
 	cs.AddTopic(STR_PARAMS_TOPIC, ID_PARAMS_TOPIC//,
 		//PF_ParamFlag_START_COLLAPSED,
-		//PF_PUI_DISABLED
+		//PF_PUI_INVISIBLE
 	);
 	cs.AddFloatSlider(
 		STR_WIPE,		//Name
@@ -81,7 +89,7 @@ static PF_Err ParamsSetup(
 		200,			//VALID_MAX
 		0,				//SLIDER_MIN
 		20,				//SLIDER_MAX
-		3,				//DFLT
+		5,				//DFLT
 		1,				//PREC 小数点以下の桁数
 		0,				//DISP 1で％表示
 		FALSE,			//WANT_PHASE
@@ -93,7 +101,7 @@ static PF_Err ParamsSetup(
 		200,			//VALID_MAX
 		0,				//SLIDER_MIN
 		20,				//SLIDER_MAX
-		3,				//DFLT
+		5,				//DFLT
 		1,				//PREC 小数点以下の桁数
 		0,				//DISP 1で％表示
 		FALSE,			//WANT_PHASE
@@ -123,11 +131,11 @@ static PF_Err ParamsSetup(
 	cs.AddFloatSlider(	// R
 		STR_JAGGEDNESS,			//Name
 		0,				//VALID_MIN
-		200,			//VALID_MAX
+		500,			//VALID_MAX
 		0,				//SLIDER_MIN
-		20,				//SLIDER_MAX
-		7,				//DFLT
-		1,				//PREC 小数点以下の桁数
+		150,				//SLIDER_MAX
+		40,				//DFLT
+		0,				//PREC 小数点以下の桁数
 		0,				//DISP 1で％表示
 		FALSE,			//WANT_PHASE
 		ID_JAGGEDNESS
@@ -393,6 +401,9 @@ HandleChangedParam(
 					case MODE_2POINT:
 						hide_themB[ID_START_POS] = FALSE;
 						hide_themB[ID_END_POS] = FALSE;
+						break;
+					case MODE_PATH:
+						hide_themB[ID_PATH] = FALSE;
 						break;
 				}
 				// パラメータの表示/非表示を切り替える

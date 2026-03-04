@@ -384,7 +384,6 @@
     <ClInclude Include="..\Ligtning.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />
-    <ClInclude Include="..\noiseFilter.h" />
     <CustomBuildStep Include="..\..\..\Util\AEFX_SuiteHelper.h" />
     <CustomBuildStep Include="..\..\..\Util\PF_Suite_Helper.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -474,7 +473,6 @@ cl /D "MSWindows" /EP $(IntDir)%(Filename).rrc &gt;               "$(ProjectDir)
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BrowseInformation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BrowseInformation>
     </ClCompile>
-    <ClCompile Include="..\noiseFilter.cpp" />
     <ClCompile Include="..\LigtningDraw.cpp" />
   </ItemGroup>
   <ItemGroup>

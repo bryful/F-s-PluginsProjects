@@ -69,6 +69,8 @@ enum {
 	ID_START_POS,
 	ID_END_POS,
 	// -----
+	ID_PATH,
+	// -----
 	ID_PARAMS_TOPIC,
 	ID_WIPE,			// wipe
 	ID_START_WEIGHT,	// 線の太さの開始値
@@ -94,8 +96,10 @@ enum {
 
 #define	STR_AUTO_SEED		"autoSeed"
 #define	STR_SEED			"seed"
+
 #define	STR_START_POS		"start"
 #define	STR_END_POS			"end"
+#define	STR_PATH			"path"
 
 
 //-------
