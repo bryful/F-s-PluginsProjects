@@ -51,6 +51,8 @@
 enum {
 	MODE_2POINT = 1,
 	MODE_PATH,
+	MODE_2_2POINT,
+	MODE_1_2POINT,
 	MODE_RADICAL,
 	MODE_NUM
 };
@@ -71,6 +73,24 @@ enum {
 	// -----
 	ID_PATH,
 	// -----
+	ID_START1_POS,
+	ID_START2_POS,
+	ID_END1_POS,
+	ID_END2_POS,
+	// -----
+	ID_SRC_POS,
+	ID_IMPACT1_POS,
+	ID_IMPACT2_POS,
+	ID_IMPACT_RAND,
+	ID_BRANCH_CNT,
+	// -----
+	// -----
+	ID_RADICAL_COUNT,
+	ID_RADICAL_ANGLE,
+	ID_CENTER_POS,
+	ID_RADIUS,
+	ID_RADIUS_RAND,
+
 	ID_PARAMS_TOPIC,
 	ID_WIPE,			// wipe
 	ID_START_WEIGHT,	// 線の太さの開始値
@@ -90,8 +110,8 @@ enum {
 
 //-------
 #define	STR_MODE			"mode"
-#define	STR_MODE_ITEMS		"2point|path|radical"
-#define	STR_MODE_COUNT		3
+#define	STR_MODE_ITEMS		"2points|path|2-2Points|1-2Points|radical"
+#define	STR_MODE_COUNT		5
 #define	STR_MODE_DFLT		MODE_2POINT
 
 #define	STR_AUTO_SEED		"autoSeed"
@@ -101,6 +121,22 @@ enum {
 #define	STR_END_POS			"end"
 #define	STR_PATH			"path"
 
+#define	STR_START1_POS		"startPoint1"
+#define	STR_START2_POS		"startPoint2"
+#define	STR_END1_POS		"endPoint1"
+#define	STR_END2_POS		"endPoint2"
+
+#define	STR_SRC_POS			"srcPoint"
+#define	STR_IMPACT1_POS		"impactLine1"
+#define	STR_IMPACT2_POS		"impactLine2"
+#define	STR_IMPACT_RAND		"impactRand"
+#define	STR_BRANCH_CNT		"branch"
+
+#define	STR_RADICAL_COUNT	"r_count"
+#define	STR_RADICAL_ANGLE	"r_angle"
+#define	STR_CENTER_POS		"r_center"
+#define	STR_RADIUS			"r_radius"
+#define	STR_RADIUS_RAND		"r_radiusRand"
 
 //-------
 #define	STR_PARAMS_TOPIC	"params"
@@ -125,6 +161,7 @@ typedef struct ParamInfo {
 	PF_FpLong	wipe;
 	PF_FpLong	startWeight;
 	PF_FpLong	endWeight;
+
 	PF_FpLong	weight;
 	A_long		complexity;
 	PF_FpLong	jaggedness;
@@ -133,6 +170,18 @@ typedef struct ParamInfo {
 
 
 	PF_Point	posTwin[2];
+	PF_Point	posStart[2];
+	PF_Point	posEnd[2];
+	PF_Point	posImpact[3];
+	A_long		impactBranch;
+	PF_FpLong	impactRand;
+	PF_Point	center;
+	A_long		radicalCount;
+	PF_FpLong	radicalAngle;
+	PF_FpLong	radius;
+	PF_FpLong	radiusRand;
+
+
 	PF_Pixel	color;
 
 } ParamInfo, *ParamInfoP, **ParamInfoH;

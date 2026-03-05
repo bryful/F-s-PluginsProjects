@@ -66,6 +66,150 @@ static PF_Err ParamsSetup(
 		PF_ParamFlag_NONE,
 		PF_PUI_INVISIBLE
 	);
+	// ----------------------------------------------------------------
+	cs.AddPoint(
+		STR_START1_POS,
+		25,
+		25,
+		FALSE,
+		ID_START1_POS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddPoint(
+		STR_START2_POS,
+		25,
+		75,
+		FALSE,
+		ID_START2_POS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddPoint(
+		STR_END1_POS,
+		75,
+		25,
+		FALSE,
+		ID_END1_POS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddPoint(
+		STR_END2_POS,
+		75,
+		75,
+		FALSE,
+		ID_END2_POS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	// ----------------------------------------------------------------
+	cs.AddPoint(
+		STR_SRC_POS,
+		25,
+		50,
+		FALSE,
+		ID_SRC_POS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddPoint(
+		STR_IMPACT1_POS,
+		75,
+		25,
+		FALSE,
+		ID_IMPACT1_POS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddPoint(
+		STR_IMPACT2_POS,
+		75,
+		75,
+		FALSE,
+		ID_IMPACT2_POS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddFloatSlider(
+		STR_IMPACT_RAND,//Name
+		0,			//VALID_MIN
+		2000,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,			//SLIDER_MAX
+		0,				//DFLT
+		0,				//PREC 小数点以下の桁数
+		0,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_IMPACT_RAND,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddSlider(	// 
+		STR_BRANCH_CNT,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		100,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		10,				//スライダーの最大値
+		2,				//デフォルトの値
+		ID_BRANCH_CNT,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	// ----------------------------------------------------------------
+	cs.AddSlider(	// 
+		STR_RADICAL_COUNT,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		1000,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		100,			//スライダーの最大値
+		4,				//デフォルトの値
+		ID_RADICAL_COUNT,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddAngle(
+		STR_RADICAL_ANGLE,			//Name
+		0,
+		ID_RADICAL_ANGLE
+	);
+	cs.AddPoint(
+		STR_CENTER_POS,
+		50,
+		50,
+		FALSE,
+		ID_CENTER_POS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddFloatSlider(
+		STR_RADIUS,	//Name
+		0,			//VALID_MIN
+		2000,			//VALID_MAX
+		0,				//SLIDER_MIN
+		1000,			//SLIDER_MAX
+		350,			//DFLT
+		0,				//PREC 小数点以下の桁数
+		0,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_RADIUS,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddFloatSlider(
+		STR_RADIUS_RAND,	//Name
+		0,			//VALID_MIN
+		100,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,			//SLIDER_MAX
+		0,			//DFLT
+		0,				//PREC 小数点以下の桁数
+		0,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_RADIUS_RAND,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
 	// ******************************************************
 	cs.AddTopic(STR_PARAMS_TOPIC, ID_PARAMS_TOPIC//,
 		//PF_ParamFlag_START_COLLAPSED,
@@ -125,7 +269,7 @@ static PF_Err ParamsSetup(
 		50,				//数値入力する場合の最大値
 		0,				//スライダーの最小値 
 		10,				//スライダーの最大値
-		3,				//デフォルトの値
+		5,				//デフォルトの値
 		ID_COMPLEXTTY
 	);
 	cs.AddFloatSlider(	// R
@@ -163,194 +307,7 @@ static PF_Err ParamsSetup(
 	// ******************************************************
 
 	
-	/*
-	cs.AddAngle(	// angle
-		STR_ANGLE,
-		0,
-		ID_ANGLE,
-		PF_ParamFlag_NONE,
-		PF_PUI_DISABLED
-	);
 	
-	cs.AddPoint(
-		STR_PAINT_POS,
-		25,
-		25,
-		FALSE,
-		ID_PAINT_POS
-	);
-	
-	// ----------------------------------------------------------------
-
-
-	cs.AddPopup(STR_CHAN_MINMAX_MODE,
-		STR_CHAN_MINMAX_COUNT,
-		STR_CHAN_MINMAX_DFLT,
-		STR_CHAN_MINMAX_ITEMS,
-		ID_CHAN_MINMAX_MODE
-	);
-	cs.AddSlider(	// noise offset
-		STR_CHAN_MINMAX,		//パラメータの名前
-		-1000, 				//数値入力する場合の最小値
-		1000,			//数値入力する場合の最大値
-		-100,				//スライダーの最小値 
-		100,			//スライダーの最大値
-		0,				//デフォルトの値
-		ID_CHAN_MINMAX_VALUE
-	);
-	// ----------------------------------------------------------------
-	
-	cs.AddFloatSlider(	// R
-		STR_NOISE_AMOUNT,			//Name
-		0,				//VALID_MIN
-		300,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,				//SLIDER_MAX
-		0,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_NOISE_AMOUNT
-	);
-	cs.AddFloatSlider(	// R
-		STR_NOISE_ACCENT_AMOUNT,			//Name
-		0,				//VALID_MIN
-		5000,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		50,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_NOISE_ACCENT_AMOUNT
-	);
-	cs.AddCheckBox(	// noise frame
-		STR_NOISE_ISCOlOR,
-		"on",
-		TRUE,
-		ID_NOISE_ISCOLOR
-	);
-
-	cs.AddCheckBox(	// noise frame
-		STR_NOISE_AUTO,
-		"on",
-		TRUE,
-		ID_NOISE_AUTO,
-		PF_ParamFlag_SUPERVISE |
-		PF_ParamFlag_CANNOT_TIME_VARY |
-		PF_ParamFlag_CANNOT_INTERP
-	);
-	cs.AddSlider(	// noise offset
-		STR_NOISE_SEED,	//パラメータの名前
-		-30000, 		//数値入力する場合の最小値
-		30000,			//数値入力する場合の最大値
-		-1000,				//スライダーの最小値 
-		1000,			//スライダーの最大値
-		10,				//デフォルトの値
-		ID_NOISE_SEED,
-		PF_ParamFlag_NONE,
-		PF_PUI_DISABLED
-	);
-	// ----------------------------------------------------------------
-	cs.AddPopup(STR_DRAW_POP,
-		STR_DRAW_COUNT,
-		STR_DRAW_DFLT,
-		STR_DRAW_ITEMS,
-		ID_DROW_POP
-	);
-	cs.AddPoint(
-		STR_START_POS,
-		60,
-		60,
-		FALSE,
-		ID_START_POS
-	);
-	cs.AddPoint(
-		STR_END_POS,
-		80,
-		80,
-		FALSE,
-		ID_END_POS
-	);
-	cs.AddColor(	// color
-		STR_DRAW_COLOR,
-		{ 0xFF, 0x00, 0xFF, 0xFF },
-		ID_DRAW_COLOR
-	);
-	// ----------------------------------------------------------------
-	cs.AddFloatSlider(	// R
-		STR_START_OPA,	//Name
-		0,				//VALID_MIN
-		100,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		100,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_DRAW_START_OPA
-		);
-	cs.AddFloatSlider(	// R
-		STR_END_OPA,	//Name
-		0,				//VALID_MIN
-		100,			//VALID_MAX
-		0,				//SLIDER_MIN
-		100,			//SLIDER_MAX
-		100,				//DFLT
-		1,				//PREC 小数点以下の桁数
-		0,				//DISP
-		FALSE,			//WANT_PHASE
-		ID_DRAW_END_OPA
-	);
-	// ----------------------------------------------------------------
-	cs.AddCheckBox(	// noise frame
-		STR_DEBUG_FONT_CB,
-		"on",
-		FALSE,
-		ID_DEBUG_FONT_CB
-	);
-	cs.AddPoint(
-		STR_DEBUG_FONT_POS,
-		0,
-		0,
-		FALSE,
-		ID_DEBUG_FONT_POS
-	);
-	cs.AddColor(	// color
-		STR_DEBUG_FONT_COLOR,
-		{ 0xFF, 0xFF, 0x00, 0x00 },
-		ID_DEBUG_FONT_COLOR
-	);
-	// ----------------------------------------------------------------
-	cs.AddCheckBox(	// noise frame
-		STR_HIDDEN_ON1,
-		"on",
-		TRUE,
-		ID_NOISE_AUTO,
-		PF_ParamFlag_SUPERVISE |
-		PF_ParamFlag_CANNOT_TIME_VARY |
-		PF_ParamFlag_CANNOT_INTERP
-	);
-
-	cs.AddTopic(STR_TOPIC, ID_TOPIC, 
-		PF_ParamFlag_START_COLLAPSED,
-		PF_PUI_DISABLED);
-	cs.AddAngle(	// angle
-		STR_ANGLE,
-		0,
-		ID_ANGLE,
-		PF_ParamFlag_NONE,
-		PF_PUI_DISABLED
-	);
-	cs.EndTopic(ID_TOPIC_END);
-
-	cs.AddButton(	// button
-		STR_BUTTON1,
-		STR_BUTTON2,
-		ID_BUTTON,
-		PF_ParamFlag_SUPERVISE
-	);
-	*/
 	cs.Finalize();
 	return err;
 }
@@ -405,6 +362,27 @@ HandleChangedParam(
 					case MODE_PATH:
 						hide_themB[ID_PATH] = FALSE;
 						break;
+					case MODE_2_2POINT:
+						hide_themB[ID_START1_POS] = FALSE;
+						hide_themB[ID_START2_POS] = FALSE;
+						hide_themB[ID_END1_POS] = FALSE;
+						hide_themB[ID_END2_POS] = FALSE;
+						break;
+					case MODE_1_2POINT:
+						hide_themB[ID_SRC_POS] = FALSE;
+						hide_themB[ID_IMPACT1_POS] = FALSE;
+						hide_themB[ID_IMPACT2_POS] = FALSE;
+						hide_themB[ID_IMPACT_RAND] = FALSE;
+						hide_themB[ID_BRANCH_CNT] = FALSE;
+						break;
+					case MODE_RADICAL:
+						hide_themB[ID_RADICAL_COUNT] = FALSE;
+						hide_themB[ID_RADICAL_ANGLE] = FALSE;
+						hide_themB[ID_CENTER_POS] = FALSE;
+						hide_themB[ID_RADIUS] = FALSE;
+						hide_themB[ID_RADIUS_RAND] = FALSE;
+						break;
+
 				}
 				// パラメータの表示/非表示を切り替える
 				for (A_long i = 1; i < ID_NUM_PARAMS; i++)
@@ -466,6 +444,26 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetPOINT(ID_START_POS, &infoP->posTwin[0]));
 	ERR(ae->GetPOINT(ID_END_POS, &infoP->posTwin[1]));
 
+	ERR(ae->GetPOINT(ID_START1_POS, &infoP->posStart[0]));
+	ERR(ae->GetPOINT(ID_START2_POS, &infoP->posStart[1]));
+	ERR(ae->GetPOINT(ID_END1_POS, &infoP->posEnd[0]));
+	ERR(ae->GetPOINT(ID_END2_POS, &infoP->posEnd[1]));
+
+	ERR(ae->GetPOINT(ID_SRC_POS, &infoP->posImpact[0]));
+	ERR(ae->GetPOINT(ID_IMPACT1_POS, &infoP->posImpact[1]));
+	ERR(ae->GetPOINT(ID_IMPACT2_POS, &infoP->posImpact[2]));
+	ERR(ae->GetFLOAT(ID_IMPACT_RAND, &infoP->impactRand));
+	ERR(ae->GetADD(ID_BRANCH_CNT, &infoP->impactBranch));
+
+	ERR(ae->GetADD(ID_RADICAL_COUNT, &infoP->radicalCount));
+	PF_Fixed angle2 = 0;
+	ERR(ae->GetANGLE(ID_RADICAL_ANGLE, &angle2));
+	infoP->radicalAngle = angle2 / 65536.0;
+	ERR(ae->GetPOINT(ID_CENTER_POS, &infoP->center));
+	ERR(ae->GetFLOAT(ID_RADIUS, &infoP->radius));
+	ERR(ae->GetFLOAT(ID_RADIUS_RAND, &infoP->radiusRand));
+	infoP->radiusRand /= 100.0;
+
 	ERR(ae->GetFLOAT(ID_WIPE, &infoP->wipe));
 	infoP->wipe /= 100.0;
 	ERR(ae->GetFLOAT(ID_START_WEIGHT, &infoP->startWeight));
@@ -474,7 +472,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetADD(ID_COMPLEXTTY, &infoP->complexity));
 	ERR(ae->GetFLOAT(ID_JAGGEDNESS, &infoP->jaggedness));
 	infoP->jaggedness /= 100.0;
-	PF_Fixed angle= 0;
+	PF_Fixed angle = 0;
 	ERR(ae->GetANGLE(ID_COMPL_ANGLE, &angle));
 	infoP->comple_angle = angle / 65536.0;
 	ERR(ae->GetADD(ID_FORK, &infoP->fork));

@@ -1,7 +1,7 @@
-#NF-Plugins_20260301
+#NF-Plugins_20260305
 
 かなり増えました。
-NF-Starがやっと使えるようになりました。
+NF-Lightningを追加。これで予定していた奴は全て移植終わりました。後はバグフィックスが主で、後は思いついたら作るって感じになります。
 
 詳細は[github](https://github.com/bryful/F-s-PluginsProjects)に行ってプラグインの名前のフォルダを開いてください。
 メモが書いてあります。<br>
@@ -23,6 +23,7 @@ NF-Hyperbolic.aex
 NF-InkingLineBlur.aex
 NF-InnerFlare.aex
 NF-InnerFlareRot.aex
+NF-Ligtning.aex
 NF-LineExtraction.aex
 NF-LogicGray.aex
 NF-MaxBlur.aex
@@ -47,6 +48,7 @@ NF-Thin.aex
 NF-Threshold.aex
 NF-TouchLines.aex
 NF-WhiteKeying.aex
+
 
 
 F's Pluginsの最新版も入っていますが「Deprecated」カテゴリのものはしばらくしたら配布を中止します。
