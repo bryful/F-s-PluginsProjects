@@ -19,7 +19,7 @@
     <ClCompile Include="..\..\_NFLib\tinyfiledialogs.c">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
-    <ClCompile Include="..\Ligtning.cpp" />
+    <ClCompile Include="..\BurstLines.cpp" />
     <ClCompile Include="..\..\_NFLib\NF_Settings.cpp">
       <Filter>Supporting code\_NFLib</Filter>
     </ClCompile>
@@ -32,7 +32,13 @@
     <ClCompile Include="..\..\_NFLib\fx\NF_Blur.cpp">
       <Filter>Header Files\fx</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_DrawAALine.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\_NFLib\fx\NF_Mult.cpp">
+      <Filter>Header Files\fx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_NFLib\fx\NF_UnMult.cpp">
       <Filter>Header Files\fx</Filter>
     </ClCompile>
     <ClCompile Include="..\..\_NFLib\vector\NF_VectorLine.cpp">
@@ -41,7 +47,7 @@
     <ClCompile Include="..\..\_NFLib\vector\NF_VectorMask.cpp">
       <Filter>Header Files\vectorFx</Filter>
     </ClCompile>
-    <ClCompile Include="..\LigtningDraw.cpp" />
+    <ClCompile Include="..\BrustLinesMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Headers\A.h">
@@ -126,23 +132,23 @@
       <Filter>Header Files\AE\N</Filter>
     </ClInclude>
     <ClInclude Include="..\NF_Target.h" />
-    <ClInclude Include="..\Ligtning.h" />
+    <ClInclude Include="..\BurstLines.h" />
     <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h">
       <Filter>Header Files\fx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\fx\NF_Blur.h">
       <Filter>Header Files\fx</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_DrawAALine.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\_NFLib\fx\NF_Mult.h">
       <Filter>Header Files\fx</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\_NFLib\fx\NF_UnMult.h">
+      <Filter>Header Files\fx</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\_NFLib\AE_SDK.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\dialog_jsx.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\json.hpp">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_AE.h">
@@ -151,22 +157,13 @@
     <ClInclude Include="..\..\_NFLib\NF_CATEGORY.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\_NFLib\NF_Json.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_ParamsSetup.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\NF_Settings.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_Utils.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\NF_Version.h">
-      <Filter>Header Files\_NFLib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\_NFLib\tinyfiledialogs.h">
       <Filter>Header Files\_NFLib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\_NFLib\vector\NF_VectorLine.h">
@@ -209,21 +206,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\LigtningPiPL.r">
+    <CustomBuild Include="..\BurstLinesPiPL.r">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="LigtningPiPL.rc">
+    <ResourceCompile Include="BurstLinesPiPL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="Resource.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\_NFLib\dialog.jsx">
-      <Filter>Header Files\_NFLib</Filter>
-    </None>
   </ItemGroup>
 </Project>

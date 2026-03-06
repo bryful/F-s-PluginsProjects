@@ -230,7 +230,7 @@ PF_Err LigtningDraw1_2Point(
 	std::vector<std::vector<float>> buf(ae->outputInfo.height, std::vector<float>(ae->outputInfo.width, 0));
 	A_long ox = -ae->output->origin_x;
 	A_long oy = -ae->output->origin_y;
-	float impactRand = (float)ae->downScale(infoP->impactRand);
+	float impactRand = (float)infoP->impactRand;
 
 	for (int fc = 0; fc < infoP->fork; fc++)
 	{
@@ -344,7 +344,7 @@ PF_Err LigtningDrawRadical(
 	std::vector<std::vector<float>> buf(ae->outputInfo.height, std::vector<float>(ae->outputInfo.width, 0));
 	A_long ox = -ae->output->origin_x;
 	A_long oy = -ae->output->origin_y;
-	float radiusOrg = (float)ae->downScale(infoP->radius);
+	float radiusOrg = (float)infoP->radius;
 	float radius = radiusOrg;
 	for (int rc = 0; rc < infoP->radicalCount; rc++)
 	{
@@ -358,9 +358,9 @@ PF_Err LigtningDrawRadical(
 			{
 				radius = radiusOrg * (1.0f - (float)infoP->radiusRand) + radiusOrg * (float)infoP->radiusRand * hash_float(fc, rc + 500, infoP->seedAct);
 			}
-			float angle2 = angle + ( 0.5f -hash_float(fc+987, rc + 800, infoP->seed+2))*25.0f;
-			angle2 = angle2 + (0.5f - hash_float(fc + 1987, rc + 400, infoP->seedAct)) * 5.0f;
-			(rc % 2 == 0) ? angle2 += (float)infoP->radicalAngle +(float)ae->frame()/2 : (angle2 -= (float)infoP->radicalAngle + (float)ae->frame()/2);
+			float angle2 = angle + ( 0.5f -hash_float(fc+987, rc + 800, infoP->seed+2))*60.0f;
+			angle2 = angle2 + (0.5f - hash_float(fc + 1987, rc + 400, infoP->seedAct)) * 10.0f;
+			(rc % 2 == 0) ? angle2 += (float)infoP->radicalAngle +(float)ae->frame()/8 : (angle2 -= (float)infoP->radicalAngle + (float)ae->frame()/8);
 			float angleRad = (float)(angle2 * PF_PI / 180);
 			A_FloatPoint ep = {
 				sp.x + cosf(angleRad) * radius,
@@ -403,8 +403,8 @@ PF_Err LigtningDrawRadical(
 					if (cc < 3 || idx0 < 0) continue;
 					A_FloatPoint sp2 = { (float)lines[tl][idx0].x,(float)lines[tl][idx0].y };
 
-					angle2 = angle +35.0f * (0.5f -  hash_float(fc+23, rc + 1800, infoP->seed+100));
-					angle2 = angle2 + 5.0f * (1.0f - 2.0f * hash_float(fc + 123, rc + 180, infoP->seedAct));
+					angle2 = angle +40.0f * (0.5f -  hash_float(fc+23+j, rc + 1800, infoP->seed+100));
+					angle2 = angle2 + 10.0f * (1.0f - 2.0f * hash_float(fc + 123+j, rc + 180, infoP->seedAct));
 					(rc % 2 == 0) ? angle2 += (float)infoP->radicalAngle + (float)ae->frame()/2 : (angle2 -= (float)infoP->radicalAngle + (float)ae->frame()/2);
 					float angleRad = (float)(angle2 * PF_PI / 180);
 					if (infoP->radiusRand > 0)
@@ -483,89 +483,99 @@ PF_Err LigtningDraw2_2Point(
 	A_long ox = -ae->output->origin_x;
 	A_long oy = -ae->output->origin_y;
 
-	for (int fc = 0; fc < infoP->fork; fc++)
-	{
-		A_long cpt = 32768 + ( (int)( (1 - 2*hash_float(fc, 300, 650)) * 32768));
-		A_long spt = AE_CLAMP(cpt + (A_long)(8192 - 2* 8192 * hash_float(fc, 300, infoP->seedAct)), 0, 65535);
-		A_long ept = AE_CLAMP(cpt + (A_long)(8192 - 2* 8192 * hash_float(fc, 400, infoP->seedAct)), 0, 65535);
-
-		//A_long spt = ((int)(hash_float(fc, 300, infoP->seedAct) * 65536) % 65536);
-		//A_long ept = ((int)(hash_float(fc, 700, infoP->seedAct) * 65536) % 65536);
-
-		A_FloatPoint sp = Lerp(
-			{ (float)infoP->posStart[0].x, (float)infoP->posStart[0].y },
-			{ (float)infoP->posStart[1].x, (float)infoP->posStart[1].y },
-			(float)spt / 65536.0f
-		);
-		A_FloatPoint ep = Lerp(
-			{ (float)infoP->posEnd[0].x, (float)infoP->posEnd[0].y },
-			{ (float)infoP->posEnd[1].x, (float)infoP->posEnd[1].y },
-			(float)ept / 65536.0f
-		);
-		std::vector<a_linePrm> points = CalcPoints(
-			sp,
-			ep,
-			(float)infoP->startWeight,
-			(float)infoP->weight,
-			infoP->complexity,
-			(float)infoP->jaggedness,
-			(float)infoP->comple_angle,
-			fc,
-			infoP->seedAct+fc
-		);
-		float endWeight = (float)infoP->endWeight * hash_float(fc, 987, infoP->seedAct);
-		points.push_back({ (float)ep.x, (float)ep.y, (float)endWeight });
-
-		A_long idx0 = (A_long)((points.size() - 1) * hash_float(fc, infoP->complexity, infoP->seedAct));
-		A_long idx1 = (A_long)((points.size() - 1) * hash_float(fc, infoP->complexity + 100, infoP->seedAct));
-		if (idx0 > idx1) {
-			A_long tmp = idx0;
-			idx0 = idx1;
-			idx1 = tmp;
-		}
-
-		if (idx0 == idx1)
+	for (int cnt = 0; cnt < infoP->Count2_2; cnt++) {
+		A_long cpt = 32768 + ((int)((1 - 2 * hash_float(cnt, 300, 650)) * 32768));
+		for (int fc = 0; fc < infoP->fork; fc++)
 		{
-			idx1 = (idx1 + 1) % points.size();
-		}
-		std::vector<a_linePrm> points2 = CalcPoints(
-			{ (float)points[idx0].x, (float)points[idx0].y },
-			{ (float)points[idx1].x, (float)points[idx1].y },
-			(float)infoP->startWeight / 2,
-			(float)infoP->weight / 2,
-			infoP->complexity,
-			(float)infoP->jaggedness / 2,
-			(float)infoP->comple_angle,
-			fc,
-			infoP->seedAct+100+fc
-		);
-		endWeight = (float)infoP->weight * hash_float(fc, 412, infoP->seedAct);
-		points2.push_back({ (float)points[idx1].x, (float)(float)points[idx1].y, (float)endWeight });
+			A_long spt = AE_CLAMP(cpt + (A_long)(8192 - 2 * 8192 * hash_float(fc, cnt + 300, infoP->seedAct)), 0, 65535);
+			A_long ept = AE_CLAMP(cpt + (A_long)(8192 - 2 * 8192 * hash_float(fc, cnt + 400, infoP->seedAct)), 0, 65535);
 
-		if (idx1 < points.size() - 1) {
-			a_linePrm lastP = points[points.size() - 1];
-			lastP.b = 0;
-			for (int i = idx1; i < points.size(); i++)
+			A_FloatPoint sp = Lerp(
+				{ (float)infoP->posStart[0].x, (float)infoP->posStart[0].y },
+				{ (float)infoP->posStart[1].x, (float)infoP->posStart[1].y },
+				(float)spt / 65536.0f
+			);
+			A_FloatPoint ep = Lerp(
+				{ (float)infoP->posEnd[0].x, (float)infoP->posEnd[0].y },
+				{ (float)infoP->posEnd[1].x, (float)infoP->posEnd[1].y },
+				(float)ept / 65536.0f
+			);
+			if (infoP->startRand > 0)
 			{
-				points2.push_back(lastP);
+				sp.x += (float)(hash_float(fc, cnt + 500, infoP->seedAct) - 0.5f) * infoP->startRand;
+				sp.y += (float)(hash_float(fc, cnt + 570, infoP->seedAct) - 0.5f) * infoP->startRand;
 			}
-		}
-		if (idx0 > 0) {
-			a_linePrm firstP = points[0];
-			firstP.b = 0;
-			for (int i = 0; i < idx0; i++)
+			if (infoP->endRand > 0)
 			{
-				points2.insert(points2.begin(), firstP);
+				ep.x += (float)(hash_float(fc, cnt + 780, infoP->seedAct) - 0.5f) * infoP->endRand;
+				ep.y += (float)(hash_float(fc, cnt + 5700, infoP->seedAct) - 0.5f) * infoP->endRand;
 			}
-		}
+			std::vector<a_linePrm> points = CalcPoints(
+				sp,
+				ep,
+				(float)infoP->startWeight,
+				(float)infoP->weight,
+				infoP->complexity,
+				(float)infoP->jaggedness,
+				(float)infoP->comple_angle,
+				fc,
+				infoP->seedAct + fc+cnt
+			);
+			float endWeight = (float)infoP->endWeight * hash_float(fc, cnt+987, infoP->seedAct);
+			points.push_back({ (float)ep.x, (float)ep.y, (float)endWeight });
 
-		if (infoP->wipe != 1.0f) {
-			points = shiftPerPoints(points, (float)infoP->wipe);
-			points2 = shiftPerPoints(points2, (float)infoP->wipe);
+			A_long idx0 = (A_long)((points.size() - 1) * hash_float(fc, cnt + infoP->complexity, infoP->seedAct));
+			A_long idx1 = (A_long)((points.size() - 1) * hash_float(fc, cnt + infoP->complexity + 100, infoP->seedAct));
+			if (idx0 > idx1) {
+				A_long tmp = idx0;
+				idx0 = idx1;
+				idx1 = tmp;
+			}
+
+			if (idx0 == idx1)
+			{
+				idx1 = (idx1 + 1) % points.size();
+			}
+			std::vector<a_linePrm> points2 = CalcPoints(
+				{ (float)points[idx0].x, (float)points[idx0].y },
+				{ (float)points[idx1].x, (float)points[idx1].y },
+				(float)infoP->startWeight / 2,
+				(float)infoP->weight / 2,
+				infoP->complexity,
+				(float)infoP->jaggedness / 2,
+				(float)infoP->comple_angle,
+				fc,
+				infoP->seedAct + 100 + fc+cnt
+			);
+			endWeight = (float)infoP->weight * hash_float(fc, cnt + 412, infoP->seedAct);
+			points2.push_back({ (float)points[idx1].x, (float)(float)points[idx1].y, (float)endWeight });
+
+			if (idx1 < points.size() - 1) {
+				a_linePrm lastP = points[points.size() - 1];
+				lastP.b = 0;
+				for (int i = idx1; i < points.size(); i++)
+				{
+					points2.push_back(lastP);
+				}
+			}
+			if (idx0 > 0) {
+				a_linePrm firstP = points[0];
+				firstP.b = 0;
+				for (int i = 0; i < idx0; i++)
+				{
+					points2.insert(points2.begin(), firstP);
+				}
+			}
+
+			if (infoP->wipe != 1.0f) {
+				points = shiftPerPoints(points, (float)infoP->wipe);
+				points2 = shiftPerPoints(points2, (float)infoP->wipe);
+			}
+			draw_polyline(buf, offsetLinePrm(points, ox, oy), 1.0f);
+			draw_polyline(buf, offsetLinePrm(points2, ox, oy), 1.0f);
 		}
-		draw_polyline(buf, offsetLinePrm(points, ox, oy), 1.0f);
-		draw_polyline(buf, offsetLinePrm(points2, ox, oy), 1.0f);
 	}
+
 	ERR(DrawColorMask(
 		ae->in_data,
 		ae->output,
@@ -573,7 +583,6 @@ PF_Err LigtningDraw2_2Point(
 		ae->suitesP,
 		&buf,
 		infoP->color));
-
 	return err;
 }
 // *****************************************************************************
@@ -771,6 +780,14 @@ PF_Err LigtningDraw(
 	{
 		infoP->seedAct = infoP->seed + ae->frame();
 	}
+
+	infoP->startWeight = ae->downScale(infoP->startWeight);
+	infoP->endWeight = ae->downScale(infoP->endWeight);
+	infoP->weight = ae->downScale(infoP->weight);
+	infoP->startRand = ae->downScale(infoP->startRand);
+	infoP->endRand = ae->downScale(infoP->endRand);
+	infoP->radius = ae->downScale(infoP->radius);
+	infoP->impactRand = ae->downScale(infoP->impactRand);
 
 	switch (infoP->mode)
 	{

@@ -186,6 +186,7 @@
     <Project Path="Legacy/Project/VideoGrid/Win/VideoGrid.vcxproj" Id="24cd6769-03b6-42f0-a48d-c3df38dd3275" />
   </Folder>
   <Project Path="AlphaFill/Win/AlphaFill.vcxproj" Id="db91b399-9a48-4d21-88fe-f47bc06f543c" />
+  <Project Path="BurstLines/Win/BurstLines.vcxproj" />
   <Project Path="CameraShake/Win/CameraShake.vcxproj" Id="f82e20e2-a51c-43af-871b-2f7c32a44e0c" />
   <Project Path="CellEmboss/Win/CellEmboss.vcxproj" Id="1cff95f1-dbf4-4ada-ba95-82809e166b93" />
   <Project Path="CellLineEraser/Win/CellLineEraser.vcxproj" Id="6ed76fcf-e733-4f2a-a92f-62fe0ebd1d36" />

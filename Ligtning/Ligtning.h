@@ -77,6 +77,9 @@ enum {
 	ID_START2_POS,
 	ID_END1_POS,
 	ID_END2_POS,
+	ID_2_2POINT_COUNT,
+	ID_START_RAND,
+	ID_END_RAND,
 	// -----
 	ID_SRC_POS,
 	ID_IMPACT1_POS,
@@ -125,6 +128,9 @@ enum {
 #define	STR_START2_POS		"startPoint2"
 #define	STR_END1_POS		"endPoint1"
 #define	STR_END2_POS		"endPoint2"
+#define	STR_2_2POINT_COUNT	"2_2_count"
+#define	STR_START_RAND		"startRand"
+#define	STR_END_RAND		"endRand"
 
 #define	STR_SRC_POS			"srcPoint"
 #define	STR_IMPACT1_POS		"impactLine1"
@@ -172,6 +178,10 @@ typedef struct ParamInfo {
 	PF_Point	posTwin[2];
 	PF_Point	posStart[2];
 	PF_Point	posEnd[2];
+	A_long		Count2_2;
+	PF_FpLong	startRand;
+	PF_FpLong	endRand;
+
 	PF_Point	posImpact[3];
 	A_long		impactBranch;
 	PF_FpLong	impactRand;

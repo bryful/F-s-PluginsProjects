@@ -103,6 +103,45 @@ static PF_Err ParamsSetup(
 		PF_ParamFlag_NONE,
 		PF_PUI_INVISIBLE
 	);
+	cs.AddSlider(	// 
+		STR_2_2POINT_COUNT,	//パラメータの名前
+		1, 				//数値入力する場合の最小値
+		1000,			//数値入力する場合の最大値
+		1,				//スライダーの最小値 
+		100,			//スライダーの最大値
+		4,				//デフォルトの値
+		ID_2_2POINT_COUNT,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddFloatSlider(
+		STR_START_RAND,//Name
+		0,			//VALID_MIN
+		1000,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,			//SLIDER_MAX
+		0,				//DFLT
+		0,				//PREC 小数点以下の桁数
+		0,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_START_RAND,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
+	cs.AddFloatSlider(
+		STR_END_RAND,//Name
+		0,			//VALID_MIN
+		1000,			//VALID_MAX
+		0,				//SLIDER_MIN
+		100,			//SLIDER_MAX
+		0,				//DFLT
+		0,				//PREC 小数点以下の桁数
+		0,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_END_RAND,
+		PF_ParamFlag_NONE,
+		PF_PUI_INVISIBLE
+	);
 	// ----------------------------------------------------------------
 	cs.AddPoint(
 		STR_SRC_POS,
@@ -266,10 +305,10 @@ static PF_Err ParamsSetup(
 	cs.AddSlider(	// noise offset
 		STR_COMPLEXTTY,		//パラメータの名前
 		0, 				//数値入力する場合の最小値
-		50,				//数値入力する場合の最大値
+		100,				//数値入力する場合の最大値
 		0,				//スライダーの最小値 
-		10,				//スライダーの最大値
-		5,				//デフォルトの値
+		15,				//スライダーの最大値
+		8,				//デフォルトの値
 		ID_COMPLEXTTY
 	);
 	cs.AddFloatSlider(	// R
@@ -367,6 +406,9 @@ HandleChangedParam(
 						hide_themB[ID_START2_POS] = FALSE;
 						hide_themB[ID_END1_POS] = FALSE;
 						hide_themB[ID_END2_POS] = FALSE;
+						hide_themB[ID_2_2POINT_COUNT] = FALSE;
+						hide_themB[ID_START_RAND] = FALSE;
+						hide_themB[ID_END_RAND] = FALSE;
 						break;
 					case MODE_1_2POINT:
 						hide_themB[ID_SRC_POS] = FALSE;
@@ -448,6 +490,9 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetPOINT(ID_START2_POS, &infoP->posStart[1]));
 	ERR(ae->GetPOINT(ID_END1_POS, &infoP->posEnd[0]));
 	ERR(ae->GetPOINT(ID_END2_POS, &infoP->posEnd[1]));
+	ERR(ae->GetADD(ID_2_2POINT_COUNT, &infoP->Count2_2));
+	ERR(ae->GetFLOAT(ID_START_RAND, &infoP->startRand));
+	ERR(ae->GetFLOAT(ID_END_RAND, &infoP->endRand));
 
 	ERR(ae->GetPOINT(ID_SRC_POS, &infoP->posImpact[0]));
 	ERR(ae->GetPOINT(ID_IMPACT1_POS, &infoP->posImpact[1]));
@@ -481,13 +526,7 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	
 	return err;
 }
-//-------------------------------------------------------------------------------------------------
-static inline PF_Point ofP(PF_Point p, A_long x, A_long y)
-{
-	p.x += x;
-	p.y += y;
-	return p;
-}
+
 //-------------------------------------------------------------------------------------------------
 static PF_Err 
 	Exec (NF_AE*ae , ParamInfo *infoP)

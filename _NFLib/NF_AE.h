@@ -1255,6 +1255,7 @@ public:
 		else {
 			err = FsAE_ERR;
 		}
+		return err;
 	}
 	PF_Err SetFLOAT(A_long idx, PF_FpLong f)
 	{
