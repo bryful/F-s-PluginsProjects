@@ -1,6 +1,7 @@
-#NF-Plugins_20260305
+#NF-Plugins_20260306
 
 かなり増えました。
+NF-BrustLinsを追加。思い付きで作ったけど中々良い感じです。
 NF-Lightningを追加。これで予定していた奴は全て移植終わりました。後はバグフィックスが主で、後は思いついたら作るって感じになります。
 
 詳細は[github](https://github.com/bryful/F-s-PluginsProjects)に行ってプラグインの名前のフォルダを開いてください。
@@ -8,6 +9,7 @@ NF-Lightningを追加。これで予定していた奴は全て移植終わりました。後はバグフィック
 
 
 NF-AlphaFill.aex
+NF-BurstLines.aex
 NF-CameraShake.aex
 NF-CellEmboss.aex
 NF-CellLineEraser.aex
