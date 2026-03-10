@@ -1,7 +1,7 @@
-﻿
+
 #pragma once
-#ifndef NF_BILATERAL_H
-#define NF_BILATERAL_H
+#ifndef NF_RANDOM_SHIFT_H
+#define NF_RANDOM_SHIFT_H
 
 
 #include "AEConfig.h" 
@@ -24,19 +24,20 @@
 #define refconType void*
 
 #include "..\NF_Utils.h"
+#include "NF_Mosaic.h"
+
 #include <vector>
 
-PF_Err Bilateral
-(
-    PF_InData* in_dataP,
-    PF_EffectWorld* input,
-    PF_EffectWorld* output,
-    PF_PixelFormat pixelFormat,
-    AEGP_SuiteHandler* suitesP,
-    int radius,
-    float sigma_s,
-    float sigma_r
-);
+PF_Err RandomShiftMain(
+	PF_EffectWorld* worldP,
+	PF_PixelFormat pixelFormat,
+	A_long count,
+	A_long rWidth,
+	A_long rHeight,
+	A_long offsetX,
+	A_long offsetY,
+	A_long seed
 
+);
 
 #endif // NF_DRAW_H

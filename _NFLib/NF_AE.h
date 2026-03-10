@@ -1093,7 +1093,18 @@ public:
 		*r = ret;
 		return err;
 	}
-	
+	PF_Err GetANGLE(A_long idx, float* r)
+	{
+		PF_Fixed d = 0;
+		PF_Err err = GetANGLE(idx, &d);
+		if (!err) {
+			*r = (float)d/65536.0f;
+		}
+		else {
+			err = PF_Err_BAD_CALLBACK_PARAM;
+		}
+		return err;
+	}
 	//--------------------------------------------------------------------
 	PF_Err GetCHECKBOX(A_long idx,PF_Boolean *b)
 	{

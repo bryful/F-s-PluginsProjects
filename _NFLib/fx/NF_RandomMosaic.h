@@ -1,7 +1,7 @@
-﻿
+
 #pragma once
-#ifndef NF_BILATERAL_H
-#define NF_BILATERAL_H
+#ifndef NF_RANDOM_MISAIC_H
+#define NF_RANDOM_MISAIC_H
 
 
 #include "AEConfig.h" 
@@ -26,6 +26,18 @@
 #include "..\NF_Utils.h"
 #include <vector>
 
+template <typename T>
+struct GData {
+    std::vector< std::vector<T>>;
+    A_long width;
+    A_long height;
+};
+struct NF_Rect {
+	A_long x;
+	A_long y;
+    A_long width;
+    A_long height;
+};
 PF_Err Bilateral
 (
     PF_InData* in_dataP,

@@ -527,7 +527,7 @@ static PF_Err
 	{
 	case MODE_NOISE:
 	{
-		ERR(NoiseExec(
+		ERR(MazzleFlashExec(
 			ae->in_data,
 			ae->input,
 			ae->output,

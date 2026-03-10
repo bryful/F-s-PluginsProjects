@@ -13,14 +13,17 @@
 
 
 PF_Err MazzleFlashExec(
-	PF_InData* in_dataP,
-	PF_EffectWorld* input,
 	PF_EffectWorld* output,
 	PF_PixelFormat pixelFormat,
-	AEGP_SuiteHandler* suitesP,
-	PF_FpLong noise,
-	PF_Boolean isColor,
-	A_long seed
+	float		pointX,
+	float		pointY,
+	A_long		count,
+	float		rootSize,
+	float		length,
+	A_long		branch,
+	float		direction,
+	float		angle,
+	PF_Pixel	color,
 );
 
 #endif

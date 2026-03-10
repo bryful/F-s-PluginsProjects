@@ -38,4 +38,26 @@ PF_Err MosaicFlat(
     PF_FpLong ag,
     PF_FpLong ab
 );
+PF_Err BlockMosaicMain(
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    A_long count,
+    A_long mc_width,
+    A_long mc_height,
+    float noise,
+    PF_Boolean is_color,
+    A_long seed
+
+);
+PF_Err MosaicPatMain(
+    PF_EffectWorld* worldP,
+    PF_PixelFormat pixelFormat,
+    float amount,
+    A_long mc_width,
+    A_long mc_height,
+    float noise,
+    PF_Boolean is_color,
+    A_long seed
+
+);
 #endif // NF_BLUR_H

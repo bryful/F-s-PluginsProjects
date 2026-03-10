@@ -105,11 +105,10 @@ static PF_Err NoiseFloat(refconType refcon, A_long xL, A_long yL, PF_PixelFloat*
 
 PF_Err NoiseExec(
 	PF_InData* in_dataP,
-	PF_EffectWorld* input,
 	PF_EffectWorld* output,
 	PF_PixelFormat pixelFormat,
 	AEGP_SuiteHandler* suitesP,
-	PF_FpLong noise,
+	float noise,
 	PF_Boolean isColor,
 	A_long seed
 )
