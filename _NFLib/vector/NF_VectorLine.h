@@ -34,7 +34,37 @@ struct a_linePrm {
 	float		y;
 	float		b;
 };
-
+struct a_pointPrm {
+    float		x;
+    float		y;
+};
+struct a_rectPrm {
+	a_pointPrm points[4];
+};
+inline a_rectPrm ScaleRctPrm(const a_rectPrm& rect, float scale) {
+    a_rectPrm result;
+    for (int i = 0; i < 4; i++) {
+        result.points[i].x = rect.points[i].x * scale;
+        result.points[i].y = rect.points[i].y * scale;
+    }
+    return result;
+}
+inline a_rectPrm OsRctPrm(const a_rectPrm& rect,float x,float y, float scale) {
+    a_rectPrm result;
+    for (int i = 0; i < 4; i++) {
+        result.points[i].x = rect.points[i].x * scale +x;
+        result.points[i].y = rect.points[i].y * scale +y;
+    }
+    return result;
+}
+inline a_rectPrm offsetRctPrm(const a_rectPrm& rect, float x,float y) {
+    a_rectPrm result;
+    for (int i = 0; i < 4; i++) {
+        result.points[i].x = rect.points[i].x +x;
+        result.points[i].y = rect.points[i].y +y;
+    }
+    return result;
+}
 void draw_a_rect(std::vector<std::vector<float>>& data,
     float x0, float y0, float x1, float y1,
     float x2, float y2, float x3, float y3,
@@ -42,6 +72,10 @@ void draw_a_rect(std::vector<std::vector<float>>& data,
 void draw_a_rect(std::vector<std::vector<float>>& data,
     PF_Point p0, PF_Point p1, PF_Point p2, PF_Point p3,
     float value);
+void draw_a_rect(std::vector<std::vector<float>>& data,
+    a_rectPrm a,
+    float value);
+
 void draw_a_line(
     std::vector<std::vector<float>>& data,
     float x0, float y0, float b0,

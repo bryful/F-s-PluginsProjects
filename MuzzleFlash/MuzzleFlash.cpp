@@ -85,6 +85,12 @@ static PF_Err ParamsSetup(
 		FALSE,			//WANT_PHASE
 		ID_PRONGS_ANGLE
 	);
+	cs.AddCheckBox(	// noise frame
+		STR_PRONGS_FLASH_SCALE,
+		"",
+		FALSE,
+		ID_PRONGS_FLASH_SCALE
+	);
 	cs.AddFloatSlider(	// R
 		STR_PRONGS_SCALE,	//Name
 		0,				//VALID_MIN
@@ -97,6 +103,52 @@ static PF_Err ParamsSetup(
 		FALSE,			//WANT_PHASE
 		ID_PRONGS_SCALE
 	);
+	cs.AddFloatSlider(	// R
+		STR_PRONGS_SCALE2,	//Name
+		0,				//VALID_MIN
+		10000,			//VALID_MAX
+		0,				//SLIDER_MIN
+		500,			//SLIDER_MAX
+		50,				//DFLT
+		0,				//PREC 小数点以下の桁数
+		1,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_PRONGS_SCALE2
+	);
+	// *****************************************************************
+	cs.AddTopic(STR_SPARKS, ID_SPARKS);
+	cs.AddSlider(	// 
+		STR_SPARKS_COUNT,	//パラメータの名前
+		0, 				//数値入力する場合の最小値
+		100,			//数値入力する場合の最大値
+		0,				//スライダーの最小値 
+		10,				//スライダーの最大値
+		2,				//デフォルトの値
+		ID_SPARKS_COUNT
+	);
+	cs.AddSlider(	// 
+		STR_SPARKS_SUBCOUNT,	//パラメータの名前
+		1, 				//数値入力する場合の最小値
+		20,			//数値入力する場合の最大値
+		1,				//スライダーの最小値 
+		5,				//スライダーの最大値
+		2,				//デフォルトの値
+		ID_SPARKS_SUBCOUNT
+	);
+	cs.AddFloatSlider(	// R
+		STR_SPARKS_SCALE,	//Name
+		10,				//VALID_MIN
+		500,			//VALID_MAX
+		10,				//SLIDER_MIN
+		200,			//SLIDER_MAX
+		100,				//DFLT
+		0,				//PREC 小数点以下の桁数
+		1,				//DISP 1で％表示
+		FALSE,			//WANT_PHASE
+		ID_SPARKS_SCALE
+	);
+	cs.EndTopic(ID_SPARKS_END);
+	// *****************************************************************
 	cs.AddColor(// color
 		STR_PRONGS_COLOR,
 		{ 0xFF, 0XFF,0xFF, 0xFF },
@@ -177,8 +229,15 @@ static PF_Err GetParams(NF_AE *ae, ParamInfo *infoP)
 	ERR(ae->GetADD(ID_PRONGS_BRANCH, &infoP->branch));
 	ERR(ae->GetANGLE(ID_PRONGS_DIR, &infoP->direction));
 	ERR(ae->GetFLOAT_float(ID_PRONGS_ANGLE, &infoP->angle));
+	ERR(ae->GetCHECKBOX(ID_PRONGS_FLASH_SCALE, &infoP->isFlashScale));
 	ERR(ae->GetFLOAT_float(ID_PRONGS_SCALE, &infoP->scale));
 	infoP->scale /= 100;
+	ERR(ae->GetFLOAT_float(ID_PRONGS_SCALE2, &infoP->scale2));
+	infoP->scale2 /= 100;
+	ERR(ae->GetADD(ID_SPARKS_COUNT, &infoP->sparkCount));
+	ERR(ae->GetADD(ID_SPARKS_SUBCOUNT, &infoP->sparkSubCount));
+	ERR(ae->GetFLOAT_float(ID_SPARKS_SCALE, &infoP->sparkScale));
+	infoP->sparkScale /= 100;
 	ERR(ae->GetCOLOR(ID_PRONGS_COLOR, &infoP->color));
 	ERR(ae->GetCHECKBOX(ID_AUTO_SEED, &infoP->autoSeed));
 	ERR(ae->GetADD(ID_SEED, &infoP->seed));
@@ -207,6 +266,15 @@ static PF_Err
 		infoP->seed += ae->frame()*2;
 	}
 
+	float scale = infoP->scale;
+	if (infoP->isFlashScale) {
+		if (ae->frame()%2 == 1) {
+			scale =infoP->scale2;
+		}
+		else {
+			scale = infoP->scale;
+		}
+	}
 
 	ERR(MuzzleFlashExec(
 		ae->in_data,
@@ -221,8 +289,11 @@ static PF_Err
 		infoP->branch,
 		infoP->direction,
 		infoP->angle,
+		infoP->sparkCount,
+		infoP->sparkSubCount,
+		infoP->sparkScale,
 		infoP->color,
-		infoP->scale,
+		scale,
 		infoP->seed
 	));
 	return err;

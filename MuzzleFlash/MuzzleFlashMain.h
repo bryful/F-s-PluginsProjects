@@ -27,6 +27,9 @@ PF_Err MuzzleFlashExec(
 	A_long		branch,
 	float		direction,
 	float		angle,
+	A_long		sparkCount,
+	A_long		sparkSubCount,
+	float		sparkScale,
 	PF_Pixel	color,
 	float		scale,
 	A_long seed

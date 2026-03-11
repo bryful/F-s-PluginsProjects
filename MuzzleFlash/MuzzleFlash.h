@@ -63,7 +63,16 @@ enum {
 	ID_PRONGS_BRANCH,
 	ID_PRONGS_DIR,
 	ID_PRONGS_ANGLE,
+	ID_PRONGS_FLASH_SCALE,
 	ID_PRONGS_SCALE,
+	ID_PRONGS_SCALE2,
+
+	ID_SPARKS,
+	ID_SPARKS_COUNT,
+	ID_SPARKS_SUBCOUNT,
+	ID_SPARKS_SCALE,
+	ID_SPARKS_END,
+
 	ID_PRONGS_COLOR,
 
 	// -----
@@ -86,7 +95,17 @@ enum {
 #define	STR_PRONGS_BRANCH		"branch"
 #define	STR_PRONGS_DIR			"direction"
 #define	STR_PRONGS_ANGLE		"angle"
+#define	STR_PRONGS_FLASH_SCALE	"flash_scale"
 #define	STR_PRONGS_SCALE		"scale"
+#define	STR_PRONGS_SCALE2		"scale2nd"
+
+#define	STR_PRONGS_SCALE		"scale"
+
+#define	STR_SPARKS				"sparks"
+#define	STR_SPARKS_COUNT		"sparkCount"
+#define	STR_SPARKS_SUBCOUNT		"sparkSubCount"
+#define	STR_SPARKS_SCALE		"sparkScale"
+
 #define	STR_PRONGS_COLOR		"color"
 
 
@@ -106,7 +125,14 @@ typedef struct ParamInfo {
 	A_long		branch;
 	float		direction;
 	float		angle;
+	PF_Boolean	isFlashScale;
 	float		scale;
+	float		scale2;
+
+	A_long		sparkCount;
+	A_long		sparkSubCount;
+	float		sparkScale;
+
 	PF_Pixel	color;
 
 	PF_Boolean autoSeed;

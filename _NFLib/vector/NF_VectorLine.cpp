@@ -81,6 +81,17 @@ void draw_a_rect(std::vector<std::vector<float>>& data,
 {
     draw_a_rect(data, (float)p0.h, (float)p0.v, (float)p1.h, (float)p1.v, (float)p2.h, (float)p2.v, (float)p3.h, (float)p3.v, value);
 }
+void draw_a_rect(std::vector<std::vector<float>>& data,
+    a_rectPrm r,
+    float value)
+{
+    draw_a_rect(data, 
+        r.points[0].x, r.points[0].y, 
+        r.points[1].x, r.points[1].y, 
+        r.points[2].x, r.points[2].y, 
+        r.points[3].x, r.points[3].y, 
+        value);
+}
 // ***************************************************************************
 // **************************************************************************************
 
