@@ -17,6 +17,7 @@
 
 
 #define NF_CATEGORY_NONE		"NF Plugins"
+#define NF_CATEGORY_TRANSFORM	"NF-Transform"
 #define NF_CATEGORY_CHANNEL		"NF-Channel"
 #define NF_CATEGORY_DRAW		"NF-Draw"
 #define NF_CATEGORY_FILTER		"NF-Filter"

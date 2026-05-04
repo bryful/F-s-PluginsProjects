@@ -155,6 +155,7 @@
     <ClInclude Include="..\..\_NFLib\fx\NF_Blend.h">
       <Filter>fx</Filter>
     </ClInclude>
+    <ClInclude Include="..\NF_Target.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

@@ -503,7 +503,7 @@ HandleChangedParam(
 							// 2. 文字列を分割して保存
 							if (nameInfoP->color_count > 0) {
 								for(int i=0;i<nameInfoP->color_count;i++) {
-									if (nameInfoP->color_names[i]!=NULL && nameInfoP->color_names[i][0] == '\0') {
+									if (nameInfoP->color_names[i]!=NULL && nameInfoP->color_names[i][0] != '\0') {
 										ae.SetUIName(ID_COLOR(i), nameInfoP->color_names[i]);
 										/*
 										def = *params[ID_COLOR(i)];
@@ -522,6 +522,7 @@ HandleChangedParam(
 						suitesP->MemorySuite1()->AEGP_FreeMemHandle(resultMemH);
 						out_data->out_flags |= PF_OutFlag_SEND_UPDATE_PARAMS_UI;
 					}
+					out_data->out_flags |= PF_OutFlag_SEND_UPDATE_PARAMS_UI;
 				}
 			}	
 

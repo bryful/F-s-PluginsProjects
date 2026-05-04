@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------------
 //プラグインが表示されるメニュー名
 //#define NF_CATEGORY NF_CATEGORY_CHANNEL
-//#define NF_CATEGORY NF_CATEGORY_DRAW
+#define NF_CATEGORY NF_CATEGORY_DRAW
 //#define NF_CATEGORY NF_CATEGORY_FILTER
 //#define NF_CATEGORY NF_CATEGORY_NOISE
 //#define NF_CATEGORY NF_CATEGORY_CELL
@@ -41,7 +41,7 @@
 //#define NF_CATEGORY FS_CATEGORY_BETA
 //#define NF_CATEGORY FS_CATEGORY_LEGACY
 
-#define NF_CATEGORY  NF_CATEGORY_NONE
+//#define NF_CATEGORY  NF_CATEGORY_NONE
 
 
 

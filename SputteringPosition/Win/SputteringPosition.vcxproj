@@ -357,6 +357,7 @@
     <ClInclude Include="..\..\..\Util\Param_Utils.h" />
     <ClInclude Include="..\..\..\Util\Smart_Utils.h" />
     <ClInclude Include="..\..\..\Util\String_Utils.h" />
+    <ClInclude Include="..\NF_Target.h" />
     <ClInclude Include="..\SputteringPosition.h" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\devstudio\Include\BASETSD.H" />
     <ClInclude Include="..\..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H" />

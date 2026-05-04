@@ -219,6 +219,7 @@
   <Project Path="RGBShifter/Win/RGBShifter.vcxproj" Id="ff59a926-f65c-4a05-b60a-8b05db62be04" />
   <Project Path="RimFill/Win/RimFill.vcxproj" Id="5dab4234-e9fe-4b40-9c40-c28e1df98f68" />
   <Project Path="SelectiveColorBlur/Win/SelectiveColorBlur.vcxproj" Id="0aca4c2e-35ac-42f3-8e23-7e7a978e4120" />
+  <Project Path="SimplexNoise/Win/SimplexNoise.vcxproj" Id="838b461c-349b-4a0c-9550-730c3b2dfd61" />
   <Project Path="SpeedLines/Win/SpeedLines.vcxproj" Id="6c0f3d06-da66-40e5-b2eb-85f036d76370" />
   <Project Path="Sputtering/Win/Sputtering.vcxproj" Id="f80cb076-d0d7-470d-a496-70022e2ad86c" />
   <Project Path="SputteringPosition/Win/SputteringPosition.vcxproj" Id="bfeb819c-15ea-44d4-b275-64ae1af63ee5" />

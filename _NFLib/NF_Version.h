@@ -18,13 +18,11 @@
 //#define FS_VERSION	1572864
 
 #define MAJOR_VERSION   1
-#define MINOR_VERSION   0
+#define MINOR_VERSION   1
 #define BUG_VERSION     0
 #define STAGE_VERSION   PF_Stage_RELEASE
 #define BUILD_VERSION   0
-#define MY_VERSION 525824
-#define NF_VERSION	525824
-
+#define NF_VERSION 558592
 
 #endif // FS_VAERSION_H
 
