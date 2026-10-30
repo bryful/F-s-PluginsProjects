@@ -124,6 +124,7 @@ static PF_Err ParamsSetup (
 	//----------------------------------------------------------------
 	//チェックボックス
 	AEFX_CLR_STRUCT(def);
+	def.ui_flags = PF_PUI_INVISIBLE;
 	PF_ADD_CHECKBOX(STR_SMOOTH1,
 					STR_SMOOTH2,
 					TRUE,

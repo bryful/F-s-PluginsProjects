@@ -81,6 +81,25 @@ static PF_Err SequenceResetup (
 }
 
 //-------------------------------------------------------------------------------------------------
+static PF_Err UpdateParamsUI(PF_InData *in_data, PF_ParamDef *params[])
+{
+	PF_Err err = PF_Err_NONE;
+	AEGP_SuiteHandler suites(in_data->pica_basicP);
+	for (A_long i = PixelSelector_FILL_COLOR; i <= PixelSelector_FILL_OPACITY; i++) {
+		PF_ParamDef def = *params[i];
+		if (params[PixelSelector_FILL]->u.bd.value) {
+			def.ui_flags &= ~PF_PUI_DISABLED;
+		} else {
+			def.ui_flags |= PF_PUI_DISABLED;
+		}
+		if ((def.ui_flags & PF_PUI_DISABLED) != (params[i]->ui_flags & PF_PUI_DISABLED)) {
+			ERR(suites.ParamUtilsSuite3()->PF_UpdateParamUI(in_data->effect_ref, i, &def));
+		}
+	}
+	return err;
+}
+
+//-------------------------------------------------------------------------------------------------
 static PF_Err
 HandleChangedParam(
 	PF_InData					*in_data,
@@ -119,13 +138,7 @@ HandleChangedParam(
 				
 			}
 			//--------------------
-			PF_Boolean b = FALSE;
-			ERR(ae.GetCHECKBOX(PixelSelector_FILL,&b));
-			if (!err){
-			b = !b;
-				ERR(ae.UI_DISABLE(PixelSelector_FILL_COLOR, b));
-				ERR(ae.UI_DISABLE(PixelSelector_FILL_OPACITY, b));
-			}
+			ERR(UpdateParamsUI(in_data, params));
 
 			//--------------------
 			if (!err){
@@ -615,6 +628,9 @@ EntryPointFunc (
 											params,
 											output, 
 											reinterpret_cast<PF_UserChangedParamExtra*>(extraP));
+				break;
+			case PF_Cmd_UPDATE_PARAMS_UI:
+				err = UpdateParamsUI(in_data, params);
 				break;
 			case PF_Cmd_QUERY_DYNAMIC_FLAGS:
 				err = QueryDynamicFlags(in_data,
