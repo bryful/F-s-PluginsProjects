@@ -245,7 +245,7 @@ MinHor32 (MinInfo *infoP)
 		int posY = y * infoP->widthTrue;
 		int minIndex = -1000;
 		PF_FpShort minValue = 0;
-		for (int x=0; x<infoP->height; x++){
+		for (int x=0; x<infoP->width; x++){
 			if ( (x<infoP->value)||(x> xmax)){
 				data[x + posY].green = 0;
 			}else{

@@ -203,7 +203,7 @@ PF_Err CFsGraph::Minimax32(A_long value,ScanLineMode mode,TargetChannelMode targ
 	PF_EffectWorld sw;
 	PF_EffectWorld lw;
 	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
-		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 2, 4, PF_PixelFormat_ARGB128, &sw);
+		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w, 4, PF_PixelFormat_ARGB128, &sw);
 		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 2, 4, PF_PixelFormat_ARGB32, &lw);
 		mp.scanline = sw.data;
 		mp.level = (A_long*)(lw.data);
@@ -266,7 +266,7 @@ PF_Err CFsGraph::MinimaxA32(A_long value)
 	mp.level = NULL;     // 追加
 
 	if (m_in_data != NULL && m_in_data->utils != NULL && m_in_data->effect_ref != NULL) {
-		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 2, 4, PF_PixelFormat_ARGB128, &sw);
+		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w, 4, PF_PixelFormat_ARGB128, &sw);
 		(*m_in_data->utils->new_world)(m_in_data->effect_ref, w / 2, 4, PF_PixelFormat_ARGB32, &lw);
 		mp.scanline = sw.data;
 		mp.level = (A_long*)(lw.data);
