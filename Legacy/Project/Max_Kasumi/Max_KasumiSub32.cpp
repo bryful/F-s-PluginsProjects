@@ -22,9 +22,9 @@ Rev(CFsAE *ae, ParamInfo32 *pi)
 			if (b > 1.0) b = 1.0;
 			if (a > 1.0) a = 1.0;
 			data[pos].red = (PF_FpShort)(1.0 - r);
-			data[pos].green = (PF_FpShort)(11.0 - g);
-			data[pos].blue = (PF_FpShort)(11.0 - b);
-			data[pos].alpha = (PF_FpShort)(11.0 - a);
+			data[pos].green = (PF_FpShort)(1.0 - g);
+			data[pos].blue = (PF_FpShort)(1.0 - b);
+			data[pos].alpha = (PF_FpShort)(1.0 - a);
 			pos++;
 		}
 		pos += pi->widthOffset;

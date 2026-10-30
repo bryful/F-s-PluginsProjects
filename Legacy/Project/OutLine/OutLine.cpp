@@ -152,7 +152,7 @@ MinHor8 (MinInfo *infoP)
 		int minIndex = -1000;
 		A_u_char minValue = 0;
 		for (int x=0; x<infoP->width; x++){
-			if ( (x<infoP->value)||(x>= xmax)){
+			if ( (x<infoP->value)||(x> xmax)){
 				data[x + posY].green = 0;
 			}else{
 				int k0 = x - infoP->value;
@@ -292,7 +292,7 @@ MinVur8 (MinInfo *infoP)
 		int minIndex = -1000;
 		A_u_char minValue = 0;
 		for (int y=0; y<infoP->height; y++){
-			if ( (y<infoP->value)||(y>= ymax)){
+			if ( (y<infoP->value)||(y> ymax)){
 				data[x + y*infoP->widthTrue].alpha = 0;
 			}else{
 				int k0 = y - infoP->value;

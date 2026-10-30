@@ -420,14 +420,14 @@ static PF_Err GetParams(CFsAE *ae, ParamInfo *infoP)
 	ERR(ae->GetCHECKBOX(PixelSelector_REV,&infoP->rev));
 	ERR(ae->GetCHECKBOX(PixelSelector_FILL,&infoP->fill));
 	ERR(ae->GetCOLOR(PixelSelector_FILL_COLOR,&infoP->col));
-	if ( !err){
-		infoP->col16 = CONV8TO16(infoP->col);
-		infoP->col32 = CONV8TO32(infoP->col);
-	}
 	PF_Fixed f;
 	ERR(ae->GetFIXED(PixelSelector_FILL_OPACITY,&f));
 	if (!err){
 		infoP->col.alpha = (A_u_char)( ((PF_MAX_CHAN8) * f/100) >>16 );
+	}
+	if (!err) {
+		infoP->col16 = CONV8TO16(infoP->col);
+		infoP->col32 = CONV8TO32(infoP->col);
 	}
 	PF_FpLong d;
 	ERR(ae->GetFLOAT(PixelSelector_LV,&d));

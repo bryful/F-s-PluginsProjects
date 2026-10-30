@@ -265,7 +265,7 @@ FilterImage8 (
 			//blue
 			if ((infoP->blue_value>0)&&(infoP->blue_opt>0)){
 				aV = randValue(infoP->blue_add);
-				aV = (A_long)((PF_FpShort)aV * infoP->green_opt);
+				aV = (A_long)((PF_FpShort)aV * infoP->blue_opt);
 				if ( aV!=0) outP->blue = RoundByteLong((A_long)outP->blue + aV);
 			}else{
 				F_RAND();
@@ -315,7 +315,7 @@ FilterImage16 (
 			//blue
 			if ((infoP->blue_value>0)&&(infoP->blue_opt>0)){
 				aV = randValue(infoP->blue_add);
-				aV = (A_long)((PF_FpShort)aV * infoP->green_opt);
+				aV = (A_long)((PF_FpShort)aV * infoP->blue_opt);
 				if ( aV!=0) outP->blue = RoundShort((A_long)outP->blue + aV);
 			}else{
 				F_RAND();
@@ -349,7 +349,7 @@ FilterImage32 (
 		if ( outP->alpha>0){
 			//red
 			if ((infoP->red_value>0)&&(infoP->red_opt>0)){
-				aV = (PF_FpShort)(randValue(infoP->red_add)) /65536;
+				aV = (PF_FpShort)(randValue(infoP->red_add)) /PF_MAX_CHAN16;
 				aV = aV * infoP->red_opt;
 				if ( aV!=0) outP->red = RoundFpShortDouble(outP->red + aV);
 			}else{
@@ -357,7 +357,7 @@ FilterImage32 (
 			}
 			//green
 			if ((infoP->green_value>0)&&(infoP->green_opt>0)){
-				aV = (PF_FpShort)(randValue(infoP->green_add)) /65536;
+				aV = (PF_FpShort)(randValue(infoP->green_add)) /PF_MAX_CHAN16;
 				aV = aV * infoP->green_opt;
 				if ( aV!=0) outP->green = RoundFpShortDouble(outP->green + aV);
 			}else{
@@ -365,7 +365,7 @@ FilterImage32 (
 			}
 			//blue
 			if ((infoP->blue_value>0)&&(infoP->blue_opt>0)){
-				aV = (PF_FpShort)(randValue(infoP->blue_add)) /65536;
+				aV = (PF_FpShort)(randValue(infoP->blue_add)) /PF_MAX_CHAN16;
 				aV = aV * infoP->blue_opt;
 				if ( aV!=0) outP->blue = RoundFpShortDouble(outP->blue + aV);
 			}else{

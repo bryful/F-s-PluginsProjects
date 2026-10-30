@@ -53,7 +53,8 @@ inline A_u_char mixCh8(A_long c0, A_long c1)
 //-------------------------------------------------------
 inline A_u_short mixCh16(A_long c0, A_long c1)
 {
-	A_long v = c0 + c1 - (c0 * c1 >>16);
+	// AEの16bpc最大値は32768（2^15）。
+	A_long v = c0 + c1 - (c0 * c1 >>15);
 	if (v<0) { v=0; }else if(v>PF_MAX_CHAN16){v = PF_MAX_CHAN16;}
 	return (A_u_short)v;
 }
@@ -149,7 +150,7 @@ inline PF_Boolean PsetAlpha16(PsetPrm *prm)
 	PF_Fixed opacity = prm->opacity;
 	if (opacity<=0) opacity = 0;
 	if (opacity>(1L<<16)) opacity = 1L<<16;
-	A_long v = PF_MAX_CHAN16 * opacity >> 16;
+	A_long v = (A_long)((A_u_longlong)PF_MAX_CHAN16 * opacity >> 16);
 	if (v<=0) return ret;
 
 	PF_Pixel16 *data;
