@@ -416,7 +416,7 @@ static ParamInfo16
 	ret.minmax = infoP->minmax;
 	ret.blur = infoP->blur;
 	ret.mnColor16 = CONV8TO16(infoP->mnColor[0]);
-	ret.mnColor16.alpha = TARGET_MAIN8;
+	ret.mnColor16.alpha = TARGET_MAIN16;
 	return ret;
 
 }

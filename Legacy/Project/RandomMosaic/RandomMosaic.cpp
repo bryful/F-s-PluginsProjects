@@ -278,7 +278,7 @@ static PF_Err Exec32(CFsAE *ae, ParamInfo *infoP)
 		FsFlatParam fp;
 
 		A_long prValue = FS_CONVERT8TO16(infoP->randomColor);
-		FsPixelRandFloat pr;
+		FsPixelRandFloat pr{};
 
 		//value回繰り返す
 		for(A_long i=0;i<infoP->value;i++ ){

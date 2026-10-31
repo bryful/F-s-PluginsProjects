@@ -300,13 +300,14 @@ private:
 		PF_FpLong yv1 = (y1 - (PF_FpLong)yi1);
 
 		A_long dyi = yi1 - yi0;
+		// 32bpcのアンチエイリアス係数は小数のまま渡す。
 		if (dyi == 0) {
 			PF_FpLong yv3 = yv0 * yv1;
-			BlendPX32(x, yi0, (A_u_short)((1 - yv3)));
+			BlendPX32(x, yi0, (PF_FpShort)((1 - yv3)));
 		}
 		else {
-			BlendPX32(x, yi0, (A_u_short)((1 - yv0)));
-			BlendPX32(x, yi1, (A_u_short)((1 - yv1)));
+			BlendPX32(x, yi0, (PF_FpShort)((1 - yv0)));
+			BlendPX32(x, yi1, (PF_FpShort)((1 - yv1)));
 			if (dyi == 1) {
 			}
 			else if (dyi == 2) {

@@ -182,7 +182,7 @@ use_searchSub32 (
 	A_long v = (A_long)(outP->alpha * CT_FLOAT) & CT_DECISION; 
 	if ( v== CT_SEARCH){
 		A_long idx = (A_long)(outP->alpha * CT_FLOAT) >>2;
-		PF_FpShort a = (PF_FpShort)(idx|CT_DECISION)/CT_FLOAT;
+		PF_FpShort a = (PF_FpShort)((idx << 2) | CT_DECISION)/CT_FLOAT;
 		if ( idx<COUNT_OF_MAIN) {
 			*outP = niP->main_col32[idx];
 			outP->alpha  =  a; 

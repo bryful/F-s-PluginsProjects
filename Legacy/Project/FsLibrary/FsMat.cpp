@@ -238,7 +238,7 @@ void CFsGraph::toWhiteMat32()
 	if (m_mat == MAT::whiteMat) {
 		return;
 	}else if (m_mat == MAT::blackMat){
-		fromBlackMat16();
+		fromBlackMat32();
 	}
 	A_long target = 0;
 	PF_PixelFloat *data;

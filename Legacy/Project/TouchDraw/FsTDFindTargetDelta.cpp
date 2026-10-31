@@ -24,7 +24,7 @@ inline A_long SubtrucPixelAlpha16(PF_Pixel16 s, PF_Pixel16 d)
 //-------------------------------------------------------------------------------------------------
 inline A_long SubtrucPixelAlpha32(PF_PixelFloat s, PF_PixelFloat d)
 {
-	return FS_CONVERT32TO8(PF_MAX_CHAN8 * F_ABS(s.alpha - d.alpha));
+	return FS_CONVERT32TO8(F_ABS(s.alpha - d.alpha));
 }
 //-------------------------------------------------------------------------------------------------
 inline A_long SubtrucPixel8(PF_Pixel s, PF_Pixel d)

@@ -145,7 +145,7 @@ PF_Err CFsGraph::flat16(FsFlatParam *fp,FsPixelRand *pr)
 	PF_Pixel16 c;
 	//半透明のところのみランダムに
 	A_long a2 = RoundShort(ya/sy);
-	if (a2<(PF_MAX_CHAN16-65534)) a2 += pp.a;
+	if (a2 < PF_MAX_CHAN16 * 0.9) a2 += pp.a;
 	c.alpha	= RoundShort(a2);
 	c.blue	= RoundShort(yb/sy + pp.b);
 	c.green = RoundShort(yg/sy + pp.g);

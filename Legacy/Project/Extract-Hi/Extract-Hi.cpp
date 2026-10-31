@@ -256,9 +256,9 @@ static PF_FpLong levelYellow16(PF_Pixel16	*col, ParamInfo *infoP)
 static PF_FpLong levelYellow32(PF_Pixel32	*col, ParamInfo *infoP)
 {
 	PF_Pixel32 col2;
-	col2.red = PF_MAX_CHAN16 - col->red;
-	col2.green = PF_MAX_CHAN16 - col->green;
-	col2.blue = PF_MAX_CHAN16 - col->blue;
+	col2.red = (PF_FpShort)(1.0 - col->red);
+	col2.green = (PF_FpShort)(1.0 - col->green);
+	col2.blue = (PF_FpShort)(1.0 - col->blue);
 	if (col2.red < 0) col2.red = 0;
 	if (col2.green < 0) col2.green = 0;
 	if (col2.blue < 0) col2.blue = 0;
@@ -471,13 +471,13 @@ static PF_Err
 		break;
 	case 6:
 		levelFunc8 = levelMagenta8;
-		levelFunc16 = levelCyan16;
-		levelFunc32 = levelCyan32;
+		levelFunc16 = levelMagenta16;
+		levelFunc32 = levelMagenta32;
 		break;
 	case 7:
 		levelFunc8 = levelYellow8;
-		levelFunc16 = levelLuminunce16;
-		levelFunc32 = levelLuminunce32;
+		levelFunc16 = levelYellow16;
+		levelFunc32 = levelYellow32;
 		break;
 	case 8:
 		levelFunc8 = levelRGBMax8;

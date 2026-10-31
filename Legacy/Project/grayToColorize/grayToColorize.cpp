@@ -207,9 +207,9 @@ exec16 (
 	//Matカラー
 	if (niP->mat_on){
 		PF_Pixel16 m = niP->mat_color;
-		c.red	= RoundByteLong((A_long)c.alpha*((A_long)c.red   -  (A_long)m.red)/PF_MAX_CHAN16 + (A_long)m.red);
-		c.green = RoundByteLong((A_long)c.alpha*((A_long)c.green -  (A_long)m.green)/PF_MAX_CHAN16 + (A_long)m.green);
-		c.blue	= RoundByteLong((A_long)c.alpha*((A_long)c.blue -   (A_long)m.blue)/PF_MAX_CHAN16 + (A_long)m.blue);
+		c.red	= RoundShortFpLong((A_long)c.alpha*((A_long)c.red   -  (A_long)m.red)/PF_MAX_CHAN16 + (A_long)m.red);
+		c.green = RoundShortFpLong((A_long)c.alpha*((A_long)c.green -  (A_long)m.green)/PF_MAX_CHAN16 + (A_long)m.green);
+		c.blue	= RoundShortFpLong((A_long)c.alpha*((A_long)c.blue -   (A_long)m.blue)/PF_MAX_CHAN16 + (A_long)m.blue);
 	}
 	//******************
 	//アルファー
@@ -249,7 +249,7 @@ exec32 (
 		PF_PixelFloat m = niP->mat_color;
 		c.red	= RoundFpShortDouble(c.alpha*(c.red   -  m.red) + m.red);
 		c.green = RoundFpShortDouble(c.alpha*(c.green -  m.green) + m.green);
-		c.blue	= RoundFpShortDouble(c.alpha*(c.blue -   m.blue)/ + m.blue);
+		c.blue	= RoundFpShortDouble(c.alpha*(c.blue -   m.blue) + m.blue);
 	}
 	//******************
 	//アルファー
