@@ -384,7 +384,7 @@ public:
 								(void**)&(CFsAE::ws2P)));
 		ERR(CFsAE::ws2P->PF_GetPixelFormat(CFsAE::input, &m_format));
 		if (err) {
-			m_resultErr = PF_Err_BAD_CALLBACK_PARAM;
+			m_resultErr = err;
 			return m_resultErr;
 		}
 

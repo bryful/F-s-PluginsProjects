@@ -589,7 +589,7 @@ public:
 		ERR(ws2P->PF_GetPixelFormat(input, &m_format));
 
 		if (err) {
-			m_err = PF_Err_BAD_CALLBACK_PARAM;
+			m_err = err;
 			return m_err;
 		}
 
